@@ -1,7 +1,7 @@
 # TRANSFORM-Library
 A Modelica library of multi-physics components
 
-[![Build Status](https://travis-ci.org/ORNL-TRANSFORM/TRANSFORM-Library)](https://travis-ci.org/lbl-srg/modelica-buildings)
+[![Build Status](https://travis-ci.org/ORNL-TRANSFORM/TRANSFORM-Library.svg?branch=master)](https://travis-ci.org/ORNL-TRANSFORM/TRANSFORM-Library)
 
 This is the development site for the Modelica _TRANSFORM_ library and its user guide.
 
