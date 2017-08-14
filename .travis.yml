@@ -16,4 +16,6 @@ install:
       pybtex==0.20.1 pybtex-docutils==0.2.1 oset==0.1.3 PyYAML==3.12
 
 script:
+  - pwd
+  - ls
   - python py.test -v --color=yes --exitfirst --showlocals --durations=5
