@@ -1,5 +1,5 @@
 # TRANSFORM-Library
-A Modelica library of multi-physics components
+A Modelica based library for modeling thermal hydraulic energy systems and other multi-physics systems
 
 [![Build Status](https://travis-ci.org/ORNL-TRANSFORM/TRANSFORM-Library.svg?branch=master)](https://travis-ci.org/ORNL-TRANSFORM/TRANSFORM-Library)
 
