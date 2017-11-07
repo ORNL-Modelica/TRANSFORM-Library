@@ -71,7 +71,7 @@ partial model PartialDrum2Phase "partial two phase drum model"
     "Saturated vapor specific enthalpy";
   SI.SpecificEnthalpy h_fsat = Medium.bubbleEnthalpy(sat)
     "Saturated liquid specific enthalpy";
-  ThermoPower.AbsoluteTemperature Tsat = sat.Tsat "Saturation temperature";
+  SI.Temperature Tsat = sat.Tsat "Saturation temperature";
 
   SI.Energy U_liquid "Internal energy of liquid";
   SI.Mass m_liquid "Mass of liquid";
