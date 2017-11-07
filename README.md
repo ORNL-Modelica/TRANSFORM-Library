@@ -12,11 +12,14 @@ The Modelica TRANSFORM library is a free open-source library with dynamic simula
 ## Current release
 
 Version: 0.0.0b
+
 As library is in its beta stage, library may change often with compatability breaking changes. Thought you should know!
 
 ## License
 UT-Battelle Open Source License (Permissive)
+
 Copyright 2017, UT-Battelle, LLC
+
 Copy of license can be found in project repository
 
 ## Development and contribution
@@ -28,5 +31,6 @@ Prior to issuing a pull request, make sure your code follows the [style guide an
 ## Credits
 This application uses Open Source components. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
 
-Project: Modelica Standard Library https://github.com/modelica/Modelica 
+Project: Modelica Standard Library https://github.com/modelica/Modelica
+
 Modelica License 2 https://modelica.org/licenses/ModelicaLicense2
