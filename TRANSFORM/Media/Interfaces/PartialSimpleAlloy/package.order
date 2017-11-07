@@ -1,0 +1,10 @@
+T_min
+T_max
+MM_const
+ThermodynamicState
+BaseProperties
+setState_T
+setSmoothState
+temperature
+specificInternalEnergy
+molarMass

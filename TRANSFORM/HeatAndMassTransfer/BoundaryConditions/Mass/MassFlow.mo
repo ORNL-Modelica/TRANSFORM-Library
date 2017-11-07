@@ -1,0 +1,57 @@
+within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass;
+model MassFlow "Mass flow boundary condition"
+
+  parameter Integer nC = 1 "Number of substances";
+  parameter Boolean use_port=false "=true then use input port"
+    annotation (
+    Evaluate=true,
+    HideResult=true,
+    choices(checkBox=true));
+
+  parameter SI.MolarFlowRate n_flow[nC]=zeros(nC) "Molar flow rate at port"
+    annotation (Dialog(enable=not use_port));
+
+  Modelica.Blocks.Interfaces.RealInput n_flow_ext[nC](unit="mol/s") if use_port
+                  annotation (Placement(transformation(extent={{-60,-20},{-20,
+            20}}), iconTransformation(extent={{-60,-20},{-20,20}})));
+  Interfaces.MolePort_Flow port(nC=nC) annotation (Placement(transformation(
+          extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
+            10}})));
+protected
+  Modelica.Blocks.Interfaces.RealInput n_flow_int[nC](unit="mol/s");
+
+equation
+  connect(n_flow_int, n_flow_ext);
+  if not use_port then
+    n_flow_int = n_flow;
+  end if;
+
+  port.n_flow = -n_flow_int;
+
+  annotation (
+    defaultComponentName="boundary",
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics={
+        Rectangle(
+          extent={{100,60},{60,-60}},
+          lineColor={0,0,0},
+          fillColor={175,175,175},
+          fillPattern=FillPattern.Forward),
+        Line(
+          points={{-40,0},{50,0}},
+          color={0,127,0},
+          thickness=0.5),
+        Polygon(
+          points={{50,-20},{50,20},{90,0},{50,-20}},
+          lineColor={0,127,0},
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-100,112},{180,72}},
+          textString="%name",
+          lineColor={0,0,255})}),
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}})),
+    Documentation(info="<html>
+</html>"));
+end MassFlow;

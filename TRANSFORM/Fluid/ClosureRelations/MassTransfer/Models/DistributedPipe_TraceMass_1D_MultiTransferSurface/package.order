@@ -1,0 +1,9 @@
+PartialMassTransfer_setC
+PartialMassTransfer_setn_flows
+PartialIdeal
+PartialSinglePhase
+PartialTwoPhase
+Ideal
+AlphasM
+Shs
+Shs_SinglePhase_2Region

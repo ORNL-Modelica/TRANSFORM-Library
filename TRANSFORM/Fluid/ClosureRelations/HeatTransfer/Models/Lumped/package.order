@@ -1,0 +1,12 @@
+PartialHeatTransfer_setT
+PartialHeatTransfer_setQ_flows
+PartialIdeal
+PartialSinglePhase
+PartialTwoPhase
+Ideal
+Alphas
+Nus
+Nus_SinglePhase_2Region
+Alphas_TwoPhase_3Region
+Alphas_TwoPhase_5Region
+PhaseInterface

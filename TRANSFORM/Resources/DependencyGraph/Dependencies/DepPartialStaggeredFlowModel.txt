@@ -1,0 +1,1 @@
+"TRANSFORM.obsolete.PartialStaggeredFlowModel" -> "Modelica.Fluid.Interfaces.PartialDistributedFlow";

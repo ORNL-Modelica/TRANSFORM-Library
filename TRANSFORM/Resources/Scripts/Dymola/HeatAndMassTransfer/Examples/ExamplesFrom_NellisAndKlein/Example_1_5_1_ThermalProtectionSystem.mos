@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_5_1_ThermalProtectionSystem",stopTime=11.9,resultFile="Example_1_5_1_ThermalProtectionSystem");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -1,0 +1,1 @@
+"TRANSFORM.obsolete.Vessels.BaseClasses.BaseDrum.DrumTypes.Examples.Integral" -> "Modelica.Icons.Example";

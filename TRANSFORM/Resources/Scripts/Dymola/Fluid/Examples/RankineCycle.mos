@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Fluid.Examples.RankineCycle",resultFile="RankineCycle");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

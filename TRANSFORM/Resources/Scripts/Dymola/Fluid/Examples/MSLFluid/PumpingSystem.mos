@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.PumpingSystem",outputInterval=0.4,stopTime=2000,tolerance=1e-006,resultFile="PumpingSystem");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

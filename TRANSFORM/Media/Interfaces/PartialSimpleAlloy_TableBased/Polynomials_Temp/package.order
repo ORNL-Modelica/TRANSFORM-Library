@@ -1,0 +1,12 @@
+evaluate
+evaluateWithRange
+derivative
+derivativeValue
+secondDerivativeValue
+integral
+integralValue
+fitting
+evaluate_der
+evaluateWithRange_der
+integralValue_der
+derivativeValue_der

@@ -1,0 +1,1 @@
+"TRANSFORM.obsolete.BranchingDynamicPipes" -> "Modelica.Icons.Example";

@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels.Winding_12D_withMass",stopTime=100,numberOfIntervals=100,resultFile="Winding_12D_withMass");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

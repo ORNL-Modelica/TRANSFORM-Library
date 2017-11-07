@@ -1,0 +1,1 @@
+"TRANSFORM.obsolete.DetailedPipeFlow" -> "TRANSFORM.obsolete.PartialGenericPipeFlow";

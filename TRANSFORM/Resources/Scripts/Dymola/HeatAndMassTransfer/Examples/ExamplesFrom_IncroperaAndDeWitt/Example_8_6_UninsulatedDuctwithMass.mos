@@ -1,0 +1,4 @@
+simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_IncroperaAndDeWitt.Example_8_6_UninsulatedDuctwithMass",numberOfIntervals=100,resultFile="Example_8_6_UninsulatedDuctwithMass");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
+createPlot(id=2, y={"unitTests.x[2]"}, grid=true);

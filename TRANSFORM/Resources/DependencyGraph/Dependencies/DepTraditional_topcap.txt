@@ -1,0 +1,1 @@
+"TRANSFORM.obsolete.Vessels.BaseClasses.BaseDrum.DrumTypes.Examples.Traditional_topcap" -> "Modelica.Icons.Example";

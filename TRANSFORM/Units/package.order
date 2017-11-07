@@ -1,0 +1,17 @@
+Conversions
+VolumetricHeatGenerationRate
+PowerDensity
+TempFeedbackCoeff
+inverseTime
+nonDim
+VoidFraction
+MassFlux
+HydraulicResistance
+DiffusionResistance
+CoefficientOfMassTransfer
+HenrysLawCoefficient
+Mole
+SherwoodNumber
+MolarRxnRatePerVolume
+MolarRxnRatePerMass
+MolePerMass

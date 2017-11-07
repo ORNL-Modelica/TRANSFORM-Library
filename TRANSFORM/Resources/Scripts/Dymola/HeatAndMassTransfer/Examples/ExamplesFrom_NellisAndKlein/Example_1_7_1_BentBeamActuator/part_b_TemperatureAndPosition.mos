@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_7_1_BentBeamActuator.part_b_TemperatureAndPosition",stopTime=10,method="Dassl",numberOfIntervals=100,resultFile="part_b_TemperatureAndPosition");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -1,0 +1,2 @@
+"TRANSFORM.obsolete.StraightPipe_new" -> "TRANSFORM.Fluid.Pipes.BaseClasses.PartialStraightDynamicPipe";
+"TRANSFORM.obsolete.StraightPipe_new" -> "TRANSFORM.obsolete.GenericPipe_new";

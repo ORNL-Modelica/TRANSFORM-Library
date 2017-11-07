@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.SensorInOscillatingTemperatureEnvironment",stopTime=10,numberOfIntervals=100,resultFile="SensorInOscillatingTemperatureEnvironment");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

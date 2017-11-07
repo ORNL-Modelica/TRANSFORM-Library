@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Fluid.Volumes.Examples.IdealCondenser_Test",resultFile="IdealCondenser_Test");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

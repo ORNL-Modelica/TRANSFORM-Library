@@ -1,0 +1,15 @@
+npol
+npolDensity
+npolHeatCapacity
+npolConductivity
+tableDensity
+tableHeatCapacity
+tableConductivity
+poly_d
+poly_cp
+poly_lambda
+density
+specificEnthalpy
+specificHeatCapacityCp
+thermalConductivity
+Polynomials_Temp
