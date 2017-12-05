@@ -47,8 +47,7 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-UT-Battelle Open Source [License](LICENSE.pdf) (Permissive)
+This project is licensed under the UT-Battelle Open Source [License](LICENSE.pdf) (Permissive) - see the [LICENSE.pdf](LICENSE.pdf) file for details
 
 Copyright 2017, UT-Battelle, LLC
 
