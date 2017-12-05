@@ -51,8 +51,6 @@ This project is licensed under the UT-Battelle Open Source [License](LICENSE.pdf
 
 Copyright 2017, UT-Battelle, LLC
 
-Copy of license can be found in project repository
-
 ## To Contributte...
 You may report any issues with using the [Issues](https://github.com/ORNL-TRANSFORM/TRANSFORM-Library/issues) button.
 
