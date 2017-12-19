@@ -12,58 +12,68 @@ block LimPID
          .Modelica.Blocks.Types.SimpleController.PID "Type of controller";
   parameter Boolean with_FF=false "enable feed-forward input signal"
     annotation (Evaluate=true);
+  parameter Boolean derMeas = true "=true avoid derivative kick" annotation(Evaluate=true,Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
+                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
 
-  parameter Real k = 1 "Gain of controller";
+  parameter Real k = 1 "Controller gain: +/- for direct/reverse acting" annotation(Dialog(group="Parameters: Tuning Controls"));
+
   parameter SI.Time Ti(min=Modelica.Constants.small)=0.5
-    "Time constant of Integrator block" annotation (Dialog(enable=
+    "Time constant of Integrator block" annotation (Dialog(group="Parameters: Tuning Controls",enable=
           controllerType == .Modelica.Blocks.Types.SimpleController.PI or
           controllerType == .Modelica.Blocks.Types.SimpleController.PID));
   parameter SI.Time Td(min=0)=0.1 "Time constant of Derivative block"
-    annotation (Dialog(enable=controllerType == .Modelica.Blocks.Types.SimpleController.PD
+    annotation (Dialog(group="Parameters: Tuning Controls",enable=controllerType == .Modelica.Blocks.Types.SimpleController.PD
            or controllerType == .Modelica.Blocks.Types.SimpleController.PID));
-  parameter Real yMax(start=1) "Upper limit of output";
+
+  parameter Real yb = 0 "Output bias. May improve simulation";
+
+  parameter Real k_s= 1 "Setpoint input scaling: k_s*u_s. May improve simulation";
+  parameter Real k_m= 1 "Measurement input scaling: k_m*u_m. May improve simulation";
+
+  parameter Real yMax(start=1)=Modelica.Constants.inf "Upper limit of output";
   parameter Real yMin=-yMax "Lower limit of output";
+
   parameter Real wp(min=0) = 1
-    "Set-point weight for Proportional block (0..1)";
+    "Set-point weight for Proportional block (0..1)" annotation(Dialog(group="Parameters: Tuning Controls"));
   parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
-       annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
+       annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
-     annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PI or
+     annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==.Modelica.Blocks.Types.SimpleController.PI or
                               controllerType==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real Nd(min=100*Modelica.Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
-       annotation(Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
+       annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+  // Initialization
   parameter .Modelica.Blocks.Types.InitPID initType= .Modelica.Blocks.Types.InitPID.NoInit
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
                                      annotation(Evaluate=true,
-      Dialog(group="Initialization"));
+      Dialog(tab="Initialization"));
   parameter Boolean limitsAtInit = true
     "= false, if limits are ignored during initialization"
-    annotation(Evaluate=true, Dialog(group="Initialization"));
+    annotation(Evaluate=true, Dialog(tab="Initialization"));
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
-    annotation (Dialog(group="Initialization",
+    annotation (Dialog(tab="Initialization",
                 enable=controllerType==.Modelica.Blocks.Types.SimpleController.PI or
                        controllerType==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real xd_start=0
     "Initial or guess value for state of derivative block"
-    annotation (Dialog(group="Initialization",
+    annotation (Dialog(tab="Initialization",
                          enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==.Modelica.Blocks.Types.SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == .Modelica.Blocks.Types.InitPID.InitialOutput, group=
+    annotation(Dialog(enable=initType == .Modelica.Blocks.Types.InitPID.InitialOutput, tab=
           "Initialization"));
   parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
-  constant SI.Time unitTime=1  annotation(HideResult=true);
 
   Modelica.Blocks.Math.Add addP(k1=wp, k2=-1)
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
   Modelica.Blocks.Math.Add addD(k1=wd, k2=-1) if with_D
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
+    annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Modelica.Blocks.Math.Gain P(k=1)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Continuous.Integrator I(
@@ -86,13 +96,13 @@ block LimPID
   Modelica.Blocks.Math.Add3 addPID
     annotation (Placement(transformation(extent={{-4,-10},{16,10}})));
   Modelica.Blocks.Math.Add3 addI(k2=-1) if with_I
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-70,-60},{-50,-40}})));
   Modelica.Blocks.Math.Add addSat(k1=+1, k2=-1) if with_I annotation (Placement(
         transformation(
         origin={80,-50},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-  Modelica.Blocks.Math.Gain gainTrack(k=1/(k*Ni)) if with_I
+  Modelica.Blocks.Math.Gain gainTrack(k=1/(k*Ni)) if  with_I
     annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
   Modelica.Blocks.Nonlinear.Limiter limiter(
     uMax=yMax,
@@ -102,6 +112,7 @@ block LimPID
     u(start=y_start))
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
 protected
+  constant SI.Time unitTime=1  annotation(HideResult=true);
   parameter Boolean with_I = controllerType==SimpleController.PI or
                              controllerType==SimpleController.PID annotation(Evaluate=true, HideResult=true);
   parameter Boolean with_D = controllerType==SimpleController.PD or
@@ -122,9 +133,22 @@ public
   Modelica.Blocks.Sources.Constant Izero(k=0) if not with_I annotation (
       Placement(transformation(extent={{-30,-30},{-20,-20}},
                                                           rotation=0)));
-  Modelica.Blocks.Math.Add addFF
+  Modelica.Blocks.Math.Add3 addFF
     annotation (Placement(transformation(extent={{50,-5},{60,5}})));
 
+  Modelica.Blocks.Math.Gain gain_u_s(k=k_s)
+    annotation (Placement(transformation(extent={{-96,-6},{-84,6}})));
+  Modelica.Blocks.Math.Gain gain_u_m(k=k_m) annotation (Placement(
+        transformation(
+        extent={{-6,-6},{6,6}},
+        rotation=90,
+        origin={0,-90})));
+  Modelica.Blocks.Logical.Switch switch_derKick if with_D
+    annotation (Placement(transformation(extent={{-66,-30},{-54,-18}})));
+  Modelica.Blocks.Sources.BooleanConstant derKick(k=derMeas) if with_D
+    annotation (Placement(transformation(extent={{-98,-30},{-86,-18}})));
+  Modelica.Blocks.Sources.Constant null_bias(k=yb)
+    annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
 initial equation
   if initType==InitPID.InitialOutput then
      y = y_start;
@@ -143,17 +167,9 @@ equation
     ") is outside of the limits of yMin (=" + String(yMin) + ") and yMax (=" +
     String(yMax) + ")");
 
-  connect(u_s, addP.u1) annotation (Line(points={{-120,0},{-96,0},{-96,56},{
-          -82,56}}, color={0,0,127}));
-  connect(u_s, addD.u1) annotation (Line(points={{-120,0},{-96,0},{-96,6},{
-          -82,6}}, color={0,0,127}));
-  connect(u_s, addI.u1) annotation (Line(points={{-120,0},{-96,0},{-96,-42},{
-          -82,-42}}, color={0,0,127}));
-  connect(addP.y, P.u) annotation (Line(points={{-59,50},{-42,50}}, color={0,
+  connect(addP.y, P.u) annotation (Line(points={{-49,50},{-42,50}}, color={0,
           0,127}));
-  connect(addD.y, D.u)
-    annotation (Line(points={{-59,0},{-42,0}}, color={0,0,127}));
-  connect(addI.y, I.u) annotation (Line(points={{-59,-50},{-42,-50}}, color={
+  connect(addI.y, I.u) annotation (Line(points={{-49,-50},{-42,-50}}, color={
           0,0,127}));
   connect(P.y, addPID.u1) annotation (Line(points={{-19,50},{-10,50},{-10,8},{-6,
           8}},     color={0,0,127}));
@@ -169,35 +185,49 @@ equation
     annotation (Line(points={{93,0},{110,0}}, color={0,0,127}));
   connect(addSat.y, gainTrack.u) annotation (Line(points={{80,-61},{80,-70},{
           42,-70}}, color={0,0,127}));
-  connect(gainTrack.y, addI.u3) annotation (Line(points={{19,-70},{-88,-70},{
-          -88,-58},{-82,-58}}, color={0,0,127}));
-  connect(u_m, addP.u2) annotation (Line(
-      points={{0,-120},{0,-92},{-92,-92},{-92,44},{-82,44}},
-      color={0,0,127},
-      thickness=0.5));
-  connect(u_m, addD.u2) annotation (Line(
-      points={{0,-120},{0,-92},{-92,-92},{-92,-6},{-82,-6}},
-      color={0,0,127},
-      thickness=0.5));
-  connect(u_m, addI.u2) annotation (Line(
-      points={{0,-120},{0,-92},{-92,-92},{-92,-50},{-82,-50}},
-      color={0,0,127},
-      thickness=0.5));
+  connect(gainTrack.y, addI.u3) annotation (Line(points={{19,-70},{-76,-70},{-76,
+          -58},{-72,-58}},     color={0,0,127}));
   connect(Dzero.y, addPID.u2) annotation (Line(points={{-19.5,25},{-14,25},{-14,
           0},{-6,0}},     color={0,0,127}));
   connect(gainPID.y, addFF.u2)
-    annotation (Line(points={{45,0},{47,0},{47,-3},{49,-3}},
+    annotation (Line(points={{45,0},{47,0},{47,0},{49,0}},
                                                     color={0,0,127}));
-  connect(Fzero.y, addFF.u1) annotation (Line(points={{35.5,25},{44,25},{44,3},{
-          49,3}}, color={0,0,127}));
+  connect(Fzero.y, addFF.u1) annotation (Line(points={{35.5,25},{44,25},{44,4},{
+          49,4}}, color={0,0,127}));
   connect(addFF.y, limiter.u)
     annotation (Line(points={{60.5,0},{64,0},{70,0}}, color={0,0,127}));
   connect(addSat.u2, limiter.u) annotation (Line(points={{74,-38},{74,-20},{64,-20},
           {64,0},{70,0}}, color={0,0,127}));
-  connect(u_ff, addFF.u1) annotation (Line(points={{-120,80},{-52,80},{44,80},{
-          44,3},{49,3}},          color={0,0,127}));
+  connect(u_ff, addFF.u1) annotation (Line(points={{-120,80},{-52,80},{44,80},{44,
+          4},{49,4}},             color={0,0,127}));
   connect(Izero.y, addPID.u3) annotation (Line(points={{-19.5,-25},{-14,-25},{
           -14,-50},{-10,-50},{-10,-8},{-6,-8}}, color={0,0,127}));
+  connect(u_s, gain_u_s.u)
+    annotation (Line(points={{-120,0},{-97.2,0}}, color={0,0,127}));
+  connect(gain_u_s.y, addP.u1) annotation (Line(points={{-83.4,0},{-80,0},{-80,56},
+          {-72,56}}, color={0,0,127}));
+  connect(addD.u1, addP.u1) annotation (Line(points={{-72,6},{-80,6},{-80,56},{-72,
+          56}}, color={0,0,127}));
+  connect(gain_u_s.y, addI.u1) annotation (Line(points={{-83.4,0},{-80,0},{-80,-42},
+          {-72,-42}}, color={0,0,127}));
+  connect(gain_u_m.u, u_m)
+    annotation (Line(points={{0,-97.2},{0,-120}}, color={0,0,127}));
+  connect(gain_u_m.y, addP.u2) annotation (Line(points={{0,-83.4},{0,-80},{-78,-80},
+          {-78,44},{-72,44}}, color={0,0,127}));
+  connect(addD.u2, addP.u2) annotation (Line(points={{-72,-6},{-78,-6},{-78,44},
+          {-72,44}}, color={0,0,127}));
+  connect(addI.u2, addP.u2) annotation (Line(points={{-72,-50},{-78,-50},{-78,44},
+          {-72,44}}, color={0,0,127}));
+  connect(switch_derKick.u1, addP.u2) annotation (Line(points={{-67.2,-19.2},{-78,
+          -19.2},{-78,44},{-72,44}}, color={0,0,127}));
+  connect(switch_derKick.u3, addD.y) annotation (Line(points={{-67.2,-28.8},{-74,
+          -28.8},{-74,-14},{-49,-14},{-49,0}}, color={0,0,127}));
+  connect(switch_derKick.y, D.u) annotation (Line(points={{-53.4,-24},{-46,-24},
+          {-46,0},{-42,0}}, color={0,0,127}));
+  connect(derKick.y, switch_derKick.u2)
+    annotation (Line(points={{-85.4,-24},{-67.2,-24}}, color={255,0,255}));
+  connect(null_bias.y, addFF.u3) annotation (Line(points={{41,-30},{44,-30},{44,
+          -4},{49,-4}}, color={0,0,127}));
   annotation (defaultComponentName="PID",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -233,6 +263,8 @@ equation
 <li>The output of this controller is limited. If the controller is in its limits, anti-windup compensation is activated to drive the integrator state to zero. </li>
 <li>The high-frequency gain of the derivative part is limited to avoid excessive amplification of measurement noise.</li>
 <li>Setpoint weighting is present, which allows to weight the setpoint in the proportional and the derivative part independently from the measurement. The controller will respond to load disturbances and measurement noise independently of this setting (parameters wp, wd). However, setpoint changes will depend on this setting. For example, it is useful to set the setpoint weight wd for the derivative part to zero, if steps may occur in the setpoint signal. </li>
+<li>Feed forward option is available on any controllerType</li>
+<li>derMeas = true uses the derivative on measurement value only to avoid the derivative kick of setpoint changes.  = false will take the derivative w.r.t. error</li>
 </ul>
 <p>The parameters of the controller can be manually adjusted by performing simulations of the closed loop system (= controller + plant connected together) and using the following strategy: </p>
 <ol>
@@ -267,7 +299,7 @@ equation
 <td valign=\"top\"><p>InitialState</p></td>
 </tr>
 <tr>
-<td valign=\"top\"><p><b>InitialOutput</b></p><p>and initial equation: y = y_start</p></td>
+<td valign=\"top\"><h4>InitialOutput</h4><p>and initial equation: y = y_start</p></td>
 <td valign=\"top\"><p>NoInit</p></td>
 <td valign=\"top\"><p>SteadyState</p></td>
 </tr>
@@ -277,9 +309,9 @@ equation
 <td valign=\"top\"><p>NoInit</p></td>
 </tr>
 </table>
-<p><br>In many cases, the most useful initial condition is <b>SteadyState</b> because initial transients are then no longer present. If initType = InitPID.SteadyState, then in some cases difficulties might occur. The reason is the equation of the integrator: </p>
-<p><code>   <b>der</b>(y) = k*u;</code> </p>
-<p>The steady state equation &QUOT;der(x)=0&QUOT; leads to the condition that the input u to the integrator is zero. If the input u is already (directly or indirectly) defined by another initial condition, then the initialization problem is <b>singular</b> (has none or infinitely many solutions). This situation occurs often for mechanical systems, where, e.g., u = desiredSpeed - measuredSpeed and since speed is both a state and a derivative, it is natural to initialize it with zero. As sketched this is, however, not possible. The solution is to not initialize u_m or the variable that is used to compute u_m by an algebraic equation. </p>
+<p><br><br>In many cases, the most useful initial condition is <b>SteadyState</b> because initial transients are then no longer present. If initType = InitPID.SteadyState, then in some cases difficulties might occur. The reason is the equation of the integrator: </p>
+<p><code><b>der</b>(y) = k*u;</code> </p>
+<p>The steady state equation &quot;der(x)=0&quot; leads to the condition that the input u to the integrator is zero. If the input u is already (directly or indirectly) defined by another initial condition, then the initialization problem is <b>singular</b> (has none or infinitely many solutions). This situation occurs often for mechanical systems, where, e.g., u = desiredSpeed - measuredSpeed and since speed is both a state and a derivative, it is natural to initialize it with zero. As sketched this is, however, not possible. The solution is to not initialize u_m or the variable that is used to compute u_m by an algebraic equation. </p>
 <p>If parameter <b>limitAtInit</b> = <b>false</b>, the limits at the output of this controller block are removed from the initialization problem which leads to a much simpler equation system. After initialization has been performed, it is checked via an assert whether the output is in the defined limits. For backward compatibility reasons <b>limitAtInit</b> = <b>true</b>. In most cases it is best to use <b>limitAtInit</b> = <b>false</b>. </p>
 </html>"),
     Diagram(graphics={         Text(

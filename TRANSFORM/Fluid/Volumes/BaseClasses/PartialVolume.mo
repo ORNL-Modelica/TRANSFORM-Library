@@ -5,9 +5,8 @@ partial model PartialVolume
   import Modelica.Fluid.Types.Dynamics;
   import Modelica.Media.Interfaces.Choices.IndependentVariables;
 
-  replaceable package Medium = Modelica.Media.Water.StandardWater
-    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium properties"
-    annotation (choicesAllMatching=true);
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium properties" annotation (choicesAllMatching=true);
 
   // Inputs provided to the volume model
   input SI.Volume V(min=0) "Volume" annotation (Dialog(group="Input Variables"));
@@ -28,7 +27,8 @@ partial model PartialVolume
   parameter SI.AbsolutePressure p_start=Medium.p_default "Pressure" annotation (
      Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
   parameter Boolean use_T_start=true "Use T_start if true, otherwise h_start"
-    annotation (Evaluate=true, Dialog(tab="Initialization", group="Start Value: Temperature"));
+    annotation (Evaluate=true, Dialog(tab="Initialization", group=
+          "Start Value: Temperature"));
   parameter SI.Temperature T_start=Medium.T_default "Temperature" annotation (
       Evaluate=true, Dialog(
       tab="Initialization",
@@ -55,14 +55,20 @@ partial model PartialVolume
   Medium.BaseProperties medium(
     each preferredMediumStates=true,
     p(start=p_start),
-    h(start=h_start),
-    T(start=Medium.temperature_phX(
+    h(start=if not use_T_start then h_start else Medium.specificEnthalpy_pTX(
+          p_start,
+          T_start,
+          X_start[1:Medium.nXi])),
+    T(start=if use_T_start then T_start else Medium.temperature_phX(
           p_start,
           h_start,
           X_start[1:Medium.nXi])),
     Xi(start=X_start[1:Medium.nXi]),
     X(start=X_start),
-    d(start=Medium.density_phX(
+    d(start=if use_T_start then Medium.density_pTX(
+          p_start,
+          T_start,
+          X_start[1:Medium.nXi]) else Medium.density_phX(
           p_start,
           h_start,
           X_start[1:Medium.nXi])));
@@ -72,7 +78,8 @@ partial model PartialVolume
   SI.InternalEnergy U "Internal energy";
   SI.Mass mXi[Medium.nXi] "Species mass";
   SI.Mass mC[Medium.nC] "Trace substance mass";
-  SI.Mass[Medium.nC] mC_scaled "Scaled trace substance mass for improved numerical stability";
+  SI.Mass[Medium.nC] mC_scaled
+    "Scaled trace substance mass for improved numerical stability";
 
   // C has the additional parameter because it is not included in the medium
   // i.e.,Xi has medium[:].Xi but there is no variable medium[:].C
@@ -120,8 +127,8 @@ initial equation
       medium.h = h_start;
     end if;
     */
-    if Medium.ThermoStates == IndependentVariables.ph or Medium.ThermoStates ==
-        IndependentVariables.phX then
+    if Medium.ThermoStates == IndependentVariables.ph or Medium.ThermoStates
+         == IndependentVariables.phX then
       medium.h = h_start;
     else
       medium.T = T_start;
@@ -134,8 +141,8 @@ initial equation
       der(medium.h) = 0;
     end if;
     */
-    if Medium.ThermoStates == IndependentVariables.ph or Medium.ThermoStates ==
-        IndependentVariables.phX then
+    if Medium.ThermoStates == IndependentVariables.ph or Medium.ThermoStates
+         == IndependentVariables.phX then
       der(medium.h) = 0;
     else
       der(medium.T) = 0;
@@ -192,8 +199,8 @@ equation
   if traceDynamics == Dynamics.SteadyState then
     zeros(Medium.nC) = mCb;
   else
-    der(mC_scaled)  = mCb./Medium.C_nominal;
-    mC = mC_scaled.*Medium.C_nominal;
+    der(mC_scaled) = mCb ./ Medium.C_nominal;
+    mC = mC_scaled .* Medium.C_nominal;
   end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

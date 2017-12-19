@@ -263,13 +263,15 @@ model IRIS
     T_start=565.15)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance SG_OutletPressureDrop(R=0.7*(15642500 - (15644200
-         - 750*9.81*0.3))/(8*589), redeclare package Medium = Medium_PHTS)
+         - 750*9.81*0.3))/(8*589), redeclare package Medium =
+        Medium_PHTS)
     annotation (Placement(transformation(
         origin={46,-26.5},
         extent={{5.5,-5},{-5.5,5}},
         rotation=90)));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance SG_InletPressureDrop(R=0.7*((15659500 + 666*9.81
-        *0.3) - 15660700)/(8*589), redeclare package Medium = Medium_PHTS)
+        *0.3) - 15660700)/(8*589), redeclare package Medium =
+        Medium_PHTS)
     annotation (Placement(transformation(
         origin={46,24.5},
         extent={{5.5,-5},{-5.5,5}},

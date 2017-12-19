@@ -5,5 +5,4 @@ package Reactivity
   extends Modelica.Icons.UnderConstruction;
 
 
-
 end Reactivity;

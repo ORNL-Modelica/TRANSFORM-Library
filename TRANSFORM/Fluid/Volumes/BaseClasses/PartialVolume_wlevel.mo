@@ -9,10 +9,10 @@ partial model PartialVolume_wlevel "Base class for volume models"
     annotation (choicesAllMatching=true);
 
   // Inputs provided to the volume model
-  input SI.Volume V(min=0) "Volume" annotation (Dialog(group="Input Variables"));
+  SI.Volume V(min=0) "Volume";// annotation (Dialog(group="Input Variables"));
 
   // Initialization
-  parameter Dynamics energyDynamics=Dynamics.FixedInitial
+  parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
   parameter Dynamics massDynamics=energyDynamics "Formulation of mass balances"
@@ -53,20 +53,39 @@ partial model PartialVolume_wlevel "Base class for volume models"
       group="Start Value: Trace Substances Mass Fraction",
       enable=Medium.nC > 0));
 
+//   Medium.BaseProperties medium(
+//     each preferredMediumStates=true,
+//     p(start=p_start),
+//     h(start=h_start),
+//     T(start=Medium.temperature_phX(
+//           p_start,
+//           h_start,
+//           X_start[1:Medium.nXi])),
+//     Xi(start=X_start[1:Medium.nXi]));
+
   Medium.BaseProperties medium(
     each preferredMediumStates=true,
     p(start=p_start),
-    h(start=h_start),
-    T(start=Medium.temperature_phX(
+    h(start=if not use_T_start then h_start else Medium.specificEnthalpy_pTX(
+          p_start,
+          T_start,
+          X_start[1:Medium.nXi])),
+    T(start=if use_T_start then T_start else Medium.temperature_phX(
           p_start,
           h_start,
           X_start[1:Medium.nXi])),
     Xi(start=X_start[1:Medium.nXi]),
-    phase(start = if (h_start < Medium.bubbleEnthalpy(Medium.setSat_p(p_start)) or h_start > Medium.dewEnthalpy(Medium.setSat_p(p_start)) or p_start >
-             Medium.fluidConstants[1].criticalPressure) then 1 else 2));
+    X(start=X_start),
+    d(start=if use_T_start then Medium.density_pTX(
+          p_start,
+          T_start,
+          X_start[1:Medium.nXi]) else Medium.density_phX(
+          p_start,
+          h_start,
+          X_start[1:Medium.nXi])));
 
   // Total quantities
-  SI.Height level;
+  input SI.Height level(start=level_start) "Liquid level" annotation(Dialog(group="Input Variables"));
   SI.Mass m "Mass";
   SI.InternalEnergy U "Internal energy";
   SI.Mass mXi[Medium.nXi] "Species mass";

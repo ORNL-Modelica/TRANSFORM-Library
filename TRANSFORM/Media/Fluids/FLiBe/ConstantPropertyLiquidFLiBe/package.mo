@@ -20,7 +20,7 @@ Properties have been calculated based on a weighted average basis between T_min 
     d_const=1948,
     eta_const=0.006,
     lambda_const=1.1059,
-    a_const=2441,
+    a_const=3300,
     T_min=850,
     T_max=1050,
     T0=298.15,

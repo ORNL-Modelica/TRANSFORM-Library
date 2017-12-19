@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1;
 partial model PartialMassDiffusionCoefficient
 
   replaceable package Material =
-    TRANSFORM.Media.Interfaces.PartialAlloy
+    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true,Dialog(tab="Internal Interface"));
 
   parameter Integer nVs[1](min=1) = {1} "Number of discrete volumes"

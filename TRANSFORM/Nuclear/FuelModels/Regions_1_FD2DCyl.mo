@@ -5,7 +5,8 @@ model Regions_1_FD2DCyl
   parameter Real nParallel=1 "# of parallel components";
 
   replaceable package Material_1 =
-      TRANSFORM.Media.Interfaces.PartialAlloy "Region 1 material"
+      TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+                                              "Region 1 material"
   annotation (choicesAllMatching=true);
 
   parameter Integer nZ=4 "# of discrete axial volumes";

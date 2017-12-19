@@ -4,7 +4,4 @@ package Efficiency
 
 
 
-
-
-
 end Efficiency;

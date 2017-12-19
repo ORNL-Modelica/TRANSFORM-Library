@@ -10,15 +10,23 @@ Effects of Irradiaiton. ORNL/TM-2000/351. 1996.
 lambda => pg 25 eq. 6.2
 d => pg 9-10 eq. N/A
 cp => pg 18 eq 4.2
+h => pg 18 eq 4.1
 */
-  extends TRANSFORM.Media.Interfaces.PartialSimpleAlloy(
+  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="UO2",
     T_min=273.15,
     T_max=3120);
 
+  constant Real c1(unit="J/(kg.K)") = 302.27;
+  constant Real c2(unit="J/(kg.K2)") = 8.463e-3;
+  constant Real c3(unit="J/kg") = 8.741e7;
+  constant Real theta(unit="K") = 548.68;
+  constant Real Ea(unit="K") = 18531.7;
+
   redeclare function extends specificEnthalpy "Specific enthalpy"
   algorithm
-    h := h_reference + specificHeatCapacityCp(state)*(state.T - T_reference);
+      h := h_reference + c1*theta*(1/(exp(theta/state.T)-1)-1/(exp(theta/298)-1))
+            +c2*(state.T^2-298^2)+c3*exp(-Ea/state.T);
     annotation (smoothOrder=1);
   end specificEnthalpy;
 
@@ -47,12 +55,6 @@ protected
 
   redeclare function extends specificHeatCapacityCp
     "Specific heat capacity"
-protected
-    Real c1(unit="J/(kg.K)") = 302.27;
-    Real c2(unit="J/(kg.K2)") = 8.463e-3;
-    Real c3(unit="J/kg") = 8.741e7;
-    Real theta(unit="K") = 548.68;
-    Real Ea(unit="K") = 18531.7;
   algorithm
     cp := c1*(theta/state.T)^2*exp(theta/state.T)/(exp(theta/state.T) - 1)^2 + 2
       *c2*state.T + c3*Ea*exp(-Ea/state.T)/state.T^2;

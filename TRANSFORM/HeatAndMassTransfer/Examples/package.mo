@@ -7,6 +7,4 @@ package Examples
 
 
 
-
-
 end Examples;

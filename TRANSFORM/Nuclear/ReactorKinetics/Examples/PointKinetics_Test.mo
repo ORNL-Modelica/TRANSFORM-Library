@@ -27,6 +27,8 @@ model PointKinetics_Test
     Q_nominal=1e9,
     Lambda=1e-3)
     annotation (Placement(transformation(extent={{-26,-26},{38,26}})));
+  Utilities.ErrorAnalysis.UnitTests unitTests(x={reactorKinetics.Q_total})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(ControlRod_Reactivity.y, reactorKinetics.Reactivity_CR_in)
     annotation (Line(points={{-79,82},{-58,82},{-58,22.8313},{-22.72,22.8313}},

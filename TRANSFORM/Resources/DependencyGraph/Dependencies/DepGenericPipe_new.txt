@@ -1,2 +1,0 @@
-"TRANSFORM.obsolete.GenericPipe_new" -> "TRANSFORM.Fluid.Pipes.BaseClasses.PartialGenericPipe";
-"TRANSFORM.obsolete.GenericPipe_new" -> "TRANSFORM.obsolete.PartialTwoPortPipeFlow_new";

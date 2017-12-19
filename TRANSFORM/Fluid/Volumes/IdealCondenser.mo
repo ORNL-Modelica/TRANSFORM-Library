@@ -2,19 +2,20 @@ within TRANSFORM.Fluid.Volumes;
 model IdealCondenser "Ideal condenser with fixed pressure"
 
   import Modelica.Fluid.Types.Dynamics;
+  extends BaseClasses.Icon_TwoVolume;
 
   outer Modelica.Fluid.System system "System properties";
 
   replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby
     Modelica.Media.Interfaces.PartialMedium "Medium in component" annotation(choicesAllMatching=true);
 
-  Modelica.Fluid.Interfaces.FluidPort_b port_a(redeclare package Medium =
+  Interfaces.FluidPort_State            port_a(redeclare package Medium =
         Medium) "Steam port" annotation (Placement(transformation(extent={{-90,80},
             {-50,120}},
-          rotation=0), iconTransformation(extent={{-80,90},{-60,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
+          rotation=0), iconTransformation(extent={{-80,60},{-60,80}})));
+  Interfaces.FluidPort_State            port_b(redeclare package Medium =
         Medium) "Condensed liquid port" annotation (Placement(transformation(extent={{-20,-120},{20,-80}},
-          rotation=0), iconTransformation(extent={{-10,-110},{10,-90}})));
+          rotation=0), iconTransformation(extent={{-10,-90},{10,-70}})));
 
   /* Parameters */
   parameter SI.Pressure p "Condenser operating pressure";
@@ -80,160 +81,77 @@ equation
 
   annotation (defaultComponentName="condenser",
     Icon(graphics={
-        Polygon(
-          points={{-100,80},{-100,94},{-94,100},{-80,100},{-79.062,100},{79.534,
-              100},{80,100},{92,100},{100,94},{100,80},{100,80},{100,-78},{100,-80},
-              {100,-92},{94,-100},{82,-100},{80,-100},{-80,-100},{-82,-100},{-94,
-              -100},{-100,-94},{-100,-80},{-100,-78},{-100,80},{-100,80}},
-          lineColor={0,0,0},
-          smooth=Smooth.Bezier,
-          lineThickness=0.5,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-88,100},{88,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-98,137},{102,107}},
           lineColor={0,0,0},
           textString="%name"),
-        Line(
-          points={{-10,-5},{-10,-1},{-6,3},{0,5},{6,3},{10,-1},{10,-5}},
-          color={0,0,0},
-          smooth=Smooth.Bezier,
-          origin={65,30},
-          rotation=-90,
-          thickness=0.5),
-        Line(
-          points={{-10,-5},{-10,-1},{-6,3},{0,5},{6,3},{10,-1},{10,-5}},
-          color={0,0,0},
-          smooth=Smooth.Bezier,
-          origin={-65,10},
-          rotation=90,
-          thickness=0.5),
-        Line(
-          points={{-10,-5},{-10,-1},{-6,3},{0,5},{6,3},{10,-1},{10,-5}},
-          color={0,0,0},
-          smooth=Smooth.Bezier,
-          origin={-65,50},
-          rotation=90,
-          thickness=0.5),
-        Line(
-          points={{-60,0},{100,0}},
-          color={0,0,0},
-          thickness=0.5),
-        Line(
-          points={{-60,20},{60,20}},
-          color={0,0,0},
-          thickness=0.5),
-        Line(
-          points={{60,40},{-60,40}},
-          color={0,0,0},
-          thickness=0.5),
-        Line(
-          points={{-60,60},{100,60}},
-          color={0,0,0},
-          thickness=0.5),
-        Ellipse(
-          extent={{2,5},{-2,-5}},
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0},
-          origin={-78,79},
-          rotation=-30),
-        Ellipse(
-          extent={{-71,83},{-75,73}},
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
-        Ellipse(
-          extent={{-66,83},{-70,73}},
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
-        Ellipse(
-          extent={{2,5},{-2,-5}},
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0},
-          origin={-62,79},
-          rotation=30),
-        Rectangle(
-          extent={{-75,96},{-65,84}},
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          lineColor={0,0,0}),
-        Polygon(
-          points={{-40,40},{-40,40}},
-          lineColor={0,0,0},
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-60,40},{-54,38},{-50,36},{-50,34},{-48,36},{-44,38},{-38,38},
-              {-36,38},{-34,40},{-60,40}},
-          lineColor={0,0,0},
-          smooth=Smooth.Bezier,
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-166,78},{-166,78}},
           lineColor={0,0,0},
           smooth=Smooth.Bezier,
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid),
+        Line(
+          points={{100,40},{-59.1953,40},{-64,40},{-68,36},{-70,30},{-68,24},{
+              -64,20},{-60,20},{58,20},{64,20},{68,16},{70,10},{68,4},{64,0},{
+              58,0},{-58,0},{-64,0},{-68,-4},{-70,-10},{-68,-16},{-64,-20},{-58,
+              -20},{100,-20}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
         Polygon(
-          points={{10,60},{16,58},{20,56},{20,54},{22,56},{26,58},{32,58},{34,58},
-              {36,60},{10,60}},
-          lineColor={0,0,0},
-          smooth=Smooth.Bezier,
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{4,20},{10,18},{14,16},{14,14},{16,16},{20,18},{26,18},{28,18},
-              {30,20},{4,20}},
-          lineColor={0,0,0},
-          smooth=Smooth.Bezier,
-          fillColor={85,170,255},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-66,0},{-60,-2},{-56,-4},{-56,-6},{-54,-4},{-50,-2},{-44,-2},
-              {-42,-2},{-40,0},{-66,0}},
+          points={{10,40},{16,38},{20,36},{20,34},{22,36},{26,38},{32,38},{34,
+              38},{36,40},{10,40}},
           lineColor={0,0,0},
           smooth=Smooth.Bezier,
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-48,32},{-50,28}},
+          extent={{22,32},{20,28}},
           lineColor={0,0,0},
+          fillColor={85,170,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-60,20},{-54,18},{-50,16},{-50,14},{-48,16},{-44,18},{-38,18},
+              {-36,18},{-34,20},{-60,20}},
+          lineColor={0,0,0},
+          smooth=Smooth.Bezier,
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{22,52},{20,48}},
+          extent={{-48,12},{-50,8}},
           lineColor={0,0,0},
+          fillColor={85,170,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{4,0},{10,-2},{14,-4},{14,-6},{16,-4},{20,-2},{26,-2},{28,-2},
+              {30,0},{4,0}},
+          lineColor={0,0,0},
+          smooth=Smooth.Bezier,
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{14,12},{12,8}},
+          extent={{14,-8},{12,-12}},
           lineColor={0,0,0},
+          fillColor={85,170,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-66,-20},{-60,-22},{-56,-24},{-56,-26},{-54,-24},{-50,-22},{
+              -44,-22},{-42,-22},{-40,-20},{-66,-20}},
+          lineColor={0,0,0},
+          smooth=Smooth.Bezier,
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid),
         Ellipse(
-          extent={{-56,-8},{-58,-12}},
+          extent={{-56,-28},{-58,-32}},
           lineColor={0,0,0},
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-88,-70},{88,-100}},
+        Text(
+          extent={{0,62},{88,50}},
           lineColor={0,0,0},
-          fillColor={0,122,236},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.VerticalCylinder,
+          fillColor={135,135,135},
+          textString="IDEAL")}),
     Documentation(revisions="<html>
 </html>", info="<html>
 <p>The steam enters through port a and saturated water leaves port b.</p>

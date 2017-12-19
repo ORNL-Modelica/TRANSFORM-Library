@@ -1,0 +1,5 @@
+simulateModel("TRANSFORM.Fluid.Examples.NaturalCirculation2",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NaturalCirculation2");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
+createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
+createPlot(id=3, y={"unitTests.x[3]"}, grid=true);

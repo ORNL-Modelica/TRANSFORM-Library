@@ -58,11 +58,12 @@ model Example_8_6_UninsulatedDuctwithMass
     crossAreas=fill(Ac.y, innerSide.n),
     dlengths=pipe.geometry.dlengths_2[1, :],
     surfaceAreas=pipe.geometry.crossAreas_1[1, :],
-    redeclare package Medium = ThermoPower.Media.Air,
     roughnesses=fill(0, innerSide.n),
     redeclare model HeatTransferCoeff =
         TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Nus_SinglePhase_2Region,
-    m_flows=fill(m_flows.y, innerSide.n)) annotation (Placement(transformation(
+    m_flows=fill(m_flows.y, innerSide.n),
+    redeclare package Medium = Modelica.Media.Air.DryAirNasa)
+                                          annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-24})));
@@ -126,13 +127,14 @@ model Example_8_6_UninsulatedDuctwithMass
   TRANSFORM.HeatAndMassTransfer.Resistances.Mass.ConvectionMedia innerSideM(
     dlengths=pipe.geometry.dlengths_2[1, :],
     surfaceAreas=pipe.geometry.crossAreas_1[1, :],
-    redeclare package Medium = ThermoPower.Media.Air,
     Ts_wall=fluid.port.T,
     m_flows=fill(m_flows.y, innerSideM.n),
     dimensions=fill(D.y, innerSideM.n),
     crossAreas=fill(Ac.y, innerSideM.n),
     roughnesses=fill(0, innerSide.n),
-    n=nNodes_2.k) annotation (Placement(transformation(
+    n=nNodes_2.k,
+    redeclare package Medium = Modelica.Media.Air.DryAirNasa)
+                  annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-20,-24})));

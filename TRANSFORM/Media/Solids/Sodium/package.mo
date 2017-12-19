@@ -1,7 +1,7 @@
 within TRANSFORM.Media.Solids;
 package Sodium "Liquid Sodium: thermal properties of liquid sodium"
 
-  extends TRANSFORM.Media.Interfaces.PartialSimpleAlloy(
+  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="Na_liquid",
     T_min=Modelica.SIunits.Conversions.from_degC(0),
     T_max=Modelica.SIunits.Conversions.from_degC(1500));
@@ -9,7 +9,7 @@ package Sodium "Liquid Sodium: thermal properties of liquid sodium"
   redeclare function extends specificEnthalpy
     "Specific enthalpy"
   algorithm
-    h := h_reference + specificHeatCapacityCp(state)*(state.T - T_reference);
+    h := h_reference + 1251*(state.T - T_reference);
   end specificEnthalpy;
 
   redeclare function extends density

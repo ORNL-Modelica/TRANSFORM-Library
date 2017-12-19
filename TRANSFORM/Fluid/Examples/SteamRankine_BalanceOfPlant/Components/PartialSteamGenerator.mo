@@ -7,26 +7,27 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
  constant Real conversion_inch_to_m=0.0254 "Inch to meter";
  input Real circulationRatio=2.9 "Circulation ratio for feed water" annotation(Dialog(group="Inputs"));
  final parameter Modelica.SIunits.Area Aheat_calc_outerTubes=1838*60*conversion_feet_to_m*3.141*1.25*conversion_inch_to_m;
-  Real drum_level_percentage=100*(drum.geometry.level - drum.geometry.level_min)/(drum.geometry.level_max -
-      drum.geometry.level_min) "Drum level percentage";
+  Real drum_level_percentage=drum.geometry.level_meas_percentage "Drum level percentage";
+//drum.geometry.level_percentage "Drum level percentage";
+//100*(drum.geometry.level_meas - drum.geometry.level_min)/(drum.geometry.level_max - drum.geometry.level_min) "Drum level percentage";
 
-  Volumes.Drum drum(
-    p_start=initData.p_start_boiler,
+  Volumes.BoilerDrum drum(
     h_liquid_start=Medium.bubbleEnthalpy(Medium.setSat_p(initData.p_start_boiler)),
     h_vapor_start=Medium.dewEnthalpy(Medium.setSat_p(initData.p_start_boiler)),
     Twall_start=Medium.saturationTemperature(initData.p_start_boiler),
-    level_start=initData.boiler_level_start,
-    alpha_external=10,
-    Cwall=(drum.geometry.length*3.14*2*drum.geometry.r_outer + 2*3.14*drum.geometry.r_outer^2)*(drum.geometry.r_outer
-         - drum.geometry.r_inner)*7000*500,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
+    p_vapor_start=initData.p_start_boiler,
+    d_wall=7000,
+    cp_wall=500,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.Cylinder
         (
-        r_inner=12*conversion_feet_to_m - 0.04,
-        r_outer=12*conversion_feet_to_m,
         length=26*conversion_feet_to_m,
-        DrumOrientation=1))                                        annotation (
+        orientation="Vertical",
+        r_inner=12*conversion_feet_to_m - drum.geometry.th_wall,
+        th_wall=0.04),
+    alpha_external=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(extent={{20,-18},{-20,22}}, rotation=0)));
 
   Valves.ValveCompressible                MSIValve(
@@ -55,14 +56,15 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
     use_N_input=true,
     eta=0.9,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
-    p_a_start=initData.p_start_boiler + (-60*conversion_feet_to_m)*drum.g_n
-        *circulationPump.Medium.bubbleDensity(circulationPump.Medium.setSat_p(initData.p_start_boiler)),
     m_flow_nominal=nominalData.m_flow_nom_circulation,
     m_flow_start=nominalData.m_flow_nom_circulation,
     p_b_start=circulationPump.p_a_start + initData.dp_start_riser,
     V_flow_nominal=initData.m_flow_start_circulation/circulationPump.Medium.bubbleDensity(
         circulationPump.Medium.setSat_p(initData.p_start_boiler)),
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    p_a_start=initData.p_start_boiler + (-60*conversion_feet_to_m)*drum.g_n_start
+        *circulationPump.Medium.bubbleDensity(circulationPump.Medium.setSat_p(
+        initData.p_start_boiler)))
     annotation (Placement(transformation(extent={{10,-98},{-10,-78}})));
 
   FittingsAndResistances.ElevationChange heightDiff(redeclare package Medium =
@@ -78,8 +80,8 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
     p_start_boiler=nominalData.p_nom_boiler,
     m_flow_start_feedWater=nominalData.m_flow_nom_feedWater,
     m_flow_start_circulation=nominalData.m_flow_nom_circulation,
-    boiler_level_start=0,
-    dp_start_riser=nominalData.dp_nom_riser) constrainedby
+    dp_start_riser=nominalData.dp_nom_riser,
+    boiler_level_start=0)                    constrainedby
     Records.BoilerStartValues(
     p_start_boiler=nominalData.p_nom_boiler,
     m_flow_start_feedWater=nominalData.m_flow_nom_feedWater,
@@ -96,7 +98,7 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
         drum_level_percentage)
     annotation (Placement(transformation(extent={{-36,-118},{-22,-106}})));
   Modelica.Blocks.Sources.RealExpression drum_pressure(y=
-        drum.p)
+        drum.medium_vapor.p)
     annotation (Placement(transformation(extent={{-36,-106},{-22,-94}})));
   Volumes.MixingVolume                    vol_turbine_HP_feed(
     nPorts_a=1,
@@ -231,7 +233,7 @@ equation
   connect(pSteam.port, sensorSteamFlow.port_a)
     annotation (Line(points={{-49,24},{-16,24},{-16,30}}, color={0,127,255}));
   connect(drum.downcomerPort, orificeLiquid.port_a) annotation (Line(
-      points={{14,-12.8},{16,-12.8},{16,-22},{17,-22}},
+      points={{14,-14},{16,-14},{16,-22},{17,-22}},
       color={0,127,255},
       thickness=0.5));
   connect(k.y, massFlowInverse.u1) annotation (Line(points={{43.3,-73},{38,-73},

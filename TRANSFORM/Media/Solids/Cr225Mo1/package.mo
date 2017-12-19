@@ -1,7 +1,7 @@
 within TRANSFORM.Media.Solids;
 package Cr225Mo1 "Chrome-Moly Steel: 2-1/4 Cr - 1 Mo steel"
 
-extends Interfaces.PartialSimpleAlloy_TableBased(
+extends Interfaces.Solids.PartialSimpleAlloy_TableBased(
   mediumName="Cr225Mo1",
   T_min=Modelica.SIunits.Conversions.from_degC(0),
   T_max=Modelica.SIunits.Conversions.from_degC(1500),

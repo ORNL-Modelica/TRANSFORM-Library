@@ -1,7 +1,7 @@
 within TRANSFORM.Media.Solids.CustomSolids;
 package Lambda_0_33_d_1200_cp_500 "Custom: lambda = 0.33 | d = 1200 | cp = 500"
 
-  extends TRANSFORM.Media.Interfaces.PartialSimpleAlloy(
+  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="GenericSolid",
     T_min=0,
     T_max=1e6);
@@ -9,7 +9,7 @@ package Lambda_0_33_d_1200_cp_500 "Custom: lambda = 0.33 | d = 1200 | cp = 500"
   redeclare function extends specificEnthalpy
     "Specific enthalpy"
   algorithm
-    h := h_reference + specificHeatCapacityCp(state)*(state.T - T_reference);
+    h := h_reference + 500*(state.T - T_reference);
   end specificEnthalpy;
 
   redeclare function extends density

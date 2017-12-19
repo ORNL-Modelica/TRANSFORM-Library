@@ -59,7 +59,7 @@ equation
           {7,-40},{10,-40}},       color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(__Dymola_NumberOfIntervals=10),
+    experiment(__Dymola_NumberOfIntervals=100),
     Documentation(info="<html>
 <p>The is a comparison of the steam turbine results using the conditions and comparing the results specified in Example 7.6 in the source.</p>
 <p><br>References:</p>

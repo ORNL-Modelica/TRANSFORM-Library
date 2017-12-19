@@ -5,8 +5,4 @@ package Power
 
 
 
-
-
-
-
 end Power;

@@ -1,7 +1,7 @@
 within TRANSFORM.Media.Solids;
 package AlloyN "AlloyN: Material properties for Alloy-N (R)"
 
-  extends TRANSFORM.Media.Interfaces.PartialSimpleAlloy(
+  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="alloyN",
     T_min=Modelica.SIunits.Conversions.from_degC(0),
     T_max=Modelica.SIunits.Conversions.from_degC(1500));
@@ -9,7 +9,7 @@ package AlloyN "AlloyN: Material properties for Alloy-N (R)"
   redeclare function extends specificEnthalpy
     "Specific enthalpy"
   algorithm
-    h := h_reference + specificHeatCapacityCp(state)*(state.T - T_reference);
+    h := h_reference + 4.614019521e-4*(state.T^3 - T_reference^3)/3 - 0.3402230706309*(state.T^2 - T_reference^2)/2 + 488.9450478878976*(state.T - T_reference);
   end specificEnthalpy;
 
   redeclare function extends density

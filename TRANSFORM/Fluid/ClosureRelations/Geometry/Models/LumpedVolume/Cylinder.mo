@@ -6,7 +6,7 @@ model Cylinder
 
   extends
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume(
-     final V=pi*crossArea*length, dheight=length*sin(angle));
+     final V=crossArea*length, dheight=length*sin(angle));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

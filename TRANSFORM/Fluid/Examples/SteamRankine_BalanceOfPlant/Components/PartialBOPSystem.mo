@@ -54,14 +54,14 @@ partial model PartialBOPSystem " Plant"
   TRANSFORM.Utilities.Visualizers.displayReal PowerOutput7(precision=1, val=
         steamCycle.feed_SG1.m_flow + steamCycle.feed_SG2.m_flow + steamCycle.feed_SG3.m_flow)
     annotation (Placement(transformation(extent={{-150,24},{-130,44}})));
-  TRANSFORM.Utilities.Visualizers.displayReal PowerOutput8(
-      precision=1, val=steamCycle.condenser.feed.m_flow)
+  TRANSFORM.Utilities.Visualizers.displayReal PowerOutput8(precision=1, val=
+        steamCycle.condenser.portSteamFeed.m_flow)
     annotation (Placement(transformation(extent={{-150,10},{-130,30}})));
   TRANSFORM.Utilities.Visualizers.displayReal PowerOutput9(precision=1, val=
-        steamCycle.FWH_LP.feed_cool.m_flow)
+        steamCycle.FWH_LP.portCoolant_a.m_flow)
     annotation (Placement(transformation(extent={{-150,-4},{-130,16}})));
   TRANSFORM.Utilities.Visualizers.displayReal PowerOutput10(precision=1, val=
-        steamCycle.FWH_HP.feed_cool.m_flow)
+        steamCycle.FWH_HP.portCoolant_a.m_flow)
     annotation (Placement(transformation(extent={{-150,-18},{-130,2}})));
   TRANSFORM.Utilities.Visualizers.displayReal Aheat2(precision=1, val=
         total_Q_MW)                                         annotation (

@@ -1,8 +1,9 @@
 within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.PhaseInterface;
 partial model PartialPhaseInterface
 
-  extends TRANSFORM.Fluid.Interfaces.Records.Medium_fluidInternal(replaceable
-      package Medium = Modelica.Media.Water.StandardWater constrainedby
+  extends TRANSFORM.Fluid.Interfaces.Records.Medium_fluidInternal(
+      replaceable package
+              Medium = Modelica.Media.Water.StandardWater constrainedby
       Modelica.Media.Interfaces.PartialTwoPhaseMedium);
 
   // Inputs provided to heat transfer model

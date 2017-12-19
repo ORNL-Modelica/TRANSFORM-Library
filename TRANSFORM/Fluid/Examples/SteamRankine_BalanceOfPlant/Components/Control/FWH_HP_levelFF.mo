@@ -31,7 +31,7 @@ equation
   connect(FF_firstOrder.y, scaling_FF.u)
     annotation (Line(points={{-19.4,58},{-6,58},{-6,46}}, color={0,0,127}));
   connect(controller.u_ff, scaling_FF.y)
-    annotation (Line(points={{-6.75,12},{-6,12},{-6,23}}, color={0,0,127}));
+    annotation (Line(points={{-14.1,8},{-6,8},{-6,23}},   color={0,0,127}));
   connect(valveLiquidInverse.y, FF_firstOrder.u) annotation (Line(points={{-47,
           58},{-33.2,58},{-33.2,58}}, color={0,0,127}));
 end FWH_HP_levelFF;

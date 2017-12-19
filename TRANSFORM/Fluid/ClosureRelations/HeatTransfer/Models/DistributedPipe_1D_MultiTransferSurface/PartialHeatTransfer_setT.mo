@@ -39,6 +39,8 @@ partial model PartialHeatTransfer_setT "Base model"
   parameter SI.ReynoldsNumber Re_lam(max=Re_turb) = 2300 "Laminar transition Reynolds number" annotation(Dialog(tab="Advanced"));
   parameter SI.ReynoldsNumber Re_turb(min=Re_lam) = 4000 "Turbulent transition Reynolds number" annotation(Dialog(tab="Advanced"));
 
+  parameter SIadd.nonDim CF[nHT,nSurfaces]=fill(1.0, nHT, nSurfaces) "Correction Factor: Q = CF*alpha*A*dT" annotation(Dialog(tab="Advanced"));
+
   //parameter Boolean use_Ts_film = false "=true for Ts_film = 0.5*(Ts_wall + Ts_fluid) else Ts_fluid" annotation(Dialog(tab="Advanced"));
 
   SI.Temperature Ts_fluid[nHT] = Medium.temperature(states) "Fluid temperature";
@@ -58,7 +60,7 @@ partial model PartialHeatTransfer_setT "Base model"
   SI.PrandtlNumber Prs[nHT] "Prandtl number";
 //   SI.PrandtlNumber Prs_film[nHT,nSurfaces]
 //     "Prandtl number with properties evaluated at film temperature";
-  SI.Length xs[nHT] "Position of local heat transfer calculation";
+//   SI.Length xs[nHT] "Position of local heat transfer calculation";
 
   SI.CoefficientOfHeatTransfer alphas[nHT,nSurfaces] "Coefficient of heat transfer";
   SI.NusseltNumber Nus[nHT,nSurfaces] "Nusselt number";
@@ -74,11 +76,12 @@ protected
 
 equation
 
-  for i in 1:nHT loop
-    xs[i] =noEvent(if m_flows[i] >= 0 then (if i == 1 then 0.5*dlengths[i] else sum(
-      dlengths[1:i - 1]) + 0.5*dlengths[i]) else (if i == nHT then 0.5*dlengths[
-      nHT] else sum(dlengths[i + 1:nHT]) + 0.5*dlengths[i]));
-  end for;
+  // Believe this local position overly complicates for the current limitations of Modelica models
+//   for i in 1:nHT loop
+//     xs[i] =noEvent(if m_flows[i] >= 0 then (if i == 1 then 0.5*dlengths[i] else sum(
+//       dlengths[1:i - 1]) + 0.5*dlengths[i]) else (if i == nHT then 0.5*dlengths[
+//       nHT] else sum(dlengths[i + 1:nHT]) + 0.5*dlengths[i]));
+//   end for;
 
   annotation (
     defaultComponentName="heatTransfer",

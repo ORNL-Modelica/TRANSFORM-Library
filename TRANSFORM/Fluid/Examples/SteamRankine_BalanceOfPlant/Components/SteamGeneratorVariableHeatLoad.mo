@@ -38,7 +38,8 @@ redeclare model Geometry =
         conversion_feet_to_m),
     nPorts_b=1,
     nPorts_a=1,
-    use_HeatPort=true)
+    use_HeatPort=true,
+    redeclare package Medium = Modelica.Media.Water.StandardWater)
                 annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=-90,
@@ -55,7 +56,8 @@ redeclare model Geometry =
          + Medium.bubbleEnthalpy(Medium.setSat_p(initData.p_start_boiler)),
     nPorts_a=1,
     nPorts_b=1,
-    use_HeatPort=true)
+    use_HeatPort=true,
+    redeclare package Medium = Modelica.Media.Water.StandardWater)
                 annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=-90,
@@ -108,7 +110,7 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(drum.riserPort, heightDiff_riser.port_b) annotation (Line(
-      points={{-14,-12.8},{-14,-16},{-19,-16},{-19,-22.1}},
+      points={{-14,-14},{-14,-16},{-19,-16},{-19,-22.1}},
       color={0,127,255},
       thickness=0.5));
   connect(riser1.port_b[1], generic1.port_a) annotation (Line(

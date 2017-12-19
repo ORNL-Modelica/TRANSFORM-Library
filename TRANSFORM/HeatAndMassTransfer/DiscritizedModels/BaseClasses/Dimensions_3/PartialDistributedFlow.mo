@@ -3,7 +3,7 @@ partial model PartialDistributedFlow
   "Base class for distributed 3-D flow models"
 
   replaceable package Material =
-    TRANSFORM.Media.Interfaces.PartialAlloy
+    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true,Dialog(tab="Internal Interface"));
 
   parameter Integer nVs[3](min=1) = {1,1,1} "Number of discrete volumes"

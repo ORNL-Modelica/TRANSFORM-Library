@@ -38,3 +38,5 @@ statistics.json
 # Python compiled files #
 #########################
 *.pyc
+dymola.log
+.ipynb_checkpoints/

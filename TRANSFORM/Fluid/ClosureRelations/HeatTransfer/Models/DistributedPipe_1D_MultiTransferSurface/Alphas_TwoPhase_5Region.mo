@@ -5,24 +5,15 @@ model Alphas_TwoPhase_5Region
   extends PartialTwoPhase;
 
   input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alpha_SinglePhaseLiquid_lam=
-     {{mediaProps[i].lambda/dimensions[i]*
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Laminar_Local_Developed_Circular(
-      Res[i],
-      Prs[i],
-      xs[i],
-      dimensions[i],
-      true) for j in 1:nSurfaces} for i in 1:nHT}
+     {{mediaProps[i].lambda/dimensions[i]*4.36 for j in 1:nSurfaces} for i in 1:nHT}
     "Laminar coefficient of heat transfer - Liquid Phase"
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT,nSurfaces]
     alpha_SinglePhaseLiquid_turb={{mediaProps[i].lambda/dimensions[i]*
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Turbulent_Local_Developed(
+      TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Res[i],
-      Prs[i],
-      xs[i],
-      dimensions[i],
-      roughnesses[i]) for j in 1:nSurfaces} for i in 1:nHT}
+      Prs[i]) for j in 1:nSurfaces} for i in 1:nHT}
     "Turbulent coefficient of heat transfer - Liquid Phase"
     annotation (Dialog(group="Input Variables"));
 
@@ -46,24 +37,15 @@ model Alphas_TwoPhase_5Region
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alpha_SinglePhaseVapor_lam=
-      {{mediaProps[i].lambda/dimensions[i]*
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Laminar_Local_Developed_Circular(
-      Res[i],
-      Prs[i],
-      xs[i],
-      dimensions[i],
-      true) for j in 1:nSurfaces} for i in 1:nHT}
+      {{mediaProps[i].lambda/dimensions[i]*4.36 for j in 1:nSurfaces} for i in 1:nHT}
     "Laminar coefficient of heat transfer - Vapor Phase"
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alpha_SinglePhaseVapor_turb=
      {{mediaProps[i].lambda/dimensions[i]*
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Turbulent_Local_Developed(
+      TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Res[i],
-      Prs[i],
-      xs[i],
-      dimensions[i],
-      roughnesses[i]) for j in 1:nSurfaces} for i in 1:nHT}
+      Prs[i]) for j in 1:nSurfaces} for i in 1:nHT}
     "Turbulent coefficient of heat transfer - Vapor Phase"
     annotation (Dialog(group="Input Variables"));
 

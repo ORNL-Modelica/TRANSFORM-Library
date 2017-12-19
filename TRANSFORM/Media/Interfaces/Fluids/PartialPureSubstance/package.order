@@ -1,0 +1,14 @@
+setState_pT
+setState_ph
+setState_ps
+setState_dT
+density_ph
+temperature_ph
+pressure_dT
+specificEnthalpy_dT
+specificEnthalpy_ps
+temperature_ps
+density_ps
+specificEnthalpy_pT
+density_pT
+BaseProperties

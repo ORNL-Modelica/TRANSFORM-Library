@@ -5,7 +5,7 @@ partial model PartialHeatTransfer_setQ_flows
 
 equation
 
-    Q_flows=alphas.*surfaceAreas.*(Ts_wall - Ts_fluid);
+    Q_flows=CF.*alphas.*surfaceAreas.*(Ts_wall - Ts_fluid);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

@@ -26,8 +26,8 @@ model Generator "Generates power from shaft to electrical power connector"
   SI.Frequency f "Electrical frequency";
 
   Interfaces.ElectricalPowerPort_Flow port annotation (Placement(transformation(
-          extent={{90,-10},{110,10}}, rotation=0), iconTransformation(extent={{92,-8},
-            {112,12}})));
+          extent={{90,-10},{110,10}}, rotation=0), iconTransformation(extent={{90,-10},
+            {110,10}})));
   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}, rotation=0),
         iconTransformation(extent={{-110,-10},{-90,10}})));

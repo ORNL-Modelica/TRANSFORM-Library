@@ -1,3 +1,0 @@
-"TRANSFORM.obsolete.PartialTwoPortPipeFlow_new" -> "TRANSFORM.Fluid.Interfaces.PartialTwoPort";
-"TRANSFORM.obsolete.PartialTwoPortPipeFlow_new" -> "TRANSFORM.obsolete.PartialDistributedVolume";
-"TRANSFORM.obsolete.PartialTwoPortPipeFlow_new" -> "TRANSFORM.obsolete.PartialDistributedFlow";

@@ -2,6 +2,7 @@ Templates
 SystemOfSubSystems
 LightWaterSmallModularReactor
 SodiumFastReactor
+MoltenSaltReactor
 Interfaces
 Utilities
 BaseClasses

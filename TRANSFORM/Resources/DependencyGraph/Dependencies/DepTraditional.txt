@@ -1,1 +1,0 @@
-"TRANSFORM.obsolete.Vessels.BaseClasses.BaseDrum.DrumTypes.Examples.Traditional" -> "Modelica.Icons.Example";

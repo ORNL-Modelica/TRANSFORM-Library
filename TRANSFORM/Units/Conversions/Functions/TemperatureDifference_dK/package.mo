@@ -3,6 +3,4 @@ package TemperatureDifference_dK "Conversions for temperature difference. SI uni
 
 
 
-
-
 end TemperatureDifference_dK;
