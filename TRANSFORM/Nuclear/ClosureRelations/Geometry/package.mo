@@ -4,6 +4,4 @@ package Geometry
 
 
 
-
-
 end Geometry;

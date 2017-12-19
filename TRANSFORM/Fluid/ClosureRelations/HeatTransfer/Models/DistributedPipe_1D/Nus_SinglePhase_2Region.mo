@@ -3,22 +3,13 @@ model Nus_SinglePhase_2Region "Specify Nus | Single Phase | 2 Region - Laminar &
 
   extends PartialSinglePhase;
 
-  input SI.NusseltNumber[nHT] Nus_lam=
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Laminar_Local_Developed_Circular(
-      Res,
-      Prs,
-      xs,
-      dimensions,
-      true) "Laminar Nusselt number"
+  input SI.NusseltNumber[nHT] Nus_lam= fill(4.36,nHT) "Laminar Nusselt number"
     annotation (Dialog(group="Input Variables"));
 
   input SI.NusseltNumber[nHT] Nus_turb=
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Turbulent_Local_Developed(
+      TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Res,
-      Prs,
-      xs,
-      dimensions,
-      roughnesses) "Turbulent Nusselt number"
+      Prs) "Turbulent Nusselt number"
     annotation (Dialog(group="Input Variables"));
 
   input SI.Length[nHT] L_char=dimensions

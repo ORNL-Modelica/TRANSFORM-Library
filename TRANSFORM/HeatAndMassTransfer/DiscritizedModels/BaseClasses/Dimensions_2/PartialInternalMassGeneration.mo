@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2;
 partial model PartialInternalMassGeneration
 
   replaceable package Material =
-    TRANSFORM.Media.Interfaces.PartialAlloy
+    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
 
   parameter Integer nVs[2](min=1) = {1,1} "Number of discrete volumes"

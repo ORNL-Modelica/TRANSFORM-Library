@@ -3,6 +3,4 @@ package CoefficientOfHeatTransfer_W_m2K "Conversions for coefficient of heat tra
 
 
 
-
-
 end CoefficientOfHeatTransfer_W_m2K;

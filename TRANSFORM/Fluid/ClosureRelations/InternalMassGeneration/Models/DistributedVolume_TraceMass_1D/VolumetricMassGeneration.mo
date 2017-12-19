@@ -5,10 +5,10 @@ model VolumetricMassGeneration
 
   extends PartialInternalMassGeneration;
 
-  input SI.Concentration mC_ppp[Medium.nC]=zeros(Medium.nC) "Molar concentration generation"  annotation(Dialog(group=
+  input SI.Concentration mC_ppp[Medium.nC]=zeros(Medium.nC) "Mass concentration generation"  annotation(Dialog(group=
           "Input Variables"));
   input SI.Concentration mC_ppps[nV,Medium.nC]=fillArray_1D(mC_ppp, nV)
-    "if non-uniform then set n_ppps"
+    "if non-uniform then set mC_ppps"
     annotation (Dialog(group="Input Variables"));
 
 equation

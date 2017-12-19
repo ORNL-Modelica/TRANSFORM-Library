@@ -4,7 +4,4 @@ package ClosureModels
   extends TRANSFORM.Icons.BasesPackage;
 
 
-
-
-
 end ClosureModels;

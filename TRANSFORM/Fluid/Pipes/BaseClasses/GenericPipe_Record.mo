@@ -68,7 +68,7 @@ record GenericPipe_Record
 
   parameter SI.AbsolutePressure p_a_start=Medium.p_default "Pressure at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
-  parameter SI.AbsolutePressure p_b_start=p_a_start "Pressure at port b"
+  parameter SI.AbsolutePressure p_b_start=p_a_start + (if m_flow_a_start > 0 then -1e3 elseif m_flow_a_start < 0 then -1e3 else 0) "Pressure at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
 
   parameter SI.Temperature T_a_start=Medium.T_default "Temperature at port a" annotation (
@@ -169,7 +169,7 @@ record GenericPipe_Record
     annotation (Dialog(tab="Advanced",group="Parameters"), Evaluate=true);
   parameter LumpedLocation lumpPressureAt=LumpedLocation.port_a
     "Location of pressure for flow calculations"
-    annotation (Dialog(tab="Advanced",group="Parameters"), Evaluate=true);
+    annotation (Dialog(tab="Advanced",group="Parameters",enable=useLumpedPressure), Evaluate=true);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

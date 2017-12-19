@@ -11,8 +11,7 @@ model Regions_1
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium
-      =                                                                          Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
 
@@ -21,7 +20,7 @@ model Regions_1
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Coolant medium" annotation (choicesAllMatching=true);
   replaceable package Material_1 =
-      TRANSFORM.Media.Interfaces.PartialAlloy
+      TRANSFORM.Media.Interfaces.Solids.PartialAlloy
       annotation (choicesAllMatching=true);
 
   replaceable model Geometry =

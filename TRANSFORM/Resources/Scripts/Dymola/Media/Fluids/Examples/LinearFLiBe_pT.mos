@@ -1,0 +1,11 @@
+simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_pT",resultFile="LinearFLiBe_pT");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
+createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
+createPlot(id=3, y={"unitTests.x[3]"}, grid=true);
+createPlot(id=4, y={"unitTests.x[4]"}, grid=true);
+createPlot(id=5, y={"unitTests.x[5]"}, grid=true);
+createPlot(id=6, y={"unitTests.x[6]"}, grid=true);
+createPlot(id=7, y={"unitTests.x[7]"}, grid=true);
+createPlot(id=8, y={"unitTests.x[8]"}, grid=true);
+createPlot(id=9, y={"unitTests.x[9]"}, grid=true);

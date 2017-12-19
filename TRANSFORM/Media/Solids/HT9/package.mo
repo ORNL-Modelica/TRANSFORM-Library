@@ -3,7 +3,7 @@ package HT9 "HT9: Material properties for HT9 a series 400 type stainless steel"
 
   // Fits are taken from aksteel.com for 400 steel. This is close.
 
-  extends TRANSFORM.Media.Interfaces.PartialSimpleAlloy(
+  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="HT9",
     T_min=Modelica.SIunits.Conversions.from_degC(0),
     T_max=Modelica.SIunits.Conversions.from_degC(1500));
@@ -11,7 +11,7 @@ package HT9 "HT9: Material properties for HT9 a series 400 type stainless steel"
   redeclare function extends specificEnthalpy
     "Specific enthalpy"
   algorithm
-    h := h_reference + specificHeatCapacityCp(state)*(state.T - T_reference);
+    h := h_reference + 460*(state.T - T_reference);
   end specificEnthalpy;
 
   redeclare function extends density

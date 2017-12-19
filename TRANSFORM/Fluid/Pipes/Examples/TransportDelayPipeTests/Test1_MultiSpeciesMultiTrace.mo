@@ -5,7 +5,8 @@ model Test1_MultiSpeciesMultiTrace
 
   //package Medium=Modelica.Media.Air.MoistAir(extraPropertiesNames={"A"});
   //package Medium=Modelica.Media.Water.StandardWater(extraPropertiesNames={"A","B"});
-  package Medium=Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas(extraPropertiesNames={"A","B"});
+  package Medium =
+      Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas (          extraPropertiesNames={"A","B"});
 
   TransportDelayPipe transportDelayPipe(
     redeclare package Medium = Medium,

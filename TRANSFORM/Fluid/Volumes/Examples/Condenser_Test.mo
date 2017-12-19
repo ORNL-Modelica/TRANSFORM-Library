@@ -1,19 +1,33 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model Condenser_Test
+  import TRANSFORM;
 
   extends TRANSFORM.Icons.Example;
 
-  Volumes.Condenser                          cond(
-    diameter=3,
+  TRANSFORM.Fluid.Volumes.Condenser cond(
     use_T_start=false,
-    h_start=467114,
-    p_start=110000)
-    annotation (Placement(transformation(extent={{-16,-27},{24,13}}, rotation=0)));
+    alphaInt_WExt=1000,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.Cylinder_wInternalPipe
+        (
+        orientation="Horizontal",
+        length=5,
+        r_inner=1.5,
+        nTubes=1800,
+        r_tube_inner=0.5*0.016,
+        th_tube=0.002,
+        th_wall=0.001),
+    level_start=0.1,
+    p_start=110000) annotation (Placement(transformation(extent={{-16,-27},{24,
+            13}}, rotation=0)));
   BoundaryConditions.MassFlowSource_h steamSource(
-    use_h_in=true,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
-    use_m_flow_in=true,
-    nPorts=1) annotation (Placement(transformation(extent={{-87,13},{-65,36}},
+    nPorts=1,
+    use_m_flow_in=false,
+    m_flow=3,
+    use_h_in=false,
+    h=2e6)    annotation (Placement(transformation(extent={{-87,13},{-65,36}},
           rotation=0)));
   BoundaryConditions.MassFlowSource_h condensateSink(
     use_h_in=false,
@@ -22,11 +36,6 @@ model Condenser_Test
     use_m_flow_in=true,
     nPorts=1) annotation (Placement(transformation(extent={{-79,-72},{-54,-48}},
           rotation=0)));
-  Modelica.Blocks.Sources.Constant steamEnthalpy(k=2e6) annotation (Placement(
-        transformation(extent={{-119,5},{-102,22}},rotation=0)));
-  Modelica.Blocks.Sources.Constant steamMassFlow(k=3) annotation (Placement(
-        transformation(extent={{-119,30},{-102,47}},
-                                                   rotation=0)));
   BoundaryConditions.MassFlowSource_h coolFlow(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     use_m_flow_in=true,
@@ -61,29 +70,25 @@ model Condenser_Test
   Utilities.ErrorAnalysis.UnitTests unitTests(x={cond.level})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-  connect(steamEnthalpy.y, steamSource.h_in) annotation (Line(points={{-101.15,
-          13.5},{-89.2,13.5},{-89.2,29.1}},    color={0,0,127}));
   connect(massFlowRate.m_flow, neg.u) annotation (Line(
       points={{-46,14.1},{-46,-25},{-49.4,-25}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(steamMassFlow.y, steamSource.m_flow_in) annotation (Line(points={{
-          -101.15,38.5},{-94.575,38.5},{-94.575,33.7},{-87,33.7}}, color={0,0,
-          127}));
   connect(coolingMassFlow.y, coolFlow.m_flow_in) annotation (Line(points={{82.2,
           49},{97,49},{97,28},{86,28}}, color={0,0,127}));
   connect(massFlowRate.port_a, steamSource.ports[1]) annotation (Line(points={{
           -55,24},{-60,24},{-60,24.5},{-65,24.5}}, color={0,127,255}));
   connect(neg.y, condensateSink.m_flow_in) annotation (Line(points={{-67.8,-25},
           {-91,-25},{-91,-50.4},{-79,-50.4}}, color={0,0,127}));
-  connect(massFlowRate.port_b, cond.feed)
+  connect(massFlowRate.port_b, cond.portSteamFeed)
     annotation (Line(points={{-37,24},{-10,24},{-10,7}}, color={0,127,255}));
-  connect(condensateSink.ports[1], cond.drain)
-    annotation (Line(points={{-54,-60},{4,-60},{4,-27}}, color={0,127,255}));
-  connect(coolSink.ports[1], cond.drain_cool) annotation (Line(points={{68,-20},
+  connect(condensateSink.ports[1], cond.portFluidDrain)
+    annotation (Line(points={{-54,-60},{4,-60},{4,-22.6}},
+                                                         color={0,127,255}));
+  connect(coolSink.ports[1], cond.portCoolant_b) annotation (Line(points={{68,-20},
           {57,-20},{57,-19},{39,-19},{39,-11},{26,-11}}, color={0,127,255}));
-  connect(coolFlow.ports[1], cond.feed_cool) annotation (Line(points={{66,20},
-          {52,20},{52,19},{38,19},{38,1},{26,1}}, color={0,127,255}));
+  connect(coolFlow.ports[1], cond.portCoolant_a) annotation (Line(points={{66,
+          20},{52,20},{52,19},{38,19},{38,1},{26,1}}, color={0,127,255}));
   annotation (
     experiment(StopTime=1000, Tolerance=1e-008),
     Diagram(coordinateSystem(

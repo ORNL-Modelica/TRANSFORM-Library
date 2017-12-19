@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.SodiumFastReactor.Data;
-record SFR_PHS
+model SFR_PHS
 
   extends BaseClasses.Record_Data;
 
@@ -10,16 +10,11 @@ record SFR_PHS
     Modelica.Media.Interfaces.PartialMedium
     "Primary system medium: Sodium change/add temp dependent sodium!"
     annotation (choicesAllMatching=true);
-  replaceable package Material_bond = TRANSFORM.Media.Solids.Sodium
-    constrainedby TRANSFORM.Media.Interfaces.PartialAlloy
-    "Fuel-Cladding Bond material: Sodium change/add liquid sodium!" annotation (
-     choicesAllMatching=true);
-  replaceable package Material_duct = TRANSFORM.Media.Solids.SS316
-    constrainedby TRANSFORM.Media.Interfaces.PartialAlloy
-    "Duct material: SS316 or HT9" annotation (choicesAllMatching=true);
-  replaceable package Material_clad = TRANSFORM.Media.Solids.SS316
-    constrainedby TRANSFORM.Media.Interfaces.PartialAlloy
-    "Cladding material: SS316 or HT9" annotation (choicesAllMatching=true);
+
+// PHTS medium: Sodium
+// Fuel-Cladding Bond material: Sodium change/add liquid sodium!
+// Duct material: SS316 or HT9
+// Cladding material: SS316 or HT9
 
   parameter Integer nShield = 126;
   parameter Integer nReflector = 180;
@@ -56,6 +51,7 @@ record SFR_PHS
   parameter SI.Temperature T_start_cold = T_IHX_oultetPHTS;
   parameter SI.MassFlowRate m_flow_start = m_flow_PHTS;
   parameter SI.SpecificEnthalpy h_start_hot = Medium_primary.specificEnthalpy_pT(p_start,T_start_hot);
+  parameter SI.SpecificEnthalpy h_start_IHTS_cold = Medium_primary.specificEnthalpy_pT(p_start,T_IHX_inletIHTS);
 
   parameter Real R_m_flows[4] = {0.5,0.3,0.1,0.1} "Fraction of total flow per assembly type";
   parameter SI.MassFlowRate m_flow_outer = R_m_flows[1]*m_flow_PHTS;
@@ -88,10 +84,18 @@ record SFR_PHS
   final parameter SI.Area crossArea_duct = crossArea_duct_empty - crossArea_pins "Cross sectional flow area of duct";
   final parameter SI.Area crossArea_pinflow = crossArea_duct/nPins_perSub "Cross sectional flow area per pin";
 
+  // Pumps
+  parameter Integer nPumps = 3 "# of pumps in PHTS";
+  parameter Integer nPumpDowncomers = 2 "# of downcomer pipes per pump";
+  parameter SI.Length D_pumpDowncomer = 12*0.0254 "Pump downcomer pipes";
+  parameter SI.Length length_pumpDowncomer = 6 "Downcomer length rough estimate from drawings";
+
   // Vessel
   parameter SI.Length height_primaryVessel = 14.67;
   parameter SI.Length D_inner_primaryVessel = 9.91;
   parameter SI.Length D_inner_guardVessel = 10.42;
+  parameter SI.Length D_outer_guardVessel = 10.93;
+  parameter SI.Temperature T_ambientGround = 293.15 "Ambient ground temperature around primary guard vessel";
   parameter Real frac_emptytopprimaryVessel = 0.5 "Fraction of primary vessel cross sectional area empty above core region";
   final parameter SI.Length th_primaryVessel = 0.5*(D_inner_guardVessel-D_inner_primaryVessel);
   final parameter SI.Length th_guardVessel = th_primaryVessel;
@@ -109,12 +113,18 @@ record SFR_PHS
   final parameter SI.Length level_start_hot_expanstionTank = level_hotNa-height_upperplenum;
   final parameter SI.Area crossArea_bottomprimaryVessel = 0.25*pi*D_inner_primaryVessel^2 - 0.25*pi*5^2;
   final parameter SI.Length height_bottomprimaryVessel = 5;
+  final parameter SI.Length length_Vessel = level_hotNa "Rough estimate of transfer area to primary and guard vessel";
+
+  // Lower Plenum
+  parameter SI.Length D_lower = 4.5 "Approximate diameter of lower entry plenum for fuel";
+  parameter Real Vfrac = 0.75;
+
+  // REDAN
+  parameter SI.Length th_redan = 0.05 "Thickness of REDAN - guess";
 
   // IHX
   //Shell side is primary and tube side is secondary
-  replaceable package Material_IHX_tubewall = TRANSFORM.Media.Solids.SS304
-    constrainedby TRANSFORM.Media.Interfaces.PartialAlloy
-    "Cladding material: SS304H" annotation (choicesAllMatching=true);
+  // material of tubes is SS304H
   parameter Integer nIHXs = 3 "Number of IHXs";
   parameter SI.Length D_tube_outer = 0.0159 "Tube outer diameter";
   parameter SI.Length th_tubewall = 0.889e-3 "Tube wall thickness";
@@ -130,6 +140,77 @@ record SFR_PHS
   parameter SI.Power Qth_nominal_IHXs = Qth_nominal/nIHXs "Nominal design capacity per IHX";
   parameter SI.Length D_downcomerIHX = 0.36 "downcomer diameter";
   parameter SI.Length D_riserIHX = 0.5 "ihx riser diameter";
+
+  // IHTS - Dimensions not specified in paper (unless noted). Assumed to be same as IHX but with increased air side surface area due to fins
+  parameter SI.Length D_pipes_IHTStofromHXs = 12*0.0254 "Pipe diameters to and from HXs in IHTS";
+  parameter SI.Length length_pipes_IHTStofromHXs = 30 "Pipe diameters to and from HXs in IHTS";
+  parameter Integer nAirHXs = 3 "Number of air HXs per bank";
+  parameter SI.Length D_tube_outer_AHX = D_tube_inner_AHX+2*th_tubewall_AHX;
+  parameter SI.Length th_tubewall_AHX = 0.889e-3 "Tube wall thickness";
+  final parameter SI.Length D_tube_inner_AHX =  sqrt(nTubes*D_tube_inner^2/(nTubes_AHX*nAirHXs))/2 "Velocity is 4x IHX pipe velocity";
+  parameter SI.Length pitch_tube_AHX = 0.0572 "Tube pitch - in paper";
+  parameter SI.Length length_tube_AHX = 9.9 "tube length - in paper";
+  parameter Integer nTubes_AHX = 66 "Number of tubes - in paper";
+  // assume 6 rows of tubes 11 rows deep in the vertical direction
+  parameter Integer nPasses_AHX = 4 "Number of tube passes - in paper";
+  parameter SI.Length height_active_shell_AHX = pitch_tube_AHX*11*nPasses_AHX "Shell height";
+  parameter SI.Length D_shell_outer_AHX = sqrt(4/pi*(pitch_tube_AHX*6)*(length_tube_AHX/nPasses_AHX)) "Shell outer diameter 1.41/1.50";
+  parameter SI.Power Qth_nominal_IHXs_AHX = Qth_nominal/nIHXs/nAirHXs "Nominal design capacity per IHX";
+
+  // Air side fins - assume spacing and thickness
+  parameter SI.Length th_fins = 0.001;
+  parameter SI.Length pitch_fins = 0.004;
+  parameter SI.Length D_fins = pitch_tube_AHX*0.5 "Fin diameter";
+  parameter SI.Area surfaceArea_perfin_perTube = 0.25*(D_fins - D_tube_outer_AHX)^2*pi*2  + pi*D_fins*th_fins "two sides of each fin and edge";
+  parameter Real nFins_perTube = floor(length_tube_AHX/pitch_fins) "two sides of each fin";
+  parameter SI.Area surfaceArea_tube_perTube = pi*D_tube_outer_AHX*length_tube_AHX - pi*D_tube_outer_AHX*th_fins*nFins_perTube;
+  parameter SI.Area surfaceArea_fins_perTube = surfaceArea_perfin_perTube*nFins_perTube;
+  parameter SI.Area surfaceArea_finnedTube = (surfaceArea_fins_perTube + surfaceArea_tube_perTube)*nTubes_AHX;
+
+  // DRACS
+// DRACS medium: NaK
+  parameter SI.Power Qth_nominal_DRACS = 750e3 "Nominal capacity per hx";
+  parameter SI.Area surfaceArea_DRACS=12.5;
+  parameter SI.MassFlowRate m_flow_DRACS = 3.921;
+  parameter SI.MassFlowRate m_flow_DRACSsec = 5.47;
+  parameter SI.Temperature T_inlet_DRACS = T_IHX_inletPHTS;
+  parameter SI.Temperature T_outlet_DRACS = T_IHX_oultetPHTS;
+  parameter SI.Temperature T_inlet_DRACSsec = 327+273.15;
+  parameter SI.Temperature T_outlet_DRACSsec = 483+273.15;
+  parameter SI.Length D_tube_outerDRACS = 0.0222;
+  parameter SI.Length th_tubewallDRACS = 0.0009;
+  parameter SI.Length D_tube_innerDRACS = D_tube_outerDRACS-2*th_tubewallDRACS;
+  parameter SI.Length pitch_tubeDRACS = 0.0379;
+  parameter SI.Length length_tubeDRACS = 2.489;
+  parameter SI.Length length_shellDRACS = length_tubeDRACS;
+  parameter Real nTubes_DRACS = 72;
+  parameter SI.Length D_shell_outerDRACS = 0.4;
+  parameter SI.Length th_shellDRACS = 0.009525;
+  parameter SI.Length D_shell_innerDRACS = D_shell_outerDRACS - 2*th_shellDRACS;
+  // material of tubes is SS304H
+
+  // Air side DRACS - assume spacing and thickness
+ parameter SI.Length D_pipes_tofromHXs_DRACS = sqrt(4/pi*m_flow_DRACSsec/2/863) "Pipe diameters to and from HXs in IHTS";
+  parameter SI.Length length_pipes_tofromHXs_DRACS = 30 "Pipe lengths to and from HXs in IHTS";
+  parameter SI.Length D_tube_outer_ADHX = D_tube_outerDRACS;
+  parameter SI.Length th_tubewall_ADHX = th_tubewallDRACS "Tube wall thickness";
+  parameter SI.Length D_tube_inner_ADHX = D_tube_innerDRACS;
+  parameter SI.Length pitch_tube_ADHX = 4*pitch_tubeDRACS "Tube pitch";
+  parameter SI.Length length_tube_ADHX = 10 "tube length";
+  parameter Real nTubes_ADHX = nTubes_DRACS "Number of tubes";
+  // assume 6 rows of tubes 12 rows deep in the horizontal direction
+  parameter Integer nPasses_ADHX = 2 "Number of tube passes - up then down";
+  parameter SI.Length height_active_shell_ADHX = 0.5*length_tube_ADHX "Shell height";
+  parameter SI.Length D_shell_outer_ADHX = sqrt(4/pi*(pitch_tube_ADHX*6)*(length_tube_ADHX/nPasses_ADHX)) "Shell outer diameter 1.41/1.50";
+
+  parameter SI.Length th_fins_ADHX = 0.001;
+  parameter SI.Length pitch_fins_ADHX = 0.004;
+  parameter SI.Length D_fins_ADHX = pitch_tube_ADHX*0.5 "Fin diameter";
+  parameter SI.Area surfaceArea_perfin_perTube_ADHX = 0.25*(D_fins_ADHX - D_tube_outer_ADHX)^2*pi*2  + pi*D_fins_ADHX*th_fins_ADHX "two sides of each fin and edge";
+  parameter Real nFins_perTube_ADHX = floor(length_tube_ADHX/pitch_fins_ADHX) "two sides of each fin";
+  parameter SI.Area surfaceArea_tube_perTube_ADHX = pi*D_tube_outer_ADHX*length_tube_ADHX - pi*D_tube_outer_ADHX*th_fins_ADHX*nFins_perTube_ADHX;
+  parameter SI.Area surfaceArea_fins_perTube_ADHX = surfaceArea_perfin_perTube_ADHX*nFins_perTube_ADHX;
+  parameter SI.Area surfaceArea_finnedTube_ADHX = (surfaceArea_fins_perTube_ADHX + surfaceArea_tube_perTube_ADHX)*nTubes_ADHX;
 
   annotation (
     defaultComponentName="data",

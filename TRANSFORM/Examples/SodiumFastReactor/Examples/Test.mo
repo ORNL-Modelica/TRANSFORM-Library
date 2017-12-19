@@ -2,7 +2,7 @@ within TRANSFORM.Examples.SodiumFastReactor.Examples;
 model Test
   extends TRANSFORM.Icons.Example;
 
-  SFR PHS annotation (Placement(transformation(extent={{-40,-42},{40,38}})));
+  SFR_1 PHS annotation (Placement(transformation(extent={{-40,-42},{40,38}})));
 
   Modelica.Fluid.Sources.Boundary_ph sink(
     redeclare package Medium = Modelica.Media.Water.StandardWater,

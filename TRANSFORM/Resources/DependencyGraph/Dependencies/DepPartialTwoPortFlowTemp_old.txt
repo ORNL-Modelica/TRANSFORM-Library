@@ -1,2 +1,0 @@
-"TRANSFORM.obsolete.PartialTwoPortFlowTemp_old" -> "Modelica.Fluid.Interfaces.PartialTwoPort";
-"TRANSFORM.obsolete.PartialTwoPortFlowTemp_old" -> "Modelica.Fluid.Interfaces.PartialDistributedVolume";

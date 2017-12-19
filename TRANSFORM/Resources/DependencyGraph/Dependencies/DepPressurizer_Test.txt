@@ -1,1 +1,0 @@
-"TRANSFORM.obsolete.Vessels.Examples.Pressurizer_Test" -> "Modelica.Icons.Example";

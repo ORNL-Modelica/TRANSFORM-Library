@@ -1,8 +1,8 @@
 within TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models;
 partial model PartialCharacteristic
 
-  replaceable package Medium = Modelica.Media.Water.StandardWater
-    constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (Dialog(tab="Internal Interface"));
 
   input Medium.ThermodynamicState state "Thermodynamic state"

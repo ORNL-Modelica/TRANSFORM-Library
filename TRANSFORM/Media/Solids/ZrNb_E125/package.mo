@@ -12,7 +12,7 @@ d => pg. 158 eq. 6.20
 cp => pg 158 eq. 6.21
 */
 
-  extends TRANSFORM.Media.Interfaces.PartialSimpleAlloy(
+  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="ZrNb_E125",
     T_min=290,
     T_max=1100);
@@ -20,7 +20,7 @@ cp => pg 158 eq. 6.21
   redeclare function extends specificEnthalpy
     "Specific enthalpy"
   algorithm
-    h := h_reference + specificHeatCapacityCp(state)*(state.T - T_reference);
+    h := h_reference + 221*(state.T - T_reference) + 0.172*(state.T^2 - T_reference^2)/2 - 5.87e-5*(state.T^3 - T_reference^3)/3;
   end specificEnthalpy;
 
   redeclare function extends density

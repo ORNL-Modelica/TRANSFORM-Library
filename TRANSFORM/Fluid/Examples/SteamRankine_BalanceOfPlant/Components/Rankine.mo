@@ -1,38 +1,52 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components;
 model Rankine "Rankine cycle model"
+  import TRANSFORM;
+
   extends
     TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.PartialRankine;
-  Real dearator_level_percentage=100*(dearator.summary.level-dearator.summary.level_min)/(dearator.summary.level_max-dearator.summary.level_min) "Dearator level percentage";
-  Real preheater_LP_level_percentage=100*(FWH_LP.level - FWH_LP.level_min)/(
-      FWH_LP.level_max - FWH_LP.level_min) "Preheater LP level percentage";
-  Real preheater_HP_level_percentage=100*(FWH_HP.level - FWH_HP.level_min)/(
-      FWH_HP.level_max - FWH_HP.level_min) "Preheater HP level percentage";
-  Real condenser_level_percentage=100*(condenser.level-condenser.level_min)/(condenser.level_max-condenser.level_min) "Condenser level percentage";
-  Real MSR_level_percentage=100*(MSR.hex.level-MSR.hex.level_min)/(MSR.hex.level_max-MSR.hex.level_min) "MSR level percentage";
+  Real dearator_level_percentage=dearator.geometry.level_meas_percentage;
+//100*(dearator.summary.level_meas-dearator.summary.level_meas_min)/(dearator.summary.level_max-dearator.summary.level_meas_min) "Dearator level percentage";
+  Real preheater_LP_level_percentage=FWH_LP.geometry.level_meas_percentage;
+//   100*(FWH_LP.level_meas - FWH_LP.level_meas_min)/(
+//       FWH_LP.level_meas_max - FWH_LP.level_meas_min) "Preheater LP level percentage";
+  Real preheater_HP_level_percentage=FWH_HP.geometry.level_meas_percentage;
+//100*(FWH_HP.level_meas - FWH_HP.level_meas_min)/(
+//      FWH_HP.level_meas_max - FWH_HP.level_meas_min) "Preheater HP level percentage";
+  Real condenser_level_percentage=condenser.geometry.level_meas_percentage;
+//100*(condenser.level_meas-condenser.level_meas_min)/(condenser.level_meas_max-condenser.level_meas_min) "Condenser level percentage";
+  Real MSR_level_percentage=MSR.hex.geometry.level_meas_percentage;
+//100*(MSR.hex.level_meas-MSR.hex.level_meas_min)/(MSR.hex.level_meas_max-MSR.hex.level_meas_min) "MSR level percentage";
 
   Modelica.SIunits.Time tau_condenser=((1 - condenser.mediaProps.x_abs)*
-      condenser.m)/max(condenser.feed.m_flow, 1) "Condenser hold up time";
+      condenser.m)/max(condenser.portSteamFeed.m_flow, 1)
+    "Condenser hold up time";
   Modelica.SIunits.Time tau_FWH_LP=((1 - FWH_LP.mediaProps.x_abs)*FWH_LP.m)/max(
-      FWH_LP.feed.m_flow, 1) "FWH_LP hold up time";
+       FWH_LP.portSteamFeed.m_flow, 1) "FWH_LP hold up time";
   Modelica.SIunits.Time tau_FWH_HP=((1 - FWH_HP.mediaProps.x_abs)*FWH_HP.m)/max(
-      FWH_HP.feed.m_flow, 1) "FWH_HP hold up time";
+       FWH_HP.portSteamFeed.m_flow, 1) "FWH_HP hold up time";
   Modelica.SIunits.Time tau_Dearator=((1 - dearator.mediaProps.x_abs)*dearator.m)
       /max(dearator.summary.m_flow_out_condensate, 1) "Dearator hold up time";
   Modelica.SIunits.Time tau_MSR=((1 - MSR.hex.mediaProps.x_abs)*MSR.hex.m)/max(
-      MSR.hex.feed.m_flow, 1) "MSR hold up time";
+      MSR.hex.portSteamFeed.m_flow, 1) "MSR hold up time";
 
   Electrical.PowerConverters.Generator_Basic generator(efficiency=0.98)
     annotation (Placement(transformation(extent={{130,41},{150,61}})));
 
-  Volumes.Condenser condenser(
-    diameter=3,
-    N_tubes=20000,
-    length=20,
+  TRANSFORM.Fluid.Volumes.Condenser condenser(
     p_start=initData.p_start_condenser,
-    V_hotwell=0,
     level_start=0.6,
-    alpha=1e5,
-    redeclare package Medium = Modelica.Media.Water.StandardWater)
+    alphaInt_WExt=1e5,
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.Cylinder_wInternalPipe
+        (
+        orientation="Horizontal",
+        length=20,
+        r_inner=1.5,
+        nTubes=20e3,
+        r_tube_inner=0.5*0.016,
+        th_tube=0.002),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{165,-3},{185,17}})));
 
   Pump CondPump_2(
@@ -56,13 +70,21 @@ model Rankine "Rankine cycle model"
           eta_constant=0.8))
     annotation (Placement(transformation(extent={{164,-54},{150,-40}})));
   Volumes.Deaerator dearator(
-    rint=5,
-    rext=5.2,
     p_start=initData.p_start_dearator,
-    L=15,
-    level_start=0,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.Cylinder
+        (
+        orientation="Horizontal",
+        length=15,
+        r_inner=5,
+        th_wall=0.2),
+    d_wall=8000,
+    cp_wall=500,
+    alpha_external=20,
+    alpha_internal=5000,
+    Twall_start=433.15)
     annotation (Placement(transformation(extent={{53,-53},{30,-36}})));
 
   Pump pump_ip(
@@ -200,8 +222,8 @@ redeclare model Geometry =
     p_feedWaterPump_drain=drain_to_SG1.p,
     p_preheater_LP=FWH_LP.medium.p,
     p_preheater_HP=FWH_HP.medium.p,
-    p_preheater_HP_cooling_in=FWH_HP.feed_cool.p,
-    p_preheater_HP_cooling_out=FWH_HP.drain_cool.p,
+    p_preheater_HP_cooling_in=FWH_HP.portCoolant_a.p,
+    p_preheater_HP_cooling_out=FWH_HP.portCoolant_b.p,
     p_turbine_LP_feed=LPT_1.stage1.p_out,
     level_preheater_LP=FWH_LP.level,
     level_dearator=dearator.level,
@@ -214,11 +236,11 @@ redeclare model Geometry =
     power_pump_lp=CondPump_2.W_total,
     power_pump_ip=pump_ip.W_total,
     power_pump_hp=FWPump_2.W_total,
-    T_condenser_cooling_in=condenser.Tcool_in,
-    T_condenser_cooling_out=condenser.Tcool_out,
-    Q_preheater_LP=FWH_HP.Q_cool,
-    Q_preheater_HP=FWH_LP.Q_cool,
-    Q_condenser=condenser.Q_cool,
+    T_condenser_cooling_in=293.15,
+    T_condenser_cooling_out=293.15,
+    Q_preheater_LP=FWH_HP.heatRes_inner.Q_flows[1],
+    Q_preheater_HP=FWH_LP.heatRes_inner.Q_flows[1],
+    Q_condenser=condenser.heatRes_inner.Q_flows[1],
     p_dearator=dearator.summary.p,
     u_pump_lp=CondPump_2.N_input,
     u_pump_ip=pump_ip.N_input,
@@ -636,24 +658,22 @@ redeclare model Geometry =
   Modelica.Blocks.Sources.RealExpression flow_to_SG_3(y=-
         drain_to_SG3.m_flow)
     annotation (Placement(transformation(extent={{222,-146},{207,-133}})));
-  Modelica.Blocks.Sources.RealExpression flow_to_FWH_HW(y=FWH_HP.feed_cool.m_flow)
+  Modelica.Blocks.Sources.RealExpression flow_to_FWH_HW(y=FWH_HP.portCoolant_a.m_flow)
     annotation (Placement(transformation(extent={{222,-122},{207,-109}})));
   Modelica.Blocks.Sources.RealExpression pressure_steamHeader(y=
         header.medium.p)
     annotation (Placement(transformation(extent={{221,-108},{206,-95}})));
-  Modelica.Blocks.Sources.RealExpression flow_to_condenser(y=
-        condenser.feed.m_flow)
+  Modelica.Blocks.Sources.RealExpression flow_to_condenser(y=condenser.portSteamFeed.m_flow)
     annotation (Placement(transformation(extent={{241,-135},{226,-122}})));
-  Modelica.Blocks.Sources.RealExpression flow_from_condenser(y=
-        condenser.drain.m_flow)
+  Modelica.Blocks.Sources.RealExpression flow_from_condenser(y=condenser.portFluidDrain.m_flow)
     annotation (Placement(transformation(extent={{242,-147},{227,-134}})));
-  Modelica.Blocks.Sources.RealExpression flow_from_FWH_LP(y=FWH_LP.drain.m_flow)
+  Modelica.Blocks.Sources.RealExpression flow_from_FWH_LP(y=FWH_LP.portFluidDrain.m_flow)
     annotation (Placement(transformation(extent={{241,-122},{226,-109}})));
-  Modelica.Blocks.Sources.RealExpression flow_to_FWH_LP(y=FWH_LP.feed.m_flow)
+  Modelica.Blocks.Sources.RealExpression flow_to_FWH_LP(y=FWH_LP.portSteamFeed.m_flow)
     annotation (Placement(transformation(extent={{241,-109},{226,-96}})));
-  Modelica.Blocks.Sources.RealExpression flow_from_FWH_HP(y=FWH_HP.drain.m_flow)
+  Modelica.Blocks.Sources.RealExpression flow_from_FWH_HP(y=FWH_HP.portFluidDrain.m_flow)
     annotation (Placement(transformation(extent={{241,-96},{226,-83}})));
-  Modelica.Blocks.Sources.RealExpression flow_to_FWH_HP(y=FWH_HP.feed_cool.m_flow)
+  Modelica.Blocks.Sources.RealExpression flow_to_FWH_HP(y=FWH_HP.portCoolant_a.m_flow)
     annotation (Placement(transformation(extent={{240,-83},{225,-70}})));
   Modelica.Blocks.Sources.RealExpression dp_condenser_pump(y=CondPump_1.dp)
     annotation (Placement(transformation(extent={{262,-147},{247,-134}})));
@@ -702,9 +722,9 @@ redeclare model Geometry =
   Modelica.Blocks.Sources.RealExpression level_MSR(y=
         MSR_level_percentage)
     annotation (Placement(transformation(extent={{202,-86},{187,-73}})));
-  Modelica.Blocks.Sources.RealExpression flow_from_MSR(y=MSR.hex.drain.m_flow)
+  Modelica.Blocks.Sources.RealExpression flow_from_MSR(y=MSR.hex.portFluidDrain.m_flow)
     annotation (Placement(transformation(extent={{240,-70},{225,-57}})));
-  Modelica.Blocks.Sources.RealExpression flow_to_MSR(y=MSR.hex.feed.m_flow)
+  Modelica.Blocks.Sources.RealExpression flow_to_MSR(y=MSR.hex.portSteamFeed.m_flow)
     annotation (Placement(transformation(extent={{240,-57},{225,-44}})));
   Modelica.Blocks.Sources.RealExpression dp_MSRLevelControlValve(y=
         valve_msr_preheater_hp.dp)
@@ -842,31 +862,43 @@ redeclare model Geometry =
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={95,17})));
-  Volumes.Condenser FWH_HP(
-    diameter=4,
-    length=6,
-    N_tubes=1800,
+  TRANSFORM.Fluid.Volumes.Condenser FWH_HP(
     p_start=initData.p_start_preheater_HP,
-    Twall_start=Medium.saturationTemperature(FWH_HP.p_start),
-    V_hotwell=0,
+    T_start_wall=Medium.saturationTemperature(FWH_HP.p_start),
     level_start=1.2,
-    redeclare package CoolMedium = Medium,
-    alpha=300000,
+    redeclare package Medium_coolant = Medium,
+    alphaInt_WExt=300000,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
-    energyDynamicsWall=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamicsWall=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.Cylinder_wInternalPipe
+        (
+        orientation="Horizontal",
+        length=6,
+        r_inner=2,
+        nTubes=1800,
+        r_tube_inner=0.5*0.016,
+        th_tube=0.002),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-63,-44},{-43,-24}})));
 
-  Volumes.Condenser FWH_LP(
-    diameter=4,
-    length=6,
-    N_tubes=1800,
+  TRANSFORM.Fluid.Volumes.Condenser FWH_LP(
     p_start=initData.p_start_preheater_LP,
-    V_hotwell=0,
     level_start=1.2,
-    redeclare package CoolMedium = Medium,
-    alpha=200000,
+    redeclare package Medium_coolant = Medium,
+    alphaInt_WExt=200000,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
-    energyDynamicsWall=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamicsWall=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.Cylinder_wInternalPipe
+        (
+        orientation="Horizontal",
+        length=6,
+        r_inner=2,
+        nTubes=1800,
+        r_tube_inner=0.5*0.016,
+        th_tube=0.002),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{94,-52},{114,-32}})));
 
   BoundaryConditions.Boundary_pT cooling_sink(
@@ -879,24 +911,6 @@ redeclare model Geometry =
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     nPorts=1,
     T=293.15) annotation (Placement(transformation(extent={{233,13},{213,33}})));
-  HeatAndMassTransfer.Volumes.UnitVolume unitVolume1(
-    cp=500,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    V=(dearator.L*(dearator.rext^2 - dearator.rint^2) + dearator.rext^2*(
-        dearator.rext - dearator.rint))*Modelica.Constants.pi,
-    d=8000,
-    T_start=dearator.Medium.saturationTemperature(dearator.p_start))
-    annotation (Placement(transformation(extent={{-5,-50},{1,-44}})));
-  HeatAndMassTransfer.Resistances.Heat.Convection convection1(
-      alpha=5000, surfaceArea=2*Modelica.Constants.pi*dearator.rint*dearator.L +
-        2*Modelica.Constants.pi*dearator.rint^2)
-    annotation (Placement(transformation(extent={{3,-55},{13,-45}})));
-  HeatAndMassTransfer.Resistances.Heat.Convection convection(surfaceArea=2*
-        Modelica.Constants.pi*dearator.rext^2 + 2*Modelica.Constants.pi*
-        dearator.rext*dearator.L, alpha=20)
-    annotation (Placement(transformation(extent={{-17,-57},{-7,-43}})));
-  HeatAndMassTransfer.BoundaryConditions.Heat.Temperature boundary(T=293.15)
-    annotation (Placement(transformation(extent={{-28,-49},{-19,-40}})));
 equation
 
   connect(pump_ip.N_input, controlBus.u_pumpspeed_IP) annotation (Line(
@@ -1364,16 +1378,15 @@ equation
   connect(valve_FWH_HP_control.port_a, heightDiff3.port_b) annotation (Line(
         points={{-8,-34},{-30,-34},{-30,-75},{-53,-75},{-53,-67.2}}, color={0,127,
           255}));
-  connect(vol_preheater_HP.port_a[1], FWH_HP.drain_cool) annotation (Line(
+  connect(vol_preheater_HP.port_a[1], FWH_HP.portCoolant_b) annotation (Line(
       points={{-67.4,-80},{-56,-80},{-56,-78},{-42,-78},{-42,-36}},
       color={0,127,255},
       thickness=0.5));
-  connect(loss_preheater_HP.port_b, FWH_HP.feed_cool) annotation (Line(points={{-33,-58},
-          {-34,-58},{-34,-30},{-42,-30}},                              color={0,
-          127,255}));
-  connect(cooling_source.ports[1], condenser.feed_cool) annotation (Line(points={{213,23},
-          {206,23},{206,11},{186,11}},                color={0,127,255}));
-  connect(condenser.drain_cool, cooling_sink.ports[1]) annotation (Line(
+  connect(loss_preheater_HP.port_b, FWH_HP.portCoolant_a) annotation (Line(
+        points={{-33,-58},{-34,-58},{-34,-30},{-42,-30}}, color={0,127,255}));
+  connect(cooling_source.ports[1], condenser.portCoolant_a) annotation (Line(
+        points={{213,23},{206,23},{206,11},{186,11}}, color={0,127,255}));
+  connect(condenser.portCoolant_b, cooling_sink.ports[1]) annotation (Line(
       points={{186,5},{186,-5},{196,-5},{211,-5}},
       color={0,127,255},
       thickness=0.5));
@@ -1385,39 +1398,39 @@ equation
       points={{-2,66.1},{-2,35},{-43.6,35},{-43.6,42.2}},
       color={0,127,255},
       thickness=0.5));
-  connect(valve_preheater_hp.port_b, FWH_HP.feed) annotation (Line(points={{-52,8},
-          {-53,8},{-53,-18},{-60,-18},{-60,-27}},             color={0,127,255}));
-  connect(valve_msr_preheater_hp.port_b, FWH_HP.feed) annotation (Line(points={{-17,9},
-          {-18,9},{-18,-12},{-18,-20},{-60,-20},{-60,-27}},
-        color={0,127,255}));
-  connect(FWH_HP.drain, heightDiff3.port_a) annotation (Line(
-      points={{-53,-44},{-53,-53},{-53,-58.8}},
+  connect(valve_preheater_hp.port_b, FWH_HP.portSteamFeed) annotation (Line(
+        points={{-52,8},{-53,8},{-53,-18},{-60,-18},{-60,-27}}, color={0,127,255}));
+  connect(valve_msr_preheater_hp.port_b, FWH_HP.portSteamFeed) annotation (Line(
+        points={{-17,9},{-18,9},{-18,-12},{-18,-20},{-60,-20},{-60,-27}}, color=
+         {0,127,255}));
+  connect(FWH_HP.portFluidDrain, heightDiff3.port_a) annotation (Line(
+      points={{-53,-41.8},{-53,-41.8},{-53,-58.8}},
       color={0,127,255},
       thickness=0.5));
-  connect(heightDiff1.port_a, FWH_LP.drain) annotation (Line(
-      points={{104,-64.8},{104,-57.9},{104,-52}},
+  connect(heightDiff1.port_a, FWH_LP.portFluidDrain) annotation (Line(
+      points={{104,-64.8},{104,-49.8},{104,-49.8}},
       color={0,127,255},
       thickness=0.5));
-  connect(valve_reheater_lp.port_b, FWH_LP.feed) annotation (Line(points={{95,10},
-          {95,10},{95,-35},{97,-35}},              color={0,127,255}));
-  connect(valve_reheater_lp1.port_b, FWH_LP.feed) annotation (Line(points={{110,10},
-          {110,-18},{95,-18},{95,-35},{97,-35}},              color={0,127,255}));
-  connect(heightDiff.port_a, condenser.drain) annotation (Line(
-      points={{174,-12.8},{174,-7.9},{175,-7.9},{175,-3}},
+  connect(valve_reheater_lp.port_b, FWH_LP.portSteamFeed) annotation (Line(
+        points={{95,10},{95,10},{95,-35},{97,-35}}, color={0,127,255}));
+  connect(valve_reheater_lp1.port_b, FWH_LP.portSteamFeed) annotation (Line(
+        points={{110,10},{110,-18},{95,-18},{95,-35},{97,-35}}, color={0,127,255}));
+  connect(heightDiff.port_a, condenser.portFluidDrain) annotation (Line(
+      points={{174,-12.8},{174,-7.9},{175,-7.9},{175,-0.8}},
       color={0,127,255},
       thickness=0.5));
-  connect(LPT_2.drain, condenser.feed) annotation (Line(
+  connect(LPT_2.drain, condenser.portSteamFeed) annotation (Line(
       points={{109.6,42.12},{109.6,14},{168,14}},
       color={0,127,255},
       thickness=0.5));
-  connect(LPT_1.drain, condenser.feed) annotation (Line(
+  connect(LPT_1.drain, condenser.portSteamFeed) annotation (Line(
       points={{37.5,41.25},{37.5,28},{148,28},{148,14},{168,14}},
       color={0,127,255},
       thickness=0.5));
-  connect(TBypassValve_2.port_b, condenser.feed) annotation (Line(points={{-52,90},
-          {168,90},{168,14}},           color={0,127,255}));
-  connect(TBypassValve_1.port_b, condenser.feed) annotation (Line(points={{-52,105},
-          {159,105},{159,14},{168,14}},            color={0,127,255}));
+  connect(TBypassValve_2.port_b, condenser.portSteamFeed)
+    annotation (Line(points={{-52,90},{168,90},{168,14}}, color={0,127,255}));
+  connect(TBypassValve_1.port_b, condenser.portSteamFeed) annotation (Line(
+        points={{-52,105},{159,105},{159,14},{168,14}}, color={0,127,255}));
   connect(ValvMSR.port_b, MSR.hotFeed) annotation (Line(points={{-53,76.5},{-35,
           76.5},{-35,76},{-16.7,76}}, color={0,127,255}));
   connect(MSR.hotDrain, valve_msr_preheater_hp.port_a) annotation (Line(
@@ -1432,29 +1445,13 @@ equation
       points={{9.7,66.1},{9.7,-12},{33.45,-12},{33.45,-38.55}},
       color={0,127,255},
       thickness=0.5));
-  connect(dearator.feed, FWH_LP.drain_cool) annotation (Line(
+  connect(dearator.feed, FWH_LP.portCoolant_b) annotation (Line(
       points={{49.55,-38.55},{49.55,-36},{87,-36},{87,-54},{117,-54},{117,-44},{
           115,-44}},
       color={0,127,255},
       thickness=0.5));
   connect(valve_FWH_HP_control.port_b, dearator.feed) annotation (Line(points={{6,-34},
           {28,-34},{49.55,-34},{49.55,-38.55}},        color={0,127,255}));
-  connect(boundary.port, convection.port_a) annotation (Line(
-      points={{-19,-44.5},{-19,-44.5},{-19,-50},{-15.5,-50}},
-      color={191,0,0},
-      thickness=0.5));
-  connect(convection.port_b, unitVolume1.port) annotation (Line(
-      points={{-8.5,-50},{-2,-50}},
-      color={191,0,0},
-      thickness=0.5));
-  connect(convection1.port_a, unitVolume1.port) annotation (Line(
-      points={{4.5,-50},{1.25,-50},{-2,-50}},
-      color={191,0,0},
-      thickness=0.5));
-  connect(dearator.heatPort, convection1.port_b) annotation (Line(
-      points={{30,-44.5},{18.5,-44.5},{18.5,-50},{11.5,-50}},
-      color={191,0,0},
-      thickness=0.5));
   connect(heightDiff2.port_a, dearator.drain) annotation (Line(
       points={{43,-70.8},{42,-70.8},{42,-51.3},{41.5,-51.3}},
       color={0,127,255},
@@ -1497,15 +1494,15 @@ equation
       points={{165,-63},{174,-63},{174,-21.2}},
       color={0,127,255},
       thickness=0.5));
-  connect(FWH_LP.feed_cool, CondPump_1.port_b) annotation (Line(
+  connect(FWH_LP.portCoolant_a, CondPump_1.port_b) annotation (Line(
       points={{115,-38},{124,-38},{124,-37},{150,-37},{149,-31}},
       color={0,127,255},
       thickness=0.5));
-  connect(CondPump_2.port_b, FWH_LP.feed_cool) annotation (Line(
+  connect(CondPump_2.port_b, FWH_LP.portCoolant_a) annotation (Line(
       points={{150,-47},{131,-47},{131,-38},{115,-38}},
       color={0,127,255},
       thickness=0.5));
-  connect(CondPump_3.port_b, FWH_LP.feed_cool) annotation (Line(
+  connect(CondPump_3.port_b, FWH_LP.portCoolant_a) annotation (Line(
       points={{151,-63},{125,-63},{125,-38},{115,-38}},
       color={0,127,255},
       thickness=0.5));

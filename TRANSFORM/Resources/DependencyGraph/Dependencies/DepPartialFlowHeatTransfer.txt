@@ -1,1 +1,0 @@
-"TRANSFORM.obsolete.PartialFlowHeatTransfer" -> "Modelica.Fluid.Interfaces.PartialHeatTransfer";

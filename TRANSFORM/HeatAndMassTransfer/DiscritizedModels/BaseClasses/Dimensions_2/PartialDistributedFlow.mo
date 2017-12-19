@@ -2,7 +2,8 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2;
 partial model PartialDistributedFlow
   "Base class for distributed 2-D flow models"
 
-  replaceable package Material = TRANSFORM.Media.Interfaces.PartialAlloy
+  replaceable package Material =
+      TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
 
   parameter Integer nVs[2](min=1) = {1,1} "Number of discrete volumes"

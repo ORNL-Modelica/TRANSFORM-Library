@@ -3,6 +3,4 @@ package Mass_kg "Conversions for mass. SI unit is [kg]"
 
 
 
-
-
 end Mass_kg;

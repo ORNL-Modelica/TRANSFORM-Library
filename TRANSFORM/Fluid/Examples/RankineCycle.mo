@@ -58,7 +58,8 @@ model RankineCycle
     controlType="pressure",
     exposeState_a=false,
     exposeState_b=true,
-    dp_nominal=dp_pump)
+    dp_nominal=dp_pump,
+    redeclare package Medium = Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{10,-84},{-10,-64}})));
   Electrical.PowerConverters.Generator generator
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
@@ -92,7 +93,8 @@ equation
   connect(steamTurbine.shaft_b, powerSensor.flange_a)
     annotation (Line(points={{20,40},{20,40},{24,40}}, color={0,0,0}));
   connect(steamTurbine.portLP, condenser.port_a)
-    annotation (Line(points={{17,30},{17,-8},{53,-8}}, color={0,127,255}));
+    annotation (Line(points={{17,30},{17,-11},{53,-11}},
+                                                       color={0,127,255}));
   connect(Thot_setPoint.port, boiler.heatPort)
     annotation (Line(points={{-60,-8},{-60,-2}}, color={191,0,0}));
   connect(powerSensor.flange_b, generator.shaft)
@@ -108,7 +110,7 @@ equation
   connect(pump.port_b, massFlowRate.port_a) annotation (Line(points={{-10,-74},{
           -40,-74},{-40,-60}}, color={0,127,255}));
   connect(pump.port_a, condenser.port_b)
-    annotation (Line(points={{10,-74},{60,-74},{60,-28}}, color={0,127,255}));
+    annotation (Line(points={{10,-74},{60,-74},{60,-26}}, color={0,127,255}));
   connect(specificEnthalpy_in.port, massFlowRate.port_a) annotation (Line(
         points={{-80,-67},{-80,-74},{-40,-74},{-40,-60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

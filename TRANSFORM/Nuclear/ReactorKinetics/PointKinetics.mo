@@ -157,7 +157,7 @@ equation
   end if;
   //Q_total = Q_fission + sum(lambdaH_j*H_j); place holder eq 9-18 pg. 468 trace manual
 
- annotation (defaultComponentName="reactorKinetics",
+ annotation (defaultComponentName="kinetics",
     Dialog(tab="Kinetics", group="prompt neutron generation time"),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,

@@ -7,10 +7,6 @@ package ClassicalMethod "Finite Difference Conduction models and Boundary Condit
 
 
 
-
-
-
-
 annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
           {100,100}})));
 end ClassicalMethod;

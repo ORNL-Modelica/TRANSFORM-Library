@@ -4,7 +4,7 @@ partial model PartialDistributedVolume
   import Modelica.Fluid.Types.Dynamics;
 
   replaceable package Material =
-    TRANSFORM.Media.Interfaces.PartialAlloy
+    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true);
   parameter Integer nVs[3](min=1) = {1,1,1} "Number of discrete volumes";
 

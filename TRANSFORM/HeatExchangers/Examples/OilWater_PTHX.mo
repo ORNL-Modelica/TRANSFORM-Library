@@ -19,14 +19,16 @@ model OilWater_PTHX
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T shell_inlet(
     m_flow=0.1,
     T(displayUnit="degC") = 373.15,
-    redeclare package Medium = Media.Fluids.Incompressible.EngineOilUnused,
+    redeclare package Medium =
+        Media.Fluids.Incompressible.EngineOilUnused,
     nPorts=1)
     annotation (Placement(transformation(extent={{51,14},{39,26}})));
 
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT shell_outlet(
     p(displayUnit="bar") = 100000,
     T(displayUnit="degC") = 333.15,
-    redeclare package Medium = Media.Fluids.Incompressible.EngineOilUnused,
+    redeclare package Medium =
+        Media.Fluids.Incompressible.EngineOilUnused,
     nPorts=1)
     annotation (Placement(transformation(extent={{-51,15},{-41,25}})));
 

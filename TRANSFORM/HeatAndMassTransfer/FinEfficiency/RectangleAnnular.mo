@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.FinEfficiency;
-model RectangleAnnular "Requires GSL library"
+model RectangleAnnular
   import GSLfsf = GNU_ScientificLibrary.Functions.specfunc;
 
   extends

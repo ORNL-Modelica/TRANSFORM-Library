@@ -10,15 +10,13 @@ import re
 import errno
 import sys
 
-folderPath = r'C:\Users\vmg\Desktop'
-folderName = r'bah'
 folderPath = r'C:\Users\vmg\Documents\Modelica\TRANSFORM-Library'
 folderName = r'TRANSFORM'
 
 #useVarNames=true to use variables names (i.e., x={varnames})
 #rather than x index (i.e. unitTests.x[1]) for regression plotting
 simEnv = 'Dymola'
-useVarNames = False 
+useVarNames = False  #not yet finished: allows regression/plot variables to be name of variable rather than uniTest.x[]
 promptWriteOver = False #=true to prompt user to overwrite .mos files else default writeover
                       
 

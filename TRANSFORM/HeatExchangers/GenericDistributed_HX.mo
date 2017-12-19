@@ -33,14 +33,16 @@ model GenericDistributed_HX
   Geometry geometry
     annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
 
-  replaceable package Medium_shell = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium_shell =
+      Modelica.Media.Interfaces.PartialMedium
     "Shell side medium" annotation (choicesAllMatching=true);
 
   replaceable package Medium_tube = Modelica.Media.Interfaces.PartialMedium
     "Tube side medium" annotation (choicesAllMatching=true);
 
   replaceable package Material_tubeWall =
-      TRANSFORM.Media.Interfaces.PartialAlloy "Tube wall material" annotation (
+      TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+                                              "Tube wall material" annotation (
       choicesAllMatching=true);
 
   parameter Boolean counterCurrent=true
@@ -81,7 +83,7 @@ model GenericDistributed_HX
         group="Start Value: Absolute Pressure"));
   parameter SI.AbsolutePressure p_a_start_shell=Medium_shell.p_default
     "Pressure at port a" annotation (Dialog(tab="Shell Initialization", group="Start Value: Absolute Pressure"));
-  parameter SI.AbsolutePressure p_b_start_shell=p_a_start_shell
+  parameter SI.AbsolutePressure p_b_start_shell= p_a_start_shell + (if m_flow_a_start_shell > 0 then -1e3 elseif m_flow_a_start_shell < 0 then -1e3 else 0)
     "Pressure at port b" annotation (Dialog(tab="Shell Initialization", group="Start Value: Absolute Pressure"));
 
   parameter Boolean use_Ts_start_shell=true
@@ -183,7 +185,7 @@ model GenericDistributed_HX
         group="Start Value: Absolute Pressure"));
   parameter SI.AbsolutePressure p_a_start_tube=Medium_tube.p_default
     "Pressure at port a" annotation (Dialog(tab="Tube Initialization", group="Start Value: Absolute Pressure"));
-  parameter SI.AbsolutePressure p_b_start_tube=p_a_start_tube
+  parameter SI.AbsolutePressure p_b_start_tube= p_a_start_tube + (if m_flow_a_start_tube > 0 then -1e3 elseif m_flow_a_start_tube < 0 then -1e3 else 0)
     "Pressure at port b" annotation (Dialog(tab="Tube Initialization", group="Start Value: Absolute Pressure"));
 
   parameter Boolean use_Ts_start_tube=true

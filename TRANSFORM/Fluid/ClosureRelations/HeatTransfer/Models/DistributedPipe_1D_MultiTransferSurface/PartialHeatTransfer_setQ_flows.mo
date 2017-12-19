@@ -7,7 +7,7 @@ equation
 
   for i in 1:nHT loop
     for j in 1:nSurfaces loop
-    Q_flows[i,j]=alphas[i,j]*surfaceAreas[i,j]*(Ts_wall[i,j] - Ts_fluid[i]);
+    Q_flows[i,j]=CF[i,j]*alphas[i,j]*surfaceAreas[i,j]*(Ts_wall[i,j] - Ts_fluid[i]);
     end for;
   end for;
 

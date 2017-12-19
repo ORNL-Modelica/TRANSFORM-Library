@@ -4,21 +4,16 @@ partial model PartialTwoVolume_wlevel "Base class for volume models"
   import Modelica.Fluid.Types.Dynamics;
   import Modelica.Media.Interfaces.Choices.IndependentVariables;
 
-  replaceable package Medium = Modelica.Media.Water.StandardWater
-    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium properties"
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium properties"
     annotation (choicesAllMatching=true);
 
-  // Inputs provided to the volume model
-  SI.Volume V_liquid(min=0) "Volume" annotation (Dialog(group="Input Variables"));
-  SI.Volume V_vapor(min=0) "Volume" annotation (Dialog(group="Input Variables"));
-
   // Initialization
-  parameter Dynamics energyDynamics=Dynamics.FixedInitial
+  parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
   parameter Dynamics massDynamics=energyDynamics "Formulation of mass balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-  final parameter Dynamics substanceDynamics=massDynamics
+  parameter Dynamics substanceDynamics=massDynamics
     "Formulation of substance balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
   parameter Dynamics traceDynamics=massDynamics
@@ -78,33 +73,76 @@ partial model PartialTwoVolume_wlevel "Base class for volume models"
       group="Start Value: Trace Substances Mass Fraction",
       enable=Medium.nC > 0));
 
+//   Medium.BaseProperties medium_liquid(
+//     each preferredMediumStates=true,
+//     p(start=p_liquid_start),
+//     h(start=h_liquid_start),
+//     T(start=Medium.temperature_phX(
+//           p_liquid_start,
+//           h_liquid_start,
+//           X_liquid_start[1:Medium.nXi])),
+//     Xi(start=X_liquid_start[1:Medium.nXi]));
+//
+//   Medium.BaseProperties medium_vapor(
+//     each preferredMediumStates=true,
+//     p(start=p_vapor_start),
+//     h(start=h_vapor_start),
+//     T(start=Medium.temperature_phX(
+//           p_vapor_start,
+//           h_vapor_start,
+//           X_vapor_start[1:Medium.nXi])),
+//     Xi(start=X_vapor_start[1:Medium.nXi]));
+
   Medium.BaseProperties medium_liquid(
     each preferredMediumStates=true,
     p(start=p_liquid_start),
-    h(start=h_liquid_start),
-    T(start=Medium.temperature_phX(
+    h(start=if not use_T_start then h_liquid_start else Medium.specificEnthalpy_pTX(
+          p_liquid_start,
+          T_liquid_start,
+          X_liquid_start[1:Medium.nXi])),
+    T(start=if use_T_start then T_liquid_start else Medium.temperature_phX(
           p_liquid_start,
           h_liquid_start,
           X_liquid_start[1:Medium.nXi])),
     Xi(start=X_liquid_start[1:Medium.nXi]),
-     phase(start = if (h_liquid_start < Medium.bubbleEnthalpy(Medium.setSat_p(p_liquid_start)) or h_liquid_start > Medium.dewEnthalpy(Medium.setSat_p(p_liquid_start)) or p_liquid_start >
-              Medium.fluidConstants[1].criticalPressure) then 1 else 2));
+    X(start=X_liquid_start),
+    d(start=if use_T_start then Medium.density_pTX(
+          p_liquid_start,
+          T_liquid_start,
+          X_liquid_start[1:Medium.nXi]) else Medium.density_phX(
+          p_liquid_start,
+          h_liquid_start,
+          X_liquid_start[1:Medium.nXi])));
 
   Medium.BaseProperties medium_vapor(
     each preferredMediumStates=true,
     p(start=p_vapor_start),
-    h(start=h_vapor_start),
-    T(start=Medium.temperature_phX(
+    h(start=if not use_T_start then h_vapor_start else Medium.specificEnthalpy_pTX(
+          p_vapor_start,
+          T_vapor_start,
+          X_vapor_start[1:Medium.nXi])),
+    T(start=if use_T_start then T_vapor_start else Medium.temperature_phX(
           p_vapor_start,
           h_vapor_start,
           X_vapor_start[1:Medium.nXi])),
     Xi(start=X_vapor_start[1:Medium.nXi]),
-     phase(start = if (h_vapor_start < Medium.bubbleEnthalpy(Medium.setSat_p(p_vapor_start)) or h_vapor_start > Medium.dewEnthalpy(Medium.setSat_p(p_vapor_start)) or p_vapor_start >
-              Medium.fluidConstants[1].criticalPressure) then 1 else 2));
+    X(start=X_vapor_start),
+    d(start=if use_T_start then Medium.density_pTX(
+          p_vapor_start,
+          T_vapor_start,
+          X_vapor_start[1:Medium.nXi]) else Medium.density_phX(
+          p_vapor_start,
+          h_vapor_start,
+          X_vapor_start[1:Medium.nXi])));
+
+  // Inputs provided to the volume model
+  input SI.Height level(start=level_start) = 0 "Liquid level" annotation(Dialog(group="Input Variables"));
+  input SI.Volume V_vapor(min=0) "Vapor volume" annotation(Dialog(group="Input Variables"));
+
+  // V_liquid or level is input but not both
+  SI.Volume V_liquid(min=0) "Liquid volume";
 
   // Total quantities
-  SI.Height level(start=level_start) = 0;
-
   SI.Mass m_liquid "Mass";
   SI.InternalEnergy U_liquid "Internal energy";
   SI.Mass mXi_liquid[Medium.nXi] "Species mass";

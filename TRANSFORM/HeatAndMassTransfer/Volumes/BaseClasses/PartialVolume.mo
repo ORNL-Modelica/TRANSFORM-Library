@@ -4,7 +4,8 @@ partial model PartialVolume
   import Modelica.Fluid.Types.Dynamics;
 
   replaceable package Material = TRANSFORM.Media.Solids.SS304 constrainedby
-    TRANSFORM.Media.Interfaces.PartialAlloy "Material properties" annotation (
+    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+                                            "Material properties" annotation (
       choicesAllMatching=true);
 
   input SI.Volume V "Volume" annotation (Dialog(group="Input Variables"));

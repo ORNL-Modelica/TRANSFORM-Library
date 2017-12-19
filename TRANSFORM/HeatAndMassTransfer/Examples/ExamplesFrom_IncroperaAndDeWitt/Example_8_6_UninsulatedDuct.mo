@@ -54,11 +54,12 @@ model Example_8_6_UninsulatedDuct "Example 8.6 Uninsulated Duct pp. 516-518"
     crossAreas=fill(Ac.y, innerSide.n),
     dlengths=pipe.geometry.dlengths_2[1, :],
     surfaceAreas=pipe.geometry.crossAreas_1[1, :],
-    redeclare package Medium = ThermoPower.Media.Air,
     roughnesses=fill(0, innerSide.n),
     redeclare model HeatTransferCoeff =
         TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Nus_SinglePhase_2Region,
-    m_flows=fill(m_flows.y, innerSide.n)) annotation (Placement(transformation(
+    m_flows=fill(m_flows.y, innerSide.n),
+    redeclare package Medium = Modelica.Media.Air.DryAirNasa)
+                                          annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-24})));

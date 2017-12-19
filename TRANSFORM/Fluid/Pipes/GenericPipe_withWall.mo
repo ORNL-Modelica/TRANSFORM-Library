@@ -25,7 +25,7 @@ model GenericPipe_withWall
 
   replaceable package Material =
       TRANSFORM.Media.Solids.SS316                     constrainedby
-    TRANSFORM.Media.Interfaces.PartialAlloy
+    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
 
   parameter Boolean counterCurrent=false "Swap wall vector order";

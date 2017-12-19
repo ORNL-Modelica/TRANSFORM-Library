@@ -5,47 +5,42 @@ model Cylinder
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.GenericVolume(
       V_liquid(start=pi*r_inner^2*length/2),
       V_vapor(start=pi*r_inner^2*length/2),
-      level(min=level_min,max=level_max));
+      level_0 = if orientation == "Vertical" then length/2 else r_inner,
+      level_meas_min = -level_0,
+      level_meas_max = level_0);
 
-  parameter SI.Length r_inner=0 "Internal radius"
-    annotation (Dialog(group="Geometry"));
-   parameter SI.Length r_outer=0 "External radius"
-     annotation (Dialog(group="Geometry"));
-  parameter SI.Length length=0 "Length" annotation (Dialog(group="Geometry"));
-  parameter Integer DrumOrientation=0 "0: Horizontal; 1: Vertical"
-    annotation (Dialog(group="Geometry"));
-   final parameter SI.Length level_max=if DrumOrientation == 0 then r_inner
-        else length/2 "Maximum possible level (relative to the centerline)";
-   final parameter SI.Length level_min=if DrumOrientation == 0 then -r_inner
-        else -length/2 "Minimum possible level (relative to the centerline)";
+  parameter String orientation="Vertical" "Orientation of volume" annotation(choices(choice="Vertical",choice="Horizontal"));
+
+  parameter SI.Length length=0 "Length";
+  parameter SI.Length r_inner=1 "Internal radius";
+  parameter SI.Length th_wall=0 "Wall thickness";
+
+  final parameter SI.Length r_outer = r_inner + th_wall "Outer radius of cylinder";
+
 equation
 
-   assert(DrumOrientation == 0 and level > -r_inner or DrumOrientation == 1 and
-     level > -length/2, "Empty boiler drum: liquid level is too low.");
-   assert(V_vapor > 0, "Full boiler drum:liquid level is too high");
+   assert(level_meas > level_meas_min, "Empty cylinder: liquid measured level is too low.");
+   assert(V_vapor > 0, "Full cylinder: liquid measured level is too high");
 
-  if DrumOrientation == 0 then
-    V_liquid =length*(r_inner^2*acos(-level/r_inner) + level*sqrt(r_inner^2 -
-      level^2))
-      "Liquid volume";
-    surfaceArea_WL = 2*V_liquid/length + 2*r_inner*acos(-level/r_inner)*length
-      "Metal-liquid interface area";
-    surfaceArea_VL = 2*sqrt(r_inner^2 - level^2)*length
-      "Liquid-vapor interface area";
+  V = pi*r_inner^2*length;
+  surfaceArea = 2*pi*r_inner*length + 2*pi*r_inner^2;
+
+  if orientation == "Vertical" then
+    V_liquid =pi*r_inner^2*level;
+    surfaceArea_WL = 2*pi*r_inner*level + pi*r_inner^2;
+    surfaceArea_VL = pi*r_inner^2;
+  elseif orientation == "Horizontal" then
+    V_liquid = length*(r_inner^2*acos((r_inner-level)/r_inner) - (r_inner-level)*sqrt(level*(2*r_inner-level)));
+    surfaceArea_WL = 2*V_liquid/length + noEvent(if level<=r_inner then 2*r_inner*acos((r_inner-level)/r_inner) else 2*r_inner*(pi - acos((level-r_inner)/r_inner)))*length;
+    surfaceArea_VL = 2*sqrt(r_inner^2-abs(r_inner-level)^2)*length;
   else
-    V_liquid =pi*r_inner^2*(level + length/2)
-                                       "Liquid volume";
-    surfaceArea_WL = pi*r_inner^2 + 2*pi*r_inner*(level + length/2)
-      "Metal-liquid interface area";
-    surfaceArea_VL = pi*r_inner^2 "Liquid-vapor interface area";
+    assert(false,"Unknown cylinder orientation");
   end if;
-  V_vapor =pi*r_inner^2*length - V_liquid
-                                   "vapor volume";
-  surfaceArea_WV = 2*pi*r_inner*length + 2*pi*r_inner^2 - surfaceArea_WL
-    "Metal-vapor interface area";
 
-  surfaceArea_Wall_total = 4*pi*r_inner^2 + 2*pi*r_inner*length;
-  surfaceArea_WE = 2*pi*r_outer^2 + 2*pi*r_outer*length "External metal surface area"; // not sure if this is right: 4 pi
+  V_vapor = V - V_liquid;
+  V_wall = pi*(r_outer^2-r_inner^2)*length + 2*pi*r_outer^2*th_wall;
+  surfaceArea_WV = surfaceArea - surfaceArea_WL;
+  surfaceArea_outer = 2*pi*r_outer*length + 2*pi*r_outer^2;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

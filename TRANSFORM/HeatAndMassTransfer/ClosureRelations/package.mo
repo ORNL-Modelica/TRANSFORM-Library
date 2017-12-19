@@ -4,5 +4,4 @@ package ClosureRelations
 
 
 
-
 end ClosureRelations;

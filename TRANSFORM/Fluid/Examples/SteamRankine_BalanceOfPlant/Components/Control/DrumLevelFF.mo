@@ -28,7 +28,7 @@ equation
   connect(FF_firstOrder.y, scaling_FF.u)
     annotation (Line(points={{-19.4,56},{-6,56},{-6,44}}, color={0,0,127}));
   connect(scaling_FF.y, controller.u_ff) annotation (Line(points={{-6,21},{-6,
-          21},{-6,12},{-5,12}}, color={0,0,127}));
+          21},{-6,8},{-12,8}},  color={0,0,127}));
   connect(valveLiquidInverse.y, FF_firstOrder.u)
     annotation (Line(points={{-47,56},{-33.2,56}}, color={0,0,127}));
 end DrumLevelFF;

@@ -5,7 +5,7 @@ partial model Partial_BaseFDCond_Cylinder
   /* General */
   replaceable package Material =
       TRANSFORM.Media.Solids.SS316                     constrainedby
-    TRANSFORM.Media.Interfaces.PartialAlloy
+    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Specify material type"
     annotation(choicesAllMatching=true);
 

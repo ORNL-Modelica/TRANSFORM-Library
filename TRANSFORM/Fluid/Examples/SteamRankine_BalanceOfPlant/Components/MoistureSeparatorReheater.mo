@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components;
 model MoistureSeparatorReheater "Moisture separator reheater"
+  import TRANSFORM;
 
   Interfaces.FluidPort_Flow                 feed(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
@@ -109,20 +110,27 @@ redeclare model Geometry =
     T_main_steam_out=mixVolumeMainSteamOutlet.medium.T,
     T_hot_steam_in=lossMainSteam2.T,
     x_main_steam_in=separator.x_abs,
-    Q_hex=-hex.Q_cool,
+    Q_hex=-hex.heatRes_inner.Q_flows[1],
     T_hot_out=hex.medium.T)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Volumes.Condenser hex(
-    diameter=4,
-    N_tubes=1800,
-    V_hotwell=0,
-    length=20,
+  TRANSFORM.Fluid.Volumes.Condenser hex(
     level_start=1,
     p_start=initData.p_start_preheater_HP + 8e5,
-    Twall_start=Medium.saturationTemperature(hex.p_start) - 3,
-    redeclare package CoolMedium = Modelica.Media.Water.StandardWater,
-    alpha=3e4,
-    redeclare package Medium = Modelica.Media.Water.StandardWater)
+    T_start_wall=Medium.saturationTemperature(hex.p_start) - 3,
+    redeclare package Medium_coolant =
+        Modelica.Media.Water.StandardWater,
+    alphaInt_WExt=3e4,
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.Cylinder_wInternalPipe
+        (
+        orientation="Horizontal",
+        length=20,
+        r_inner=2,
+        nTubes=1800,
+        r_tube_inner=0.5*0.016,
+        th_tube=0.002),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-34,-20},{-8,7}})));
 equation
   connect(mixVolumeMainSteamOutlet.port_b, drain) annotation (Line(
@@ -145,19 +153,20 @@ equation
       points={{48,16},{48,-42},{94,-42}},
       color={0,127,255},
       thickness=0.5));
-  connect(hex.drain_cool, mixVolumeMainSteamOutlet.port_a[1]) annotation (Line(
+  connect(hex.portCoolant_b, mixVolumeMainSteamOutlet.port_a[1]) annotation (
+      Line(
       points={{-6.7,-9.2},{0,-9.2},{0,26},{-20,26}},
       color={0,127,255},
       thickness=0.5));
-  connect(lossMainSteam2.port_b, hex.feed_cool) annotation (Line(
+  connect(lossMainSteam2.port_b, hex.portCoolant_a) annotation (Line(
       points={{9,20},{4,20},{4,-1.1},{-6.7,-1.1}},
       color={0,127,255},
       thickness=0.5));
-  connect(hex.drain, hotDrain) annotation (Line(
+  connect(hex.portFluidDrain, hotDrain) annotation (Line(
       points={{-21,-20},{-21,-20},{-100,-20}},
       color={0,127,255},
       thickness=0.5));
-  connect(hex.feed, hotFeed) annotation (Line(
+  connect(hex.portSteamFeed, hotFeed) annotation (Line(
       points={{-30.1,2.95},{-30.1,8},{-82,8},{-82,24},{-100,24}},
       color={0,127,255},
       thickness=0.5));

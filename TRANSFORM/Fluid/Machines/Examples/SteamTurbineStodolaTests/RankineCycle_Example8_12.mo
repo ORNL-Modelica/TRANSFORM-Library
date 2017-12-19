@@ -92,8 +92,10 @@ model RankineCycle_Example8_12
     controlType="pressure",
     exposeState_a=false,
     exposeState_b=true,
-    dp_nominal=dp_pump)
+    dp_nominal=dp_pump,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,-90},{-10,-70}})));
+
 equation
 
   Q_boiler = massFlowRate.m_flow*h_boiler;
@@ -108,21 +110,20 @@ equation
   connect(steamTurbine.portHP, boiler.ports[3]) annotation (Line(points={{-10,38},
           {-42,38},{-42,2.66667},{-50,2.66667}}, color={0,127,255}));
   connect(generator.port, boundary.port)
-    annotation (Line(points={{40.2,32.2},{40.2,32},{60,32}},
-                                                       color={255,0,0}));
+    annotation (Line(points={{40,32},{40,32},{60,32}}, color={255,0,0}));
   connect(steamTurbine.shaft_b, generator.shaft)
     annotation (Line(points={{10,32},{20,32}}, color={0,0,0}));
   connect(specificEnthalpy_in.port, massFlowRate.port_a) annotation (Line(
         points={{-80,-75},{-80,-80},{-40,-80},{-40,-68}}, color={0,127,255}));
-  connect(steamTurbine.portLP, condenser.port_a) annotation (Line(points={{
-          7,22},{7,22},{7,12},{27,12},{27,0}}, color={0,127,255}));
+  connect(steamTurbine.portLP, condenser.port_a) annotation (Line(points={{7,22},{
+          7,22},{7,12},{27,12},{27,-3}},       color={0,127,255}));
   connect(pump.port_a, condenser.port_b)
-    annotation (Line(points={{10,-80},{34,-80},{34,-20}}, color={0,127,255}));
+    annotation (Line(points={{10,-80},{34,-80},{34,-18}}, color={0,127,255}));
   connect(pump.port_b, massFlowRate.port_a) annotation (Line(points={{-10,-80},{
           -40,-80},{-40,-68}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(__Dymola_NumberOfIntervals=10),
+    experiment(__Dymola_NumberOfIntervals=100),
     Documentation(info="<html>
 <p>The is a comparison of the steam turbine results using the conditions and comparing the results specified in Example 8.1 part b in the source.</p>
 <p><br>References:</p>

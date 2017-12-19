@@ -1,2 +1,0 @@
-"TRANSFORM.obsolete.GenericDynamicPipe" -> "TRANSFORM.Fluid.Pipes.BaseClasses.PartialGenericPipe";
-"TRANSFORM.obsolete.GenericDynamicPipe" -> "TRANSFORM.obsolete.PartialTwoPortFlowTemp_old";

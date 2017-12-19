@@ -4,23 +4,14 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions - 1P Liqui
   extends PartialTwoPhase;
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_SinglePhaseLiquid_lam=
-      mediaProps.lambda ./ dimensions .*
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Laminar_Local_Developed_Circular(
-      Res,
-      Prs,
-      xs,
-      dimensions,
-      true) "Laminar coefficient of heat transfer - Liquid Phase"
+      mediaProps.lambda ./ dimensions .* fill(4.36,nHT) "Laminar coefficient of heat transfer - Liquid Phase"
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_SinglePhaseLiquid_turb=
       mediaProps.lambda ./ dimensions .*
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Turbulent_Local_Developed(
+      TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Res,
-      Prs,
-      xs,
-      dimensions,
-      roughnesses) "Turbulent coefficient of heat transfer - Liquid Phase"
+      Prs) "Turbulent coefficient of heat transfer - Liquid Phase"
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_TwoPhaseSaturated={
@@ -42,23 +33,14 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions - 1P Liqui
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_SinglePhaseVapor_lam=mediaProps.lambda
-       ./ dimensions .*
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Laminar_Local_Developed_Circular(
-      Res,
-      Prs,
-      xs,
-      dimensions,
-      true) "Laminar coefficient of heat transfer - Vapor Phase"
+       ./ dimensions .* fill(4.36,nHT) "Laminar coefficient of heat transfer - Vapor Phase"
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_SinglePhaseVapor_turb=
       mediaProps.lambda ./ dimensions .*
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Turbulent_Local_Developed(
+      TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Res,
-      Prs,
-      xs,
-      dimensions,
-      roughnesses) "Turbulent coefficient of heat transfer - Vapor Phase"
+      Prs) "Turbulent coefficient of heat transfer - Vapor Phase"
     annotation (Dialog(group="Input Variables"));
 
   input SI.Length[nHT] L_char=dimensions

@@ -5,13 +5,4 @@ package Examples
 
 
 
-
-
-
-
-
-
-
-
-
 end Examples;

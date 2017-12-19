@@ -1,39 +1,29 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel;
 partial model GenericVolume
-//
-//    input Units.nonDim Vfrac_liquid
-//      "Fractional of total volume occupied by liquid"  annotation (Dialog(group="Input Variables"));
-  //input SI.Volume V = V_liquid + V_vapor "Volume" annotation (Dialog(group="Input Variables"));
-  input SI.Volume V_liquid "Volume" annotation (Dialog(group="Input Variables"));
-  SI.Volume V_vapor "Volume" annotation (Dialog(group="Input Variables"));
-
-  // Elevation
-//   input SI.Angle angle(min=-Modelica.Constants.pi/2-0.01,max=Modelica.Constants.pi/2+0.01)=0.0 "Vertical angle from the horizontal (-pi/2 <= x <= pi/2)"
-//     annotation (Dialog(group="Input Variables: Elevation"));
-//   input SI.Length dheight=0*sin(angle)  "Height(port_b) - Height(port_a)"
-//     annotation (Dialog(group="Input Variables: Elevation"));
-//   input SI.Length height_a=0
-//     "Elevation at port_a: Reference value only. No impact on calculations."
-//     annotation (Dialog(group="Input Variables: Elevation"));
-//   output SI.Length height_b=height_a + dheight
-//     "Elevation at port_b: Reference value only. No impact on calculations."
-//     annotation (Dialog(group="Input Variables: Elevation", enable=false));
-
-  SI.Volume V = V_liquid + V_vapor "Volume" annotation (Dialog(group="Input Variables"));
-
-  SI.Height level "Measured fluid level";
-  //SI.Height level_vapor "Distance from fluid to top of vessel (i.e., vapor level)";
 
 //   Real Region "Liquid-Vapor surface location region identifier";
-
 //   SI.Area crossArea_liquid "Average liquid cross sectional area";
 //   SI.Area crossArea_vapor "Average vapor cross sectional area";
 
-  SI.Area surfaceArea_Wall_total "Total inner wall surface area of drum";
+  input SI.Volume V_liquid=0 "Liquid volume" annotation (Dialog(tab="Internal Interface",group="Input Variables"));
+  SI.Volume V_vapor "Vapor volume";
+  SI.Volume V_wall "Wall volume";
+  SI.Volume V "Total volume";
+  SIadd.nonDim Vfrac_liquid = V_liquid/V "Fraction of volume filled with liquid";
+
+  parameter SI.Length level_0(min=0) = 0 "Location of zero level for level_meas" annotation(Dialog(group="Parameters: Zero-level control"));
+  parameter SI.Length level_meas_min "Minimum level" annotation(Dialog(group="Parameters: Zero-level control"));
+  parameter SI.Length level_meas_max "Maximum level" annotation(Dialog(group="Parameters: Zero-level control"));
+
+  SI.Length level "Liquid level";
+  SI.Height level_meas = level - level_0 "Measured fluid level (level - level_0)";
+  SIadd.nonDim level_meas_percentage = 100*(level_meas - level_meas_min)/(level_meas_max - level_meas_min) "Percentage full based on max/min level";
+
   SI.Area surfaceArea_WL "Wall-Liquid surface area";
-  SI.Area surfaceArea_WV "Wall-Vapor area";
+  SI.Area surfaceArea_WV "Wall-Vapor surface area";
   SI.Area surfaceArea_VL "Vapor-Liquid interfacial area";
-  SI.Area surfaceArea_WE "Wall-Exterior surface area";
+  SI.Area surfaceArea "Internal wall transfer area";
+  SI.Area surfaceArea_outer "Outer wall transfer area";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/Geometry_genericVolume.jpg")}),

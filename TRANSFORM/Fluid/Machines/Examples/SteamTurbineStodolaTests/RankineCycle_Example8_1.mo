@@ -92,7 +92,8 @@ model RankineCycle_Example8_1
     controlType="pressure",
     exposeState_a=false,
     exposeState_b=true,
-    dp_nominal=dp_pump)
+    dp_nominal=dp_pump,
+    redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,-90},{-10,-70}})));
 equation
 
@@ -107,22 +108,22 @@ equation
           -80,32},{-50,32},{-50,-4.44089e-016}}, color={0,127,255}));
   connect(steamTurbine.portHP, boiler.ports[3]) annotation (Line(points={{-10,38},
           {-42,38},{-42,2.66667},{-50,2.66667}}, color={0,127,255}));
-  connect(steamTurbine.portLP, condenser.port_a) annotation (Line(points={{7,22},
-          {6,22},{6,-4},{6,-6},{29,-6},{29,-12}}, color={0,127,255}));
+  connect(steamTurbine.portLP, condenser.port_a) annotation (Line(points={{7,22},{
+          6,22},{6,-4},{6,-6},{29,-6},{29,-15}},  color={0,127,255}));
   connect(generator.port, boundary.port)
     annotation (Line(points={{40.2,32.2},{40.2,32},{60,32}},
                                                        color={255,0,0}));
   connect(steamTurbine.shaft_b, generator.shaft)
     annotation (Line(points={{10,32},{20,32}}, color={0,0,0}));
   connect(pump.port_a, condenser.port_b)
-    annotation (Line(points={{10,-80},{36,-80},{36,-32}}, color={0,127,255}));
+    annotation (Line(points={{10,-80},{36,-80},{36,-30}}, color={0,127,255}));
   connect(pump.port_b, massFlowRate.port_a) annotation (Line(points={{-10,-80},{
           -26,-80},{-40,-80},{-40,-68}}, color={0,127,255}));
   connect(specificEnthalpy_in.port, massFlowRate.port_a) annotation (Line(
         points={{-80,-75},{-80,-80},{-40,-80},{-40,-68}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(__Dymola_NumberOfIntervals=10),
+    experiment(__Dymola_NumberOfIntervals=100),
     Documentation(info="<html>
 <p>The is a comparison of the steam turbine results using the conditions and comparing the results specified in Example 8.1 part b in the source.</p>
 <p><br>References:</p>

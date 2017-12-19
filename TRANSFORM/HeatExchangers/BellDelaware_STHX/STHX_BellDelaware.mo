@@ -11,7 +11,8 @@ model STHX_BellDelaware
       Modelica.Media.Interfaces.PartialMedium "Tube side medium"
     annotation (__Dymola_choicesAllMatching=true,Dialog(group="Tube Parameters"));
   replaceable package Tube_Material =
-      TRANSFORM.Media.Interfaces.PartialAlloy "Tube wall material"
+      TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+                                              "Tube wall material"
                          annotation (
      __Dymola_choicesAllMatching=true,Dialog(group="Tube Parameters"));
 

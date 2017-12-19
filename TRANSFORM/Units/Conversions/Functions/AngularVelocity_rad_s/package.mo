@@ -3,6 +3,4 @@ package AngularVelocity_rad_s "Conversions for angular velocity. SI unit is [rad
 
 
 
-
-
 end AngularVelocity_rad_s;

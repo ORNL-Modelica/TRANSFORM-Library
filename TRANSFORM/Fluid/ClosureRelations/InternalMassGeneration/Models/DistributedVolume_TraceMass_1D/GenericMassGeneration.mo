@@ -5,10 +5,10 @@ model GenericMassGeneration
 
   extends PartialInternalMassGeneration;
 
-  input SI.MassFlowRate mC_gen[Medium.nC]=zeros(Medium.nC) "Mole generation"  annotation(Dialog(group=
+  input SI.MassFlowRate mC_gen[Medium.nC]=zeros(Medium.nC) "Mass generation"  annotation(Dialog(group=
           "Input Variables"));
   input SI.MassFlowRate mC_gens[nV,Medium.nC]=fillArray_1D(mC_gen, nV)
-    "if non-uniform then set n_gens"
+    "if non-uniform then set mC_gens"
     annotation (Dialog(group="Input Variables"));
 
 equation

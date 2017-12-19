@@ -12,6 +12,7 @@ MassFractions
 MassFractionsTwoPort
 TraceSubstances
 TraceSubstancesTwoPort
+TraceSubstancesTwoPort_multi
 MassFlowRate
 VolumeFlowRate
 RelativePressure
