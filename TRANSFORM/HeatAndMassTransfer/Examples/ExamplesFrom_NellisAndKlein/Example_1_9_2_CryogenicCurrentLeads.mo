@@ -52,16 +52,9 @@ model Example_1_9_2_CryogenicCurrentLeads
     maxX=1,
     minY=50,
     maxY=500) "X - Position m-) | T - Temperature (K)"
-    annotation (Placement(transformation(extent={{-84,-80},{-42,-40}})));
-  Utilities.Visualizers.DynamicGraph scope(
-    Unit="W",
-    t_end=10,
-    y_var=abs(lead.port_b1.Q_flow),
-    y_min=5,
-    y_max=13)
-    annotation (Placement(transformation(extent={{12,-82},{70,-28}})));
+    annotation (Placement(transformation(extent={{-20,22},{22,62}})));
   Utilities.Visualizers.displayReal display(val=D.y*1000)
-    annotation (Placement(transformation(extent={{-26,-80},{-6,-60}})));
+    annotation (Placement(transformation(extent={{-10,58},{10,78}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={T_C.port.Q_flow})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
@@ -79,7 +72,7 @@ equation
     annotation (Line(points={{-10,-23},{-10,-8},{-8,-8}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          extent={{-28,-58},{-2,-64}},
+          extent={{-12,80},{14,74}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,

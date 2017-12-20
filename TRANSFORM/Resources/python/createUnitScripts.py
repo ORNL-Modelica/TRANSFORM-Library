@@ -86,6 +86,10 @@ for item in directory_list:
                         test_list.append(os.path.join(root, name))
                         break
 
+# Delete runAll.mos file if it exists
+if os.path.exists(os.path.join(folderPath,'runAll_Dym.mos')):
+    os.remove(os.path.join(folderPath,'runAll_Dym.mos'))
+    
 # List of possible simulation parameters
 expParameters = list()
 expParameters.append('StartTime')
@@ -224,6 +228,12 @@ for item in test_list:
                 else:
                     for i in xrange(n):
                         mosfil.write('createPlot(id={}, y={{"unitTests.x[{}]"}}, grid=true);\n'.format(i+1, i+1))
+             
+            with open(os.path.join(folderPath,'runAll_Dym.mos'), 'a') as mosDym:
+                mosDym.write('simulateModel("{}",'.format(plotSimPath))
+                for key, value in exp_list.items():
+                    mosDym.write('{}={},'.format(exp_dict[key], value))
+                mosDym.write('resultFile="{}");\n'.format(modelName))
 
 if not unitTests_notFound == []:
     print('Some examples did not contain unitTests model. View variable "unitTests_notFound" for the list")')
