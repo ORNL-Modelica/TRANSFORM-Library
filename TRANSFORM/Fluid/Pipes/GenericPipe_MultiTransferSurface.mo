@@ -14,11 +14,11 @@ model GenericPipe_MultiTransferSurface
     xpos_norm=summary.xpos/sum(geometry.dlengths),
     xpos=cat(
         1,
-        {if exposeState_a then 0 else 0.5*geometry.dlengths[1]},
+        {0.5*geometry.dlengths[1]},
         {sum(geometry.dlengths[1:i - 1]) + 0.5*geometry.dlengths[i] for i in 2:
           nV - 1},
-        {if exposeState_b then sum(geometry.dlengths) else sum(geometry.dlengths)
-           - 0.5*geometry.dlengths[nV]}))
+        {sum(geometry.dlengths) - 0.5*geometry.dlengths[nV]}))
+    "cat(1, {if exposeState_a then 0 else 0.5*geometry.dlengths[1]}, {sum(geometry.dlengths[1:i - 1]) + 0.5*geometry.dlengths[i] for i in 2:nV - 1}, {if exposeState_b then sum(geometry.dlengths) else sum(geometry.dlengths) - 0.5*geometry.dlengths[nV]})"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
   parameter Boolean allowFlowReversal = true

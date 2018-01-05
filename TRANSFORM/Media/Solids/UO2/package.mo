@@ -23,6 +23,9 @@ h => pg 18 eq 4.1
   constant Real theta(unit="K") = 548.68;
   constant Real Ea(unit="K") = 18531.7;
 
+  constant SI.Density d_273=10970 "Density of 100% UO2";
+  constant Units.nonDim porosity = 0.05 "Fuel porosity (d_TD - d)/d_td";
+
   redeclare function extends specificEnthalpy "Specific enthalpy"
   algorithm
       h := h_reference + c1*theta*(1/(exp(theta/state.T)-1)-1/(exp(theta/298)-1))
@@ -31,14 +34,11 @@ h => pg 18 eq 4.1
   end specificEnthalpy;
 
   redeclare function extends density "Density"
-protected
-    SI.Density d_273=10970 "Density of 100% UO2";
-    Real d_CMfac=0.95 "Density correction factor for commercial fuel density";
   algorithm
     d := TRANSFORM.Math.spliceTanh(
-        d_CMfac*d_273*(9.9672e-1 + 1.179e-5*state.T - 2.429e-9*state.T^2 + 1.219e-12
+        (1-porosity)*d_273*(9.9672e-1 + 1.179e-5*state.T - 2.429e-9*state.T^2 + 1.219e-12
         *state.T^3)^(-3),
-        d_CMfac*d_273*(9.9734e-1 + 9.802e-6*state.T - 2.705e-10*state.T^2 + 4.391e-13
+        (1-porosity)*d_273*(9.9734e-1 + 9.802e-6*state.T - 2.705e-10*state.T^2 + 4.391e-13
         *state.T^3)^(-3),
         state.T - 923,
         1);
@@ -47,9 +47,19 @@ protected
 
   redeclare function extends thermalConductivity
     "Thermal conductivity"
+
+    /*
+  Units.nonDim B  burnupin at. % (1 at. % = 9.375 MWd/kgU)
+  Units.nonDim omega = 1.09/(B^3.265)+0.0643*sqrt(state.T/B);
+  Units.nonDim FD = omega*Modelica.Math.atan(1/omega) "Effect of dissolved fission products";
+  Units.nonDim FP = 1+0.019*B/(3-0.019*B)/(1+exp(-(state.T-1200)/100)) "Effect of precipitated fission products";
+  Units.nonDim FR = 1-0.2/(1+exp((state.T-900)/80)) "Radiation effect";
+  */
+protected
+  Units.nonDim FM = (1-porosity)/(1+2*porosity) "Effect of porosity";
   algorithm
-    lambda := 115.8/(7.5408 + 17.692*(state.T/1000) + 3.6142*(state.T/1000)^2) +
-      7410.5*(state.T/1000)^(-5/2)*exp(-16.35/(state.T/1000));
+    lambda := (115.8/(7.5408 + 17.692*(state.T/1000) + 3.6142*(state.T/1000)^2) +
+      7410.5*(state.T/1000)^(-5/2)*exp(-16.35/(state.T/1000)))*FM;
         annotation(smoothOrder=1);
   end thermalConductivity;
 

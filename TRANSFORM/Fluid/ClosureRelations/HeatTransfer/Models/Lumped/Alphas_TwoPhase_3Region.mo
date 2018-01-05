@@ -28,9 +28,17 @@ model Alphas_TwoPhase_3Region "Specify alphas | Two Phase | 3 Regions"
     "Thermal conductivity for calculation of Nu"
     annotation (Dialog(group="Input Variables"));
 
-  parameter Units.nonDim x_CHF=0.9
-    "Steam quality corresponding to Critical Heat Flux"
-    annotation (Dialog(group="Heat Transfer Model:"));
+  input Real HT_width[3]={0.02,0.02,0.02}
+   "Smooth transition width"
+   annotation (Dialog(tab="Advanced",group="Input Variables"));
+
+  input Real HT_smooth[3]={0,0.5,0.9}
+   "Smooth value for transition between regions with phase transition"
+   annotation (Dialog(tab="Advanced",group="Input Variables"));
+
+  input Real Var_smooth=mediaProps.alphaV
+    "Variable for smoothing between regions with phase transition"
+    annotation (Dialog(tab="Advanced",group="Input Variables"));
 
 protected
   SI.CoefficientOfHeatTransfer
@@ -43,20 +51,20 @@ equation
     alpha_SinglePhase_Liquid_To_TwoPhaseSaturated =TRANSFORM.Math.spliceTanh(
     alpha_TwoPhaseSaturated,
     alpha_SinglePhaseLiquid,
-    mediaProps.x_th,
-    deltax=0.02);
+    Var_smooth - HT_smooth[1],
+    deltax=HT_width[1]);
 
     alpha_SinglePhase_TwoPhaseSaturated_To_Vapor =TRANSFORM.Math.spliceTanh(
     alpha_SinglePhaseVapor,
     alpha_TwoPhaseSaturated,
-    mediaProps.x_th - x_CHF,
-    deltax=0.02);
+    Var_smooth - HT_smooth[3],
+    deltax=HT_width[3]);
 
     alpha =TRANSFORM.Math.spliceTanh(
     alpha_SinglePhase_TwoPhaseSaturated_To_Vapor,
     alpha_SinglePhase_Liquid_To_TwoPhaseSaturated,
-    mediaProps.x_th - 0.5,
-    deltax=0.02);
+    Var_smooth - HT_smooth[2],
+    deltax=HT_width[2]);
 
   Nu = alpha .* L_char ./ lambda;
 
