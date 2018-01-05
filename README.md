@@ -43,7 +43,7 @@ Explain how to run the automated tests for this system
 
 * **Scott Greenwood**
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ORNL-TRANSFORM/TRANSFORM-Library/contributors) who participated in this project.
 
 ## License
 
