@@ -38,7 +38,7 @@ model SimpleFLiBeLoop_withPowerConversion
         surfaceArea={pipe_steam.geometry.perimeter*pipe_steam.geometry.length*
             20}),
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal)
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas_TwoPhase_3Region)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -165,7 +165,8 @@ model SimpleFLiBeLoop_withPowerConversion
         1000) annotation (Placement(transformation(extent={{-40,76},{-8,96}})));
   TRANSFORM.Utilities.Visualizers.displayReal display_Q_elec(val=generator.Q_elec
         /1000) annotation (Placement(transformation(extent={{8,76},{40,96}})));
-  Modelica.Blocks.Sources.Sine sine(freqHz=1/1000, amplitude=1*0.0065)
+  Modelica.Blocks.Sources.Sine sine(               amplitude=1*0.0065, freqHz=1
+        /2000)
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Modelica.Blocks.Logical.Switch rho_external
     annotation (Placement(transformation(extent={{-110,-60},{-90,-40}})));
@@ -217,7 +218,7 @@ equation
           lineColor={0,0,0},
           textString="Electricity Generated [kW]")}),
     experiment(
-      StopTime=10000,
+      StopTime=5000,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Esdirk45a"));
 end SimpleFLiBeLoop_withPowerConversion;
