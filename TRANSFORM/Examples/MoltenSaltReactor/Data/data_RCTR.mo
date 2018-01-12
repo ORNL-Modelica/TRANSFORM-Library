@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor.Data;
-model data_CoreCell
+model data_RCTR
   extends Icons.Record;
 
   /*
@@ -24,7 +24,6 @@ model data_CoreCell
   parameter Real nFcells = 357 "# of normal fueled cells";
   parameter Real nCRcells = 6 "# of control rod cells";
   parameter Real nCells = nFcells + nCRcells "# of core cells total";
-  parameter Real nRGs = 8 "# of radial graphite reflector regions";
 
   parameter Integer nIntG_A = 2 "# of internal graphite-A per cell";
   parameter Integer nIntG_B = 3 "# of internal graphite-B per cell";
@@ -93,7 +92,69 @@ model data_CoreCell
   parameter SI.Volume volume_reflR_outerG = crossArea_reflR_outerG*length_reflR_outer "Volume of graphite in outer reflector per region";
   parameter SI.Volume volume_reflR_outer = crossArea_reflR_outer*length_reflR_outer "Volume of fluid in outer reflector per region";
 
-
   // Now calculate the axial reflectors
+  parameter Integer nAs = 2 "# of axial reflectors";
+  parameter Integer nARs = 13 "# of axial reflector rings";
+  parameter SI.Length length_reflA = from_inch(48) "Vertical length of each axial reflector";
+  parameter SI.Length length_reflA_edge = from_inch(42) "Vertical length to start edge of each axial reflector";
+  parameter SI.Length radius_reflA = from_inch(311/2) "Radius of each axial reflector";
+  parameter SI.Length radius_reflA_edge = from_inch(156/2) "Radius to start edge of each axial reflector";
+  parameter SI.Length length_reflA_ring_cell = radius_reflA/nARs "Length of ring unit cell";
+  parameter SI.Length width_reflA_channel[nARs+1] = from_inch({0.14,0.14,0.22,0.25,0.24,0.24,0.22,0.20,0.16,0.16,0.11,0.07,0.03,0.02}) "Width of channels between axial reflector blocks"; //[1] is the diameter assumed of the center whole
+  parameter SI.Length length_reflA_ring[nARs] = from_inch({48,48,48,48,48,48,48,42,36,30,24,18,12}) "Vertical length of each axial reflector ring";
+  parameter Integer nGaps[nARs] = {0,3,4,8,8,12,12,12,12,12,12,12,12} "# of gaps in each axial reflector ring";
 
-end data_CoreCell;
+  parameter SI.Volume volume_reflA_reg = pi*radius_reflA_edge^2*(length_reflA_edge) + 0.5*pi*length_reflA_edge*(radius_reflA^2 - radius_reflA_edge^2) + pi*radius_reflA^2*(length_reflA-length_reflA_edge) "Volume of each axial reflector region (no fuel channels) - approximate for checking";
+  //parameter SI.Area crossArea_reflA_reg_avg = volume_reflA_reg/length_reflA "Cross-sectional area (avg) of each axial reflector region (no fuel channels)";
+
+  parameter SI.Length rs_ring_cell[nARs+1] = cat(1,{0},{rs_ring_cell[i-1] + length_reflA_ring_cell for i in 2:nARs+1}) "Radial position of axial reflector ring unit cells";
+  parameter SI.Length rs_ring_edge_inner[nARs] = {rs_ring_cell[i] + 0.5*width_reflA_channel[i] for i in 1:nARs} "Radial position of the inner edge of each axial reflector graphite ring";
+  parameter SI.Length rs_ring_edge_outer[nARs] = {rs_ring_cell[i+1] - 0.5*width_reflA_channel[i+1] for i in 1:nARs} "Radial position of the outer edge of each axial reflector graphite ring";
+  parameter SI.Length rs_ring_edge[2*nARs] = {if rem(i,2)==0 then rs_ring_edge_outer[integer(i/2)] else rs_ring_edge_inner[integer((i+1)/2)] for i in 1:2*nARs} "Radial position of each graphite ring edge";
+  parameter SI.Length width_reflA_blocks[nARs] = {rs_ring_edge_outer[i]-rs_ring_edge_inner[i] for i in 1:nARs} "Width of graphite blocks in each axial reflector ring";
+
+  parameter SI.Length perimeters_reflA_ring[nARs] = {2*pi*rs_ring_edge_inner[i]-nGaps[i]*width_reflA_channel[i+1]+2*nGaps[i]*width_reflA_blocks[i] + 2*pi*rs_ring_edge_outer[i]-nGaps[i]*width_reflA_channel[i+1] for i in 1:nARs} "Wetted perimeter of graphite for each axial reflector ring";
+
+  parameter SI.Area crossAreas_reflA_ring_radial[nARs]={if i==1 then rs_ring_edge[i]^2*pi else pi*(rs_ring_edge[integer(2*i-1)]^2 - rs_ring_edge[integer(2*(i-1))]^2) for i in 1:nARs} " Cross-sectional flow area(excluding gaps in ring) of each ring";
+  parameter SI.Area crossAreas_reflA_ring_gaps[nARs] = {nGaps[i]*width_reflA_blocks[i]*width_reflA_channel[i+1] for i in 1:nARs}  "Cross-sectional flow area of gaps within each ring each axial reflector ring";
+
+  parameter SI.Area crossAreas_reflA_ring[nARs] = crossAreas_reflA_ring_gaps + crossAreas_reflA_ring_radial  "Cross-sectional flow area in each axial reflector ring";
+  parameter SI.Area crossAreas_reflA_ringG[nARs] = {(rs_ring_edge_outer[i]^2 - rs_ring_edge_inner[i]^2)*pi - crossAreas_reflA_ring_gaps[i] for i in 1:nARs}  "Cross-sectional area of graphite in each axial reflector ring";
+  parameter SI.Area crossArea_reflA_ring = sum(crossAreas_reflA_ring) "Total cross-sectional flow area in each axial reflector";
+  parameter SI.Area crossArea_reflA_ringG = sum(crossAreas_reflA_ringG) "Total cross-sectional area of graphite in each axial reflector";
+  parameter SI.Length perimeter_reflA_ring = sum(perimeters_reflA_ring) "Total wetted perimeter of graphite in each axial reflector";
+
+  parameter SI.Volume volumes_reflA_ring[nARs] = crossAreas_reflA_ring.*length_reflA_ring "Volume of fluid in each axial reflector ring";
+  parameter SI.Volume volumes_reflA_ringG[nARs] = crossAreas_reflA_ringG.*length_reflA_ring "Volume of graphite in each axial reflector ring";
+  parameter SI.Volume volume_reflA_ring = sum(volumes_reflA_ring) "Total volume of fluid in each axial reflector";
+  parameter SI.Volume volume_reflA_ringG = sum(volumes_reflA_ringG) "Total volume of graphite in each axial reflector";
+
+  // Plenum
+  parameter SI.Area crossArea_plenum = from_inch2(0.25*pi*156^2) "Cross-sectional area of each plenum";
+  parameter SI.Length length_plenum = from_inch(18) "Vertical length of each plenum, assume whole cylinder";
+  parameter SI.Volume volume_plenum = crossArea_plenum*length_plenum "Approximate volume of each plenum";
+
+  // Reactor Inlet Tee
+  parameter SI.Area crossArea_tee_inlet = from_inch2(0.25*pi*28^2) "Cross-sectional area of the inlet tee";
+  parameter SI.Length length_tee_inlet = from_inch(42) "Vertical length of the inlet tee";
+  parameter SI.Volume volume_tee_inlet = crossArea_tee_inlet*length_tee_inlet "Volume of the inlet tee";
+  parameter SI.Length diameter_tee_pipe = from_inch(12) "Diameter of pipe into the inlet tee";
+  parameter SI.Length diameter_pipe_draintank = from_inch(6) "Diameter of pipe between the inlet tee and drain tank";
+
+  // Reactor/Pump Overflow line
+  parameter SI.Area crossArea_tee_overflow = from_inch2(0.25*pi*18^2) "Cross-sectional area of the pump overflow that enters the top of the reactor";
+  parameter SI.Length length_tee_overflow = from_inch(24) "Vertical length of the pump overflow";
+  parameter SI.Volume volume_tee_overflow = crossArea_tee_overflow*length_tee_overflow "Volume of the pump overflow";
+  parameter SI.Length diameter_pipe_overflow = from_inch(6) "Diameter of pump overflow pipe";
+
+  // Pipe to drain tank
+  parameter SI.Length diameter_pumpPipe_inlet = from_inch(17) "Diameter of pipe leaving reactor and entering pump";
+
+  // Reactor Vessel
+  parameter String Material_rtr_wall = "Alloy-N" "Material of reactor vessel";
+  parameter SI.Length th_rtr_wall = from_inch(2) "Thickness of reactor vessel wall";
+  parameter SI.Length radius_rtr_outer = from_inch(318/2) "Outer radius of reactor vessel";
+
+  // what is the length to use to for axial reflector?
+
+end data_RCTR;
