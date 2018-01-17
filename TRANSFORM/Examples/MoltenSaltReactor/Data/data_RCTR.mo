@@ -19,7 +19,13 @@ model data_RCTR
   import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
   import TRANSFORM.Units.Conversions.Functions.Area_m2.from_inch2;
   import TRANSFORM.Units.Conversions.Functions.Distance_m.from_feet;
+  import TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr;
   import Modelica.Constants.pi;
+
+  parameter SI.Velocity vs_reflA_core = TRANSFORM.Units.Conversions.Functions.Velocity_m_s.from_feet_s(7) "Velocity of fueled and control rod cells region in top axial reflector";
+  parameter SI.Velocity vs_reflA_reflR = TRANSFORM.Units.Conversions.Functions.Velocity_m_s.from_feet_s(1) "Velocity of radial reflector region in top axial reflector";
+
+  parameter SI.MassFlowRate m_flow = from_lbm_hr(2*6.6e6) "Total mass flow rate through reactor";
 
   parameter Real nFcells = 357 "# of normal fueled cells";
   parameter Real nCRcells = 6 "# of control rod cells";
@@ -123,6 +129,8 @@ model data_RCTR
   parameter SI.Area crossArea_reflA_ring = sum(crossAreas_reflA_ring) "Total cross-sectional flow area in each axial reflector";
   parameter SI.Area crossArea_reflA_ringG = sum(crossAreas_reflA_ringG) "Total cross-sectional area of graphite in each axial reflector";
   parameter SI.Length perimeter_reflA_ring = sum(perimeters_reflA_ring) "Total wetted perimeter of graphite in each axial reflector";
+
+  parameter Real n_reflA_ringG = crossArea_reflA_ringG/(crossAreas_reflA_ringG[6]/nGaps[6]) "# of characteristic graphite pieces in ring - assumed based on ring 6";
 
   parameter SI.Volume volumes_reflA_ring[nARs] = crossAreas_reflA_ring.*length_reflA_ring "Volume of fluid in each axial reflector ring";
   parameter SI.Volume volumes_reflA_ringG[nARs] = crossAreas_reflA_ringG.*length_reflA_ring "Volume of graphite in each axial reflector ring";

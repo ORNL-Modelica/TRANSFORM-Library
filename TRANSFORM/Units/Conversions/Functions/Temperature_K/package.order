@@ -2,3 +2,5 @@ BaseClasses
 from_degC
 from_degF
 to_degC
+to_degF
+to_degR
