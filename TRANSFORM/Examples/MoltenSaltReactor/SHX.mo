@@ -8,7 +8,7 @@ model SHX
 //   extraPropertiesNames={"PreGroup_1","PreGroup_2","PreGroup_3","PreGroup_4","PreGroup_5","PreGroup_6"},
 //   C_nominal=fill(1e14,6)) "Primary fuel loop medium";
 
-  package Medium_PCL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT "Primary coolant loop medium";
+  package Medium_PCL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT(extraPropertiesNames={"bob"},C_nominal={1e6}) "Primary coolant loop medium";
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
 
@@ -121,9 +121,9 @@ model SHX
     showName=systemTF.showName,
     redeclare package Medium = Medium_PCL,
     h_start=pumpBowl.Medium.specificEnthalpy_pT(pumpBowl.p_start, data_PHX.T_outlet_shell),
-
     A=3*data_RCTR.crossArea_pumpbowl)
     annotation (Placement(transformation(extent={{56,36},{76,56}})));
+
   Fluid.Machines.Pump_SimpleMassFlow pump_PFL(redeclare package Medium =
         Medium_PCL, m_flow_nominal=2*3*data_PHX.m_flow_shell)
     annotation (Placement(transformation(extent={{80,30},{100,50}})));
@@ -170,7 +170,6 @@ model SHX
     nParallel=2*3,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     redeclare package Medium_tube = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
@@ -202,6 +201,7 @@ model SHX
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={140,0})));
+
 equation
   connect(boundary3.ports[1], PHX.port_b_tube)
     annotation (Line(points={{-60,-30},{-2,-30},{-2,-8}}, color={0,127,255}));

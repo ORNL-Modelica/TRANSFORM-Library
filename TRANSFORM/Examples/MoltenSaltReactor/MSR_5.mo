@@ -9,9 +9,13 @@ model MSR_5
 //   extraPropertiesNames={"PreGroup_1","PreGroup_2","PreGroup_3","PreGroup_4","PreGroup_5","PreGroup_6"},
 //   C_nominal=fill(1e14,6)) "Primary fuel loop medium";
 
-  package Medium_PCL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT "Primary coolant loop medium";
+  package Medium_PCL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT (
+  extraPropertiesNames={"Tritium"},
+  C_nominal={1e6}) "Primary coolant loop medium";
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
+
+  SI.Power Qt_total = sum(kinetics.Qs) "Total thermal power output";
 
   SI.Temperature Ts[10] = fuelCell.mediums.T;
 
@@ -21,6 +25,7 @@ model MSR_5
   SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
+  // Trace Substance Calculations
   SI.MassFlowRate[data_traceSubstances.nI] mC_gen_tee_inlet = {-data_traceSubstances.lambda_i[j]*tee_inlet.mC[j] for j in 1:data_traceSubstances.nI};
   SI.MassFlowRate[data_traceSubstances.nI] mC_gen_plenum_lower = {-data_traceSubstances.lambda_i[j]*plenum_lower.mC[j] for j in 1:data_traceSubstances.nI};
   SI.MassFlowRate[reflA_lower.nV,data_traceSubstances.nI] mC_gens_reflA_lower = {{-data_traceSubstances.lambda_i[j]*reflA_lower.mCs[i, j] for j in 1:data_traceSubstances.nI} for i in 1:reflA_lower.nV};
@@ -427,10 +432,14 @@ model MSR_5
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_Drift kinetics(
     nV=fuelCell.nV,
     Q_nominal=data_RCTR.Q_nominal,
-    specifyPower=true,
     Ts=fuelCell.mediums.T,
     mCs=fuelCell.mCs,
-    lambda_i=data_traceSubstances.lambda_i)
+    lambda_i=data_traceSubstances.lambda_i,
+    Ts_reference=linspace(
+        data_RCTR.T_inlet_core,
+        data_RCTR.T_outlet_core,
+        fuelCell.nV),
+    specifyPower=true)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
     data_traceSubstances
@@ -516,7 +525,6 @@ model MSR_5
     nParallel=2*3,
     redeclare model HeatTransfer_tube =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     redeclare package Medium_tube = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
@@ -529,13 +537,6 @@ model MSR_5
         dimension_tube=data_SHX.D_tube_inner,
         length_tube=data_SHX.length_tube,
         th_wall=data_SHX.th_tube),
-    redeclare model HeatTransfer_shell =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
-        (
-        CF=fill(0.44, PHX.shell.heatTransfer.nHT),
-        D=data_SHX.D_tube_outer,
-        S_T=data_SHX.pitch_tube,
-        S_L=data_SHX.pitch_tube),
     p_a_start_shell=data_SHX.p_inlet_shell,
     T_a_start_shell=data_SHX.T_inlet_shell,
     T_b_start_shell=data_SHX.T_outlet_shell,
@@ -543,11 +544,20 @@ model MSR_5
     p_a_start_tube=data_SHX.p_inlet_tube,
     T_a_start_tube=data_SHX.T_inlet_tube,
     T_b_start_tube=data_SHX.T_outlet_tube,
-    m_flow_a_start_tube=2*3*data_SHX.m_flow_tube) annotation (Placement(
+    m_flow_a_start_tube=2*3*data_SHX.m_flow_tube,
+    redeclare model HeatTransfer_shell =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
+        (
+        D=data_SHX.D_tube_outer,
+        S_T=data_SHX.pitch_tube,
+        S_L=data_SHX.pitch_tube,
+        CF=fill(0.44, SHX.shell.heatTransfer.nHT)))
+                                                  annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,0})));
+
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT
                                        boundary1(
     p=data_SHX.p_outlet_tube,
@@ -568,13 +578,6 @@ model MSR_5
     maxY1=max({data_SHX.T_inlet_tube,data_SHX.T_inlet_shell,data_SHX.T_outlet_tube,
         data_SHX.T_outlet_shell}))
     annotation (Placement(transformation(extent={{176,-122},{226,-78}})));
-  TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_toPHX_PCL(
-    R=1,
-    showName=systemTF.showName,
-    redeclare package Medium = Medium_PCL) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={110,-40})));
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},
@@ -634,8 +637,8 @@ equation
     annotation (Line(points={{80,-60},{80,-10}}, color={0,127,255}));
   connect(pipeFromPHX_PFL.port_b, tee_inlet.port_a[1]) annotation (Line(points={
           {80,-80},{80,-140},{0,-140},{0,-136}}, color={0,127,255}));
-  connect(PHX.port_b_shell, pipeFromPHX_PCL.port_a) annotation (Line(points={{
-          84.6,10},{84,10},{84,40},{100,40}}, color={0,127,255}));
+  connect(PHX.port_b_shell, pipeFromPHX_PCL.port_a) annotation (Line(points={{84.6,
+          10},{84,10},{84,40},{100,40}}, color={0,127,255}));
   connect(pipeFromPHX_PCL.port_b, pumpBowl_PCL.port_a)
     annotation (Line(points={{120,40},{134,40}}, color={0,127,255}));
   connect(pumpBowl_PCL.port_b, pump_PCL.port_a)
@@ -648,15 +651,12 @@ equation
           40},{215.4,40},{215.4,10}}, color={0,127,255}));
   connect(boundary1.ports[1], SHX.port_b_tube)
     annotation (Line(points={{240,40},{220,40},{220,10}}, color={0,127,255}));
-  connect(SHX.port_a_tube, boundary4.ports[1]) annotation (Line(points={{220,
-          -10},{220,-38},{240,-38}}, color={0,127,255}));
-  connect(pipeToPHX_PCL.port_b, resistance_toPHX_PCL.port_a)
-    annotation (Line(points={{140,-40},{117,-40}}, color={0,127,255}));
-  connect(resistance_toPHX_PCL.port_b, PHX.port_a_shell) annotation (Line(
-        points={{103,-40},{84.6,-40},{84.6,-10}}, color={0,127,255}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-150,
-            -150},{260,150}})),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-150,-150},{260,
-            150}})),
+  connect(SHX.port_a_tube, boundary4.ports[1]) annotation (Line(points={{220,-10},
+          {220,-38},{240,-38}}, color={0,127,255}));
+  connect(pipeToPHX_PCL.port_b, PHX.port_a_shell) annotation (Line(points={{140,
+          -40},{84.6,-40},{84.6,-10}}, color={0,127,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-150,-150},
+            {260,150}})),                                        Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-150,-150},{260,150}})),
     experiment(StopTime=5000, __Dymola_NumberOfIntervals=5000));
 end MSR_5;
