@@ -35,6 +35,8 @@ model ExpansionTank "Expansion tank with cover gas"
       tab="Initialization",
       group="Start Value: Trace Substances Mass Fraction",
       enable=Medium.nC > 0));
+  input SI.MassFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
+    annotation (Dialog(group="Trace Mass Transfer"));
 
   constant Real g_n=Modelica.Constants.g_n;
 
@@ -140,7 +142,7 @@ equation
   end for;
   for i in 1:Medium.nC loop
     mCb[i] = port_a.m_flow*actualStream(port_a.C_outflow[i]) + port_b.m_flow*
-      actualStream(port_b.C_outflow[i]);
+      actualStream(port_b.C_outflow[i]) + mC_gen[i];
   end for;
 
   port_a.h_outflow = h;

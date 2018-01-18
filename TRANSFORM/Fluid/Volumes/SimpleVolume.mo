@@ -13,7 +13,7 @@ model SimpleVolume
   mb=port_a.m_flow + port_b.m_flow,
   Ub=port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*actualStream(port_b.h_outflow) + Q_flow_internal,
   mXib=port_a.m_flow*actualStream(port_a.Xi_outflow) + port_b.m_flow*actualStream(port_b.Xi_outflow),
-  mCb=port_a.m_flow*actualStream(port_a.C_outflow) + port_b.m_flow*actualStream(port_b.C_outflow) + mC_flow_internal);
+  mCb=port_a.m_flow*actualStream(port_a.C_outflow) + port_b.m_flow*actualStream(port_b.C_outflow) + mC_flow_internal + mC_gen);
 
   // Geometry Model
   replaceable model Geometry =
@@ -32,6 +32,9 @@ model SimpleVolume
   parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
     "Trace substances molar mass"
     annotation (Dialog(group="Trace Mass Transfer", enable=use_TraceMassPort));
+
+  input SI.MassFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
+    annotation (Dialog(group="Trace Mass Transfer"));
 
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=medium.T, Q_flow=
         Q_flow_internal) if                                                                      use_HeatPort

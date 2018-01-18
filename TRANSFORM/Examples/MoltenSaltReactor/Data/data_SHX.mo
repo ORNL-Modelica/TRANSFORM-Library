@@ -33,6 +33,8 @@ parameter SI.MassFlowRate m_flow_shell = from_lbm_hr(3.7e6) "Mass flow rate per 
 
 parameter SI.Length th_tube = from_inch(0.035) "Tube thickness";
 parameter SI.Length D_tube_outer = from_inch(0.375) "Tube outer diameter";
+parameter SI.Length D_tube_inner = D_tube_outer-2*th_tube "Tube inner diameter";
+
 parameter SI.Length th_shell = from_inch(0.5) "Shell thickness";
 parameter SI.Length D_shell_inner = from_inch(30.5) "Shell inner diameter";
 parameter Real nTubes = 1604 "# of tubes";

@@ -23,8 +23,8 @@ model data_PIPING
   parameter SI.Length length_PHXsToPump = from_inch(180) "Distance from PHX shell outlet to PCL pump";
   parameter SI.Length height_pumpToSHX = -from_inch(45) "Elevation difference (SHX - pump)";
   parameter SI.Length height_SHXToPHX = -from_inch(83) "Elevation difference (PHX - SHX)";
-  parameter SI.Length height_SHXToPump = from_inch(42) "Elevation difference (SHX - PHX)";
+  parameter SI.Length height_PHXsToPump = from_inch(42) "Elevation difference (SHX - PHX)";
 
-  parameter SI.Length D_SFL = from_inch(12) "Diameter of SFL piping";
+  parameter SI.Length D_PCL=from_inch(12) "Diameter of PCL piping";
 
 end data_PIPING;
