@@ -41,11 +41,11 @@ protected
   Real[size(N_L, 1)] C_2a={0.64,0.80,0.87,0.90,0.92,0.94,0.96,0.98,0.99,1.0};
   Real[size(N_L, 1)] C_2s={0.68,0.75,0.83,0.89,0.92,0.95,0.97,0.98,0.99,1.0};
 
-  SIadd.nonDim A "Maximum velocity correction factor";
+  Units.NonDim A "Maximum velocity correction factor";
   SI.Length S_D = (S_L^2+0.25*S_T^2)^(0.5) "Shortest distance between tube centers of neighboring tube rows";
-  SIadd.nonDim C_1 "Interpolated constant";
-  SIadd.nonDim m "Interpolated constant";
-  SIadd.nonDim C_2 "Interpolated constant";
+  Units.NonDim C_1 "Interpolated constant";
+  Units.NonDim m "Interpolated constant";
+  Units.NonDim C_2 "Interpolated constant";
   SI.ReynoldsNumber[nHT] Res_Dmax "Corrected reynolds number based on tube diameter";
 
 equation

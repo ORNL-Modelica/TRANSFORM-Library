@@ -20,12 +20,20 @@ model data_RCTR
   import TRANSFORM.Units.Conversions.Functions.Area_m2.from_inch2;
   import TRANSFORM.Units.Conversions.Functions.Distance_m.from_feet;
   import TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr;
+  import TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degF;
   import Modelica.Constants.pi;
+
+  parameter SI.Power Q_nominal = 750e6 "Nominal power of reactor";
+  parameter SI.Power Q_nominal_fuelcell = Q_nominal/nFcells "Approximate nominal power output per fuel cell";
+  parameter SI.Temperature T_inlet_core = from_degF(1050) "Inlet core temperature";
+  parameter SI.Temperature T_outlet_core = from_degF(1250) "Outlet core temperature";
+  parameter SI.SpecificHeatCapacity cp = TRANSFORM.Media.Fluids.FLiBe.Utilities_12Th_05U.cp_T(0.5*(T_inlet_core+T_outlet_core)) "Heat capacity of PFL fluid";
+  parameter SI.TemperatureDifference dT_core = Q_nominal/(m_flow*cp) "Expected temperature difference across core";
 
   parameter SI.Velocity vs_reflA_core = TRANSFORM.Units.Conversions.Functions.Velocity_m_s.from_feet_s(7) "Velocity of fueled and control rod cells region in top axial reflector";
   parameter SI.Velocity vs_reflA_reflR = TRANSFORM.Units.Conversions.Functions.Velocity_m_s.from_feet_s(1) "Velocity of radial reflector region in top axial reflector";
 
-  parameter SI.MassFlowRate m_flow = from_lbm_hr(2*6.6e6) "Total mass flow rate through reactor";
+  parameter SI.MassFlowRate m_flow = from_lbm_hr(6*6.6e6) "Total mass flow rate through reactor";
 
   parameter Real nFcells = 357 "# of normal fueled cells";
   parameter Real nCRcells = 6 "# of control rod cells";
@@ -162,6 +170,14 @@ model data_RCTR
   parameter String Material_rtr_wall = "Alloy-N" "Material of reactor vessel";
   parameter SI.Length th_rtr_wall = from_inch(2) "Thickness of reactor vessel wall";
   parameter SI.Length radius_rtr_outer = from_inch(318/2) "Outer radius of reactor vessel";
+
+  // Pump
+  parameter SI.Length D_pumpbowl = from_inch(48) "Diameter of pump bowl - guess";
+  parameter SI.Length length_pumpbowl = from_inch(48) "Vertical height of pumpbowl";
+  parameter SI.Area crossArea_pumpbowl = 0.25*pi*D_pumpbowl^2 "Cross-sectional area of pumpbowl";
+  parameter SI.Volume volume_pumpbowl = crossArea_pumpbowl*length_pumpbowl "Total pumpbowl volume";
+  parameter SI.Length level_pumpbowlnominal = from_inch(24) "Nominal level of fluid in pumpbowl";
+  parameter SI.Volume volume_pumpbowlnominal = crossArea_pumpbowl*level_pumpbowlnominal "Nominal fluid volume of pumpbowl";
 
   // what is the length to use to for axial reflector?
 

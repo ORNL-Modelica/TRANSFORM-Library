@@ -466,7 +466,9 @@ model GenericDistributed_HX
         crossAreas=geometry.crossAreas_tube,
         perimeters=geometry.perimeters_tube,
         nSurfaces=geometry.nSurfaces_tube,
-        angles=geometry.angles_tube)) annotation (Placement(transformation(
+        angles=geometry.angles_tube),
+    redeclare model InternalTraceMassGen = InternalTraceMassGen_tube)
+                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,-80})));
@@ -509,6 +511,13 @@ model GenericDistributed_HX
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi
     adiabaticWall_b2(nPorts=geometry.nR)
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
+  replaceable model InternalTraceMassGen_tube =
+      Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    annotation (Dialog(group="Trace Mass Transfer"),choicesAllMatching=true);
+  replaceable model InternalTraceMassGen_shell =
+      Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    annotation (Dialog(group="Trace Mass Transfer"),choicesAllMatching=true);
+
 equation
 
   //    SI.TemperatureDifference DT_lm "Log mean temperature difference";

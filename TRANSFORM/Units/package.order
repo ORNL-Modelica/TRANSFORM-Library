@@ -2,8 +2,8 @@ Conversions
 VolumetricHeatGenerationRate
 PowerDensity
 TempFeedbackCoeff
-inverseTime
-nonDim
+InverseTime
+NonDim
 VoidFraction
 MassFlux
 HydraulicResistance

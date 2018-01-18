@@ -7,14 +7,14 @@ function K_suddenContraction_Turbulent "Orifice | Sudden Contraction | Turbulent
   extends TRANSFORM.Icons.Function;
 
   input SI.Area crossAreas[2] = {0.5,1.0} "Cross-sectional areas (order does not matter)";
-  input SIadd.nonDim CF = 1.0 "Correction factor";
+  input Units.NonDim CF = 1.0 "Correction factor";
 
-  output SIadd.nonDim K "Resistance coefficient";
+  output Units.NonDim K "Resistance coefficient";
 
 protected
   SI.Area F0 = min(crossAreas) "Small cross-sectional area";
   SI.Area F1 = max(crossAreas) "Large cross-sectional area";
-  SIadd.nonDim R_F0F1 = F0/F1;
+  Units.NonDim R_F0F1 = F0/F1;
 
 algorithm
   K := CF*0.5*(1.0 - R_F0F1)^(0.75);

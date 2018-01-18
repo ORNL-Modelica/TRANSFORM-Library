@@ -119,11 +119,11 @@ partial model SteamTurbineBase "Steam turbine"
   SI.SpecificEnthalpy h_gsat_out=dew_out.h
      "Saturated vapor specific enthalpy  at outlet";
 
-  Units.nonDim x_th_in "Inlet thermodynamic quality";
-  Units.nonDim x_abs_in "Inlet absolute mass quality";
+  Units.NonDim x_th_in "Inlet thermodynamic quality";
+  Units.NonDim x_abs_in "Inlet absolute mass quality";
 
-  Units.nonDim x_th_out "Outlet thermodynamic quality";
-  Units.nonDim x_abs_out "Outlet absolute mass quality";
+  Units.NonDim x_th_out "Outlet thermodynamic quality";
+  Units.NonDim x_abs_out "Outlet absolute mass quality";
 
   Modelica.Blocks.Interfaces.RealInput partialArc annotation (Placement(
         transformation(extent={{-60,-50},{-40,-30}}, rotation=0),

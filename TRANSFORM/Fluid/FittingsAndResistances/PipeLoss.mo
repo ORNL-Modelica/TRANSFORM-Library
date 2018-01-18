@@ -34,17 +34,17 @@ model PipeLoss
 
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
     annotation (Dialog(group="Input Variables"));
-  input SIadd.nonDim K_ab=0 "Minor loss coefficient. Flow in direction a -> b"
+  input Units.NonDim K_ab=0 "Minor loss coefficient. Flow in direction a -> b"
     annotation (Dialog(group="Input Variables"));
-  input SIadd.nonDim K_ba=0 "Minor loss coefficient. Flow in direction b -> a"
+  input Units.NonDim K_ba=0 "Minor loss coefficient. Flow in direction b -> a"
     annotation (Dialog(group="Input Variables"));
-  input SIadd.nonDim CFs[2]={1.0,1.0}
+  input Units.NonDim CFs[2]={1.0,1.0}
     "Frictional loss correction factors: {Laminar, Turbulent}"
     annotation (Dialog(group="Input Variables"));
 
   SI.ReynoldsNumber Re "Reynolds number";
 
-  SIadd.nonDim K "Minor loss coefficient";
+  Units.NonDim K "Minor loss coefficient";
 
   SI.Velocity v_a "Velocity at port_a";
   SI.Velocity v_b "Velocity at port_a";

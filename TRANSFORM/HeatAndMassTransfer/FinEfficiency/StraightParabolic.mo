@@ -11,9 +11,9 @@ model StraightParabolic
   input SI.Length L "Fin length" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
   input SI.Length W "Fin width" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
 
-  input Units.nonDim mL = sqrt(2*alpha/(lambda*th))*L "Non-dimensional fin parameter" annotation(Dialog(group="Input Variables",enable=use_NonDimensional));
+  input Units.NonDim mL = sqrt(2*alpha/(lambda*th))*L "Non-dimensional fin parameter" annotation(Dialog(group="Input Variables",enable=use_NonDimensional));
 
-  Units.nonDim c1 = sqrt(1+(th/L)^2);
+  Units.NonDim c1 = sqrt(1+(th/L)^2);
   SI.Area surfaceArea=W*(c1*L + L^2/th*log(th/L + c1));
 
 algorithm

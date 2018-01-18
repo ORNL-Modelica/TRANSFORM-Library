@@ -21,7 +21,7 @@ partial model PartialGeometryTest
   constant SI.Area surfaceAreas_Exp;
   constant SI.Height height_b_Exp;
   constant SI.Volume Volume_total_Exp;
-  constant Units.nonDim dxs_Exp;
+  constant Units.NonDim dxs_Exp;
   constant SI.Area surfaceArea_total_Exp;
 
   replaceable PartialGeometry geometry

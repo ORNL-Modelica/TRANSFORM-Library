@@ -3,7 +3,7 @@ model GenericPowerProfile
   "Transalets a total power input to user defined power profile (or shape)"
 
   parameter Integer nNodes = 4 "# of discrete volumes";
-  parameter Units.nonDim Q_shape[nNodes]=1/nNodes*ones(nNodes)
+  parameter Units.NonDim Q_shape[nNodes]=1/nNodes*ones(nNodes)
     "Fractional power profile. Note: sum(Q_shape) = 1";
 
   Modelica.Blocks.Interfaces.RealInput Q_total "Total input power"

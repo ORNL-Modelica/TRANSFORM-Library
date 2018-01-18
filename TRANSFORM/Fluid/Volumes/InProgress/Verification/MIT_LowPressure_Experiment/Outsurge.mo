@@ -27,8 +27,8 @@ model Outsurge
     "Initial pressure of main (primary) tank";
   constant SI.Temperature insurge_T = SI.Conversions.from_degF(73) "Insurge water temperature";
 
-  constant Units.nonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
-  constant Units.nonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
+  constant Units.NonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
+  constant Units.NonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
 
   constant SI.Temperature wall_Tavg = SI.Conversions.from_degF(300) "Average wall temperature";
   constant SI.ThermalConductivity wall_lambda=

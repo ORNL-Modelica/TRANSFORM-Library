@@ -166,16 +166,15 @@ equation
           extent={{-85,-85},{85,85}},
           pattern=LinePattern.None,
           lineColor={135,135,135},
-          fillColor={170,255,255},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Sphere,
           startAngle=0,
           endAngle=180),
         Text(
-          extent={{-100,50.5},{100,30}},
-          lineColor={64,64,64},
-          lineThickness=1,
-          fillColor={255,255,237},
-          fillPattern=FillPattern.Solid,
-          textString="Cover Gas")}), Diagram(coordinateSystem(
+          extent={{-151,134},{149,94}},
+          lineColor={0,0,255},
+          textString="%name",
+          visible=DynamicSelect(true,showName))}),
+                                     Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
 end ExpansionTank_1Port;

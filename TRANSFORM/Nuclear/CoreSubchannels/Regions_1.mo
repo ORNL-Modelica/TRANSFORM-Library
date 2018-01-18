@@ -49,10 +49,10 @@ model Regions_1
   parameter Integer nI=6
     "Number of groups of the delayed-neutron precursors groups" annotation (
       Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter Units.nonDim beta_i[nI]={0.000169,0.000832,0.00264,0.00122,
+  parameter Units.NonDim beta_i[nI]={0.000169,0.000832,0.00264,0.00122,
       0.00138,0.000247} "Delayed neutron precursor fractions"
     annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter Units.inverseTime lambda_i[nI]={3.87,1.40,0.311,0.115,0.0317,
+  parameter Units.InverseTime lambda_i[nI]={3.87,1.40,0.311,0.115,0.0317,
       0.0127} "Decay constants for each precursor group"
     annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
   parameter SI.Time Lambda=1e-5 "Prompt neutron generation time"
@@ -77,7 +77,7 @@ model Regions_1
     annotation (Dialog(group="Nominal Parameters", enable = use_DecayHeat));
   parameter SI.Power Q_nominal=1000e6 "Nominal thermal power rating (W)"
     annotation (Dialog(group="Nominal Parameters"));
-  parameter Units.nonDim[geometry.nV] Q_shape=1/geometry.nV*ones(geometry.nV)
+  parameter Units.NonDim[geometry.nV] Q_shape=1/geometry.nV*ones(geometry.nV)
     "Per Node Fractional Power Profile. (i.e., sum(Power_shape) = 1"
     annotation (Dialog(group="Nominal Parameters"));
 

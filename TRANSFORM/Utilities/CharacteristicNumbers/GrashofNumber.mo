@@ -10,7 +10,7 @@ function GrashofNumber "Returns Grashof number"
   input SI.Temperature Tsat "Saturation temperature";
   input SI.SpecificEnthalpy h_fg "Latent heat of vaporization";
 
-  output Units.nonDim Ja "Jakob number";
+  output Units.NonDim Ja "Jakob number";
 algorithm
   Ja := cp.*abs(Ts-Tsat)./h_fg;
 

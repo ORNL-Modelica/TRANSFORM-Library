@@ -4,8 +4,8 @@ model Verification
 
   constant Integer nNumbers = 1;
 
-  Units.nonDim[nNumbers] Answer;
-  Units.nonDim[nNumbers] CharNumber;
+  Units.NonDim[nNumbers] Answer;
+  Units.NonDim[nNumbers] CharNumber;
 
   ErrorAnalysis.Errors_AbsRelRMSold summary_Error(
     n=nNumbers,

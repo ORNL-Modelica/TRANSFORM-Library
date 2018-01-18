@@ -9,14 +9,14 @@ function K_suddenExpansion_LaminarAndTransition
 
   input SI.Area crossAreas[2] = {0.5,1.0} "Cross-sectional areas (order does not matter)";
   input SI.ReynoldsNumber Re "Reynolds number";
-  input SIadd.nonDim CF=1.0 "Correction factor (e.g., 0.6 with baffles)";
+  input Units.NonDim CF=1.0 "Correction factor (e.g., 0.6 with baffles)";
 
-  output SIadd.nonDim K "Resistance coefficient";
+  output Units.NonDim K "Resistance coefficient";
 
 protected
   SI.Area F0 = min(crossAreas) "Small cross-sectional area";
   SI.Area F1 = max(crossAreas) "Large cross-sectional area";
-  SIadd.nonDim R_F0F1 = F0/F1;
+  Units.NonDim R_F0F1 = F0/F1;
 
   Real dataR_F0F1[6]={0.1,0.2,0.3,0.4,0.5,0.6};
   Real dataRe[13]={10,15,20,30,40,50,1e2,2e2,5e2,1e3,2e3,3e3,4e3};

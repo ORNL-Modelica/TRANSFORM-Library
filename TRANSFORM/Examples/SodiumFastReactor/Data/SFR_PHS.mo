@@ -33,7 +33,7 @@ model SFR_PHS
   parameter SI.Length D_pin=0.0053 "Pin diameter";
   parameter SI.Length th_clad=0.00037 "Cladding thickness";
   parameter SI.Length D_wireWrap=0.00126 "Wire wrap diameter";
-  parameter SIadd.nonDim PD_ratio=1.248 "Pin pitch to diameter ratio p/d";
+  parameter Units.NonDim PD_ratio=1.248 "Pin pitch to diameter ratio p/d";
 
   parameter SI.Length length_subassembly_out = 0.60 "Length of subassembly above gas plenum region";
   parameter SI.Length length_subassembly_gasplenum = 1.50 "Length of subassembly gas plenum length after active region";
@@ -64,8 +64,8 @@ model SFR_PHS
 
   // Nominal Conditions
   parameter SI.Power Qth_nominal = 300e6 "Nominal thermal power";
-  parameter SIadd.nonDim Q_outer_nominal = 0.6*Qth_nominal "Nominal power in region";
-  parameter SIadd.nonDim Q_inner_nominal = 0.4*Qth_nominal "Nominal power in region";
+  parameter Units.NonDim Q_outer_nominal = 0.6*Qth_nominal "Nominal power in region";
+  parameter Units.NonDim Q_inner_nominal = 0.4*Qth_nominal "Nominal power in region";
   parameter SI.MassFlowRate m_flow_PHTS = 1570 "Sodium flow rate in PHTS";
   parameter SI.MassFlowRate m_flow_IHX_PHTS = m_flow_PHTS/nIHXs "Sodium flow rate per IHX on PHTS side";
   parameter SI.MassFlowRate m_flow_IHX_IHTS = m_flow_PHTS/nIHXs "Sodium flow rate per IHX on IHTS side";

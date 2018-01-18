@@ -8,8 +8,8 @@ partial model Partial_TwoPhaseHeatTransfer
         Modelica.Media.Water.StandardWater
       constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium);
 
-  Units.nonDim x_th[nHT] "Thermodynmic quality";
-  Units.nonDim x_abs[nHT] "Steam quality (0<x<1)";
+  Units.NonDim x_th[nHT] "Thermodynmic quality";
+  Units.NonDim x_abs[nHT] "Steam quality (0<x<1)";
 
 protected
   SI.Pressure p[nHT] "Fluid pressure";

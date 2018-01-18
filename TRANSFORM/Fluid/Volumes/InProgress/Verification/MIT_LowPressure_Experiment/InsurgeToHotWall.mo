@@ -34,8 +34,8 @@ model InsurgeToHotWall
       Units.Conversions.Functions.Pressure_Pa.from_psi(86.4)
     "pressure of main (primary) tank before insurge";
 
-  constant Units.nonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
-  constant Units.nonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
+  constant Units.NonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
+  constant Units.NonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
 
   constant SI.Temperature wall_Tavg = SI.Conversions.from_degF(300) "Average wall temperature";
   constant SI.ThermalConductivity wall_lambda=

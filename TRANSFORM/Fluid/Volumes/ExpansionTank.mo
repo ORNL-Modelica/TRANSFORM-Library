@@ -62,6 +62,7 @@ model ExpansionTank "Expansion tank with cover gas"
   SI.MassFlowRate mCb[Medium.nC]
     "Trace mass flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
 
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_a(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
@@ -159,7 +160,6 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
-        Text(extent={{-100,-105},{100,-120}}, textString="%name"),
         Ellipse(
           extent={{-85,85},{85,-85}},
           fillColor={0,128,255},
@@ -170,16 +170,15 @@ equation
           extent={{-85,-85},{85,85}},
           pattern=LinePattern.None,
           lineColor={135,135,135},
-          fillColor={170,255,255},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Sphere,
           startAngle=0,
           endAngle=180),
         Text(
-          extent={{-100,50.5},{100,30}},
-          lineColor={64,64,64},
-          lineThickness=1,
-          fillColor={255,255,237},
-          fillPattern=FillPattern.Solid,
-          textString="Cover Gas")}), Diagram(coordinateSystem(
+          extent={{-151,134},{149,94}},
+          lineColor={0,0,255},
+          textString="%name",
+          visible=DynamicSelect(true,showName))}),
+                                     Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
 end ExpansionTank;

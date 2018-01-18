@@ -3,8 +3,8 @@ model Generic "Generic | No constraint between dimension, crossArea, and perimet
 
   extends PartialGeometry;
 
-  input SIadd.nonDim k_lam = 1.0 "Laminar region geometric correction coefficient" annotation (Dialog(group="Input Variables"));
-  input SIadd.nonDim k_turb = 1.0 "Turbulent region geometric correction coefficient" annotation (Dialog(group="Input Variables"));
+  input Units.NonDim k_lam = 1.0 "Laminar region geometric correction coefficient" annotation (Dialog(group="Input Variables"));
+  input Units.NonDim k_turb = 1.0 "Turbulent region geometric correction coefficient" annotation (Dialog(group="Input Variables"));
 
 equation
   ks[1] = k_lam;

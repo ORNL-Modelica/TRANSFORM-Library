@@ -6,7 +6,7 @@ function S_simpleVelocity "Simple velocity slip ratio"
   input SI.Velocity v_p "Primary phase velocity (e.g., liquid velocity)";
   input SI.Velocity v_s "Secondary phase velocity (e.g., vapor velocity)";
 
-  output Units.nonDim S "Slip ratio";
+  output Units.NonDim S "Slip ratio";
 
 algorithm
   assert(v_p > 0.0, "Primary phase velocity must be greater than 0");

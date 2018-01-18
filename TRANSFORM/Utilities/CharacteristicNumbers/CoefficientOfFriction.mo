@@ -6,7 +6,7 @@ function CoefficientOfFriction "Returns Coefficient of Friction"
   input SI.Density rho "Density";
   input SI.Velocity v "Velocity";
 
-  output Units.nonDim Cf "Coefficient of friction";
+  output Units.NonDim Cf "Coefficient of friction";
 algorithm
   Cf := tau_s./(0.5*rho.*v.*v);
 

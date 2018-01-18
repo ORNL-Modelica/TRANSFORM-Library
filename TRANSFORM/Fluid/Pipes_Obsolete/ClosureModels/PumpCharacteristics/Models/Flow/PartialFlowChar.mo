@@ -37,7 +37,7 @@ partial model PartialFlowChar
   SI.Density rho = Medium.density(state) "Density";
   SI.VolumeFlowRate V_flow "Volumetric flow rate";
 
-  Units.nonDim affinityLaw "Affinity law for scaling";
+  Units.NonDim affinityLaw "Affinity law for scaling";
 
   SI.Height head "Pump pressure head";
   SI.MassFlowRate m_flow(start=m_flow_start);

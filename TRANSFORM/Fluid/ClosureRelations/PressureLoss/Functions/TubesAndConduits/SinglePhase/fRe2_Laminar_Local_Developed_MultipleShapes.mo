@@ -4,9 +4,9 @@ function fRe2_Laminar_Local_Developed_MultipleShapes
 
   input SI.ReynoldsNumber Re "Reynolds Number";
   input String shape = "Circle" "Geometry shape" annotation(choices(choice= "Circle",choice= "Rectangle",choice= "Ellipse",choice= "Isosceles Triangle"));
-  input Units.nonDim ab = 1 "Ratio of major (a)/minor (b) length (only for rectangle and elipse)";
+  input Units.NonDim ab = 1 "Ratio of major (a)/minor (b) length (only for rectangle and elipse)";
   input SI.Angle theta = 10 "Angle (only for triangle)";
-  output Units.nonDim fRe2 "Friction factor*Re^2";
+  output Units.NonDim fRe2 "Friction factor*Re^2";
 algorithm
   if shape == "Circle" then
     fRe2 :=64*Re;

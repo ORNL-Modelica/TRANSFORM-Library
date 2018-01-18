@@ -10,7 +10,7 @@ function fRe2_Nozzle
   input SI.MassFlowRate m_flow "Mass flow rate";
   input Boolean isReducingNozzle "=true if flow from large nozzle (d_N) to small tubes (d_o)";
 
-  output SIadd.nonDim fRe2 "Modified friction coefficient (= f*Re^2)";
+  output Units.NonDim fRe2 "Modified friction coefficient (= f*Re^2)";
 
 protected
   Real A_NF = d_N*d_N/(D_i*D_i-n_T*d_o*d_o)

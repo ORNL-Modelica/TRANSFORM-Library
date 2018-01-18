@@ -13,7 +13,7 @@ model Annulus
     "=true then use absolute eccentricity else relative";
   input SI.Length e_abs=0.0 "Absolute off-center distance"
     annotation (Dialog(group="Input Variables", enable=use_e_abs));
-  input SIadd.nonDim e_rel(
+  input Units.NonDim e_rel(
     min=0.0,
     max=1.0) = 0.0 "Relative off-center distance, min = 0; max = 1.0"
     annotation (Dialog(group="Input Variables", enable=not use_e_abs));
@@ -23,7 +23,7 @@ model Annulus
     final crossArea=0.25*Modelica.Constants.pi*(d1^2 - d0^2),
     final perimeter=Modelica.Constants.pi*(d1 + d0));
 
-  SIadd.nonDim e_bar=if use_e_abs then 2*e_abs/(d1 - d0) else e_rel;
+  Units.NonDim e_bar=if use_e_abs then 2*e_abs/(d1 - d0) else e_rel;
   Real R_d0d1=d0/d1 "Ratio of small/large (d0/d1) diameters";
 protected
   Real data_R[11]={0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0};

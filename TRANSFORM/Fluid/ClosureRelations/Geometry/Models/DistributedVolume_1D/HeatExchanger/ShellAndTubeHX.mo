@@ -18,7 +18,7 @@ model ShellAndTubeHX
 
   // Translate input parameters to best estimate of dimensions for closure models (i.e., flow and heat transfer models)
 protected
-  Units.nonDim lengthRatio = length_tube/length_shell "Ratio of tube length to shell length";
+  Units.NonDim lengthRatio = length_tube/length_shell "Ratio of tube length to shell length";
   SI.Area crossAreaModded_tube = 0.25*pi*D_o_tube^2*nTubes*lengthRatio "Estimate of cross sectional area of tubes (exact if tubes are circular) with an unequal shell-tube length factor correction";
   SI.Length perimeterModded_tube = pi*D_o_tube*nTubes*lengthRatio "Wetted perimeter of tubes in shell with an unequal shell-tube length factor correction";
   SI.Area crossAreaNew_shell = crossAreaEmpty_shell-crossAreaModded_tube "Cross-sectional flow area of shell";

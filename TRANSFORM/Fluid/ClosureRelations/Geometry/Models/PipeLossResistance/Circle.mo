@@ -14,8 +14,8 @@ model Circle "Circle or characteristic average dimension"
   input SI.Length perimeter_avg=Modelica.Constants.pi*dimension_avg "Wetted perimeter"
     annotation (Dialog(group="Input Variables", enable=not use_Dimension));
 
-  input SIadd.nonDim k_lam = 1.0 "Laminar region geometric correction coefficient" annotation (Dialog(group="Input Variables"));
-  input SIadd.nonDim k_turb = 1.0 "Turbulent region geometric correction coefficient" annotation (Dialog(group="Input Variables"));
+  input Units.NonDim k_lam = 1.0 "Laminar region geometric correction coefficient" annotation (Dialog(group="Input Variables"));
+  input Units.NonDim k_turb = 1.0 "Turbulent region geometric correction coefficient" annotation (Dialog(group="Input Variables"));
 
   extends PartialGeometry(
     final dimension=if use_Dimension then dimension_avg else 4*crossArea/perimeter,

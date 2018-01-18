@@ -14,7 +14,7 @@ record IRIS_PHS
 
   parameter SI.Pressure pressurizer_p=1.55e7 "nominal operating pressure";
   parameter SI.Height pressurizer_level=1.68 "nominal pressurizer level";
-  parameter Units.nonDim pressurizer_Vfrac_liquid=0.34
+  parameter Units.NonDim pressurizer_Vfrac_liquid=0.34
     "nominal fraction of liquid in pressurizer";
 
   annotation (

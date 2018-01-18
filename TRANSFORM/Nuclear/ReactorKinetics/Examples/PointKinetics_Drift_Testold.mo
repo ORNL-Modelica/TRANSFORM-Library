@@ -18,15 +18,15 @@ model PointKinetics_Drift_Testold
   parameter Integer nI = 6
     "Number of groups of the delayed-neutron precursors groups"
      annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter TRANSFORM.Units.inverseTime[nI] lambda_i={0.0125,0.0318,0.109,0.317,1.35,8.64}
+  parameter TRANSFORM.Units.InverseTime[nI] lambda_i={0.0125,0.0318,0.109,0.317,1.35,8.64}
     "Decay constants for each precursor group"
     annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter TRANSFORM.Units.nonDim[nI] alpha_i={0.0320,0.1664,0.1613,0.4596,0.1335,0.0472} "Delayed neutron precursor fractions"
+  parameter TRANSFORM.Units.NonDim[nI] alpha_i={0.0320,0.1664,0.1613,0.4596,0.1335,0.0472} "Delayed neutron precursor fractions"
     annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter TRANSFORM.Units.nonDim[nI] beta_i=alpha_i*Beta "Delayed neutron precursor fractions"
+  parameter TRANSFORM.Units.NonDim[nI] beta_i=alpha_i*Beta "Delayed neutron precursor fractions"
     annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter TRANSFORM.Units.nonDim Beta=0.0065 "Effective delay neutron fraction [e.g.,Beta = sum(beta_i)]";
-  parameter Units.nonDim nu_bar = 2.4 "Neutrons per fission";
+  parameter TRANSFORM.Units.NonDim Beta=0.0065 "Effective delay neutron fraction [e.g.,Beta = sum(beta_i)]";
+  parameter Units.NonDim nu_bar = 2.4 "Neutrons per fission";
   parameter SI.Energy w_f = 200e6*1.6022e-19 "Energy released per fission";
   parameter SI.Time Lambda = 1e-5 "Prompt neutron generation time" annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
   parameter SI.Power Q_nominal=5e4 "Nominal total reactor power";
@@ -50,7 +50,7 @@ model PointKinetics_Drift_Testold
   //SI.Power[nV] P=Q_nominal*ones(nV);
   SI.Power[nV] P;
 
-  TRANSFORM.Units.nonDim[nV] rho "Total reactivity feedback";
+  TRANSFORM.Units.NonDim[nV] rho "Total reactivity feedback";
 
 SI.MassFlowRate[nV,nI] mC_gens;
 SI.MassFlowRate[nV,nI] mC_gens2;

@@ -10,7 +10,7 @@ model BaseProperties2Phase
     "Void fraction model" annotation(choicesAllMatching=true);
 
   input Medium.ThermodynamicState state "Medium state" annotation(Dialog(group="Input Variables:"));
-  input Units.nonDim S = 1.0 "Slip ratio for void fraction" annotation(Dialog(group="Input Variables:"));
+  input Units.NonDim S = 1.0 "Slip ratio for void fraction" annotation(Dialog(group="Input Variables:"));
 
   constant SI.Pressure p_crit = Medium.fluidConstants[1].criticalPressure "Critical pressure";
   constant SI.Temperature T_crit = Medium.fluidConstants[1].criticalTemperature "Critical temperature";
@@ -20,8 +20,8 @@ model BaseProperties2Phase
   SI.Temperature T "Fluid temperature";
   SI.Pressure p "Fluid pressure";
 
-  Units.nonDim x_th "Thermodynmic quality";
-  Units.nonDim x_abs "Absolute mass quality (0<x<1)";
+  Units.NonDim x_th "Thermodynmic quality";
+  Units.NonDim x_abs "Absolute mass quality (0<x<1)";
   Units.VoidFraction alphaV "Void fraction";
 
   Medium.DynamicViscosity mu "Dynamic viscosity";

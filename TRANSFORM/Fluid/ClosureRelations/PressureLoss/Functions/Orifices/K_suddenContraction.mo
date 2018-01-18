@@ -10,14 +10,14 @@ function K_suddenContraction
   input SI.Area crossAreas[2]={0.5,1.0}
     "Cross-sectional areas (order does not matter)";
   input SI.ReynoldsNumber Re "Reynolds number";
-  input SIadd.nonDim CFs[2]={1.0,1.0}
+  input Units.NonDim CFs[2]={1.0,1.0}
     "Correction factor {laminar/transition,turbulent}";
 
-  output SIadd.nonDim K "Resistance coefficient";
+  output Units.NonDim K "Resistance coefficient";
 
 protected
-  SIadd.nonDim K_lam;
-  SIadd.nonDim K_turb;
+  Units.NonDim K_lam;
+  Units.NonDim K_turb;
   SI.ReynoldsNumber Re_center=1e4 "Re smoothing transition center";
   SI.ReynoldsNumber Re_width=200 "Re smoothing transition width";
 

@@ -5,10 +5,10 @@ partial model PartialMomentumBalance
 
   extends PartialDistributedStaggeredFlow;
 
-  input Units.nonDim Ks_ab[nFM]=fill(0, nFM)
+  input Units.NonDim Ks_ab[nFM]=fill(0, nFM)
     "Minor loss coefficients. Flow in direction a -> b"
     annotation (Dialog(group="Input Variables"));
-  input Units.nonDim Ks_ba[nFM]=fill(0, nFM)
+  input Units.NonDim Ks_ba[nFM]=fill(0, nFM)
     "Minor loss coefficients. Flow in direction b -> a"
     annotation (Dialog(group="Input Variables"));
 //   input SI.PressureDifference dps_add_ab[nFM]=fill(0, nFM)

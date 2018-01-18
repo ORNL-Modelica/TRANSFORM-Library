@@ -4,7 +4,7 @@ function fRe2_Laminar_Local_Developed_Circular
 
   input SI.ReynoldsNumber Re "Reynolds Number";
 
-  output Units.nonDim fRe2 "Friction factor*Re^2";
+  output Units.NonDim fRe2 "Friction factor*Re^2";
 
 algorithm
 

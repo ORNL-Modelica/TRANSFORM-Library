@@ -6,7 +6,7 @@ model SlipRatio_simpleVelocity_Test
   constant SI.Velocity v_l = 1.0 "Liquid velocity";
   constant SI.Velocity[n] v_v = linspace(0,100*v_l,n) "Vapor velocity";
 
-  Units.nonDim[n] S "Void fraction";
+  Units.NonDim[n] S "Void fraction";
 equation
   for i in 1:n loop
     S[i] =S_simpleVelocity(v_l, v_v[i]);

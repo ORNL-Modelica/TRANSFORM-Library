@@ -1,2 +1,2 @@
 within TRANSFORM.Units;
-type nonDim = Real (final quantity="nonDim", final unit="1");
+type NonDim = Real (final quantity="nonDim", final unit="1");

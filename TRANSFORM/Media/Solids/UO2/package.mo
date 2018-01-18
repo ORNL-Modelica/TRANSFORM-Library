@@ -24,7 +24,7 @@ h => pg 18 eq 4.1
   constant Real Ea(unit="K") = 18531.7;
 
   constant SI.Density d_273=10970 "Density of 100% UO2";
-  constant Units.nonDim porosity = 0.05 "Fuel porosity (d_TD - d)/d_td";
+  constant Units.NonDim porosity = 0.05 "Fuel porosity (d_TD - d)/d_td";
 
   redeclare function extends specificEnthalpy "Specific enthalpy"
   algorithm
@@ -56,7 +56,7 @@ h => pg 18 eq 4.1
   Units.nonDim FR = 1-0.2/(1+exp((state.T-900)/80)) "Radiation effect";
   */
 protected
-  Units.nonDim FM = (1-porosity)/(1+2*porosity) "Effect of porosity";
+  Units.NonDim FM = (1-porosity)/(1+2*porosity) "Effect of porosity";
   algorithm
     lambda := (115.8/(7.5408 + 17.692*(state.T/1000) + 3.6142*(state.T/1000)^2) +
       7410.5*(state.T/1000)^(-5/2)*exp(-16.35/(state.T/1000)))*FM;

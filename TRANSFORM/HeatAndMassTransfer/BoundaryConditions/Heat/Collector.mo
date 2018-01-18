@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model Collector
   parameter Integer n(min=1)=1 "Number of collected heat flows";
-
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   Interfaces.HeatPort_Flow port_a[n]
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.HeatPort_Flow port_b
@@ -42,7 +42,8 @@ equation
         Text(
           extent={{-138,102},{142,62}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255},
+          visible=showName)}),
     Documentation(info="<html>
 <p>
 This is a model to collect the heat flows from <i>m</i> heatports to one single heatport.

@@ -2,6 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model ParallelFlow "Scale flow variables for nParallel streams"
 
   parameter Real nParallel = 1 "Flow variable is divided by nParallel";
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 
   TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_Flow port_1
     "Connector single flow" annotation (Placement(transformation(extent={{-110,
@@ -24,6 +25,7 @@ equation
         Text(
           extent={{-140,92},{140,52}},
           textString="%name",
-          lineColor={0,0,255})}),                                Diagram(
+          lineColor={0,0,255},
+          visible=showName)}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ParallelFlow;

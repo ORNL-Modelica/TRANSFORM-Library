@@ -5,7 +5,7 @@ model Overall_Evaporation_smoothed
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.TwoPhase.Partial_TwoPhaseHeatTransfer;
 
-  parameter Units.nonDim[nHT] x_chf=0.9*ones(nHT)
+  parameter Units.NonDim[nHT] x_chf=0.9*ones(nHT)
     "Steam quality corresponding to Critical Heat Flux";
 
   replaceable function heatTransfer_SinglephaseLiquid =

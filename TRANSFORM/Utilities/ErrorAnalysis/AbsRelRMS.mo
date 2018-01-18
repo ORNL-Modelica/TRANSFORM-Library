@@ -12,13 +12,13 @@ input Real tolerance = 100*Modelica.Constants.eps "To avoid division by 0";
 output Real Error_rms "Root Mean Square error sqrt(sum(Error_abs.^2)/n)";
 output Real Error_rmsRel "Root Mean Square error sqrt(sum(Error_rel.^2)/n)";
 output Real[size(x_1,1)] Error_abs "Absolute error (x_1 - x_2)";
-output Units.nonDim[size(x_1,1)] Error_rel "Relative error (x_1 - x_2)/x_2";
+output Units.NonDim[size(x_1,1)] Error_rel "Relative error (x_1 - x_2)/x_2";
 output Real passedTest "if 0 (false) then expected and actual values to not match within the expected error";
 
 protected
   Integer n=size(x_1,1) "Size of variable array";
   Real[n] Error_absRaw "Absolute error not filtered by machine tolerance";
-  Units.nonDim[n] Error_relRaw "Relative error not filtered by machine tolerance";
+  Units.NonDim[n] Error_relRaw "Relative error not filtered by machine tolerance";
 
 algorithm
 
