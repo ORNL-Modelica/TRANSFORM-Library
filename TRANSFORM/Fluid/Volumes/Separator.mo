@@ -8,7 +8,7 @@ model Separator
     mXib={sum(mXi_flows_a[:, i]) + sum(mXi_flows_b[:, i]) + portLiquid.m_flow*
         actualStream(portLiquid.Xi_outflow[i]) for i in 1:Medium.nXi},
     mCb={sum(mC_flows_a[:, i]) + sum(mC_flows_b[:, i]) + portLiquid.m_flow*
-        actualStream(portLiquid.C_outflow[i]) + mC_flow_internal[i]
+        actualStream(portLiquid.C_outflow[i]) + mC_flow_internal[i] + mC_gen[i]
         for i in 1:Medium.nC});
 
   parameter SI.Efficiency eta_sep(

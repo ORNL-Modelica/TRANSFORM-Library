@@ -163,7 +163,7 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(hex.portFluidDrain, hotDrain) annotation (Line(
-      points={{-21,-20},{-21,-20},{-100,-20}},
+      points={{-21,-17.03},{-21,-20},{-100,-20}},
       color={0,127,255},
       thickness=0.5));
   connect(hex.portSteamFeed, hotFeed) annotation (Line(

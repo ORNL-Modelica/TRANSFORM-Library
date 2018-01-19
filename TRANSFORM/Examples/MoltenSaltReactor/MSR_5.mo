@@ -408,12 +408,12 @@ model MSR_5
     annotation (Placement(transformation(extent={{40,118},{60,138}})));
   Fluid.Volumes.ExpansionTank pumpBowl_PFL(
     redeclare package Medium = Medium_PFL,
-    A=data_RCTR.crossArea_pumpbowl,
     level_start=data_RCTR.level_pumpbowlnominal,
     showName=systemTF.showName,
     mC_gen=mC_gen_pumpBowl,
     h_start=pumpBowl_PFL.Medium.specificEnthalpy_pT(pumpBowl_PFL.p_start,
-        data_PHX.T_inlet_tube))
+        data_PHX.T_inlet_tube),
+    A=3*data_RCTR.crossArea_pumpbowl)
     annotation (Placement(transformation(extent={{10,124},{30,144}})));
 
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
