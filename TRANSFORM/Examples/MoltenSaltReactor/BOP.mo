@@ -71,10 +71,10 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
     nPorts_a=1,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1),
-
     redeclare package Medium = Medium_BOP,
     nPorts_b=1)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+
   Data.data_BOP data_BOP
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Fluid.Volumes.IdealCondenser condenser1(
@@ -108,9 +108,9 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
     redeclare package Medium = Medium_BOP,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1),
-
     nPorts_b=1)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
+
   Fluid.Machines.SteamTurbineStodola steamTurbine_LP(
     redeclare package Medium = Medium_BOP,
     T_a_start=data_SHX.T_outlet_tube,

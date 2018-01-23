@@ -15,6 +15,10 @@ model MSR_5
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
 
+  parameter Real FissionFuelComp[2] = {60,40};
+
+  SI.MassFlowRate[fuelCell.nV,data_traceSubstances.fissionProducts.nC] mC_gens_FP = {kinetics.Qs[i]/kinetics.w_f*(FissionFuelComp[1]*data_traceSubstances.fissionProducts.fisYield_t[:,1]+FissionFuelComp[2]*data_traceSubstances.fissionProducts.fisYield_t[:,2]) for i in 1:fuelCell.nV} "Mass generation rate of fission products";
+
   SI.Power Qt_total = sum(kinetics.Qs) "Total thermal power output";
 
   SI.Temperature Ts[10] = fuelCell.mediums.T;
@@ -26,18 +30,16 @@ model MSR_5
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
   // Trace Substance Calculations
-  SI.MassFlowRate[data_traceSubstances.nI] mC_gen_tee_inlet = {-data_traceSubstances.lambda_i[j]*tee_inlet.mC[j] for j in 1:data_traceSubstances.nI};
-  SI.MassFlowRate[data_traceSubstances.nI] mC_gen_plenum_lower = {-data_traceSubstances.lambda_i[j]*plenum_lower.mC[j] for j in 1:data_traceSubstances.nI};
-  SI.MassFlowRate[reflA_lower.nV,data_traceSubstances.nI] mC_gens_reflA_lower = {{-data_traceSubstances.lambda_i[j]*reflA_lower.mCs[i, j] for j in 1:data_traceSubstances.nI} for i in 1:reflA_lower.nV};
-  SI.MassFlowRate[fuelCell.nV,data_traceSubstances.nI] mC_gens_fuelCell = kinetics.mC_gens;
-  SI.MassFlowRate[reflA_upper.nV,data_traceSubstances.nI] mC_gens_reflA_upper = {{-data_traceSubstances.lambda_i[j]*reflA_upper.mCs[i, j] for j in 1:data_traceSubstances.nI} for i in 1:reflA_upper.nV};
-  SI.MassFlowRate[data_traceSubstances.nI] mC_gen_plenum_upper = {-data_traceSubstances.lambda_i[j]*plenum_upper.mC[j] for j in 1:data_traceSubstances.nI};
-  SI.MassFlowRate[data_traceSubstances.nI] mC_gen_pumpBowl={-
-      data_traceSubstances.lambda_i[j]*pumpBowl_PFL.mC[j] for j in 1:
-      data_traceSubstances.nI};
-  SI.MassFlowRate[pipeToPHX_PFL.nV,data_traceSubstances.nI] mC_gens_pipeToPHX_PFL = {{-data_traceSubstances.lambda_i[j]*pipeToPHX_PFL.mCs[i, j] for j in 1:data_traceSubstances.nI} for i in 1:pipeToPHX_PFL.nV};
-  SI.MassFlowRate[PHX.tube.nV,data_traceSubstances.nI] mC_gens_PHX_tube = {{-data_traceSubstances.lambda_i[j]*PHX.tube.mCs[i, j] for j in 1:data_traceSubstances.nI} for i in 1:PHX.tube.nV};
-  SI.MassFlowRate[pipeFromPHX_PFL.nV,data_traceSubstances.nI] mC_gens_pipeFromPHX_PFL = {{-data_traceSubstances.lambda_i[j]*pipeFromPHX_PFL.mCs[i, j] for j in 1:data_traceSubstances.nI} for i in 1:pipeFromPHX_PFL.nV};
+  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet = {-data_traceSubstances.lambdas[j]*tee_inlet.mC[j] for j in 1:data_traceSubstances.nC};
+  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_lower = {-data_traceSubstances.lambdas[j]*plenum_lower.mC[j] for j in 1:data_traceSubstances.nC};
+  SI.MassFlowRate[reflA_lower.nV,data_traceSubstances.nC] mC_gens_reflA_lower = {{-data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j]*reflA_lower.nParallel for j in 1:data_traceSubstances.nC} for i in 1:reflA_lower.nV};
+  SI.MassFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_fuelCell = cat(2,kinetics.mC_gens,mC_gens_FP);
+  SI.MassFlowRate[reflA_upper.nV,data_traceSubstances.nC] mC_gens_reflA_upper = {{-data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j]*reflA_upper.nParallel for j in 1:data_traceSubstances.nC} for i in 1:reflA_upper.nV};
+  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_upper = {-data_traceSubstances.lambdas[j]*plenum_upper.mC[j] for j in 1:data_traceSubstances.nC};
+  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_pumpBowl={-data_traceSubstances.lambdas[j]*pumpBowl_PFL.mC[j]*3 for j in 1:data_traceSubstances.nC};
+  SI.MassFlowRate[pipeToPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeToPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeToPHX_PFL.mCs[i, j]*pipeToPHX_PFL.nParallel for j in 1:data_traceSubstances.nC} for i in 1:pipeToPHX_PFL.nV};
+  SI.MassFlowRate[PHX.tube.nV,data_traceSubstances.nC] mC_gens_PHX_tube = {{-data_traceSubstances.lambdas[j]*PHX.tube.mCs[i, j]*PHX.tube.nParallel for j in 1:data_traceSubstances.nC} for i in 1:PHX.tube.nV};
+  SI.MassFlowRate[pipeFromPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeFromPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeFromPHX_PFL.mCs[i, j]*pipeFromPHX_PFL.nParallel for j in 1:data_traceSubstances.nC} for i in 1:pipeFromPHX_PFL.nV};
 
   Data.data_PHX data_PHX
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
@@ -433,16 +435,17 @@ model MSR_5
     nV=fuelCell.nV,
     Q_nominal=data_RCTR.Q_nominal,
     Ts=fuelCell.mediums.T,
-    mCs=fuelCell.mCs,
-    lambda_i=data_traceSubstances.lambda_i,
     Ts_reference=linspace(
         data_RCTR.T_inlet_core,
         data_RCTR.T_outlet_core,
         fuelCell.nV),
-    specifyPower=true)
+    specifyPower=true,
+    lambda_i=data_traceSubstances.precursorGroups.lambdas,
+    mCs=fuelCell.mCs[:, 1:6]*fuelCell.nParallel)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
-    data_traceSubstances
+    data_traceSubstances(redeclare record FissionProducts =
+        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_test)
     annotation (Placement(transformation(extent={{-140,120},{-120,140}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
                                                pipeFromPHX_PCL(

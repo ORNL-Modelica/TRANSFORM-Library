@@ -43,10 +43,10 @@ model PointKinetics_Drift
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial annotation(Dialog(tab="Advanced",group="Dynamics",enable=not specifyPower));
 
   // Outputs
-  output SI.Power Qs[nV](start=Qs_start) annotation(Dialog(tab=
+  output SI.Power Qs[nV](start=Qs_start) "Power determined from kinetics" annotation(Dialog(tab=
           "Internal Inteface",                                                   group=
           "Output Variables",                                                                             enable=false));
-  output SI.MassFlowRate[nV,nI] mC_gens annotation(Dialog(tab="Internal Inteface",group="Output Variables",enable=false));
+  output SI.MassFlowRate[nV,nI] mC_gens "Mass generation rate of precursor groups" annotation(Dialog(tab="Internal Inteface",group="Output Variables",enable=false));
 
   TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
 
