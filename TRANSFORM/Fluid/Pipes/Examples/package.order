@@ -2,4 +2,4 @@ UseOfGeometryModel
 GenericPipesTests
 TransportDelayPipeTests
 GenericPipe_MultiTransferSurface
-NobleGasAdsorberBed_Test
+TraceDecayAdsorberBed_Test

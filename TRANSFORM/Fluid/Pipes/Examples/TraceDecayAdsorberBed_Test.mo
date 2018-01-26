@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.Pipes.Examples;
-model NobleGasAdsorberBed_Test
+model TraceDecayAdsorberBed_Test
   import TRANSFORM;
 
   extends TRANSFORM.Icons.Example;
@@ -57,4 +57,4 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=100));
-end NobleGasAdsorberBed_Test;
+end TraceDecayAdsorberBed_Test;
