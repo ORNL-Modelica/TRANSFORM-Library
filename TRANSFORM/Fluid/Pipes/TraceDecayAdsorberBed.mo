@@ -5,7 +5,7 @@ model TraceDecayAdsorberBed
   import TRANSFORM.Math.linspace_1D;
   import Modelica.Fluid.Types.Dynamics;
 
-  Interfaces.FluidPort_State port_a(redeclare package Medium = Medium,
+  Interfaces.FluidPort_Flow  port_a(redeclare package Medium = Medium,
   m_flow(min=0))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
@@ -41,9 +41,12 @@ model TraceDecayAdsorberBed
   input SI.Mass mAdsorber=V_flow*tau_res/K[iC] "Specify total mass of adsorber"
     annotation (Dialog(group="Input Variables", enable=not use_tau));
 
-  input SI.PressureDifference dp=1
-    "Pressure drop across adsorber bed (dp = port_a.p - port_b.p)"
-    annotation (Dialog(group="Input Variables"));
+  input Units.HydraulicResistance R = 1 "Hydraulic resistance across adsorber bed" annotation(Dialog(group="Input Variables"));
+
+//   input SI.PressureDifference dp=1
+//     "Pressure drop across adsorber bed (dp = port_a.p - port_b.p)"
+//     annotation (Dialog(group="Input Variables"));
+
   input SI.Density d_adsorber=500 "Density of adsorber bed"
     annotation (Dialog(group="Input Variables"));
   input SI.SpecificHeatCapacity cp_adsorber=1000
@@ -52,6 +55,9 @@ model TraceDecayAdsorberBed
 
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
+  parameter Dynamics traceDynamics=energyDynamics
+    "Formulation of trace substance balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
 
   parameter SI.Temperature Ts_start[nV]=linspace_1D(
@@ -72,6 +78,7 @@ model TraceDecayAdsorberBed
     "Heat released from decay per volume per substance";
   SI.HeatFlowRate Qs[nV] "Heat released from decay per volume";
 
+  SI.PressureDifference dp "Pressure drop across adsorber bed (dp = port_a.p - port_b.p)";
   Medium.ThermodynamicState state_a "Thermodynamic state at port_a";
   Medium.ThermodynamicState state_b "Thermodynamic state at port_b";
   SI.MassFlowRate m_flow=port_a.m_flow "Mass flow rate of carrier fluid";
@@ -90,6 +97,8 @@ model TraceDecayAdsorberBed
         Q_flows_internal) if use_HeatPort
     annotation (Placement(transformation(extent={{-10,50},{10,70}}),
         iconTransformation(extent={{-10,40},{10,60}})));
+
+  //SI.Mass mCs[nV,Medium.nC] "Trace substance mass";
 
 protected
   SI.HeatFlowRate[nV] Q_flows_internal;
@@ -115,12 +124,13 @@ equation
   end for;
 
   for i in 1:nV loop
+    //der(mCs[i,:]) = mCs_decay[i, :]; to get accumulation of products use this with factor to who being born
     mCs_decay[i, :] = mC_flows[i, :] - mC_flows[i + 1, :];
     Qs_perC[i, :] = mCs_decay[i, :] .* Qs_decay;
     Qs[i] = sum(Qs_perC[i, :]);
   end for;
 
-  ps = {if i == 1 then port_a.p else ps[i - 1] - dp/(nV - 1) for i in 1:nV};
+  ps = {port_a.p - (i-0.5)*dp/nV for i in 1:nV};
 
   H_flows[1] = semiLinear(
     port_a.m_flow,
@@ -150,6 +160,7 @@ equation
     end for;
   end if;
 
+  port_a.m_flow*R = dp;
   port_a.m_flow + port_b.m_flow = 0;
   port_b.p = port_a.p - dp;
 

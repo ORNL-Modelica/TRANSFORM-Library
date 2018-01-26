@@ -23,8 +23,11 @@ model OffGas
     nV=10,
     redeclare package Medium = Medium_OffGas,
     Qs_decay=fill(1e5, Medium_OffGas.nC),
-    dp=100000,
-    T_a_start=data_OFFGAS.T_sep_ref)
+    T_a_start=data_OFFGAS.T_sep_ref,
+    tau_res=data_OFFGAS.delay_charcoalBed,
+    d_adsorber=data_OFFGAS.d_carbon,
+    cp_adsorber=data_OFFGAS.cp_carbon,
+    R=data_OFFGAS.dp_carbon/data_OFFGAS.m_flow_sep_He_total)
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 equation
   connect(boundary1.ports[1], adsorberBed.port_a)

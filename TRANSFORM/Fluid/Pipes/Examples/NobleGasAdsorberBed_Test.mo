@@ -14,8 +14,9 @@ model NobleGasAdsorberBed_Test
     nV=10,
     Qs_decay=fill(1e5, Medium.nC),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_a_start=373.15,
-    use_HeatPort=true)
+    use_HeatPort=true,
+    R=1e5,
+    T_a_start=373.15)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
