@@ -1,6 +1,7 @@
 within TRANSFORM.Media.Fluids.FLiBe.Utilities_12Th_05U;
 function cp_T
-  import TRANSFORM.Units.Conversions.Functions.SpecificHeatCapacity_J_kgK.from_btu_lbF;
+  import from_btu_lbF =
+         TRANSFORM.Units.Conversions.Functions.SpecificHeatCapacity_J_kgK.from_btu_lbdegF;
 
   input SI.Temperature T;
   output SI.SpecificHeatCapacity cp;

@@ -29,6 +29,12 @@ model MSR_5
   SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
+
+  //
+//   parameter Integer iOG[2] = {2,3}+fill(data_traceSubstances.iFP[1]-1,2) "Index array of fission products isotopes sent to off-gas system";
+//   parameter Real x_pumpOG[size(iOG,1)] = fill(0.1,size(iOG,1)) "Fraction of fission product sent to off-gas";
+//   parameter Boolean pumpOG_bool[data_traceSubstances.nC] = {if Modelica.Math.Vectors.find(i,iOG)<0.1 then true else false for i in 1:data_traceSubstances.nC};
+
   // Trace Substance Calculations
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet = {-data_traceSubstances.lambdas[j]*tee_inlet.mC[j] for j in 1:data_traceSubstances.nC};
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_lower = {-data_traceSubstances.lambdas[j]*plenum_lower.mC[j] for j in 1:data_traceSubstances.nC};

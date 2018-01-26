@@ -32,7 +32,7 @@ model data_traceSubstances
   constant Integer[2] iFP = {precursorGroups.nC+1,precursorGroups.nC + fissionProducts.nC} "First and last index of precursors groups";
 
   // Data for entire array of trace substances
-  parameter SIadd.InverseTime[nC] lambdas = cat(1,precursorGroups.lambdas,fissionProducts.lambdas) "Decay constant";
+  final parameter SIadd.InverseTime[nC] lambdas = cat(1,precursorGroups.lambdas,fissionProducts.lambdas) "Decay constant";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
