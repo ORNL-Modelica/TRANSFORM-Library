@@ -16,7 +16,7 @@ model MixingVolume
   extends BaseClasses.PartialVolume(
   final V = geometry.V,
   mb=sum(port_a.m_flow) + sum(port_b.m_flow),
-  Ub=sum(H_flows_a) + sum(H_flows_b) + Q_flow_internal,
+  Ub=sum(H_flows_a) + sum(H_flows_b) + Q_flow_internal + Q_gen,
   mXib={sum(mXi_flows_a[:, i]) + sum(mXi_flows_b[:, i]) for i in 1:Medium.nXi},
   mCb={sum(mC_flows_a[:, i]) + sum(mC_flows_b[:, i]) + mC_flow_internal[i] + mC_gen[i] for i in 1:Medium.nC});
 
@@ -44,13 +44,16 @@ model MixingVolume
   SI.MassFlowRate mC_flows_b[nPorts_b,Medium.nC]
     "Trace substance mass flow rates at port_b";
 
-  parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced"),Evaluate=true);
-  parameter Boolean use_TraceMassPort = false "=true to toggle trace mass port" annotation(Dialog(tab="Advanced"),Evaluate=true);
+  parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced",group="Heat Transfer"),Evaluate=true);
+  input SI.HeatFlowRate Q_gen=0 "Internal heat generation" annotation(Dialog(tab="Advanced",group="Heat Transfer"));
+
+  parameter Boolean use_TraceMassPort = false "=true to toggle trace mass port" annotation(Dialog(tab="Advanced",group="Trace Mass Transfer"),Evaluate=true);
   parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
     "Trace substances molar mass"
-    annotation (Dialog(group="Trace Mass Transfer", enable=use_TraceMassPort));
+    annotation (Dialog(tab="Advanced",group="Trace Mass Transfer", enable=use_TraceMassPort));
   input SI.MassFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
-    annotation (Dialog(group="Trace Mass Transfer"));
+    annotation (Dialog(tab="Advanced",group="Trace Mass Transfer"));
+
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=medium.T, Q_flow=
         Q_flow_internal) if                                                                      use_HeatPort
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}}),

@@ -38,8 +38,6 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
       tab="Initialization",
       group="Start Value: Trace Substances Mass Fraction",
       enable=Medium.nC > 0));
-  input SI.MassFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
-    annotation (Dialog(group="Trace Mass Transfer"));
 
   constant Real g_n=Modelica.Constants.g_n;
 
@@ -79,6 +77,34 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
     annotation (Placement(transformation(extent={{-20,-100},{20,-60}}, rotation=
            0), iconTransformation(extent={{-10,-94},{10,-74}})));
 
+  parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced",group="Heat Transfer"),Evaluate=true);
+  input SI.HeatFlowRate Q_gen=0 "Internal heat generation" annotation(Dialog(tab="Advanced",group="Heat Transfer"));
+
+  parameter Boolean use_TraceMassPort = false "=true to toggle trace mass port" annotation(Dialog(tab="Advanced",group="Trace Mass Transfer"),Evaluate=true);
+  parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
+    "Trace substances molar mass"
+    annotation (Dialog(tab="Advanced",group="Trace Mass Transfer", enable=use_TraceMassPort));
+  input SI.MassFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
+    annotation (Dialog(tab="Advanced",group="Trace Mass Transfer"));
+
+  HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=Medium.temperature(state_liquid), Q_flow=
+        Q_flow_internal) if                                                                      use_HeatPort
+    annotation (Placement(transformation(extent={{-10,-94},{10,-74}}),
+        iconTransformation(extent={{-10,-94},{10,-74}})));
+  HeatAndMassTransfer.Interfaces.MolePort_State traceMassPort(
+    nC=Medium.nC,
+    C=C .* Medium.density(state_liquid) ./ MMs,
+    n_flow=mC_flow_internal ./ MMs) if                                                                                            use_TraceMassPort
+    annotation (Placement(transformation(extent={{30,-86},{50,-66}}),
+        iconTransformation(extent={{30,-86},{50,-66}})));
+
+  // Visualization
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+
+protected
+  SI.HeatFlowRate Q_flow_internal;
+  SI.MassFlowRate mC_flow_internal[Medium.nC];
+
 initial equation
 
   if massDynamics == Dynamics.FixedInitial then
@@ -106,6 +132,14 @@ initial equation
   end if;
 
 equation
+
+  if not use_HeatPort then
+    Q_flow_internal = 0;
+  end if;
+  if not use_TraceMassPort then
+    mC_flow_internal = zeros(Medium.nC);
+  end if;
+
   // Set liquid properties
   state_liquid = Medium.setState_phX(p_surface, h);
 
@@ -120,7 +154,7 @@ equation
     der(U) = 0;
   else
     der(m) =port.m_flow;
-    der(U) =port.m_flow*actualStream(port.h_outflow);
+    der(U) =port.m_flow*actualStream(port.h_outflow) + Q_flow_internal + Q_gen;
   end if;
 
   // Species Balance
@@ -141,7 +175,7 @@ equation
     mXib[i] =port.m_flow*actualStream(port.Xi_outflow[i]);
   end for;
   for i in 1:Medium.nC loop
-    mCb[i] =port.m_flow*actualStream(port.C_outflow[i]) + mC_gen[i];
+    mCb[i] =port.m_flow*actualStream(port.C_outflow[i]) + mC_gen[i] + mC_flow_internal[i];
   end for;
 
   port.h_outflow = h;

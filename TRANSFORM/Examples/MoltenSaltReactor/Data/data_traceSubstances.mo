@@ -28,8 +28,8 @@ model data_traceSubstances
     "Default for the nominal values for the extra properties";
 
   // Indexing of substance categories
-  constant Integer[2] iPG = {1,precursorGroups.nC} "First and last index of precursors groups";
-  constant Integer[2] iFP = {precursorGroups.nC+1,precursorGroups.nC + fissionProducts.nC} "First and last index of precursors groups";
+  final constant Integer[2] iPG = {1,precursorGroups.nC} "First and last index of precursors groups";
+  final constant Integer[2] iFP = {precursorGroups.nC+1,precursorGroups.nC + fissionProducts.nC} "First and last index of precursors groups";
 
   // Data for entire array of trace substances
   final parameter SIadd.InverseTime[nC] lambdas = cat(1,precursorGroups.lambdas,fissionProducts.lambdas) "Decay constant";

@@ -4,7 +4,7 @@ model Separator
   extends TRANSFORM.Fluid.Volumes.MixingVolume(
     mb=sum(port_a.m_flow) + sum(port_b.m_flow) + portLiquid.m_flow,
     Ub=sum(H_flows_a) + sum(H_flows_b) + portLiquid.m_flow*actualStream(
-        portLiquid.h_outflow) + Q_flow_internal,
+        portLiquid.h_outflow) + Q_flow_internal + Q_gen,
     mXib={sum(mXi_flows_a[:, i]) + sum(mXi_flows_b[:, i]) + portLiquid.m_flow*
         actualStream(portLiquid.Xi_outflow[i]) for i in 1:Medium.nXi},
     mCb={sum(mC_flows_a[:, i]) + sum(mC_flows_b[:, i]) + portLiquid.m_flow*

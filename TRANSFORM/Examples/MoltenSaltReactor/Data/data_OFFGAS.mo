@@ -21,11 +21,13 @@ model data_OFFGAS
   parameter SI.VolumeFlowRate V_flow_sep_salt = from_gpm(10) "Volume flow rate of salt removed in each separator";
   parameter SI.VolumeFlowRate V_flow_sep_He = V_flow_sep_salt/Vratio_sep_SG "Volume flow rate of Helium removed in each separator";
   parameter SI.VolumeFlowRate V_flow_sep_He_total = nSep*V_flow_sep_He "Total volume flow rate of Helium removed from all separators";
+  parameter SI.VolumeFlowRate V_flow_sep_salt_total = nSep*V_flow_sep_salt "Total volume flow rate of salt removed from all separators";
 
   parameter SI.Temperature T_sep_ref = from_degF(1250) "Reference temperature of salt removed at separator";
   parameter SI.Pressure p_sep_ref = from_psi(180) "Reference temperature of salt removed at separator";
   parameter SI.Density d_sep_ref = Medium_OffGas.density_pT(p_sep_ref,T_sep_ref) "Reference density at separator";
-
+  parameter SI.Temperature T_drainTank = from_degF(1000) "Reference temperature of drain tank";
+  parameter SI.Pressure p_drainTank = from_psi(40+14.7) "Drain tank gas volume pressure";
   parameter SI.MolarMass MM_He = 0.004 "Molar mass of helium";
 
   parameter SI.MolarFlowRate n_flow_sep_He =  V_flow_sep_He*p_sep_ref/(Modelica.Constants.R*T_sep_ref) "Molar flow rate of He from each separator";
@@ -33,6 +35,8 @@ model data_OFFGAS
 
   parameter SI.MolarFlowRate n_flow_sep_He_total =  nSep*n_flow_sep_He "Total molar flow rate of He from all separators";
   parameter SI.MassFlowRate m_flow_sep_He_total = nSep*m_flow_sep_He "Total mass flow rate of helium from all separators";
+  parameter SI.MassFlowRate m_flow_He_bubbler = 0.5*m_flow_sep_He_total "Total mass flow rate of helium to bubbler";
+  parameter SI.MassFlowRate m_flow_He_adsorber = 0.5*m_flow_sep_He_total "Total mass flow rate of helium to adsorber bed";
 
   parameter SI.Time delay_drainTank = from_hr(6) "Gas holdup time in drain tank";
   parameter SI.Time delay_charcoalBed = from_day(90) "Gas holdup time in charcoal bed based on Xe-135";

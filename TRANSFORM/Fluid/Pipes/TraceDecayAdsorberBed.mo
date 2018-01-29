@@ -56,9 +56,9 @@ model TraceDecayAdsorberBed
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-  parameter Dynamics traceDynamics=energyDynamics
-    "Formulation of trace substance balances"
-    annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
+//   parameter Dynamics traceDynamics=energyDynamics
+//     "Formulation of trace substance balances"
+//     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
 
   parameter SI.Temperature Ts_start[nV]=linspace_1D(
       T_a_start,
