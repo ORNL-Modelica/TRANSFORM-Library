@@ -49,6 +49,17 @@ model data_OFFGAS
   // k(Xe) = 3.2e-4*exp(5880/T(Roentgen)) ft3/lb valid between 32-140 F but extended above
 
 
+  parameter Integer nThimbles = 360 "# of thimbles in drain tank";
+  parameter SI.Length D_thimbles = from_inch(3) "outer diameter of thimbles in drain tank";
+  parameter SI.Length length_thimbles = from_inch(204) "length of thimbles in drain tank";
+  parameter SI.Length D_drainTank_inner = from_inch(130) "Inner diameter of drain tank";
+  parameter SI.Length length_drainTank_inner = from_inch(210) "Approximate inner vertical length of drain tank";
+  parameter SI.Area crossArea_thimbles_outer = 0.25*pi*D_thimbles^2 "Outer cross-sectional area of each thimble";
+  parameter SI.Area crossArea_drainTank_innerEmpty = 0.25*pi*D_drainTank_inner^2 "Inner cross-sectional area of an empty drain tank";
+  parameter SI.Area crossArea_drainTank_inner = crossArea_drainTank_innerEmpty - crossArea_thimbles_outer*nThimbles "Inner cross-sectional area of drain tank with area of thimbles removed";
+  parameter SI.Volume volume_thimble_outer = crossArea_thimbles_outer*length_thimbles "Outer volume of each thimble";
+  parameter SI.Volume volume_drainTank_innerEmpty = crossArea_drainTank_innerEmpty*length_drainTank_inner "Inner volume of an empty drain tank";
+  parameter SI.Volume volume_drainTank_inner = volume_drainTank_innerEmpty - volume_thimble_outer*nThimbles "Inner volume of drain tank with volume of thimbles removed";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end data_OFFGAS;
