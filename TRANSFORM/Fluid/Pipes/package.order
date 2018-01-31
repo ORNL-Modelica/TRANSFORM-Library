@@ -4,8 +4,5 @@ GenericPipe_MultiTransferSurface
 GenericPipe_withWall
 GenericPipe_wWall_wTraceMass
 TransportDelayPipe
-TraceDecayAdsorberBed
 parallelFlow
 BaseClasses
-TraceSeparator
-TraceSeparator2

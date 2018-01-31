@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_5
+model MSR_6
   import TRANSFORM;
 
   package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
@@ -39,7 +39,6 @@ model MSR_5
   parameter Real x_toDT[data_traceSubstances.nC] = TRANSFORM.Math.replaceArrayValues(fill(x_pumpBypass,data_traceSubstances.nC),iOG,fill(0,nOG)) "Fraction of each substance removed to drain tank based on PFL flowrate: Substances to off-gas are removed";
   //parameter Boolean bool_toOG[data_traceSubstances.nC] = {if i==iOG[i] then true else false for i in 1:data_traceSubstances.nC} "true is a removed substance false stays in system";
 
-
   // Trace Substance Calculations: PFL
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet = {-data_traceSubstances.lambdas[j]*tee_inlet.mC[j] for j in 1:data_traceSubstances.nC};
 
@@ -69,7 +68,6 @@ model MSR_5
   SI.MassFlowRate[data_traceSubstances.nC] mC_flows_toOG = x_toOG.*abs(pump_PFL.port_b.m_flow).*pump_PFL.port_b.C_outflow "Flow rate leaving pump bowlto off-gas(+)";
   SI.MassFlowRate m_flow_toDrainTank = data_OFFGAS.V_flow_sep_salt_total*Medium_PFL.density_ph(pump_PFL.port_b.p, pump_PFL.port_b.h_outflow) "Mass flow rate of salt to drain tank (+)";
   SI.MassFlowRate[data_traceSubstances.nC] mC_flows_toDrainTank = x_toDT.*m_flow_toDrainTank.*pump_PFL.port_b.C_outflow "Flow rate leaving pump bowl going to draintank(+)";
-
 
   SI.MassFlowRate[nOG] mC_gen_drainTank_gas={-data_traceSubstances.lambdas[iOG[j]]*drainTank_gas.mC[j] for j in 1:nOG};
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid=-data_traceSubstances.lambdas.*drainTank_liquid.mC;
@@ -892,4 +890,4 @@ equation
             {260,150}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-150},{260,150}})),
     experiment(StopTime=5000, __Dymola_NumberOfIntervals=5000));
-end MSR_5;
+end MSR_6;

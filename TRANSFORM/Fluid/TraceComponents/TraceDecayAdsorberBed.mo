@@ -1,4 +1,4 @@
-within TRANSFORM.Fluid.Pipes;
+within TRANSFORM.Fluid.TraceComponents;
 model TraceDecayAdsorberBed
 
   import TRANSFORM.Units.Conversions.Functions.Time_s.from_hr;
@@ -12,7 +12,6 @@ model TraceDecayAdsorberBed
   Interfaces.FluidPort_Flow port_b(redeclare package Medium = Medium,
   m_flow(max=0))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
 
   replaceable package Medium = Modelica.Media.IdealGases.SingleGases.He (
         extraPropertiesNames={"dummy"}) constrainedby
@@ -146,7 +145,6 @@ equation
     port_b.m_flow,
     inStream(port_b.h_outflow),
     Medium.specificEnthalpy_pT(ps[nV], Ts_adsorber[nV]));
-
 
   // Energy Balance
   if energyDynamics == Dynamics.SteadyState then

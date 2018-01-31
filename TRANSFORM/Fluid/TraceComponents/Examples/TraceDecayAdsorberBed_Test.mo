@@ -1,4 +1,4 @@
-within TRANSFORM.Fluid.Pipes.Examples;
+within TRANSFORM.Fluid.TraceComponents.Examples;
 model TraceDecayAdsorberBed_Test
   import TRANSFORM;
 
@@ -7,7 +7,7 @@ model TraceDecayAdsorberBed_Test
   package Medium = Modelica.Media.IdealGases.SingleGases.He (
   extraPropertiesNames={"1","2","3"});
 
-  TRANSFORM.Fluid.Pipes.TraceDecayAdsorberBed adsorberBed(
+  TRANSFORM.Fluid.TraceComponents.TraceDecayAdsorberBed adsorberBed(
     redeclare package Medium = Medium,
     K={1e2,1e3,1e4},
     iC=2,

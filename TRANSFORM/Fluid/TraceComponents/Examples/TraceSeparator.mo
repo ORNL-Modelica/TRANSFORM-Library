@@ -1,4 +1,4 @@
-within TRANSFORM.Fluid.Pipes.Examples;
+within TRANSFORM.Fluid.TraceComponents.Examples;
 model TraceSeparator
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
@@ -14,8 +14,7 @@ model TraceSeparator
                                             "Medium properties" annotation (
       choicesAllMatching=true);
 
-
-  TRANSFORM.Fluid.Pipes.TraceSeparator traceSeparator(
+  TRANSFORM.Fluid.TraceComponents.TraceSeparator traceSeparator(
     redeclare package Medium = Medium,
     redeclare package Medium_carrier = Medium_carrier,
     iSep={2,4},
@@ -61,15 +60,17 @@ model TraceSeparator
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(source_carrier.ports[1], traceSeparator.port_a_carrier) annotation (
-      Line(points={{-40,-30},{-26,-30},{-26,-8},{-10,-8}}, color={0,127,255}));
+      Line(points={{-40,-30},{-26,-30},{-26,-6},{-10,-6}}, color={0,127,255}));
   connect(source.ports[1], traceSeparator.port_a)
-    annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
+    annotation (Line(points={{-40,0},{-26,0},{-26,6},{-10,6}},
+                                               color={0,127,255}));
   connect(traceSeparator.port_b, sink.ports[1])
-    annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
+    annotation (Line(points={{10,6},{26,6},{26,0},{40,0}},
+                                             color={0,127,255}));
   connect(sink_sepFluid.ports[1], traceSeparator.port_sepFluid) annotation (
-      Line(points={{40,-30},{26,-30},{26,-4},{10,-4}}, color={0,127,255}));
+      Line(points={{40,-30},{26,-30},{26,-1},{10,-1}}, color={0,127,255}));
   connect(sink_carrier.ports[1], traceSeparator.port_b_carrier) annotation (
-      Line(points={{40,-60},{24,-60},{24,-8},{10,-8}}, color={0,127,255}));
+      Line(points={{40,-60},{24,-60},{24,-6},{10,-6}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end TraceSeparator;
