@@ -34,14 +34,6 @@ model MSR_6
   SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
-  // Specify which substances are removed
-  //constant Integer iOG[:] = {2,3}+fill(data_traceSubstances.precursorGroups.nC, 2) "Index array of substances sent to off-gas system";
-  //constant Integer nOG = size(iOG,1) "# of trace substances in off-gas";
-  //parameter Real x_pumpBypass = 0.1 "Fraction of total flow sent to pump bypass";
-  //parameter Real x_toOG[data_traceSubstances.nC] = TRANSFORM.Math.replaceArrayValues(zeros(data_traceSubstances.nC),iOG,fill(x_pumpBypass,nOG)) "Fraction of each substance removed to off-gas based on PFL flowrate";
-  //parameter Real x_toDT[data_traceSubstances.nC] = TRANSFORM.Math.replaceArrayValues(fill(x_pumpBypass,data_traceSubstances.nC),iOG,fill(0,nOG)) "Fraction of each substance removed to drain tank based on PFL flowrate: Substances to off-gas are removed";
-  //parameter Boolean bool_toOG[data_traceSubstances.nC] = {if i==iOG[i] then true else false for i in 1:data_traceSubstances.nC} "true is a removed substance false stays in system";
-
   // Trace Substance Calculations: PFL
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet = {-data_traceSubstances.lambdas[j]*tee_inlet.mC[j] for j in 1:data_traceSubstances.nC};
 
@@ -62,9 +54,6 @@ model MSR_6
   + traceSeparator.port_b.C_outflow[j]*traceSeparator.port_a.m_flow
       for j in 1:data_traceSubstances.nC};
 
-// - mC_flows_toOG[j] -
-//       mC_flows_toDrainTank[j]
-
   SI.MassFlowRate[pipeToPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeToPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeToPHX_PFL.mCs[i, j]*pipeToPHX_PFL.nParallel for j in 1:data_traceSubstances.nC} for i in 1:pipeToPHX_PFL.nV};
 
   SI.MassFlowRate[PHX.tube.nV,data_traceSubstances.nC] mC_gens_PHX_tube = {{-data_traceSubstances.lambdas[j]*PHX.tube.mCs[i, j]*PHX.tube.nParallel for j in 1:data_traceSubstances.nC} for i in 1:PHX.tube.nV};
@@ -72,14 +61,19 @@ model MSR_6
   SI.MassFlowRate[pipeFromPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeFromPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeFromPHX_PFL.mCs[i, j]*pipeFromPHX_PFL.nParallel for j in 1:data_traceSubstances.nC} for i in 1:pipeFromPHX_PFL.nV};
 
   // TraceSubstance Calculations: Off-Gas and Drain Tank
-  //SI.MassFlowRate[data_traceSubstances.nC] mC_flows_toOG = x_toOG.*abs(pump_PFL.port_b.m_flow).*pump_PFL.port_b.C_outflow "Flow rate leaving pump bowlto off-gas(+)";
   SI.MassFlowRate m_flow_toDrainTank = data_OFFGAS.V_flow_sep_salt_total*Medium_PFL.density_ph(pump_PFL.port_b.p, pump_PFL.port_b.h_outflow) "Mass flow rate of salt to drain tank (+)";
-  //SI.MassFlowRate[data_traceSubstances.nC] mC_flows_toDrainTank = x_toDT.*m_flow_toDrainTank.*pump_PFL.port_b.C_outflow "Flow rate leaving pump bowl going to draintank(+)";
 
   SI.MassFlowRate[nOG] mC_gen_drainTank_gas={-data_traceSubstances.lambdas[iOG[j]]*drainTank_gas.mC[j] for j in 1:nOG};
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid=-data_traceSubstances.lambdas.*drainTank_liquid.mC;
 
-  SI.MassFlowRate[data_traceSubstances.nC] mC_flows_fromOG;// = {mC_flows_fromOG[iOG[i]] for i in 1:nOG}x_toOG.*abs(pump_OffGas_bypass.port_b.m_flow).*pump_OffGas_bypass.port_b.C_outflow "Flow rate leaving pump bowlto off-gas(+)";
+  SI.MassFlowRate[data_traceSubstances.nC] mC_flows_fromOG;
+  TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_OffGas_sink(
+    redeclare package Medium = Medium_OffGas,
+    nPorts=2,
+    T=data_OFFGAS.T_carbon,
+    p=data_OFFGAS.p_sep_ref,
+    use_p_in=true)
+    annotation (Placement(transformation(extent={{-120,20},{-140,40}})));
 
   Data.data_PHX data_PHX
     annotation (Placement(transformation(extent={{210,100},{230,120}})));
@@ -622,12 +616,6 @@ model MSR_6
     maxY1=max({data_SHX.T_inlet_tube,data_SHX.T_inlet_shell,data_SHX.T_outlet_tube,
         data_SHX.T_outlet_shell}))
     annotation (Placement(transformation(extent={{176,-122},{226,-78}})));
-  TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_OffGas_sink(
-    redeclare package Medium = Medium_OffGas,
-    nPorts=1,
-    T=data_OFFGAS.T_carbon,
-    p=data_OFFGAS.p_sep_ref)
-    annotation (Placement(transformation(extent={{-100,-30},{-120,-10}})));
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T boundary_OffGas_source(
     T=data_OFFGAS.T_sep_ref,
     redeclare package Medium = Medium_OffGas,
@@ -704,12 +692,6 @@ model MSR_6
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-170,-60})));
-  TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_DrainTank_sink(
-    redeclare package Medium = Medium_PFL,
-    T=data_OFFGAS.T_sep_ref,
-    p=500000,
-    nPorts=1)
-    annotation (Placement(transformation(extent={{-100,-70},{-120,-50}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature boundary_thermal_drainTank_liquid(T=
         data_OFFGAS.T_drainTank, showName=systemTF.showName)
                                  annotation (Placement(transformation(
@@ -725,12 +707,6 @@ model MSR_6
     level_max=0.5,
     level_min=0.2)
     annotation (Placement(transformation(extent={{-158,-48},{-150,-40}})));
-  TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_OffGas_sink_bypass(
-    redeclare package Medium = Medium_OffGas,
-    nPorts=1,
-    T=data_OFFGAS.T_carbon,
-    p=data_OFFGAS.p_sep_ref)
-    annotation (Placement(transformation(extent={{-128,20},{-148,40}})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_OffGas_bypass(use_input=true,
       redeclare package Medium = Medium_OffGas)
     annotation (Placement(transformation(extent={{-180,20},{-160,40}})));
@@ -739,7 +715,7 @@ model MSR_6
     annotation (Placement(transformation(extent={{-150,-30},{-130,-10}})));
   Modelica.Blocks.Sources.RealExpression m_flow_OffGas_bypass(y=
         boundary_OffGas_m_flow.y - m_flow_OffGas_adsorberBed.y)
-    annotation (Placement(transformation(extent={{-196,34},{-176,54}})));
+    annotation (Placement(transformation(extent={{-202,30},{-182,50}})));
   Modelica.Blocks.Sources.RealExpression m_flow_OffGas_adsorberBed(y=
         data_OFFGAS.frac_gasSplit*boundary_OffGas_m_flow.y)
     annotation (Placement(transformation(extent={{-114,-6},{-134,14}})));
@@ -756,20 +732,19 @@ model MSR_6
     annotation (Placement(transformation(extent={{-188,102},{-208,122}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=0.1*pump_PFL.port_a.m_flow)
     annotation (Placement(transformation(extent={{-228,116},{-208,136}})));
-  TRANSFORM.Fluid.BoundaryConditions.Boundary_ph boundary_DrainTank_sink1(
+  TRANSFORM.Fluid.BoundaryConditions.Boundary_ph boundary_bypass_sink(
+    redeclare package Medium = Medium_PFL,
+    nPorts=2,
+    use_h_in=true,
+    use_p_in=true,
+    use_C_in=true)
+    annotation (Placement(transformation(extent={{-120,58},{-140,78}})));
+  TRANSFORM.Fluid.BoundaryConditions.Boundary_ph boundary_bypass_source(
     redeclare package Medium = Medium_PFL,
     nPorts=1,
     use_h_in=true,
     use_p_in=true,
-    use_C_in=true,
-    p=100000)
-    annotation (Placement(transformation(extent={{-160,60},{-180,80}})));
-  TRANSFORM.Fluid.BoundaryConditions.Boundary_ph boundary_DrainTank_sink2(
-    redeclare package Medium = Medium_PFL,
-    nPorts=1,
-    use_h_in=true,
-    use_p_in=true,
-    use_C_in=true) "pump_PFL.port_b.h_outflow"
+    use_C_in=true)
     annotation (Placement(transformation(extent={{-160,102},{-180,122}})));
   Modelica.Blocks.Sources.RealExpression boundary_toPump_PFL_bypass_p(y=
         pump_PFL.port_b.p)
@@ -782,13 +757,13 @@ model MSR_6
     annotation (Placement(transformation(extent={{-120,92},{-140,112}})));
   Modelica.Blocks.Sources.RealExpression boundary_fromPump_PFL_bypass_p(y=
         pumpBowl_PFL.p)
-    annotation (Placement(transformation(extent={{-120,78},{-140,98}})));
+    annotation (Placement(transformation(extent={{-80,76},{-100,96}})));
   Modelica.Blocks.Sources.RealExpression boundary_fromPump_PFL_bypass_h(y=
         pumpBowl_PFL.h)
-    annotation (Placement(transformation(extent={{-120,64},{-140,84}})));
+    annotation (Placement(transformation(extent={{-80,62},{-100,82}})));
   Modelica.Blocks.Sources.RealExpression boundary_fromPump_PFL_bypass_C[
     Medium_PFL.nC](y=pumpBowl_PFL.C)
-    annotation (Placement(transformation(extent={{-120,50},{-140,70}})));
+    annotation (Placement(transformation(extent={{-80,48},{-100,68}})));
 algorithm
 
    mC_flows_fromOG :=zeros(data_traceSubstances.nC);
@@ -897,18 +872,11 @@ equation
     annotation (Line(points={{-163,-60},{-150,-60}}, color={0,127,255}));
   connect(drainTankLevelControl.y, pump_drainTank.in_m_flow) annotation (Line(
         points={{-149.6,-44},{-140,-44},{-140,-52.7}}, color={0,0,127}));
-  connect(pump_drainTank.port_b, boundary_DrainTank_sink.ports[1])
-    annotation (Line(points={{-130,-60},{-120,-60}}, color={0,127,255}));
   connect(adsorberBed.port_b, pump_OffGas_adsorberBed.port_a)
     annotation (Line(points={{-160,-20},{-150,-20}},
                                                  color={0,127,255}));
-  connect(pump_OffGas_adsorberBed.port_b, boundary_OffGas_sink.ports[1])
-    annotation (Line(points={{-130,-20},{-120,-20}},
-                                                 color={0,127,255}));
-  connect(pump_OffGas_bypass.port_b, boundary_OffGas_sink_bypass.ports[1])
-    annotation (Line(points={{-160,30},{-148,30}}, color={0,127,255}));
   connect(m_flow_OffGas_bypass.y, pump_OffGas_bypass.in_m_flow) annotation (
-      Line(points={{-175,44},{-170,44},{-170,37.3}}, color={0,0,127}));
+      Line(points={{-181,40},{-170,40},{-170,37.3}}, color={0,0,127}));
   connect(m_flow_OffGas_adsorberBed.y, pump_OffGas_adsorberBed.in_m_flow)
     annotation (Line(points={{-135,4},{-140,4},{-140,-12.7}}, color={0,0,127}));
   connect(boundary_OffGas_source.ports[1], traceSeparator.port_a_carrier)
@@ -917,25 +885,22 @@ equation
   connect(realExpression.y, pump_bypass.in_m_flow) annotation (Line(points={{-207,
           126},{-198,126},{-198,119.3}},
                                        color={0,0,127}));
-  connect(boundary_DrainTank_sink1.ports[1], traceSeparator.port_b) annotation (
-     Line(points={{-180,70},{-214,70},{-214,80}}, color={0,127,255}));
-  connect(boundary_DrainTank_sink2.ports[1], pump_bypass.port_a)
+  connect(boundary_bypass_sink.ports[1], traceSeparator.port_b) annotation (
+      Line(points={{-140,70},{-214,70},{-214,80}}, color={0,127,255}));
+  connect(boundary_bypass_source.ports[1], pump_bypass.port_a)
     annotation (Line(points={{-180,112},{-188,112}}, color={0,127,255}));
-  connect(boundary_toPump_PFL_bypass_p.y, boundary_DrainTank_sink2.p_in)
+  connect(boundary_toPump_PFL_bypass_p.y, boundary_bypass_source.p_in)
     annotation (Line(points={{-141,130},{-148,130},{-148,120},{-158,120}},
         color={0,0,127}));
-  connect(boundary_toPump_PFL_bypass_h.y, boundary_DrainTank_sink2.h_in)
+  connect(boundary_toPump_PFL_bypass_h.y, boundary_bypass_source.h_in)
     annotation (Line(points={{-141,116},{-158,116}}, color={0,0,127}));
-  connect(boundary_toPump_PFL_bypass_C.y, boundary_DrainTank_sink2.C_in)
+  connect(boundary_toPump_PFL_bypass_C.y, boundary_bypass_source.C_in)
     annotation (Line(points={{-141,102},{-148,102},{-148,104},{-158,104}},
         color={0,0,127}));
-  connect(boundary_fromPump_PFL_bypass_C.y, boundary_DrainTank_sink1.C_in)
-    annotation (Line(points={{-141,60},{-148,60},{-148,62},{-158,62}}, color={0,
-          0,127}));
-  connect(boundary_fromPump_PFL_bypass_h.y, boundary_DrainTank_sink1.h_in)
-    annotation (Line(points={{-141,74},{-158,74}}, color={0,0,127}));
-  connect(boundary_fromPump_PFL_bypass_p.y, boundary_DrainTank_sink1.p_in)
-    annotation (Line(points={{-141,88},{-148,88},{-148,78},{-158,78}}, color={0,
+  connect(boundary_fromPump_PFL_bypass_h.y, boundary_bypass_sink.h_in)
+    annotation (Line(points={{-101,72},{-118,72}}, color={0,0,127}));
+  connect(boundary_fromPump_PFL_bypass_p.y, boundary_bypass_sink.p_in)
+    annotation (Line(points={{-101,86},{-108,86},{-108,76},{-118,76}}, color={0,
           0,127}));
   connect(adsorberBed.port_a, drainTank_gas.port_b[1]) annotation (Line(points={
           {-180,-20},{-188,-20},{-188,-19.5},{-194,-19.5}}, color={0,127,255}));
@@ -949,6 +914,20 @@ equation
       Line(points={{-226,80},{-226,-20},{-206,-20}}, color={0,127,255}));
   connect(pump_OffGas_bypass.port_a, drainTank_gas.port_b[2]) annotation (Line(
         points={{-180,30},{-188,30},{-188,-20.5},{-194,-20.5}}, color={0,127,255}));
+  connect(boundary_fromPump_PFL_bypass_C.y, boundary_bypass_sink.C_in)
+    annotation (Line(points={{-101,58},{-108,58},{-108,60},{-118,60}}, color={0,
+          0,127}));
+  connect(pump_drainTank.port_b, boundary_bypass_sink.ports[2]) annotation (
+      Line(points={{-130,-60},{-100,-60},{-100,54},{-150,54},{-150,66},{-140,66}},
+        color={0,127,255}));
+  connect(pump_OffGas_bypass.port_b, boundary_OffGas_sink.ports[1]) annotation
+    (Line(points={{-160,30},{-150,30},{-150,32},{-140,32}}, color={0,127,255}));
+  connect(pump_OffGas_adsorberBed.port_b, boundary_OffGas_sink.ports[2])
+    annotation (Line(points={{-130,-20},{-108,-20},{-108,16},{-148,16},{-148,28},
+          {-140,28}}, color={0,127,255}));
+  connect(boundary_fromPump_PFL_bypass_p.y, boundary_OffGas_sink.p_in)
+    annotation (Line(points={{-101,86},{-108,86},{-108,38},{-118,38}}, color={0,
+          0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-300,-150},
             {260,150}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-150},{260,150}})),
