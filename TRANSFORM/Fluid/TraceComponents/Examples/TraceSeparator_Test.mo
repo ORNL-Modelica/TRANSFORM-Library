@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.TraceComponents.Examples;
-model TraceSeparator
+model TraceSeparator_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
 
@@ -10,8 +10,8 @@ model TraceSeparator
 
   replaceable package Medium_carrier = Modelica.Media.IdealGases.SingleGases.He
       (extraPropertiesNames=fill("dummy",4),
-  C_nominal=fill(1e6,nC)) constrainedby Modelica.Media.Interfaces.PartialMedium
-                                            "Medium properties" annotation (
+  C_nominal=fill(1e6,Medium_carrier.nC)) constrainedby
+    Modelica.Media.Interfaces.PartialMedium "Medium properties" annotation (
       choicesAllMatching=true);
 
   TRANSFORM.Fluid.TraceComponents.TraceSeparator traceSeparator(
@@ -73,4 +73,4 @@ equation
       Line(points={{40,-60},{24,-60},{24,-6},{10,-6}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end TraceSeparator;
+end TraceSeparator_Test;

@@ -60,6 +60,8 @@ model TraceSeparator
   SI.MassFraction[Medium.nC] Cs_notSep
      "Concentration of substances after separation";
 
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+
 algorithm
   port_b_carrier.C_outflow := inStream(port_a_carrier.C_outflow);
   for i in 1:nSep loop
@@ -99,8 +101,6 @@ equation
   port_sepFluid.Xi_outflow = port_b.Xi_outflow;
   port_sepFluid.C_outflow = port_b.C_outflow;
 
-  connect(port_sepFluid, port_sepFluid)
-    annotation (Line(points={{100,-10},{100,-10}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
@@ -132,22 +132,23 @@ equation
           fillColor={0,110,220},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{16,-2},{28,-14},{12,-12},{16,-2}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,212,0}),
-        Polygon(
-          points={{16,-6},{-24,12},{-26,8},{14,-10},{16,-6}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,212,0}),
-        Polygon(
           points={{90,0},{90,-20},{76,-20},{54,-34},{48,-20},{76,0},{90,0}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillColor={0,110,220},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-10,-34},{-2,-50},{-10,-34}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,110,220},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-6,26},{2,26},{2,-14},{8,-14},{-2,-34},{-12,-14},{-6,-14},{-6,
+              26}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillColor={0,255,0},
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end TraceSeparator;
