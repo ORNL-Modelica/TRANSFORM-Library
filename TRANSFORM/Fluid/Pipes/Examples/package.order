@@ -3,3 +3,4 @@ GenericPipesTests
 TransportDelayPipeTests
 GenericPipe_MultiTransferSurface
 TraceDecayAdsorberBed_Test
+TraceSeparator

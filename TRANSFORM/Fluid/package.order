@@ -3,6 +3,7 @@ SystemTF
 System
 BoundaryConditions
 ClosureRelations
+TraceComponents
 Pipes
 Volumes
 FittingsAndResistances
