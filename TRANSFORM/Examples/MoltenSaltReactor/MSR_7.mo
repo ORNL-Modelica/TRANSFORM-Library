@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_6
+model MSR_7
   import TRANSFORM;
 
   package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
@@ -47,12 +47,7 @@ model MSR_6
 
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_upper = {-data_traceSubstances.lambdas[j]*plenum_upper.mC[j] for j in 1:data_traceSubstances.nC};
 
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_pumpBowl={-data_traceSubstances.lambdas[j]*pumpBowl_PFL.mC[j]*3
-  + pump_drainTank.port_b.C_outflow[j]*pump_drainTank.port_a.m_flow
-  + mC_flows_fromOG[j]
-  - pump_bypass.port_b.C_outflow[j]*pump_bypass.port_a.m_flow
-  + traceSeparator.port_b.C_outflow[j]*traceSeparator.port_a.m_flow
-      for j in 1:data_traceSubstances.nC};
+  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_pumpBowl={-data_traceSubstances.lambdas[j]*pumpBowl_PFL.mC[j]*3 + mC_flows_fromOG[j] for j in 1:data_traceSubstances.nC};
 
   SI.MassFlowRate[pipeToPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeToPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeToPHX_PFL.mCs[i, j]*pipeToPHX_PFL.nParallel for j in 1:data_traceSubstances.nC} for i in 1:pipeToPHX_PFL.nV};
 
@@ -441,7 +436,9 @@ model MSR_6
         rotation=90,
         origin={80,70})));
   Fluid.Machines.Pump_SimpleMassFlow pump_PFL(redeclare package Medium =
-        Medium_PFL, m_flow_nominal=2*3*data_PHX.m_flow_tube)
+        Medium_PFL,
+    use_input=true,
+    m_flow_nominal=2*3*data_PHX.m_flow_tube)
     annotation (Placement(transformation(extent={{40,118},{60,138}})));
   Fluid.Volumes.ExpansionTank pumpBowl_PFL(
     redeclare package Medium = Medium_PFL,
@@ -703,9 +700,10 @@ model MSR_6
     annotation (Placement(transformation(extent={{-150,-70},{-130,-50}})));
   TRANSFORM.Controls.TankLevelControl drainTankLevelControl(
     level=drainTank_liquid.level,
+    level_min=0.2,
+    level_max=0.4,
     drainRate_active=2*m_flow_toDrainTank,
-    level_max=0.5,
-    level_min=0.2)
+    drainRate_nonActive=0.5*m_flow_toDrainTank)
     annotation (Placement(transformation(extent={{-158,-48},{-150,-40}})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_OffGas_bypass(use_input=true,
       redeclare package Medium = Medium_OffGas)
@@ -718,7 +716,7 @@ model MSR_6
     annotation (Placement(transformation(extent={{-202,30},{-182,50}})));
   Modelica.Blocks.Sources.RealExpression m_flow_OffGas_adsorberBed(y=
         data_OFFGAS.frac_gasSplit*boundary_OffGas_m_flow.y)
-    annotation (Placement(transformation(extent={{-114,-6},{-134,14}})));
+    annotation (Placement(transformation(extent={{-114,-10},{-134,10}})));
   TRANSFORM.Fluid.TraceComponents.TraceSeparator traceSeparator(m_flow_sepFluid=
        m_flow_toDrainTank, iSep=iOG,
     redeclare package Medium = Medium_PFL,
@@ -730,40 +728,17 @@ model MSR_6
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_bypass(redeclare package
       Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-188,102},{-208,122}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=0.1*pump_PFL.port_a.m_flow)
+  Modelica.Blocks.Sources.RealExpression m_flow_pump_bypass(y=x_bypass.y*abs(
+        pump_PFL.port_a.m_flow))
     annotation (Placement(transformation(extent={{-228,116},{-208,136}})));
-  TRANSFORM.Fluid.BoundaryConditions.Boundary_ph boundary_bypass_sink(
-    redeclare package Medium = Medium_PFL,
-    nPorts=2,
-    use_h_in=true,
-    use_p_in=true,
-    use_C_in=true)
-    annotation (Placement(transformation(extent={{-120,58},{-140,78}})));
-  TRANSFORM.Fluid.BoundaryConditions.Boundary_ph boundary_bypass_source(
-    redeclare package Medium = Medium_PFL,
-    nPorts=1,
-    use_h_in=true,
-    use_p_in=true,
-    use_C_in=true)
-    annotation (Placement(transformation(extent={{-160,102},{-180,122}})));
-  Modelica.Blocks.Sources.RealExpression boundary_toPump_PFL_bypass_p(y=
-        pump_PFL.port_b.p)
-    annotation (Placement(transformation(extent={{-120,120},{-140,140}})));
-  Modelica.Blocks.Sources.RealExpression boundary_toPump_PFL_bypass_h(y=
-        pump_PFL.port_b.h_outflow)
-    annotation (Placement(transformation(extent={{-120,106},{-140,126}})));
-  Modelica.Blocks.Sources.RealExpression boundary_toPump_PFL_bypass_C[
-    Medium_PFL.nC](y=pump_PFL.port_b.C_outflow)
-    annotation (Placement(transformation(extent={{-120,92},{-140,112}})));
   Modelica.Blocks.Sources.RealExpression boundary_fromPump_PFL_bypass_p(y=
         pumpBowl_PFL.p)
-    annotation (Placement(transformation(extent={{-80,76},{-100,96}})));
-  Modelica.Blocks.Sources.RealExpression boundary_fromPump_PFL_bypass_h(y=
-        pumpBowl_PFL.h)
-    annotation (Placement(transformation(extent={{-80,62},{-100,82}})));
-  Modelica.Blocks.Sources.RealExpression boundary_fromPump_PFL_bypass_C[
-    Medium_PFL.nC](y=pumpBowl_PFL.C)
-    annotation (Placement(transformation(extent={{-80,48},{-100,68}})));
+    annotation (Placement(transformation(extent={{-92,28},{-112,48}})));
+  Modelica.Blocks.Sources.RealExpression m_flow_pump_PFL(y=2*3*data_PHX.m_flow_tube
+        /(1 - x_bypass.y))
+    annotation (Placement(transformation(extent={{76,132},{56,152}})));
+  Modelica.Blocks.Sources.Constant x_bypass(k=0.1)
+    annotation (Placement(transformation(extent={{100,90},{120,110}})));
 algorithm
 
    mC_flows_fromOG :=zeros(data_traceSubstances.nC);
@@ -878,30 +853,12 @@ equation
   connect(m_flow_OffGas_bypass.y, pump_OffGas_bypass.in_m_flow) annotation (
       Line(points={{-181,40},{-170,40},{-170,37.3}}, color={0,0,127}));
   connect(m_flow_OffGas_adsorberBed.y, pump_OffGas_adsorberBed.in_m_flow)
-    annotation (Line(points={{-135,4},{-140,4},{-140,-12.7}}, color={0,0,127}));
+    annotation (Line(points={{-135,0},{-140,0},{-140,-12.7}}, color={0,0,127}));
   connect(boundary_OffGas_source.ports[1], traceSeparator.port_a_carrier)
     annotation (Line(points={{-240,108},{-226,108},{-226,100}},        color={0,
           127,255}));
-  connect(realExpression.y, pump_bypass.in_m_flow) annotation (Line(points={{-207,
-          126},{-198,126},{-198,119.3}},
-                                       color={0,0,127}));
-  connect(boundary_bypass_sink.ports[1], traceSeparator.port_b) annotation (
-      Line(points={{-140,70},{-214,70},{-214,80}}, color={0,127,255}));
-  connect(boundary_bypass_source.ports[1], pump_bypass.port_a)
-    annotation (Line(points={{-180,112},{-188,112}}, color={0,127,255}));
-  connect(boundary_toPump_PFL_bypass_p.y, boundary_bypass_source.p_in)
-    annotation (Line(points={{-141,130},{-148,130},{-148,120},{-158,120}},
-        color={0,0,127}));
-  connect(boundary_toPump_PFL_bypass_h.y, boundary_bypass_source.h_in)
-    annotation (Line(points={{-141,116},{-158,116}}, color={0,0,127}));
-  connect(boundary_toPump_PFL_bypass_C.y, boundary_bypass_source.C_in)
-    annotation (Line(points={{-141,102},{-148,102},{-148,104},{-158,104}},
-        color={0,0,127}));
-  connect(boundary_fromPump_PFL_bypass_h.y, boundary_bypass_sink.h_in)
-    annotation (Line(points={{-101,72},{-118,72}}, color={0,0,127}));
-  connect(boundary_fromPump_PFL_bypass_p.y, boundary_bypass_sink.p_in)
-    annotation (Line(points={{-101,86},{-108,86},{-108,76},{-118,76}}, color={0,
-          0,127}));
+  connect(m_flow_pump_bypass.y, pump_bypass.in_m_flow) annotation (Line(points=
+          {{-207,126},{-198,126},{-198,119.3}}, color={0,0,127}));
   connect(adsorberBed.port_a, drainTank_gas.port_b[1]) annotation (Line(points={
           {-180,-20},{-188,-20},{-188,-19.5},{-194,-19.5}}, color={0,127,255}));
   connect(pump_bypass.port_b, traceSeparator.port_a) annotation (Line(points={{-208,
@@ -909,27 +866,31 @@ equation
   connect(boundary_thermal_drainTank_liquid.port, drainTank_liquid.heatPort)
     annotation (Line(points={{-200,-80},{-200,-62.4}}, color={191,0,0}));
   connect(traceSeparator.port_sepFluid, drainTank_liquid.port_a) annotation (
-      Line(points={{-221,80},{-220,80},{-220,-60},{-207,-60}}, color={0,127,255}));
+      Line(points={{-220,80},{-220,80},{-220,-60},{-207,-60}}, color={0,127,255}));
   connect(traceSeparator.port_b_carrier, drainTank_gas.port_a[1]) annotation (
       Line(points={{-226,80},{-226,-20},{-206,-20}}, color={0,127,255}));
   connect(pump_OffGas_bypass.port_a, drainTank_gas.port_b[2]) annotation (Line(
         points={{-180,30},{-188,30},{-188,-20.5},{-194,-20.5}}, color={0,127,255}));
-  connect(boundary_fromPump_PFL_bypass_C.y, boundary_bypass_sink.C_in)
-    annotation (Line(points={{-101,58},{-108,58},{-108,60},{-118,60}}, color={0,
-          0,127}));
-  connect(pump_drainTank.port_b, boundary_bypass_sink.ports[2]) annotation (
-      Line(points={{-130,-60},{-100,-60},{-100,54},{-150,54},{-150,66},{-140,66}},
-        color={0,127,255}));
   connect(pump_OffGas_bypass.port_b, boundary_OffGas_sink.ports[1]) annotation (
      Line(points={{-160,30},{-150,30},{-150,32},{-140,32}}, color={0,127,255}));
   connect(pump_OffGas_adsorberBed.port_b, boundary_OffGas_sink.ports[2])
     annotation (Line(points={{-130,-20},{-108,-20},{-108,16},{-148,16},{-148,28},
           {-140,28}}, color={0,127,255}));
   connect(boundary_fromPump_PFL_bypass_p.y, boundary_OffGas_sink.p_in)
-    annotation (Line(points={{-101,86},{-108,86},{-108,38},{-118,38}}, color={0,
+    annotation (Line(points={{-113,38},{-118,38}},                     color={0,
           0,127}));
+  connect(traceSeparator.port_b, pumpBowl_PFL.port_a) annotation (Line(points={{-214,80},
+          {-214,70},{-90,70},{-90,128},{13,128}},
+        color={0,127,255}));
+  connect(pump_drainTank.port_b, pumpBowl_PFL.port_a) annotation (Line(points={{-130,
+          -60},{-90,-60},{-90,128},{13,128}},
+                 color={0,127,255}));
+  connect(pump_bypass.port_a, pipeToPHX_PFL.port_a) annotation (Line(points={{
+          -188,112},{-180,112},{-180,150},{80,150},{80,80}}, color={0,127,255}));
+  connect(m_flow_pump_PFL.y, pump_PFL.in_m_flow)
+    annotation (Line(points={{55,142},{50,142},{50,135.3}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-300,-150},
             {260,150}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-300,-150},{260,150}})),
     experiment(StopTime=5000, __Dymola_NumberOfIntervals=5000));
-end MSR_6;
+end MSR_7;

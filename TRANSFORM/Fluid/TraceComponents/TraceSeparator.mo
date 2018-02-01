@@ -28,8 +28,8 @@ model TraceSeparator
         iconTransformation(extent={{90,-70},{110,-50}})));
   Interfaces.FluidPort_Flow port_sepFluid(redeclare package Medium = Medium,
       m_flow(max=0))
-    annotation (Placement(transformation(extent={{90,-20},{110,0}}),
-        iconTransformation(extent={{90,-20},{110,0}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}}),
+        iconTransformation(extent={{90,-10},{110,10}})));
 
   parameter Integer iSep[:]={2,3}
     "Index array of substances from Medium separated by Medium_carrier";
@@ -132,7 +132,7 @@ equation
           fillColor={0,110,220},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{90,0},{90,-20},{76,-20},{54,-34},{48,-20},{76,0},{90,0}},
+          points={{90,10},{90,-10},{76,-10},{54,-34},{46,-16},{70,10},{90,10}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillColor={0,110,220},
@@ -144,11 +144,11 @@ equation
           fillColor={0,110,220},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-6,26},{2,26},{2,-14},{8,-14},{-2,-34},{-12,-14},{-6,-14},{-6,
-              26}},
+          points={{-4,26},{0,26},{0,-14},{8,-14},{-2,-34},{-12,-14},{-4,-14},{
+              -4,26}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
-          fillColor={0,255,0},
+          fillColor={0,202,0},
           fillPattern=FillPattern.Solid)}),                      Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end TraceSeparator;
