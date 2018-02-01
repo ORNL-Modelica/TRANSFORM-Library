@@ -55,7 +55,7 @@ model data_RCTR
   parameter SI.Area crossArea_extG = from_inch2(11.43^2)-crossArea_inner_empty "Cross area of external graphite box per cell";
 
   parameter SI.Area crossArea_outer_empty = from_inch2(7.952) "Cross-sectional flow area of outer region of a non-repeated graphite box (approximated from CAD)";
-  parameter SI.Area crossArea_extG_whole = from_inch2(14.343^2) - crossArea_outer_empty - crossArea_inner_empty "Cross area of external graphite box whole box (calculated from CAD)";
+  parameter SI.Area crossArea_extG_whole = from_inch2(14.343^2) - crossArea_outer_empty - crossArea_inner_empty "Cross area of external graphite box whole box (calculated from CAD) - i.e., little extra bit between fuel cells and inner radial reflector";
 
   parameter Integer nfG = 5+2 "# of characteristic graphite slabs in fueled cell";
   parameter SI.Length length_fG = crossArea_fG/(nfG*width_fG) "Characteric length of graphite slabs in fueled cell";
@@ -89,22 +89,37 @@ model data_RCTR
   parameter SI.Volume volume_crRod_BC = crossArea_crRod_BC*length_crRod "Volume of boron carbide per control rod";
   parameter SI.Volume volume_crRod_alloyN = crossArea_crRod_alloyN*length_crRod "Volume of alloy-N per control rod";
 
+  // Axial graphite reflector
+  parameter Integer nRegions = 8 "Number of identiical radial reflector regions";
+
   parameter SI.Length perimeter_reflR_inner = from_inch(8*(2*12+2*24) + 2*(1.33+25.977+11.271+24)) "Wetted perimeter of inner radial reflector per region";
   parameter SI.Area crossArea_reflR_innerG = from_inch2(8*(12*24) + 2*(151.208)) "Cross-sectional area of the inner graphite radial reflector per region";
   // This is normal gaps + the outer layer of fuel cells box fluid gap of which there are 5.25 cells per graphite region with 1/4 of the flow area present
-  parameter SI.Area crossArea_reflR_inner = from_inch2(2641.35 - crossArea_reflR_innerG) + 5.25*0.25*crossArea_outer_empty "Cross-sectional flow area around the inner graphite radial reflector per region";
+  parameter SI.Area crossArea_reflR_inner = from_inch2(2641.35) - crossArea_reflR_innerG + 5.25*0.25*crossArea_outer_empty "Cross-sectional flow area around the inner graphite radial reflector per region";
 
   parameter SI.Length perimeter_reflR_outer = from_inch(2*59.9877 + 156.727*45*pi/180) "Wetted perimeter of outer radial reflector per region";
   parameter SI.Area crossArea_reflR_outerG = from_inch2(0.5*156.727^2*45*pi/180- 0.5*119.843*156.727*cos(45*pi/180/2)) + from_inch2(11.1156) "Cross-sectional area of the outer graphite radial reflector per region";
   parameter SI.Area crossArea_reflR_outer =  from_inch2(0.5*156.789^2*45*pi/180- 0.5*120.001*156.789*cos(45*pi/180/2)) + from_inch2(25.2654) - crossArea_reflR_outerG "Cross-sectional flow area around the outer graphite radial reflector per region";
 
+  parameter SI.Area crossArea_reflR = crossArea_reflR_inner + crossArea_reflR_outer "Total cross-sectional flow area of axial graphite reflector per region";
+  parameter SI.Length perimeter_reflR = perimeter_reflR_inner + perimeter_reflR_outer "Total wetted perimeter of axial graphite reflector per region";
+
   parameter SI.Length length_reflR_inner = from_feet(21) "Length of inner reflector";
   parameter SI.Length length_reflR_outer = from_feet(21) "Length of outer reflector";
+  parameter SI.Length length_reflR = 0.5*(length_reflR_inner+length_reflR_outer) "Characteristic length of radial reflector";
 
-  parameter SI.Volume volume_reflR_innerG = crossArea_reflR_innerG*length_reflR_inner "Volume of graphite in inner reflector per region";
-  parameter SI.Volume volume_reflR_inner = crossArea_reflR_inner*length_reflR_inner "Volume of fluid in inner reflector per region";
-  parameter SI.Volume volume_reflR_outerG = crossArea_reflR_outerG*length_reflR_outer "Volume of graphite in outer reflector per region";
-  parameter SI.Volume volume_reflR_outer = crossArea_reflR_outer*length_reflR_outer "Volume of fluid in outer reflector per region";
+  parameter SI.Volume volume_reflR_innerG = crossArea_reflR_innerG*length_reflR_inner "Volume of graphite in inner radial reflector per region";
+  parameter SI.Volume volume_reflR_inner = crossArea_reflR_inner*length_reflR_inner "Volume of fluid in inner radial reflector per region";
+  parameter SI.Volume volume_reflR_outerG = crossArea_reflR_outerG*length_reflR_outer "Volume of graphite in outer radial reflector per region";
+  parameter SI.Volume volume_reflR_outer = crossArea_reflR_outer*length_reflR_outer "Volume of fluid in outer radial reflector per region";
+  parameter SI.Volume volume_reflR_G = volume_reflR_innerG + volume_reflR_outerG "Total volume of graphite in radial reflector per region";
+  parameter SI.Volume volume_reflR = volume_reflR_inner + volume_reflR_outer "Total volume of fluid in radial reflector per region";
+
+  parameter SI.Length length_reflR_blockG = from_inch(24) "length of reflR block";
+  parameter SI.Length width_reflR_blockG = from_inch(12) "width of reflR block";
+  parameter SI.Volume volume_reflR_blockG = length_reflR_blockG*width_reflR_blockG*length_reflR "Volume of characteristic radial reflector block";
+
+  parameter Real n_reflR_blockG = volume_reflR_G/volume_reflR_blockG "# of characteristic blocks of graphite in radial reflector per region";
 
   // Now calculate the axial reflectors
   parameter Integer nAs = 2 "# of axial reflectors";
