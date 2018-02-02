@@ -59,7 +59,7 @@ model PointKinetics_Drift
   parameter Integer nT=0
     "# of fission types from sources (e.g., {'thermal','fast'})"
     annotation (Dialog(tab="Fission Products"));
-  parameter Integer[nC,nC] parents=fill(
+  parameter Real[nC,nC] parents=fill(
       0,
       nC,
       nC)

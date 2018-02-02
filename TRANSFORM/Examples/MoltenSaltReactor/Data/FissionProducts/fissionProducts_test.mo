@@ -8,7 +8,7 @@ record fissionProducts_test "test for debugging"
     C_nominal=fill(1e14, nC),
     fissionYield={if k == 1 then fissionYield_t[i,j] else fissionYield_f[i,j] for k in 1:2, j in 1:nFS, i in 1:nC},
     lambdas={0,0.00001,0.01},
-    parents=[[0,0,0];[1,0,0];[1,1,0]]);
+    parents=[[0,0,0];[0.5,0,0];[0.5,1,0]]);
 
   parameter Real[nC,nFS] fissionYield_t=0.01*transpose({{0,0.01,1},
         {0.004,0.001,0.02}}) "Fission yield per fast fission";
