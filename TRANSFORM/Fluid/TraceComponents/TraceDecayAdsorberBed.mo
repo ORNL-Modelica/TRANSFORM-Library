@@ -41,6 +41,7 @@ model TraceDecayAdsorberBed
     annotation (Dialog(group="Input Variables", enable=not use_tau));
 
   input Units.HydraulicResistance R = 1 "Hydraulic resistance across adsorber bed" annotation(Dialog(group="Input Variables"));
+  parameter Real[Medium.nC,Medium.nC] parents = fill(0,Medium.nC,Medium.nC) "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
 
 //   input SI.PressureDifference dp=1
 //     "Pressure drop across adsorber bed (dp = port_a.p - port_b.p)"
@@ -119,7 +120,9 @@ equation
   //Cout = Cin.*exp(-lambdas.*mCarbon.*K./V_flow); //Basic equation
   mC_flows[1, :] = m_flow*actualStream(port_a.C_outflow);
   for i in 2:nV + 1 loop
-    mC_flows[i, :] = mC_flows[i - 1, :] .* exp(-lambdas .* taus ./ nV);
+    for j in 1:Medium.nC loop
+      mC_flows[i, j] = mC_flows[i - 1, j] .* exp(-lambdas[j]*taus[j]/nV) + sum(mCs_decay[i-1,:].*parents[j,:]);
+    end for;
   end for;
 
   for i in 1:nV loop

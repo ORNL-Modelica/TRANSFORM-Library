@@ -11,6 +11,8 @@ partial record PartialPrecursorGroup
   // Data
   parameter TRANSFORM.Units.InverseTime[nC] lambdas "Decay constants for each precursor group";
 
+  constant Real[nC,nC] parents = fill(0,nC,nC) "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
+
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_9
+model MSR_10
   import TRANSFORM;
 
   package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
@@ -992,4 +992,4 @@ equation
             {340,150}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-150},{340,150}})),
     experiment(StopTime=5000, __Dymola_NumberOfIntervals=5000));
-end MSR_9;
+end MSR_10;
