@@ -45,15 +45,30 @@ model data_traceSubstances
       precursorGroups.lambdas,
       fissionProducts.lambdas) "Decay constant";
 
-      constant Real [precursorGroups.nC,nC] p_PG = cat(2,precursorGroups.parents,fill(0,precursorGroups.nC,nC-precursorGroups.nC));
-      constant Real [fissionProducts.nC,nC] p_FP = cat(2,fill(0,fissionProducts.nC,nC-fissionProducts.nC),fissionProducts.parents);
-  constant Real[nC,nC] parents = cat(1,p_PG,p_FP);
-//   constant Real[nC,nC] parents={{if i >= iPG[1] and i <= iPG[2] then (if j >=
-//       iPG[1] and j <= iPG[2] then precursorGroups.parents[i - iPG[1] + 1, j -
-//       iPG[1] + 1] else 0) elseif i >= iFP[1] and i <= iFP[2] then (if j >= iFP[1]
-//        and j <= iFP[2] then fissionProducts.parents[i - iFP[1] + 1, j - iFP[1] +
-//       1] else 0) else 0 for j in 1:nC} for i in 1:nC}
-//     "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
+  constant Real[precursorGroups.nC,nC] p_PG=cat(
+      2,
+      precursorGroups.parents,
+      fill(
+        0,
+        precursorGroups.nC,
+        nC - precursorGroups.nC));
+  constant Real[fissionProducts.nC,nC] p_FP=cat(
+      2,
+      fill(
+        0,
+        fissionProducts.nC,
+        nC - fissionProducts.nC),
+      fissionProducts.parents);
+  constant Real[nC,nC] parents=cat(
+      1,
+      p_PG,
+      p_FP);
+  //   constant Real[nC,nC] parents={{if i >= iPG[1] and i <= iPG[2] then (if j >=
+  //       iPG[1] and j <= iPG[2] then precursorGroups.parents[i - iPG[1] + 1, j -
+  //       iPG[1] + 1] else 0) elseif i >= iFP[1] and i <= iFP[2] then (if j >= iFP[1]
+  //        and j <= iFP[2] then fissionProducts.parents[i - iFP[1] + 1, j - iFP[1] +
+  //       1] else 0) else 0 for j in 1:nC} for i in 1:nC}
+  //     "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

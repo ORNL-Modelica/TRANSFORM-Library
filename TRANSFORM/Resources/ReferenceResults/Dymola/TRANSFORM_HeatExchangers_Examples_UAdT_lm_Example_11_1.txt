@@ -1,0 +1,10 @@
+last-generated=2018-02-02
+statistics-simulation=
+{
+  "numerical Jacobians": "0", 
+  "nonlinear": " ", 
+  "linear": " "
+}
+unitTests.x[1]=[38.106014251708984375, 38.106014251708984375]
+time=[0., 1.]
+unitTests.x[2]=[5.17881727218627929688, 5.17881727218627929688]
