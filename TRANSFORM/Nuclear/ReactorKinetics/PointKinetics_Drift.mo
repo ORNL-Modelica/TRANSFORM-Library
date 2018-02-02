@@ -4,49 +4,120 @@ model PointKinetics_Drift
   import TRANSFORM.Types.Dynamics;
   import TRANSFORM.Math.fillArray_1D;
 
-  parameter Integer nV = 1 "# of discrete volumes";
-  parameter Integer nI = 6 "# of delayed-neutron precursors groups";
+  parameter Integer nV=1 "# of discrete volumes";
+  parameter Integer nI=6 "# of delayed-neutron precursors groups";
   parameter SI.Power Q_nominal=1e6 "Total nominal reactor power";
-  parameter Boolean specifyPower=false "=true to specify power (i.e., no der(P) equation)";
+  parameter Boolean specifyPower=false
+    "=true to specify power (i.e., no der(P) equation)";
 
   // Inputs
-  input SI.Temperature[nV] Ts "Medium temperature for temperature feedback" annotation(Dialog(group="Input Variables"));
-  input Units.NonDim[nV,nI] mCs "Absolute delayed precursor group concentration [#] per node" annotation(Dialog(group="Input Variables"));
-  input SI.Power[nV] Qs_input = fill(Q_nominal/nV,nV) "Specifed power if specifyPower=true" annotation(Dialog(group="Input Variables",enable=specifyPower));
-  input SI.Power Qs_external[nV]=zeros(nV) "External power source" annotation(Dialog(group="Input Variables"));
-  input Units.NonDim[nV] rhos_input = zeros(nV) "External Reactivity" annotation(Dialog(group="Input Variables"));
+  input SI.Temperature[nV] Ts "Medium temperature for temperature feedback"
+    annotation (Dialog(group="Input Variables"));
+  input SI.Mass[nV,nI] mCs
+    "Absolute delayed precursor group concentration per volume"
+    annotation (Dialog(group="Input Variables"));
+  input SI.Power[nV] Qs_input=fill(Q_nominal/nV, nV)
+    "Specifed power if specifyPower=true"
+    annotation (Dialog(group="Input Variables", enable=specifyPower));
+  input SI.Power Qs_external[nV]=zeros(nV) "External power source"
+    annotation (Dialog(group="Input Variables"));
+  input Units.NonDim[nV] rhos_input=zeros(nV) "External Reactivity"
+    annotation (Dialog(group="Input Variables"));
 
   // Neutron Kinetics
-  input TRANSFORM.Units.InverseTime[nI] lambda_i={0.0125,0.0318,0.109,0.317,1.35,8.64}
-    "Decay constants for each precursor group"
-    annotation (Dialog(tab="Kinetics",group="Input Variables: Neutron Kinetics"));
-  input TRANSFORM.Units.NonDim[nI] alpha_i={0.0320,0.1664,0.1613,0.4596,0.1335,0.0472} "Normalized precursor fractions"
-    annotation (Dialog(tab="Kinetics",group="Input Variables: Neutron Kinetics"));
-  input TRANSFORM.Units.NonDim[nI] beta_i=alpha_i*Beta "Delayed neutron precursor fractions"
-    annotation (Dialog(tab="Kinetics",group="Input Variables: Neutron Kinetics"));
-  input TRANSFORM.Units.NonDim Beta=0.0065 "Effective delay neutron fraction [e.g., Beta = sum(beta_i)]" annotation (Dialog(tab="Kinetics",group="Input Variables: Neutron Kinetics"));
-  input Units.NonDim nu_bar = 2.4 "Neutrons per fission" annotation (Dialog(tab="Kinetics",group="Input Variables: Neutron Kinetics"));
-  input SI.Energy w_f = 200e6*1.6022e-19 "Energy released per fission" annotation (Dialog(tab="Kinetics",group="Input Variables: Neutron Kinetics"));
-  input SI.Time Lambda = 1e-5 "Prompt neutron generation time" annotation (Dialog(tab="Kinetics",group="Input Variables: Neutron Kinetics"));
+  input TRANSFORM.Units.InverseTime[nI] lambda_i={0.0125,0.0318,0.109,0.317,1.35,
+      8.64} "Decay constants for each precursor group" annotation (Dialog(tab="Kinetics",
+        group="Input Variables: Neutron Kinetics"));
+  input TRANSFORM.Units.NonDim[nI] alpha_i={0.0320,0.1664,0.1613,0.4596,0.1335,0.0472}
+    "Normalized precursor fractions" annotation (Dialog(tab="Kinetics", group="Input Variables: Neutron Kinetics"));
+  input TRANSFORM.Units.NonDim[nI] beta_i=alpha_i*Beta
+    "Delayed neutron precursor fractions" annotation (Dialog(tab="Kinetics",
+        group="Input Variables: Neutron Kinetics"));
+  input TRANSFORM.Units.NonDim Beta=0.0065
+    "Effective delay neutron fraction [e.g., Beta = sum(beta_i)]" annotation (
+      Dialog(tab="Kinetics", group="Input Variables: Neutron Kinetics"));
+  input Units.NonDim nu_bar=2.4 "Neutrons per fission" annotation (Dialog(tab="Kinetics",
+        group="Input Variables: Neutron Kinetics"));
+  input SI.Energy w_f=200e6*1.6022e-19 "Energy released per fission"
+    annotation (Dialog(tab="Kinetics", group="Input Variables: Neutron Kinetics"));
+  input SI.Time Lambda=1e-5 "Prompt neutron generation time" annotation (Dialog(
+        tab="Kinetics", group="Input Variables: Neutron Kinetics"));
 
   // Reactivity Feedback
   input TRANSFORM.Units.TempFeedbackCoeff alpha_coolant=-1e-4
-    "Temperature feedback coefficient"
-     annotation (Dialog(tab="Kinetics",group="Input Variables: Reactivity Feedback"));
+    "Temperature feedback coefficient" annotation (Dialog(tab="Kinetics", group=
+         "Input Variables: Reactivity Feedback"));
   input SI.Temperature Ts_reference[nV]=fill(500 + 273.15, nV)
-    "Temperature feedback reference Temperature" annotation (Dialog(tab="Kinetics",group="Input Variables: Reactivity Feedback"));
+    "Temperature feedback reference Temperature" annotation (Dialog(tab="Kinetics",
+        group="Input Variables: Reactivity Feedback"));
+
+  // Fission products
+  parameter Integer nC=0 "# of fission products"
+    annotation (Dialog(tab="Fission Products"));
+  parameter Integer nFS=0 "# of fission product sources"
+    annotation (Dialog(tab="Fission Products"));
+  parameter Integer nT=0
+    "# of fission types from sources (e.g., {'thermal','fast'})"
+    annotation (Dialog(tab="Fission Products"));
+  parameter Integer[nC,nC] parents=fill(
+      0,
+      nC,
+      nC)
+    "Matrix of parent sources (sum(column) = 1 or 0)for each fission product 'daughter'. Row is daughter, Column is parent."
+    annotation (Dialog(tab="Fission Products"));
+
+  input SIadd.NonDim fissionSource[nFS]=fill(0, nFS)
+    "Source of fissile material fractional composition (sum=1)"
+    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+  input Real fissionYield[nC,nFS,nT]=fill(
+      0,
+      nC,
+      nFS,
+      nT)
+    "# fission product atoms yielded per fission per fissile source [#/fission]"
+    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+  input TRANSFORM.Units.InverseTime[nC] lambda_FP=fill(0, nC)
+    "Decay constants for each fission product"
+    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+  input SI.Energy w_FP_decay[nC]=fill(0, nC)
+    "Energy released per decay of each fission product [J/decay]"
+    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+  input SI.Mass[nV,nC] mCs_FP={{0 for j in 1:nC} for i in 1:nV}
+    "Fission product concentration in each volume [#]"
+    annotation (Dialog(tab="Fission Products", group="Input Variables"));
 
   // Initialization
-  parameter SI.Power Qs_start[nV]=fill(Q_nominal/nV, nV) annotation(Dialog(tab="Initialization",enable=not specifyPower));
+  parameter SI.Power Qs_start[nV]=fill(Q_nominal/nV, nV)
+    annotation (Dialog(tab="Initialization", enable=not specifyPower));
 
   // Advanced
-  parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial annotation(Dialog(tab="Advanced",group="Dynamics",enable=not specifyPower));
+  parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial annotation (
+      Dialog(
+      tab="Advanced",
+      group="Dynamics",
+      enable=not specifyPower));
 
   // Outputs
-  output SI.Power Qs[nV](start=Qs_start) "Power determined from kinetics" annotation(Dialog(tab=
-          "Internal Inteface",                                                   group=
-          "Output Variables",                                                                             enable=false));
-  output SI.MassFlowRate[nV,nI] mC_gens "Mass generation rate of precursor groups" annotation(Dialog(tab="Internal Inteface",group="Output Variables",enable=false));
+  output SI.Power Qs[nV](start=Qs_start) "Power determined from kinetics"
+    annotation (Dialog(
+      tab="Internal Inteface",
+      group="Output Variables",
+      enable=false));
+  output SI.MassFlowRate[nV,nI] mC_gens "Generation rate of precursor groups"
+    annotation (Dialog(
+      tab="Internal Inteface",
+      group="Output Variables",
+      enable=false));
+  output SI.Power Qs_FP[nV] "Power released from fission product decay"
+    annotation (Dialog(
+      tab="Internal Inteface",
+      group="Output Variables",
+      enable=false));
+  output SI.MassFlowRate[nV,nC] mC_gens_FP
+    "Generation rate of fission products" annotation (Dialog(
+      tab="Internal Inteface",
+      group="Output Variables",
+      enable=false));
 
   TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
 
@@ -62,43 +133,57 @@ initial equation
 
 equation
 
-  rhos =alpha_coolant .* (Ts - Ts_reference) + rhos_input;
+  rhos = alpha_coolant .* (Ts - Ts_reference) + rhos_input;
 
   if specifyPower then
     Qs = Qs_input;
   else
     if energyDynamics == Dynamics.SteadyState then
       for i in 1:nV loop
-        0 =(rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(lambda_i .*
+        0 = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(lambda_i .*
           mCs[i, :]) + Qs_external[i]/Lambda;
       end for;
     else
       for i in 1:nV loop
-        der(Qs[i]) =(rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(
+        der(Qs[i]) = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(
           lambda_i .* mCs[i, :]) + Qs_external[i];
       end for;
     end if;
   end if;
 
-  mC_gens ={{beta_i[j]*nu_bar/w_f*Qs[i] - lambda_i[j]*mCs[i, j] for j in 1:nI}
+  mC_gens = {{beta_i[j]*nu_bar/w_f*Qs[i] - lambda_i[j]*mCs[i, j] for j in 1:nI}
     for i in 1:nV};
 
-  annotation (defaultComponentName="kinetics",
-  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  // Fission product
+  for i in 1:nV loop
+    for j in 1:nC loop
+      mC_gens_FP[i, j] = Qs[i]/w_f*sum({fissionSource[k]*fissionYield[j, k, :]
+        for k in 1:nFS}) - lambda_FP[j]*mCs_FP[i, j] + sum(lambda_FP .* mCs_FP[
+        i, :] .* parents[j, :]);
+    end for;
+  end for;
+
+  Qs_FP = {sum({w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC}) for i in
+        1:nV};
+
+  annotation (
+    defaultComponentName="kinetics",
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
-        extent={{-100,-100},{100,100}},
-        lineColor={0,0,127},
-        fillColor={255,255,255},
-        fillPattern=FillPattern.Solid),
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Ellipse(
           extent={{28,-48.5},{40,-36.5}},
           fillColor={255,0,0},
           fillPattern=FillPattern.Sphere,
           pattern=LinePattern.None,
-          lineColor={0,0,0}),           Text(
-        extent={{-149,138.5},{151,98.5}},
-        textString="%name",
-        lineColor={0,0,255}),
+          lineColor={0,0,0}),
+        Text(
+          extent={{-149,138.5},{151,98.5}},
+          textString="%name",
+          lineColor={0,0,255}),
         Ellipse(
           extent={{-14,7},{-2,19}},
           fillColor={0,0,255},
@@ -276,6 +361,6 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Sphere,
           pattern=LinePattern.None,
-          lineColor={0,0,0})}),                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+          lineColor={0,0,0})}),
+    Diagram(coordinateSystem(preserveAspectRatio=false)));
 end PointKinetics_Drift;

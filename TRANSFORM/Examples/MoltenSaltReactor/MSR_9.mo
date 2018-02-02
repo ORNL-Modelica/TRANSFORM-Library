@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_8
+model MSR_9
   import TRANSFORM;
 
   package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
@@ -66,7 +66,6 @@ model MSR_8
   // Trace Substances Parent->Daughter contribution:  Off-Gas and Drain Tank
   SI.MassFlowRate[nOG] mC_gen_drainTank_gas_PtoD =  {sum({data_traceSubstances.fissionProducts.lambdas[iOG_FP[i]].*drainTank_gas.mC[i].*data_traceSubstances.fissionProducts.parents[j,iOG_FP[i]] for i in 1:nOG}) for j in 1:nOG};
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid_PtoD =  {(if (j>=data_traceSubstances.iFP[1] and j<= data_traceSubstances.iFP[2]) then sum(data_traceSubstances.fissionProducts.lambdas.*drainTank_liquid.mC[data_traceSubstances.iFP[1]:data_traceSubstances.iFP[2]].*data_traceSubstances.fissionProducts.parents[j-data_traceSubstances.iFP[1]+1,:]) else 0) for j in 1:data_traceSubstances.nC};
-
 
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_OffGas_sink(
     redeclare package Medium = Medium_OffGas,
@@ -1005,4 +1004,4 @@ equation
             {340,150}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-150},{340,150}})),
     experiment(StopTime=5000, __Dymola_NumberOfIntervals=5000));
-end MSR_8;
+end MSR_9;
