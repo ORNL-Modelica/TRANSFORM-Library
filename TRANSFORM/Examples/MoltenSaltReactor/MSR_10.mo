@@ -273,6 +273,7 @@ model MSR_10
     T_a1_start=data_PHX.T_inlet_tube,
     T_b1_start=data_PHX.T_inlet_tube,
     nParallel=data_RCTR.n_reflA_ringG,
+    showName=systemTF.showName,
     redeclare model Geometry =
         HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         nR=5,
@@ -280,8 +281,8 @@ model MSR_10
         r_inner=data_RCTR.rs_ring_edge_inner[6],
         r_outer=data_RCTR.rs_ring_edge_outer[6],
         length_z=data_RCTR.length_reflA,
-        angle_theta=0.5235987755983),
-    showName=systemTF.showName)       annotation (Placement(transformation(
+        angle_theta=data_RCTR.angle_reflA_ring_blockG))
+                                      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,60})));
@@ -304,6 +305,11 @@ model MSR_10
     exposeState_b2=true,
     exposeState_b1=true,
     nParallel=data_RCTR.n_reflA_ringG,
+    T_a1_start=data_PHX.T_outlet_tube,
+    T_b1_start=data_PHX.T_outlet_tube,
+    T_a2_start=data_PHX.T_outlet_tube,
+    T_b2_start=data_PHX.T_outlet_tube,
+    showName=systemTF.showName,
     redeclare model Geometry =
         HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         nR=5,
@@ -311,12 +317,8 @@ model MSR_10
         r_outer=data_RCTR.rs_ring_edge_outer[6],
         length_z=data_RCTR.length_reflA,
         nZ=reflA_lower.nV,
-        angle_theta=0.5235987755983),
-    T_a1_start=data_PHX.T_outlet_tube,
-    T_b1_start=data_PHX.T_outlet_tube,
-    T_a2_start=data_PHX.T_outlet_tube,
-    T_b2_start=data_PHX.T_outlet_tube,
-    showName=systemTF.showName)       annotation (Placement(transformation(
+        angle_theta=data_RCTR.angle_reflA_ring_blockG))
+                                      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,-60})));
@@ -832,6 +834,40 @@ model MSR_10
         rotation=90,
         origin={20,30})));
 
+  TRANSFORM.Examples.MoltenSaltReactor.Data.Summary summary_PFL(
+    nG_fuelCell=fuelCellG.nParallel,
+    dims_fuelG={fuelCellG.geometry.length_x,fuelCellG.geometry.length_z,
+        fuelCellG.geometry.length_y},
+    nG_reflA_blocks=reflA_upperG.nParallel,
+    dims_reflAG={reflA_upperG.geometry.r_inner,reflA_upperG.geometry.r_outer,
+        reflA_upperG.geometry.angle_theta},
+    nG_reflR_blocks=reflRG.nParallel,
+    dims_reflRG={reflRG.geometry.length_x,reflRG.geometry.length_z,reflRG.geometry.length_y},
+
+    redeclare package Medium_PFL = Medium_PFL,
+    redeclare package Medium_OffGas = Medium_OffGas,
+    redeclare package Material_Graphite =
+        TRANSFORM.Media.Solids.Graphite.Graphite_0,
+    redeclare package Material_Vessel = TRANSFORM.Media.Solids.AlloyN,
+    m_reflAG=reflA_upperG.nParallel*sum(reflA_upperG.ms),
+    m_reflA=reflA_upper.nParallel*sum(reflA_upper.ms),
+    m_reflRG=reflRG.nParallel*sum(reflRG.ms),
+    m_reflR=reflR.nParallel*sum(reflR.ms),
+    m_fuelG=fuelCell.nParallel*sum(fuelCellG.ms),
+    m_fuel=fuelCellG.nParallel*sum(fuelCell.ms),
+    crossArea_reflA=reflA_upper.nParallel*reflA_upper.geometry.crossArea,
+    perimeter_reflA=reflA_upper.nParallel*reflA_upper.geometry.perimeter,
+    crossArea_reflR=reflR.nParallel*reflR.geometry.crossArea,
+    perimeter_reflR=reflR.nParallel*reflR.geometry.perimeter,
+    crossArea_fuel=fuelCell.nParallel*fuelCell.geometry.crossArea,
+    perimeter_fuel=fuelCell.nParallel*fuelCell.geometry.perimeter,
+    surfaceArea_reflA=reflA_upperG.nParallel*sum(reflA_upperG.geometry.crossAreas_1
+        [1, :] + reflA_upperG.geometry.crossAreas_1[end, :]),
+    surfaceArea_reflR=reflRG.nParallel*sum(reflRG.geometry.crossAreas_1[1, :]),
+
+    surfaceArea_fuel=fuelCellG.nParallel*sum(fuelCellG.geometry.crossAreas_1[1,
+        :]))
+    annotation (Placement(transformation(extent={{-350,-130},{-330,-110}})));
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},

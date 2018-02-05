@@ -1,5 +1,5 @@
 within TRANSFORM.Media.Fluids.FLiBe;
-package LinearFLiBe_12Th_05U_pT "FLiBe Fueled| LiF-BeF2-ThF4-UF4 67%-33%-12%-0.5% | Linear compressibility"
+package LinearFLiBe_12Th_05U_pT "FLiBe Fueled | LiF-BeF2-ThF4-UF4 67%-33%-12%-0.5% | Linear compressibility"
 
 // beta_const adjusted till density matched. kappa left alone
 // references are based on 800K

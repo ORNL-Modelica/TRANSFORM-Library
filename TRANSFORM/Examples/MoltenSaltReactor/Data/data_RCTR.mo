@@ -153,7 +153,8 @@ model data_RCTR
   parameter SI.Area crossArea_reflA_ringG = sum(crossAreas_reflA_ringG) "Total cross-sectional area of graphite in each axial reflector";
   parameter SI.Length perimeter_reflA_ring = sum(perimeters_reflA_ring) "Total wetted perimeter of graphite in each axial reflector";
 
-  parameter Real n_reflA_ringG = crossArea_reflA_ringG/(crossAreas_reflA_ringG[6]/nGaps[6]) "# of characteristic graphite pieces in ring - assumed based on ring 6";
+  parameter Real n_reflA_ringG = volume_reflA_ringG/(length_reflA*crossAreas_reflA_ringG[6]/nGaps[6]) "# of characteristic graphite pieces in ring - assumed based on ring 6";
+  parameter SI.Angle angle_reflA_ring_blockG = SI.Conversions.from_deg(29.8085) "Angle to conserve volume of graphite (removes small spacing between graphite blocks within ring)";
 
   parameter SI.Volume volumes_reflA_ring[nARs] = crossAreas_reflA_ring.*length_reflA_ring "Volume of fluid in each axial reflector ring";
   parameter SI.Volume volumes_reflA_ringG[nARs] = crossAreas_reflA_ringG.*length_reflA_ring "Volume of graphite in each axial reflector ring";
