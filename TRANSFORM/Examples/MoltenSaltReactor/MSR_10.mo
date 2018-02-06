@@ -92,14 +92,6 @@ model MSR_10
     p_a_start=data_PHX.p_inlet_tube + 100,
     redeclare package Medium = Medium_PFL,
     use_HeatTransfer=true,
-    redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
-        crossArea=data_RCTR.crossArea_f,
-        perimeter=data_RCTR.perimeter_f,
-        length=data_RCTR.length_cells,
-        nV=10,
-        angle=toggleStaticHead*90),
     showName=systemTF.showName,
     m_flow_a_start=0.95*data_RCTR.m_flow,
     redeclare model InternalHeatGen =
@@ -107,7 +99,17 @@ model MSR_10
         (Q_gens=kinetics.Qs + kinetics.Qs_FP),
     redeclare model InternalTraceMassGen =
         TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
-        (mC_gens=mC_gens_fuelCell))
+        (mC_gens=mC_gens_fuelCell),
+    redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (
+        crossArea=data_RCTR.crossArea_f,
+        perimeter=data_RCTR.perimeter_f,
+        length=data_RCTR.length_cells,
+        nV=10,
+        angle=toggleStaticHead*90,
+        surfaceArea={fuelCellG.nParallel/fuelCell.nParallel*sum(fuelCellG.geometry.crossAreas_1
+            [1, :])}))
     "frac*data_RCTR.Q_nominal/fuelCell.nV; mC_gens_fuelCell"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -122,6 +124,10 @@ model MSR_10
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+    showName=systemTF.showName,
+    redeclare model InternalTraceMassGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        (mC_gens=mC_gens_reflA_upper),
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (
@@ -130,13 +136,10 @@ model MSR_10
         length=data_RCTR.length_reflA,
         nV=2,
         nSurfaces=2,
-        surfaceArea={0.5*reflA_upper.geometry.perimeter*reflA_upper.geometry.length,
-            0.5*reflA_upper.geometry.perimeter*reflA_upper.geometry.length},
-        angle=toggleStaticHead*90),
-    showName=systemTF.showName,
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
-        (mC_gens=mC_gens_reflA_upper))
+        angle=toggleStaticHead*90,
+        surfaceArea={reflA_upperG.nParallel/reflA_upper.nParallel*sum(
+            reflA_upperG.geometry.crossAreas_1[1, :]),reflA_upperG.nParallel/
+            reflA_upper.nParallel*sum(reflA_upperG.geometry.crossAreas_1[end, :])}))
                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -168,6 +171,10 @@ model MSR_10
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+    showName=systemTF.showName,
+    redeclare model InternalTraceMassGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        (mC_gens=mC_gens_reflA_lower),
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (
@@ -175,14 +182,11 @@ model MSR_10
         perimeter=data_RCTR.perimeter_reflA_ring,
         length=data_RCTR.length_reflA,
         nV=2,
-        surfaceArea={0.5*reflA_lower.geometry.perimeter*reflA_lower.geometry.length,
-            0.5*reflA_lower.geometry.perimeter*reflA_lower.geometry.length},
         nSurfaces=2,
-        angle=toggleStaticHead*90),
-    showName=systemTF.showName,
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
-        (mC_gens=mC_gens_reflA_lower))
+        angle=toggleStaticHead*90,
+        surfaceArea={reflA_lowerG.nParallel/reflA_lower.nParallel*sum(
+            reflA_lowerG.geometry.crossAreas_1[1, :]),reflA_lowerG.nParallel/
+            reflA_lower.nParallel*sum(reflA_lowerG.geometry.crossAreas_1[end, :])}))
                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -767,6 +771,10 @@ model MSR_10
     use_HeatTransfer=true,
     showName=systemTF.showName,
     nParallel=data_RCTR.nRegions,
+    m_flow_a_start=0.05*data_RCTR.m_flow,
+    redeclare model InternalTraceMassGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        (mC_gens=mC_gens_reflR),
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (
@@ -774,11 +782,9 @@ model MSR_10
         angle=toggleStaticHead*90,
         crossArea=data_RCTR.crossArea_reflR,
         perimeter=data_RCTR.perimeter_reflR,
-        length=data_RCTR.length_reflR),
-    m_flow_a_start=0.05*data_RCTR.m_flow,
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
-        (mC_gens=mC_gens_reflR))          annotation (Placement(transformation(
+        length=data_RCTR.length_reflR,
+        surfaceArea={reflRG.nParallel/reflR.nParallel*sum(reflRG.geometry.crossAreas_1
+            [1, :])}))                    annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={20,0})));
@@ -799,8 +805,9 @@ model MSR_10
         nX=5,
         nY=fuelCell.nV,
         length_x=0.5*data_RCTR.width_reflR_blockG,
-        length_y=data_RCTR.length_reflR_blockG,
-        length_z=data_RCTR.length_reflR)) annotation (Placement(transformation(
+        length_y=data_RCTR.length_reflR,
+        length_z=data_RCTR.length_reflR_blockG))
+                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,0})));
@@ -834,16 +841,20 @@ model MSR_10
         rotation=90,
         origin={20,30})));
 
-  TRANSFORM.Examples.MoltenSaltReactor.Data.Summary summary_PFL(
+  TRANSFORM.Examples.MoltenSaltReactor.Data.Summary summary(
     nG_fuelCell=fuelCellG.nParallel,
-    dims_fuelG={fuelCellG.geometry.length_x,fuelCellG.geometry.length_z,
-        fuelCellG.geometry.length_y},
+    dims_fuelG_1=fuelCellG.geometry.length_x,
+    dims_fuelG_2=fuelCellG.geometry.length_z,
+    dims_fuelG_3=fuelCellG.geometry.length_y,
     nG_reflA_blocks=reflA_upperG.nParallel,
-    dims_reflAG={reflA_upperG.geometry.r_inner,reflA_upperG.geometry.r_outer,
-        reflA_upperG.geometry.angle_theta},
+    dims_reflAG_1=reflA_upperG.geometry.r_inner,
+    dims_reflAG_2=reflA_upperG.geometry.r_outer,
+    dims_reflAG_3=reflA_upperG.geometry.length_z,
+    dims_reflAG_4=reflA_upperG.geometry.angle_theta,
     nG_reflR_blocks=reflRG.nParallel,
-    dims_reflRG={reflRG.geometry.length_x,reflRG.geometry.length_z,reflRG.geometry.length_y},
-
+    dims_reflRG_1=reflRG.geometry.length_x,
+    dims_reflRG_2=reflRG.geometry.length_z,
+    dims_reflRG_3=reflRG.geometry.length_y,
     redeclare package Medium_PFL = Medium_PFL,
     redeclare package Medium_OffGas = Medium_OffGas,
     redeclare package Material_Graphite =
@@ -853,21 +864,96 @@ model MSR_10
     m_reflA=reflA_upper.nParallel*sum(reflA_upper.ms),
     m_reflRG=reflRG.nParallel*sum(reflRG.ms),
     m_reflR=reflR.nParallel*sum(reflR.ms),
-    m_fuelG=fuelCell.nParallel*sum(fuelCellG.ms),
-    m_fuel=fuelCellG.nParallel*sum(fuelCell.ms),
     crossArea_reflA=reflA_upper.nParallel*reflA_upper.geometry.crossArea,
     perimeter_reflA=reflA_upper.nParallel*reflA_upper.geometry.perimeter,
     crossArea_reflR=reflR.nParallel*reflR.geometry.crossArea,
     perimeter_reflR=reflR.nParallel*reflR.geometry.perimeter,
     crossArea_fuel=fuelCell.nParallel*fuelCell.geometry.crossArea,
     perimeter_fuel=fuelCell.nParallel*fuelCell.geometry.perimeter,
-    surfaceArea_reflA=reflA_upperG.nParallel*sum(reflA_upperG.geometry.crossAreas_1
-        [1, :] + reflA_upperG.geometry.crossAreas_1[end, :]),
-    surfaceArea_reflR=reflRG.nParallel*sum(reflRG.geometry.crossAreas_1[1, :]),
+    surfaceArea_reflA=reflA_upper.nParallel*reflA_upper.geometry.surfaceArea_total,
 
-    surfaceArea_fuel=fuelCellG.nParallel*sum(fuelCellG.geometry.crossAreas_1[1,
-        :]))
+    surfaceArea_reflR=reflR.nParallel*reflR.geometry.surfaceArea_total,
+    surfaceArea_fuel=fuelCell.nParallel*fuelCell.geometry.surfaceArea_total,
+    m_fuelG=fuelCellG.nParallel*sum(fuelCellG.ms),
+    m_fuel=fuelCell.nParallel*sum(fuelCell.ms),
+    m_plenum=plenum_upper.m,
+    dims_pumpBowl_2=data_RCTR.length_pumpbowl,
+    dims_pipeToPHX_1=pipeToPHX_PFL.geometry.dimension,
+    dims_pipeToPHX_2=pipeToPHX_PFL.geometry.length,
+    m_pipeToPHX_PFL=sum(pipeToPHX_PFL.ms),
+    dims_pipeFromPHX_1=pipeFromPHX_PFL.geometry.dimension,
+    dims_pipeFromPHX_2=pipeFromPHX_PFL.geometry.length,
+    m_pipeFromPHX_PFL=sum(pipeFromPHX_PFL.ms),
+    dims_pumpBowl_1=sqrt(4*pumpBowl_PFL.A/pi/3),
+    m_pumpBowl=pumpBowl_PFL.m/3,
+    level_nom_pumpBowl=data_RCTR.level_pumpbowlnominal,
+    T_tube_inlet_PHX=data_PHX.T_inlet_tube,
+    T_tube_outlet_PHX=data_PHX.T_outlet_tube,
+    p_inlet_tube_PHX=data_PHX.p_inlet_tube,
+    m_flow_tube_PHX=data_PHX.m_flow_tube,
+    T_shell_inlet_PHX=data_PHX.T_inlet_shell,
+    T_shell_outlet_PHX=data_PHX.T_outlet_shell,
+    p_inlet_shell_PHX=data_PHX.p_inlet_shell,
+    m_flow_shell_PHX=data_PHX.m_flow_shell,
+    nTubes_PHX=PHX.geometry.nTubes,
+    diameter_outer_tube_PHX=PHX.geometry.D_o_tube,
+    th_tube_PHX=PHX.geometry.th_wall,
+    length_tube_PHX=PHX.geometry.length_tube,
+    tube_pitch_PHX=data_PHX.pitch_tube,
+    m_tube_PHX=PHX.geometry.nTubes*sum(PHX.tube.ms),
+    crossArea_shell_PHX=PHX.geometry.crossArea_shell,
+    perimeter_shell_PHX=PHX.geometry.perimeter_shell,
+    m_shell_PHX=sum(PHX.shell.ms),
+    surfaceArea_shell_PHX=PHX.geometry.surfaceArea_shell[1],
+    dp_tube_PHX=abs(PHX.port_a_tube.p - PHX.port_b_tube.p),
+    dp_shell_PHX=abs(PHX.port_a_shell.p - PHX.port_b_shell.p),
+    surfaceArea_tube_PHX=PHX.geometry.nTubes*PHX.geometry.surfaceArea_tube[1],
+    m_tee_inlet=tee_inlet.m,
+    redeclare package Medium_PCL = Medium_PCL,
+    dims_pumpBowl_PCL_1=sqrt(4*pumpBowl_PCL.A/pi/3),
+    dims_pumpBowl_PCL_2=data_RCTR.length_pumpbowl,
+    level_nom_pumpBowl_PCL=data_RCTR.level_pumpbowlnominal,
+    m_pumpBowl_PCL=pumpBowl_PCL.m/3,
+    dims_pipePHXToPumpBowl_1=pipeFromPHX_PCL.geometry.dimension,
+    dims_pipePHXToPumpBowl_2=pipeFromPHX_PCL.geometry.length,
+    m_pipePHXToPumpBowl_PCL=sum(pipeFromPHX_PCL.ms),
+    dims_pipePumpBowlToSHX_1=pipeToSHX_PCL.geometry.dimension,
+    dims_pipePumpBowlToSHX_2=pipeToSHX_PCL.geometry.length,
+    m_pipePumpBowlToSHX_PCL=sum(pipeToSHX_PCL.ms),
+    dims_pipeSHXToPHX_1=pipeToPHX_PCL.geometry.dimension,
+    dims_pipeSHXToPHX_2=pipeToPHX_PCL.geometry.length,
+    m_pipeSHXToPHX_PCL=sum(pipeToPHX_PCL.ms),
+    T_tube_inlet_SHX=data_SHX.T_inlet_tube,
+    T_tube_outlet_SHX=data_SHX.T_outlet_tube,
+    p_inlet_tube_SHX=data_SHX.p_inlet_tube,
+    dp_tube_SHX=abs(SHX.port_a_tube.p - SHX.port_b_tube.p),
+    m_flow_tube_SHX=data_SHX.m_flow_tube,
+    T_shell_inlet_SHX=data_SHX.T_inlet_shell,
+    T_shell_outlet_SHX=data_SHX.T_outlet_shell,
+    p_inlet_shell_SHX=data_SHX.p_inlet_shell,
+    dp_shell_SHX=abs(SHX.port_a_shell.p - SHX.port_b_shell.p),
+    m_flow_shell_SHX=data_SHX.m_flow_shell,
+    nTubes_SHX=SHX.geometry.nTubes,
+    diameter_outer_tube_SHX=SHX.geometry.D_o_tube,
+    th_tube_SHX=SHX.geometry.th_wall,
+    length_tube_SHX=SHX.geometry.length_tube,
+    tube_pitch_SHX=data_SHX.pitch_tube,
+    surfaceArea_tube_SHX=SHX.geometry.nTubes*SHX.geometry.surfaceArea_tube[1],
+    m_tube_SHX=SHX.geometry.nTubes*sum(SHX.tube.ms),
+    crossArea_shell_SHX=SHX.geometry.crossArea_shell,
+    perimeter_shell_SHX=SHX.geometry.perimeter_shell,
+    surfaceArea_shell_SHX=SHX.geometry.surfaceArea_shell[1],
+    m_shell_SHX=sum(SHX.shell.ms),
+    redeclare package Medium_BOP = Modelica.Media.Water.StandardWater,
+    alpha_reflA=sum(reflA_upper.heatTransfer.alphas)/reflA_upper.nV,
+    alpha_reflR=sum(reflR.heatTransfer.alphas)/reflR.nV,
+    alpha_fuel=sum(fuelCell.heatTransfer.alphas)/fuelCell.nV,
+    alpha_tube_PHX=sum(PHX.tube.heatTransfer.alphas)/PHX.tube.nV,
+    alpha_shell_PHX=sum(PHX.shell.heatTransfer.alphas)/PHX.shell.nV,
+    alpha_tube_SHX=sum(SHX.tube.heatTransfer.alphas)/SHX.tube.nV,
+    alpha_shell_SHX=sum(SHX.shell.heatTransfer.alphas)/SHX.shell.nV)
     annotation (Placement(transformation(extent={{-350,-130},{-330,-110}})));
+
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},
