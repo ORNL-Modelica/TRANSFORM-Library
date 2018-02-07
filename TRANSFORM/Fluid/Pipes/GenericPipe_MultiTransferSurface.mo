@@ -939,11 +939,11 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=exposeState_b),
-        Rectangle(
+         Rectangle(
           extent={{-90,40},{90,-40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
+          fillColor=DynamicSelect({0,127,255}, if showColors then dynColor else {0,127,255})),
         Ellipse(
           extent={{-65,5},{-55,-5}},
           lineColor={0,0,0},
