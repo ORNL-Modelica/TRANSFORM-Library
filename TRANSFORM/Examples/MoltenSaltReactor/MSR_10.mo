@@ -674,16 +674,15 @@ model MSR_10
   TRANSFORM.Fluid.Volumes.MixingVolume drainTank_gas(
     use_HeatPort=true,
     redeclare package Medium = Medium_OffGas,
-    redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
-        (V=data_OFFGAS.delay_drainTank*data_OFFGAS.m_flow_sep_He_total/
-            Medium_OffGas.density_pT(data_OFFGAS.p_drainTank, data_OFFGAS.T_drainTank)),
     T_start=data_OFFGAS.T_drainTank,
     p_start=data_OFFGAS.p_drainTank,
     mC_gen=mC_gen_drainTank_gas,
     nPorts_b=2,
     nPorts_a=1,
-    showName=systemTF.showName)
+    showName=systemTF.showName,
+    redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
+        (V=data_OFFGAS.volume_drainTank_inner - drainTank_liquid.V))
     annotation (Placement(transformation(extent={{-260,-10},{-240,-30}})));
 
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature boundary_thermal_drainTank_gas(T=

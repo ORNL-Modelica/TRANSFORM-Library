@@ -24,7 +24,7 @@ model data_OFFGAS
   parameter SI.VolumeFlowRate V_flow_sep_salt_total = nSep*V_flow_sep_salt "Total volume flow rate of salt removed from all separators";
 
   parameter SI.Temperature T_sep_ref = from_degF(1250) "Reference temperature of salt removed at separator";
-  parameter SI.Pressure p_sep_ref = from_psi(180) "Reference temperature of salt removed at separator";
+  parameter SI.Pressure p_sep_ref = from_psi(180) "Reference pressure of salt removed at separator";
   parameter SI.Density d_sep_ref = Medium_OffGas.density_pT(p_sep_ref,T_sep_ref) "Reference density at separator";
   parameter SI.Temperature T_drainTank = from_degF(1000) "Reference temperature of drain tank";
   parameter SI.Pressure p_drainTank = from_psi(40+14.7) "Drain tank gas volume pressure";
@@ -40,6 +40,7 @@ model data_OFFGAS
 
   parameter SI.Time delay_drainTank = from_hr(6) "Gas holdup time in drain tank";
   parameter SI.Time delay_charcoalBed = from_day(90) "Gas holdup time in charcoal bed based on Xe-135";
+  parameter SI.Volume volume_drainTank_gasdelay = delay_drainTank*m_flow_sep_He_total/Medium_OffGas.density_pT(p_drainTank, T_drainTank) "volume of gas at specified hold up time";
 
   parameter SI.Density d_carbon = from_lb_feet3(30) "Density of charcoal bed";
   parameter SI.SpecificHeatCapacity cp_carbon = from_btu_lbdegF(0.3) "Specific heat capacit of charcoal bed";
