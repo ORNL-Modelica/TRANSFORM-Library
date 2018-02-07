@@ -1,0 +1,7 @@
+within TRANSFORM.Media.Fluids.FLiBe.Utilities_57_33_9995Li7;
+function eta_T
+  input SI.Temperature T;
+  output SI.DynamicViscosity eta;
+algorithm
+  eta:=1.16e-4*exp(3755/T);
+end eta_T;

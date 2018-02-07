@@ -871,7 +871,6 @@ model MSR_10
     crossArea_fuel=fuelCell.nParallel*fuelCell.geometry.crossArea,
     perimeter_fuel=fuelCell.nParallel*fuelCell.geometry.perimeter,
     surfaceArea_reflA=reflA_upper.nParallel*reflA_upper.geometry.surfaceArea_total,
-
     surfaceArea_reflR=reflR.nParallel*reflR.geometry.surfaceArea_total,
     surfaceArea_fuel=fuelCell.nParallel*fuelCell.geometry.surfaceArea_total,
     m_fuelG=fuelCellG.nParallel*sum(fuelCellG.ms),
