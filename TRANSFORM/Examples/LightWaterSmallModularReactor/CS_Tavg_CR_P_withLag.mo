@@ -189,61 +189,63 @@ equation
           255,0,255}));
   connect(switch_Q_total1.y, switch_liquidHeater.u1) annotation (Line(points={{
           141,-30},{150,-30},{150,-42},{158,-42}}, color={0,0,127}));
-  connect(sensorBus.subBus_PHS.IRIS.T_Core_Inlet, add.u1) annotation (Line(
-      points={{-30,-100},{-114,-100},{-300,-100},{-300,276},{-92,276}},
+  connect(sensorBus.T_Core_Inlet, add.u1) annotation (Line(
+      points={{-29.9,-99.9},{-114,-99.9},{-300,-99.9},{-300,276},{-92,276}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(sensorBus.subBus_PHS.IRIS.T_Core_Outlet, add.u2) annotation (Line(
-      points={{-30,-100},{-140,-100},{-300,-100},{-300,264},{-92,264}},
+  connect(sensorBus.T_Core_Outlet, add.u2) annotation (Line(
+      points={{-29.9,-99.9},{-140,-99.9},{-300,-99.9},{-300,264},{-92,264}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(sensorBus.subBus_PHS.IRIS.Q_total, switch_Q_total.u1) annotation (Line(
-      points={{-30,-100},{-30,-100},{-30,80},{-30,88},{-12,88}},
+  connect(sensorBus.Q_total, switch_Q_total.u1) annotation (Line(
+      points={{-29.9,-99.9},{-29.9,-99.9},{-29.9,80},{-29.9,88},{-12,88}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(sensorBus.subBus_PHS.IRIS.p_pressurizer, hysteresis.u) annotation (Line(
-      points={{-30,-100},{-30,-100},{-30,-50},{46,-50}},
+  connect(sensorBus.p_pressurizer, hysteresis.u) annotation (Line(
+      points={{-29.9,-99.9},{-29.9,-99.9},{-29.9,-50},{46,-50}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(actuatorBus.subBus_PHS.IRIS.speedPump, speedPump.y) annotation (Line(
-      points={{30,-100},{280,-100},{280,190},{171,190}},
+  connect(actuatorBus.speedPump, speedPump.y) annotation (Line(
+      points={{30.1,-99.9},{280,-99.9},{280,190},{171,190}},
       color={111,216,99},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(actuatorBus.subBus_PHS.IRIS.reactivity_ControlRod, CRReactivity.y)
+  connect(actuatorBus.reactivity_ControlRod, CRReactivity.y)
     annotation (Line(
-      points={{30,-100},{30,-100},{280,-100},{280,60},{171,60}},
+      points={{30.1,-99.9},{30.1,-99.9},{280,-99.9},{280,60},{171,60}},
       color={111,216,99},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(actuatorBus.subBus_PHS.IRIS.reactivity_Other, Other_Reactivity.y)
+  connect(actuatorBus.reactivity_Other, Other_Reactivity.y)
     annotation (Line(
-      points={{30,-100},{30,-100},{280,-100},{280,20},{241,20}},
+      points={{30.1,-99.9},{30.1,-99.9},{280,-99.9},{280,20},{241,20}},
       color={111,216,99},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(actuatorBus.subBus_PHS.IRIS.Q_S_External, S_external.y) annotation (Line(
-      points={{30,-100},{30,-100},{280,-100},{280,-10},{241,-10}},
+  connect(actuatorBus.Q_S_External, S_external.y) annotation (Line(
+      points={{30.1,-99.9},{30.1,-99.9},{280,-99.9},{280,-10},{241,-10}},
       color={111,216,99},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(actuatorBus.subBus_PHS.IRIS.Q_flow_liquidHeater, switch_liquidHeater.y)
+  connect(actuatorBus.Q_flow_liquidHeater, switch_liquidHeater.y)
     annotation (Line(
-      points={{30,-100},{30,-100},{280,-100},{280,-50},{181,-50}},
+      points={{30.1,-99.9},{30.1,-99.9},{280,-99.9},{280,-50},{181,-50}},
       color={111,216,99},
       pattern=LinePattern.Dash,
       thickness=0.5));
 
-annotation(defaultComponentName="PHS_CS", Icon(graphics={
+annotation(defaultComponentName="PHS_CS", Icon(coordinateSystem(extent={{-100,-100},
+            {100,100}}),                       graphics={
         Text(
           extent={{-94,82},{94,74}},
           lineColor={0,0,0},
           lineThickness=1,
           fillColor={255,255,237},
           fillPattern=FillPattern.Solid,
-          textString="CS: Tavg/CR/Pressure with start lag")}));
+          textString="CS: Tavg/CR/Pressure with start lag")}),
+    Diagram(coordinateSystem(extent={{-300,-100},{280,280}})));
 end CS_Tavg_CR_P_withLag;
