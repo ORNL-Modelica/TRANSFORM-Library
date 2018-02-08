@@ -1,6 +1,8 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model ParallelFlow "Scale flow variables for nParallel streams"
 
+  extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
+
   parameter Real nParallel = 1 "Flow variable is divided by nParallel";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 
@@ -23,9 +25,9 @@ equation
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(
             extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/nParallel_thermal.jpg"),
         Text(
-          extent={{-140,92},{140,52}},
-          textString="%name",
+          extent={{-149,88},{151,48}},
           lineColor={0,0,255},
-          visible=showName)}),                                Diagram(
+          textString="%name",
+          visible=DynamicSelect(true,showName))}),            Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ParallelFlow;

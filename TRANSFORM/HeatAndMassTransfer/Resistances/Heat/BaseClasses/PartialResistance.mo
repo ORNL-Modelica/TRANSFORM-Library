@@ -1,6 +1,8 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Heat.BaseClasses;
 partial model PartialResistance
 
+    extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
+
   SI.ThermalResistance R "Thermal resistance";
 
   Interfaces.HeatPort_Flow port_a
@@ -18,8 +20,9 @@ equation
                                Bitmap(extent={{-70,-70},{70,70}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/Resistance_Heat.jpg"),
         Text(
-          extent={{-150,92},{150,52}},
+          extent={{-140,82},{140,42}},
           textString="%name",
-          lineColor={0,0,255})}),                                Diagram(
+          lineColor={0,0,255},
+          visible=showName)}),                                   Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialResistance;

@@ -92,6 +92,7 @@ model data_OFFGAS
   parameter Real nThimbles_waterTank = 576 "# of thimbles per water tank";
   parameter SI.Length level_nominal_waterTank = from_feet(6) "nominal level of water tank";
   parameter SI.Area crossArea_waterTank = from_feet2(25*25) "cross area of water tank";
+  parameter SI.Length length_thimbles_waterTank = from_feet(25) "length of thimbles in water tank";
 
   parameter SI.Temperature T_inlet_waterTank = from_degF(80) "inlet temperature";
   parameter SI.Temperature T_outlet_waterTank = from_degF(100) "outlet temp";

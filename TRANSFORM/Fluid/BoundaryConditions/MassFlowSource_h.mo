@@ -135,11 +135,7 @@ equation
           visible=use_X_in,
           extent={{-155,-98},{-35,-126}},
           lineColor={0,0,0},
-          textString="C"),
-        Text(
-          extent={{-150,110},{150,150}},
-          textString="%name",
-          lineColor={0,0,255})}),
+          textString="C")}),
     Documentation(info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate, temperature and composition:

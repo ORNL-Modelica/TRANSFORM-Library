@@ -3,6 +3,8 @@ model UnitVolume
 
   import Modelica.Fluid.Types.Dynamics;
 
+  extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
+
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Dialog(tab="Initialization", group="Dynamics"));
@@ -71,9 +73,10 @@ equation
           fillColor={160,160,164},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-150,120},{150,80}},
+          extent={{-149,112},{151,72}},
+          lineColor={0,0,255},
           textString="%name",
-          lineColor={0,0,255})}),
+          visible=DynamicSelect(true,showName))}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Interface and base class for a solid volume able to store energy. The following boundary flow and source terms are part of the energy balance and must be specified in an extending class: </p>

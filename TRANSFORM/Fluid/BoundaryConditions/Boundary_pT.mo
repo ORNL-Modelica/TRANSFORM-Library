@@ -91,10 +91,6 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={0,127,255}),
-        Text(
-          extent={{-150,120},{150,160}},
-          textString="%name",
-          lineColor={0,0,255}),
         Line(
           visible=use_p_in,
           points={{-100,80},{-58,80}},

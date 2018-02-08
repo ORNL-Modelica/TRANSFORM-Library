@@ -687,12 +687,6 @@ model MSR_11
         (V=data_OFFGAS.volume_drainTank_inner - drainTank_liquid.V))
     annotation (Placement(transformation(extent={{-260,-10},{-240,-30}})));
 
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature boundary_thermal_drainTank_gas(T=
-        data_OFFGAS.T_drainTank, showName=systemTF.showName)
-                                 annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-250,10})));
   TRANSFORM.Fluid.Volumes.ExpansionTank drainTank_liquid(
     redeclare package Medium = Medium_PFL,
     p_surface=drainTank_gas.medium.p,
@@ -702,7 +696,8 @@ model MSR_11
     use_HeatPort=true,
     A=data_OFFGAS.crossArea_drainTank_inner,
     level_start=0.20,
-    showName=systemTF.showName)
+    showName=systemTF.showName,
+    Q_gen=6e6)
     annotation (Placement(transformation(extent={{-260,-64},{-240,-44}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_fromDrainTank(
     redeclare package Medium = Medium_PFL,
@@ -711,12 +706,6 @@ model MSR_11
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-220,-60})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature boundary_thermal_drainTank_liquid(T=
-        data_OFFGAS.T_drainTank, showName=systemTF.showName)
-                                 annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={-250,-90})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_drainTank(redeclare package
       Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
@@ -952,202 +941,16 @@ model MSR_11
     alpha_shell_PHX=sum(PHX.shell.heatTransfer.alphas)/PHX.shell.nV,
     alpha_tube_SHX=sum(SHX.tube.heatTransfer.alphas)/SHX.tube.nV,
     alpha_shell_SHX=sum(SHX.shell.heatTransfer.alphas)/SHX.shell.nV)
-    annotation (Placement(transformation(extent={{-100,-176},{-80,-156}})));
+    annotation (Placement(transformation(extent={{230,120},{250,140}})));
 
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow
-                                                          boundary_drainTank(Q_flow=
-        6e6, use_port=true)
-    annotation (Placement(transformation(extent={{-250,-284},{-270,-264}})));
-  TRANSFORM.HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_drainTank(
-    exposeState_b=true,
-    redeclare package Material = TRANSFORM.Media.Solids.AlloyN,
-    length=data_OFFGAS.length_thimbles,
-    r_inner=0.5*data_OFFGAS.D_thimbles - data_OFFGAS.th_thimbles,
-    r_outer=0.5*data_OFFGAS.D_thimbles,
-    T_start=data_OFFGAS.T_drainTank,
-    exposeState_a=true)
-    annotation (Placement(transformation(extent={{-318,-284},{-338,-264}})));
-  TRANSFORM.HeatAndMassTransfer.Resistances.Heat.Radiation radiation_drainTank(
-      surfaceArea=0.5*(thimble_inner_drainTank.surfaceArea_outer +
-        thimble_outer_drainTank.surfaceArea_inner), epsilon=0.5)
-    annotation (Placement(transformation(extent={{-348,-284},{-368,-264}})));
-  TRANSFORM.HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_inner_drainTank(
-    exposeState_a=true,
-    redeclare package Material = TRANSFORM.Media.Solids.AlloyN,
-    length=data_OFFGAS.length_thimbles,
-    r_inner=0.5*data_OFFGAS.D_inner_thimbles - data_OFFGAS.th_inner_thimbles,
-    r_outer=0.5*data_OFFGAS.D_inner_thimbles,
-    T_start=data_OFFGAS.T_hot_dracs,
-    exposeState_b=true)
-    annotation (Placement(transformation(extent={{-378,-284},{-398,-264}})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_inner_drainTank(nParallel=
-       data_OFFGAS.nThimbles)
-    annotation (Placement(transformation(extent={{-428,-284},{-408,-264}})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_outer_drainTank(nParallel=
-       data_OFFGAS.nThimbles)
-    annotation (Placement(transformation(extent={{-288,-284},{-308,-264}})));
-  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
-    thimbles_drainTank_fluid(
-    nParallel=data_OFFGAS.nThimbles,
-    redeclare package Medium = Medium_DRACS,
-    m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
-    redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
-          length=data_OFFGAS.length_thimbles),
-    use_HeatTransfer=true,
-    redeclare model HeatTransfer =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-    showDesignFlowDirection=false,
-    showColors=true,
-    val_min=data_OFFGAS.T_cold_dracs,
-    val_max=data_OFFGAS.T_hot_dracs,
-    T_a_start=data_OFFGAS.T_cold_dracs,
-    T_b_start=data_OFFGAS.T_hot_dracs) annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=180,
-        origin={-468,-254})));
-
-  TRANSFORM.HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_waterTank(
-    exposeState_b=true,
-    redeclare package Material = TRANSFORM.Media.Solids.AlloyN,
-    length=data_OFFGAS.length_thimbles,
-    r_inner=0.5*data_OFFGAS.D_thimbles - data_OFFGAS.th_thimbles,
-    r_outer=0.5*data_OFFGAS.D_thimbles,
-    exposeState_a=true,
-    T_start=data_OFFGAS.T_inlet_waterTank)
-    annotation (Placement(transformation(extent={{-318,-184},{-338,-164}})));
-  TRANSFORM.HeatAndMassTransfer.Resistances.Heat.Radiation radiation_waterTank(
-      surfaceArea=0.5*(thimble_inner_drainTank.surfaceArea_outer +
-        thimble_outer_drainTank.surfaceArea_inner), epsilon=0.5)
-    annotation (Placement(transformation(extent={{-348,-184},{-368,-164}})));
-  TRANSFORM.HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_inner_waterTank(
-    exposeState_a=true,
-    redeclare package Material = TRANSFORM.Media.Solids.AlloyN,
-    length=data_OFFGAS.length_thimbles,
-    r_inner=0.5*data_OFFGAS.D_inner_thimbles - data_OFFGAS.th_inner_thimbles,
-    r_outer=0.5*data_OFFGAS.D_inner_thimbles,
-    exposeState_b=true,
-    T_start=data_OFFGAS.T_cold_dracs)
-    annotation (Placement(transformation(extent={{-378,-184},{-398,-164}})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_inner_waterTank(nParallel=
-       data_OFFGAS.nThimbles_waterTank*data_OFFGAS.nWaterTanks)
-    annotation (Placement(transformation(extent={{-428,-184},{-408,-164}})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_outer_waterTank(nParallel=
-       data_OFFGAS.nThimbles_waterTank*data_OFFGAS.nWaterTanks)
-    annotation (Placement(transformation(extent={{-258,-184},{-278,-164}})));
-  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface riser_DRACS(
-    redeclare package Medium = Medium_DRACS,
-    m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
-    T_a_start=data_OFFGAS.T_hot_dracs,
-    showDesignFlowDirection=false,
-    showColors=true,
-    val_min=data_OFFGAS.T_cold_dracs,
-    val_max=data_OFFGAS.T_hot_dracs,
-    redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
-        dimension=data_OFFGAS.D_pipeToFrom_DRACS,
-        length=data_OFFGAS.length_pipeToFrom_DRACS,
-        angle=1.5707963267949)) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=90,
-        origin={-438,-224})));
-  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
-    thimbles_waterTank_fluid(
-    redeclare package Medium = Medium_DRACS,
-    m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
-    use_HeatTransfer=true,
-    redeclare model HeatTransfer =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-    redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
-          length=data_OFFGAS.length_thimbles),
-    nParallel=data_OFFGAS.nThimbles_waterTank*data_OFFGAS.nWaterTanks,
-    showDesignFlowDirection=false,
-    showColors=true,
-    val_min=data_OFFGAS.T_cold_dracs,
-    val_max=data_OFFGAS.T_hot_dracs,
-    T_a_start=data_OFFGAS.T_hot_dracs,
-    T_b_start=data_OFFGAS.T_cold_dracs) annotation (Placement(transformation(
-        extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={-448,-184})));
-
-  TRANSFORM.Fluid.Volumes.ExpansionTank waterTank(
-    use_HeatPort=true,
-    redeclare package Medium = Modelica.Media.Water.StandardWater,
-    A=data_OFFGAS.crossArea_waterTank*data_OFFGAS.nWaterTanks,
-    level_start=data_OFFGAS.level_nominal_waterTank,
-    h_start=waterTank.Medium.specificEnthalpy_pT(waterTank.p_start, 0.5*(
-        data_OFFGAS.T_inlet_waterTank + data_OFFGAS.T_outlet_waterTank)))
-    annotation (Placement(transformation(extent={{-258,-156},{-238,-136}})));
-  TRANSFORM.HeatAndMassTransfer.Resistances.Heat.Convection
-    convection_waterTank(surfaceArea=thimble_outer_waterTank.surfaceArea_outer,
-      alpha=2000)
-    annotation (Placement(transformation(extent={{-308,-184},{-288,-164}})));
-  TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T source_waterTank(
-    nPorts=1,
-    redeclare package Medium = Modelica.Media.Water.StandardWater,
-    T=data_OFFGAS.T_inlet_waterTank,
-    m_flow=10*data_OFFGAS.m_flow_inlet_waterTank*data_OFFGAS.nWaterTanks,
-    use_m_flow_in=true)
-    annotation (Placement(transformation(extent={{-308,-154},{-288,-134}})));
-  TRANSFORM.Fluid.BoundaryConditions.Boundary_pT sink_waterTank(
-    T=data_OFFGAS.T_outlet_waterTank,
-    redeclare package Medium = Modelica.Media.Water.StandardWater,
-    nPorts=1,
-    p=100000)
-    annotation (Placement(transformation(extent={{-188,-162},{-208,-142}})));
-  TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow(redeclare
-      package Medium = Modelica.Media.Water.StandardWater, use_input=true)
-    annotation (Placement(transformation(extent={{-236,-162},{-216,-142}})));
-  Modelica.Blocks.Sources.RealExpression realExpression(y=waterTank.port_a.m_flow)
-    annotation (Placement(transformation(extent={{-248,-136},{-228,-116}})));
-  TRANSFORM.Controls.LimPID PID_waterTank(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    yb=data_OFFGAS.m_flow_inlet_waterTank*data_OFFGAS.nWaterTanks,
-    yMin=0)
-    annotation (Placement(transformation(extent={{-340,-138},{-320,-118}})));
-  Modelica.Blocks.Sources.RealExpression waterTank_m_flow_set(y=waterTank.state_liquid.T)
-    annotation (Placement(transformation(extent={{-368,-138},{-348,-118}})));
-  Modelica.Blocks.Sources.RealExpression waterTank_m_flow_meas(y=data_OFFGAS.T_outlet_waterTank)
-    annotation (Placement(transformation(extent={{-368,-160},{-348,-140}})));
-  TRANSFORM.Fluid.Volumes.ExpansionTank expansionTank_DRACS(
-    redeclare package Medium = Medium_DRACS,
-    h_start=data_OFFGAS.h_cold_dracs,
-    A=2,
-    level_start=1)
-    annotation (Placement(transformation(extent={{-464,-188},{-484,-168}})));
-  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface downcomer_DRACS(
-    redeclare package Medium = Medium_DRACS,
-    m_flow_a_start=data_OFFGAS.m_flow_cold_dracs,
-    showDesignFlowDirection=false,
-    showColors=true,
-    val_min=data_OFFGAS.T_cold_dracs,
-    val_max=data_OFFGAS.T_hot_dracs,
-    T_a_start=data_OFFGAS.T_cold_dracs,
-    redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
-        dimension=data_OFFGAS.D_pipeToFrom_DRACS,
-        length=data_OFFGAS.length_pipeToFrom_DRACS,
-        angle=1.5707963267949)) annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={-488,-224})));
-  TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance(
-      redeclare package Medium = Medium_DRACS, R=-1000) annotation (Placement(
-        transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={-488,-198})));
-  Modelica.Blocks.Sources.Sine sine(
-    amplitude=3e6,
-    freqHz=1/1000,
-    offset=3e6)
-    annotation (Placement(transformation(extent={{-228,-284},{-248,-264}})));
+  TRANSFORM.Examples.MoltenSaltReactor.DRACS DRACS(
+    redeclare package Medium_DRACS = Medium_DRACS,
+    showName=systemTF.showName,
+    surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*DRACS.nP_outer_drainTank[
+        1].nParallel*{drainTank_liquid.level/data_OFFGAS.length_drainTank_inner,
+        1 - drainTank_liquid.level/data_OFFGAS.length_drainTank_inner},
+    alphas_drainTank={5000,1000})
+    annotation (Placement(transformation(extent={{-354,-96},{-284,-16}})));
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},
@@ -1239,8 +1042,6 @@ equation
           0,0,127}));
   connect(boundary_thermal_adsorberBed.port, adsorberBed.heatPorts)
     annotation (Line(points={{-220,0},{-220,-15}},color={191,0,0}));
-  connect(boundary_thermal_drainTank_gas.port, drainTank_gas.heatPort)
-    annotation (Line(points={{-250,0},{-250,-14}},color={191,0,0}));
   connect(drainTank_liquid.port_b, resistance_fromDrainTank.port_a)
     annotation (Line(points={{-243,-60},{-227,-60}}, color={0,127,255}));
   connect(resistance_fromDrainTank.port_b, pump_drainTank.port_a)
@@ -1263,8 +1064,6 @@ equation
           -20},{-238,-20},{-238,-19.5},{-244,-19.5}},       color={0,127,255}));
   connect(pump_bypass.port_b, traceSeparator.port_a) annotation (Line(points={{-258,
           112},{-264,112},{-264,100}}, color={0,127,255}));
-  connect(boundary_thermal_drainTank_liquid.port, drainTank_liquid.heatPort)
-    annotation (Line(points={{-250,-80},{-250,-62.4}}, color={191,0,0}));
   connect(traceSeparator.port_sepFluid, drainTank_liquid.port_a) annotation (
       Line(points={{-270,80},{-270,-60},{-257,-60}},           color={0,127,255}));
   connect(traceSeparator.port_b_carrier, drainTank_gas.port_a[1]) annotation (
@@ -1305,62 +1104,11 @@ equation
     annotation (Line(points={{60,0},{68,0}}, color={191,0,0}));
   connect(reflRG.port_b2, reflRG_upper_bc.port)
     annotation (Line(points={{50,10},{50,20}}, color={191,0,0}));
-  connect(radiation_drainTank.port_a, thimble_outer_drainTank.port_b)
-    annotation (Line(points={{-351,-274},{-338,-274}}, color={191,0,0}));
-  connect(thimble_inner_drainTank.port_a, radiation_drainTank.port_b)
-    annotation (Line(points={{-378,-274},{-365,-274}}, color={191,0,0}));
-  connect(thimble_outer_drainTank.port_a, nP_outer_drainTank.port_n)
-    annotation (Line(points={{-318,-274},{-308,-274}}, color={191,0,0}));
-  connect(nP_outer_drainTank.port_1, boundary_drainTank.port)
-    annotation (Line(points={{-288,-274},{-270,-274}}, color={191,0,0}));
-  connect(nP_inner_drainTank.port_n, thimble_inner_drainTank.port_b)
-    annotation (Line(points={{-408,-274},{-398,-274}}, color={191,0,0}));
-  connect(radiation_waterTank.port_a, thimble_outer_waterTank.port_b)
-    annotation (Line(points={{-351,-174},{-338,-174}}, color={191,0,0}));
-  connect(thimble_inner_waterTank.port_a, radiation_waterTank.port_b)
-    annotation (Line(points={{-378,-174},{-365,-174}}, color={191,0,0}));
-  connect(nP_inner_waterTank.port_n, thimble_inner_waterTank.port_b)
-    annotation (Line(points={{-408,-174},{-398,-174}}, color={191,0,0}));
-  connect(riser_DRACS.port_a, thimbles_drainTank_fluid.port_b) annotation (Line(
-        points={{-438,-234},{-438,-254},{-458,-254}}, color={0,127,255}));
-  connect(riser_DRACS.port_b, thimbles_waterTank_fluid.port_a)
-    annotation (Line(points={{-438,-214},{-438,-184}}, color={0,127,255}));
-  connect(thimble_outer_waterTank.port_a, convection_waterTank.port_a)
-    annotation (Line(points={{-318,-174},{-305,-174}}, color={191,0,0}));
-  connect(convection_waterTank.port_b, nP_outer_waterTank.port_n)
-    annotation (Line(points={{-291,-174},{-278,-174}}, color={191,0,0}));
-  connect(nP_outer_waterTank.port_1, waterTank.heatPort) annotation (Line(
-        points={{-258,-174},{-248,-174},{-248,-154.4}}, color={191,0,0}));
-  connect(source_waterTank.ports[1], waterTank.port_a) annotation (Line(points={
-          {-288,-144},{-272,-144},{-272,-152},{-255,-152}}, color={0,127,255}));
-  connect(waterTank.port_b, pump_SimpleMassFlow.port_a)
-    annotation (Line(points={{-241,-152},{-236,-152}}, color={0,127,255}));
-  connect(pump_SimpleMassFlow.port_b, sink_waterTank.ports[1])
-    annotation (Line(points={{-216,-152},{-208,-152}}, color={0,127,255}));
-  connect(realExpression.y, pump_SimpleMassFlow.in_m_flow) annotation (Line(
-        points={{-227,-126},{-226,-126},{-226,-144.7}}, color={0,0,127}));
-  connect(waterTank_m_flow_meas.y, PID_waterTank.u_m) annotation (Line(points={{
-          -347,-150},{-330,-150},{-330,-140}}, color={0,0,127}));
-  connect(waterTank_m_flow_set.y, PID_waterTank.u_s)
-    annotation (Line(points={{-347,-128},{-342,-128}}, color={0,0,127}));
-  connect(PID_waterTank.y, source_waterTank.m_flow_in) annotation (Line(points={
-          {-319,-128},{-314,-128},{-314,-136},{-308,-136}}, color={0,0,127}));
-  connect(thimbles_waterTank_fluid.heatPorts[1, 1], nP_inner_waterTank.port_1)
-    annotation (Line(points={{-448,-179},{-448,-174},{-428,-174}}, color={191,0,
-          0}));
-  connect(expansionTank_DRACS.port_a, thimbles_waterTank_fluid.port_b)
-    annotation (Line(points={{-467,-184},{-458,-184}}, color={0,127,255}));
-  connect(downcomer_DRACS.port_b, thimbles_drainTank_fluid.port_a) annotation (
-      Line(points={{-488,-234},{-488,-254},{-478,-254}}, color={0,127,255}));
-  connect(resistance.port_b, downcomer_DRACS.port_a)
-    annotation (Line(points={{-488,-205},{-488,-214}}, color={0,127,255}));
-  connect(resistance.port_a, expansionTank_DRACS.port_b) annotation (Line(
-        points={{-488,-191},{-488,-184},{-481,-184}}, color={0,127,255}));
-  connect(sine.y, boundary_drainTank.Q_flow_ext)
-    annotation (Line(points={{-249,-274},{-256,-274}}, color={0,0,127}));
-  connect(thimbles_drainTank_fluid.heatPorts[1, 1], nP_inner_drainTank.port_1)
-    annotation (Line(points={{-468,-259},{-468,-274},{-428,-274}}, color={191,0,
-          0}));
+  connect(drainTank_liquid.heatPort, DRACS.port_thimbleWall[1]) annotation (
+      Line(points={{-250,-62.4},{-250,-82},{-284,-82}}, color={191,0,0}));
+  connect(drainTank_gas.heatPort, DRACS.port_thimbleWall[2]) annotation (Line(
+        points={{-250,-14},{-250,-8},{-260,-8},{-260,-78},{-284,-78}}, color={
+          191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-360,-150},
             {340,150}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-150},{340,150}})),

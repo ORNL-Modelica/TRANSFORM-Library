@@ -3,6 +3,8 @@ partial model PartialSource
     "Partial component source with one fluid connector"
     import Modelica.Constants;
 
+    extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
+
   parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
 
   replaceable package Medium =
@@ -47,5 +49,11 @@ features are:
 <li> The outflow enthalpy rate (= port.h_outflow) and the composition of the
      substances (= port.Xi_outflow) are identical to the respective values in the volume.</li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Text(
+          extent={{-149,134},{151,94}},
+          lineColor={0,0,255},
+          textString="%name",
+          visible=DynamicSelect(true,showName))}));
 end PartialSource;

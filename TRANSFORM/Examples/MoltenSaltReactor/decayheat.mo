@@ -30,11 +30,11 @@ model decayheat
     annotation (Placement(transformation(extent={{10,-30},{-10,-10}})));
   Data.data_OFFGAS data_OFFGAS
     annotation (Placement(transformation(extent={{-8,80},{12,100}})));
-  HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_inner_drainTank(nParallel
-      =data_OFFGAS.nThimbles)
+  HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_inner_drainTank(nParallel=
+       data_OFFGAS.nThimbles)
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
-  HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_outer_drainTank(nParallel
-      =data_OFFGAS.nThimbles)
+  HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_outer_drainTank(nParallel=
+       data_OFFGAS.nThimbles)
     annotation (Placement(transformation(extent={{100,-30},{80,-10}})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface pipe(
     nParallel=data_OFFGAS.nThimbles,
@@ -87,11 +87,11 @@ model decayheat
     exposeState_b=true,
     T_start=data_OFFGAS.T_cold_dracs)
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
-  HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_inner_waterTank(nParallel
-      =data_OFFGAS.nThimbles_waterTank*data_OFFGAS.nWaterTanks)
+  HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_inner_waterTank(nParallel=
+       data_OFFGAS.nThimbles_waterTank*data_OFFGAS.nWaterTanks)
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_outer_waterTank(nParallel
-      =data_OFFGAS.nThimbles_waterTank*data_OFFGAS.nWaterTanks)
+  HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_outer_waterTank(nParallel=
+       data_OFFGAS.nThimbles_waterTank*data_OFFGAS.nWaterTanks)
     annotation (Placement(transformation(extent={{130,30},{110,50}})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface pipe1(
     redeclare package Medium = Medium_DRACS,
@@ -99,11 +99,11 @@ model decayheat
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (dimension=data_OFFGAS.D_pipeToFrom_DRACS, length=data_OFFGAS.length_pipeToFrom_DRACS),
-
     T_a_start=data_OFFGAS.T_hot_dracs) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-60,10})));
+
   Fluid.Pipes.GenericPipe_MultiTransferSurface pipe2(
     redeclare package Medium = Medium_DRACS,
     T_a_start=data_OFFGAS.T_cold_dracs,
@@ -112,7 +112,6 @@ model decayheat
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
@@ -122,6 +121,7 @@ model decayheat
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-60,40})));
+
   Fluid.Volumes.ExpansionTank waterTank(
     use_HeatPort=true,
     redeclare package Medium = Modelica.Media.Water.StandardWater,

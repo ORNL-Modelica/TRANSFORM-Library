@@ -443,9 +443,9 @@ equation
   connect(pump_PFL.port_b, pipeToPHX_PFL.port_a)
     annotation (Line(points={{60,128},{80,128},{80,80}}, color={0,127,255}));
   connect(pump_PFL.port_a, pumpBowl.port_b)
-    annotation (Line(points={{40,128},{26,128}}, color={0,127,255}));
+    annotation (Line(points={{40,128},{27,128}}, color={0,127,255}));
   connect(pumpBowl.port_a, resistance_toPump_PFL.port_b)
-    annotation (Line(points={{14,128},{0,128},{0,119}}, color={0,127,255}));
+    annotation (Line(points={{13,128},{0,128},{0,119}}, color={0,127,255}));
   connect(pipeFromPHX_PFL.port_a, PHX.port_b_tube)
     annotation (Line(points={{80,-60},{80,-10}}, color={0,127,255}));
   connect(pipeFromPHX_PFL.port_b, tee_inlet.port_a[1]) annotation (Line(points={

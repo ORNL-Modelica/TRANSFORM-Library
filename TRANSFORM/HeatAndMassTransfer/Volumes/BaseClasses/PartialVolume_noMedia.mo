@@ -3,6 +3,8 @@ partial model PartialVolume_noMedia
 
   import Modelica.Fluid.Types.Dynamics;
 
+  extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
+
   input SI.Volume V "Volume" annotation (Dialog(group="Input Variables"));
 
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
@@ -49,6 +51,11 @@ equation
     der(U) = Ub;
   end if;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Text(
+          extent={{-149,112},{151,72}},
+          lineColor={0,0,255},
+          textString="%name",
+          visible=DynamicSelect(true,showName))}),               Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialVolume_noMedia;
