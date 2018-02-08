@@ -85,7 +85,7 @@ model data_OFFGAS
 
   parameter SI.Velocity v_pipeToFrom_DRACS = 2 "Design velocity for pipe to and from draintank and water tank";
   parameter SI.Length D_pipeToFrom_DRACS = sqrt(4*V_flow_dracs/pi/v_pipeToFrom_DRACS) "diameter of pipe to and from draintank and water tank";
-  parameter SI.Length length_pipeToFrom_DRACS = from_feet(30) "length of pipe to and from draintank and water tank";
+  parameter SI.Length length_pipeToFrom_DRACS = from_feet(60) "length of pipe to and from draintank and water tank";
 
   // Water Tanks
   parameter Real nWaterTanks = 3;

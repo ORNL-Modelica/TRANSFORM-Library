@@ -1,6 +1,8 @@
 within TRANSFORM.Examples.MoltenSaltReactor.Data;
 record Summary
 
+  extends TRANSFORM.Icons.Record;
+
   replaceable package Medium_PFL = Modelica.Media.Interfaces.PartialMedium annotation(choicesAllMatching=true);
   replaceable package Medium_PCL = Modelica.Media.Interfaces.PartialMedium annotation(choicesAllMatching=true);
   replaceable package Medium_BOP = Modelica.Media.Interfaces.PartialMedium annotation(choicesAllMatching=true);
