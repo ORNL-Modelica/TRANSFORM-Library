@@ -56,9 +56,6 @@ model PointKinetics_Drift
     annotation (Dialog(tab="Fission Products"));
   parameter Integer nFS=0 "# of fission product sources"
     annotation (Dialog(tab="Fission Products"));
-  parameter Integer nT=0
-    "# of fission types from sources (e.g., {'thermal','fast'})"
-    annotation (Dialog(tab="Fission Products"));
   parameter Real[nC,nC] parents=fill(
       0,
       nC,
@@ -69,11 +66,15 @@ model PointKinetics_Drift
   input SIadd.NonDim fissionSource[nFS]=fill(0, nFS)
     "Source of fissile material fractional composition (sum=1)"
     annotation (Dialog(tab="Fission Products", group="Input Variables"));
-  input Real fissionYield[nC,nFS,nT]=fill(
+  input SI.MacroscopicCrossSection SigmaF=0.01
+    "Macroscopic fission cross-section of fissile material"
+    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+  input SI.Area[nC] sigmaA_FP = fill(0,nC) "Absorption cross-section for reactivity feedback" annotation (Dialog(tab="Fission Products", group="Input Variables"));
+
+  input Real fissionYield[nC,nFS]=fill(
       0,
       nC,
-      nFS,
-      nT)
+      nFS)
     "# fission product atoms yielded per fission per fissile source [#/fission]"
     annotation (Dialog(tab="Fission Products", group="Input Variables"));
   input TRANSFORM.Units.InverseTime[nC] lambda_FP=fill(0, nC)
@@ -119,6 +120,7 @@ model PointKinetics_Drift
       group="Output Variables",
       enable=false));
 
+  TRANSFORM.Units.NonDim[nV,nC] rhos_FP "Fission product reactivity feedback";
   TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
 
 initial equation
@@ -133,7 +135,7 @@ initial equation
 
 equation
 
-  rhos = alpha_coolant .* (Ts - Ts_reference) + rhos_input;
+  rhos = {alpha_coolant* (Ts[i] - Ts_reference[i]) + rhos_input[i] + sum(rhos_FP[i,:]) for i in 1:nV};
 
   if specifyPower then
     Qs = Qs_input;
@@ -157,10 +159,11 @@ equation
   // Fission product
   for i in 1:nV loop
     for j in 1:nC loop
-      mC_gens_FP[i, j] = Qs[i]/w_f*sum({fissionSource[k]*fissionYield[j, k, :]
+      mC_gens_FP[i, j] = Qs[i]/w_f*sum({fissionSource[k]*fissionYield[j, k]
         for k in 1:nFS}) - lambda_FP[j]*mCs_FP[i, j] + sum(lambda_FP .* mCs_FP[
-        i, :] .* parents[j, :]);
-    end for;
+        i, :] .* parents[j, :]) - sigmaA_FP[j]*mCs_FP[i,j]*Qs[i]/(w_f*SigmaF);
+      rhos_FP[i,j] = -sigmaA_FP[j]*mCs_FP[i,j]/(nu_bar*SigmaF);
+        end for;
   end for;
 
   Qs_FP = {sum({w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC}) for i in

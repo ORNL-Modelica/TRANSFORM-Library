@@ -483,20 +483,20 @@ model MSR_11
         data_RCTR.T_inlet_core,
         data_RCTR.T_outlet_core,
         fuelCell.nV),
-    specifyPower=true,
     lambda_i=data_traceSubstances.precursorGroups.lambdas,
     nC=data_traceSubstances.fissionProducts.nC,
     mCs=fuelCell.mCs[:, data_traceSubstances.iPG[1]:data_traceSubstances.iPG[2]]
         *fuelCell.nParallel,
-    nT=data_traceSubstances.fissionProducts.nT,
     nFS=2,
     lambda_FP=data_traceSubstances.fissionProducts.lambdas,
-    fissionYield=data_traceSubstances.fissionProducts.fissionYield,
     fissionSource={0.6,0.4},
     w_FP_decay=data_traceSubstances.fissionProducts.w_decay,
     mCs_FP=fuelCell.mCs[:, data_traceSubstances.iFP[1]:data_traceSubstances.iFP[
         2]]*fuelCell.nParallel,
-    parents=data_traceSubstances.fissionProducts.parents)
+    parents=data_traceSubstances.fissionProducts.parents,
+    sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
+    fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1],
+    specifyPower=true)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
     data_traceSubstances(redeclare record FissionProducts =
