@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
-model PointKinetics_Drift_Test
+model PointKinetics_Drift_Test_flat
   extends Modelica.Icons.Example;
 
   replaceable package Medium =
@@ -22,9 +22,6 @@ model PointKinetics_Drift_Test
   parameter SI.Density[pipe1.nV] rhos1 = Medium.density_pT(ps1,Tsr1);
 
   SI.MassFlowRate[pipe1.nV,kinetics.nI] mC_gens2 = {{-kinetics.lambda_i[j]*pipe1.mCs[i, j] for j in 1:kinetics.nI} for i in 1:pipe1.nV};
-
-  //SI.Power Qs_input[pipe.nV]=fill(kinetics.Q_nominal/kinetics.nV, kinetics.nV);
-  SI.Power Qs_input[pipe.nV]=kinetics.Q_nominal/6.5*sin(Modelica.Constants.pi/H*pipe.summary.xpos);
 
   SI.Temperature[pipe.nV] Ts=pipe.mediums.T;
   SI.Temperature[pipe1.nV] Ts1=pipe1.mediums.T;
@@ -97,10 +94,9 @@ model PointKinetics_Drift_Test
         300 + 273.15,
         500 + 273.15,
         pipe.nV),
-    Qs_input=Qs_input)
+    specifyPower=true,
+    Qs_input=fill(kinetics.Q_nominal/kinetics.nV, kinetics.nV))
     annotation (Placement(transformation(extent={{-32,26},{-12,46}})));
-
-
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={kinetics.Qs[6],
         pipe.mCs[6, 3]})
@@ -122,4 +118,4 @@ equation
           -32},{-72,-32},{-72,-8},{-60,-8}}, color={0,0,127}));
   annotation (
       experiment(StopTime=1000, __Dymola_NumberOfIntervals=1000));
-end PointKinetics_Drift_Test;
+end PointKinetics_Drift_Test_flat;
