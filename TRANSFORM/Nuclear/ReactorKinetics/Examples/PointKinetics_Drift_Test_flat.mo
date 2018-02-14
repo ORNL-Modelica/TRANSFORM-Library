@@ -105,14 +105,14 @@ model PointKinetics_Drift_Test_flat
         core.nParallel,
     lambda_i=data_traceSubstances.precursorGroups.lambdas,
     nC=data_traceSubstances.fissionProducts.nC,
-    nFS=2,
     parents=data_traceSubstances.fissionProducts.parents,
-    fissionSource={0.6,0.4},
     lambda_FP=data_traceSubstances.fissionProducts.lambdas,
     w_FP_decay=data_traceSubstances.fissionProducts.w_decay,
     mCs_FP=core.mCs[:, data_traceSubstances.iFP[1]:data_traceSubstances.iFP[2]]
         *core.nParallel,
     sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
+    nFS=1,
+    fissionSource={1},
     fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1])
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
@@ -124,7 +124,7 @@ model PointKinetics_Drift_Test_flat
     data_traceSubstances(redeclare record PrecursorGroups =
         TRANSFORM.Examples.MoltenSaltReactor.Data.PrecursorGroups.precursorGroups_6_description,
       redeclare record FissionProducts =
-        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_15_U235_Pu239)
+        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_TeIXe_U235)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
 
