@@ -30,6 +30,7 @@ model PointKinetics_Drift_Test_flat
   SI.Temperature[core.nV] Ts=core.mediums.T;
   SI.Temperature[loop_.nV] Ts1=loop_.mediums.T;
   SI.Power[core.nV] Q_gens=core_kinetics.Qs;
+  SI.Power Power=sum(core_kinetics.Qs);
 
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT back_to_core(
     nPorts=1,

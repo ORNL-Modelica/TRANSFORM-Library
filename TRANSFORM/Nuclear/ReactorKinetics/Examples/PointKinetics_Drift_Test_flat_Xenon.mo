@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
-model PointKinetics_Drift_Test_Xenon
+model PointKinetics_Drift_Test_flat_Xenon
   extends
     TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_flat(
       core_kinetics(Qs_input=fill(Power.y/core.nV, core.nV)));
@@ -14,4 +14,4 @@ model PointKinetics_Drift_Test_Xenon
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=741600, __Dymola_NumberOfIntervals=74160));
-end PointKinetics_Drift_Test_Xenon;
+end PointKinetics_Drift_Test_flat_Xenon;
