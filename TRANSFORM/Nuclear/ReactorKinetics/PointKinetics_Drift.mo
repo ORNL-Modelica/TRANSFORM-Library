@@ -143,7 +143,7 @@ equation
     if energyDynamics == Dynamics.SteadyState then
       for i in 1:nV loop
         0 = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(lambda_i .*
-          mCs[i, :]) + Qs_external[i]/Lambda;
+          mCs[i, :]) + Qs_external[i];
       end for;
     else
       for i in 1:nV loop

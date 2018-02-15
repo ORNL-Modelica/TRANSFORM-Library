@@ -2,9 +2,9 @@ within TRANSFORM.Nuclear.ReactorKinetics.Examples;
 model PointKinetics_Drift_Test_flat_Xenon
   extends
     TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_flat(
-      core_kinetics(Qs_input=fill(Power.y/core.nV, core.nV)));
+      core_kinetics(Qs_input=fill(PowerInput.y/core.nV, core.nV)));
 
-  Modelica.Blocks.Sources.Pulse Power(
+  Modelica.Blocks.Sources.Pulse PowerInput(
     amplitude=core_kinetics.Q_nominal,
     nperiod=1,
     startTime=6*60*60,
