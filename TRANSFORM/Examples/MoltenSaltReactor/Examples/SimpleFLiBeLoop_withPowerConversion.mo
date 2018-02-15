@@ -128,20 +128,20 @@ model SimpleFLiBeLoop_withPowerConversion
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-16,-28})));
-  Nuclear.ReactorKinetics.PointKinetics_Drift           kinetics(
+  Nuclear.ReactorKinetics.PointKinetics_Drift kinetics(
     nV=pipe.nV,
     Q_nominal=5e4*pipe.nV,
-    Ts=pipe.mediums.T,
     mCs=pipe.mCs,
-    Ts_reference=linspace(
-        300 + 273.15,
-        500 + 273.15,
-        pipe.nV),
     rhos_input=cat(
         1,
         fill(0, 4),
         {rho_external.y},
-        fill(0, 5)))
+        fill(0, 5)),
+    vals_feedback=matrix(pipe.mediums.T),
+    vals_feedback_reference=matrix(linspace(
+        300 + 273.15,
+        500 + 273.15,
+        pipe.nV)))
     annotation (Placement(transformation(extent={{-96,-8},{-76,12}})));
   Fluid.Volumes.ExpansionTank_1Port expansionTank_1Port(
     redeclare package Medium = Medium,

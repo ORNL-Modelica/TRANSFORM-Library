@@ -469,8 +469,8 @@ model MSR_9
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_Drift kinetics(
     nV=fuelCell.nV,
     Q_nominal=data_RCTR.Q_nominal,
-    Ts=fuelCell.mediums.T,
-    Ts_reference=linspace(
+    vals_feedback=fuelCell.mediums.T,
+    vals_feedback_reference=linspace(
         data_RCTR.T_inlet_core,
         data_RCTR.T_outlet_core,
         fuelCell.nV),

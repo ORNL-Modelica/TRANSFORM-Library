@@ -4,7 +4,7 @@ model PointKinetics_Drift_Test_feedback_Xenon
       core_kinetics(
       rhos_input=fill(Reactivity.y/core.nV, core.nV),
       Q_nominal=0,
-      Qs_external=fill(1, core.nV)));
+      Ns_external=fill(1, core.nV)));
 
   Modelica.Blocks.Sources.Pulse Reactivity(
     nperiod=1,

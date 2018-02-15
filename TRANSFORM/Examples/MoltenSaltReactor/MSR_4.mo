@@ -443,7 +443,7 @@ model MSR_4
     nV=fuelCell.nV,
     Q_nominal=data_RCTR.Q_nominal,
     specifyPower=true,
-    Ts=fuelCell.mediums.T,
+    vals_feedback=fuelCell.mediums.T,
     mCs=fuelCell.mCs,
     lambda_i=data_traceSubstances.lambda_i)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));

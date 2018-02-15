@@ -478,11 +478,6 @@ model MSR_11
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_Drift kinetics(
     nV=fuelCell.nV,
     Q_nominal=data_RCTR.Q_nominal,
-    Ts=fuelCell.mediums.T,
-    Ts_reference=linspace(
-        data_RCTR.T_inlet_core,
-        data_RCTR.T_outlet_core,
-        fuelCell.nV),
     lambda_i=data_traceSubstances.precursorGroups.lambdas,
     nC=data_traceSubstances.fissionProducts.nC,
     mCs=fuelCell.mCs[:, data_traceSubstances.iPG[1]:data_traceSubstances.iPG[2]]
@@ -496,7 +491,12 @@ model MSR_11
     parents=data_traceSubstances.fissionProducts.parents,
     sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
     fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1],
-    specifyPower=true)
+    specifyPower=true,
+    vals_feedback=matrix(fuelCell.mediums.T),
+    vals_feedback_reference=matrix(linspace(
+        data_RCTR.T_inlet_core,
+        data_RCTR.T_outlet_core,
+        fuelCell.nV)))
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
     data_traceSubstances(redeclare record FissionProducts =

@@ -11,15 +11,15 @@ model PointKinetics_Drift
     "=true to specify power (i.e., no der(P) equation)";
 
   // Inputs
-  input SI.Temperature[nV] Ts "Medium temperature for temperature feedback"
-    annotation (Dialog(group="Input Variables"));
+
   input SI.Mass[nV,nI] mCs
     "Absolute delayed precursor group concentration per volume"
     annotation (Dialog(group="Input Variables"));
   input SI.Power[nV] Qs_input=fill(Q_nominal/nV, nV)
     "Specifed power if specifyPower=true"
     annotation (Dialog(group="Input Variables", enable=specifyPower));
-  input SI.Power Qs_external[nV]=zeros(nV) "External power source"
+  input Units.InverseTime Ns_external[nV]=zeros(nV)
+    "Rate of neutrons added from an external neutron source"
     annotation (Dialog(group="Input Variables"));
   input Units.NonDim[nV] rhos_input=zeros(nV) "External Reactivity"
     annotation (Dialog(group="Input Variables"));
@@ -44,11 +44,20 @@ model PointKinetics_Drift
         tab="Kinetics", group="Input Variables: Neutron Kinetics"));
 
   // Reactivity Feedback
-  input TRANSFORM.Units.TempFeedbackCoeff alpha_coolant=-1e-4
-    "Temperature feedback coefficient" annotation (Dialog(tab="Kinetics", group=
-         "Input Variables: Reactivity Feedback"));
-  input SI.Temperature Ts_reference[nV]=fill(500 + 273.15, nV)
-    "Temperature feedback reference Temperature" annotation (Dialog(tab="Kinetics",
+  parameter Integer nFeedback = 1 "# of reactivity feedbacks (alpha*(val-val_ref)" annotation (Dialog(tab="Kinetics",
+        group="Input Variables: Reactivity Feedback"));
+  input Units.TempFeedbackCoeff alphas_feedback[nV,nFeedback]=fill(
+      -1e-4,
+      nV,
+      nFeedback) "Reactivity feedback coefficient"
+                                       annotation (Dialog(tab="Kinetics", group="Input Variables: Reactivity Feedback"));
+  input Real vals_feedback[nV,nFeedback] = vals_feedback_reference "Variable value for reactivity feedback"
+    annotation (Dialog(tab="Kinetics",group="Input Variables: Reactivity Feedback"));
+  input SI.Temperature vals_feedback_reference[nV,nFeedback]=fill(
+      500 + 273.15,
+      nV,
+      nFeedback) "Reference value for reactivity feedback"
+                                                 annotation (Dialog(tab="Kinetics",
         group="Input Variables: Reactivity Feedback"));
 
   // Fission products
@@ -121,6 +130,7 @@ model PointKinetics_Drift
       enable=false));
 
   TRANSFORM.Units.NonDim[nV,nC] rhos_FP "Fission product reactivity feedback";
+  TRANSFORM.Units.NonDim[nV,nFeedback] rhos_feedback "Linear reactivity feedback";
   TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
 
 initial equation
@@ -135,7 +145,10 @@ initial equation
 
 equation
 
-  rhos = {alpha_coolant* (Ts[i] - Ts_reference[i]) + rhos_input[i] + sum(rhos_FP[i,:]) for i in 1:nV};
+  rhos_feedback = {{alphas_feedback[i,j]*(vals_feedback[i,j] - vals_feedback_reference[i,j]) for j in 1:nFeedback} for i in 1:nV};
+
+  rhos = {sum(rhos_feedback[i,:]) +
+    rhos_input[i] + sum(rhos_FP[i, :]) for i in 1:nV};
 
   if specifyPower then
     Qs = Qs_input;
@@ -143,12 +156,12 @@ equation
     if energyDynamics == Dynamics.SteadyState then
       for i in 1:nV loop
         0 = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(lambda_i .*
-          mCs[i, :]) + Qs_external[i];
+          mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i];
       end for;
     else
       for i in 1:nV loop
         der(Qs[i]) = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(
-          lambda_i .* mCs[i, :]) + Qs_external[i];
+          lambda_i .* mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i];
       end for;
     end if;
   end if;

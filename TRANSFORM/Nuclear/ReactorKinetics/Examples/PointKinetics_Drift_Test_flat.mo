@@ -95,11 +95,6 @@ model PointKinetics_Drift_Test_flat
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_Drift core_kinetics(
     nV=core.nV,
     Q_nominal=5e4*core.nV,
-    Ts=core.mediums.T,
-    Ts_reference=linspace(
-        300 + 273.15,
-        500 + 273.15,
-        core.nV),
     specifyPower=true,
     Qs_input=fill(core_kinetics.Q_nominal/core_kinetics.nV, core_kinetics.nV),
     mCs=core.mCs[:, data_traceSubstances.iPG[1]:data_traceSubstances.iPG[2]]*
@@ -114,7 +109,12 @@ model PointKinetics_Drift_Test_flat
     sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
     nFS=1,
     fissionSource={1},
-    fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1])
+    fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1],
+    vals_feedback_reference=matrix(linspace(
+        300 + 273.15,
+        500 + 273.15,
+        core.nV)),
+    vals_feedback=matrix(core.mediums.T))
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={core_kinetics.Qs[
