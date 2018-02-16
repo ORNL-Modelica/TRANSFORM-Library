@@ -47,9 +47,6 @@ model PointKinetics_Drift_Test_flat
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface core(
     redeclare package Medium = Medium,
     m_flow_a_start=1,
-    redeclare model InternalHeatGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=core_kinetics.Qs),
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
         (
@@ -62,7 +59,10 @@ model PointKinetics_Drift_Test_flat
             2,core_kinetics.mC_gens,core_kinetics.mC_gens_FP)),
     p_a_start=100000,
     T_a_start=573.15,
-    T_b_start=773.15)
+    T_b_start=773.15,
+    redeclare model InternalHeatGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+        (Q_gens=core_kinetics.Qs + core_kinetics.Qs_FP + core_kinetics.Qs_FP_gamma))
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
 
   Fluid.Pipes.GenericPipe_MultiTransferSurface           loop_(
@@ -114,11 +114,12 @@ model PointKinetics_Drift_Test_flat
         300 + 273.15,
         500 + 273.15,
         core.nV)),
-    vals_feedback=matrix(core.mediums.T))
+    vals_feedback=matrix(core.mediums.T),
+    wG_FP_decay=data_traceSubstances.fissionProducts.wG_decay)
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
-  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={core_kinetics.Qs[
-        6],core.mCs[6, 3]})
+  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[
+        6],core.mCs[6, 3],core_kinetics.Qs_FP[6]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances

@@ -90,7 +90,10 @@ model PointKinetics_Drift
     "Decay constants for each fission product"
     annotation (Dialog(tab="Fission Products", group="Input Variables"));
   input SI.Energy w_FP_decay[nC]=fill(0, nC)
-    "Energy released per decay of each fission product [J/decay]"
+    "Energy released per decay of each fission product [J/decay] (near field - e.g., beta)"
+    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+  input SI.Energy wG_FP_decay[nC]=fill(0, nC)
+    "Energy released per decay of each fission product [J/decay] (far field - e.g., gamma)"
     annotation (Dialog(tab="Fission Products", group="Input Variables"));
   input SI.Mass[nV,nC] mCs_FP={{0 for j in 1:nC} for i in 1:nV}
     "Fission product concentration in each volume [#]"
@@ -108,7 +111,7 @@ model PointKinetics_Drift
       enable=not specifyPower));
 
   // Outputs
-  output SI.Power Qs[nV](start=Qs_start) "Power determined from kinetics"
+  output SI.Power Qs[nV](start=Qs_start) "Power determined from kinetics. Does not include fission product decay heat"
     annotation (Dialog(
       tab="Internal Inteface",
       group="Output Variables",
@@ -118,7 +121,12 @@ model PointKinetics_Drift
       tab="Internal Inteface",
       group="Output Variables",
       enable=false));
-  output SI.Power Qs_FP[nV] "Power released from fission product decay"
+  output SI.Power Qs_FP[nV] "Near field (e.g, beta) power released from fission product decay"
+    annotation (Dialog(
+      tab="Internal Inteface",
+      group="Output Variables",
+      enable=false));
+  output SI.Power Qs_FP_gamma[nV] "Far field (e.g., gamma) power released from fission product decay"
     annotation (Dialog(
       tab="Internal Inteface",
       group="Output Variables",
@@ -180,6 +188,8 @@ equation
   end for;
 
   Qs_FP = {sum({w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC}) for i in
+        1:nV};
+  Qs_FP_gamma = {sum({wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC}) for i in
         1:nV};
 
   annotation (

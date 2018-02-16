@@ -4,7 +4,9 @@ model PointKinetics_Drift_Test_feedback_Xenon
       core_kinetics(
       rhos_input=fill(Reactivity.y/core.nV, core.nV),
       Q_nominal=0,
-      Ns_external=fill(1, core.nV)));
+      Ns_external=fill(1, core.nV),
+      fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1]),
+      core(T_b_start=573.15));
 
   Modelica.Blocks.Sources.Pulse Reactivity(
     nperiod=1,
