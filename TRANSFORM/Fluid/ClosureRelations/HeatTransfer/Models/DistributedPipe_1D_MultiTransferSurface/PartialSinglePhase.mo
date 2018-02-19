@@ -15,7 +15,7 @@ extends PartialHeatTransfer_setQ_flows;
 equation
   m_flows =vs .* mediaProps.d .* crossAreas;
   Res =mediaProps.d .* dimensions .* abs(vs) ./ mediaProps.mu;
-  Prs =mediaProps.mu .* mediaProps.cp ./ mediaProps.lambda;
+  Prs =TRANSFORM.Math.smoothMax(0,mediaProps.mu .* mediaProps.cp ./ mediaProps.lambda,1e-8);
 
 //   for i in 1:nHT loop
 //     for j in 1:nSurfaces loop

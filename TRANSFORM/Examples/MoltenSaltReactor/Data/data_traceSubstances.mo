@@ -18,11 +18,20 @@ model data_traceSubstances
 
   FissionProducts fissionProducts;
 
+  replaceable record Tritium =
+      TRANSFORM.Examples.MoltenSaltReactor.Data.Tritium.FLiBe
+    constrainedby
+    TRANSFORM.Examples.MoltenSaltReactor.Data.Tritium.PartialTritium
+    "Tritium information" annotation (choicesAllMatching=true);
+
+  Tritium tritium;
+
   // Trace Substances
   constant String[:] extraPropertiesNames=cat(
       1,
       precursorGroups.extraPropertiesNames,
-      fissionProducts.extraPropertiesNames)
+      fissionProducts.extraPropertiesNames,
+      tritium.extraPropertiesNames)
     "Names of the additional (extra) transported properties";
 
   final constant Integer nC=size(extraPropertiesNames, 1)
@@ -30,20 +39,25 @@ model data_traceSubstances
   constant Real C_nominal[nC]=cat(
       1,
       precursorGroups.C_nominal,
-      fissionProducts.C_nominal)
+      fissionProducts.C_nominal,
+      tritium.C_nominal)
     "Default for the nominal values for the extra properties";
 
   // Indexing of substance categories
   final constant Integer[2] iPG={1,precursorGroups.nC}
     "First and last index of precursors groups";
-  final constant Integer[2] iFP={precursorGroups.nC + 1,precursorGroups.nC +
-      fissionProducts.nC} "First and last index of precursors groups";
+  final constant Integer[2] iFP={iPG[2] + 1,iPG[2] + fissionProducts.nC} "First and last index of fission products";
+  final constant Integer[2] iTR={iFP[2] + 1,iFP[2] + tritium.nC} "First and last index of tritium contributors";
+
+  final constant Integer iH3 = TRANSFORM.Utilities.Strings.index("1-H-3",fissionProducts.extraPropertiesNames) "Index of tritium (1-H-3) in fission products array"
+                                                                                                                                                                   annotation (Dialog(tab="Tritium Balance"));
 
   // Data for entire array of trace substances
   final parameter SIadd.InverseTime[nC] lambdas=cat(
       1,
       precursorGroups.lambdas,
-      fissionProducts.lambdas) "Decay constant";
+      fissionProducts.lambdas,
+      tritium.lambdas) "Decay constant";
 
   constant Real[precursorGroups.nC,nC] p_PG=cat(
       2,
@@ -59,16 +73,18 @@ model data_traceSubstances
         fissionProducts.nC,
         nC - fissionProducts.nC),
       fissionProducts.parents);
+  constant Real[tritium.nC,nC] p_Tr=cat(
+      2,
+      fill(
+        0,
+        tritium.nC,
+        nC - tritium.nC),
+      tritium.parents);
   constant Real[nC,nC] parents=cat(
       1,
       p_PG,
-      p_FP);
-  //   constant Real[nC,nC] parents={{if i >= iPG[1] and i <= iPG[2] then (if j >=
-  //       iPG[1] and j <= iPG[2] then precursorGroups.parents[i - iPG[1] + 1, j -
-  //       iPG[1] + 1] else 0) elseif i >= iFP[1] and i <= iFP[2] then (if j >= iFP[1]
-  //        and j <= iFP[2] then fissionProducts.parents[i - iFP[1] + 1, j - iFP[1] +
-  //       1] else 0) else 0 for j in 1:nC} for i in 1:nC}
-  //     "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
+      p_FP,
+      p_Tr);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

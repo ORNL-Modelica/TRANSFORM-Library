@@ -20,6 +20,36 @@ model MSR_11
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
 
+
+  // Initialization
+  import Modelica.Constants.N_A;
+  parameter SI.MassFraction[data_traceSubstances.tritium.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0} "atoms/kg fluid";
+
+
+parameter SI.MassFraction Li7_enrichment = 0.99995 "mass fraction Li-7 enrichment in flibe.  Baseline is 99.995%";
+parameter SI.MoleFraction MMFrac_LiF = 0.67 "Mole fraction of LiF";
+parameter SI.MolarMass Flibe_MM = 0.0328931 "Molar mass of flibe [kg/mol] from doing 0.67*MM_LiF + 0.33*MM_BeF2";
+
+parameter SI.MolarMass Li7_MM = 0.00701600455 "[kg/mol]";
+parameter SI.MolarMass Li6_MM = 0.006015122795 "[kg/mol]";
+
+parameter SI.MoleFraction Li7_molefrac = (Li7_enrichment/Li7_MM)/((Li7_enrichment/Li7_MM)+((1.0-Li7_enrichment)/Li6_MM)) "Mole fraction of lithium in flibe that is Li-7";
+parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lithium in flibe that is Li-6";
+
+
+parameter SI.MassFraction[data_traceSubstances.nC] C_start_tee_inlet = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
+parameter SI.MassFraction[data_traceSubstances.nC] C_start_plenum_lower = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
+parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA_lower = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflA_lower.nV};
+ parameter SI.MassFraction[fuelCell.nV,data_traceSubstances.nC] Cs_start_fuelCell = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:fuelCell.nV};
+ parameter SI.MassFraction[reflR.nV,data_traceSubstances.nC] Cs_start_reflR = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflR.nV};
+ parameter SI.MassFraction[reflA_upper.nV,data_traceSubstances.nC] Cs_start_reflA_upper = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflA_upper.nV};
+ parameter SI.MassFraction[data_traceSubstances.nC] C_start_plenum_upper = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
+ parameter SI.MassFraction[data_traceSubstances.nC] C_start_pumpBowl_PFL= cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
+ parameter SI.MassFraction[pipeToPHX_PFL.nV,data_traceSubstances.nC] Cs_start_pipeToPHX_PFL = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:pipeToPHX_PFL.nV};
+ parameter SI.MassFraction[PHX.tube.nV,data_traceSubstances.nC] Cs_start_PHX_tube = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:PHX.tube.nV};
+ parameter SI.MassFraction[pipeFromPHX_PFL.nV,data_traceSubstances.nC] Cs_start_pipeFromPHX_PFL = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:pipeFromPHX_PFL.nV};
+
+  // Gathered info
   SI.Power Qt_total = sum(kinetics.Qs) "Total thermal power output (from primary fission)";
 
   SI.Temperature Ts[10] = fuelCell.mediums.T;
@@ -34,8 +64,8 @@ model MSR_11
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet = {-data_traceSubstances.lambdas[j]*tee_inlet.mC[j] + mC_gen_tee_inlet_PtoD[j] for j in 1:data_traceSubstances.nC};
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_lower = {-data_traceSubstances.lambdas[j]*plenum_lower.mC[j] + mC_gen_plenum_lower_PtoD[j] for j in 1:data_traceSubstances.nC};
   SI.MassFlowRate[reflA_lower.nV,data_traceSubstances.nC] mC_gens_reflA_lower = {{-data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j]*reflA_lower.nParallel + mC_gens_reflA_lower_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflA_lower.nV};
-  SI.MassFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_fuelCell = cat(2, kinetics.mC_gens, kinetics.mC_gens_FP);
-  SI.MassFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_reflR = {{-data_traceSubstances.lambdas[j]*reflR.mCs[i, j]*reflR.nParallel + mC_gens_reflR_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflR.nV};
+  SI.MassFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_fuelCell = cat(2, kinetics.mC_gens, kinetics.mC_gens_FP,kinetics.mC_gens_TR);
+  SI.MassFlowRate[reflR.nV,data_traceSubstances.nC] mC_gens_reflR = {{-data_traceSubstances.lambdas[j]*reflR.mCs[i, j]*reflR.nParallel + mC_gens_reflR_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflR.nV};
   SI.MassFlowRate[reflA_upper.nV,data_traceSubstances.nC] mC_gens_reflA_upper = {{-data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j]*reflA_upper.nParallel + mC_gens_reflA_upper_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflA_upper.nV};
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_upper = {-data_traceSubstances.lambdas[j]*plenum_upper.mC[j] + mC_gen_plenum_upper_PtoD[j] for j in 1:data_traceSubstances.nC};
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_pumpBowl_PFL={-data_traceSubstances.lambdas[j]*pumpBowl_PFL.mC[j]*3 + mC_flows_fromOG[j] + mC_gen_pumpBowl_PFL_PtoD[j] for j in 1:data_traceSubstances.nC};
@@ -112,7 +142,8 @@ model MSR_11
         nV=10,
         angle=toggleStaticHead*90,
         surfaceArea={fuelCellG.nParallel/fuelCell.nParallel*sum(fuelCellG.geometry.crossAreas_1
-            [1, :])}))
+            [1, :])}),
+    Cs_start=Cs_start_fuelCell)
     "frac*data_RCTR.Q_nominal/fuelCell.nV; mC_gens_fuelCell"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -142,7 +173,8 @@ model MSR_11
         angle=toggleStaticHead*90,
         surfaceArea={reflA_upperG.nParallel/reflA_upper.nParallel*sum(
             reflA_upperG.geometry.crossAreas_1[1, :]),reflA_upperG.nParallel/
-            reflA_upper.nParallel*sum(reflA_upperG.geometry.crossAreas_1[end, :])}))
+            reflA_upper.nParallel*sum(reflA_upperG.geometry.crossAreas_1[end, :])}),
+    Cs_start=Cs_start_reflA_upper)
                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -160,7 +192,8 @@ model MSR_11
         crossArea=data_RCTR.crossArea_plenum,
         angle=toggleStaticHead*90),
     showName=systemTF.showName,
-    mC_gen=mC_gen_plenum_upper)            annotation (Placement(transformation(
+    mC_gen=mC_gen_plenum_upper,
+    C_start=C_start_plenum_upper)          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,90})));
@@ -189,7 +222,8 @@ model MSR_11
         angle=toggleStaticHead*90,
         surfaceArea={reflA_lowerG.nParallel/reflA_lower.nParallel*sum(
             reflA_lowerG.geometry.crossAreas_1[1, :]),reflA_lowerG.nParallel/
-            reflA_lower.nParallel*sum(reflA_lowerG.geometry.crossAreas_1[end, :])}))
+            reflA_lower.nParallel*sum(reflA_lowerG.geometry.crossAreas_1[end, :])}),
+    Cs_start=Cs_start_reflA_lower)
                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -214,7 +248,8 @@ model MSR_11
         angle=toggleStaticHead*90),
     T_start=data_PHX.T_outlet_tube,
     showName=systemTF.showName,
-    mC_gen=mC_gen_plenum_lower)          annotation (Placement(transformation(
+    mC_gen=mC_gen_plenum_lower,
+    C_start=C_start_plenum_lower)        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-90})));
@@ -362,7 +397,8 @@ model MSR_11
         angle=toggleStaticHead*90),
     nPorts_a=1,
     showName=systemTF.showName,
-    mC_gen=mC_gen_tee_inlet)             annotation (Placement(transformation(
+    mC_gen=mC_gen_tee_inlet,
+    C_start=C_start_tee_inlet)           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-130})));
@@ -382,7 +418,8 @@ model MSR_11
     showName=systemTF.showName,
     redeclare model InternalTraceMassGen =
         TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
-        (mC_gens=mC_gens_pipeFromPHX_PFL))
+        (mC_gens=mC_gens_pipeFromPHX_PFL),
+    Cs_start=Cs_start_pipeFromPHX_PFL)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={160,-70})));
@@ -421,7 +458,8 @@ model MSR_11
         CF=fill(0.44, PHX.shell.heatTransfer.nHT)),
     redeclare model InternalTraceMassGen_tube =
         TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
-        (mC_gens=mC_gens_PHX_tube))        annotation (Placement(transformation(
+        (mC_gens=mC_gens_PHX_tube),
+    Cs_start_tube=Cs_start_PHX_tube)       annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={160,0})));
@@ -442,7 +480,8 @@ model MSR_11
     showName=systemTF.showName,
     redeclare model InternalTraceMassGen =
         TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
-        (mC_gens=mC_gens_pipeToPHX_PFL))                        annotation (
+        (mC_gens=mC_gens_pipeToPHX_PFL),
+    Cs_start=Cs_start_pipeToPHX_PFL)                            annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -459,7 +498,8 @@ model MSR_11
     h_start=pumpBowl_PFL.Medium.specificEnthalpy_pT(pumpBowl_PFL.p_start,
         data_PHX.T_inlet_tube),
     A=3*data_RCTR.crossArea_pumpbowl,
-    mC_gen=mC_gen_pumpBowl_PFL)
+    mC_gen=mC_gen_pumpBowl_PFL,
+    C_start=C_start_pumpBowl_PFL)
     annotation (Placement(transformation(extent={{10,124},{30,144}})));
 
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
@@ -496,7 +536,17 @@ model MSR_11
     vals_feedback_reference=matrix(linspace(
         data_RCTR.T_inlet_core,
         data_RCTR.T_outlet_core,
-        fuelCell.nV)))
+        fuelCell.nV)),
+    nTR=data_traceSubstances.tritium.nC,
+    iH3=data_traceSubstances.iH3,
+    parents_TR=data_traceSubstances.tritium.parents,
+    sigmaA_TR=data_traceSubstances.tritium.sigmaA,
+    sigmaT_TR=data_traceSubstances.tritium.sigmaT,
+    lambda_TR=data_traceSubstances.tritium.lambdas,
+    mCs_TR=fuelCell.mCs[:, data_traceSubstances.iTR[1]:data_traceSubstances.iTR[
+        2]]*fuelCell.nParallel,
+    Vs=fuelCell.Vs*fuelCell.nParallel,
+    SigmaF=26)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
     data_traceSubstances(redeclare record FissionProducts =
@@ -780,7 +830,8 @@ model MSR_11
         perimeter=data_RCTR.perimeter_reflR,
         length=data_RCTR.length_reflR,
         surfaceArea={reflRG.nParallel/reflR.nParallel*sum(reflRG.geometry.crossAreas_1
-            [1, :])}))                    annotation (Placement(transformation(
+            [1, :])}),
+    Cs_start=Cs_start_reflR)              annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={20,0})));

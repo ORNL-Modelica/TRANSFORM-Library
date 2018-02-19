@@ -69,13 +69,13 @@ model PointKinetics_Drift
       0,
       nC,
       nC)
-    "Matrix of parent sources (sum(column) = 1 or 0)for each fission product 'daughter'. Row is daughter, Column is parent."
+    "Matrix of parent sources (sum(column) = 1 or 0) for each fission product 'daughter'. Row is daughter, Column is parent."
     annotation (Dialog(tab="Fission Products"));
 
   input SIadd.NonDim fissionSource[nFS]=fill(0, nFS)
     "Source of fissile material fractional composition (sum=1)"
     annotation (Dialog(tab="Fission Products", group="Input Variables"));
-  input SI.MacroscopicCrossSection SigmaF=0.01
+  input SI.MacroscopicCrossSection SigmaF=1
     "Macroscopic fission cross-section of fissile material"
     annotation (Dialog(tab="Fission Products", group="Input Variables"));
   input SI.Area[nC] sigmaA_FP = fill(0,nC) "Absorption cross-section for reactivity feedback" annotation (Dialog(tab="Fission Products", group="Input Variables"));
@@ -139,7 +139,40 @@ model PointKinetics_Drift
 
   TRANSFORM.Units.NonDim[nV,nC] rhos_FP "Fission product reactivity feedback";
   TRANSFORM.Units.NonDim[nV,nFeedback] rhos_feedback "Linear reactivity feedback";
+  TRANSFORM.Units.NonDim[nV,nTR] rhos_TR "Tritium contributors reactivity feedback";
   TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
+
+
+  // Tritium Sources
+  parameter Integer nTR = 0 "Tritium contributers"
+                                                  annotation (Dialog(tab="Tritium Balance"));
+  parameter Integer iH3 = 1 "Index of tritium (1-H-3) in fission products array"
+                                                                                annotation (Dialog(tab="Tritium Balance"));
+  parameter Real[nTR,nTR] parents_TR=fill(
+      0,
+      nTR,
+      nTR)
+    "Matrix of parent sources (sum(column) = 1 or 0) for each tritium contributor 'daughter'. Row is daughter, Column is parent."
+    annotation (Dialog(tab="Tritium Balance"));
+
+  input SI.Area[nTR] sigmaA_TR = fill(0,nTR) "Absorption cross-section for reactivity feedback" annotation (Dialog(tab="Tritium Balance", group="Input Variables"));
+  input SI.Area[nTR] sigmaT_TR = fill(0,nTR) "Cross-section for tritium generation" annotation (Dialog(tab="Tritium Balance", group="Input Variables"));
+  input TRANSFORM.Units.InverseTime[nTR] lambda_TR=fill(0, nTR)
+    "Decay constants for each tritium contributor"
+    annotation (Dialog(tab="Tritium Balance", group="Input Variables"));
+
+  input SI.Mass[nV,nTR] mCs_TR={{0 for j in 1:nTR} for i in 1:nV}
+    "Contributors to tritium [#]"
+    annotation (Dialog(tab="Tritium Balance", group="Input Variables"));
+  output SI.MassFlowRate[nV,nTR] mC_gens_TR "Generation rate of tritium contributors"
+    annotation (Dialog(
+      tab="Internal Inteface",
+      group="Output Variables",
+      enable=false));
+
+  SI.MassFlowRate[nV,nTR] mC_gen_H3 "Generation rate of tritium";
+
+  input SI.Volume[nV] Vs annotation(Dialog);
 
 initial equation
 
@@ -156,7 +189,7 @@ equation
   rhos_feedback = {{alphas_feedback[i,j]*(vals_feedback[i,j] - vals_feedback_reference[i,j]) for j in 1:nFeedback} for i in 1:nV};
 
   rhos = {sum(rhos_feedback[i,:]) +
-    rhos_input[i] + sum(rhos_FP[i, :]) for i in 1:nV};
+    rhos_input[i] + sum(rhos_FP[i, :]) + sum(rhos_TR[i, :]) for i in 1:nV};
 
   if specifyPower then
     Qs = Qs_input;
@@ -182,7 +215,7 @@ equation
     for j in 1:nC loop
       mC_gens_FP[i, j] = Qs[i]/w_f*sum({fissionSource[k]*fissionYield[j, k]
         for k in 1:nFS}) - lambda_FP[j]*mCs_FP[i, j] + sum(lambda_FP .* mCs_FP[
-        i, :] .* parents[j, :]) - sigmaA_FP[j]*mCs_FP[i,j]*Qs[i]/(w_f*SigmaF);
+        i, :] .* parents[j, :]) - sigmaA_FP[j]*mCs_FP[i,j]*Qs[i]/(w_f*SigmaF) + (if j ==iH3 then sum(mC_gen_H3[i,:]) else 0);
       rhos_FP[i,j] = -sigmaA_FP[j]*mCs_FP[i,j]/(nu_bar*SigmaF);
         end for;
   end for;
@@ -191,6 +224,17 @@ equation
         1:nV};
   Qs_FP_gamma = {sum({wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC}) for i in
         1:nV};
+
+// Tritium
+  for i in 1:nV loop
+    for j in 1:nTR loop
+       mC_gens_TR[i, j] = -lambda_TR[j]*mCs_TR[i, j] + sum(lambda_TR .* mCs_TR[
+         i, :] .* parents_TR[j, :]) - (sigmaA_TR[j] + sigmaT_TR[j])*mCs_TR[i,j]*Qs[i]/(w_f*SigmaF);
+      rhos_TR[i,j] = -(sigmaA_TR[j] + sigmaT_TR[j])*mCs_TR[i,j]/(nu_bar*SigmaF);
+        end for;
+  end for;
+
+  mC_gen_H3 = {{sigmaT_TR[j]*mCs_TR[i,j]*Qs[i]/(w_f*SigmaF) for j in 1:nTR} for i in 1:nV};
 
   annotation (
     defaultComponentName="kinetics",
