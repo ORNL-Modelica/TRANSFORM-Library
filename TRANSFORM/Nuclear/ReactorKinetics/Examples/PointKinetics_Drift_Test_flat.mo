@@ -31,7 +31,12 @@ model PointKinetics_Drift_Test_flat
   SI.Temperature[loop_.nV] Ts1=loop_.mediums.T;
   SI.Power[core.nV] Q_gens=core_kinetics.Qs;
   SI.Power Power=sum(core_kinetics.Qs);
+  SI.Power Power_beta = sum(core_kinetics.Qs_FP);
+  SI.Power Power_gamma = sum(core_kinetics.Qs_FP_gamma);
+  SI.Power Power_DH = Power_beta + Power_gamma;
+  SI.Power Power_total = Power_DH + Power;
 
+protected
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT back_to_core(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -95,6 +100,7 @@ model PointKinetics_Drift_Test_flat
   Fluid.Sensors.TraceSubstancesTwoPort_multi Concentration_Measure(redeclare
       package Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
+public
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_Drift core_kinetics(
     nV=core.nV,
     Q_nominal=5e4*core.nV,
@@ -128,6 +134,7 @@ model PointKinetics_Drift_Test_flat
         6],core.mCs[6, 3],core_kinetics.Qs_FP[6]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
+protected
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
     data_traceSubstances(redeclare record PrecursorGroups =
         TRANSFORM.Examples.MoltenSaltReactor.Data.PrecursorGroups.precursorGroups_6_description,
