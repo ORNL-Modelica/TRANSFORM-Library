@@ -9,7 +9,6 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
 
-
   HeatExchangers.GenericDistributed_HX           SHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,

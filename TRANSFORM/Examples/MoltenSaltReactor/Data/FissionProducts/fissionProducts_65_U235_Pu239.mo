@@ -52,7 +52,6 @@ record fissionProducts_65_U235_Pu239
         0.000029,1.275,0.796,0.000039,0.0051,0.797,0.4,0.797,0.00000048,0.000127,
         0.171}}) "Fission yield per fast fission";
 
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

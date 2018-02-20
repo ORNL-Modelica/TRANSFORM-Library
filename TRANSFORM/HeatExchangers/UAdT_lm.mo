@@ -40,7 +40,6 @@ equation
     dTs[2] = Ts_h[2] - Ts_c[2];
   end if;
 
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-40,40},{40,-40}},

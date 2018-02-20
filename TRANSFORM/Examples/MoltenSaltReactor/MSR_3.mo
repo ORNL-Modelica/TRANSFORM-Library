@@ -2,7 +2,8 @@ within TRANSFORM.Examples.MoltenSaltReactor;
 model MSR_3
   import TRANSFORM;
 
-  package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
+  package Medium_PFL =
+      TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
   extraPropertiesNames={"PreGroup_1","PreGroup_2","PreGroup_3","PreGroup_4","PreGroup_5","PreGroup_6"},
   C_nominal={1e6,1e6,1e6,1e6,1e6,1e6}) "Primary fuel loop medium";
 
@@ -19,7 +20,6 @@ model MSR_3
 
   SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
-
 
   Data.data_PHX data_PHX
     annotation (Placement(transformation(extent={{-122,122},{-102,142}})));

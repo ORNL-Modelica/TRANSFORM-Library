@@ -7,4 +7,5 @@ extends Icons.ExamplesPackage;
 
 
 
+
 end Examples;

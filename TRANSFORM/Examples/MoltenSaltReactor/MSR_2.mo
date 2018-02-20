@@ -1,7 +1,8 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
 model MSR_2
 
-  package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT "Primary fuel loop medium";
+  package Medium_PFL =
+      TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT                  "Primary fuel loop medium";
   package Medium_PCL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT "Primary coolant loop medium";
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";

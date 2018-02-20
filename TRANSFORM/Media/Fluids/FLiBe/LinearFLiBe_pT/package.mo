@@ -1,7 +1,7 @@
 within TRANSFORM.Media.Fluids.FLiBe;
 package LinearFLiBe_pT "FLiBe | LiF-BeF2 67%-33% with 99.995% enriched Li-7 | Linear compressibility"
 
-// ORNL/TM-2006/12 
+// ORNL/TM-2006/12
 // beta_const adjusted till density matched. kappa left alone
 // references are based on 800K
 // assumed specific enthalpy at 273.15 is zero

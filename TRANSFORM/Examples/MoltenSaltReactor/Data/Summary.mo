@@ -3,10 +3,14 @@ record Summary
 
   extends TRANSFORM.Icons.Record;
 
-  replaceable package Medium_PFL = Modelica.Media.Interfaces.PartialMedium annotation(choicesAllMatching=true);
-  replaceable package Medium_PCL = Modelica.Media.Interfaces.PartialMedium annotation(choicesAllMatching=true);
-  replaceable package Medium_BOP = Modelica.Media.Interfaces.PartialMedium annotation(choicesAllMatching=true);
-  replaceable package Medium_OffGas = Modelica.Media.Interfaces.PartialMedium annotation(choicesAllMatching=true);
+  replaceable package Medium_PFL =
+      Modelica.Media.Interfaces.PartialMedium                              annotation(choicesAllMatching=true);
+  replaceable package Medium_PCL =
+      Modelica.Media.Interfaces.PartialMedium                              annotation(choicesAllMatching=true);
+  replaceable package Medium_BOP =
+      Modelica.Media.Interfaces.PartialMedium                              annotation(choicesAllMatching=true);
+  replaceable package Medium_OffGas =
+      Modelica.Media.Interfaces.PartialMedium                                 annotation(choicesAllMatching=true);
   replaceable package Material_Graphite =
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy                                     annotation(choicesAllMatching=true);
   replaceable package Material_Vessel =
@@ -178,8 +182,6 @@ record Summary
   input SI.Area surfaceArea_shell_SHX "surfaceArea shell SHX" annotation(Dialog(tab="PCL",group="SHX"));
   input SI.Mass m_shell_SHX "salt mass shell SHX" annotation(Dialog(tab="PCL",group="SHX"));
   input SI.Volume volume_shell_SHX = m_shell_SHX/d_PCL "salt volume shell SHX" annotation(Dialog(tab="PCL",group="SHX"));
-
-
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

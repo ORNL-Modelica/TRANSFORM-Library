@@ -2,7 +2,8 @@ within TRANSFORM.Examples.MoltenSaltReactor;
 model MSR_10
   import TRANSFORM;
 
-  package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
+  package Medium_PFL =
+      TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
   extraPropertiesNames=data_traceSubstances.extraPropertiesNames,
   C_nominal=data_traceSubstances.C_nominal) "Primary fuel loop medium";
 
@@ -789,7 +790,8 @@ model MSR_10
         origin={20,0})));
 
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_2D reflRG(
-    redeclare package Material = TRANSFORM.Media.Solids.Graphite.Graphite_0,
+    redeclare package Material =
+        TRANSFORM.Media.Solids.Graphite.Graphite_0,
     exposeState_b2=true,
     exposeState_b1=true,
     T_a1_start=0.5*(data_PHX.T_outlet_tube + data_PHX.T_outlet_tube),

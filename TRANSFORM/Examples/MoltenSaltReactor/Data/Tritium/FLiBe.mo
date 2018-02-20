@@ -12,8 +12,6 @@ parents=[[0,0,0,1];
          [0,0,0,0];
          [0,0,0,0]]);
 
-
-
     // extraPropertiesNames={"Li-6","Li-7","Be-9"},
     // C_nominal=fill(1e14, nC),
     // lambdas={0,0,0},

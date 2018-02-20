@@ -10,6 +10,8 @@ simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.InverseParameterization",output
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.PumpingSystem",outputInterval=0.4,stopTime=2000,tolerance=1e-006,resultFile="PumpingSystem");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.RoomCO2WithControls",stopTime=86400,tolerance=1e-006,method="Esdirk45a",resultFile="RoomCO2WithControls");
 simulateModel("TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.SystemVariableHeatLoad",stopTime=25000,tolerance=1e-005,resultFile="SystemVariableHeatLoad");
+simulateModel("TRANSFORM.Fluid.Examples.TritiumExamples.HumTest",stopTime=100,resultFile="HumTest");
+simulateModel("TRANSFORM.Fluid.Examples.TritiumExamples.PbLiTest2",stopTime=100,resultFile="PbLiTest2");
 simulateModel("TRANSFORM.Fluid.Examples.NaturalCirculation",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NaturalCirculation");
 simulateModel("TRANSFORM.Fluid.Examples.NaturalCirculation2",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NaturalCirculation2");
 simulateModel("TRANSFORM.Fluid.Examples.RankineCycle",resultFile="RankineCycle");

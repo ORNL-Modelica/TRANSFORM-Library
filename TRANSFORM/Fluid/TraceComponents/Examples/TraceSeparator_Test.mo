@@ -8,8 +8,9 @@ model TraceSeparator_Test
     Modelica.Media.Interfaces.PartialMedium "Medium properties" annotation (
       choicesAllMatching=true);
 
-  replaceable package Medium_carrier = Modelica.Media.IdealGases.SingleGases.He
-      (extraPropertiesNames=fill("dummy",4),
+  replaceable package Medium_carrier =
+      Modelica.Media.IdealGases.SingleGases.He (
+       extraPropertiesNames=fill("dummy",4),
   C_nominal=fill(1e6,Medium_carrier.nC)) constrainedby
     Modelica.Media.Interfaces.PartialMedium "Medium properties" annotation (
       choicesAllMatching=true);

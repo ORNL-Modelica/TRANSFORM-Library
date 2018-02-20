@@ -142,7 +142,6 @@ model PointKinetics_Drift
   TRANSFORM.Units.NonDim[nV,nTR] rhos_TR "Tritium contributors reactivity feedback";
   TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
 
-
   // Tritium Sources
   parameter Integer nTR = 0 "Tritium contributers"
                                                   annotation (Dialog(tab="Tritium Balance"));

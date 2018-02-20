@@ -2,7 +2,8 @@ within TRANSFORM.Examples.MoltenSaltReactor;
 model MSR_7
   import TRANSFORM;
 
-  package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
+  package Medium_PFL =
+      TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
   extraPropertiesNames=data_traceSubstances.extraPropertiesNames,
   C_nominal=data_traceSubstances.C_nominal) "Primary fuel loop medium";
 

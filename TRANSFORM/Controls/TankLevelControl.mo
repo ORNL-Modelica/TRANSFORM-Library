@@ -24,7 +24,6 @@ equation
   switch.u1 = drainRate_active;
   switch.u3 = drainRate_nonActive;
 
-
   connect(hysteresis.y, switch.u2)
     annotation (Line(points={{-9,0},{8,0}},    color={255,0,255}));
   connect(switch.y, y)

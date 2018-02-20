@@ -2,7 +2,8 @@ within TRANSFORM.Examples.MoltenSaltReactor;
 model MSR_11
   import TRANSFORM;
 
-  package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
+  package Medium_PFL =
+      TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
   extraPropertiesNames=data_traceSubstances.extraPropertiesNames,
   C_nominal=data_traceSubstances.C_nominal) "Primary fuel loop medium";
 
@@ -20,11 +21,9 @@ model MSR_11
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
 
-
   // Initialization
   import Modelica.Constants.N_A;
   parameter SI.MassFraction[data_traceSubstances.tritium.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0} "atoms/kg fluid";
-
 
 parameter SI.MassFraction Li7_enrichment = 0.99995 "mass fraction Li-7 enrichment in flibe.  Baseline is 99.995%";
 parameter SI.MoleFraction MMFrac_LiF = 0.67 "Mole fraction of LiF";
@@ -35,7 +34,6 @@ parameter SI.MolarMass Li6_MM = 0.006015122795 "[kg/mol]";
 
 parameter SI.MoleFraction Li7_molefrac = (Li7_enrichment/Li7_MM)/((Li7_enrichment/Li7_MM)+((1.0-Li7_enrichment)/Li6_MM)) "Mole fraction of lithium in flibe that is Li-7";
 parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lithium in flibe that is Li-6";
-
 
 parameter SI.MassFraction[data_traceSubstances.nC] C_start_tee_inlet = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
 parameter SI.MassFraction[data_traceSubstances.nC] C_start_plenum_lower = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
@@ -837,7 +835,8 @@ parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA
         origin={20,0})));
 
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_2D reflRG(
-    redeclare package Material = TRANSFORM.Media.Solids.Graphite.Graphite_0,
+    redeclare package Material =
+        TRANSFORM.Media.Solids.Graphite.Graphite_0,
     exposeState_b2=true,
     exposeState_b1=true,
     T_a1_start=0.5*(data_PHX.T_outlet_tube + data_PHX.T_outlet_tube),

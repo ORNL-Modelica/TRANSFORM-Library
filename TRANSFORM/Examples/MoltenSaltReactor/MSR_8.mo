@@ -2,7 +2,8 @@ within TRANSFORM.Examples.MoltenSaltReactor;
 model MSR_8
   import TRANSFORM;
 
-  package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
+  package Medium_PFL =
+      TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
   extraPropertiesNames=data_traceSubstances.extraPropertiesNames,
   C_nominal=data_traceSubstances.C_nominal) "Primary fuel loop medium";
 
@@ -66,7 +67,6 @@ model MSR_8
   // Trace Substances Parent->Daughter contribution:  Off-Gas and Drain Tank
   SI.MassFlowRate[nOG] mC_gen_drainTank_gas_PtoD =  {sum({data_traceSubstances.fissionProducts.lambdas[iOG_FP[i]].*drainTank_gas.mC[i].*data_traceSubstances.fissionProducts.parents[j,iOG_FP[i]] for i in 1:nOG}) for j in 1:nOG};
   SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid_PtoD =  {(if (j>=data_traceSubstances.iFP[1] and j<= data_traceSubstances.iFP[2]) then sum(data_traceSubstances.fissionProducts.lambdas.*drainTank_liquid.mC[data_traceSubstances.iFP[1]:data_traceSubstances.iFP[2]].*data_traceSubstances.fissionProducts.parents[j-data_traceSubstances.iFP[1]+1,:]) else 0) for j in 1:data_traceSubstances.nC};
-
 
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_OffGas_sink(
     redeclare package Medium = Medium_OffGas,
@@ -783,7 +783,8 @@ model MSR_8
         origin={20,0})));
 
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_2D reflRG(
-    redeclare package Material = TRANSFORM.Media.Solids.Graphite.Graphite_0,
+    redeclare package Material =
+        TRANSFORM.Media.Solids.Graphite.Graphite_0,
     exposeState_b2=true,
     exposeState_b1=true,
     T_a1_start=0.5*(data_PHX.T_outlet_tube + data_PHX.T_outlet_tube),

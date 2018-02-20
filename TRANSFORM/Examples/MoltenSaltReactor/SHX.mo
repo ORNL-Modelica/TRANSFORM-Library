@@ -1,7 +1,8 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
 model SHX
 
-  package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
+  package Medium_PFL =
+      TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
   extraPropertiesNames=data_traceSubstances.extraPropertiesNames,
   C_nominal=data_traceSubstances.C_nominal) "Primary fuel loop medium";
 //   package Medium_PFL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
@@ -11,7 +12,6 @@ model SHX
   package Medium_PCL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT(extraPropertiesNames={"bob"},C_nominal={1e6}) "Primary coolant loop medium";
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
-
 
   Fluid.BoundaryConditions.Boundary_pT boundary3(
     nPorts=1,

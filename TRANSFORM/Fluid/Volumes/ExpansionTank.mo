@@ -81,7 +81,6 @@ model ExpansionTank "Expansion tank with cover gas"
     annotation (Placement(transformation(extent={{50,-70},{90,-30}}, rotation=0),
         iconTransformation(extent={{60,-70},{80,-50}})));
 
-
   parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced",group="Heat Transfer"),Evaluate=true);
   input SI.HeatFlowRate Q_gen=0 "Internal heat generation" annotation(Dialog(tab="Advanced",group="Heat Transfer"));
 
