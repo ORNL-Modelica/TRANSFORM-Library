@@ -10,11 +10,11 @@ model PointKinetics_Drift_Test_feedback_Xenon
 
   Modelica.Blocks.Sources.Pulse Reactivity(
     nperiod=1,
-    width=100*60*60,
-    period=100*60*60 + 1,
     startTime=6*60*60,
     amplitude=1,
-    offset=-1)
+    offset=-1,
+    period=10*100*60*60/0.9,
+    width=90)
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

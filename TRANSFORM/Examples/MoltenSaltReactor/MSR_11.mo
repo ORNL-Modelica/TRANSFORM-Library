@@ -550,7 +550,7 @@ parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
     data_traceSubstances(redeclare record FissionProducts =
-        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_test)
+        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_15_U235_Pu239)
     annotation (Placement(transformation(extent={{260,120},{280,140}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
                                                pipeFromPHX_PCL(
@@ -1169,5 +1169,8 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-360,-150},
             {340,150}})),                                        Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-150},{340,150}})),
-    experiment(StopTime=5000, __Dymola_NumberOfIntervals=5000));
+    experiment(
+      StopTime=5000,
+      __Dymola_NumberOfIntervals=5000,
+      __Dymola_Algorithm="Esdirk45a"));
 end MSR_11;

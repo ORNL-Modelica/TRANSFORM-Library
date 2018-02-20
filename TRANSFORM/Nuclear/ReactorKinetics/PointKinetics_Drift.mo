@@ -215,8 +215,8 @@ equation
     for j in 1:nC loop
       mC_gens_FP[i, j] = Qs[i]/w_f*sum({fissionSource[k]*fissionYield[j, k]
         for k in 1:nFS}) - lambda_FP[j]*mCs_FP[i, j] + sum(lambda_FP .* mCs_FP[
-        i, :] .* parents[j, :]) - sigmaA_FP[j]*mCs_FP[i,j]*Qs[i]/(w_f*SigmaF) + (if j ==iH3 then sum(mC_gen_H3[i,:]) else 0);
-      rhos_FP[i,j] = -sigmaA_FP[j]*mCs_FP[i,j]/(nu_bar*SigmaF);
+        i, :] .* parents[j, :]) - sigmaA_FP[j]*mCs_FP[i,j]*Qs[i]/(w_f*SigmaF)/Vs[i] + (if j ==iH3 then sum(mC_gen_H3[i,:]) else 0);
+      rhos_FP[i,j] = -sigmaA_FP[j]*mCs_FP[i,j]/(nu_bar*SigmaF)/Vs[i];
         end for;
   end for;
 
@@ -229,12 +229,12 @@ equation
   for i in 1:nV loop
     for j in 1:nTR loop
        mC_gens_TR[i, j] = -lambda_TR[j]*mCs_TR[i, j] + sum(lambda_TR .* mCs_TR[
-         i, :] .* parents_TR[j, :]) - (sigmaA_TR[j] + sigmaT_TR[j])*mCs_TR[i,j]*Qs[i]/(w_f*SigmaF);
-      rhos_TR[i,j] = -(sigmaA_TR[j] + sigmaT_TR[j])*mCs_TR[i,j]/(nu_bar*SigmaF);
+         i, :] .* parents_TR[j, :]) - (sigmaA_TR[j] + sigmaT_TR[j])*mCs_TR[i,j]*Qs[i]/(w_f*SigmaF)/Vs[i];
+      rhos_TR[i,j] = -(sigmaA_TR[j] + sigmaT_TR[j])*mCs_TR[i,j]/(nu_bar*SigmaF)/Vs[i];
         end for;
   end for;
 
-  mC_gen_H3 = {{sigmaT_TR[j]*mCs_TR[i,j]*Qs[i]/(w_f*SigmaF) for j in 1:nTR} for i in 1:nV};
+  mC_gen_H3 = {{sigmaT_TR[j]*mCs_TR[i,j]*Qs[i]/(w_f*SigmaF)/Vs[i] for j in 1:nTR} for i in 1:nV};
 
   annotation (
     defaultComponentName="kinetics",

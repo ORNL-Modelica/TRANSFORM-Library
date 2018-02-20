@@ -53,16 +53,19 @@ model PointKinetics_Drift_Test_flat
         nV=10,
         dimensions=Ds,
         dlengths=fill(H/core.nV,core.nV)),
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
-        (mC_gens=cat(
-            2,core_kinetics.mC_gens,core_kinetics.mC_gens_FP)),
+    redeclare model InternalHeatGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+        (Q_gens=core_kinetics.Qs + core_kinetics.Qs_FP + core_kinetics.Qs_FP_gamma),
     p_a_start=100000,
     T_a_start=573.15,
     T_b_start=773.15,
-    redeclare model InternalHeatGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=core_kinetics.Qs + core_kinetics.Qs_FP + core_kinetics.Qs_FP_gamma))
+    redeclare model InternalTraceMassGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        (mC_gens=cat(
+            2,
+            core_kinetics.mC_gens,
+            core_kinetics.mC_gens_FP,
+            core_kinetics.mC_gens_TR)))
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
 
   Fluid.Pipes.GenericPipe_MultiTransferSurface           loop_(
@@ -107,15 +110,18 @@ model PointKinetics_Drift_Test_flat
     mCs_FP=core.mCs[:, data_traceSubstances.iFP[1]:data_traceSubstances.iFP[2]]
         *core.nParallel,
     sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
-    nFS=1,
-    fissionSource={1},
     fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1],
     vals_feedback_reference=matrix(linspace(
         300 + 273.15,
         500 + 273.15,
         core.nV)),
     vals_feedback=matrix(core.mediums.T),
-    wG_FP_decay=data_traceSubstances.fissionProducts.wG_decay)
+    wG_FP_decay=data_traceSubstances.fissionProducts.wG_decay,
+    Vs=core.Vs*core.nParallel,
+    nTR=data_traceSubstances.tritium.nC,
+    SigmaF=26,
+    nFS=data_traceSubstances.fissionProducts.nFS,
+    fissionSource=fill(1/core_kinetics.nFS, core_kinetics.nFS))
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[
