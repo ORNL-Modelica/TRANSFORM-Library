@@ -1,4 +1,4 @@
-within TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration;
+within TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration;
 package Examples
   extends Icons.ExamplesPackage;
 

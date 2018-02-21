@@ -1,5 +1,5 @@
-within TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D;
-partial model PartialInternalMassGeneration
+within TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D;
+partial model PartialInternalTraceGeneration
 
   replaceable package Medium = Modelica.Media.Water.StandardWater
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium properties"
@@ -34,4 +34,4 @@ partial model PartialInternalMassGeneration
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-120,-100},{120,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/ClosureModel_Ngen.jpg")}),
       Diagram(coordinateSystem(preserveAspectRatio=false)));
-end PartialInternalMassGeneration;
+end PartialInternalTraceGeneration;

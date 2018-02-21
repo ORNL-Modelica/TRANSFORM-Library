@@ -1,13 +1,13 @@
-within TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D;
-model GenericMassGeneration
+within TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D;
+model GenericTraceGeneration
 
   import TRANSFORM.Math.fillArray_1D;
 
-  extends PartialInternalMassGeneration;
+  extends PartialInternalTraceGeneration;
 
-  input SI.MassFlowRate mC_gen[Medium.nC]=zeros(Medium.nC) "Mass generation"  annotation(Dialog(group=
+  input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=zeros(Medium.nC) "Mass generation"  annotation(Dialog(group=
           "Input Variables"));
-  input SI.MassFlowRate mC_gens[nV,Medium.nC]=fillArray_1D(mC_gen, nV)
+  input SIadd.ExtraPropertyFlowRate mC_gens[nV,Medium.nC]=fillArray_1D(mC_gen, nV)
     "if non-uniform then set mC_gens"
     annotation (Dialog(group="Input Variables"));
 
@@ -20,4 +20,4 @@ equation
   end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end GenericMassGeneration;
+end GenericTraceGeneration;
