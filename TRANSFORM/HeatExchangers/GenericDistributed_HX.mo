@@ -151,20 +151,20 @@ model GenericDistributed_HX
     "Mass fraction at port b" annotation (Dialog(tab="Shell Initialization",
         group="Start Value: Species Mass Fraction"));
 
-  parameter SI.MassFraction Cs_start_shell[geometry.nV,Medium_shell.nC]=
+  parameter SIadd.ExtraProperty Cs_start_shell[geometry.nV,Medium_shell.nC]=
       linspaceRepeat_1D(
       C_a_start_shell,
       C_b_start_shell,
-      geometry.nV) "Mass fraction" annotation (Dialog(
+      geometry.nV) "Mass-Specific value" annotation (Dialog(
       tab="Shell Initialization",
-      group="Start Value: Trace Substances Mass Fraction",
+      group="Start Value: Trace Substances",
       enable=Medium_shell.nC > 0));
-  parameter SI.MassFraction C_a_start_shell[Medium_shell.nC]=fill(0,
-      Medium_shell.nC) "Mass fraction at port a" annotation (Dialog(tab="Shell Initialization",
-        group="Start Value: Trace Substances Mass Fraction"));
-  parameter SI.MassFraction C_b_start_shell[Medium_shell.nC]=C_a_start_shell
-    "Mass fraction at port b" annotation (Dialog(tab="Shell Initialization",
-        group="Start Value: Trace Substances Mass Fraction"));
+  parameter SIadd.ExtraProperty C_a_start_shell[Medium_shell.nC]=fill(0,
+      Medium_shell.nC) "Mass-Specific value at port a" annotation (Dialog(tab="Shell Initialization",
+        group="Start Value: Trace Substances"));
+  parameter SIadd.ExtraProperty C_b_start_shell[Medium_shell.nC]=C_a_start_shell
+    "Mass-Specific value at port b" annotation (Dialog(tab="Shell Initialization",
+        group="Start Value: Trace Substances"));
 
   parameter SI.MassFlowRate[geometry.nV + 1] m_flows_start_shell=linspace(
       m_flow_a_start_shell,
@@ -251,20 +251,20 @@ model GenericDistributed_HX
     "Mass fraction at port b" annotation (Dialog(tab="Tube Initialization",
         group="Start Value: Species Mass Fraction"));
 
-  parameter SI.MassFraction Cs_start_tube[geometry.nV,Medium_tube.nC]=
+  parameter SIadd.ExtraProperty Cs_start_tube[geometry.nV,Medium_tube.nC]=
       linspaceRepeat_1D(
       C_a_start_tube,
       C_b_start_tube,
-      geometry.nV) "Mass fraction" annotation (Dialog(
+      geometry.nV) "Mass-Specific value" annotation (Dialog(
       tab="Tube Initialization",
-      group="Start Value: Trace Substances Mass Fraction",
+      group="Start Value: Trace Substances",
       enable=Medium_tube.nC > 0));
-  parameter SI.MassFraction C_a_start_tube[Medium_tube.nC]=fill(0, Medium_tube.nC)
-    "Mass fraction at port a" annotation (Dialog(tab="Tube Initialization",
-        group="Start Value: Trace Substances Mass Fraction"));
-  parameter SI.MassFraction C_b_start_tube[Medium_tube.nC]=C_a_start_tube
-    "Mass fraction at port b" annotation (Dialog(tab="Tube Initialization",
-        group="Start Value: Trace Substances Mass Fraction"));
+  parameter SIadd.ExtraProperty C_a_start_tube[Medium_tube.nC]=fill(0, Medium_tube.nC)
+    "Mass-Specific value at port a" annotation (Dialog(tab="Tube Initialization",
+        group="Start Value: Trace Substances"));
+  parameter SIadd.ExtraProperty C_b_start_tube[Medium_tube.nC]=C_a_start_tube
+    "Mass-Specific value at port b" annotation (Dialog(tab="Tube Initialization",
+        group="Start Value: Trace Substances"));
 
   parameter SI.MassFlowRate[geometry.nV + 1] m_flows_start_tube=linspace(
       m_flow_a_start_tube,
@@ -467,7 +467,7 @@ model GenericDistributed_HX
         perimeters=geometry.perimeters_tube,
         nSurfaces=geometry.nSurfaces_tube,
         angles=geometry.angles_tube),
-    redeclare model InternalTraceMassGen = InternalTraceMassGen_tube)
+    redeclare model InternalTraceGen = InternalTraceGen_tube)
                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -511,11 +511,11 @@ model GenericDistributed_HX
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi
     adiabaticWall_b2(nPorts=geometry.nR)
     annotation (Placement(transformation(extent={{40,-40},{20,-20}})));
-  replaceable model InternalTraceMassGen_tube =
-      Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+  replaceable model InternalTraceGen_tube =
+      Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
     annotation (Dialog(group="Trace Mass Transfer"),choicesAllMatching=true);
-  replaceable model InternalTraceMassGen_shell =
-      Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+  replaceable model InternalTraceGen_shell =
+      Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
     annotation (Dialog(group="Trace Mass Transfer"),choicesAllMatching=true);
 
 equation

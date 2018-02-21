@@ -1,7 +1,5 @@
 within TRANSFORM.Fluid.ClosureRelations;
-package InternalMassGeneration
+package InternalTraceGeneration
     extends Icons.VariantsPackage;
 
-
-
-end InternalMassGeneration;
+end InternalTraceGeneration;

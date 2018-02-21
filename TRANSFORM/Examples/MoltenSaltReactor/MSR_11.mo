@@ -23,7 +23,7 @@ model MSR_11
 
   // Initialization
   import Modelica.Constants.N_A;
-  parameter SI.MassFraction[data_traceSubstances.tritium.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0} "atoms/kg fluid";
+  parameter SIadd.ExtraProperty[data_traceSubstances.tritium.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0} "atoms/kg fluid";
 
 parameter SI.MassFraction Li7_enrichment = 0.99995 "mass fraction Li-7 enrichment in flibe.  Baseline is 99.995%";
 parameter SI.MoleFraction MMFrac_LiF = 0.67 "Mole fraction of LiF";
@@ -35,17 +35,17 @@ parameter SI.MolarMass Li6_MM = 0.006015122795 "[kg/mol]";
 parameter SI.MoleFraction Li7_molefrac = (Li7_enrichment/Li7_MM)/((Li7_enrichment/Li7_MM)+((1.0-Li7_enrichment)/Li6_MM)) "Mole fraction of lithium in flibe that is Li-7";
 parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lithium in flibe that is Li-6";
 
-parameter SI.MassFraction[data_traceSubstances.nC] C_start_tee_inlet = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
-parameter SI.MassFraction[data_traceSubstances.nC] C_start_plenum_lower = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
-parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA_lower = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflA_lower.nV};
- parameter SI.MassFraction[fuelCell.nV,data_traceSubstances.nC] Cs_start_fuelCell = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:fuelCell.nV};
- parameter SI.MassFraction[reflR.nV,data_traceSubstances.nC] Cs_start_reflR = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflR.nV};
- parameter SI.MassFraction[reflA_upper.nV,data_traceSubstances.nC] Cs_start_reflA_upper = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflA_upper.nV};
- parameter SI.MassFraction[data_traceSubstances.nC] C_start_plenum_upper = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
- parameter SI.MassFraction[data_traceSubstances.nC] C_start_pumpBowl_PFL= cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
- parameter SI.MassFraction[pipeToPHX_PFL.nV,data_traceSubstances.nC] Cs_start_pipeToPHX_PFL = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:pipeToPHX_PFL.nV};
- parameter SI.MassFraction[PHX.tube.nV,data_traceSubstances.nC] Cs_start_PHX_tube = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:PHX.tube.nV};
- parameter SI.MassFraction[pipeFromPHX_PFL.nV,data_traceSubstances.nC] Cs_start_pipeFromPHX_PFL = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:pipeFromPHX_PFL.nV};
+parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_tee_inlet = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
+parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_plenum_lower = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
+parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA_lower = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflA_lower.nV};
+ parameter SIadd.ExtraProperty[fuelCell.nV,data_traceSubstances.nC] Cs_start_fuelCell = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:fuelCell.nV};
+ parameter SIadd.ExtraProperty[reflR.nV,data_traceSubstances.nC] Cs_start_reflR = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflR.nV};
+ parameter SIadd.ExtraProperty[reflA_upper.nV,data_traceSubstances.nC] Cs_start_reflA_upper = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflA_upper.nV};
+ parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_plenum_upper = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
+ parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_pumpBowl_PFL= cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
+ parameter SIadd.ExtraProperty[pipeToPHX_PFL.nV,data_traceSubstances.nC] Cs_start_pipeToPHX_PFL = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:pipeToPHX_PFL.nV};
+ parameter SIadd.ExtraProperty[PHX.tube.nV,data_traceSubstances.nC] Cs_start_PHX_tube = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:PHX.tube.nV};
+ parameter SIadd.ExtraProperty[pipeFromPHX_PFL.nV,data_traceSubstances.nC] Cs_start_pipeFromPHX_PFL = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:pipeFromPHX_PFL.nV};
 
   // Gathered info
   SI.Power Qt_total = sum(kinetics.Qs) "Total thermal power output (from primary fission)";
@@ -59,40 +59,40 @@ parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
   // Trace Substance Calculations: PFL
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet = {-data_traceSubstances.lambdas[j]*tee_inlet.mC[j] + mC_gen_tee_inlet_PtoD[j] for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_lower = {-data_traceSubstances.lambdas[j]*plenum_lower.mC[j] + mC_gen_plenum_lower_PtoD[j] for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[reflA_lower.nV,data_traceSubstances.nC] mC_gens_reflA_lower = {{-data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j]*reflA_lower.nParallel + mC_gens_reflA_lower_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflA_lower.nV};
-  SI.MassFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_fuelCell = cat(2, kinetics.mC_gens, kinetics.mC_gens_FP,kinetics.mC_gens_TR);
-  SI.MassFlowRate[reflR.nV,data_traceSubstances.nC] mC_gens_reflR = {{-data_traceSubstances.lambdas[j]*reflR.mCs[i, j]*reflR.nParallel + mC_gens_reflR_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflR.nV};
-  SI.MassFlowRate[reflA_upper.nV,data_traceSubstances.nC] mC_gens_reflA_upper = {{-data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j]*reflA_upper.nParallel + mC_gens_reflA_upper_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflA_upper.nV};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_upper = {-data_traceSubstances.lambdas[j]*plenum_upper.mC[j] + mC_gen_plenum_upper_PtoD[j] for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_pumpBowl_PFL={-data_traceSubstances.lambdas[j]*pumpBowl_PFL.mC[j]*3 + mC_flows_fromOG[j] + mC_gen_pumpBowl_PFL_PtoD[j] for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[pipeToPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeToPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeToPHX_PFL.mCs[i, j]*pipeToPHX_PFL.nParallel + mC_gens_pipeToPHX_PFL_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:pipeToPHX_PFL.nV};
-  SI.MassFlowRate[PHX.tube.nV,data_traceSubstances.nC] mC_gens_PHX_tube = {{-data_traceSubstances.lambdas[j]*PHX.tube.mCs[i, j]*PHX.tube.nParallel + mC_gens_PHX_tube_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:PHX.tube.nV};
-  SI.MassFlowRate[pipeFromPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeFromPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeFromPHX_PFL.mCs[i, j]*pipeFromPHX_PFL.nParallel + mC_gens_pipeFromPHX_PFL_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:pipeFromPHX_PFL.nV};
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet = {-data_traceSubstances.lambdas[j]*tee_inlet.mC[j] + mC_gen_tee_inlet_PtoD[j] for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_plenum_lower = {-data_traceSubstances.lambdas[j]*plenum_lower.mC[j] + mC_gen_plenum_lower_PtoD[j] for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[reflA_lower.nV,data_traceSubstances.nC] mC_gens_reflA_lower = {{-data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j]*reflA_lower.nParallel + mC_gens_reflA_lower_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflA_lower.nV};
+  SIadd.ExtraPropertyFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_fuelCell = cat(2, kinetics.mC_gens, kinetics.mC_gens_FP,kinetics.mC_gens_TR);
+  SIadd.ExtraPropertyFlowRate[reflR.nV,data_traceSubstances.nC] mC_gens_reflR = {{-data_traceSubstances.lambdas[j]*reflR.mCs[i, j]*reflR.nParallel + mC_gens_reflR_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflR.nV};
+  SIadd.ExtraPropertyFlowRate[reflA_upper.nV,data_traceSubstances.nC] mC_gens_reflA_upper = {{-data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j]*reflA_upper.nParallel + mC_gens_reflA_upper_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflA_upper.nV};
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_plenum_upper = {-data_traceSubstances.lambdas[j]*plenum_upper.mC[j] + mC_gen_plenum_upper_PtoD[j] for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_pumpBowl_PFL={-data_traceSubstances.lambdas[j]*pumpBowl_PFL.mC[j]*3 + mC_flows_fromOG[j] + mC_gen_pumpBowl_PFL_PtoD[j] for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[pipeToPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeToPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeToPHX_PFL.mCs[i, j]*pipeToPHX_PFL.nParallel + mC_gens_pipeToPHX_PFL_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:pipeToPHX_PFL.nV};
+  SIadd.ExtraPropertyFlowRate[PHX.tube.nV,data_traceSubstances.nC] mC_gens_PHX_tube = {{-data_traceSubstances.lambdas[j]*PHX.tube.mCs[i, j]*PHX.tube.nParallel + mC_gens_PHX_tube_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:PHX.tube.nV};
+  SIadd.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeFromPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeFromPHX_PFL.mCs[i, j]*pipeFromPHX_PFL.nParallel + mC_gens_pipeFromPHX_PFL_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:pipeFromPHX_PFL.nV};
 
   // Trace Substances Parent->Daughter contribution
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet_PtoD = {sum({data_traceSubstances.lambdas[k].*tee_inlet.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_lower_PtoD= {sum({data_traceSubstances.lambdas[k].*plenum_lower.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[reflA_lower.nV,data_traceSubstances.nC] mC_gens_reflA_lower_PtoD = {{sum({data_traceSubstances.lambdas[k].*reflA_lower.mCs[i,k].*reflA_lower.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:reflA_lower.nV};
-  //SI.MassFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_fuelCell_PtoD = {{sum({data_traceSubstances.lambdas[k].*fuelCell.mCs[i,k].*fuelCell.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:fuelCell.nV};
-  SI.MassFlowRate[reflR.nV,data_traceSubstances.nC] mC_gens_reflR_PtoD= {{sum({data_traceSubstances.lambdas[k].*reflR.mCs[i,k].*reflR.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:reflR.nV};
-  SI.MassFlowRate[reflA_upper.nV,data_traceSubstances.nC] mC_gens_reflA_upper_PtoD= {{sum({data_traceSubstances.lambdas[k].*reflA_upper.mCs[i,k].*reflA_upper.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:reflA_upper.nV};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_upper_PtoD= {sum({data_traceSubstances.lambdas[k].*plenum_upper.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_pumpBowl_PFL_PtoD= {sum({data_traceSubstances.lambdas[k].*pumpBowl_PFL.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[pipeToPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeToPHX_PFL_PtoD = {{sum({data_traceSubstances.lambdas[k].*pipeToPHX_PFL.mCs[i,k].*pipeToPHX_PFL.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:pipeToPHX_PFL.nV};
-  SI.MassFlowRate[PHX.tube.nV,data_traceSubstances.nC] mC_gens_PHX_tube_PtoD = {{sum({data_traceSubstances.lambdas[k].*PHX.tube.mCs[i,k].*PHX.tube.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:PHX.tube.nV};
-  SI.MassFlowRate[pipeFromPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeFromPHX_PFL_PtoD = {{sum({data_traceSubstances.lambdas[k].*pipeFromPHX_PFL.mCs[i,k].*pipeFromPHX_PFL.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:pipeFromPHX_PFL.nV};
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet_PtoD = {sum({data_traceSubstances.lambdas[k].*tee_inlet.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_plenum_lower_PtoD= {sum({data_traceSubstances.lambdas[k].*plenum_lower.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[reflA_lower.nV,data_traceSubstances.nC] mC_gens_reflA_lower_PtoD = {{sum({data_traceSubstances.lambdas[k].*reflA_lower.mCs[i,k].*reflA_lower.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:reflA_lower.nV};
+  //SIadd.ExtraPropertyFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_fuelCell_PtoD = {{sum({data_traceSubstances.lambdas[k].*fuelCell.mCs[i,k].*fuelCell.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:fuelCell.nV};
+  SIadd.ExtraPropertyFlowRate[reflR.nV,data_traceSubstances.nC] mC_gens_reflR_PtoD= {{sum({data_traceSubstances.lambdas[k].*reflR.mCs[i,k].*reflR.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:reflR.nV};
+  SIadd.ExtraPropertyFlowRate[reflA_upper.nV,data_traceSubstances.nC] mC_gens_reflA_upper_PtoD= {{sum({data_traceSubstances.lambdas[k].*reflA_upper.mCs[i,k].*reflA_upper.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:reflA_upper.nV};
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_plenum_upper_PtoD= {sum({data_traceSubstances.lambdas[k].*plenum_upper.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_pumpBowl_PFL_PtoD= {sum({data_traceSubstances.lambdas[k].*pumpBowl_PFL.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[pipeToPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeToPHX_PFL_PtoD = {{sum({data_traceSubstances.lambdas[k].*pipeToPHX_PFL.mCs[i,k].*pipeToPHX_PFL.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:pipeToPHX_PFL.nV};
+  SIadd.ExtraPropertyFlowRate[PHX.tube.nV,data_traceSubstances.nC] mC_gens_PHX_tube_PtoD = {{sum({data_traceSubstances.lambdas[k].*PHX.tube.mCs[i,k].*PHX.tube.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:PHX.tube.nV};
+  SIadd.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeFromPHX_PFL_PtoD = {{sum({data_traceSubstances.lambdas[k].*pipeFromPHX_PFL.mCs[i,k].*pipeFromPHX_PFL.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:pipeFromPHX_PFL.nV};
 
   // TraceSubstance Calculations: Off-Gas and Drain Tank
   SI.MassFlowRate m_flow_toDrainTank = data_OFFGAS.V_flow_sep_salt_total*Medium_PFL.density_ph(pump_PFL.port_b.p, pump_PFL.port_b.h_outflow) "Mass flow rate of salt to drain tank (+)";
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_gas=-data_traceSubstances.lambdas.*drainTank_gas.mC + mC_gen_drainTank_gas_PtoD;
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid=-data_traceSubstances.lambdas.*drainTank_liquid.mC + mC_gen_drainTank_liquid_PtoD;
-  SI.MassFlowRate[data_traceSubstances.nC] mC_flows_fromOG = abs(pump_OffGas_bypass.port_b.m_flow).*pump_OffGas_bypass.port_b.C_outflow+abs(pump_OffGas_adsorberBed.port_b.m_flow).*pump_OffGas_adsorberBed.port_b.C_outflow;
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_drainTank_gas=-data_traceSubstances.lambdas.*drainTank_gas.mC + mC_gen_drainTank_gas_PtoD;
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid=-data_traceSubstances.lambdas.*drainTank_liquid.mC + mC_gen_drainTank_liquid_PtoD;
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_flows_fromOG = abs(pump_OffGas_bypass.port_b.m_flow).*pump_OffGas_bypass.port_b.C_outflow+abs(pump_OffGas_adsorberBed.port_b.m_flow).*pump_OffGas_adsorberBed.port_b.C_outflow;
 
   // Trace Substances Parent->Daughter contribution:  Off-Gas and Drain Tank
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_gas_PtoD = {sum({data_traceSubstances.lambdas[k].*drainTank_gas.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid_PtoD = {sum({data_traceSubstances.lambdas[k].*drainTank_liquid.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_drainTank_gas_PtoD = {sum({data_traceSubstances.lambdas[k].*drainTank_gas.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid_PtoD = {sum({data_traceSubstances.lambdas[k].*drainTank_liquid.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
 
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_OffGas_sink(
     redeclare package Medium = Medium_OffGas,
@@ -128,8 +128,8 @@ parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA
     redeclare model InternalHeatGen =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=kinetics.Qs + kinetics.Qs_FP),
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    redeclare model InternalTraceGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_fuelCell),
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -157,8 +157,8 @@ parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     showName=systemTF.showName,
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    redeclare model InternalTraceGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflA_upper),
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -206,8 +206,8 @@ parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     showName=systemTF.showName,
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    redeclare model InternalTraceGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflA_lower),
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -414,8 +414,8 @@ parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA
         dheight=toggleStaticHead*data_PIPING.height_PHXToRCTR),
     m_flow_a_start=2*3*data_PHX.m_flow_tube,
     showName=systemTF.showName,
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    redeclare model InternalTraceGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_pipeFromPHX_PFL),
     Cs_start=Cs_start_pipeFromPHX_PFL)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
@@ -454,8 +454,8 @@ parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA
         S_T=data_PHX.pitch_tube,
         S_L=data_PHX.pitch_tube,
         CF=fill(0.44, PHX.shell.heatTransfer.nHT)),
-    redeclare model InternalTraceMassGen_tube =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    redeclare model InternalTraceGen_tube =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_PHX_tube),
     Cs_start_tube=Cs_start_PHX_tube)       annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -476,8 +476,8 @@ parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA
         dheight=toggleStaticHead*data_PIPING.height_pumpToPHX),
     m_flow_a_start=2*3*data_PHX.m_flow_tube,
     showName=systemTF.showName,
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    redeclare model InternalTraceGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_pipeToPHX_PFL),
     Cs_start=Cs_start_pipeToPHX_PFL)                            annotation (
       Placement(transformation(
@@ -816,8 +816,8 @@ parameter SI.MassFraction[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA
     showName=systemTF.showName,
     nParallel=data_RCTR.nRegions,
     m_flow_a_start=0.05*data_RCTR.m_flow,
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    redeclare model InternalTraceGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflR),
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe

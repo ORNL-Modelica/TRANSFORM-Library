@@ -61,10 +61,10 @@ model SystemTF
       tab="Initialization",
       group="Start Value: Species Mass Fraction",
       enable=Medium.nXi > 0));
-  parameter SI.MassFraction C_start[Medium.nC]=fill(0, Medium.nC)
-    "Mass fraction" annotation (Dialog(
+  parameter SIadd.ExtraProperty C_start[Medium.nC]=fill(0, Medium.nC)
+    "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
-      group="Start Value: Trace Substances Mass Fraction",
+      group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
 
   parameter SI.MassFlowRate m_flow_start = 0 "Mass flow rate"

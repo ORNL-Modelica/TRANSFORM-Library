@@ -12,10 +12,12 @@ model StuckOpenPilotReliefValve
 
   // Models
   Modelica.Fluid.Sources.MassFlowSource_h spray(nPorts=1, redeclare package
-      Medium = Medium)
+              Medium =
+               Medium)
     annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
   Modelica.Fluid.Sources.MassFlowSource_h relief(nPorts=1, redeclare package
-      Medium = Medium)
+              Medium =
+               Medium)
     annotation (Placement(transformation(extent={{48,50},{28,70}})));
   Modelica.Fluid.Sources.MassFlowSource_T insurge(nPorts=1,
     redeclare package Medium = Medium,
@@ -76,7 +78,8 @@ model StuckOpenPilotReliefValve
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Data_Geometry data
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Units.Conversions.Models.Conversion conversion(redeclare function convert =
+  Units.Conversions.Models.Conversion conversion(redeclare function
+      convert =
         Units.Conversions.Functions.Pressure_Pa.from_bar)
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 equation

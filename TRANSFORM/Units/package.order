@@ -16,3 +16,7 @@ MolarRxnRatePerVolume
 MolarRxnRatePerMass
 MolePerMass
 FissionEnergy
+ExtraProperty
+ExtraPropertyFlowRate
+ExtraPropertyConcentration
+ExtraPropertyExtrinsic

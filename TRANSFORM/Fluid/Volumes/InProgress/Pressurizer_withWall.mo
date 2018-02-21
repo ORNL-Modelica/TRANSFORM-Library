@@ -97,13 +97,16 @@ model Pressurizer_withWall
     massDynamics=massDynamics)
     annotation (Placement(transformation(extent={{-26,-30},{26,30}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_b sprayPort(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_b sprayPort(redeclare package
+      Medium =
         Medium)
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_b reliefPort(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_b reliefPort(redeclare package
+      Medium =
         Medium)
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_b surgePort(redeclare package Medium =
+  Modelica.Fluid.Interfaces.FluidPort_b surgePort(redeclare package
+      Medium =
         Medium)
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 

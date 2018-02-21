@@ -52,12 +52,12 @@ model TraceSeparator
       iSep,
       fill(1, nSep) - eta);
 
-  SI.MassFlowRate[Medium.nC] mC_flows
+  SIadd.ExtraPropertyFlowRate[Medium.nC] mC_flows
     "Flow rate of substances before separation";
-  SI.MassFlowRate[Medium.nC] mC_flows_sep "Flow rate of substances separated";
-   SI.MassFlowRate[Medium.nC] mC_flows_notSep
+  SIadd.ExtraPropertyFlowRate[Medium.nC] mC_flows_sep "Flow rate of substances separated";
+   SIadd.ExtraPropertyFlowRate[Medium.nC] mC_flows_notSep
      "Flow rate of substances not separated";
-  SI.MassFraction[Medium.nC] Cs_notSep
+  SIadd.ExtraProperty[Medium.nC] Cs_notSep
      "Concentration of substances after separation";
 
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));

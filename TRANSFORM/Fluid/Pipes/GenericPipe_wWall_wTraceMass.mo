@@ -143,7 +143,7 @@ model GenericPipe_wWall_wTraceMass
     redeclare model InternalHeatGen = InternalHeatGen,
     use_TraceMassTransfer=use_TraceMassTransfer,
     redeclare model TraceMassTransfer = TraceMassTransfer,
-    redeclare model InternalTraceMassGen = InternalTraceMassGen,
+    redeclare model InternalTraceGen = InternalTraceGen,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
     traceDynamics=traceDynamics,

@@ -59,8 +59,8 @@ model Condenser
     "Coolant start temperature"
     annotation (Dialog(tab="Initialization", group="Coolant"));
   parameter SI.Temperature X_start_coolant[Medium_coolant.nX] = Medium_coolant.X_default "Coolant start temperature" annotation(Dialog(tab="Initialization",group="Coolant"));
-  parameter SI.MassFraction C_start_coolant[Medium_coolant.nC]=fill(0, Medium_coolant.nC)
-    "Mass fraction" annotation (Dialog(
+  parameter SIadd.ExtraProperty C_start_coolant[Medium_coolant.nC]=fill(0, Medium_coolant.nC)
+    "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
       group="Coolant",
       enable=Medium_coolant.nC > 0));

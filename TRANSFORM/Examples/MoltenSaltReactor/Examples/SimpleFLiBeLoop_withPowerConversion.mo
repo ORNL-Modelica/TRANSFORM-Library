@@ -84,7 +84,7 @@ model SimpleFLiBeLoop_withPowerConversion
         Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=kinetics.Qs),
     redeclare model InternalTraceMassGen =
-        Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=kinetics.mC_gens),
     T_a_start=573.15,
     T_b_start=773.15,
@@ -103,7 +103,7 @@ model SimpleFLiBeLoop_withPowerConversion
     counterCurrent=true,
     use_HeatTransferOuter=true,
     redeclare model InternalTraceMassGen =
-        Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens={{-kinetics.lambda_i[j]*downcomer.pipe.mCs[i, j] for j in 1:
             kinetics.nI} for i in 1:downcomer.pipe.nV}),
     redeclare model Geometry =

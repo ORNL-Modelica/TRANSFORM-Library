@@ -47,10 +47,10 @@ partial model PartialVolume_wlevelold "Base class for volume models"
       tab="Initialization",
       group="Start Value: Species Mass Fraction",
       enable=Medium.nXi > 0));
-  parameter SI.MassFraction C_start[Medium.nC]=fill(0, Medium.nC)
-    "Mass fraction" annotation (Dialog(
+  parameter SIadd.ExtraProperty C_start[Medium.nC]=fill(0, Medium.nC)
+    "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
-      group="Start Value: Trace Substances Mass Fraction",
+      group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
 
   Medium.BaseProperties medium(
@@ -70,13 +70,13 @@ partial model PartialVolume_wlevelold "Base class for volume models"
   SI.Mass m "Mass";
   SI.InternalEnergy U "Internal energy";
   SI.Mass mXi[Medium.nXi] "Species mass";
-  SI.Mass mC[Medium.nC] "Trace substance mass";
+  SIadd.ExtraPropertyExtrinsic mC[Medium.nC] "Trace substance extrinsic value";
   SI.Mass[Medium.nC] mC_scaled "Scaled trace substance mass for improved numerical stability";
 
   // C has the additional parameter because it is not included in the medium
   // i.e.,Xi has medium[:].Xi but there is no variable medium[:].C
-  SI.MassFraction C[Medium.nC](stateSelect=StateSelect.prefer, start=C_start)
-    "Trace substance mass fraction";
+  SIadd.ExtraProperty C[Medium.nC](stateSelect=StateSelect.prefer, start=C_start)
+    "Trace substance mass-specific value";
 
   // Mass Balance
   SI.MassFlowRate mb "Mass flow rate source/sinks within volumes";
@@ -90,8 +90,8 @@ partial model PartialVolume_wlevelold "Base class for volume models"
     "Species mass flow rates source/sinks within volumes";
 
   // Trace Balance
-  SI.MassFlowRate mCb[Medium.nC]
-    "Trace mass flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
+  SIadd.ExtraPropertyFlowRate mCb[Medium.nC]
+    "Trace flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
 
 protected
   parameter Boolean initialize_p=not Medium.singleState

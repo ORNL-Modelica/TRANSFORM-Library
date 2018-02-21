@@ -35,14 +35,14 @@ model MixingVolume
   SI.HeatFlowRate H_flows_a[nPorts_a] "Enthalpy flow rates at port_a";
   SI.MassFlowRate mXi_flows_a[nPorts_a,Medium.nXi]
     "Species mass flow rates at port_a";
-  SI.MassFlowRate mC_flows_a[nPorts_a,Medium.nC]
-    "Trace substance mass flow rates at port_a";
+  SIadd.ExtraPropertyFlowRate mC_flows_a[nPorts_a,Medium.nC]
+    "Trace substance flow rates at port_a";
 
   SI.HeatFlowRate H_flows_b[nPorts_b] "Enthalpy flow rates at port_b";
   SI.MassFlowRate mXi_flows_b[nPorts_b,Medium.nXi]
     "Species mass flow rates at port_b";
-  SI.MassFlowRate mC_flows_b[nPorts_b,Medium.nC]
-    "Trace substance mass flow rates at port_b";
+  SIadd.ExtraPropertyFlowRate mC_flows_b[nPorts_b,Medium.nC]
+    "Trace substance flow rates at port_b";
 
   parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced",group="Heat Transfer"),Evaluate=true);
   input SI.HeatFlowRate Q_gen=0 "Internal heat generation" annotation(Dialog(tab="Advanced",group="Heat Transfer"));
@@ -51,7 +51,7 @@ model MixingVolume
   parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
     "Trace substances molar mass"
     annotation (Dialog(tab="Advanced",group="Trace Mass Transfer", enable=use_TraceMassPort));
-  input SI.MassFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
+  input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
     annotation (Dialog(tab="Advanced",group="Trace Mass Transfer"));
 
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=medium.T, Q_flow=
@@ -70,7 +70,7 @@ model MixingVolume
 
 protected
   SI.HeatFlowRate Q_flow_internal;
-  SI.MassFlowRate mC_flow_internal[Medium.nC];
+  SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
 
 equation
 

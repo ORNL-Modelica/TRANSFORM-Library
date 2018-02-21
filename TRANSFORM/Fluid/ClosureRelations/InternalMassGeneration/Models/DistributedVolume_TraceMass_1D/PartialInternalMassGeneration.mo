@@ -10,7 +10,7 @@ partial model PartialInternalMassGeneration
 
   input Medium.ThermodynamicState[nV] states "Volume thermodynamic state"
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
-  input SI.MassFraction Cs[nV,Medium.nC] "Trace mass fraction  in volumes"
+  input SIadd.ExtraProperty Cs[nV,Medium.nC] "Trace mass-specific value  in volumes"
     annotation (Dialog(group="Input Variables", tab="Internal Interface"));
   input SI.Volume Vs[nV]
     "Volumes"
@@ -25,7 +25,7 @@ partial model PartialInternalMassGeneration
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
 
   // Variables defined by model
-  output SI.MassFlowRate mC_flows[nV,Medium.nC] "Internal mass generation"
+  output SIadd.ExtraPropertyFlowRate mC_flows[nV,Medium.nC] "Internal mass generation"
     annotation (Dialog(
       group="Output Variables",
       tab="Internal Interface",

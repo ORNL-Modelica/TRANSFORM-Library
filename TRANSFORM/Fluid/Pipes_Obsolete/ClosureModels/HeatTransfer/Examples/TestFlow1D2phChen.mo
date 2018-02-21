@@ -22,7 +22,8 @@ model TestFlow1D2phChen "Test case for Flow1D2phChen"
   // friction factor
   parameter Real Cfpipe=0.005;
 
-  ThermoPower.Water.ValveLin valve(Kv=0.05/60e5, redeclare package Medium =
+  ThermoPower.Water.ValveLin valve(Kv=0.05/60e5, redeclare package
+      Medium =
         Modelica.Media.Water.StandardWater)      annotation (Placement(
         transformation(extent={{30,-70},{50,-50}}, rotation=0)));
   Modelica.Blocks.Sources.Ramp extTemp1(

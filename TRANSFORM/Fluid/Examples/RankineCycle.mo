@@ -70,7 +70,8 @@ model RankineCycle
       package Medium =
                Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-90,-67},{-70,-47}})));
-  TRANSFORM.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package Medium =
+  TRANSFORM.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package
+      Medium =
         Modelica.Media.Water.StandardWater)        annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

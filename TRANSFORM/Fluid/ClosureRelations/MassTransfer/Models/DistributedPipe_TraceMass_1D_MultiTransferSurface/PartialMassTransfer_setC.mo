@@ -20,7 +20,7 @@ partial model PartialMassTransfer_setC "Base model"
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
   input SI.Temperature Ts_wall[nMT,nSurfaces] "Wall temperature"
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
-  input SI.Concentration CsM_fluid[nMT,Medium.nC]
+  input SIadd.ExtraProperty CsM_fluid[nMT,Medium.nC]
     "Fluid trace substance mass fraction"
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
 
@@ -40,12 +40,12 @@ partial model PartialMassTransfer_setC "Base model"
   input SI.Area surfaceAreas[nMT,nSurfaces] "Surface area for transfer"
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
 
-  parameter SI.MassFraction CsM_start[nMT,Medium.nC]
-    "Initial Trace substance mass fraction"
+  parameter SIadd.ExtraProperty CsM_start[nMT,Medium.nC]
+    "Initial Trace substance mass-specific value"
     annotation (Dialog(tab="Internal Interface", group="Initialization"));
 
-  parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
-    "Trace substances molar mass";
+  parameter Real MMs[Medium.nC]=fill(1, Medium.nC)
+    "Conversion from fluid mass-specific value to moles (e.g., molar mass [kg/mol] or Avogadro's number [atoms/mol])";
 
   replaceable model DiffusionCoeff =
       TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
@@ -80,13 +80,14 @@ partial model PartialMassTransfer_setC "Base model"
   Units.SherwoodNumber Shs[nMT,nSurfaces,Medium.nC] "Sherwood number";
   SI.MolarFlowRate nC_flows[nMT,nSurfaces,Medium.nC]=massPorts.n_flow/nParallel
     "Molar flow rate";
-  SI.MassFlowRate mC_flows[nMT,nSurfaces,Medium.nC] "Mass flow rate";
+  SIadd.ExtraPropertyFlowRate mC_flows[nMT,nSurfaces,Medium.nC] "Mass flow rate";
 
   HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts[nMT,nSurfaces](each nC=
        Medium.nC) annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
 
 protected
+  constant SIadd.Mole toMole_unitConv = 1;
   final parameter SI.ReynoldsNumber Re_center=0.5*(Re_lam + Re_turb)
     "Re smoothing transition center";
   final parameter SI.ReynoldsNumber Re_width=Re_turb - Re_center
@@ -95,9 +96,9 @@ protected
 equation
 
   for i in 1:nMT loop
-    Cs_fluid[i, :] = CsM_fluid[i, :] .* Medium.density(states[i]) ./ MMs[:];
+    Cs_fluid[i, :] = CsM_fluid[i, :] .* Medium.density(states[i]) ./ MMs[:].*toMole_unitConv;
     for j in 1:nSurfaces loop
-      mC_flows[i, j, :] = nC_flows[i, j, :] .* MMs[:];
+      mC_flows[i, j, :] = nC_flows[i, j, :] .* MMs[:].*toMole_unitConv;
     end for;
   end for;
 

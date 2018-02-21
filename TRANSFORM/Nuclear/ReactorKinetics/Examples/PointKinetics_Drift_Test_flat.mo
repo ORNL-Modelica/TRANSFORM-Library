@@ -22,9 +22,9 @@ model PointKinetics_Drift_Test_flat
   parameter SI.Density[core.nV] rhos = Medium.density_pT(ps,Tsr);
   parameter SI.Density[loop_.nV] rhos1 = Medium.density_pT(ps1,Tsr1);
 
-  SI.MassFlowRate[loop_.nV,data_traceSubstances.nC] mC_gens_pipe1 = {{-data_traceSubstances.lambdas[j]*loop_.mCs[
+  SIadd.ExtraPropertyFlowRate [loop_.nV,data_traceSubstances.nC] mC_gens_pipe1 = {{-data_traceSubstances.lambdas[j]*loop_.mCs[
       i, j]                                                                                                           *loop_.nParallel + mC_gens_pipe1_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:loop_.nV};
-  SI.MassFlowRate[loop_.nV,data_traceSubstances.nC] mC_gens_pipe1_PtoD = {{sum({data_traceSubstances.lambdas[k].*loop_.mCs[
+  SIadd.ExtraPropertyFlowRate[loop_.nV,data_traceSubstances.nC] mC_gens_pipe1_PtoD = {{sum({data_traceSubstances.lambdas[k].*loop_.mCs[
       i, k]                                                                                                                    .*loop_.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:loop_.nV};
 
   SI.Temperature[core.nV] Ts=core.mediums.T;
@@ -64,8 +64,8 @@ protected
     p_a_start=100000,
     T_a_start=573.15,
     T_b_start=773.15,
-    redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    redeclare model InternalTraceGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=cat(
             2,
             core_kinetics.mC_gens,
@@ -85,8 +85,8 @@ protected
         nV=10,
         dimensions=Ds1,
         dlengths=fill(L/loop_.nV,loop_.nV)),
-    redeclare model InternalTraceMassGen =
-        Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+    redeclare model InternalTraceGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_pipe1),
     p_a_start=100000,
     T_a_start=773.15,

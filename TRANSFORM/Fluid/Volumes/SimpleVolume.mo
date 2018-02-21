@@ -34,7 +34,7 @@ model SimpleVolume
   parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
     "Trace substances molar mass"
     annotation (Dialog(tab="Advanced",group="Trace Mass Transfer", enable=use_TraceMassPort));
-  input SI.MassFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
+  input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
     annotation (Dialog(tab="Advanced",group="Trace Mass Transfer"));
 
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=medium.T, Q_flow=
@@ -53,7 +53,7 @@ model SimpleVolume
 
 protected
   SI.HeatFlowRate Q_flow_internal;
-  SI.MassFlowRate mC_flow_internal[Medium.nC];
+  SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
 
 equation
 

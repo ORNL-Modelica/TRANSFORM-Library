@@ -3,5 +3,5 @@ PressureLoss
 HeatTransfer
 MassTransfer
 InternalVolumeHeatGeneration
-InternalMassGeneration
+InternalTraceGeneration
 PumpCharacteristics

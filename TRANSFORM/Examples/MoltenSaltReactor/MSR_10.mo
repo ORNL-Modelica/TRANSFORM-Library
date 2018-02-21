@@ -99,7 +99,7 @@ model MSR_10
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=kinetics.Qs + kinetics.Qs_FP),
     redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_fuelCell),
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -127,7 +127,7 @@ model MSR_10
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     showName=systemTF.showName,
     redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflA_upper),
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -174,7 +174,7 @@ model MSR_10
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     showName=systemTF.showName,
     redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflA_lower),
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -379,7 +379,7 @@ model MSR_10
     m_flow_a_start=2*3*data_PHX.m_flow_tube,
     showName=systemTF.showName,
     redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_pipeFromPHX_PFL))
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
@@ -418,7 +418,7 @@ model MSR_10
         S_L=data_PHX.pitch_tube,
         CF=fill(0.44, PHX.shell.heatTransfer.nHT)),
     redeclare model InternalTraceMassGen_tube =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_PHX_tube))        annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -439,7 +439,7 @@ model MSR_10
     m_flow_a_start=2*3*data_PHX.m_flow_tube,
     showName=systemTF.showName,
     redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_pipeToPHX_PFL))                        annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -773,7 +773,7 @@ model MSR_10
     nParallel=data_RCTR.nRegions,
     m_flow_a_start=0.05*data_RCTR.m_flow,
     redeclare model InternalTraceMassGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflR),
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe

@@ -70,9 +70,9 @@ model TraceDecayAdsorberBed
   parameter SI.Temperature T_b_start=T_a_start "Temperature at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
 
-  SI.MassFlowRate mC_flows[nV + 1,Medium.nC]
+  SIadd.ExtraPropertyFlowRate mC_flows[nV + 1,Medium.nC]
     "Trace substance flow rate between volumes";
-  SI.MassFlowRate mCs_decay[nV,Medium.nC]
+  SIadd.ExtraPropertyFlowRate mCs_decay[nV,Medium.nC]
     "Amount of substance decayed across each volume";
   SI.HeatFlowRate Qs_perC[nV,Medium.nC]
     "Heat released from decay per volume per substance";
@@ -98,7 +98,7 @@ model TraceDecayAdsorberBed
     annotation (Placement(transformation(extent={{-10,50},{10,70}}),
         iconTransformation(extent={{-10,40},{10,60}})));
 
-  //SI.Mass mCs[nV,Medium.nC] "Trace substance mass";
+  //SIadd.ExtraPropertyExtrinsic mCs[nV,Medium.nC] "Trace substance extrinsic value";
 
 protected
   SI.HeatFlowRate[nV] Q_flows_internal;

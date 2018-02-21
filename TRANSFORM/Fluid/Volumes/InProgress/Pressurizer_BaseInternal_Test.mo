@@ -20,7 +20,8 @@ model Pressurizer_BaseInternal_Test
     nPorts=1)
     annotation (Placement(transformation(extent={{-48,-70},{-28,-50}})));
   Modelica.Fluid.Sources.MassFlowSource_h relief(          redeclare package
-      Medium = Modelica.Media.Water.StandardWater,
+              Medium =
+               Modelica.Media.Water.StandardWater,
     h=relief.Medium.dewEnthalpy(relief.Medium.setSat_p(system.p_start)),
     nPorts=1)
     annotation (Placement(transformation(extent={{48,50},{28,70}})));

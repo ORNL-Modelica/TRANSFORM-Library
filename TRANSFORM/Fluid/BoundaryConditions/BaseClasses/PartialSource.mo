@@ -15,7 +15,8 @@ partial model PartialSource
   Medium.BaseProperties medium "Medium in the source";
 
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](redeclare each package
-      Medium = Medium, m_flow(each max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
+              Medium =
+               Medium, m_flow(each max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
            then 0 else +Constants.inf, each min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
            then 0 else -Constants.inf))
     annotation (Placement(transformation(extent={{90,40},{110,-40}})));
