@@ -10,7 +10,7 @@ model BiotNumber_general
   input SI.Area surfaceArea "Heat transfer surface area" annotation(Dialog(group="Input Variables",enable = not use_R_cond_int));
   input SI.ThermalResistance R_cond_int = L/(lambda*surfaceArea) "Internal conduction resistance" annotation(Dialog(group="Input Variables",enable = use_R_cond_int));
 
-  Units.nonDim Bi "Biot number";
+  Units.NonDim Bi "Biot number";
 
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));

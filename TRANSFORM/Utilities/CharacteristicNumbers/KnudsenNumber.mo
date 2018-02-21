@@ -5,7 +5,7 @@ function KnudsenNumber "Returns Knudsen number"
   input SI.Length L_ms "Distance between energy carrier interactions";
   input SI.Length L_char "Length scale that characterizes the problem";
 
-  output Units.nonDim Kn "Jakob number";
+  output Units.NonDim Kn "Jakob number";
 algorithm
   Kn := L_ms/L_char;
 

@@ -10,6 +10,8 @@ simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.InverseParameterization",output
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.PumpingSystem",outputInterval=0.4,stopTime=2000,tolerance=1e-006,resultFile="PumpingSystem");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.RoomCO2WithControls",stopTime=86400,tolerance=1e-006,method="Esdirk45a",resultFile="RoomCO2WithControls");
 simulateModel("TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.SystemVariableHeatLoad",stopTime=25000,tolerance=1e-005,resultFile="SystemVariableHeatLoad");
+simulateModel("TRANSFORM.Fluid.Examples.TritiumExamples.HumTest",stopTime=100,resultFile="HumTest");
+simulateModel("TRANSFORM.Fluid.Examples.TritiumExamples.PbLiTest2",stopTime=100,resultFile="PbLiTest2");
 simulateModel("TRANSFORM.Fluid.Examples.NaturalCirculation",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NaturalCirculation");
 simulateModel("TRANSFORM.Fluid.Examples.NaturalCirculation2",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NaturalCirculation2");
 simulateModel("TRANSFORM.Fluid.Examples.RankineCycle",resultFile="RankineCycle");
@@ -25,6 +27,8 @@ simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipesTests.nParallel_withWa
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipesTests.withWall",stopTime=100,resultFile="withWall");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipesTests.withWallTrace",stopTime=100,method="Esdirk45a",resultFile="withWallTrace");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.UseOfGeometryModel",stopTime=1,resultFile="UseOfGeometryModel");
+simulateModel("TRANSFORM.Fluid.TraceComponents.Examples.TraceDecayAdsorberBed_Test",stopTime=100,resultFile="TraceDecayAdsorberBed_Test");
+simulateModel("TRANSFORM.Fluid.TraceComponents.Examples.TraceSeparator_Test",resultFile="TraceSeparator_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.Condenser_Test",stopTime=1000,tolerance=1e-008,resultFile="Condenser_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.ExpansionTank2_Test",stopTime=100,resultFile="ExpansionTank2_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.ExpansionTank_Test",stopTime=100,resultFile="ExpansionTank_Test");
@@ -72,8 +76,12 @@ simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ResistanceCheck",numberOfI
 simulateModel("TRANSFORM.HeatExchangers.Examples.OilWater_CTHX",stopTime=1000,numberOfIntervals=1000,resultFile="OilWater_CTHX");
 simulateModel("TRANSFORM.HeatExchangers.Examples.OilWater_PTHX",stopTime=1000,numberOfIntervals=1000,resultFile="OilWater_PTHX");
 simulateModel("TRANSFORM.HeatExchangers.Examples.SteamWater_HCSG",stopTime=1000,numberOfIntervals=1000,resultFile="SteamWater_HCSG");
+simulateModel("TRANSFORM.HeatExchangers.Examples.UAdT_lm_Example_11_1",resultFile="UAdT_lm_Example_11_1");
 simulateModel("TRANSFORM.HeatExchangers.Examples.WaterWater_STHX",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="WaterWater_STHX");
+simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_12Th_05U_pT",resultFile="LinearFLiBe_12Th_05U_pT");
+simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_9999Li7",resultFile="LinearFLiBe_9999Li7");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_pT",resultFile="LinearFLiBe_pT");
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test",stopTime=1000,numberOfIntervals=1000,resultFile="PointKinetics_Drift_Test");
+simulateModel("TRANSFORM.Media.Fluids.Examples.LinearNaK_22_78",resultFile="LinearNaK_22_78");
+simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_flat",stopTime=100000000,numberOfIntervals=10000,resultFile="PointKinetics_Drift_Test_flat");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Test",stopTime=10,numberOfIntervals=1000,resultFile="PointKinetics_Test");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_vs_ApproximateOneGroup",stopTime=1.1,numberOfIntervals=100,resultFile="PointKinetics_vs_ApproximateOneGroup");

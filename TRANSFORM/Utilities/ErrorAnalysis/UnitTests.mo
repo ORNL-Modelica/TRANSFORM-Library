@@ -28,7 +28,7 @@ model UnitTests
   Real Error_rms "Root Mean Square error sqrt(sum(Error_abs.^2)/n)";
   Real Error_rmsRel "Root Mean Square error sqrt(sum(Error_rel.^2)/n)";
   Real[n] Error_abs "Absolute error (x - x_reference)";
-  Units.nonDim[n] Error_rel "Relative error (x - x_reference)/x_reference";
+  Units.NonDim[n] Error_rel "Relative error (x - x_reference)/x_reference";
   Boolean allPassed(start=true)
     "=true if x = x_reference for all times within tolerance";
 

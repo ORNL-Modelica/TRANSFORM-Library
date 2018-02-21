@@ -8,7 +8,7 @@ function BondNumber "Returns Bond number"
   input SI.Length L "Characteristic length";
   input SI.SurfaceTension sigma "Surface tension";
 
-  output Units.nonDim Bo "Bond number";
+  output Units.NonDim Bo "Bond number";
 algorithm
   Bo := g_n.*(rho_l-rho_v).*L.*L./sigma;
 

@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Fluid.Examples.TritiumExamples.HumTest",stopTime=100,resultFile="HumTest");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

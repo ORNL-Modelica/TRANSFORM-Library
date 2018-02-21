@@ -21,7 +21,7 @@ initial algorithm
       ind := i;
     end if;
   end for;
-  assert(ind > 0, "Mass fraction '" + substanceName + "' is not present in medium '"
+  assert(ind > 0, "Mass-Specific value '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check sensor parameter and medium model.");
 equation

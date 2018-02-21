@@ -5,10 +5,10 @@ function fRe2_Turbulent_Local_Developed_SwameeJain
   input SI.Length dimension "Hydraulic diameter";
   input SI.Length roughness "Average height of surface asperities";
 
-  output Units.nonDim fRe2 "Friction factor*Re^2";
+  output Units.NonDim fRe2 "Friction factor*Re^2";
 
 protected
-  Units.nonDim delta = roughness/dimension;
+  Units.NonDim delta = roughness/dimension;
   SI.ReynoldsNumber Re_int = max(Re,10);
 
 algorithm

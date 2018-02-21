@@ -20,3 +20,6 @@ AngularVelocity_rad_s
 Angle_rad
 Frequency_Hz
 Area_m2
+DynamicViscosity_kg_ms
+SpecificHeatCapacity_J_kgK
+Velocity_m_s

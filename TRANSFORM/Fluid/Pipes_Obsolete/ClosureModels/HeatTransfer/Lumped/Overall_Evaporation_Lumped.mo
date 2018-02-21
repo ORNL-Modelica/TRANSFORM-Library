@@ -4,7 +4,7 @@ model Overall_Evaporation_Lumped "Evaporation |"
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.BaseClasses.PartialLumpedHeatTransfer;
 
-  parameter Units.nonDim x_CHF=0.9
+  parameter Units.NonDim x_CHF=0.9
     "Steam quality corresponding to Critical Heat Flux";
 
   replaceable function heatTransfer_SinglephaseLiquid =

@@ -70,7 +70,7 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions"
     "Thermal conductivity for calculation of Nu"
     annotation (Dialog(group="Input Variables"));
 
-  parameter Units.nonDim x_CHF=0.9
+  parameter Units.NonDim x_CHF=0.9
     "Steam quality corresponding to Critical Heat Flux"
     annotation (Dialog(group="Heat Transfer Model:"));
 

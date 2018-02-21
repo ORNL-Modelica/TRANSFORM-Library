@@ -2,8 +2,8 @@ Conversions
 VolumetricHeatGenerationRate
 PowerDensity
 TempFeedbackCoeff
-inverseTime
-nonDim
+InverseTime
+NonDim
 VoidFraction
 MassFlux
 HydraulicResistance
@@ -16,3 +16,7 @@ MolarRxnRatePerVolume
 MolarRxnRatePerMass
 MolePerMass
 FissionEnergy
+ExtraProperty
+ExtraPropertyFlowRate
+ExtraPropertyConcentration
+ExtraPropertyExtrinsic

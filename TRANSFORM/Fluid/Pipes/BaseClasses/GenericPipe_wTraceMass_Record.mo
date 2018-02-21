@@ -15,11 +15,11 @@ record GenericPipe_wTraceMass_Record
     "Trace Substance mass transfer" annotation (Dialog(group="Trace Mass Transfer", enable=
           use_TraceMassTransfer), choicesAllMatching=true);
 
-  // Internal Trace Mass Generation Model
-  replaceable model InternalTraceMassGen =
-      TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+  // Internal Trace Substance Generation Model
+  replaceable model InternalTraceGen =
+      TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
                                                      constrainedby
-    TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.PartialInternalMassGeneration
+    TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.PartialInternalTraceGeneration
                                                 "Internal trace mass generation" annotation (Dialog(
         group="Trace Mass Transfer"), choicesAllMatching=true);
 

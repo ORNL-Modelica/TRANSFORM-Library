@@ -6,7 +6,7 @@ model NusseltTheory_Condensation
 
   SI.NusseltNumber[nHT] Nus "Nusselt number";
   SI.SpecificEnthalpy[nHT] hs_fgp "Modified latent heat of vaporization";
-  Units.nonDim[nHT] Jas "Jakob number";
+  Units.NonDim[nHT] Jas "Jakob number";
 
 equation
 

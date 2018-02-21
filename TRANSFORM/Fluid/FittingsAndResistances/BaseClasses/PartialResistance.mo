@@ -15,6 +15,8 @@ partial model PartialResistance
   Medium.ThermodynamicState state;
   SI.PressureDifference dp;
   SI.MassFlowRate m_flow;
+
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 equation
 
   port_a.m_flow + port_b.m_flow = 0;

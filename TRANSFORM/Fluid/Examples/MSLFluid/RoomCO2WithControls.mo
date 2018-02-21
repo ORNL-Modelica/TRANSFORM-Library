@@ -10,7 +10,8 @@ model RoomCO2WithControls
   TRANSFORM.Fluid.BoundaryConditions.FixedBoundary boundary4(nPorts=1,
       redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{92,-40},{72,-20}})));
-  TRANSFORM.Fluid.Sensors.TraceSubstances traceVolume(redeclare package Medium =
+  TRANSFORM.Fluid.Sensors.TraceSubstances traceVolume(redeclare package
+      Medium =
         Medium) annotation (Placement(transformation(extent={{20,0},{40,20}})));
   inner Modelica.Fluid.System system(
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -48,7 +49,8 @@ model RoomCO2WithControls
     momentumDynamics=system.momentumDynamics) "Outlet duct"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
 
-  TRANSFORM.Fluid.Sensors.TraceSubstances traceDuctIn(redeclare package Medium =
+  TRANSFORM.Fluid.Sensors.TraceSubstances traceDuctIn(redeclare package
+      Medium =
         Medium) "Trace substance at duct inlet"
     annotation (Placement(transformation(extent={{-54,0},{-34,20}})));
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T peopleSource(
@@ -96,7 +98,8 @@ model RoomCO2WithControls
     momentumDynamics=system.momentumDynamics) "Inlet duct"
     annotation (Placement(transformation(extent={{-38,-40},{-18,-20}})));
 
-  TRANSFORM.Fluid.Sensors.TraceSubstances traceDuctOut(redeclare package Medium =
+  TRANSFORM.Fluid.Sensors.TraceSubstances traceDuctOut(redeclare package
+      Medium =
         Medium) "Trace substance at duct outlet"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x=ductOut.port_b.C_outflow)

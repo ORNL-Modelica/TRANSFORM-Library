@@ -7,7 +7,7 @@ function alphaV_Homogeneous_wSlipRatio
   input SI.QualityFactor x_abs "Absolute mass quality of secondary phase";
   input SI.Density rho_p "Primary phase density (e.g., liquid density)";
   input SI.Density rho_s "Secondary phase density (e.g., vapor density)";
-  input Units.nonDim S = 1 "Velocity slip ratio";
+  input Units.NonDim S = 1 "Velocity slip ratio";
 
   output Units.VoidFraction alphaV "Void fraction";
 algorithm

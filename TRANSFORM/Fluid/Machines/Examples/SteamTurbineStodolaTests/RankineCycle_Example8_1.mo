@@ -50,7 +50,8 @@ model RankineCycle_Example8_1
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-60,-22})));
-  TRANSFORM.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package Medium =
+  TRANSFORM.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package
+      Medium =
         Medium)                                    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

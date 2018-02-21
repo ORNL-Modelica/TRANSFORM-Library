@@ -49,12 +49,12 @@ partial model PartialDistributedVolumeold
       tab="Initialization",
       group="Start Value: Species Mass Fraction",
       enable=Medium.nXi > 0));
-  parameter SI.MassFraction Cs_start[nV,Medium.nC]=fill(
+  parameter SIadd.ExtraProperty Cs_start[nV,Medium.nC]=fill(
       0,
       nV,
-      Medium.nC) "Mass fraction" annotation (Dialog(
+      Medium.nC) "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
-      group="Start Value: Trace Substances Mass Fraction",
+      group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
 
   Medium.BaseProperties[nV] mediums(
@@ -71,12 +71,12 @@ partial model PartialDistributedVolumeold
   SI.Mass ms[nV] "Mass";
   SI.Energy Us[nV] "Internal energy";
   SI.Mass mXis[nV,Medium.nXi] "Species mass";
-  SI.Mass mCs[nV,Medium.nC] "Trace substance mass";
+  SIadd.ExtraPropertyExtrinsic mCs[nV,Medium.nC] "Trace substance extrinsic value";
 
   // C has the additional parameter because it is not included in the medium
   // i.e.,Xi has medium[:].Xi but there is no variable medium[:].C
-  SI.MassFraction Cs[nV,Medium.nC](each stateSelect=StateSelect.prefer, start=Cs_start)
-    "Trace substance mass fraction";
+  SIadd.ExtraProperty Cs[nV,Medium.nC](each stateSelect=StateSelect.prefer, start=Cs_start)
+    "Trace substance mass-specific value";
 
   // Mass Balance
   SI.MassFlowRate mb_flows[nV]
@@ -97,10 +97,10 @@ partial model PartialDistributedVolumeold
   "Species mass flow rates source/sinks within volumes";
 
   // Trace Balance
-  SI.MassFlowRate mCb_flows[nV,Medium.nC]
-    "Trace mass flow rate across volume interfaces (e.g., diffusion)";
-  SI.MassFlowRate mCb_volumes[nV,Medium.nC]
-    "Trace mass flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
+  SIadd.ExtraPropertyFlowRate mCb_flows[nV,Medium.nC]
+    "Trace flow rate across volume interfaces (e.g., diffusion)";
+  SIadd.ExtraPropertyFlowRate mCb_volumes[nV,Medium.nC]
+    "Trace flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
 
 protected
   parameter Boolean initialize_p=not Medium.singleState

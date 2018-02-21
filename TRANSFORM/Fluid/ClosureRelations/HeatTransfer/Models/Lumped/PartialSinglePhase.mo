@@ -3,7 +3,8 @@ partial model PartialSinglePhase
 
 extends PartialHeatTransfer_setQ_flows;
 
-  TRANSFORM.Media.BaseProperties1Phase mediaProps(redeclare package Medium =
+  TRANSFORM.Media.BaseProperties1Phase mediaProps(redeclare package
+      Medium =
         Medium, state=state) "Bulk fluid properties"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 //   TRANSFORM.Media.BaseProperties1Phase medium_film(redeclare package Medium =

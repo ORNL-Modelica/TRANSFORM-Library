@@ -21,8 +21,8 @@ model alpha_Chen_FvsInvXtt
   SI.SpecificEnthalpy h "Enthalpy";
   Units.MassFlux G "Total mass flow rate";
 
-  Units.nonDim x_th "Thermodynmic quality";
-  Units.nonDim x_abs "Steam quality (0<x<1)";
+  Units.NonDim x_th "Thermodynmic quality";
+  Units.NonDim x_abs "Steam quality (0<x<1)";
 
   Medium.ThermodynamicState state "Thermodynamic states";
 

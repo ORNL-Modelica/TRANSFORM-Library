@@ -97,12 +97,12 @@ model GenericPipe_MultiTransferSurface
     "Mass fraction at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Species Mass Fraction"));
 
-  parameter SI.MassFraction C_a_start[Medium.nC]=fill(0, Medium.nC)
-    "Mass fraction at port a"
-    annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances Mass Fraction"));
-  parameter SI.MassFraction C_b_start[Medium.nC]=C_a_start
-    "Mass fraction at port b"
-    annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances Mass Fraction"));
+  parameter SIadd.ExtraProperty C_a_start[Medium.nC]=fill(0, Medium.nC)
+    "Mass-Specific value at port a"
+    annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
+  parameter SIadd.ExtraProperty C_b_start[Medium.nC]=C_a_start
+    "Mass-Specific value at port b"
+    annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
 
   parameter SI.MassFlowRate m_flow_a_start = 0 "Mass flow rate at port_a"
     annotation (Dialog(tab="Initialization", group="Start Value: Mass Flow Rate"));
@@ -228,15 +228,15 @@ model GenericPipe_MultiTransferSurface
         rotation=0,
         origin={-60,60})));
 
-  // Internal Trace Mass Generation Model
-  replaceable model InternalTraceMassGen =
-      TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+  // Internal Trace Substance Generation Model
+  replaceable model InternalTraceGen =
+      TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
                                                      constrainedby
-    TRANSFORM.Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.PartialInternalMassGeneration
+    TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.PartialInternalTraceGeneration
                                                 "Internal trace mass generation" annotation (Dialog(
         group="Trace Mass Transfer"), choicesAllMatching=true);
 
-  InternalTraceMassGen internalTraceMassGen(
+  InternalTraceGen internalTraceGen(
     redeclare final package Medium = Medium,
     final nV=nV,
     final Cs = Cs,
@@ -362,8 +362,8 @@ model GenericPipe_MultiTransferSurface
   SI.HeatFlowRate H_flows[nV + 1] "Enthalpy flow rates across segment boundaries";
   SI.MassFlowRate[nV + 1,Medium.nXi] mXi_flows
     "Species mass flow rates across segment boundaries";
-  SI.MassFlowRate mC_flows[nV + 1,Medium.nC]
-    "Trace substance mass flow rates across segment boundaries";
+  SIadd.ExtraPropertyFlowRate mC_flows[nV + 1,Medium.nC]
+    "Trace substance flow rates across segment boundaries";
 
   SI.Velocity[nV] vs={0.5*(m_flows[i] + m_flows[i + 1])/mediums[i].d/geometry.crossAreas[i]
       for i in 1:nV} "mean velocities in flow segments";
@@ -403,7 +403,7 @@ protected
   SI.Length[nFM + 1] perimetersFM "Wetted perimeters of flow segments";
   SI.Height[nFM + 1] roughnessesFM "Average heights of surface asperities";
 
-  SI.MassFlowRate mC_flows_traceMassTransferSum[nV,Medium.nC] = {{sum(traceMassTransfer.mC_flows[i,:,k]) for k in 1:Medium.nC} for i in 1:nV};
+  SIadd.ExtraPropertyFlowRate mC_flows_traceMassTransferSum[nV,Medium.nC] = {{sum(traceMassTransfer.mC_flows[i,:,k]) for k in 1:Medium.nC} for i in 1:nV};
 
 equation
 
@@ -412,7 +412,7 @@ equation
     mbs[i] = m_flows[i] - m_flows[i + 1];
     Ubs[i] = Wb_flows[i] + H_flows[i] - H_flows[i + 1] + sum(heatTransfer.Q_flows[i,:]) + internalHeatGen.Q_flows[i]/nParallel;
     mXibs[i, :] = mXi_flows[i, :] - mXi_flows[i + 1, :];
-    mCbs[i, :] =mC_flows [i, :] -mC_flows [i + 1, :] + mC_flows_traceMassTransferSum[i,:] + internalTraceMassGen.mC_flows[i, :]/nParallel;
+    mCbs[i, :] =mC_flows [i, :] -mC_flows [i + 1, :] + mC_flows_traceMassTransferSum[i,:] + internalTraceGen.mC_flows[i, :]/nParallel;
   end for;
 
   // Heat Transfer connections
@@ -939,11 +939,11 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=exposeState_b),
-        Rectangle(
+         Rectangle(
           extent={{-90,40},{90,-40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
+          fillColor=DynamicSelect({0,127,255}, if showColors then dynColor else {0,127,255})),
         Ellipse(
           extent={{-65,5},{-55,-5}},
           lineColor={0,0,0},

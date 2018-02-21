@@ -16,7 +16,7 @@ partial model PartialMassTransfer_setC "Base model"
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
   input SI.Temperature Ts_wall[nMT] "Wall temperature"
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
-  input SI.Concentration CsM_fluid[nMT,Medium.nC]
+  input SIadd.ExtraProperty CsM_fluid[nMT,Medium.nC]
     "Fluid trace substance mass fraction"
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
 
@@ -36,8 +36,8 @@ partial model PartialMassTransfer_setC "Base model"
   input SI.Area surfaceAreas[nMT] "Surface area for transfer"
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
 
-  parameter SI.MassFraction CsM_start[nMT,Medium.nC]
-    "Initial Trace substance mass fraction"
+  parameter SIadd.ExtraProperty CsM_start[nMT,Medium.nC]
+    "Initial Trace substance mass-specific value"
     annotation (Dialog(tab="Internal Interface", group="Initialization"));
 
   parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
@@ -75,7 +75,7 @@ partial model PartialMassTransfer_setC "Base model"
     "Coefficient of mass transfer";
   Units.SherwoodNumber Shs[nMT,Medium.nC] "Sherwood number";
   SI.MolarFlowRate nC_flows[nMT,Medium.nC]= massPorts.n_flow/nParallel "Molar flow rate";
-  SI.MassFlowRate mC_flows[nMT,Medium.nC] "Mass flow rate";
+  SIadd.ExtraPropertyFlowRate mC_flows[nMT,Medium.nC] "Mass flow rate";
 
   HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts[nMT](each nC=Medium.nC)
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),

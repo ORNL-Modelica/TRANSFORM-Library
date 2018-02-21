@@ -5,7 +5,7 @@ model Traditional_topcap
   extends Modelica.Icons.Example;
   //parameter Real Vfrac_liquid = 0.5;
 
-  TRANSFORM.Units.nonDim Vfrac_liquid=variableVfrac_liquid.y;
+  TRANSFORM.Units.NonDim Vfrac_liquid=variableVfrac_liquid.y;
   parameter SI.Length r_1 = 1;
   parameter SI.Length r_2 = 1.5;
 

@@ -26,8 +26,8 @@ model PartiallyFullInsurge
     "Initial pressure of main (primary) tank";
   constant SI.Temperature insurge_T = SI.Conversions.from_degF(75) "Insurge water temperature";
 
-  constant Units.nonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
-  constant Units.nonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
+  constant Units.NonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
+  constant Units.NonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
 
 //   constant SI.Temperature wall_Tavg = SI.Conversions.from_degF(300) "Average wall temperature";
 //   constant SI.ThermalConductivity wall_lambda = TRANSFORM.Media.Solids.SS316.thermalConductivity(wall_Tavg) "Wall thermalconductivity";
@@ -51,10 +51,12 @@ model PartiallyFullInsurge
 
   // Models
   Modelica.Fluid.Sources.MassFlowSource_h spray(nPorts=1, redeclare package
-      Medium = Medium)
+              Medium =
+               Medium)
     annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
   Modelica.Fluid.Sources.MassFlowSource_h relief(nPorts=1, redeclare package
-      Medium = Medium)
+              Medium =
+               Medium)
     annotation (Placement(transformation(extent={{48,50},{28,70}})));
   Modelica.Fluid.Sources.MassFlowSource_T insurge(nPorts=1, use_m_flow_in=true,
     T=insurge_T,

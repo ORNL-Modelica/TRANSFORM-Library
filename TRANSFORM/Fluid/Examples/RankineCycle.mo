@@ -70,7 +70,8 @@ model RankineCycle
       package Medium =
                Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-90,-67},{-70,-47}})));
-  TRANSFORM.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package Medium =
+  TRANSFORM.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package
+      Medium =
         Modelica.Media.Water.StandardWater)        annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -100,7 +101,7 @@ equation
   connect(powerSensor.flange_b, generator.shaft)
     annotation (Line(points={{44,40},{44,40},{50,40}}, color={0,0,0}));
   connect(generator.port, boundary.port)
-    annotation (Line(points={{70.2,40.2},{76,40.2},{76,40}}, color={255,0,0}));
+    annotation (Line(points={{70,40},{76,40},{76,40}},       color={255,0,0}));
   connect(massFlowRate.port_b, boiler.ports[1]) annotation (Line(points={{-40,-40},
           {-40,-40},{-40,4},{-40,5.33333},{-50,5.33333}}, color={0,127,255}));
   connect(specificEnthalpy_out.port, boiler.ports[2])

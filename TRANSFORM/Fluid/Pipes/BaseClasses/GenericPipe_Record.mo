@@ -59,11 +59,11 @@ record GenericPipe_Record
       tab="Initialization",
       group="Start Value: Species Mass Fraction",
       enable=Medium.nXi > 0));
-  parameter SI.MassFraction Cs_start[nV,Medium.nC]=linspaceRepeat_1D(
+  parameter SIadd.ExtraProperty Cs_start[nV,Medium.nC]=linspaceRepeat_1D(
         C_a_start,
-        C_b_start,nV) "Mass fraction" annotation (Dialog(
+        C_b_start,nV) "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
-      group="Start Value: Trace Substances Mass Fraction",
+      group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
 
   parameter SI.AbsolutePressure p_a_start=Medium.p_default "Pressure at port a"
@@ -103,12 +103,12 @@ record GenericPipe_Record
     "Mass fraction at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Species Mass Fraction"));
 
-  parameter SI.MassFraction C_a_start[Medium.nC]=fill(0, Medium.nC)
-    "Mass fraction at port a"
-    annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances Mass Fraction"));
-  parameter SI.MassFraction C_b_start[Medium.nC]=C_a_start
-    "Mass fraction at port b"
-    annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances Mass Fraction"));
+  parameter SIadd.ExtraProperty C_a_start[Medium.nC]=fill(0, Medium.nC)
+    "Mass-Specific value at port a"
+    annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
+  parameter SIadd.ExtraProperty C_b_start[Medium.nC]=C_a_start
+    "Mass-Specific value at port b"
+    annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
 
   parameter SI.MassFlowRate m_flow_a_start=0 "Mass flow rate at port_a"
     annotation (Dialog(tab="Initialization", group="Start Value: Mass Flow Rate"));

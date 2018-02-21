@@ -176,7 +176,7 @@ partial model PartialPump "Base model for centrifugal pumps"
 
 protected
   SI.HeatFlowRate Q_flow_internal;
-  SI.MassFlowRate mC_flow_internal[Medium.nC];
+  SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
 
 equation
 

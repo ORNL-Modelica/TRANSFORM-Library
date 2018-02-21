@@ -11,9 +11,9 @@ model SimpleVolume
   extends BaseClasses.PartialVolume(
   final V = geometry.V,
   mb=port_a.m_flow + port_b.m_flow,
-  Ub=port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*actualStream(port_b.h_outflow) + Q_flow_internal,
+  Ub=port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*actualStream(port_b.h_outflow) + Q_flow_internal+Q_gen,
   mXib=port_a.m_flow*actualStream(port_a.Xi_outflow) + port_b.m_flow*actualStream(port_b.Xi_outflow),
-  mCb=port_a.m_flow*actualStream(port_a.C_outflow) + port_b.m_flow*actualStream(port_b.C_outflow) + mC_flow_internal);
+  mCb=port_a.m_flow*actualStream(port_a.C_outflow) + port_b.m_flow*actualStream(port_b.C_outflow) + mC_flow_internal + mC_gen);
 
   // Geometry Model
   replaceable model Geometry =
@@ -27,11 +27,15 @@ model SimpleVolume
 
   input SI.Acceleration g_n = Modelica.Constants.g_n "Gravitational acceleration" annotation(Dialog(tab="Advanced",group="Input Variables"));
 
-  parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced"),Evaluate=true);
-  parameter Boolean use_TraceMassPort = false "=true to toggle trace mass port" annotation(Dialog(tab="Advanced"),Evaluate=true);
+  parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced",group="Heat Transfer"),Evaluate=true);
+  input SI.HeatFlowRate Q_gen=0 "Internal heat generation" annotation(Dialog(tab="Advanced",group="Heat Transfer"));
+
+  parameter Boolean use_TraceMassPort = false "=true to toggle trace mass port" annotation(Dialog(tab="Advanced",group="Trace Mass Transfer"),Evaluate=true);
   parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
     "Trace substances molar mass"
-    annotation (Dialog(group="Trace Mass Transfer", enable=use_TraceMassPort));
+    annotation (Dialog(tab="Advanced",group="Trace Mass Transfer", enable=use_TraceMassPort));
+  input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
+    annotation (Dialog(tab="Advanced",group="Trace Mass Transfer"));
 
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=medium.T, Q_flow=
         Q_flow_internal) if                                                                      use_HeatPort
@@ -49,7 +53,7 @@ model SimpleVolume
 
 protected
   SI.HeatFlowRate Q_flow_internal;
-  SI.MassFlowRate mC_flow_internal[Medium.nC];
+  SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
 
 equation
 

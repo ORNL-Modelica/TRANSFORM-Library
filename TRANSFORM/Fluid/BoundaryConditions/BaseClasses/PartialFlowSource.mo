@@ -3,6 +3,8 @@ partial model PartialFlowSource
     "Partial component source with one fluid connector"
   import Modelica.Constants;
 
+    extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
+
   parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
 
   replaceable package Medium =
@@ -13,7 +15,8 @@ partial model PartialFlowSource
   Medium.BaseProperties medium "Medium in the source";
 
   Modelica.Fluid.Interfaces.FluidPort_b ports[nPorts](redeclare each package
-      Medium = Medium, m_flow(each max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
+              Medium =
+               Medium, m_flow(each max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
            then 0 else +Constants.inf, each min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
            then 0 else -Constants.inf))
     annotation (Placement(transformation(extent={{90,10},{110,-10}})));
@@ -46,5 +49,11 @@ features are:
 <li> The outflow enthalpy rate (= port.h_outflow) and the composition of the
      substances (= port.Xi_outflow) are identical to the respective values in the volume.</li>
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={
+        Text(
+          extent={{-149,134},{151,94}},
+          lineColor={0,0,255},
+          textString="%name",
+          visible=DynamicSelect(true,showName))}));
 end PartialFlowSource;

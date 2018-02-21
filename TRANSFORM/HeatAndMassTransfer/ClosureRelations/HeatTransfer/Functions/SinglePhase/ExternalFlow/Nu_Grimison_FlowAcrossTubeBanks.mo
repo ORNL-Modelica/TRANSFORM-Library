@@ -12,12 +12,12 @@ function Nu_Grimison_FlowAcrossTubeBanks
   output SI.NusseltNumber Nu "Nusselt number - Eq. 7.60 and 7.61";
 
 protected
-  Units.nonDim A "Maximum velocity correction factor - S1:Eq. 7.62 or 7.63";
+  Units.NonDim A "Maximum velocity correction factor - S1:Eq. 7.62 or 7.63";
   SI.Length S_D=(S_L^2 + 0.25*S_T^2)^(0.5)
     "Shortest distance between tube centers of neighboring tube rows - S1:No Eq. number but between Eq. 7.62 and 7.63";
-  Units.nonDim C_1 "Interpolated constant - S1:Table 7.5";
-  Units.nonDim m "Interpolated constant - S1:Table 7.5";
-  Units.nonDim C_2 "Tube rows correction coefficient - S1:Table 7.6";
+  Units.NonDim C_1 "Interpolated constant - S1:Table 7.5";
+  Units.NonDim m "Interpolated constant - S1:Table 7.5";
+  Units.NonDim C_2 "Tube rows correction coefficient - S1:Table 7.6";
   SI.ReynoldsNumber Re_Dmax "Corrected reynolds number based on tube diameter - S1:Eq. 7.59";
 
   // S1:Table 7.5

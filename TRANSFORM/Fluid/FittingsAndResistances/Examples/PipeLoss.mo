@@ -4,7 +4,8 @@ model PipeLoss
   extends TRANSFORM.Icons.Example;
 
   TRANSFORM.Fluid.FittingsAndResistances.PipeLoss from_dp(redeclare package
-      Medium = Modelica.Media.Air.DryAirNasa, redeclare model Geometry =
+              Medium =
+               Modelica.Media.Air.DryAirNasa, redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.Circle)
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Modelica.Fluid.Sources.FixedBoundary OUT_dp(
@@ -52,7 +53,8 @@ model PipeLoss
   inner Modelica.Fluid.System system(p_ambient(displayUnit="Pa") = 100000,
       m_flow_small=0.01) annotation (Placement(transformation(extent={{80, -100}, {100, -80}})));
   TRANSFORM.Fluid.FittingsAndResistances.PipeLoss from_mflow(redeclare package
-      Medium = Modelica.Media.Air.DryAirNasa, redeclare model Geometry =
+              Medium =
+               Modelica.Media.Air.DryAirNasa, redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.Circle)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 equation

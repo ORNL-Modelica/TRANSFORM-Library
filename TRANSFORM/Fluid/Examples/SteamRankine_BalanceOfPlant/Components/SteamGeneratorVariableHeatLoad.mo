@@ -81,7 +81,8 @@ redeclare model Geometry =
         conversion_feet_to_m, each alpha=10000)
     annotation (Placement(transformation(extent={{-50,-74},{-34,-60}})));
   FittingsAndResistances.ElevationChange heightDiff_riser(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, dheight=60*
+              Medium =
+               Modelica.Media.Water.StandardWater, dheight=60*
         conversion_feet_to_m) annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=270,

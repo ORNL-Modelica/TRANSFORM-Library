@@ -1,9 +1,6 @@
 Examples
 SystemTF
 System
-BoundaryConditions
-ClosureRelations
-Pipes
 Volumes
 FittingsAndResistances
 Valves
@@ -12,3 +9,7 @@ Sensors
 Interfaces
 Types
 Pipes_Obsolete
+BoundaryConditions
+ClosureRelations
+TraceComponents
+Pipes

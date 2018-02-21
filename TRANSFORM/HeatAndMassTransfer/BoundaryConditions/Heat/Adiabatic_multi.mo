@@ -3,6 +3,8 @@ model Adiabatic_multi
   "Adiabatic boundary condition for multiple connections"
 
   parameter Integer nPorts=1 "# of ports";
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+
   Interfaces.HeatPort_Flow port[nPorts] annotation (Placement(transformation(extent={{
             90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
 equation
@@ -32,7 +34,8 @@ equation
         Text(
           extent={{-100,112},{180,72}},
           textString="%name",
-          lineColor={0,0,255})}),
+          lineColor={0,0,255},
+          visible=showName)}),
     Documentation(info="<html>
 <p>This model defines an adiabatic boundary condition (Q_flow = 0) for all nodes.</p>
 </html>"), Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{

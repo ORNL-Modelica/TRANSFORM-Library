@@ -111,10 +111,6 @@ equation
           extent={{-54,32},{16,-30}},
           lineColor={255,0,0},
           textString="m"),
-        Text(
-          extent={{-150,130},{150,170}},
-          textString="%name",
-          lineColor={0,0,255}),
         Ellipse(
           extent={{-26,30},{-18,22}},
           lineColor={255,0,0},

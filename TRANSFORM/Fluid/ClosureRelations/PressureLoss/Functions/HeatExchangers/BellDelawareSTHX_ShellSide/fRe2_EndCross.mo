@@ -23,7 +23,7 @@ function fRe2_EndCross
   input SI.DynamicViscosity mu_w "Dynamic viscosity of fluid at average wall temperature";
   input SI.MassFlowRate m_flow "Mass flow rate";
 
-  output SIadd.nonDim fRe2 "Modified friction coefficient (= f*Re^2)";
+  output Units.NonDim fRe2 "Modified friction coefficient (= f*Re^2)";
 
 protected
   Real a = s1/d_o;

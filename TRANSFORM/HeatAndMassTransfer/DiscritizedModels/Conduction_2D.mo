@@ -149,6 +149,7 @@ model Conduction_2D "2-D Conduction Models"
   Material.ThermodynamicState state_b2[nVs[1]]
     "state defined by volume outside port_b2";
 
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 protected
   Material.ThermodynamicState statesFM_1[nFM_1 + 1,nVs[2]];
   Material.ThermodynamicState statesFM_2[nVs[1],nFM_2 + 1];
@@ -517,7 +518,8 @@ equation
         Text(
           extent={{-84,12},{84,-12}},
           textString="%name",
-          lineColor={0,0,255}),
+          lineColor={0,0,255},
+          visible=showName),
         Ellipse(
           extent={{-92,30},{-108,-30}},
           lineColor={191,0,0},

@@ -24,11 +24,16 @@ partial model PartialDistributedVolume
       nVs[3]) "Temperature"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
 
+  parameter SI.Density ds_reference[nVs[1],nVs[2],nVs[3]]=Material.density(Material.setState_T(Ts_start))
+    "Reference density of mass reference for constant volumes"
+    annotation (Dialog(tab="Advanced"));
+
   Material.BaseProperties materials[nVs[1],nVs[2],nVs[3]](T(each stateSelect=
           StateSelect.prefer, start=Ts_start));
 
   // Total quantities
   SI.Mass ms[nVs[1],nVs[2],nVs[3]] "Mass";
+  SI.Mass delta_ms[nVs[1],nVs[2],nVs[3]] "Change in mass of constant volumes";
   SI.InternalEnergy Us[nVs[1],nVs[2],nVs[3]] "Internal energy";
 
   // Energy Balance
@@ -51,8 +56,9 @@ equation
   for i in 1:nVs[1] loop
     for j in 1:nVs[2] loop
       for k in 1:nVs[3] loop
-        ms[i, j, k] = Vs[i, j, k]*materials[i, j, k].d;
-        Us[i, j, k] = ms[i, j, k]*materials[i, j, k].u;
+        ms[i, j, k] = Vs[i, j, k]*ds_reference[i, j, k];
+        delta_ms[i, j, k] = ms[i, j, k] - Vs[i, j, k]*materials[i, j, k].d;
+        Us[i, j, k] = Vs[i, j, k]*materials[i, j, k].d*materials[i, j, k].u;
       end for;
     end for;
   end for;

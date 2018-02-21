@@ -67,15 +67,15 @@ partial model PartialTwoVolume_wlevelnew "Base class for volume models"
       tab="Initialization",
       group="Start Value: Species Mass Fraction",
       enable=Medium.nXi > 0));
-  parameter SI.MassFraction C_liquid_start[Medium.nC]=fill(0, Medium.nC)
-    "Mass fraction" annotation (Dialog(
+  parameter SIadd.ExtraProperty C_liquid_start[Medium.nC]=fill(0, Medium.nC)
+    "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
-      group="Start Value: Trace Substances Mass Fraction",
+      group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
-  parameter SI.MassFraction C_vapor_start[Medium.nC]=fill(0, Medium.nC)
-    "Mass fraction" annotation (Dialog(
+  parameter SIadd.ExtraProperty C_vapor_start[Medium.nC]=fill(0, Medium.nC)
+    "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
-      group="Start Value: Trace Substances Mass Fraction",
+      group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
 
   Medium.BaseProperties medium_liquid(
@@ -108,21 +108,21 @@ partial model PartialTwoVolume_wlevelnew "Base class for volume models"
   SI.Mass m_liquid "Mass";
   SI.InternalEnergy U_liquid "Internal energy";
   SI.Mass mXi_liquid[Medium.nXi] "Species mass";
-  SI.Mass mC_liquid[Medium.nC] "Trace substance mass";
+  SIadd.ExtraPropertyExtrinsic mC_liquid[Medium.nC] "Trace substance extrinsic value";
   SI.Mass[Medium.nC] mC_scaled_liquid "Scaled trace substance mass for improved numerical stability";
 
   SI.Mass m_vapor "Mass";
   SI.InternalEnergy U_vapor "Internal energy";
   SI.Mass mXi_vapor[Medium.nXi] "Species mass";
-  SI.Mass mC_vapor[Medium.nC] "Trace substance mass";
+  SIadd.ExtraPropertyExtrinsic mC_vapor[Medium.nC] "Trace substance extrinsic value";
   SI.Mass[Medium.nC] mC_scaled_vapor "Scaled trace substance mass for improved numerical stability";
 
   // C has the additional parameter because it is not included in the medium
   // i.e.,Xi has medium[:].Xi but there is no variable medium[:].C
-  SI.MassFraction C_liquid[Medium.nC](stateSelect=StateSelect.prefer, start=C_liquid_start)
-    "Trace substance mass fraction";
-  SI.MassFraction C_vapor[Medium.nC](stateSelect=StateSelect.prefer, start=C_vapor_start)
-    "Trace substance mass fraction";
+  SIadd.ExtraProperty C_liquid[Medium.nC](stateSelect=StateSelect.prefer, start=C_liquid_start)
+    "Trace substance mass-specific value";
+  SIadd.ExtraProperty C_vapor[Medium.nC](stateSelect=StateSelect.prefer, start=C_vapor_start)
+    "Trace substance mass-specific value";
 
   // Mass Balance
   SI.MassFlowRate mb_liquid "Mass flow rate source/sinks within volumes";
@@ -141,10 +141,10 @@ partial model PartialTwoVolume_wlevelnew "Base class for volume models"
     "Species mass flow rates source/sinks within volumes";
 
   // Trace Balance
-  SI.MassFlowRate mCb_liquid[Medium.nC]
-    "Trace mass flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
-  SI.MassFlowRate mCb_vapor[Medium.nC]
-    "Trace mass flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
+  SIadd.ExtraPropertyFlowRate mCb_liquid[Medium.nC]
+    "Trace flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
+  SIadd.ExtraPropertyFlowRate mCb_vapor[Medium.nC]
+    "Trace flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
 
 protected
   parameter Boolean initialize_p=not Medium.singleState

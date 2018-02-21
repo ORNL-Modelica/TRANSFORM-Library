@@ -108,6 +108,8 @@ model Conduction_1D "1-D Conduction Models"
   input SI.Velocity velocity_1=0 "Velocity of material through control volumes"
     annotation (Dialog(group="Input Variables"));
 
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+
 protected
   Material.ThermodynamicState statesFM_1[nFM_1 + 1];
 
@@ -315,7 +317,8 @@ equation
         Text(
           extent={{-140,132},{140,92}},
           textString="%name",
-          lineColor={0,0,255}),
+          lineColor={0,0,255},
+          visible=showName),
         Ellipse(
           extent={{108,30},{92,-30}},
           lineColor={191,0,0},

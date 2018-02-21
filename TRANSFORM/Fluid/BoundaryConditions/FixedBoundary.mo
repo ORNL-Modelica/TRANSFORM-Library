@@ -101,10 +101,7 @@ equation
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
-          fillColor={0,127,255}), Text(
-          extent={{-150,110},{150,150}},
-          textString="%name",
-          lineColor={0,0,255})}),
+          fillColor={0,127,255})}),
     Documentation(info="<html>
 <p>
 Model <b>FixedBoundary</b> defines constant values for boundary conditions:

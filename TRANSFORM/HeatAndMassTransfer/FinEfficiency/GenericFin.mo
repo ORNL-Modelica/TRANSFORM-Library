@@ -14,10 +14,10 @@ model GenericFin
   input SI.Length L "Fin length" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
   input SI.Area crossArea "Fin cross-sectional area" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
 
-  input Units.nonDim mL = sqrt(perimeter*alpha/(lambda*crossArea))*L "Non-dimensional fin parameter" annotation(Dialog(group="Input Variables",enable=use_NonDimensional));
+  input Units.NonDim mL = sqrt(perimeter*alpha/(lambda*crossArea))*L "Non-dimensional fin parameter" annotation(Dialog(group="Input Variables",enable=use_NonDimensional));
 
   SI.Area surfaceArea = if use_adiabaticTip then perimeter*L else perimeter*L + crossArea;
-  Units.nonDim AR_tip = crossArea/(perimeter*L) "Tip area ratio";
+  Units.NonDim AR_tip = crossArea/(perimeter*L) "Tip area ratio";
 
 algorithm
 

@@ -5,7 +5,7 @@ model BiotNumber
   input SI.Length L "Characteristic length" annotation(Dialog(group="Input Variables"));
   input SI.ThermalConductivity lambda "Thermal conductivity (e.g., of the solid)" annotation(Dialog(group="Input Variables"));
 
-  Units.nonDim Bi "Biot number";
+  Units.NonDim Bi "Biot number";
 
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));

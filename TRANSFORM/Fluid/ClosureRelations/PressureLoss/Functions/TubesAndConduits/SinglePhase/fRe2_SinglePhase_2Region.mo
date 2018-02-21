@@ -7,13 +7,13 @@ function fRe2_SinglePhase_2Region
   input SI.ReynoldsNumber Re_center "Re smoothing transition center";
   input SI.ReynoldsNumber Re_width "Re smoothing transition width";
 
-  output SIadd.nonDim fRe2 "Friction factor*Re^2";
+  output Units.NonDim fRe2 "Friction factor*Re^2";
 
 protected
-  SIadd.nonDim fRe2_lam=
+  Units.NonDim fRe2_lam=
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.fRe2_Laminar_Local_Developed_Circular(
        Re) "Laminar Friction factor";
-  SIadd.nonDim fRe2_turb=
+  Units.NonDim fRe2_turb=
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.fRe2_Turbulent_Local_Developed_SwameeJain(
       Re,
       dimension,

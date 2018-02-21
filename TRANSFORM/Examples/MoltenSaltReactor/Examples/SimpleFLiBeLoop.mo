@@ -27,7 +27,7 @@ model SimpleFLiBeLoop
         Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=kinetics.Qs),
     redeclare model InternalTraceMassGen =
-        Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=kinetics.mC_gens))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -45,7 +45,7 @@ model SimpleFLiBeLoop
     redeclare model InternalHeatGen =
         Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration,
     redeclare model InternalTraceMassGen =
-        Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens={{-kinetics.lambda_i[j]*downcomer.mCs[i, j] for j in 1:
             kinetics.nI} for i in 1:downcomer.nV}),
     p_a_start=100000,
@@ -63,15 +63,15 @@ model SimpleFLiBeLoop
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=270,
         origin={20,-30})));
-  Nuclear.ReactorKinetics.PointKinetics_Drift           kinetics(
+  Nuclear.ReactorKinetics.PointKinetics_Drift kinetics(
     nV=pipe.nV,
     Q_nominal=5e4*pipe.nV,
-    Ts=pipe.mediums.T,
     mCs=pipe.mCs,
-    Ts_reference=linspace(
+    vals_feedback=matrix(pipe.mediums.T),
+    vals_feedback_reference=matrix(linspace(
         300 + 273.15,
         500 + 273.15,
-        pipe.nV))
+        pipe.nV)))
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Fluid.Volumes.ExpansionTank_1Port expansionTank_1Port(
     redeclare package Medium = Medium,

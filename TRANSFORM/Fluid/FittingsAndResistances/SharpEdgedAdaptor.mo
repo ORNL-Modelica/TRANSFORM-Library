@@ -17,15 +17,15 @@ model SharpEdgedAdaptor
   input SI.Length perimeters_ab[2]=Modelica.Constants.pi*dimensions_ab
     "Wetted perimeter at {port_a,port_b}"
     annotation (Dialog(group="Input Variables", enable=not use_Dimension));
-  input SIadd.nonDim CFs[4]={1.0,1.0,1.0,1.0}
+  input Units.NonDim CFs[4]={1.0,1.0,1.0,1.0}
     "Expansion correction factors: {Laminar expansion, Turbulent expansion, Laminar contraction, Turbulent contraction}"
     annotation (Dialog(group="Input Variables"));
 
   SI.ReynoldsNumber Re "Reynolds number";
 
-  SIadd.nonDim K_ab "Minor loss coefficient if flow a->b";
-  SIadd.nonDim K_ba "Minor loss coefficient if flow b->a";
-  SIadd.nonDim K "Minor loss coefficient";
+  Units.NonDim K_ab "Minor loss coefficient if flow a->b";
+  Units.NonDim K_ba "Minor loss coefficient if flow b->a";
+  Units.NonDim K "Minor loss coefficient";
 
   SI.Velocity v_a "Velocity at port_a";
   SI.Velocity v_b "Velocity at port_a";

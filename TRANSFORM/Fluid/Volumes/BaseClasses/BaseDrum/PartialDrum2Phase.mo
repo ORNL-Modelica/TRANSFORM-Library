@@ -26,7 +26,7 @@ partial model PartialDrum2Phase "partial two phase drum model"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
 
   /* Initialization */
-  parameter TRANSFORM.Units.nonDim Vfrac_liquid_start=0.5
+  parameter TRANSFORM.Units.NonDim Vfrac_liquid_start=0.5
     "Initial fraction of volume in the liquid phase"
     annotation (Dialog(tab="Initialization"));
   parameter SI.Pressure p_start=system.p_start "Pressure start value"
@@ -46,7 +46,7 @@ partial model PartialDrum2Phase "partial two phase drum model"
   SI.Volume V_liquid(start=Vfrac_liquid_start*V_total)
     "Volume occupied by liquid";
 
-  TRANSFORM.Units.nonDim Vfrac_liquid(start=Vfrac_liquid_start,
+  TRANSFORM.Units.NonDim Vfrac_liquid(start=Vfrac_liquid_start,
       stateSelect=StateSelect.prefer)
     "Fractional of total volume occupied by liquid";
 

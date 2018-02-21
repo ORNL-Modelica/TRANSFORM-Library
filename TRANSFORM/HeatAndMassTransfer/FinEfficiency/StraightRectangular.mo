@@ -11,7 +11,7 @@ model StraightRectangular
   input SI.Length L "Fin length" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
   input SI.Length W "Fin width" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
 
-  input Units.nonDim mL = sqrt(2*alpha/(lambda*th))*L "Non-dimensional fin parameter" annotation(Dialog(group="Input Variables",enable=use_NonDimensional));
+  input Units.NonDim mL = sqrt(2*alpha/(lambda*th))*L "Non-dimensional fin parameter" annotation(Dialog(group="Input Variables",enable=use_NonDimensional));
 
   SI.Area surfaceArea = 2*W*L;
 algorithm

@@ -34,7 +34,7 @@ model ShellSide_STHX
   parameter SI.Length D_o_tube   "Outer diameter of tubes"
    annotation (Dialog(group="Tube Side"));
 
-  final parameter Units.nonDim lengthRatio = length_tube/length_shell "Ratio of tube length to shell length";
+  final parameter Units.NonDim lengthRatio = length_tube/length_shell "Ratio of tube length to shell length";
 
   final parameter SI.Area crossAreaWithLratio_tube = 0.25*pi*D_o_tube*D_o_tube*nTubes*lengthRatio "Estimate of cross sectional area of tubes (exact if tubes are circular) with an unequal shell-tube length factor correction";
 

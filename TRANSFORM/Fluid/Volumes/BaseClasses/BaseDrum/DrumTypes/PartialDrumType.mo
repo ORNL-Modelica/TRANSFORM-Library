@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes;
 partial model PartialDrumType
 
-  input TRANSFORM.Units.nonDim Vfrac_liquid
+  input TRANSFORM.Units.NonDim Vfrac_liquid
     "Fractional of total volume occupied by liquid";
   input SI.Volume V_liquid "Volume of liquid";
   input SI.Volume V_vapor "Volume of vapor";

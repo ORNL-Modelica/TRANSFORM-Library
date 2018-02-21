@@ -19,7 +19,7 @@ model LinearFLiBe_pT
   SI.DynamicViscosity eta_exp[n] = {1.4918e-2,2.848e-3,1.1726e-3};
   SI.ThermalConductivity lambda_exp[n] = {1.0166,1.2166,1.4416};
 
-  SI.Density d_T[n] = TRANSFORM.Media.Fluids.FLiBe.Utilities.d_T(Ts);
+  SI.Density d_T[n]=TRANSFORM.Media.Fluids.FLiBe.Utilities_FLiBe.d_T(Ts);
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(
     n=9,

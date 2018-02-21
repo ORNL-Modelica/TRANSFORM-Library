@@ -6,7 +6,7 @@ function SchmidtNumber "Returns Schmidt Number"
   input SI.Density d "Density";
   input SI.DiffusionCoefficient D_ab "Diffusion coefficient";
 
-  output Units.nonDim Sc "Schmidt number";
+  output Units.NonDim Sc "Schmidt number";
 algorithm
   Sc := mu./(d.*D_ab);
 

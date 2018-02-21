@@ -40,7 +40,7 @@ partial model PartialFlowChar
   SI.VolumeFlowRate V_flow(start=V_flow_start) = m_flow/rho "Volumetric flow rate";
   //SI.VolumeFlowRate V_flow = m_flow/rho "Volumetric flow rate";
 
-  Units.nonDim affinityLaw "Affinity law for scaling";
+  Units.NonDim affinityLaw "Affinity law for scaling";
 
   SI.Height head(start=dp_start/(rho_start*Modelica.Constants.g_n)) "Pump pressure head";
   //SI.Height head "Pump pressure head";

@@ -3,7 +3,8 @@ partial model PartialIdeal
 
 extends PartialHeatTransfer_setT(final flagIdeal=1);
 
-  TRANSFORM.Media.BaseProperties1Phase[nHT] mediums(redeclare package Medium =
+  TRANSFORM.Media.BaseProperties1Phase[nHT] mediums(redeclare package
+      Medium =
         Medium, state=states) "Bulk fluid properties"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

@@ -15,10 +15,10 @@ model PointKinetics
   parameter Integer nI = 6
     "Number of groups of the delayed-neutron precursors groups"
      annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter Units.nonDim[nI] beta_i={0.000169,0.000832,0.00264,0.00122,0.00138,
+  parameter Units.NonDim[nI] beta_i={0.000169,0.000832,0.00264,0.00122,0.00138,
       0.000247} "Delayed neutron precursor fractions"
     annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter Units.inverseTime[nI] lambda_i={3.87,1.40,0.311,0.115,0.0317,0.0127}
+  parameter Units.InverseTime[nI] lambda_i={3.87,1.40,0.311,0.115,0.0317,0.0127}
     "Decay constants for each precursor group"
     annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
   // Default Lambda taken from approximate range (1e-6 - 1e-4) discussed in Duderstadt and Hamilton Nuclear Reactor Kinetics p. 239
@@ -46,19 +46,19 @@ model PointKinetics
     annotation(Dialog(tab="Initialization"));
 
   /* Simulation variables */
-  Units.nonDim Reactivity_Fuel "Fuel reactivity feedback";
-  Units.nonDim Reactivity_Coolant "Coolant reactivity feedback";
-  Units.nonDim Reactivity_Total "Total reactivity feedback";
+  Units.NonDim Reactivity_Fuel "Fuel reactivity feedback";
+  Units.NonDim Reactivity_Coolant "Coolant reactivity feedback";
+  Units.NonDim Reactivity_Total "Total reactivity feedback";
 
   SI.Power Q_fission "Total fission power";
   SI.Power Q_decay "Decay heat";
 
-  Units.nonDim Beta=sum(beta_i) "Sum of delayed neutron precursor fractions";
+  Units.NonDim Beta=sum(beta_i) "Sum of delayed neutron precursor fractions";
   SI.Power[nI] C_i(start=C_i_start)
     "Power of the delayed-neutron precursor concentration in group i";
 
-  Units.nonDim Reactivity_CR "Control rod reactivity";
-  Units.nonDim Reactivity_Other "Alternative Sources of Reactivity";
+  Units.NonDim Reactivity_CR "Control rod reactivity";
+  Units.NonDim Reactivity_Other "Alternative Sources of Reactivity";
   SI.Temperature Teff_coolant "Effective coolant temperature";
   SI.Temperature Teff_fuel "Fuel effective temperature";
   SI.Power S_external "Thermal power from external source of neutrons";

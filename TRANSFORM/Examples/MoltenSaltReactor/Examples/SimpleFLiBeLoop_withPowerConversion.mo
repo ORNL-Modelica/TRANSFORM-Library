@@ -38,7 +38,7 @@ model SimpleFLiBeLoop_withPowerConversion
         surfaceArea={pipe_steam.geometry.perimeter*pipe_steam.geometry.length*
             20}),
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal)
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas_TwoPhase_3Region)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -84,7 +84,7 @@ model SimpleFLiBeLoop_withPowerConversion
         Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=kinetics.Qs),
     redeclare model InternalTraceMassGen =
-        Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=kinetics.mC_gens),
     T_a_start=573.15,
     T_b_start=773.15,
@@ -103,7 +103,7 @@ model SimpleFLiBeLoop_withPowerConversion
     counterCurrent=true,
     use_HeatTransferOuter=true,
     redeclare model InternalTraceMassGen =
-        Fluid.ClosureRelations.InternalMassGeneration.Models.DistributedVolume_TraceMass_1D.GenericMassGeneration
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens={{-kinetics.lambda_i[j]*downcomer.pipe.mCs[i, j] for j in 1:
             kinetics.nI} for i in 1:downcomer.pipe.nV}),
     redeclare model Geometry =
@@ -128,20 +128,20 @@ model SimpleFLiBeLoop_withPowerConversion
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-16,-28})));
-  Nuclear.ReactorKinetics.PointKinetics_Drift           kinetics(
+  Nuclear.ReactorKinetics.PointKinetics_Drift kinetics(
     nV=pipe.nV,
     Q_nominal=5e4*pipe.nV,
-    Ts=pipe.mediums.T,
     mCs=pipe.mCs,
-    Ts_reference=linspace(
-        300 + 273.15,
-        500 + 273.15,
-        pipe.nV),
     rhos_input=cat(
         1,
         fill(0, 4),
         {rho_external.y},
-        fill(0, 5)))
+        fill(0, 5)),
+    vals_feedback=matrix(pipe.mediums.T),
+    vals_feedback_reference=matrix(linspace(
+        300 + 273.15,
+        500 + 273.15,
+        pipe.nV)))
     annotation (Placement(transformation(extent={{-96,-8},{-76,12}})));
   Fluid.Volumes.ExpansionTank_1Port expansionTank_1Port(
     redeclare package Medium = Medium,
@@ -165,7 +165,8 @@ model SimpleFLiBeLoop_withPowerConversion
         1000) annotation (Placement(transformation(extent={{-40,76},{-8,96}})));
   TRANSFORM.Utilities.Visualizers.displayReal display_Q_elec(val=generator.Q_elec
         /1000) annotation (Placement(transformation(extent={{8,76},{40,96}})));
-  Modelica.Blocks.Sources.Sine sine(freqHz=1/1000, amplitude=1*0.0065)
+  Modelica.Blocks.Sources.Sine sine(               amplitude=1*0.0065, freqHz=1
+        /2000)
     annotation (Placement(transformation(extent={{-140,-90},{-120,-70}})));
   Modelica.Blocks.Logical.Switch rho_external
     annotation (Placement(transformation(extent={{-110,-60},{-90,-40}})));
@@ -217,7 +218,7 @@ equation
           lineColor={0,0,0},
           textString="Electricity Generated [kW]")}),
     experiment(
-      StopTime=10000,
+      StopTime=5000,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Esdirk45a"));
 end SimpleFLiBeLoop_withPowerConversion;

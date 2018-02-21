@@ -4,7 +4,7 @@ model Overall_Evaporation
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.TwoPhase.PartialTwoPhase;
 
-  parameter Units.nonDim x_CHF=0.9
+  parameter Units.NonDim x_CHF=0.9
     "Steam quality corresponding to Critical Heat Flux" annotation(Dialog(group="Heat Transfer Model:"));
 
   replaceable function heatTransfer_SinglephaseLiquid =

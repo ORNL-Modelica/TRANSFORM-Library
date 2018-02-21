@@ -1,6 +1,7 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency;
 model eta_Constant "Constant efficiency"
-  extends TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency.Partial_eta;
+  extends
+    TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency.Partial_eta;
 
 equation
   eta = eta_nominal;

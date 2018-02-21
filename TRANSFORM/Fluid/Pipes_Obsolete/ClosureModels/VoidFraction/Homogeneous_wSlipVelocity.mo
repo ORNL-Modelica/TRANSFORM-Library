@@ -6,7 +6,7 @@ model Homogeneous_wSlipVelocity
   input SI.Velocity v_p "Primary phase velocity (e.g., liquid)" annotation(Dialog(group="Input Variables:"));
   input SI.Velocity v_s "Secondary phase velocity (e.g., vapor)" annotation(Dialog(group="Input Variables:"));
 
-  Units.nonDim S "Velocity slip ratio";
+  Units.NonDim S "Velocity slip ratio";
 
 equation
 

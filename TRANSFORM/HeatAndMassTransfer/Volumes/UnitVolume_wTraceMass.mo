@@ -16,7 +16,7 @@ model UnitVolume_wTraceMass
   input SI.MolarFlowRate nC_gen[nC]=zeros(nC) "Internal trace substance generation"
     annotation (Dialog(group="Input Variables"));
 
-  parameter Units.nonDim C_nominal[nC] = fill(1e-6,nC) "Nominal concentration [mol/m3] for improved numeric stability" annotation(Dialog(tab="Advanced"));
+  parameter Units.NonDim C_nominal[nC] = fill(1e-6,nC) "Nominal concentration [mol/m3] for improved numeric stability" annotation(Dialog(tab="Advanced"));
 
   Units.Mole nCs[nC] "Trace substance moles";
   Units.Mole[nC] nCs_scaled "Scaled trace substance moles for improved numerical stability";

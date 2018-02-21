@@ -3,4 +3,5 @@ UnitVolume_wTraceMass
 Volume_Closed
 SimpleWall
 SimpleWall_noMedia
+SimpleWall_Cylinder
 BaseClasses

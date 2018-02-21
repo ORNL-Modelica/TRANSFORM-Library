@@ -1,7 +1,7 @@
 within TRANSFORM.Electrical.Batteries;
 model SimpleBattery "Simple battery based on block controller logic"
 
-  parameter TRANSFORM.Units.nonDim capacityFrac_start=1.0
+  parameter TRANSFORM.Units.NonDim capacityFrac_start=1.0
     "Initial capacity as a fraction of usable capacity (capacity_max-capacity_min)"
     annotation (Dialog(tab="Initialization"));
 
