@@ -59,6 +59,18 @@ model data_traceSubstances
       fissionProducts.lambdas,
       tritium.lambdas) "Decay constant";
 
+  final parameter SI.Energy[nC] w_decay=cat(
+      1,
+      precursorGroups.w_decay,
+      fissionProducts.w_decay,
+      tritium.w_decay) "Decay (near-field) energy";
+
+  final parameter SI.Energy[nC] wG_decay=cat(
+      1,
+      precursorGroups.wG_decay,
+      fissionProducts.wG_decay,
+      tritium.wG_decay) "Decay (far-field) energy";
+
   constant Real[precursorGroups.nC,nC] p_PG=cat(
       2,
       precursorGroups.parents,
