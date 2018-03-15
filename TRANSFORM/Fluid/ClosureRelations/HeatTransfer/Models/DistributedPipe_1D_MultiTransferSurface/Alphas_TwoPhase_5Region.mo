@@ -18,7 +18,7 @@ model Alphas_TwoPhase_5Region
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alpha_TwoPhaseSaturated={{
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.Evaporation.alpha_Chen_TubeFlow(
+      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.NucleateBoiling.alpha_Chen_TubeFlow(
       D=dimensions[i],
       G=m_flows[i]/crossAreas[i],
       x=mediaProps[i].x_abs,

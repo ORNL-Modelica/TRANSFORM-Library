@@ -15,7 +15,7 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions - 1P Liqui
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_TwoPhaseSaturated={
-      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.Evaporation.alpha_Chen_TubeFlow(
+      HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.NucleateBoiling.alpha_Chen_TubeFlow(
       D=dimensions[i],
       G=m_flows[i]/crossAreas[i],
       x=mediaProps[i].x_abs,
@@ -28,8 +28,8 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions - 1P Liqui
       mu_gsat=mediaProps[i].mu_vsat,
       h_fg=mediaProps[i].h_lv,
       Delta_Tsat=Ts_wall[i] - mediaProps[i].sat.Tsat,
-      Delta_psat=Medium.saturationPressure(Ts_wall[i]) - mediaProps[i].p) for i in
-          1:nHT} "Coefficient of heat transfer - Saturated Two Phase"
+      Delta_psat=Medium.saturationPressure(Ts_wall[i]) - mediaProps[i].p) for i
+       in 1:nHT} "Coefficient of heat transfer - Saturated Two Phase"
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_SinglePhaseVapor_lam=mediaProps.lambda

@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface;
-model Alphas_TwoPhase_3Region
+model Alphas_TwoPhase_3Region2
   "Specify alphas | Two Phase | 3 Regions - 1P Liquid, 2P, 1P Vapor"
 
   extends PartialTwoPhase;
@@ -94,4 +94,4 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Alphas_TwoPhase_3Region;
+end Alphas_TwoPhase_3Region2;

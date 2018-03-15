@@ -1,4 +1,4 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase;
-package Evaporation
+package NucleateBoiling
 
-end Evaporation;
+end NucleateBoiling;

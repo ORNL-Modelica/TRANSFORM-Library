@@ -5,9 +5,9 @@ package Models
 
   model LorenzSystem
 
-    parameter Real sigma = 1;
-    parameter Real rho = 1;
-    parameter Real beta = 1;
+    input Real sigma = 1 annotation(Dialog(group="Input"));
+    input Real rho = 1 annotation(Dialog(group="Input"));
+    input Real beta = 1 annotation(Dialog(group="Input"));
 
     parameter Real x_start = 1 "Initial x-coordinate" annotation(Dialog(tab="Initialization"));
     parameter Real y_start = 1 "Initial y-coordinate" annotation(Dialog(tab="Initialization"));
@@ -35,8 +35,7 @@ package Models
             lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Solid),
-          Bitmap(extent={{-100,-100},{100,100}}, fileName=
-              "modelica://TRANSFORM/Resources/Images/LorenzSystemFig.png"),
+          Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/LorenzSystemFig.png"),
           Rectangle(extent={{-100,100},{100,-100}}, lineColor={28,108,200})}),
                                                                    Diagram(
           coordinateSystem(preserveAspectRatio=false)));

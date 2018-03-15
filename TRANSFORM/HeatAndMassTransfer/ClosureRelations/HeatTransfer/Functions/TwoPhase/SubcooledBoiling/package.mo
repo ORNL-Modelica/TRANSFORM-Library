@@ -1,3 +1,0 @@
-within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase;
-package SubcooledBoiling
-end SubcooledBoiling;
