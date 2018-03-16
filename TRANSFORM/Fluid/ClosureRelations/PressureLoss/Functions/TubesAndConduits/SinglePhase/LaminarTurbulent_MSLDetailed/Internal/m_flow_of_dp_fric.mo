@@ -91,7 +91,6 @@ protected
   Real aux1;
   Real aux2;
 
-  Real K = 1000000;
 algorithm
   // Determine upstream density and upstream viscosity
   if dp_fric >= 0 then
@@ -103,17 +102,14 @@ algorithm
   end if;
 
   // Positive mass flow rate
-//   lambda2 := abs(dp_fric)*2*diameter^3*rho/(IN_con.length*mu*mu)
-//     "Known as lambda2=f(dp)";
-  lambda2 := abs(dp_fric)*2*diameter^3*rho/(IN_con.length*mu*mu) - K*diameter/IN_con.length
-    "Known as lambda2=f(dp)";
+   lambda2 := abs(dp_fric)*2*diameter^3*rho/(IN_con.length*mu*mu)
+     "Known as lambda2=f(dp)";
 
   aux1:=(2*diameter^3*rho)/(IN_con.length*mu^2);
-  //aux1a := aux1 + K*diameter/IN_con.length/abs(dp_fric);
+
 
   // Determine Re and dRe/ddp under the assumption of laminar flow
   Re := lambda2/64 "Hagen-Poiseuille";
-  //dRe_ddp := aux1/64 "Hagen-Poiseuille";
   dRe_ddp := aux1/64 "Hagen-Poiseuille";
 
   // Modify Re, if turbulent flow
@@ -121,13 +117,7 @@ algorithm
     Re := -2*sqrt(lambda2)*Modelica.Math.log10(2.51/sqrt(lambda2) + 0.27*Delta)
       "Colebrook-White";
     aux2 := sqrt(aux1*abs(dp_fric));
-    //dRe_ddp := 1/log(10)*(-2*log(2.51/aux2+0.27*Delta)*aux1/(2*aux2)+2*2.51/(2*abs(dp_fric)*(2.51/aux2+0.27*Delta)));
-dRe_ddp:=-2*diameter^3*rho*log(0.27*Delta + 2.51/sqrt(-K*diameter/IN_con.length + 2*
-      diameter^3*abs(dp_fric)*rho/(IN_con.length*mu^2)))/(IN_con.length*mu^2*sqrt(-K*diameter/
-      IN_con.length + 2*diameter^3*abs(dp_fric)*rho/(IN_con.length*mu^2))*log(10)) + 5.02*diameter^
-      3*rho/(IN_con.length*mu^2*(0.27*Delta + 2.51/sqrt(-K*diameter/IN_con.length + 2*
-      diameter^3*abs(dp_fric)*rho/(IN_con.length*mu^2)))*(-K*diameter/IN_con.length + 2*diameter^3*
-      abs(dp_fric)*rho/(IN_con.length*mu^2))*log(10));
+    dRe_ddp := 1/log(10)*(-2*log(2.51/aux2+0.27*Delta)*aux1/(2*aux2)+2*2.51/(2*abs(dp_fric)*(2.51/aux2+0.27*Delta)));
     if Re < Re2 then
       (Re, dRe_ddp) := interpolateInRegion2_withDerivative(lambda2, Re1, Re2, Delta, dp_fric);
     end if;

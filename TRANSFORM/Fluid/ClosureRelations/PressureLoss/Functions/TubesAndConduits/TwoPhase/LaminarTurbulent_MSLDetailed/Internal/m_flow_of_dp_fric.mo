@@ -98,8 +98,6 @@ protected
   SIadd.NonDim x_abs "Upstream absolute quality";
   Real phi2 "Two-phase modifier";
 
-
-   SI.DynamicViscosity mu2 "Upstream liquid viscosity";
 algorithm
   // Determine upstream density and upstream viscosity
   if dp_fric >= 0 then
@@ -123,28 +121,10 @@ algorithm
   phi2 := TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Utilities.TwoPhaseFrictionMultiplier(x_abs,mu_lsat,mu_vsat,rho_lsat,rho_vsat);
 
   // Positive mass flow rate
-//    lambda2 := abs(dp_fric)*2*diameter^3*rho/(IN_con.length*mu*mu)/phi2
-//      "Known as lambda2=f(dp)";
-//     if x_abs < 0.01 then
-// lambda2 := abs(dp_fric)*2*diameter^3*rho/(IN_con.length*mu*mu);
-//     elseif x_abs > 0.99
-// lambda2 := abs(dp_fric)*2*diameter^3*rho/(IN_con.length*mu*mu);
-//     else
-// lambda2 := abs(dp_fric)*2*diameter^3*rho_lsat/(IN_con.length*mu_lsat*mu_lsat)/phi2;
-//     end if;
+    lambda2 := abs(dp_fric)*2*diameter^3*rho/(IN_con.length*mu*mu)/phi2
+      "Known as lambda2=f(dp)";
 
-// aux1:=(2*diameter^3*rho)/(IN_con.length*mu^2)/phi2;
-
-   aux1 := 2*diameter^3/IN_con.length*TRANSFORM.Math.spliceTanh(
-             rho/(mu*mu),
-               TRANSFORM.Math.spliceTanh(
-               rho_lsat/(mu_lsat*mu_lsat*phi2),
-               rho/(mu*mu),
-               x_abs - 0.01,
-               0.01),
-             x_abs-0.99,
-             0.01);
-   lambda2 := abs(dp_fric)*aux1 "Known as lambda2=f(dp)";
+   aux1:=(2*diameter^3*rho)/(IN_con.length*mu^2)/phi2;
 
   // Determine Re and dRe/ddp under the assumption of laminar flow
   Re := lambda2/64 "Hagen-Poiseuille";
@@ -162,17 +142,8 @@ algorithm
   end if;
 
   // Determine mass flow rate
-   mu2 :=TRANSFORM.Math.spliceTanh(
-             mu,
-               TRANSFORM.Math.spliceTanh(
-               mu_lsat,
-               mu,
-               x_abs - 0.01,
-               0.01),
-             x_abs-0.99,
-             0.01);
-  m_flow := crossArea/diameter*mu2*(if dp_fric >= 0 then Re else -Re);
+  m_flow := crossArea/diameter*mu*(if dp_fric >= 0 then Re else -Re);
   // Determine derivative of mass flow rate with dp_fric
-  dm_flow_ddp_fric := crossArea/diameter*mu2*dRe_ddp;
+  dm_flow_ddp_fric := crossArea/diameter*mu*dRe_ddp;
   annotation(smoothOrder=1);
 end m_flow_of_dp_fric;
