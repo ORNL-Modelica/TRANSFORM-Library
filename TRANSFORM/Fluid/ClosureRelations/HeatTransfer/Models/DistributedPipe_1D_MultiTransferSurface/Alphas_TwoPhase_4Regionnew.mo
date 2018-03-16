@@ -1,10 +1,10 @@
 within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface;
-model Alphas_TwoPhase_3Region2
-  "Specify alphas | Two Phase | 3 Regions - 1P Liquid, 2P, 1P Vapor"
+model Alphas_TwoPhase_4Regionnew
+  "Specify alphas | Two Phase | 4 Regions - 1P Liquid, 2P, CHF, 1P Vapor"
 
   extends PartialTwoPhase;
 
-  input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alpha_SinglePhaseLiquid={{
+  input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alphas_SinglePhaseLiquid={{
       mediaProps[i].lambda/dimensions[i]*
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Res[i],
@@ -12,7 +12,7 @@ model Alphas_TwoPhase_3Region2
     "Turbulent coefficient of heat transfer - Liquid Phase"
     annotation (Dialog(group="Input Variables"));
 
-  input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alpha_TwoPhaseSaturated={{
+  input SI.CoefficientOfHeatTransfer alphas_NucleateBoiling[nHT,nSurfaces]={{
       HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.NucleateBoiling.alpha_Chen_TubeFlow(
       D=dimensions[i],
       G=m_flows[i]/crossAreas[i],
@@ -31,7 +31,20 @@ model Alphas_TwoPhase_3Region2
     "Coefficient of heat transfer - Saturated Two Phase"
     annotation (Dialog(group="Input Variables"));
 
-  input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alpha_SinglePhaseVapor={{
+  input SI.CoefficientOfHeatTransfer alphas_PostCHF[nHT,nSurfaces]={{TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.PostCHF.alpha_Groeneveld(
+    D_hyd=dimensions[i],
+    crossArea=crossAreas[i],
+    m_flow=m_flows[i],
+    x_abs=mediaProps[i].x_abs,
+    mu_vsat=mediaProps[i].mu_vsat,
+    rho_lsat=mediaProps[i].rho_lsat,
+    rho_vsat=mediaProps[i].rho_vsat,
+    lambda_vsat=mediaProps[i].lambda_vsat,
+    Pr_vw=mediaProps[i].mu_vsat*mediaProps[i].cp_vsat/mediaProps[i].lambda_vsat)
+                                                                       for j in 1:nSurfaces} for i in 1:nHT} "Post-CHF heat transfer coefficient"
+    annotation (Dialog(group="Input Variables"));
+
+  input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alphas_SinglePhaseVapor={{
       mediaProps[i].lambda/dimensions[i]*
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Res[i],
@@ -50,8 +63,8 @@ model Alphas_TwoPhase_3Region2
    "Smooth transition width"
    annotation (Dialog(tab="Advanced",group="Input Variables"));
 
-  input Real HT_smooth[3]={0,0.5,0.9}
-    "Smooth value for transition between regions with phase transition"
+  input Real HT_smooth[3]={0,0.96,0.98}
+    "Smooth value for transition between regions"
     annotation (Dialog(tab="Advanced",group="Input Variables"));
 
   input Real Var_smooth[nHT]=mediaProps.alphaV
@@ -60,31 +73,30 @@ model Alphas_TwoPhase_3Region2
 
 protected
   SI.CoefficientOfHeatTransfer[nHT,nSurfaces]
-    alpha_SinglePhase_Liquid_To_TwoPhaseSaturated;
+    alphas_1;
   SI.CoefficientOfHeatTransfer[nHT,nSurfaces]
-    alpha_SinglePhase_TwoPhaseSaturated_To_Vapor;
+    alphas_2;
 
 equation
 
   for i in 1:nHT loop
     for j in 1:nSurfaces loop
-      alpha_SinglePhase_Liquid_To_TwoPhaseSaturated[i, j] =
-        TRANSFORM.Math.spliceTanh(
-        alpha_TwoPhaseSaturated[i, j],
-        alpha_SinglePhaseLiquid[i, j],
+      alphas_1[i, j] =TRANSFORM.Math.spliceTanh(
+        alphas_NucleateBoiling[i, j],
+        alphas_SinglePhaseLiquid[i, j],
         Var_smooth[i] - HT_smooth[1],
         deltax=HT_width[1]);
 
-      alpha_SinglePhase_TwoPhaseSaturated_To_Vapor[i, j] =
+      alphas_2[i, j] =
         TRANSFORM.Math.spliceTanh(
-        alpha_SinglePhaseVapor[i, j],
-        alpha_TwoPhaseSaturated[i, j],
+        alphas_PostCHF[i, j],
+        alphas_1[i, j],
         Var_smooth[i] - HT_smooth[3],
         deltax=HT_width[3]);
 
       alphas[i, j] =TRANSFORM.Math.spliceTanh(
-        alpha_SinglePhase_TwoPhaseSaturated_To_Vapor[i, j],
-        alpha_SinglePhase_Liquid_To_TwoPhaseSaturated[i, j],
+        alphas_SinglePhaseVapor[i, j],
+        alphas_2[i, j],
         Var_smooth[i] - HT_smooth[2],
         deltax=HT_width[2]);
     end for;
@@ -94,4 +106,4 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Alphas_TwoPhase_3Region2;
+end Alphas_TwoPhase_4Regionnew;

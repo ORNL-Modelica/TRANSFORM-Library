@@ -39,8 +39,8 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions"
       mu_gsat=mediums[i].mu_vsat,
       h_fg=mediums[i].h_lv,
       Delta_Tsat=Ts_wall[i] - mediums[i].sat.Tsat,
-      Delta_psat=Medium.saturationPressure(Ts_wall[i]) - mediums[i].p) for i
-       in 1:nHT} "Coefficient of heat transfer - Saturated Two Phase"
+      Delta_psat=Medium.saturationPressure(Ts_wall[i]) - mediums[i].p) for i in
+          1:nHT} "Coefficient of heat transfer - Saturated Two Phase"
     annotation (Dialog(group="Input Variables"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_SinglePhaseVapor_lam=

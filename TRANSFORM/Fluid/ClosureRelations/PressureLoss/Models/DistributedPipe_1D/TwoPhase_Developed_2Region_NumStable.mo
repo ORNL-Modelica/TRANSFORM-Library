@@ -20,16 +20,16 @@ model TwoPhase_Developed_2Region_NumStable
     nFM] IN_var(
     rho_a=ds_a,
     rho_b=ds_b,
-    rho_l_a=ds_l_a,
-    rho_l_b=ds_l_b,
-    rho_v_a=ds_v_a,
-    rho_v_b=ds_v_b,
+    rho_lsat_a=ds_lsat_a,
+    rho_lsat_b=ds_lsat_b,
+    rho_vsat_a=ds_vsat_a,
+    rho_vsat_b=ds_vsat_b,
     mu_a=mus_a,
     mu_b=mus_b,
-    mu_l_a=mus_l_a,
-    mu_l_b=mus_l_b,
-    mu_v_a=mus_v_a,
-    mu_v_b=mus_v_b,
+    mu_lsat_a=mus_lsat_a,
+    mu_lsat_b=mus_lsat_b,
+    mu_vsat_a=mus_vsat_a,
+    mu_vsat_b=mus_vsat_b,
     x_abs_a=x_abs_a,
     x_abs_b=x_abs_b)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
@@ -83,22 +83,22 @@ model TwoPhase_Developed_2Region_NumStable
   SI.Density ds_b[nFM]=if use_d_nominal then fill(d_nominal, nFM) else
       mediaProps[2:nFM + 1].d;
 
-  SI.Density ds_l_a[nFM]=if use_d_nominal then fill(d_nominal, nFM) else
+  SI.Density ds_lsat_a[nFM]=if use_d_nominal then fill(d_nominal, nFM) else
       mediaProps[1:nFM].rho_lsat;
-  SI.Density ds_l_b[nFM]=if use_d_nominal then fill(d_nominal, nFM) else
+  SI.Density ds_lsat_b[nFM]=if use_d_nominal then fill(d_nominal, nFM) else
       mediaProps[2:nFM + 1].rho_lsat;
-  SI.Density ds_v_a[nFM]=if use_d_nominal then fill(d_nominal, nFM) else
+  SI.Density ds_vsat_a[nFM]=if use_d_nominal then fill(d_nominal, nFM) else
       mediaProps[1:nFM].rho_vsat;
-  SI.Density ds_v_b[nFM]=if use_d_nominal then fill(d_nominal, nFM) else
+  SI.Density ds_vsat_b[nFM]=if use_d_nominal then fill(d_nominal, nFM) else
       mediaProps[2:nFM + 1].rho_vsat;
 
-  SI.DynamicViscosity mus_l_a[nFM]=if use_mu_nominal then fill(mu_nominal, nFM)
+  SI.DynamicViscosity mus_lsat_a[nFM]=if use_mu_nominal then fill(mu_nominal, nFM)
        else mediaProps[1:nFM].mu_lsat;
-  SI.DynamicViscosity mus_l_b[nFM]=if use_mu_nominal then fill(mu_nominal, nFM)
+  SI.DynamicViscosity mus_lsat_b[nFM]=if use_mu_nominal then fill(mu_nominal, nFM)
        else mediaProps[2:nFM + 1].mu_lsat;
-  SI.DynamicViscosity mus_v_a[nFM]=if use_mu_nominal then fill(mu_nominal, nFM)
+  SI.DynamicViscosity mus_vsat_a[nFM]=if use_mu_nominal then fill(mu_nominal, nFM)
        else mediaProps[1:nFM].mu_vsat;
-  SI.DynamicViscosity mus_v_b[nFM]=if use_mu_nominal then fill(mu_nominal, nFM)
+  SI.DynamicViscosity mus_vsat_b[nFM]=if use_mu_nominal then fill(mu_nominal, nFM)
        else mediaProps[2:nFM + 1].mu_vsat;
 
   SIadd.NonDim x_abs_a[nFM]= mediaProps[1:nFM].x_abs;
@@ -109,16 +109,16 @@ protected
     IN_var_nominal(
     rho_a=d_nominal,
     rho_b=d_nominal,
-    rho_l_a=d_nominal,
-    rho_l_b=d_nominal,
-    rho_v_a=d_nominal,
-    rho_v_b=d_nominal,
+    rho_lsat_a=d_nominal,
+    rho_lsat_b=d_nominal,
+    rho_vsat_a=d_nominal,
+    rho_vsat_b=d_nominal,
     mu_a=mu_nominal,
     mu_b=mu_nominal,
-    mu_l_a=mu_nominal,
-    mu_l_b=mu_nominal,
-    mu_v_a=mu_nominal,
-    mu_v_b=mu_nominal,
+    mu_lsat_a=mu_nominal,
+    mu_lsat_b=mu_nominal,
+    mu_vsat_a=mu_nominal,
+    mu_vsat_b=mu_nominal,
     x_abs_a=0,
     x_abs_b=0);
 

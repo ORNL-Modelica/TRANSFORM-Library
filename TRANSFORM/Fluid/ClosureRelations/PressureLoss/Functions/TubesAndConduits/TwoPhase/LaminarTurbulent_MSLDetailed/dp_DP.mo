@@ -36,10 +36,10 @@ protected
   SI.ReynoldsNumber Re "Reynolds number";
   Real lambda2 "Modified friction coefficient (= lambda*Re^2)";
 
-  SI.DynamicViscosity mu_l "Upstream liquid viscosity";
-  SI.Density rho_l "Upstream liquid density";
-  SI.DynamicViscosity mu_v "Upstream vapor viscosity";
-  SI.Density rho_v "Upstream vapor density";
+  SI.DynamicViscosity mu_lsat "Upstream liquid viscosity";
+  SI.Density rho_lsat "Upstream liquid density";
+  SI.DynamicViscosity mu_vsat "Upstream vapor viscosity";
+  SI.Density rho_vsat "Upstream vapor density";
   SIadd.NonDim x_abs "Upstream absolute quality";
   Real phi2 "Two-phase modifier";
 
@@ -81,23 +81,23 @@ algorithm
   // Determine upstream density and upstream viscosity
   if m_flow >= 0 then
     rho := IN_var.rho_a;
-    mu := IN_var.mu_a;
-    rho_l := IN_var.rho_l_a;
-    mu_l := IN_var.mu_l_a;
-    rho_v := IN_var.rho_v_a;
-    mu_v := IN_var.mu_v_a;
+    mu  := IN_var.mu_a;
+    rho_lsat := IN_var.rho_lsat_a;
+    mu_lsat  := IN_var.mu_lsat_a;
+    rho_vsat := IN_var.rho_vsat_a;
+    mu_vsat  := IN_var.mu_vsat_a;
     x_abs := IN_var.x_abs_a;
   else
     rho := IN_var.rho_b;
-    mu := IN_var.mu_b;
-    rho_l := IN_var.rho_l_b;
-    mu_l := IN_var.mu_l_b;
-    rho_v := IN_var.rho_v_b;
-    mu_v := IN_var.mu_v_b;
+    mu  := IN_var.mu_b;
+    rho_lsat := IN_var.rho_lsat_b;
+    mu_lsat  := IN_var.mu_lsat_b;
+    rho_vsat := IN_var.rho_vsat_b;
+    mu_vsat  := IN_var.mu_vsat_b;
     x_abs := IN_var.x_abs_b;
   end if;
 
-  phi2 := TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Utilities.TwoPhaseFrictionMultiplier(x_abs,mu_l,mu_v,rho_l,rho_v);
+  phi2 := TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Utilities.TwoPhaseFrictionMultiplier(x_abs,mu_lsat,mu_vsat,rho_lsat,rho_vsat);
 
   // Determine Re, lambda2 and pressure drop
   Re := diameter*abs(m_flow)/(crossArea*mu);
