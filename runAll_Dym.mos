@@ -1,5 +1,9 @@
+simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
+simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
 simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
 simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
+simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
+simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
 simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
 simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.BranchingDynamicPipes",stopTime=10,resultFile="BranchingDynamicPipes");
@@ -15,6 +19,7 @@ simulateModel("TRANSFORM.Fluid.Examples.TritiumExamples.PbLiTest2",stopTime=100,
 simulateModel("TRANSFORM.Fluid.Examples.NaturalCirculation",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NaturalCirculation");
 simulateModel("TRANSFORM.Fluid.Examples.NaturalCirculation2",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NaturalCirculation2");
 simulateModel("TRANSFORM.Fluid.Examples.RankineCycle",resultFile="RankineCycle");
+simulateModel("TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Examples.Utilities.TwoPhaseFrictionMultiplier",numberOfIntervals=100,resultFile="TwoPhaseFrictionMultiplier");
 simulateModel("TRANSFORM.Fluid.Machines.Examples.PumpTests.Pump_Test",stopTime=10,tolerance=1e-006,resultFile="Pump_Test");
 simulateModel("TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests.RankineCycle_Example8_1",numberOfIntervals=100,resultFile="RankineCycle_Example8_1");
 simulateModel("TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests.RankineCycle_Example8_12",numberOfIntervals=100,resultFile="RankineCycle_Example8_12");
@@ -73,6 +78,10 @@ simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels.W
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels.Winding_12D_withMass",stopTime=100,numberOfIntervals=100,resultFile="Winding_12D_withMass");
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.nParallel_Test",numberOfIntervals=100,resultFile="nParallel_Test");
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ResistanceCheck",numberOfIntervals=100,resultFile="ResistanceCheck");
+simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.NucleateBoiling.alpha_Chen_FvsInvXtt",method="Dassl",numberOfIntervals=1000,resultFile="alpha_Chen_FvsInvXtt");
+simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.NucleateBoiling.alpha_Chen_SvsRe",method="Dassl",numberOfIntervals=10000,resultFile="alpha_Chen_SvsRe");
+simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.PostCHF.alpha_Groeneveld",resultFile="alpha_Groeneveld");
+simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.PostCHF.alpha_Groeneveld_wMedia",resultFile="alpha_Groeneveld_wMedia");
 simulateModel("TRANSFORM.HeatExchangers.Examples.OilWater_CTHX",stopTime=1000,numberOfIntervals=1000,resultFile="OilWater_CTHX");
 simulateModel("TRANSFORM.HeatExchangers.Examples.OilWater_PTHX",stopTime=1000,numberOfIntervals=1000,resultFile="OilWater_PTHX");
 simulateModel("TRANSFORM.HeatExchangers.Examples.SteamWater_HCSG",stopTime=1000,numberOfIntervals=1000,resultFile="SteamWater_HCSG");
@@ -82,6 +91,7 @@ simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_12Th_05U_pT",resultFi
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_9999Li7",resultFile="LinearFLiBe_9999Li7");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_pT",resultFile="LinearFLiBe_pT");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearNaK_22_78",resultFile="LinearNaK_22_78");
+simulateModel("TRANSFORM.Media.Fluids.Examples.LinearWaterHot_pT",resultFile="LinearWaterHot_pT");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_flat",stopTime=100000000,numberOfIntervals=10000,resultFile="PointKinetics_Drift_Test_flat");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Test",stopTime=10,numberOfIntervals=1000,resultFile="PointKinetics_Test");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_vs_ApproximateOneGroup",stopTime=1.1,numberOfIntervals=100,resultFile="PointKinetics_vs_ApproximateOneGroup");
