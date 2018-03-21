@@ -414,7 +414,10 @@ model GenericDistributed_HX
         height_a=geometry.height_a_shell,
         dimensions=geometry.dimensions_shell,
         nSurfaces=geometry.nSurfaces_shell,
-        angles=geometry.angles_shell)) annotation (Placement(transformation(
+        angles=geometry.angles_shell),
+    redeclare model InternalHeatGen = InternalHeatGen_shell,
+    redeclare model InternalTraceGen = InternalTraceGen_shell)
+                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={0,46})));
@@ -467,7 +470,8 @@ model GenericDistributed_HX
         perimeters=geometry.perimeters_tube,
         nSurfaces=geometry.nSurfaces_tube,
         angles=geometry.angles_tube),
-    redeclare model InternalTraceGen = InternalTraceGen_tube)
+    redeclare model InternalTraceGen = InternalTraceGen_tube,
+    redeclare model InternalHeatGen = InternalHeatGen_tube)
                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -517,6 +521,13 @@ model GenericDistributed_HX
   replaceable model InternalTraceGen_shell =
       Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
     annotation (Dialog(group="Trace Mass Transfer"),choicesAllMatching=true);
+
+  replaceable model InternalHeatGen_tube =
+      Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+      annotation (Dialog(group="Heat Transfer"),choicesAllMatching=true);
+  replaceable model InternalHeatGen_shell =
+      Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+      annotation (Dialog(group="Heat Transfer"),choicesAllMatching=true);
 
 equation
 

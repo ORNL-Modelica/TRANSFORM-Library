@@ -18,6 +18,9 @@ partial record PartialTritium
 
   constant Real[nC,nC] parents = fill(0,nC,nC) "Matrix of parent sources (sum(column) = 0 or 1) for each tritium contributor 'daughter'. Row is daughter, Column is parent.";
 
+  parameter SI.Energy[nC] w_decay = fill(0,nC) "Energy release (near field - beta) per fission product decay per type";
+  parameter SI.Energy[nC] wG_decay = fill(0,nC) "Energy release (far field - gamma) per fission product decay per type";
+
 //   parameter SI.NumberDensityOfMolecules[nC] CN_start = fill(0,nC) "Number density of Li-7 atoms in flibe [atoms Li-7/m3]";
 //
 //   parameter SI.Mass MM = 1*N_A "# of atoms of per kg of fluid";

@@ -102,10 +102,11 @@ algorithm
   end if;
 
   // Positive mass flow rate
-  lambda2 := abs(dp_fric)*2*diameter^3*rho/(IN_con.length*mu*mu)
-    "Known as lambda2=f(dp)";
+   lambda2 := abs(dp_fric)*2*diameter^3*rho/(IN_con.length*mu*mu)
+     "Known as lambda2=f(dp)";
 
   aux1:=(2*diameter^3*rho)/(IN_con.length*mu^2);
+
 
   // Determine Re and dRe/ddp under the assumption of laminar flow
   Re := lambda2/64 "Hagen-Poiseuille";

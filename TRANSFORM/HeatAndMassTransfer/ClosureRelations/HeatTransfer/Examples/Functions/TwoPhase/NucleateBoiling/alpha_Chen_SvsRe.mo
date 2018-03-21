@@ -1,12 +1,12 @@
-within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions;
-model alpha_Chen_FvsInvXtt
+within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.NucleateBoiling;
+model alpha_Chen_SvsRe
   extends Modelica.Icons.Example;
 
   package Medium = Modelica.Media.Water.StandardWater;
 
-  parameter Boolean spanQuality = true
+  parameter Boolean spanQuality = false
     "true to span from saturated liquid to saturated vapor (create F vs 1/X_tt plot)";
-  parameter Boolean spanFlux = false
+  parameter Boolean spanFlux = true
     "true to span over flux range (to create S vs Re_tp plot). Must change number of simulation intervals to a large number (e.g., 1e4) to capture plot";
 
   parameter SI.Pressure p = 1e5 "Absolute pressure";
@@ -50,7 +50,7 @@ model alpha_Chen_FvsInvXtt
   SI.PressureDifference Delta_psat
     "Saturation pressure difference (psat(Twall)-psat(Tsat))";
 
-  SI.CoefficientOfHeatTransfer y "Heat transfer coefficient";
+  SI.CoefficientOfHeatTransfer alpha "Heat transfer coefficient";
 
   Real X_tt_inv "Inverse of the Martenelli Parameter";
   Real F "Correction factor for two-phase impact on liquid-phase convection";
@@ -60,65 +60,68 @@ model alpha_Chen_FvsInvXtt
 protected
   SI.Time tt = 1 "1 second to suppress unit warning";
 
-algorithm
-  bubble :=Medium.setBubbleState(sat, 1);
-  dew :=Medium.setDewState(sat, 1);
+public
+  Utilities.ErrorAnalysis.UnitTests           unitTests(n=3, x={alpha,S,Re_tp})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
+equation
+  bubble = Medium.setBubbleState(sat, 1);
+  dew = Medium.setDewState(sat, 1);
 
-  h_fsat :=bubble.h;
-  h_gsat :=dew.h;
-  h_fg :=h_gsat - h_fsat;
+  h_fsat = bubble.h;
+  h_gsat = dew.h;
+  h_fg = h_gsat - h_fsat;
 
   if spanQuality then
-    dh :=h_fg;
-    h :=h_fsat + dh*time/tt;
-    G :=G_start;
+    dh = h_fg;
+    h = h_fsat + dh*time/tt;
+    G = G_start;
   elseif spanFlux then
-    dh :=0;
-    h :=h_start;
-    G :=(G_end - G_start)*time/tt;
+    dh = 0;
+    h = h_start;
+    G = (G_end-G_start)*time/tt;
   else
-    dh :=(h_end - h_start);
-    h :=h_start + dh*time/tt;
-    G :=G_start;
+    dh = (h_end - h_start);
+    h = h_start + dh*time/tt;
+    G = G_start;
   end if;
 
-  state :=Medium.setState_ph(p, h);
-  sat :=Medium.setSat_p(state.p);
+  state = Medium.setState_ph(p,h);
+  sat = Medium.setSat_p(state.p);
 
-  x_th :=(h - h_fsat)/(h_gsat - h_fsat);
-  x_abs :=noEvent(if h <= h_fsat then 0 else if h >= h_gsat then 1 else (h -
-    h_fsat)/(h_gsat - h_fsat));
+  x_th = (h - h_fsat)/(h_gsat - h_fsat);
+  x_abs = noEvent(if h <= h_fsat then 0 else if h >= h_gsat then 1 else (h
+          - h_fsat)/(h_gsat - h_fsat));
 
-  rho_fsat :=bubble.d;
-  mu_fsat :=Medium.dynamicViscosity(bubble);
-  lambda_fsat :=Medium.thermalConductivity(bubble);
-  cp_fsat :=Medium.heatCapacity_cp(bubble);
-  sigma :=Medium.surfaceTension(sat);
+  rho_fsat = bubble.d;
+  mu_fsat = Medium.dynamicViscosity(bubble);
+  lambda_fsat = Medium.thermalConductivity(bubble);
+  cp_fsat = Medium.heatCapacity_cp(bubble);
+  sigma = Medium.surfaceTension(sat);
 
-  rho_gsat :=dew.d;
-  mu_gsat :=Medium.dynamicViscosity(dew);
-  k_gsat :=Medium.thermalConductivity(dew);
-  cp_gsat :=Medium.heatCapacity_cp(dew);
+  rho_gsat = dew.d;
+  mu_gsat = Medium.dynamicViscosity(dew);
+  k_gsat = Medium.thermalConductivity(dew);
+  cp_gsat = Medium.heatCapacity_cp(dew);
 
-  Delta_Tsat :=Twall - sat.Tsat;
-  Delta_psat :=Medium.saturationPressure(Twall) - state.p;
+  Delta_Tsat = Twall - sat.Tsat;
+  Delta_psat = Medium.saturationPressure(Twall) - state.p;
 
-  (y,X_tt_inv,F,S,Re_tp) :=
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.Evaporation.alpha_Chen_TubeFlow(
-        D=D,
-        G=G,
-        x=x_abs,
-        rho_fsat=rho_fsat,
-        mu_fsat=mu_fsat,
-        lambda_fsat=lambda_fsat,
-        cp_fsat=cp_fsat,
-        sigma=sigma,
-        rho_gsat=rho_gsat,
-        mu_gsat=mu_gsat,
-        h_fg=h_fg,
-        Delta_Tsat=Delta_Tsat,
-        Delta_psat=Delta_psat);
+  (alpha,X_tt_inv,F,S,Re_tp) =
+    TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.NucleateBoiling.alpha_Chen_TubeFlow(
+    D=D,
+    G=G,
+    x=x_abs,
+    rho_fsat=rho_fsat,
+    mu_fsat=mu_fsat,
+    lambda_fsat=lambda_fsat,
+    cp_fsat=cp_fsat,
+    sigma=sigma,
+    rho_gsat=rho_gsat,
+    mu_gsat=mu_gsat,
+    h_fg=h_fg,
+    Delta_Tsat=Delta_Tsat,
+    Delta_psat=Delta_psat);
 
-  annotation (experiment(__Dymola_NumberOfIntervals=1000, __Dymola_Algorithm=
-          "Dassl"));
-end alpha_Chen_FvsInvXtt;
+  annotation (experiment(__Dymola_NumberOfIntervals=10000, __Dymola_Algorithm=
+         "Dassl"));
+end alpha_Chen_SvsRe;

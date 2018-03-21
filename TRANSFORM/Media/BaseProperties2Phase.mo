@@ -20,7 +20,7 @@ model BaseProperties2Phase
   SI.Temperature T "Fluid temperature";
   SI.Pressure p "Fluid pressure";
 
-  Units.NonDim x_th "Thermodynmic quality";
+  Units.NonDim x_th "Thermodynamic quality";
   Units.NonDim x_abs "Absolute mass quality (0<x<1)";
   Units.VoidFraction alphaV "Void fraction";
 

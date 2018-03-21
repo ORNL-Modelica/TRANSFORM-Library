@@ -26,7 +26,7 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions"
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_TwoPhaseSaturated={mediums_film[
       i].lambda/dimensions[i]*
-      Functions.TwoPhase.Evaporation.alpha_Chen_TubeFlow(
+      Functions.TwoPhase.NucleateBoiling.alpha_Chen_TubeFlow(
       D=dimensions[i],
       G=m_flows[i]/crossAreas[i],
       x=mediums[i].x_abs,
