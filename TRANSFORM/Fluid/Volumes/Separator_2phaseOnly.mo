@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.Volumes;
-model Separator
+model Separator_2phaseOnly
 
   extends TRANSFORM.Fluid.Volumes.MixingVolume(
     redeclare replaceable package Medium =
@@ -13,15 +13,11 @@ model Separator
         actualStream(portLiquid.C_outflow[i]) + mC_flow_internal[i] + mC_gen[i]
         for i in 1:Medium.nC});
 
-  input SI.Efficiency eta_sep(
+  parameter SI.Efficiency eta_sep(
     min=0,
-    max=1) = 1.0 "Separation efficiency" annotation(Dialog(group="Inputs"));
+    max=1) = 0.99 "Separation efficiency";
 
-  parameter Boolean portMixed = false "=true to assume entering and exit streams mix before entering the volume" annotation(Dialog(tab="Advanced"));
-
-  SI.MassFlowRate m_flow_liquid;
-  SI.MassFlowRate m_flow_a_inflow;
-  SI.MassFlowRate m_flow_b_inflow;
+  SI.MassFlowRate m_cond;
   SI.MassFraction x_abs;
   SI.Pressure p_crit=Medium.fluidConstants[1].criticalPressure;
   SI.SpecificEnthalpy h_lsat;
@@ -38,18 +34,13 @@ equation
 
   h_lsat = Medium.specificEnthalpy(Medium.setBubbleState(Medium.setSat_p(medium.p)));
   h_vsat = Medium.specificEnthalpy(Medium.setDewState(Medium.setSat_p(medium.p)));
+  assert(x_abs > 0, "Steam separator is full with liquid.");
 
-  if portMixed then
-    m_flow_a_inflow= max(sum(port_a.m_flow),0);
-    m_flow_b_inflow= max(sum(port_b.m_flow),0);
-  else
-    m_flow_a_inflow= sum({max(port_a[i].m_flow,0) for i in 1:nPorts_a});
-    m_flow_b_inflow= sum({max(port_b[i].m_flow,0) for i in 1:nPorts_b});
-  end if;
-  m_flow_liquid = -(1-x_abs)*(m_flow_a_inflow+m_flow_b_inflow)*eta_sep;
+  m_cond = -max(0, 1 - x_abs)*max({sum(port_a.m_flow),sum(port_b.m_flow),0})*
+    eta_sep;
 
-  portLiquid.m_flow = m_flow_liquid;
-  portLiquid.h_outflow = noEvent(if x_abs > 0 then h_lsat else medium.h);
+  portLiquid.m_flow = m_cond;
+  portLiquid.h_outflow = h_lsat;
   portLiquid.Xi_outflow = medium.Xi;
   portLiquid.C_outflow = C;
 
@@ -64,5 +55,8 @@ equation
           lineColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true, showName))}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
-end Separator;
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Does not handle streams that may or may not have liquid in them.</p>
+</html>"));
+end Separator_2phaseOnly;

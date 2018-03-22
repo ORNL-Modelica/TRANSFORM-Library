@@ -20,13 +20,13 @@ model MoistureSeparatorReheater "Moisture separator reheater"
         transformation(extent={{-110,-30},{-90,-10}}), iconTransformation(
           extent={{-110,-30},{-90,-10}})));
 
-  Volumes.Separator                          separator(
+  TRANSFORM.Fluid.Volumes.Separator_2phaseOnly separator(
     eta_sep=0.85,
     nPorts_b=1,
     nPorts_a=1,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
-redeclare model Geometry =
-        ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (       V=4),
+    redeclare model Geometry =
+        ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=4),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     p_start=initData.p_start_turbine_HP_stage2_drain - (initData.p_start_turbine_HP_stage2_drain
          - initData.p_start_turbine_LP_stage1_feed)/3,

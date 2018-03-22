@@ -31,6 +31,8 @@ model IdealCondenser "Ideal condenser with fixed pressure"
   parameter SI.Volume V_liquid_start=0.15*V_total
     "Start value of the liquid volume"  annotation(Dialog(tab="Initialization"));
 
+  parameter Boolean set_m_flow = false "=true to set port_b.m_flow = -port_a.m_flow" annotation(Dialog(tab="Advanced"));
+
   //Variables
   Medium.SaturationProperties sat "Saturation properties";
 
@@ -74,7 +76,12 @@ equation
 
   // Boundary Conditions
   port_a.p = p;
-  port_b.p = p;
+
+  if set_m_flow then
+    port_b.m_flow = -port_a.m_flow;
+  else
+    port_b.p = p;
+  end if;
 
   port_a.h_outflow = h_fsat;
   port_b.h_outflow = h_fsat;
@@ -151,7 +158,15 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={135,135,135},
-          textString="IDEAL")}),
+          textString="IDEAL"),
+        Ellipse(
+          extent={{8,30},{-8,-30}},
+          lineColor={0,0,0},
+          fillColor={0,122,236},
+          fillPattern=FillPattern.Solid,
+          origin={0,-80},
+          rotation=90,
+          visible=set_m_flow)}),
     Documentation(revisions="<html>
 </html>", info="<html>
 <p>The steam enters through port a and saturated water leaves port b.</p>
