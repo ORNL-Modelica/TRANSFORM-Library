@@ -49,7 +49,7 @@ equation
   m_flow_liquid = -(1-x_abs)*(m_flow_a_inflow+m_flow_b_inflow)*eta_sep;
 
   portLiquid.m_flow = m_flow_liquid;
-  portLiquid.h_outflow = noEvent(if x_abs > 0 then h_lsat else medium.h);
+  portLiquid.h_outflow = TRANSFORM.Math.spliceTanh(h_lsat,medium.h,x_abs,0.001); //noEvent(if x_abs > 0 then h_lsat else medium.h);
   portLiquid.Xi_outflow = medium.Xi;
   portLiquid.C_outflow = C;
 
