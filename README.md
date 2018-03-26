@@ -7,7 +7,7 @@ DOI: 10.11578/dc.20171025.2022
 
 This is the development site for the Modelica _TRANSFORM_ library and its user guide.
 
-Instructions for developers are available on the [wiki](https://github.com/ORNL-TRANSFORM/TRANSFORM-Library/wiki).
+Instructions for developers are available on the [wiki](https://github.com/ORNL-Modelica/TRANSFORM-Library/wiki).
 
 ## Versioning
 
@@ -47,7 +47,7 @@ Explain how to run the automated tests for this system
 
 * **Scott Greenwood**
 
-See also the list of [contributors](https://github.com/ORNL-TRANSFORM/TRANSFORM-Library/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/ORNL-Modelica/TRANSFORM-Library/contributors) who participated in this project.
 
 ## License
 
@@ -56,9 +56,9 @@ This project is licensed under the UT-Battelle Open Source [License](LICENSE.pdf
 Copyright 2017, UT-Battelle, LLC
 
 ## To Contribute...
-You may report any issues with using the [Issues](https://github.com/ORNL-TRANSFORM/TRANSFORM-Library/issues) button.
+You may report any issues with using the [Issues](https://github.com/ORNL-Modelica/TRANSFORM-Library/issues) button.
 
-Contributions in the form of [Pull Requests](https://github.com/ORNL-TRANSFORM/TRANSFORM-Library/pulls) are always welcome.
+Contributions in the form of [Pull Requests](https://github.com/ORNL-Modelica/TRANSFORM-Library/pulls) are always welcome.
 Prior to issuing a pull request, make sure your code follows the [style guide and coding conventions]()
 
 ## Acknowledgments
