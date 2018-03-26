@@ -2,12 +2,14 @@ Examples
 SimpleVolume
 MixingVolume
 Separator
+Separator_2phaseOnly
 IdealCondenser
 Condenser
 Deaerator
 BoilerDrum
 ExpansionTank
 ExpansionTank_1Port
+DumpTank
 Pressurizer
 Pressurizer_withWall
 BaseClasses

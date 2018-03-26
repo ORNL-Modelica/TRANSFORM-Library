@@ -38,8 +38,12 @@ simulateModel("TRANSFORM.Fluid.Volumes.Examples.Condenser_Test",stopTime=1000,to
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.ExpansionTank2_Test",stopTime=100,resultFile="ExpansionTank2_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.ExpansionTank_Test",stopTime=100,resultFile="ExpansionTank_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.IdealCondenser_Test",resultFile="IdealCondenser_Test");
+simulateModel("TRANSFORM.Fluid.Volumes.Examples.MixingVolume_Test",stopTime=100,resultFile="MixingVolume_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.Pressurizer_Test",stopTime=1000,numberOfIntervals=1000,resultFile="Pressurizer_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.Pressurizer_withWall_Test",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="Pressurizer_withWall_Test");
+simulateModel("TRANSFORM.Fluid.Volumes.Examples.Seperator_2PhaseOnly_Test",stopTime=100,resultFile="Seperator_2PhaseOnly_Test");
+simulateModel("TRANSFORM.Fluid.Volumes.Examples.Seperator_Test",stopTime=100,resultFile="Seperator_Test");
+simulateModel("TRANSFORM.Fluid.Volumes.Examples.SimpleVolume_Test",stopTime=100,resultFile="SimpleVolume_Test");
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_IncroperaAndDeWitt.Example_8_6_UninsulatedDuct",numberOfIntervals=100,resultFile="Example_8_6_UninsulatedDuct");
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_IncroperaAndDeWitt.Example_8_6_UninsulatedDuctwithMass",numberOfIntervals=100,resultFile="Example_8_6_UninsulatedDuctwithMass");
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_2_1_LiquidOxygenDewar.part_ab_ThermalResistances",numberOfIntervals=100,resultFile="part_ab_ThermalResistances");

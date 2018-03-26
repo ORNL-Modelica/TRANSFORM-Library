@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Fluid.Volumes.Examples.Seperator_2PhaseOnly_Test",stopTime=100,resultFile="Seperator_2PhaseOnly_Test");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

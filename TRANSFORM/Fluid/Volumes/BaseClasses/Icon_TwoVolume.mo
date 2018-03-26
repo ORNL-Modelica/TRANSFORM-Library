@@ -1,6 +1,8 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses;
 model Icon_TwoVolume
 
+  extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
           points={{5,75},{1,75},{-5,65},{-5,-65},{1,-75},{5,-75},{5,75}},
@@ -14,10 +16,6 @@ model Icon_TwoVolume
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-98,137},{102,107}},
-          lineColor={0,0,0},
-          textString="%name"),
         Polygon(
           points={{-40,20},{-40,20}},
           lineColor={0,0,0},
@@ -39,6 +37,11 @@ model Icon_TwoVolume
               -90,70}},
           lineColor={0,0,0},
           fillColor={175,175,175},
-          fillPattern=FillPattern.Solid)}),                                             Diagram(coordinateSystem(
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-147,132},{153,92}},
+          lineColor={0,0,255},
+          textString="%name",
+          visible=DynamicSelect(true,showName))}),                                      Diagram(coordinateSystem(
           preserveAspectRatio=false)));
 end Icon_TwoVolume;
