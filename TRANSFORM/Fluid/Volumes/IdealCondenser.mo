@@ -88,10 +88,6 @@ equation
 
   annotation (defaultComponentName="condenser",
     Icon(graphics={
-        Text(
-          extent={{-98,137},{102,107}},
-          lineColor={0,0,0},
-          textString="%name"),
         Polygon(
           points={{-166,78},{-166,78}},
           lineColor={0,0,0},
