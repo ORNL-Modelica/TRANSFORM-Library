@@ -223,14 +223,11 @@ equation
         end for;
   end for;
 
-Qs_FPi = {{w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in 1:nV};
-Qs_FPGi = {{wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in 1:nV};
+  Qs_FPi = {{w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in 1:nV};
+  Qs_FPGi = {{wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in 1:nV};
 
   Qs_FP = {sum(Qs_FPi[i,:]) for i in 1:nV};
   Qs_FP_gamma = {sum(Qs_FPGi[i,:]) for i in 1:nV};
-
-//   Qs_FP = {sum({w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC}) for i in 1:nV};
-//   Qs_FP_gamma = {sum({wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC}) for i in 1:nV};
 
 // Tritium
   for i in 1:nV loop
