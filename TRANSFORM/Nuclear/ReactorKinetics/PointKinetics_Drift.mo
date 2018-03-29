@@ -173,7 +173,6 @@ model PointKinetics_Drift
 
   input SI.Volume[nV] Vs annotation(Dialog);
 
-
   parameter Boolean includeLeak = false "=true to include power leakage across volumes in energy balance" annotation(Dialog(tab="Advanced"));
   parameter Real LF[nV+1] = zeros(nV+1) annotation(Dialog(tab="Advanced",enable=includeLeak));
   SI.Power Qs_leak[nV];

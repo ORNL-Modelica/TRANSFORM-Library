@@ -38,11 +38,11 @@ model GenericDistributed_HXnew_withMass
 //   replaceable package Medium_tube =
 //       TRANSFORM.Media.Fluids.FLiBe.ConstantPropertyLiquidFLiBe(extraPropertiesNames={"Tritium"});
 
-  replaceable package Medium_shell = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium_shell =
+      Modelica.Media.Interfaces.PartialMedium
      "Shell side medium" annotation (choicesAllMatching=true);
   replaceable package Medium_tube = Modelica.Media.Interfaces.PartialMedium
      "Tube side medium" annotation (choicesAllMatching=true);
-
 
   replaceable package Material_wall =
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy "Tube wall material"
@@ -63,7 +63,6 @@ model GenericDistributed_HXnew_withMass
     TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
     "Tube side flow models (i.e., momentum, pressure loss, wall friction)"
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
-
 
   parameter Boolean use_HeatTransfer_tube=true
     "= true to use inner wall heat port (i.e., tube to wall)" annotation (Dialog(group="Heat Transfer"));
@@ -549,7 +548,6 @@ model GenericDistributed_HXnew_withMass
   TRANSFORM.HeatExchangers.BaseClasses.Summary summary
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
-
 //   parameter Boolean nC_ref = true "=true for nC to be based on Medium.nC of tube else shell" annotation(Dialog(tab="Trace Mass Transfer"),Evalutate=true);
 //   final parameter Integer nC=if nC_ref then Medium_tube.nC else Medium_shell.nC "Number of trace substances transfered through wall";
 
@@ -583,7 +581,6 @@ model GenericDistributed_HXnew_withMass
   replaceable model InternalTraceGen_tube =
       Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
     annotation (Dialog(tab="Trace Mass Transfer"), choicesAllMatching=true);
-
 
   parameter SI.Concentration Cs_start_wall[geometry.nR,geometry.nV,nC]= if nC ==0 then fill(0,geometry.nR,geometry.nV,nC) else {
       linspaceRepeat_1D(
@@ -691,8 +688,6 @@ model GenericDistributed_HXnew_withMass
         rotation=90,
         origin={-4,-62})));
 
-
-
   HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interfaceM_outer[
     geometry.nV](
     each nC=nC,
@@ -766,7 +761,6 @@ equation
     annotation (Line(points={{0,-75},{0,-44}}, color={191,0,0}));
   connect(counterFlow.port_b, shell.heatPorts[:, 1])
     annotation (Line(points={{0,28},{0,41}}, color={191,0,0}));
-
 
   connect(counterFlow.port_a, wall.port_b1)
     annotation (Line(points={{0,8},{0,-24}}, color={191,0,0}));

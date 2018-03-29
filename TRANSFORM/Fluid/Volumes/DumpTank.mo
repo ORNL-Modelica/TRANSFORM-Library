@@ -219,7 +219,6 @@ equation
   port_a.C_outflow = C;
   port_b.C_outflow = C;
 
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={

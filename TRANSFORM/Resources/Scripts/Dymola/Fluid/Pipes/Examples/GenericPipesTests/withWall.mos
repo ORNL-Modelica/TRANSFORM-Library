@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipesTests.withWall",stopTime=100,resultFile="withWall");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

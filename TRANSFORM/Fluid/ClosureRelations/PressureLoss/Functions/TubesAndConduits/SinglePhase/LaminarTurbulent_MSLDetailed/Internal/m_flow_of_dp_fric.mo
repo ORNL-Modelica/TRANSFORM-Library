@@ -107,7 +107,6 @@ algorithm
 
   aux1:=(2*diameter^3*rho)/(IN_con.length*mu^2);
 
-
   // Determine Re and dRe/ddp under the assumption of laminar flow
   Re := lambda2/64 "Hagen-Poiseuille";
   dRe_ddp := aux1/64 "Hagen-Poiseuille";
