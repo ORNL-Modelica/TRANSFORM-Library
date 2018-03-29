@@ -35,6 +35,7 @@ simulateModel("TRANSFORM.Fluid.Pipes.Examples.UseOfGeometryModel",stopTime=1,res
 simulateModel("TRANSFORM.Fluid.TraceComponents.Examples.TraceDecayAdsorberBed_Test",stopTime=100,resultFile="TraceDecayAdsorberBed_Test");
 simulateModel("TRANSFORM.Fluid.TraceComponents.Examples.TraceSeparator_Test",resultFile="TraceSeparator_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.Condenser_Test",stopTime=1000,tolerance=1e-008,resultFile="Condenser_Test");
+simulateModel("TRANSFORM.Fluid.Volumes.Examples.DumpTank_Test",stopTime=100,resultFile="DumpTank_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.ExpansionTank2_Test",stopTime=100,resultFile="ExpansionTank2_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.ExpansionTank_Test",stopTime=100,resultFile="ExpansionTank_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.IdealCondenser_Test",resultFile="IdealCondenser_Test");

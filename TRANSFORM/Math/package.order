@@ -42,3 +42,4 @@ smoothMax_splice
 smoothMin_splice
 regStep
 replaceArrayValues
+indexFilter

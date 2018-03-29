@@ -378,7 +378,7 @@ model GenericPipe_MultiTransferSurface
     annotation (Placement(transformation(extent={{-10,50},{10,70}}),
         iconTransformation(extent={{-10,40},{10,60}})));
   HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts[nV,geometry.nSurfaces](
-     each nC=Medium.nC) if                                                         use_TraceMassTransfer
+     each nC=traceMassTransfer.nC) if                                                         use_TraceMassTransfer
     annotation (Placement(transformation(extent={{-50,50},{-30,70}}),
         iconTransformation(extent={{-50,40},{-30,60}})));
 

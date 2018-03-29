@@ -3,17 +3,17 @@ model Shs_SinglePhase_2Region "Specify Sh | Single Phase | 2 Region - Laminar & 
 
   extends PartialSinglePhase;
 
-  input SI.SchmidtNumber Shs_lam[nMT,nSurfaces,Medium.nC]={{{
+  input SI.SchmidtNumber Shs_lam[nMT,nSurfaces,nC]={{{
       HeatAndMassTransfer.ClosureRelations.MassTransfer.Functions.SinglePhase.InternalFlow.Sh_Laminar_Local_Developed_Circular_SiederTate(
       Res[i],
       Scs[i, k],
       sum(dlengths),
-      dimensions[i]) for k in 1:Medium.nC} for j in 1:nSurfaces} for i in 1:nMT}
+      dimensions[i]) for k in 1:nC} for j in 1:nSurfaces} for i in 1:nMT}
     "Laminar Schmidt number" annotation (Dialog(group="Input Variables"));
 
-  input SI.SchmidtNumber Shs_turb[nMT,nSurfaces,Medium.nC]={{{
+  input SI.SchmidtNumber Shs_turb[nMT,nSurfaces,nC]={{{
       HeatAndMassTransfer.ClosureRelations.MassTransfer.Functions.SinglePhase.InternalFlow.Sh_Turbulent_Local_Developed_Circular_DittusBoelter(
-      Res[i], Scs[i, k]) for k in 1:Medium.nC} for j in 1:nSurfaces} for i in 1
+      Res[i], Scs[i, k]) for k in 1:nC} for j in 1:nSurfaces} for i in 1
       :nMT} "Turbulent Schmidt number"
     annotation (Dialog(group="Input Variables"));
 

@@ -4,7 +4,7 @@ model nParallel_FlowBoundary
 
   extends TRANSFORM.Icons.Example;
 
-  package Medium=Modelica.Media.Water.StandardWater(extraPropertiesNames={"Tritium"});
+  package Medium=Modelica.Media.Water.StandardWater(extraPropertiesNames={"Tritium","blah"});
 
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface pipe_single(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
@@ -19,9 +19,12 @@ model nParallel_FlowBoundary
         (alpha0=1000),
     redeclare model TraceMassTransfer =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM
-        (redeclare model DiffusionCoeff =
+        (
+        redeclare model DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-            (D_ab0=1), alphaM0=fill(1, Medium.nC)))
+            (D_ab0=1),
+        alphaM0=fill(1, pipe_single.traceMassTransfer.nC),
+        iC={1}))
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
   Utilities.Visualizers.displayReal boundaryQ_p(val=pipe_single.port_a.p)
@@ -71,8 +74,8 @@ model nParallel_FlowBoundary
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundaryQ_external(
       Q_flow=1000)
     annotation (Placement(transformation(extent={{30,30},{10,50}})));
-  HeatAndMassTransfer.BoundaryConditions.Mass.MassFlow boundaryTM_external(
-      n_flow=fill(0.1, Medium.nC))
+  HeatAndMassTransfer.BoundaryConditions.Mass.MassFlow boundaryTM_external(n_flow=
+        fill(0.1, boundaryTM_external.nC), nC=pipe_single.traceMassTransfer.nC)
     annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface pipe_nParallel(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
@@ -88,9 +91,12 @@ model nParallel_FlowBoundary
         (alpha0=1000),
     redeclare model TraceMassTransfer =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM
-        (redeclare model DiffusionCoeff =
+        (
+        redeclare model DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-            (D_ab0=1), alphaM0=fill(1, Medium.nC)))
+            (D_ab0=1),
+        alphaM0=fill(1, pipe_nParallel.traceMassTransfer.nC),
+        iC={1}))
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
 
   Utilities.Visualizers.displayReal boundaryQ_p1(val=pipe_nParallel.port_a.p)
@@ -139,8 +145,9 @@ model nParallel_FlowBoundary
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundaryQ_external1(
       Q_flow=1000)
     annotation (Placement(transformation(extent={{32,-70},{12,-50}})));
-  HeatAndMassTransfer.BoundaryConditions.Mass.MassFlow boundaryTM_external1(
-      n_flow=fill(0.1, Medium.nC))
+  HeatAndMassTransfer.BoundaryConditions.Mass.MassFlow boundaryTM_external1(nC=
+        pipe_nParallel.traceMassTransfer.nC, n_flow=fill(0.1,
+        boundaryTM_external1.nC))
     annotation (Placement(transformation(extent={{-26,-70},{-6,-50}})));
   Utilities.Visualizers.displayReal boundaryM_m_flow2(precision=2, val=
         pipe_single.massPorts[4,1].n_flow[1])
