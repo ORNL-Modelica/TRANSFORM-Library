@@ -265,7 +265,8 @@ model GenericPipe_wWall_wTraceMass
                     not use_TraceMassTransfer
     annotation (Placement(transformation(extent={{-60,-62},{-40,-42}})));
 
-  HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interface[geometry.nZ](
+  HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interface[geometry.nZ]
+    (
     each nC=nC,
     nb=nb,
     Ka=Ka,

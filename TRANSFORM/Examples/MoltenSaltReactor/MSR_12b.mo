@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_12
+model MSR_12b
   import TRANSFORM;
 
   package Medium_PFL =
@@ -16,6 +16,10 @@ model MSR_12
   C_nominal=data_traceSubstances.C_nominal);
 
   package Medium_DRACS = TRANSFORM.Media.Fluids.NaK.LinearNaK_22_78_pT;
+
+  package Medium_BOP = Modelica.Media.Water.StandardWater (
+  extraPropertiesNames={"Tritium"},
+  C_nominal={1e6});
 
   parameter Integer iOG[:] = {2,3}+fill(data_traceSubstances.precursorGroups.nC, 2) "Index array of substances sent to off-gas system";
 
@@ -469,11 +473,10 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={160,-70})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HXnew
+  TRANSFORM.HeatExchangers.GenericDistributed_HXnew_withMass
                                        PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
-    redeclare package Material_tubeWall = Media.Solids.AlloyN,
     p_a_start_shell=data_PHX.p_inlet_shell,
     T_a_start_shell=data_PHX.T_inlet_shell,
     T_b_start_shell=data_PHX.T_outlet_shell,
@@ -512,8 +515,16 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         CF=fill(
             0.44,
             PHX.shell.heatTransfer.nHT,
-            PHX.shell.heatTransfer.nSurfaces)))
-                                           annotation (Placement(transformation(
+            PHX.shell.heatTransfer.nSurfaces)),
+    redeclare package Material_wall = TRANSFORM.Media.Solids.AlloyN,
+    nC=1,
+    iC_tube={7},
+    MMs={0.006032},
+    redeclare model DiffusionCoeff_wall =
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+        (D_ab0=1),
+    use_TraceMassTransfer_shell=true,
+    use_TraceMassTransfer_tube=true)       annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={160,0})));
@@ -612,7 +623,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
     data_traceSubstances(redeclare record FissionProducts =
-        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_TeIXe_U235)
+        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_cut6_U235_Pu239)
     annotation (Placement(transformation(extent={{260,120},{280,140}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
                                                pipeFromPHX_PCL(
@@ -683,21 +694,19 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         origin={230,-40})));
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T
                                             boundary4(
-    redeclare package Medium = Modelica.Media.Water.StandardWater,
     m_flow=2*3*data_SHX.m_flow_tube,
     T=data_SHX.T_inlet_tube,
     nPorts=1,
-    showName=systemTF.showName)
+    showName=systemTF.showName,
+    redeclare package Medium = Medium_BOP)
                               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={330,-40})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HXnew
+  TRANSFORM.HeatExchangers.GenericDistributed_HXnew_withMass
                                                  SHX(
     redeclare package Medium_shell = Medium_PCL,
-    redeclare package Material_tubeWall = TRANSFORM.Media.Solids.AlloyN,
     nParallel=2*3,
-    redeclare package Medium_tube = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
         (
@@ -719,7 +728,6 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     m_flow_a_start_tube=2*3*data_SHX.m_flow_tube,
     redeclare model HeatTransfer_tube =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     redeclare model HeatTransfer_shell =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
         (
@@ -729,7 +737,16 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         CF=fill(
             0.44,
             SHX.shell.heatTransfer.nHT,
-            SHX.shell.heatTransfer.nSurfaces)))   annotation (Placement(
+            SHX.shell.heatTransfer.nSurfaces)),
+    redeclare package Material_wall = TRANSFORM.Media.Solids.AlloyN,
+    nC=1,
+    MMs={0.006032},
+    redeclare model DiffusionCoeff_wall =
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+        (D_ab0=1),
+    redeclare package Medium_tube = Medium_BOP,
+    use_TraceMassTransfer_shell=true,
+    use_TraceMassTransfer_tube=true)              annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -739,9 +756,9 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
                                        boundary1(
     p=data_SHX.p_outlet_tube,
     T=data_SHX.T_outlet_tube,
-    redeclare package Medium = Modelica.Media.Water.StandardWater,
     nPorts=1,
-    showName=systemTF.showName)
+    showName=systemTF.showName,
+    redeclare package Medium = Medium_BOP)
                              annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -1275,4 +1292,4 @@ equation
       StopTime=10000,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Esdirk45a"));
-end MSR_12;
+end MSR_12b;
