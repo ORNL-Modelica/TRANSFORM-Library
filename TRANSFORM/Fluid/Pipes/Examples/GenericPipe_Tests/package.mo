@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.Pipes.Examples;
-package GenericPipesTests
+package GenericPipe_Tests
 
   extends TRANSFORM.Icons.VariantsPackage;
 
@@ -8,4 +8,4 @@ package GenericPipesTests
 
 
 
-end GenericPipesTests;
+end GenericPipe_Tests;

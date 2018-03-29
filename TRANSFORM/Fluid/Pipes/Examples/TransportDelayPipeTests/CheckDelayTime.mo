@@ -30,6 +30,10 @@ model CheckDelayTime
     offset=298.15,
     startTime=1)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  Utilities.ErrorAnalysis.UnitTests           unitTests(n=3, x={
+        transportDelayPipe.port_a.h_outflow,transportDelayPipe.port_b.h_outflow,
+        transportDelayPipe.port_a.m_flow})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(boundary1.ports[1], transportDelayPipe.port_a)
     annotation (Line(points={{-18,0},{-18,0},{-8,0}},  color={0,127,255}));

@@ -31,6 +31,16 @@ simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipesTests.nParallel_withWa
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipesTests.nParallel_withWall_StateBoundary",numberOfIntervals=100,resultFile="nParallel_withWall_StateBoundary");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipesTests.withWall",stopTime=100,resultFile="withWall");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipesTests.withWallTrace",stopTime=100,method="Esdirk45a",resultFile="withWallTrace");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_MultiTransferSurface.nParallel_FlowBoundary",numberOfIntervals=100,resultFile="nParallel_FlowBoundary");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.nParallel_FlowBoundary",numberOfIntervals=100,resultFile="nParallel_FlowBoundary");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.nParallel_StateBoundary",numberOfIntervals=100,resultFile="nParallel_StateBoundary");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.nParallel_withWall_FlowBoundary",numberOfIntervals=100,resultFile="nParallel_withWall_FlowBoundary");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.nParallel_withWall_StateBoundary",numberOfIntervals=100,resultFile="nParallel_withWall_StateBoundary");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.withWall",stopTime=100,resultFile="withWall");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.withWallTrace",stopTime=100,method="Esdirk45a",resultFile="withWallTrace");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.TransportDelayPipeTests.CheckDelayTime",stopTime=11,resultFile="CheckDelayTime");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.TransportDelayPipeTests.Test1_MultiSpeciesMultiTrace",stopTime=10,resultFile="Test1_MultiSpeciesMultiTrace");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.TransportDelayPipeTests.Test2_MultiSpeciesMultiTrace",stopTime=20,resultFile="Test2_MultiSpeciesMultiTrace");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.UseOfGeometryModel",stopTime=1,resultFile="UseOfGeometryModel");
 simulateModel("TRANSFORM.Fluid.TraceComponents.Examples.TraceDecayAdsorberBed_Test",stopTime=100,resultFile="TraceDecayAdsorberBed_Test");
 simulateModel("TRANSFORM.Fluid.TraceComponents.Examples.TraceSeparator_Test",resultFile="TraceSeparator_Test");
