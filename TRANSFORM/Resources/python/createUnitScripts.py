@@ -21,7 +21,7 @@ promptWriteOver = False #=true to prompt user to overwrite .mos files else defau
 
 #=true to delete result files that don't have a matching .mos generation script
 cleanupRefRes = True   
-folderNameRefResults=os.path.join(folderPath,folderName,'Resources','ReferenceResults_test',simEnv)
+folderNameRefResults=os.path.join(folderPath,folderName,'Resources','ReferenceResults',simEnv)
 
 def mkdir_p(path):
     try:
