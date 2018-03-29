@@ -25,7 +25,7 @@ simulateModel("TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests.Rankin
 simulateModel("TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests.RankineCycle_Example8_12",numberOfIntervals=100,resultFile="RankineCycle_Example8_12");
 simulateModel("TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests.SteamTurbineStodola_Test",stopTime=10,resultFile="SteamTurbineStodola_Test");
 simulateModel("TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests.SteamTurbine_Example7_6",numberOfIntervals=100,resultFile="SteamTurbine_Example7_6");
-simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_MultiTransferSurface.nParallel_FlowBoundary",numberOfIntervals=100,resultFile="nParallel_FlowBoundary");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_MultiTransferSurface.nParallel_FlowBoundary_MultiTransferSurface",numberOfIntervals=100,resultFile="nParallel_FlowBoundary_MultiTransferSurface");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.nParallel_FlowBoundary",numberOfIntervals=100,resultFile="nParallel_FlowBoundary");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.nParallel_StateBoundary",numberOfIntervals=100,resultFile="nParallel_StateBoundary");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.nParallel_withWall_FlowBoundary",numberOfIntervals=100,resultFile="nParallel_withWall_FlowBoundary");

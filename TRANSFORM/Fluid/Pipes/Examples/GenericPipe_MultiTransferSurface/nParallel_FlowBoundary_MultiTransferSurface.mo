@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.Pipes.Examples.GenericPipe_MultiTransferSurface;
-model nParallel_FlowBoundary
+model nParallel_FlowBoundary_MultiTransferSurface
   import TRANSFORM;
 
   extends TRANSFORM.Icons.Example;
@@ -282,4 +282,4 @@ equation
           lineThickness=1,
           textString="Enthalpy Flow Rate [W]")}),
     experiment(__Dymola_NumberOfIntervals=100));
-end nParallel_FlowBoundary;
+end nParallel_FlowBoundary_MultiTransferSurface;
