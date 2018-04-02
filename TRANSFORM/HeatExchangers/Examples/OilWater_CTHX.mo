@@ -36,7 +36,7 @@ model OilWater_CTHX
     nPorts=1)
     annotation (Placement(transformation(extent={{-51,15},{-41,25}})));
 
-  GenericDistributed_HX STHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HX STHX(
     p_b_start_shell=shell_outlet.p,
     T_a_start_shell=shell_inlet.T,
     T_b_start_shell=shell_outlet.T,
@@ -48,10 +48,6 @@ model OilWater_CTHX
     redeclare package Medium_shell =
         Media.Fluids.Incompressible.EngineOilUnused,
     redeclare package Material_tubeWall = Media.Solids.SS316,
-    redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-    redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ConcentricTubeHX
         (
@@ -66,7 +62,12 @@ model OilWater_CTHX
     T_b_start_tube=tube_outlet.T,
     p_a_start_shell=shell_outlet.p + 100,
     energyDynamics={Modelica.Fluid.Types.Dynamics.SteadyStateInitial,Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-        Modelica.Fluid.Types.Dynamics.SteadyStateInitial})
+        Modelica.Fluid.Types.Dynamics.SteadyStateInitial},
+    redeclare model HeatTransfer_tube =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
+    redeclare model HeatTransfer_shell =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region)
     annotation (Placement(transformation(extent={{-21,-20},{21,20}})));
 
    SI.TemperatureDifference DT_lm "Log mean temperature difference";

@@ -315,12 +315,13 @@ model SFR_6
     T=data.T_IHX_outletIHTS,
     nPorts=3)
     annotation (Placement(transformation(extent={{118,-12},{98,8}})));
-  HeatExchangers.GenericDistributed_HX STHX[3](
+  HeatExchangers.GenericDistributed_HXold STHX[3](
     redeclare package Medium_shell = Medium,
     redeclare package Medium_tube = Medium,
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (
@@ -348,8 +349,7 @@ model SFR_6
         th_wall=data.th_tubewall,
         nV=2,
         angle_shell=-1.5707963267949,
-        angle_tube=1.5707963267949))          annotation (Placement(
-        transformation(
+        angle_tube=1.5707963267949)) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={24,-30})));

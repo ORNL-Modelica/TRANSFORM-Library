@@ -375,7 +375,7 @@ model MSR_7
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-70})));
-  HeatExchangers.GenericDistributed_HX PHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HXold PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
@@ -401,6 +401,7 @@ model MSR_7
     m_flow_a_start_tube=2*3*data_PHX.m_flow_tube,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (
@@ -410,7 +411,7 @@ model MSR_7
         CF=fill(0.44, PHX.shell.heatTransfer.nHT)),
     redeclare model InternalTraceMassGen_tube =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens_PHX_tube))        annotation (Placement(transformation(
+        (mC_gens=mC_gens_PHX_tube)) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={80,0})));
@@ -555,12 +556,13 @@ model MSR_7
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={250,-40})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HX SHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HXold SHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Material_tubeWall = TRANSFORM.Media.Solids.AlloyN,
     nParallel=2*3,
     redeclare model HeatTransfer_tube =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+
     redeclare package Medium_tube = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
@@ -587,8 +589,7 @@ model MSR_7
         D=data_SHX.D_tube_outer,
         S_T=data_SHX.pitch_tube,
         S_L=data_SHX.pitch_tube,
-        CF=fill(0.44, SHX.shell.heatTransfer.nHT)))
-                                                  annotation (Placement(
+        CF=fill(0.44, SHX.shell.heatTransfer.nHT))) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

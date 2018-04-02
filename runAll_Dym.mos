@@ -96,6 +96,7 @@ simulateModel("TRANSFORM.HeatExchangers.Examples.OilWater_PTHX",stopTime=1000,nu
 simulateModel("TRANSFORM.HeatExchangers.Examples.SteamWater_HCSG",stopTime=1000,numberOfIntervals=1000,resultFile="SteamWater_HCSG");
 simulateModel("TRANSFORM.HeatExchangers.Examples.UAdT_lm_Example_11_1",resultFile="UAdT_lm_Example_11_1");
 simulateModel("TRANSFORM.HeatExchangers.Examples.WaterWater_STHX",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="WaterWater_STHX");
+simulateModel("TRANSFORM.HeatExchangers.Examples.WaterWater_STHX_withMass",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="WaterWater_STHX_withMass");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_12Th_05U_pT",resultFile="LinearFLiBe_12Th_05U_pT");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_9999Li7",resultFile="LinearFLiBe_9999Li7");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_pT",resultFile="LinearFLiBe_pT");

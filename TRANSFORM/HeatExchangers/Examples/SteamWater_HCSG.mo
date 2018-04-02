@@ -36,7 +36,7 @@ model SteamWater_HCSG
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     nPorts=1,
     T=594.15) annotation (Placement(transformation(extent={{52,14},{40,26}})));
-  GenericDistributed_HX STHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HX STHX(
     nParallel=8,
     redeclare package Medium_shell = Modelica.Media.Water.StandardWater,
     redeclare package Medium_tube = Modelica.Media.Water.StandardWater,
@@ -48,10 +48,7 @@ model SteamWater_HCSG
     p_b_start_tube=tube_outlet.p,
     m_flow_a_start_tube=tube_inlet.m_flow,
     p_a_start_tube=tube_outlet.p + 1e5,
-    redeclare package Material_tubeWall =
-        TRANSFORM.Media.Solids.Inconel690,
-    redeclare model HeatTransfer_tube =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Alphas_TwoPhase_3Region,
+    redeclare package Material_tubeWall = TRANSFORM.Media.Solids.Inconel690,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
         (
@@ -68,15 +65,19 @@ model SteamWater_HCSG
     use_Ts_start_tube=false,
     h_a_start_tube=962463,
     h_b_start_tube=2.95363e6,
+    redeclare model HeatTransfer_tube =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas_TwoPhase_3Region,
+
     redeclare model HeatTransfer_shell =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region
-        (Nus_turb=
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region
+        (Nus_turb={{
             TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.Nu_Grimison_FlowAcrossTubeBanks(
-            STHX.shell.heatTransfer.Res,
-            STHX.shell.heatTransfer.Prs,
+            STHX.shell.heatTransfer.Res[i],
+            STHX.shell.heatTransfer.Prs[i],
             STHX.geometry.dimension_tube + 2*STHX.geometry.th_wall,
             1.25*(STHX.geometry.dimension_tube + 2*STHX.geometry.th_wall),
-            1.25*(STHX.geometry.dimension_tube + 2*STHX.geometry.th_wall))))
+            1.25*(STHX.geometry.dimension_tube + 2*STHX.geometry.th_wall)) for
+            j in 1:STHX.shell.heatTransfer.nSurfaces} for i in 1:STHX.geometry.nV}))
     annotation (Placement(transformation(extent={{-23,-20},{19,20}})));
 
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(

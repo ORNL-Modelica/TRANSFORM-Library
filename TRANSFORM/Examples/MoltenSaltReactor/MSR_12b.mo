@@ -473,8 +473,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={160,-70})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HXnew_withMass
-                                       PHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HX_withMass PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
     p_a_start_shell=data_PHX.p_inlet_shell,
@@ -506,6 +505,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         (Q_gens=Qs_gen_PHX_tube),
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
         (
@@ -528,7 +528,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         (iC={7}, MMs={6.022e23}),
     redeclare model DiffusionCoeff_wall =
         TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-        (D_ab0=0.00000001))                annotation (Placement(transformation(
+        (D_ab0=0.00000001)) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={160,0})));
@@ -707,8 +707,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={330,-40})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HXnew_withMass
-                                                 SHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HX_withMass SHX(
     redeclare package Medium_shell = Medium_PCL,
     nParallel=2*3,
     redeclare model Geometry =
@@ -732,6 +731,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     m_flow_a_start_tube=2*3*data_SHX.m_flow_tube,
     redeclare model HeatTransfer_tube =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
     redeclare model HeatTransfer_shell =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
         (
@@ -755,8 +755,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         (MMs={6.022e23}),
     redeclare model DiffusionCoeff_wall =
         TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-        (D_ab0=0.00000001))                       annotation (Placement(
-        transformation(
+        (D_ab0=0.00000001)) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={300,0})));

@@ -20,10 +20,11 @@ replaceable package Medium =
         iconTransformation(extent={{-110,-70},{-90,-50}})));
   Data.SFR_PHS data
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  HeatExchangers.GenericDistributed_HX ADHX(
+  HeatExchangers.GenericDistributed_HXold ADHX(
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+
     redeclare package Medium_tube = Medium,
     T_a_start_tube=data.T_IHX_outletIHTS,
     T_b_start_tube=data.T_IHX_inletIHTS,

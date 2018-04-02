@@ -37,8 +37,7 @@ model WaterWater_STHX_withMass
     nPorts=1,
     redeclare package Medium = Medium_shell)
     annotation (Placement(transformation(extent={{-51,15},{-41,25}})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HXnew_withMass
-                        STHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HX_withMass STHX(
     p_b_start_shell=shell_outlet.p,
     T_a_start_shell=shell_inlet.T,
     T_b_start_shell=shell_outlet.T,

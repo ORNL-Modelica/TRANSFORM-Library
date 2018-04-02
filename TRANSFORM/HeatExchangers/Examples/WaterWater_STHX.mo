@@ -28,7 +28,7 @@ model WaterWater_STHX
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     nPorts=1)
     annotation (Placement(transformation(extent={{-51,15},{-41,25}})));
-  GenericDistributed_HX STHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HX STHX(
     redeclare package Medium_shell = Modelica.Media.Water.StandardWater,
     redeclare package Medium_tube = Modelica.Media.Water.StandardWater,
     p_b_start_shell=shell_outlet.p,
@@ -40,12 +40,6 @@ model WaterWater_STHX
     m_flow_a_start_tube=tube_inlet.m_flow,
     m_flow_a_start_shell=shell_inlet.m_flow,
     redeclare package Material_tubeWall = Media.Solids.SS316,
-    redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Alphas (
-          alpha0=1000),
-    redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Alphas (
-          alpha0=1000),
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
         (
@@ -62,7 +56,13 @@ model WaterWater_STHX
     T_b_start_tube=tube_outlet.T,
     p_a_start_shell=shell_outlet.p + 100,
     energyDynamics={Modelica.Fluid.Types.Dynamics.FixedInitial,Modelica.Fluid.Types.Dynamics.FixedInitial,
-        Modelica.Fluid.Types.Dynamics.FixedInitial})
+        Modelica.Fluid.Types.Dynamics.FixedInitial},
+    redeclare model HeatTransfer_shell =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas
+        (alpha0=1000),
+    redeclare model HeatTransfer_tube =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas
+        (alpha0=1000))
     annotation (Placement(transformation(extent={{-21,-20},{21,20}})));
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
     y1={STHX.tube.mediums[i].T for i in 1:STHX.geometry.nV},

@@ -22,7 +22,7 @@ model SHX
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-30})));
-  HeatExchangers.GenericDistributed_HX PHX(
+  HeatExchangers.GenericDistributed_HXold PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
@@ -48,14 +48,15 @@ model SHX
     m_flow_a_start_tube=2*3*data_PHX.m_flow_tube,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (
         D=data_PHX.D_tube_outer,
         S_T=data_PHX.pitch_tube,
         S_L=data_PHX.pitch_tube,
-        CF=fill(0.44, PHX.shell.heatTransfer.nHT)))
-                                           annotation (Placement(transformation(
+        CF=fill(0.44, PHX.shell.heatTransfer.nHT))) annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-2,2})));
@@ -164,12 +165,13 @@ model SHX
         origin={120,40})));
   inner Fluid.SystemTF systemTF(showName=false)
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  HeatExchangers.GenericDistributed_HX PHX1(
+  HeatExchangers.GenericDistributed_HXold PHX1(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
     nParallel=2*3,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+
     redeclare package Medium_tube = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
@@ -196,8 +198,8 @@ model SHX
     p_a_start_tube=data_SHX.p_inlet_tube,
     T_a_start_tube=data_SHX.T_inlet_tube,
     T_b_start_tube=data_SHX.T_outlet_tube,
-    m_flow_a_start_tube=2*3*data_SHX.m_flow_tube)
-                                           annotation (Placement(transformation(
+    m_flow_a_start_tube=2*3*data_SHX.m_flow_tube) annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={140,0})));

@@ -311,12 +311,13 @@ model SFR_12
     V0=0.001,
     level_start=data.level_start_hot_expanstionTank)
     annotation (Placement(transformation(extent={{-64,22},{-44,42}})));
-  HeatExchangers.GenericDistributed_HX IHX[3](
+  HeatExchangers.GenericDistributed_HXold IHX[3](
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Medium_tube = Medium_IHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (
@@ -470,11 +471,12 @@ model SFR_12
     redeclare package Medium = Medium_IHTS)
     annotation (Placement(transformation(extent={{60,-52},{120,8}})));
 
-  HeatExchangers.GenericDistributed_HX IHX1[3](
+  HeatExchangers.GenericDistributed_HXold IHX1[3](
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (
@@ -502,8 +504,8 @@ model SFR_12
     redeclare package Medium_tube = Medium_DRACS,
     m_flow_a_start_shell=data.m_flow_DRACS,
     p_a_start_tube=350000,
-    m_flow_a_start_tube=data.m_flow_DRACSsec)
-                           annotation (Placement(transformation(
+    m_flow_a_start_tube=data.m_flow_DRACSsec) annotation (Placement(
+        transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-124,-30})));

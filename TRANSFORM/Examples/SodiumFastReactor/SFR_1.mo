@@ -339,13 +339,14 @@ model SFR_1
     p=data.p_start,
     T=data.T_IHX_outletIHTS)
     annotation (Placement(transformation(extent={{168,48},{148,68}})));
-  HeatExchangers.GenericDistributed_HX STHX(
+  HeatExchangers.GenericDistributed_HXold STHX(
     nParallel=data.nIHXs,
     redeclare package Medium_shell = Medium,
     redeclare package Medium_tube = Medium,
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (
@@ -373,8 +374,7 @@ model SFR_1
     m_flow_a_start_tube=data.nIHXs*data.m_flow_IHX_IHTS,
     T_a_start_tube=data.T_IHX_inletIHTS,
     T_b_start_tube=data.T_IHX_outletIHTS,
-    p_a_start_shell=data.p_start + 0.75e5)
-                                          annotation (Placement(transformation(
+    p_a_start_shell=data.p_start + 0.75e5) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={120,6})));
