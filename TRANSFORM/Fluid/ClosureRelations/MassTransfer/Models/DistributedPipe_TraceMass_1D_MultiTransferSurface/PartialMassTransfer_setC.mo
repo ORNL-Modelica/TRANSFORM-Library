@@ -54,11 +54,11 @@ partial model PartialMassTransfer_setC "Base model"
       TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
     constrainedby
     TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
-    "Diffusion Coefficient" annotation (Dialog(group="Closure Models"),
+    "Fluid Diffusion Coefficient" annotation (Dialog(group="Closure Models"),
       choicesAllMatching=true);
 
   DiffusionCoeff diffusionCoeff[nMT](each final nC=nC, final T=Ts_fluid)
-    "Diffusion Coefficient" annotation (Placement(transformation(extent={{-78,82},
+    "Fluid Diffusion Coefficient" annotation (Placement(transformation(extent={{-78,82},
             {-62,98}}, rotation=0)));
 
   parameter SI.ReynoldsNumber Re_lam(max=Re_turb) = 2300
@@ -104,15 +104,16 @@ equation
 
    for i in 1:nMT loop
      for k in 1:nC loop
-     Cs_fluid[i, k] = CsM_fluid[i, iC[k]] .* Medium.density(states[i]) ./ MMs[k] .*
-       toMole_unitConv;
+     Cs_fluid[i, k] =CsM_fluid[i, iC[k]] .* Medium.density(states[i]) ./ MMs[k]
+         .* toMole_unitConv;
      end for;
    end for;
 
    for i in 1:nMT loop
      for j in 1:nSurfaces loop
        for k in 1:nC loop
-           mC_flows[i, j, iC[k]] = nC_flows[i, j, k] .* MMs[k] .*toMole_unitConv;
+           mC_flows[i, j, iC[k]] =nC_flows[i, j, k] .* MMs[k] .*
+          toMole_unitConv;
        end for;
        for k in 1:nC_noT loop
          mC_flows[i, j, iC_noT[k]] = 0;

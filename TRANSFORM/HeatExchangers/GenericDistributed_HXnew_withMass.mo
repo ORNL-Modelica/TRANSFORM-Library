@@ -7,6 +7,7 @@ model GenericDistributed_HXnew_withMass
   import TRANSFORM.Math.linspaceRepeat_1D;
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
+  import TRANSFORM.Math.linspaceRepeat_1D_multi;
 
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_tube(redeclare package
       Medium = Medium_tube) annotation (Placement(transformation(extent={{-110,-10},
@@ -33,17 +34,11 @@ model GenericDistributed_HXnew_withMass
   Geometry geometry
     annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
 
-//   replaceable package Medium_shell =
-//       TRANSFORM.Media.Fluids.FLiBe.ConstantPropertyLiquidFLiBe(extraPropertiesNames={"Tritium"});
-//   replaceable package Medium_tube =
-//       TRANSFORM.Media.Fluids.FLiBe.ConstantPropertyLiquidFLiBe(extraPropertiesNames={"Tritium"});
-
   replaceable package Medium_shell =
       Modelica.Media.Interfaces.PartialMedium
      "Shell side medium" annotation (choicesAllMatching=true);
   replaceable package Medium_tube = Modelica.Media.Interfaces.PartialMedium
      "Tube side medium" annotation (choicesAllMatching=true);
-
   replaceable package Material_wall =
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy "Tube wall material"
     annotation (choicesAllMatching=true);
@@ -548,51 +543,53 @@ model GenericDistributed_HXnew_withMass
   TRANSFORM.HeatExchangers.BaseClasses.Summary summary
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
-//   parameter Boolean nC_ref = true "=true for nC to be based on Medium.nC of tube else shell" annotation(Dialog(tab="Trace Mass Transfer"),Evalutate=true);
-//   final parameter Integer nC=if nC_ref then Medium_tube.nC else Medium_shell.nC "Number of trace substances transfered through wall";
-
-  parameter Integer nC=0 "Number of trace substances transfered through wall" annotation(Dialog(tab="Trace Mass Transfer"),Evalutate=true);
-  parameter Integer iC_tube[nC]= {i for i in 1:nC}
-    "Index of transfered substances from tube fluid" annotation(Dialog(tab="Trace Mass Transfer"),Evalutate=true);
-  parameter Integer iC_shell[nC]= {i for i in 1:nC}
-    "Index of transfered substances from shell fluid" annotation(Dialog(tab="Trace Mass Transfer"),Evalutate=true);
-  parameter SI.MolarMass MMs[nC] = fill(1,nC)
-    "Trace substances molar mass"
-     annotation(Dialog(tab="Trace Mass Transfer"));
-
-  parameter Boolean adiabaticDimsMT[2]={false,false}
-    "=true, toggle off diffusive mass transfer in dimension {1,2}"
-    annotation (Dialog(tab="Trace Mass Transfer"));
+  parameter Integer nC=0 "Number of trace substances transfered through wall. Currently nC must be <= min(Medium_tube.nC,Medium_shell.nC)" annotation(Dialog(tab="Trace Mass Transfer"),Evalutate=true);
   parameter Boolean use_TraceMassTransfer_shell=false
     "= true to use the TraceMassTransfer model"
-    annotation (Dialog(tab="Trace Mass Transfer"));
+     annotation (Dialog(tab="Trace Mass Transfer",group="Shell"));
   parameter Boolean use_TraceMassTransfer_tube=false
     "= true to use the TraceMassTransfer model"
-    annotation (Dialog(tab="Trace Mass Transfer"));
+     annotation (Dialog(tab="Trace Mass Transfer",group="Tube"));
+  parameter Boolean adiabaticDimsMT[2]={false,false}
+    "=true, toggle off diffusive mass transfer in dimension {1,2}"
+    annotation (Dialog(tab="Trace Mass Transfer",group="Wall"));
   replaceable model TraceMassTransfer_shell =
       Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
-    annotation (Dialog(tab="Trace Mass Transfer"), choicesAllMatching=true);
+                                                                                                         constrainedby
+    TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.PartialMassTransfer_setC
+     annotation (Dialog(tab="Trace Mass Transfer",group="Shell"), choicesAllMatching=true);
   replaceable model TraceMassTransfer_tube =
       Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
-    annotation (Dialog(tab="Trace Mass Transfer"), choicesAllMatching=true);
+                                                                                                         constrainedby
+    TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.PartialMassTransfer_setC
+    annotation (Dialog(tab="Trace Mass Transfer",group="Tube"), choicesAllMatching=true);
   replaceable model InternalTraceGen_shell =
       Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-    annotation (Dialog(tab="Trace Mass Transfer"), choicesAllMatching=true);
+                                                                                                              constrainedby
+    TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.PartialInternalTraceGeneration
+     annotation (Dialog(tab="Trace Mass Transfer",group="Shell"), choicesAllMatching=true);
   replaceable model InternalTraceGen_tube =
       Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-    annotation (Dialog(tab="Trace Mass Transfer"), choicesAllMatching=true);
+                                                                                                              constrainedby
+    TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.PartialInternalTraceGeneration
+    annotation (Dialog(tab="Trace Mass Transfer",group="Tube"), choicesAllMatching=true);
 
-  parameter SI.Concentration Cs_start_wall[geometry.nR,geometry.nV,nC]= if nC ==0 then fill(0,geometry.nR,geometry.nV,nC) else {
-      linspaceRepeat_1D(
-      Cs_start_wall_tubeSide[:,i],
-      if counterCurrent then Modelica.Math.Vectors.reverse(
-        Cs_start_wall_shellSide[:,i]) else Cs_start_wall_shellSide[:,i],
-      geometry.nR) for i in 1:nC} "Tube wall concentration" annotation (Dialog(tab="Wall Initialization",
-        group="Start Value: Concentration"));
-  parameter SI.Concentration Cs_start_wall_tubeSide[geometry.nV,nC]={{tube.Cs_start[i,j]* Medium_tube.density_phX(ps_start_tube[i],hs_start_tube[i],Xs_start_tube[i,:])/ MMs[j] for j in 1:nC} for i in 1:geometry.nV} "Tube side wall concentration" annotation (Dialog(tab="Wall Initialization",
-        group="Start Value: Concentration"));
-  parameter SI.Concentration Cs_start_wall_shellSide[geometry.nV,nC]={{shell.Cs_start[i,j]* Medium_shell.density_phX(ps_start_shell[i],hs_start_shell[i],Xs_start_shell[i,:])/ MMs[j] for j in 1:nC} for i in 1:geometry.nV} "Shell side wall concentration" annotation (Dialog(tab="Wall Initialization",
-        group="Start Value: Concentration"));
+  parameter SI.Concentration Cs_start_wall[geometry.nR,geometry.nV,nC]=linspaceRepeat_1D_multi(Cs_start_wall_tubeSide,if counterCurrent then Modelica.Math.Matrices.flipUpDown(Cs_start_wall_shellSide) else Cs_start_wall_shellSide,geometry.nR)
+    annotation (Dialog(tab="Wall Initialization", group="Start Value: Concentration"));
+  parameter SI.Concentration Cs_start_wall_tubeSide[geometry.nV,nC]={{tube.Cs_start[
+      i, tube.traceMassTransfer.iC[j]]*Medium_tube.density_phX(
+      ps_start_tube[i],
+      hs_start_tube[i],
+      Xs_start_tube[i, :])/tube.traceMassTransfer.MMs[j] for j in 1:nC} for i
+       in 1:geometry.nV} "Tube side wall concentration" annotation (Dialog(tab=
+          "Wall Initialization", group="Start Value: Concentration"));
+  parameter SI.Concentration Cs_start_wall_shellSide[geometry.nV,nC]={{shell.Cs_start[
+      i, shell.traceMassTransfer.iC[j]]*Medium_shell.density_phX(
+      ps_start_shell[i],
+      hs_start_shell[i],
+      Xs_start_shell[i, :])/shell.traceMassTransfer.MMs[j] for j in 1:nC} for i
+       in 1:geometry.nV} "Shell side wall concentration" annotation (Dialog(tab
+        ="Wall Initialization", group="Start Value: Concentration"));
 
   replaceable model InternalMassModel_wall =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericMassGeneration
@@ -654,13 +651,13 @@ model GenericDistributed_HXnew_withMass
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,18})));
-  HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_outer[geometry.nV](
-                 each nC=nC) if not use_TraceMassTransfer_shell
+  HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_shellSide[geometry.nV](
+     each nC=nC) if             not use_TraceMassTransfer_shell
     annotation (Placement(transformation(extent={{-60,-8},{-40,12}})));
   HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_a[
     geometry.nR](each nC=nC)
     annotation (Placement(transformation(extent={{-60,-26},{-40,-6}})));
-  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_outer[geometry.nV] if
+  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_shellSide[geometry.nV] if
                                                                        not use_HeatTransfer_shell
     annotation (Placement(transformation(extent={{60,-8},{40,12}})));
   HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_b[
@@ -670,15 +667,13 @@ model GenericDistributed_HXnew_withMass
     annotation (Placement(transformation(extent={{60,-44},{40,-24}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_a[geometry.nR]
     annotation (Placement(transformation(extent={{-60,-44},{-40,-24}})));
-  HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_inner[geometry.nV](
-                 each nC=nC) if
-                    not use_TraceMassTransfer_tube
+  HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_tubeSide[geometry.nV](
+     each nC=nC) if not use_TraceMassTransfer_tube
     annotation (Placement(transformation(extent={{-60,-62},{-40,-42}})));
-  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_inner[geometry.nV] if
+  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_tubeSide[geometry.nV] if
                                                                        not use_HeatTransfer_tube
     annotation (Placement(transformation(extent={{60,-62},{40,-42}})));
-  HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interfaceM_inner[
-    geometry.nV](
+  HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interfaceM_tubeSide[geometry.nV](
     each nC=nC,
     nb=nb_wall_tubeSide,
     Ka=Ka_tubeSide,
@@ -688,13 +683,12 @@ model GenericDistributed_HXnew_withMass
         rotation=90,
         origin={-4,-62})));
 
-  HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interfaceM_outer[
-    geometry.nV](
+  HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interfaceM_shellSide[geometry.nV](
     each nC=nC,
     nb=nb_wall_shellSide,
     Ka=Ka_shellSide,
-    Kb=Kb_wall_shellSide) if
-                    use_TraceMassTransfer_tube annotation (Placement(transformation(
+    Kb=Kb_wall_shellSide) if use_TraceMassTransfer_shell annotation (Placement(
+        transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-4,-10})));
@@ -764,37 +758,41 @@ equation
 
   connect(counterFlow.port_a, wall.port_b1)
     annotation (Line(points={{0,8},{0,-24}}, color={191,0,0}));
-  connect(adiabatic_outer.port, wall.port_b1)
+  connect(adiabatic_shellSide.port, wall.port_b1)
     annotation (Line(points={{40,2},{0,2},{0,-24}}, color={191,0,0}));
   connect(adiabaticM_a.port, wall.portM_a2) annotation (Line(points={{-40,-16},{
           -24,-16},{-24,-30},{-9.8,-30}}, color={0,140,72}));
   connect(adiabaticM_b.port, wall.portM_b2) annotation (Line(points={{40,-16},{26,
           -16},{26,-30},{10,-30}}, color={0,140,72}));
 
-  connect(interfaceM_inner.port_b, wall.portM_a1)
+  connect(interfaceM_tubeSide.port_b, wall.portM_a1)
     annotation (Line(points={{-4,-55},{-4,-44}}, color={0,140,72}));
-  connect(adiabaticM_inner.port, wall.portM_a1)
+  connect(adiabaticM_tubeSide.port, wall.portM_a1)
     annotation (Line(points={{-40,-52},{-4,-52},{-4,-44}}, color={0,140,72}));
-  connect(adiabatic_inner.port, tube.heatPorts[:, 1])
+  connect(adiabatic_tubeSide.port, tube.heatPorts[:, 1])
     annotation (Line(points={{40,-52},{0,-52},{0,-75}}, color={191,0,0}));
   connect(adiabatic_a.port, wall.port_a2)
     annotation (Line(points={{-40,-34},{-10,-34}}, color={191,0,0}));
   connect(adiabatic_b.port, wall.port_b2)
     annotation (Line(points={{40,-34},{10,-34}}, color={191,0,0}));
-  connect(counterFlowM.port_a, interfaceM_outer.port_a) annotation (Line(points=
-         {{-20,8},{-20,0},{-4,0},{-4,-3}}, color={0,140,72}));
-  connect(interfaceM_outer.port_b, wall.portM_b1)
+  connect(counterFlowM.port_a, interfaceM_shellSide.port_a) annotation (Line(
+        points={{-20,8},{-20,0},{-4,0},{-4,-3}}, color={0,140,72}));
+  connect(interfaceM_shellSide.port_b, wall.portM_b1)
     annotation (Line(points={{-4,-17},{-4,-24}}, color={0,140,72}));
-  connect(adiabaticM_outer.port, wall.portM_b1) annotation (Line(points={{-40,2},
-          {-22,2},{-22,-20},{-4,-20},{-4,-24}}, color={0,140,72}));
+  connect(adiabaticM_shellSide.port, wall.portM_b1) annotation (Line(points={{-40,
+          2},{-22,2},{-22,-20},{-4,-20},{-4,-24}}, color={0,140,72}));
 
-  for i in 1:geometry.nV loop
-    for j in 1:nC loop
-      connect(counterFlowM[i].port_b[j], shell.massPorts[iC_shell[i], 1]);
-      connect(interfaceM_inner[i].port_a[j], tube.massPorts[iC_tube[i], 1]);
-    end for;
-  end for;
+//   for i in 1:geometry.nV loop
+//     for j in 1:nC loop
+//       connect(counterFlowM[i].port_b[j], shell.massPorts[iC_shell[i], 1]);
+//       connect(interfaceM_inner[i].port_a[j], tube.massPorts[iC_tube[i], 1]);
+//     end for;
+//   end for;
 
+  connect(counterFlowM.port_b, shell.massPorts[:, 1]) annotation (Line(points={{
+          -20,28},{-20,34},{4,34},{4,41}}, color={0,140,72}));
+  connect(interfaceM_tubeSide.port_a, tube.massPorts[:, 1])
+    annotation (Line(points={{-4,-69},{-4,-75}}, color={0,140,72}));
   annotation (
     defaultComponentName="STHX",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

@@ -518,13 +518,17 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
             PHX.shell.heatTransfer.nSurfaces)),
     redeclare package Material_wall = TRANSFORM.Media.Solids.AlloyN,
     nC=1,
-    iC_tube={7},
-    MMs={0.006032},
+    use_TraceMassTransfer_shell=true,
+    use_TraceMassTransfer_tube=true,
+    redeclare model TraceMassTransfer_shell =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
+        (MMs={6.022e23}),
+    redeclare model TraceMassTransfer_tube =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
+        (iC={7}, MMs={6.022e23}),
     redeclare model DiffusionCoeff_wall =
         TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-        (D_ab0=1),
-    use_TraceMassTransfer_shell=true,
-    use_TraceMassTransfer_tube=true)       annotation (Placement(transformation(
+        (D_ab0=0.00000001))                annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={160,0})));
@@ -740,13 +744,18 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
             SHX.shell.heatTransfer.nSurfaces)),
     redeclare package Material_wall = TRANSFORM.Media.Solids.AlloyN,
     nC=1,
-    MMs={0.006032},
-    redeclare model DiffusionCoeff_wall =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-        (D_ab0=1),
     redeclare package Medium_tube = Medium_BOP,
     use_TraceMassTransfer_shell=true,
-    use_TraceMassTransfer_tube=true)              annotation (Placement(
+    use_TraceMassTransfer_tube=true,
+    redeclare model TraceMassTransfer_shell =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
+        (MMs={6.022e23}),
+    redeclare model TraceMassTransfer_tube =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
+        (MMs={6.022e23}),
+    redeclare model DiffusionCoeff_wall =
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+        (D_ab0=0.00000001))                       annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
