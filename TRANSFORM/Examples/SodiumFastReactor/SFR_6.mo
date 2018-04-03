@@ -321,7 +321,6 @@ model SFR_6
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (

@@ -15,7 +15,6 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
     nParallel=2*3,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
         (

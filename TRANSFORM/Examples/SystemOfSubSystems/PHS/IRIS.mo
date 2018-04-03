@@ -431,7 +431,6 @@ model IRIS
         2943995.25,2953664},
     redeclare package Material_tubeWall = Media.Solids.Inconel690,
     energyDynamics={system.energyDynamics,system.energyDynamics,system.energyDynamics},
-
     exposeState_b_shell=true,
     exposeState_b_tube=true,
     m_flow_a_start_tube=502.8,
@@ -440,7 +439,6 @@ model IRIS
     m_flow_a_start_shell=system.m_flow_start,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Alphas_TwoPhase_3Region,
-
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (
         Nus0=
@@ -450,10 +448,8 @@ model IRIS
             steamGenerator.geometry.dimensions_tube + 2*steamGenerator.geometry.ths_wall,
             1.25*(steamGenerator.geometry.dimensions_tube + 2*steamGenerator.geometry.ths_wall),
             1.25*(steamGenerator.geometry.dimensions_tube + 2*steamGenerator.geometry.ths_wall)),
-
         use_DefaultDimension=false,
         dimensions0=steamGenerator.geometry.dimensions_tube + 2*steamGenerator.geometry.ths_wall),
-
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
         (

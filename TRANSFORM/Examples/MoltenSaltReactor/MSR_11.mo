@@ -447,7 +447,6 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     m_flow_a_start_tube=2*3*data_PHX.m_flow_tube,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (
@@ -634,7 +633,6 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     nParallel=2*3,
     redeclare model HeatTransfer_tube =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     redeclare package Medium_tube = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX

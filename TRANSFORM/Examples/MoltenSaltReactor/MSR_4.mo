@@ -371,7 +371,6 @@ model MSR_4
     m_flow_a_start_tube=2*3*data_PHX.m_flow_tube,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (

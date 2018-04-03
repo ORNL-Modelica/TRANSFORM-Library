@@ -23,7 +23,6 @@ model SFR_12b
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (
@@ -56,6 +55,7 @@ model SFR_12b
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-124,-30})));
+
   Components.DRACS_ADHX dRACS_ADHX[3](redeclare package Medium =
         Medium_DRACS)
     annotation (Placement(transformation(extent={{-156,-52},{-216,8}})));

@@ -317,7 +317,6 @@ model SFR_8
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
         (
@@ -620,7 +619,6 @@ model SFR_8
         S_L=data.pitch_tube_AHX),
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     nParallel=3,
     T_b_start_tube=data.T_IHX_inletIHTS,
     m_flow_a_start_tube=data.m_flow_IHX_IHTS/3,
@@ -669,7 +667,6 @@ model SFR_8
         S_L=data.pitch_tube_AHX),
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     nParallel=3,
     T_b_start_tube=data.T_IHX_inletIHTS,
     m_flow_a_start_tube=data.m_flow_IHX_IHTS/3,
@@ -719,7 +716,6 @@ model SFR_8
         S_L=data.pitch_tube_AHX),
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     nParallel=3,
     T_b_start_tube=data.T_IHX_inletIHTS,
     m_flow_a_start_tube=data.m_flow_IHX_IHTS/3,

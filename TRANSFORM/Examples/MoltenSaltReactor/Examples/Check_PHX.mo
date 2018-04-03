@@ -44,7 +44,6 @@ SI.SpecificHeatCapacity cp = Material.specificHeatCapacityCp_T(sum(uAdT_lm.Ts_h)
         length_tube=data_PHX.length_tube),
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     p_a_start_shell=data_PHX.p_inlet_shell,
     T_a_start_shell=data_PHX.T_inlet_shell,
     T_b_start_shell=data_PHX.T_outlet_shell,

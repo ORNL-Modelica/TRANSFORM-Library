@@ -24,7 +24,6 @@ replaceable package Medium =
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     redeclare package Medium_tube = Medium,
     m_flow_a_start_tube=data.m_flow_IHX_IHTS/data.nAirHXs,
     T_a_start_tube=data.T_IHX_outletIHTS,
