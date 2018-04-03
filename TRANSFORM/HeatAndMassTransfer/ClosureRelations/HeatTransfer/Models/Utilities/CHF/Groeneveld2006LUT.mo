@@ -172,5 +172,4 @@ equation
 <p><span style=\"font-family: Courier New;\">K8 &quot;Vertical Low-Flow Factor - A minus sign refers to downward flow&quot;</span></p>
 <p><br><span style=\"font-family: Courier New;\">Note: If K(3) is used then K(4) = 1. This is because K(3) already includes the heated length effect. This condition is handled in the code.</span></p>
 </html>"));
-
 end Groeneveld2006LUT;
