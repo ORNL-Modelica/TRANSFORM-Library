@@ -65,7 +65,6 @@ model OilWater_CTHX
         Modelica.Fluid.Types.Dynamics.SteadyStateInitial},
     redeclare model HeatTransfer_tube =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     redeclare model HeatTransfer_shell =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region)
     annotation (Placement(transformation(extent={{-21,-20},{21,20}})));

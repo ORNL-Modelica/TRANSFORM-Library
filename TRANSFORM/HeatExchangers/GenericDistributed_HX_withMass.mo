@@ -580,16 +580,16 @@ model GenericDistributed_HX_withMass
       i, tube.traceMassTransfer.iC[j]]*Medium_tube.density_phX(
       ps_start_tube[i],
       hs_start_tube[i],
-      Xs_start_tube[i, :])/tube.traceMassTransfer.MMs[j] for j in 1:nC} for i
-       in 1:geometry.nV} "Tube side wall concentration" annotation (Dialog(tab=
+      Xs_start_tube[i, :])/tube.traceMassTransfer.MMs[j] for j in 1:nC} for i in
+          1:geometry.nV} "Tube side wall concentration" annotation (Dialog(tab=
           "Wall Initialization", group="Start Value: Concentration"));
   parameter SI.Concentration Cs_start_wall_shellSide[geometry.nV,nC]={{shell.Cs_start[
       i, shell.traceMassTransfer.iC[j]]*Medium_shell.density_phX(
       ps_start_shell[i],
       hs_start_shell[i],
-      Xs_start_shell[i, :])/shell.traceMassTransfer.MMs[j] for j in 1:nC} for i
-       in 1:geometry.nV} "Shell side wall concentration" annotation (Dialog(tab
-        ="Wall Initialization", group="Start Value: Concentration"));
+      Xs_start_shell[i, :])/shell.traceMassTransfer.MMs[j] for j in 1:nC} for i in
+          1:geometry.nV} "Shell side wall concentration" annotation (Dialog(tab=
+         "Wall Initialization", group="Start Value: Concentration"));
 
   replaceable model InternalMassModel_wall =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericMassGeneration
