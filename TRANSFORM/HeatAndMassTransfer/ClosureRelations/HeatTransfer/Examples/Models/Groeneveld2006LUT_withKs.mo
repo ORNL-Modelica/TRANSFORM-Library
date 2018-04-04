@@ -22,7 +22,7 @@ model Groeneveld2006LUT_withKs
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(n=4, x={G.y,x.y,P.y,q.y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Utilities.CHF.Groeneveld2006LUT
+  TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Utilities.Groeneveld2006LUT
     q(
     use_Ks=fill(true, 8),
     D_hyd=0.015,
