@@ -66,4 +66,4 @@ This application uses Open Source components. You can find the source code of th
 
 Project: Modelica Standard Library https://github.com/modelica/Modelica
 
-Modelica License 2 https://modelica.org/licenses/ModelicaLicense2
+3-Clause BSD License https://github.com/modelica/ModelicaStandardLibrary/blob/master/LICENSE
