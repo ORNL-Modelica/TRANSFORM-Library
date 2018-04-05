@@ -64,7 +64,6 @@ model Alphas_TwoPhase_3Regionefwef42
 //     "Smooth value for transition between regions with phase transition"
 //     annotation (Dialog(tab="Advanced", group="Input Variables"));
 
-
 protected
   SI.CoefficientOfHeatTransfer[nHT,nSurfaces]
     alpha_SinglePhase_Liquid_To_TwoPhaseSaturated;
@@ -90,7 +89,6 @@ public
     "pressure [Pa]"
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
-
 
   for i in 1:nHT loop
     for j in 1:nSurfaces loop

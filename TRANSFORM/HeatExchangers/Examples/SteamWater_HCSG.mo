@@ -48,7 +48,8 @@ model SteamWater_HCSG
     p_b_start_tube=tube_outlet.p,
     m_flow_a_start_tube=tube_inlet.m_flow,
     p_a_start_tube=tube_outlet.p + 1e5,
-    redeclare package Material_tubeWall = TRANSFORM.Media.Solids.Inconel690,
+    redeclare package Material_tubeWall =
+        TRANSFORM.Media.Solids.Inconel690,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
         (

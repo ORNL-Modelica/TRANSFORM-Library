@@ -11,7 +11,6 @@ model Biasi_quality
   parameter SI.SpecificEnthalpy h=Medium.bubbleEnthalpy(Medium.setSat_p(p))*(1
        - x_abs) + Medium.dewEnthalpy(Medium.setSat_p(p))*x_abs;
 
-
   parameter Medium.ThermodynamicState state=Medium.setState_ph(p, h);
 
   parameter SIadd.MassFlux G = 1000 "Mass flux";

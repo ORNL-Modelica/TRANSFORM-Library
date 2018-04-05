@@ -50,11 +50,9 @@ model Alphas_TwoPhase_3Regionefwef
    "Smooth transition width"
    annotation (Dialog(tab="Advanced",group="Input Variables"));
 
-
   input Real Var_smooth[nHT]=mediaProps.x_th
     "Variable for smoothing between regions with phase transition"
     annotation (Dialog(tab="Advanced",group="Input Variables"));
-
 
   input Real HT_smooth[nHT]={
       HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.CHF.EPRI_quality(

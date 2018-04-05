@@ -91,6 +91,9 @@ simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examp
 simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.NucleateBoiling.alpha_Chen_SvsRe",method="Dassl",numberOfIntervals=10000,resultFile="alpha_Chen_SvsRe");
 simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.PostCHF.alpha_Groeneveld",resultFile="alpha_Groeneveld");
 simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.PostCHF.alpha_Groeneveld_wMedia",resultFile="alpha_Groeneveld_wMedia");
+simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Models.Groeneveld2001LUT_FilmBoilingCoefficient",stopTime=10,resultFile="Groeneveld2001LUT_FilmBoilingCoefficient");
+simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Models.Groeneveld2006LUT",stopTime=10,resultFile="Groeneveld2006LUT");
+simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Models.Groeneveld2006LUT_withKs",stopTime=10,resultFile="Groeneveld2006LUT_withKs");
 simulateModel("TRANSFORM.HeatExchangers.Examples.OilWater_CTHX",stopTime=1000,numberOfIntervals=1000,resultFile="OilWater_CTHX");
 simulateModel("TRANSFORM.HeatExchangers.Examples.OilWater_PTHX",stopTime=1000,numberOfIntervals=1000,resultFile="OilWater_PTHX");
 simulateModel("TRANSFORM.HeatExchangers.Examples.SteamWater_HCSG",stopTime=1000,numberOfIntervals=1000,resultFile="SteamWater_HCSG");
