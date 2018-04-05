@@ -3,7 +3,6 @@ model LaminarTurbulent_MSLDetailed
 
   package Medium = Modelica.Media.Water.StandardWater;
 
-
   parameter Integer nFM=11;
 
   parameter SI.SpecificEnthalpy hs_start[nFM + 1]=linspace(
@@ -30,7 +29,6 @@ model LaminarTurbulent_MSLDetailed
   parameter SI.ReynoldsNumber Re_turb=4000;
 
   parameter SI.Acceleration g_n=9.81;
-
 
   TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.TwoPhase.LaminarTurbulent_MSLDetailed.dp_IN_con
     [nFM] IN_con(
@@ -61,7 +59,6 @@ model LaminarTurbulent_MSLDetailed
     x_abs_a=x_abs_a,
     x_abs_b=x_abs_b)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-
 
   Media.BaseProperties2Phase[nFM + 1] mediaProps(redeclare package Medium =
         Medium, state=states_start) "Bulk fluid properties"

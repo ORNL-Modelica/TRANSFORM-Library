@@ -3,8 +3,8 @@ function linspaceRepeat_1D
   "Create [m] linearly spaced 1D arrays stored in a [n,m] matrix and the special case when n = 1 the average is returned"
   extends Modelica.Icons.Function;
 
-  input Real x1[:] "Corner value x[1,m]";
-  input Real x2[:] "Corner value x[end,m]";
+  input Real x1[:] "First array";
+  input Real x2[size(x1,1)] "Second array";
 
   input Integer n "Array row size";
 

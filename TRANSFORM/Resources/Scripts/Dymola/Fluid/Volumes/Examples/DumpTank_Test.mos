@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Fluid.Volumes.Examples.DumpTank_Test",stopTime=100,resultFile="DumpTank_Test");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

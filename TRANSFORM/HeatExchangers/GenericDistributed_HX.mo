@@ -55,9 +55,9 @@ model GenericDistributed_HX
     "Shell side flow models (i.e., momentum, pressure loss, wall friction)"
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
   replaceable model HeatTransfer_shell =
-      TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal
+      TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal
     constrainedby
-    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.PartialHeatTransfer_setT
+    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.PartialHeatTransfer_setT
     "Shell side coefficient of heat transfer" annotation (choicesAllMatching=true,
       Dialog(group="Heat Transfer"));
 
@@ -69,9 +69,9 @@ model GenericDistributed_HX
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
 
   replaceable model HeatTransfer_tube =
-      TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal
+      TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal
     constrainedby
-    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.PartialHeatTransfer_setT
+    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.PartialHeatTransfer_setT
     "Tube side coefficient of heat transfer" annotation (choicesAllMatching=true,
       Dialog(group="Heat Transfer"));
 
@@ -366,7 +366,8 @@ model GenericDistributed_HX
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,10})));
-  TRANSFORM.Fluid.Pipes.GenericPipe shell(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                    shell(
     redeclare package Medium = Medium_shell,
     use_HeatTransfer=true,
     redeclare model HeatTransfer = HeatTransfer_shell,
@@ -381,7 +382,7 @@ model GenericDistributed_HX
     hs_start=hs_start_shell,
     Ts_start=Ts_start_shell,
     nParallel=nParallel,
-    Ts_wall(start=Ts_wall_start_shellSide),
+    Ts_wall(start=transpose(TRANSFORM.Math.fillArray_1D(Ts_wall_start_shellSide,geometry.nSurfaces_shell))),
     redeclare model FlowModel = FlowModel_shell,
     energyDynamics=energyDynamics[1],
     massDynamics=massDynamics[1],
@@ -421,7 +422,8 @@ model GenericDistributed_HX
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={0,46})));
-  TRANSFORM.Fluid.Pipes.GenericPipe tube(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                    tube(
     redeclare package Medium = Medium_tube,
     use_HeatTransfer=true,
     redeclare model HeatTransfer = HeatTransfer_tube,
@@ -435,7 +437,7 @@ model GenericDistributed_HX
     ps_start=ps_start_tube,
     hs_start=hs_start_tube,
     Ts_start=Ts_start_tube,
-    Ts_wall(start=Ts_wall_start_tubeSide),
+    Ts_wall(start=transpose(TRANSFORM.Math.fillArray_1D(Ts_wall_start_tubeSide,geometry.nSurfaces_tube))),
     redeclare model FlowModel = FlowModel_tube,
     nParallel=geometry.nTubes*nParallel,
     energyDynamics=energyDynamics[2],
@@ -574,11 +576,11 @@ equation
           -80},{-10,-80}}, color={0,127,255}));
   connect(tube.port_b, port_b_tube) annotation (Line(points={{10,-80},{60,-80},{
           60,0},{100,0}}, color={0,127,255}));
-  connect(shell.heatPorts, counterFlow.port_b)
+  connect(shell.heatPorts[:,1], counterFlow.port_b)
     annotation (Line(points={{0,41},{0,20}}, color={191,0,0}));
   connect(tubeWall.port_b1, counterFlow.port_a)
     annotation (Line(points={{0,-20},{0,-10},{0,0}}, color={191,0,0}));
-  connect(tube.heatPorts, tubeWall.port_a1)
+  connect(tube.heatPorts[:,1], tubeWall.port_a1)
     annotation (Line(points={{0,-75},{0,-57.5},{0,-40}}, color={191,0,0}));
   connect(adiabaticWall_a2.port, tubeWall.port_a2)
     annotation (Line(points={{-20,-30},{-15,-30},{-10,-30}}, color={191,0,0}));

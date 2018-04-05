@@ -173,6 +173,10 @@ model PointKinetics_Drift
 
   input SI.Volume[nV] Vs annotation(Dialog);
 
+  parameter Boolean includeLeak = false "=true to include power leakage across volumes in energy balance" annotation(Dialog(tab="Advanced"));
+  parameter Real LF[nV+1] = zeros(nV+1) annotation(Dialog(tab="Advanced",enable=includeLeak));
+  SI.Power Qs_leak[nV];
+
 protected
   SI.Power Qs_FPi[nV,nC] "Near field (e.g, beta) power released from fission product decay";
   SI.Power Qs_FPGi[nV,nC] "Far field (e.g., gamma) power released from fission product decay";
@@ -195,19 +199,29 @@ equation
     rhos_input[i] + sum(rhos_FP[i, :]) + sum(rhos_TR[i, :]) for i in 1:nV};
 
   if specifyPower then
-    Qs = Qs_input;
+    Qs = Qs_input + (if includeLeak then Qs_leak else zeros(nV));
   else
     if energyDynamics == Dynamics.SteadyState then
       for i in 1:nV loop
         0 = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(lambda_i .*
-          mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i];
+          mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i] + (if includeLeak then + Qs_leak[i] else 0);
       end for;
     else
       for i in 1:nV loop
         der(Qs[i]) = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(
-          lambda_i .* mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i];
+          lambda_i .* mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i] + (if includeLeak then + Qs_leak[i] else 0);
       end for;
     end if;
+  end if;
+
+  if nV == 1 then
+    Qs_leak[1] = -LF[1]*Qs[1] - LF[2]*Qs[1];
+  else
+    Qs_leak[1] = -LF[1]*Qs[1] + LF[2]*(Qs[2]-Qs[1]);
+    for i in 2:nV-1 loop
+      Qs_leak[i] = LF[i]*(Qs[i-1]-Qs[i]) + LF[i+1]*(Qs[i+1] - Qs[i]);
+    end for;
+    Qs_leak[nV] = LF[nV]*(Qs[nV-1]-Qs[nV]) - LF[nV+1]*Qs[nV];
   end if;
 
   mC_gens = {{beta_i[j]*nu_bar/w_f*Qs[i] - lambda_i[j]*mCs[i, j] for j in 1:nI}
@@ -223,14 +237,11 @@ equation
         end for;
   end for;
 
-Qs_FPi = {{w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in 1:nV};
-Qs_FPGi = {{wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in 1:nV};
+  Qs_FPi = {{w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in 1:nV};
+  Qs_FPGi = {{wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in 1:nV};
 
   Qs_FP = {sum(Qs_FPi[i,:]) for i in 1:nV};
   Qs_FP_gamma = {sum(Qs_FPGi[i,:]) for i in 1:nV};
-
-//   Qs_FP = {sum({w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC}) for i in 1:nV};
-//   Qs_FP_gamma = {sum({wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC}) for i in 1:nV};
 
 // Tritium
   for i in 1:nV loop

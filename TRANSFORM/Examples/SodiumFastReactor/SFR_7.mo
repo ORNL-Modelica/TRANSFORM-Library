@@ -317,7 +317,7 @@ model SFR_7
     p=100000,
     nPorts=3)
     annotation (Placement(transformation(extent={{118,-12},{98,8}})));
-  HeatExchangers.GenericDistributed_HX STHX[3](
+  HeatExchangers.GenericDistributed_HXold STHX[3](
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Medium_tube = Medium_IHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,
@@ -350,8 +350,7 @@ model SFR_7
         th_wall=data.th_tubewall,
         nV=2,
         angle_shell=-1.5707963267949,
-        angle_tube=1.5707963267949))          annotation (Placement(
-        transformation(
+        angle_tube=1.5707963267949)) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={24,-30})));
@@ -631,7 +630,7 @@ model SFR_7
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={196,-104})));
-  HeatExchangers.GenericDistributed_HX STHX_AHX(
+  HeatExchangers.GenericDistributed_HXold STHX_AHX(
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Medium_tube = Medium_IHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,

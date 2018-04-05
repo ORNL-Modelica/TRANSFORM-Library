@@ -18,7 +18,10 @@ folderName = r'TRANSFORM'
 simEnv = 'Dymola'
 useVarNames = False  #not yet finished: allows regression/plot variables to be name of variable rather than uniTest.x[]
 promptWriteOver = False #=true to prompt user to overwrite .mos files else default writeover
-                      
+
+#=true to delete result files that don't have a matching .mos generation script
+cleanupRefRes = True   
+folderNameRefResults=os.path.join(folderPath,folderName,'Resources','ReferenceResults',simEnv)
 
 def mkdir_p(path):
     try:
@@ -62,6 +65,40 @@ def query_yes_no(question, default="no"):
         else:
             sys.stdout.write("Please respond with 'yes' or 'no' "\
                              "(or 'y' or 'n').\n")
+
+def cleanupRefResults(unitTests,folderName,folderNameRefResults,simEnv):
+    print('Cleaning up Reference Results Folder: {}'.format(folderNameRefResults))
+    
+    unitTests_RefResName = []
+    for i, val in enumerate(unitTests):
+        line = val.replace('\\','_')
+        if simEnv.capitalize() == 'Dymola':
+            line = line.split('_'+simEnv.capitalize()+'_')[1]#'_Resources_Scripts_'+simEnv.capitalize()+'_')[1]
+        else:
+            print('Unsupported simEnv: {}'.format(simEnv))
+            break
+        line = '_'.join((folderName,line))
+        unitTests_RefResName.append('.'.join((line,'txt')))
+    
+    filelist = [ f for f in os.listdir(folderNameRefResults) if f.endswith(".txt") ]
+
+    for f in filelist:
+        if f not in unitTests_RefResName:
+            while True:
+                try:
+                    ans = raw_input('File below was not found:\n{}\n###Confirm deletion [y/n]'.format(f))
+                except ValueError:
+                    print("Invalid response. Please enter 'y' or 'n'")
+                    continue
+                if ans.lower() not in ('y','n'):
+                    print("Invalid response. Please enter 'y' or 'n'")
+                    continue
+                else:
+                    #we're ready to exit the loop.
+                    break
+            if ans.lower() == 'y':
+                os.remove(os.path.join(folderNameRefResults, f))       
+
             
 # Get list of all files within Examples folders
 directory_list = list()
@@ -117,6 +154,7 @@ equals_notFound = list()
 
 # Loop through each test looking for simulation parameters, unitTests model,
 # variables for regression, and create .mos simulation script
+unitTests = []
 for item in test_list:
     lines = list()
     line_list = list()
@@ -197,7 +235,7 @@ for item in test_list:
         modelSimPath = re.sub('.*within', '', modelSimPath)  # handles strange characters that sometime show up
         modelSimPath = modelSimPath.replace(' ', '')
         plotSimPath = modelSimPath + '.' + modelName
-
+        
         # Create directory (if not exist) to save location of script file.
         # Default path is what is specified in .mos file after 'within ...;'
         # with the first entry dropped, i.e., within LIB.Examples;' yields
@@ -205,6 +243,8 @@ for item in test_list:
         mosPath = os.path.join(folderPath, folderName, 'Resources', 'Scripts', simEnv, '\\'.join(modelSimPath.split('.')[1:]))
         mkdir_p(mosPath)
 
+        # Create list of all generated unit tests
+        unitTests.append(os.path.join(mosPath,modelName))
         if promptWriteOver:
             # Check if file .mos already exists and prompt user if they wish to replace it.
             if os.path.isfile(os.path.join(mosPath, modelName + '.mos')):
@@ -236,4 +276,7 @@ for item in test_list:
                 mosDym.write('resultFile="{}");\n'.format(modelName))
 
 if not unitTests_notFound == []:
-    print('Some examples did not contain unitTests model. View variable "unitTests_notFound" for the list")')
+    print('Some .mo recognized as examples did not contain the unitTests model. View variable "unitTests_notFound" for the complete list')
+
+if cleanupRefRes:
+    cleanupRefResults(unitTests,folderName,folderNameRefResults,simEnv)

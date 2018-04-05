@@ -24,6 +24,7 @@ interpolate_wLimit
 interpolate2D
 linspace_1D
 linspaceRepeat_1D
+linspaceRepeat_1D_multi
 linspace_2Dcorner
 linspace_2Dedge
 linspaceRepeat_2Dedge
@@ -42,3 +43,4 @@ smoothMax_splice
 smoothMin_splice
 regStep
 replaceArrayValues
+indexFilter

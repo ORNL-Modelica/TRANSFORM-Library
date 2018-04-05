@@ -345,7 +345,7 @@ model MSR_4
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={120,40})));
-  HeatExchangers.GenericDistributed_HX PHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HXold PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
@@ -380,7 +380,7 @@ model MSR_4
         CF=fill(0.44, PHX.shell.heatTransfer.nHT)),
     redeclare model InternalTraceMassGen_tube =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens_PHX_tube))        annotation (Placement(transformation(
+        (mC_gens=mC_gens_PHX_tube)) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={80,0})));

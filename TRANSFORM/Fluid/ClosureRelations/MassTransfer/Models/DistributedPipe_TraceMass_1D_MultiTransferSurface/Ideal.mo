@@ -8,8 +8,8 @@ equation
   for i in 1:nMT loop
     for j in 1:nSurfaces loop
       Cs_wall[i, j, :] = Cs_fluid[i, :];
-      alphasM[i, j, :] = Modelica.Constants.inf*ones(Medium.nC);
-      Shs[i, j, :] = Modelica.Constants.inf*ones(Medium.nC);
+      alphasM[i, j, :] = Modelica.Constants.inf*ones(nC);
+      Shs[i, j, :] = Modelica.Constants.inf*ones(nC);
     end for;
   end for;
 

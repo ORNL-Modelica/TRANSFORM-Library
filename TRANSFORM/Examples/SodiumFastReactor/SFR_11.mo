@@ -311,7 +311,7 @@ model SFR_11
     V0=0.001,
     level_start=data.level_start_hot_expanstionTank)
     annotation (Placement(transformation(extent={{-64,22},{-44,42}})));
-  HeatExchangers.GenericDistributed_HX IHX[3](
+  HeatExchangers.GenericDistributed_HXold IHX[3](
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Medium_tube = Medium_IHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,

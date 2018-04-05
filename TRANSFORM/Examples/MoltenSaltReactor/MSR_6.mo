@@ -380,7 +380,7 @@ model MSR_6
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={80,-70})));
-  HeatExchangers.GenericDistributed_HX PHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HXold PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
@@ -415,7 +415,7 @@ model MSR_6
         CF=fill(0.44, PHX.shell.heatTransfer.nHT)),
     redeclare model InternalTraceMassGen_tube =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens_PHX_tube))        annotation (Placement(transformation(
+        (mC_gens=mC_gens_PHX_tube)) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={80,0})));
@@ -558,7 +558,7 @@ model MSR_6
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={250,-40})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HX SHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HXold SHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Material_tubeWall = TRANSFORM.Media.Solids.AlloyN,
     nParallel=2*3,
@@ -590,8 +590,7 @@ model MSR_6
         D=data_SHX.D_tube_outer,
         S_T=data_SHX.pitch_tube,
         S_L=data_SHX.pitch_tube,
-        CF=fill(0.44, SHX.shell.heatTransfer.nHT)))
-                                                  annotation (Placement(
+        CF=fill(0.44, SHX.shell.heatTransfer.nHT))) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -910,7 +909,7 @@ equation
   connect(boundary_thermal_drainTank_liquid.port, drainTank_liquid.heatPort)
     annotation (Line(points={{-200,-80},{-200,-62.4}}, color={191,0,0}));
   connect(traceSeparator.port_sepFluid, drainTank_liquid.port_a) annotation (
-      Line(points={{-221,80},{-220,80},{-220,-60},{-207,-60}}, color={0,127,255}));
+      Line(points={{-220,80},{-220,80},{-220,-60},{-207,-60}}, color={0,127,255}));
   connect(traceSeparator.port_b_carrier, drainTank_gas.port_a[1]) annotation (
       Line(points={{-226,80},{-226,-20},{-206,-20}}, color={0,127,255}));
   connect(pump_OffGas_bypass.port_a, drainTank_gas.port_b[2]) annotation (Line(

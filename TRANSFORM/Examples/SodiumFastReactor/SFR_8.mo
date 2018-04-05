@@ -311,7 +311,7 @@ model SFR_8
     V0=0.001,
     level_start=data.level_start_hot_expanstionTank)
     annotation (Placement(transformation(extent={{-64,22},{-44,42}})));
-  HeatExchangers.GenericDistributed_HX STHX[3](
+  HeatExchangers.GenericDistributed_HXold STHX[3](
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Medium_tube = Medium_IHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,
@@ -344,8 +344,7 @@ model SFR_8
         nV=2,
         angle_shell=-1.5707963267949,
         angle_tube=1.5707963267949),
-    p_a_start_tube=350000)                    annotation (Placement(
-        transformation(
+    p_a_start_tube=350000) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={24,-30})));
@@ -608,7 +607,7 @@ model SFR_8
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={196,-104})));
-  HeatExchangers.GenericDistributed_HX STHX_AHX_1(
+  HeatExchangers.GenericDistributed_HXold STHX_AHX_1(
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Medium_tube = Medium_IHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,
@@ -656,7 +655,7 @@ model SFR_8
     redeclare package Medium = Medium_Ambient,
     m_flow=100,
     T=298.15) annotation (Placement(transformation(extent={{330,4},{310,24}})));
-  HeatExchangers.GenericDistributed_HX STHX_AHX_2(
+  HeatExchangers.GenericDistributed_HXold STHX_AHX_2(
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Medium_tube = Medium_IHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,
@@ -705,7 +704,7 @@ model SFR_8
     m_flow=100,
     T=298.15)
     annotation (Placement(transformation(extent={{352,-92},{332,-72}})));
-  HeatExchangers.GenericDistributed_HX STHX_AHX_3(
+  HeatExchangers.GenericDistributed_HXold STHX_AHX_3(
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Medium_tube = Medium_IHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,

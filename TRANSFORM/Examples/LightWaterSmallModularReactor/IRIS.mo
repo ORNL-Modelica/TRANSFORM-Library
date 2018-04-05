@@ -404,7 +404,7 @@ model IRIS
   Fluid.Pipes.parallelFlow nFlow1(redeclare package Medium = Medium, nParallel=
         nFlow.nParallel)
     annotation (Placement(transformation(extent={{38,48},{32,56}})));
-  HeatExchangers.GenericDistributed_HX               steamGenerator(
+  HeatExchangers.GenericDistributed_HXold steamGenerator(
     nParallel=8,
     use_Ts_start_tube=false,
     p_b_start_tube(displayUnit="Pa") = 5.9e6,
@@ -414,15 +414,17 @@ model IRIS
     h_a_start_tube=962463,
     T_a_start_shell(displayUnit="K") = 595.1901,
     T_b_start_shell(displayUnit="K") = 557.0911,
-    Ts_start_shell(displayUnit="K") = {595.025085449219,594.724182128906,594.155090332031,
-      593.082824707031,591.095886230469,588.496643066406,584.942443847656,581.663757324219,
-      578.658508300781,575.916442871094,573.423217773438,571.162841796875,569.118530273438,
-      567.2734375,565.611083984375,564.115295410156,562.769714355469,561.558288574219,
+    Ts_start_shell(displayUnit="K") = {595.025085449219,594.724182128906,
+      594.155090332031,593.082824707031,591.095886230469,588.496643066406,
+      584.942443847656,581.663757324219,578.658508300781,575.916442871094,
+      573.423217773438,571.162841796875,569.118530273438,567.2734375,
+      565.611083984375,564.115295410156,562.769714355469,561.558288574219,
       559.920471191406,557.090515136719},
     h_b_start_tube=2953664,
-    hs_start_tube={1099128,1178831.375,1238086.375,1304201.875,1378077.375,1460663.625,
-        1552953.75,1656019.125,1771025.625,1899240.25,2042028.75,2200840.5,2377157.25,
-        2572314,2718030,2831324.75,2893237.75,2926355.75,2943995.25,2953664},
+    hs_start_tube={1099128,1178831.375,1238086.375,1304201.875,1378077.375,
+        1460663.625,1552953.75,1656019.125,1771025.625,1899240.25,2042028.75,
+        2200840.5,2377157.25,2572314,2718030,2831324.75,2893237.75,2926355.75,
+        2943995.25,2953664},
     redeclare package Material_tubeWall = Media.Solids.Inconel690,
     energyDynamics={system.energyDynamics,system.energyDynamics,system.energyDynamics},
     exposeState_b_shell=true,
@@ -458,8 +460,9 @@ model IRIS
         th_wall=0.00211,
         length_shell=7.9,
         surfaceArea_tube={Modelica.Constants.pi*steamGenerator.geometry.perimeter_tube
-            *steamGenerator.geometry.length_tube}))
-    annotation (Placement(transformation(extent={{13,11},{-13,-11}},
+            *steamGenerator.geometry.length_tube})) annotation (Placement(
+        transformation(
+        extent={{13,11},{-13,-11}},
         rotation=-90,
         origin={52,1})));
 

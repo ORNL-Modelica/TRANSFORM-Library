@@ -308,7 +308,7 @@ model SFR_3
     p=data.p_start,
     T=data.T_IHX_outletIHTS)
     annotation (Placement(transformation(extent={{118,-32},{98,-12}})));
-  HeatExchangers.GenericDistributed_HX STHX(
+  HeatExchangers.GenericDistributed_HXold STHX(
     nParallel=data.nIHXs,
     redeclare package Medium_shell = Medium,
     redeclare package Medium_tube = Medium,
@@ -342,8 +342,7 @@ model SFR_3
     m_flow_a_start_tube=data.nIHXs*data.m_flow_IHX_IHTS,
     T_a_start_tube=data.T_IHX_inletIHTS,
     T_b_start_tube=data.T_IHX_outletIHTS,
-    p_a_start_shell=data.p_start + 0.75e5)
-                                          annotation (Placement(transformation(
+    p_a_start_shell=data.p_start + 0.75e5) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,-74})));

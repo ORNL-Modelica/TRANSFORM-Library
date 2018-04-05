@@ -302,7 +302,7 @@ model MSR_3
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={120,40})));
-  HeatExchangers.GenericDistributed_HX PHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HXold PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
@@ -334,8 +334,8 @@ model MSR_3
         D=data_PHX.D_tube_outer,
         S_T=data_PHX.pitch_tube,
         S_L=data_PHX.pitch_tube,
-        CF=fill(0.44, PHX.shell.heatTransfer.nHT)))
-                                           annotation (Placement(transformation(
+        CF=fill(0.44, PHX.shell.heatTransfer.nHT))) annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={80,0})));

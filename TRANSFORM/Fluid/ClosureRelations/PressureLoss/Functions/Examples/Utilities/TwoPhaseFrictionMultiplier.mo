@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Examples.Utilitie
 model TwoPhaseFrictionMultiplier
   import TRANSFORM;
 
-
   extends TRANSFORM.Icons.Example;
 
   package Medium = Modelica.Media.Water.StandardWater;

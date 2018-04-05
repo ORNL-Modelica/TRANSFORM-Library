@@ -6,6 +6,7 @@ model CounterFlow
   parameter Integer n=1 "Number of connected elements";// annotation(Dialog(connectorSizing=true));
   parameter Boolean counterCurrent=false
     "Swap concentration and flux vector order";
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 
   Interfaces.MolePort_Flow port_a[n](each nC=nC)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -37,5 +38,10 @@ equation
           Bitmap(
               extent={{-108,-100},{108,100}},
               visible=not counterCurrent,
-          fileName="modelica://TRANSFORM/Resources/Images/Icons/counterFlow_mass_false.jpg")}));
+          fileName="modelica://TRANSFORM/Resources/Images/Icons/counterFlow_mass_false.jpg"),
+        Text(
+          extent={{-136,100},{144,60}},
+          textString="%name",
+          lineColor={0,0,255},
+          visible=showName)}));
 end CounterFlow;

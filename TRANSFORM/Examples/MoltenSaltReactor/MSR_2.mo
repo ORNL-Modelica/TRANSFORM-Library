@@ -282,7 +282,7 @@ model MSR_2
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={120,40})));
-  HeatExchangers.GenericDistributed_HX STHX(
+  HeatExchangers.GenericDistributed_HXold STHX(
     nParallel=3,
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,

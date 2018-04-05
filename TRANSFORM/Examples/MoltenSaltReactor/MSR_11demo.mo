@@ -469,7 +469,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={160,-70})));
-  HeatExchangers.GenericDistributed_HX PHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HXold PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
@@ -508,7 +508,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     Cs_start_tube=Cs_start_PHX_tube,
     redeclare model InternalHeatGen_tube =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=Qs_gen_PHX_tube))          annotation (Placement(transformation(
+        (Q_gens=Qs_gen_PHX_tube)) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={160,0})));
@@ -684,7 +684,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={330,-40})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HX SHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HXold SHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Material_tubeWall = TRANSFORM.Media.Solids.AlloyN,
     nParallel=2*3,
@@ -716,8 +716,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         D=data_SHX.D_tube_outer,
         S_T=data_SHX.pitch_tube,
         S_L=data_SHX.pitch_tube,
-        CF=fill(0.44, SHX.shell.heatTransfer.nHT)))
-                                                  annotation (Placement(
+        CF=fill(0.44, SHX.shell.heatTransfer.nHT))) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

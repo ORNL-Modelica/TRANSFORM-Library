@@ -5,9 +5,9 @@ model AlphasM "Specify Mass Transfer Coefficient (alphaM)"
 
   extends PartialSinglePhase;
 
-  input Units.CoefficientOfMassTransfer alphaM0[Medium.nC]=fill(0, Medium.nC)
+  input Units.CoefficientOfMassTransfer alphaM0[nC]=fill(0, nC)
     "Coefficient of mass transfer" annotation (Dialog(group="Input Variables"));
-  input Units.CoefficientOfMassTransfer alphasM0[nMT,nSurfaces,Medium.nC]=fillArray_1D_2ns(
+  input Units.CoefficientOfMassTransfer alphasM0[nMT,nSurfaces,nC]=fillArray_1D_2ns(
       alphaM0, nMT,nSurfaces) "if non-uniform then set"
     annotation (Dialog(group="Input Variables"));
 

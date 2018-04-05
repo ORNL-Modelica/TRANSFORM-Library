@@ -9,9 +9,9 @@ This is the development site for the Modelica _TRANSFORM_ library and its user g
 
 Instructions for developers are available on the [wiki](https://github.com/ORNL-Modelica/TRANSFORM-Library/wiki).
 
-## Versioning
+## Versioning/Releases
 
-We use [SemVer](http://semver.org/) for versioning.
+A form of [SemVer](http://semver.org/) is used for versioning.
 
 Version: 0.0.0b
 
@@ -19,29 +19,18 @@ As library is in its beta stage, library may change often with compatability bre
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+- To use download or clone the repository and Load/Open in your favorite Modelica development environment.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+This library has been tested with:
 
-```
-Give examples
-```
+- Dymola 2018FD01
 
-### Installing
+### Check that the Library is working
 
-A step by step series of examples that tell you have to get a development env running
+- To test that the library is working, run the `runAll.mos` script. This will simulate all the examples which are included in the regression tests.
 
-Say what the step will be
-
-```
-Give the example
-```
-
-## Running the tests
-
-Explain how to run the automated tests for this system
 
 ## Authors
 
@@ -51,7 +40,7 @@ See also the list of [contributors](https://github.com/ORNL-Modelica/TRANSFORM-L
 
 ## License
 
-This project is licensed under the UT-Battelle Open Source [License](LICENSE.pdf) (Permissive) - see the [LICENSE.pdf](LICENSE.pdf) file for details
+This project is licensed under the UT-Battelle Open Source [License](LICENSE.md) (Permissive) - see the [LICENSE.md](LICENSE.md) file for details
 
 Copyright 2017, UT-Battelle, LLC
 
@@ -66,4 +55,4 @@ This application uses Open Source components. You can find the source code of th
 
 Project: Modelica Standard Library https://github.com/modelica/Modelica
 
-Modelica License 2 https://modelica.org/licenses/ModelicaLicense2
+3-Clause BSD License https://github.com/modelica/ModelicaStandardLibrary/blob/master/LICENSE

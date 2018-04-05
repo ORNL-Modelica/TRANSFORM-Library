@@ -39,7 +39,6 @@ model LaminarTurbulent_MSLDetailed2
       mediaProps.rho_vsat) for i in 1:nFM};
 equation
 
-
   fRe2 =
     TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.fRe2_Turbulent_Local_Developed_SwameeJain(
     Re=Re,

@@ -22,7 +22,7 @@ model SHX
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,-30})));
-  HeatExchangers.GenericDistributed_HX PHX(
+  HeatExchangers.GenericDistributed_HXold PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
@@ -54,8 +54,8 @@ model SHX
         D=data_PHX.D_tube_outer,
         S_T=data_PHX.pitch_tube,
         S_L=data_PHX.pitch_tube,
-        CF=fill(0.44, PHX.shell.heatTransfer.nHT)))
-                                           annotation (Placement(transformation(
+        CF=fill(0.44, PHX.shell.heatTransfer.nHT))) annotation (Placement(
+        transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-2,2})));
@@ -164,7 +164,7 @@ model SHX
         origin={120,40})));
   inner Fluid.SystemTF systemTF(showName=false)
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
-  HeatExchangers.GenericDistributed_HX PHX1(
+  HeatExchangers.GenericDistributed_HXold PHX1(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
     nParallel=2*3,
@@ -196,8 +196,8 @@ model SHX
     p_a_start_tube=data_SHX.p_inlet_tube,
     T_a_start_tube=data_SHX.T_inlet_tube,
     T_b_start_tube=data_SHX.T_outlet_tube,
-    m_flow_a_start_tube=2*3*data_SHX.m_flow_tube)
-                                           annotation (Placement(transformation(
+    m_flow_a_start_tube=2*3*data_SHX.m_flow_tube) annotation (Placement(
+        transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={140,0})));
@@ -210,9 +210,9 @@ equation
   connect(pipeToPHX_PCL.port_b, PHX.port_a_shell)
     annotation (Line(points={{40,-20},{2.6,-20},{2.6,-8}}, color={0,127,255}));
   connect(pump_PFL.port_a, pumpBowl.port_b)
-    annotation (Line(points={{80,40},{72,40}}, color={0,127,255}));
+    annotation (Line(points={{80,40},{73,40}}, color={0,127,255}));
   connect(pumpBowl.port_a, pipeFromPHX_PCL.port_b)
-    annotation (Line(points={{60,40},{40,40}}, color={0,127,255}));
+    annotation (Line(points={{59,40},{40,40}}, color={0,127,255}));
   connect(pipeFromPHX_PCL.port_a, PHX.port_b_shell)
     annotation (Line(points={{20,40},{2.6,40},{2.6,12}}, color={0,127,255}));
   connect(pump_PFL.port_b, pipeToSHX_PCL.port_a)

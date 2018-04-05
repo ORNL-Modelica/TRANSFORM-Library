@@ -57,7 +57,7 @@ replaceable package Medium =
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Fluid.Interfaces.FluidPort_State port_b(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-  HeatExchangers.GenericDistributed_HX ADHX1(
+  HeatExchangers.GenericDistributed_HXold ADHX1(
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,

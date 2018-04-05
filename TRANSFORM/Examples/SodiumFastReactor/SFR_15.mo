@@ -319,7 +319,7 @@ model SFR_15
     V0=0.001,
     level_start=data.level_start_hot_expanstionTank)
     annotation (Placement(transformation(extent={{-24,54},{-4,74}})));
-  HeatExchangers.GenericDistributed_HX IHX[3](
+  HeatExchangers.GenericDistributed_HXold IHX[3](
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Medium_tube = Medium_IHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,
@@ -480,7 +480,7 @@ model SFR_15
     redeclare package Medium = Medium_IHTS)
     annotation (Placement(transformation(extent={{100,-20},{160,40}})));
 
-  HeatExchangers.GenericDistributed_HX DRACSHX[3](
+  HeatExchangers.GenericDistributed_HXold DRACSHX[3](
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,
     redeclare model HeatTransfer_tube =
