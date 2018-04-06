@@ -1,31 +1,19 @@
 within TRANSFORM.Fluid.Valves;
-model CheckValve
+model StopValve
 
   extends TRANSFORM.Fluid.Valves.BaseClasses.PartialTwoPort(final allowFlowReversal=checkValve);
 
-  input SIadd.HydraulicResistance R = Modelica.Constants.eps "Hydraulic resistance" annotation(Dialog(group="Input Variables"));
+  parameter Boolean stopValve=true "Flow stopped";
 
-  parameter Boolean checkValve=true "Reverse flow stopped";
-
-  SI.MassFlowRate m_flow;
-
-protected
-  SI.Pressure dp;
-  Real s(start=0);
 equation
 
   if checkValve then
-    m_flow = homotopy(noEvent(if s > 0 then s else 0), s);
+    port_a.m_flow = 0;
+    port_b.m_flow = 0;
   else
-    m_flow = s;
+    port_a.p = port_b.p;
+    port_a.m_flow + port_b.m_flow = 0;
   end if;
-
-  s*R = dp;
-
-  port_a.m_flow + port_b.m_flow = 0;
-  port_a.m_flow = m_flow;
-  port_a.p - port_b.p = dp;
-
 
   // Stream variables balance
   port_a.h_outflow = inStream(port_b.h_outflow);
@@ -42,10 +30,10 @@ equation
           fillPattern=FillPattern.Solid),
         Polygon(
           points={{-94,40},{-18,0},{-94,-40},{-94,40}},
-          fillColor={0,0,0},
+          fillColor={238,46,47},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
-          visible=checkValve),
+          lineColor={0,0,0}),
         Rectangle(
           extent={{-20,60},{20,50}},
           lineColor={0,0,0},
@@ -53,4 +41,4 @@ equation
           fillPattern=FillPattern.Solid),
         Line(points={{0,50},{0,0}})}),                           Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end CheckValve;
+end StopValve;

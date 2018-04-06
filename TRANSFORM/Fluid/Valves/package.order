@@ -4,5 +4,6 @@ ValveVaporizing
 ValveCompressible
 ValveLinear
 ValveDiscrete
+StopValve
 CheckValve
 BaseClasses

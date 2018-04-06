@@ -50,7 +50,6 @@ model SimpleDemo
           dimension=0.1),
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-
     Q_nominal=1e4,
     Teffref_fuel=673.15,
     Teffref_coolant=623.15,
@@ -61,6 +60,7 @@ model SimpleDemo
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,0})));
+
   Modelica.Blocks.Sources.Sine sine1(
     freqHz=1/50,
     startTime=200,
