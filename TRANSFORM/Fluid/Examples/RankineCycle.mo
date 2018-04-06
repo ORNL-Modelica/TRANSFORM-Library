@@ -20,7 +20,7 @@ model RankineCycle
         origin={-60,-14})));
   inner System          system
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Machines.SteamTurbineStodola steamTurbine(
+  Machines.SteamTurbine steamTurbine(
     m_flow_start=100,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     p_a_start=p_steam,

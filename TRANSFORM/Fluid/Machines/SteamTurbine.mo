@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Machines;
-model SteamTurbineStodola
-  "Steam turbine: Stodola's ellipse law and constant isentropic efficiency"
+model SteamTurbine
+  "Steam turbine: Includes options for Stodola's ellipse law, multiple units, etc."
   extends TRANSFORM.Fluid.Machines.BaseClasses.SteamTurbineBase;
 
   parameter Real partialArc_nominal=1 "Nominal partial arc";
@@ -74,4 +74,4 @@ equation
 </html>",
         revisions="<html>
 </html>"));
-end SteamTurbineStodola;
+end SteamTurbine;

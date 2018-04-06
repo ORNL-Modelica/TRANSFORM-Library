@@ -12,11 +12,11 @@ model HP_turbine
     annotation (Dialog(group="Nominal operating data"), Placement(
         transformation(extent={{40,73},{60,94}})));
 
-  Machines.SteamTurbineStodola stage1(
+  Machines.SteamTurbine stage1(
     eta_mech=eta_mech,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     redeclare model Eta_wetSteam =
-        Machines.BaseClasses.WetSteamEfficiency.eta_Constant (  eta_nominal=
+        Machines.BaseClasses.WetSteamEfficiency.eta_Constant (eta_nominal=
             eta_is),
     m_flow_nominal=nominalData.m_flow_nom_turbine_HP_stage1,
     T_nominal=nominalData.T_nom_turbine_HP_stage1_feed,
@@ -35,7 +35,7 @@ model HP_turbine
         stage1.Medium.reference_X),
     m_flow_start=nominalData.m_flow_nom_turbine_HP_stage1)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Machines.SteamTurbineStodola stage2(
+  Machines.SteamTurbine stage2(
     eta_mech=eta_mech,
     m_flow_start=stage2.m_flow_nominal,
     m_flow_nominal=nominalData.m_flow_nom_turbine_LP_stage2,
@@ -43,7 +43,7 @@ model HP_turbine
     p_in_nominal=nominalData.p_nom_turbine_HP_stage1_drain,
     p_out_nominal=nominalData.p_nom_turbine_HP_stage2_drain,
     redeclare model Eta_wetSteam =
-        Machines.BaseClasses.WetSteamEfficiency.eta_Constant (  eta_nominal=
+        Machines.BaseClasses.WetSteamEfficiency.eta_Constant (eta_nominal=
             eta_is),
     p_a_start=initData.p_start_turbine_HP_stage1_drain,
     p_b_start=initData.p_start_turbine_HP_stage2_drain,

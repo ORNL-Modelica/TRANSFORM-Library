@@ -56,15 +56,15 @@ model SimpleFLiBeLoop_withPowerConversion
     T=T_condenser,
     nPorts=1)
     annotation (Placement(transformation(extent={{60,2},{40,22}})));
-  Fluid.Machines.SteamTurbineStodola steamTurbine(
+  TRANSFORM.Fluid.Machines.SteamTurbine steamTurbine(
     p_a_start(displayUnit="kPa") = p_steam,
     p_b_start(displayUnit="kPa") = p_condenser,
     T_a_start=T_steam,
     T_b_start=T_condenser,
     m_flow_start=m_flow_steam,
     redeclare model Eta_wetSteam =
-        Fluid.Machines.BaseClasses.WetSteamEfficiency.eta_Constant (eta_nominal=
-           eta),
+        Fluid.Machines.BaseClasses.WetSteamEfficiency.eta_Constant (eta_nominal
+          =eta),
     redeclare package Medium = Medium_bop)
     annotation (Placement(transformation(extent={{12,32},{32,52}})));
   Electrical.PowerConverters.Generator           generator

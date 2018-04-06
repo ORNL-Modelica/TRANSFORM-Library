@@ -93,7 +93,7 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
   HeatAndMassTransfer.BoundaryConditions.Heat.Temperature FWH_returnTemp(T=
         data_SHX.T_inlet_tube)
     annotation (Placement(transformation(extent={{-36,-70},{-16,-50}})));
-  Fluid.Machines.SteamTurbineStodola steamTurbine_HP(
+  Fluid.Machines.SteamTurbine steamTurbine_HP(
     redeclare package Medium = Medium_BOP,
     p_a_start=data_SHX.p_outlet_tube,
     T_a_start=data_SHX.T_outlet_tube,
@@ -110,7 +110,7 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
     nPorts_b=1)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
-  Fluid.Machines.SteamTurbineStodola steamTurbine_LP(
+  Fluid.Machines.SteamTurbine steamTurbine_LP(
     redeclare package Medium = Medium_BOP,
     T_a_start=data_SHX.T_outlet_tube,
     m_flow_start=2*3*data_SHX.m_flow_shell,
