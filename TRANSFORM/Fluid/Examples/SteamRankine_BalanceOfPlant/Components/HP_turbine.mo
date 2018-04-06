@@ -20,8 +20,8 @@ model HP_turbine
             eta_is),
     m_flow_nominal=nominalData.m_flow_nom_turbine_HP_stage1,
     T_nominal=nominalData.T_nom_turbine_HP_stage1_feed,
-    p_in_nominal=nominalData.p_nom_turbine_HP_stage1_feed,
-    p_out_nominal=nominalData.p_nom_turbine_HP_stage1_drain,
+    p_inlet_nominal=nominalData.p_nom_turbine_HP_stage1_feed,
+    p_outlet_nominal=nominalData.p_nom_turbine_HP_stage1_drain,
     p_a_start=initData.p_start_turbine_HP_stage1_feed,
     p_b_start=initData.p_start_turbine_HP_stage1_drain,
     use_T_start=false,
@@ -40,8 +40,8 @@ model HP_turbine
     m_flow_start=stage2.m_flow_nominal,
     m_flow_nominal=nominalData.m_flow_nom_turbine_LP_stage2,
     T_nominal=nominalData.T_nom_turbine_HP_stage1_drain,
-    p_in_nominal=nominalData.p_nom_turbine_HP_stage1_drain,
-    p_out_nominal=nominalData.p_nom_turbine_HP_stage2_drain,
+    p_inlet_nominal=nominalData.p_nom_turbine_HP_stage1_drain,
+    p_outlet_nominal=nominalData.p_nom_turbine_HP_stage2_drain,
     redeclare model Eta_wetSteam =
         Machines.BaseClasses.WetSteamEfficiency.eta_Constant (eta_nominal=
             eta_is),

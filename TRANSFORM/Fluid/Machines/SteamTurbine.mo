@@ -7,17 +7,31 @@ model SteamTurbine
   parameter SI.MassFlowRate m_flow_nominal=m_flow_start "Nominal mass flowrate";
 
   // Nominal Inlet Parameters for Kt
-  parameter Boolean use_Stodola = true "=true to use Stodola's law (infinite stages per unit";
-  parameter SI.Area Kt_constant=0.01 "Constant coefficient of Stodola's law" annotation(Dialog(group="Stodola's Law Coefficient",enable=not use_NominalInlet));
-  parameter Boolean use_NominalInlet=true "=true then Kt is calculated from nominal inlet conditions" annotation(Dialog(group="Stodola's Law Coefficient"));
-  parameter SI.Pressure p_in_nominal = p_a_start "Nominal inlet pressure" annotation(Dialog(group="Stodola's Law Coefficient",enable=use_NominalInlet));
-  parameter SI.Pressure p_out_nominal = p_b_start "Nominal outlet pressure" annotation(Dialog(group="Stodola's Law Coefficient",enable=use_NominalInlet));
-  parameter Boolean use_T_nominal=true "=true then use temperature for Kt else density" annotation(Dialog(group="Stodola's Law Coefficient",enable=use_NominalInlet));
-  parameter SI.Temperature T_nominal = T_a_start "Nominal inlet temperature" annotation(Dialog(group="Stodola's Law Coefficient",enable= if use_NominalInlet and use_T_nominal then true else false));
-  parameter SI.Density d_nominal = Medium.density(Medium.setState_pTX(
-                                      p_in_nominal,
-                                      T_nominal,
-                                      Medium.reference_X)) "Nominal inlet density" annotation(Dialog(group="Stodola's Law Coefficient",enable= if use_NominalInlet and not use_T_nominal then true else false));
+  parameter Boolean use_Stodola=true
+    "=true to use Stodola's law, i.e., infinite stages per unit"
+    annotation (Dialog(group="Stodola's Law Coefficient"));
+  parameter SI.Area Kt_constant=0.01 "Constant coefficient of Stodola's law"
+    annotation (Dialog(group="Stodola's Law Coefficient", enable=if not
+          use_NominalInlet and use_Stodola then true else false));
+  parameter Boolean use_NominalInlet=true
+    "=true then Kt is calculated from nominal inlet conditions"
+    annotation (Dialog(group="Stodola's Law Coefficient", enable=use_Stodola));
+  parameter SI.Pressure p_inlet_nominal=p_a_start "Nominal inlet pressure";
+  parameter SI.Pressure p_outlet_nominal=p_b_start "Nominal outlet pressure"
+    annotation (Dialog(group="Stodola's Law Coefficient", enable=if
+          use_NominalInlet and use_Stodola then true else false));
+  parameter Boolean use_T_nominal=true
+    "=true then use temperature for Kt else density" annotation (Dialog(group="Stodola's Law Coefficient",
+        enable=if use_NominalInlet and use_Stodola then true else false));
+  parameter SI.Temperature T_nominal=T_a_start "Nominal inlet temperature"
+    annotation (Dialog(group="Stodola's Law Coefficient", enable=if
+          use_NominalInlet and use_T_nominal and use_Stodola then true else false));
+  parameter SI.Density d_nominal=Medium.density(Medium.setState_pTX(
+      p_inlet_nominal,
+      T_nominal,
+      Medium.reference_X)) "Nominal inlet density" annotation (Dialog(group="Stodola's Law Coefficient",
+        enable=if use_NominalInlet and not use_T_nominal and use_Stodola then true
+           else false));
 
   final parameter SI.Area Kt(fixed=false) "Flow area coefficient";
 
@@ -26,34 +40,32 @@ initial equation
     //     Kt = m_flow_nom*sqrt(p_inlet/Medium.density_pT(p_inlet,T_nom))/
     //          sqrt(p_inlet^2-p_outlet^2);
     if use_T_nominal then
-      Kt = m_flow_nominal/(sqrt(p_in_nominal*Medium.density(Medium.setState_pTX(
-        p_in_nominal,
+      Kt = m_flow_nominal/(sqrt(p_inlet_nominal*Medium.density(
+        Medium.setState_pTX(
+        p_inlet_nominal,
         T_nominal,
-        Medium.reference_X)))*
-        Modelica.Fluid.Utilities.regRoot2(1 - (p_out_nominal/
-        p_in_nominal)^2));
+        Medium.reference_X)))*Modelica.Fluid.Utilities.regRoot2(1 - (
+        p_outlet_nominal/p_inlet_nominal)^2));
     else
-      Kt = m_flow_nominal/(sqrt(p_in_nominal*d_nominal)*
-        Modelica.Fluid.Utilities.regRoot2(1 - (p_out_nominal/
-        p_in_nominal)^2));
+      Kt = m_flow_nominal/(sqrt(p_inlet_nominal*d_nominal)*
+        Modelica.Fluid.Utilities.regRoot2(1 - (p_outlet_nominal/p_inlet_nominal)
+        ^2));
     end if;
   else
-     Kt=Kt_constant;
+    Kt = Kt_constant;
   end if;
 
 equation
   if use_Stodola then
-   m_flow = homotopy(Kt*partialArc*sqrt(p_in*Medium.density(state_a))
-             *Modelica.Fluid.Utilities.regRoot(1 - p_ratio^2),
-             partialArc/partialArc_nominal
-             *m_flow_nominal/p_in_nominal*p_in) "Stodola's law";
+    m_flow = homotopy(Kt*partialArc*sqrt(p_in*Medium.density(state_a))*
+      Modelica.Fluid.Utilities.regRoot(1 - p_ratio^2), partialArc/
+      partialArc_nominal*m_flow_nominal/p_inlet_nominal*p_in) "Stodola's law";
   else
-    m_flow = homotopy(portHP.p*partialArc*m_flow_nominal/p_in_nominal,
-                      partialArc/partialArc_nominal*m_flow_nominal/p_in_nominal*p_in);
+    m_flow = homotopy(portHP.p*partialArc*m_flow_nominal/p_inlet_nominal,
+      partialArc/partialArc_nominal*m_flow_nominal/p_inlet_nominal*p_in);
   end if;
 
-  annotation (defaultComponentName="steamTurbine",
-  Documentation(info="<html>
+  annotation (defaultComponentName="steamTurbine", Documentation(info="<html>
 <p>This model extends <code>SteamTurbineBase</code> by adding the actual performance characteristics: </p>
 <ul>
 <li>Stodola&apos;s law with an optional correction due to degradation using Baumann&apos;s formula</li>
@@ -71,7 +83,6 @@ equation
 <h4>References</h4>
 <p>Cooke, D. H., &apos;On Prediction of Off-Design Multistage Turbine Pressures by Stodola&apos;s Ellipse,&apos;</p>
 <p>J. Eng. Gas Turbines Power, Volume 107, Issue 3, pp. 596, 1985.</p>
-</html>",
-        revisions="<html>
+</html>", revisions="<html>
 </html>"));
 end SteamTurbine;

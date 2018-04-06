@@ -63,8 +63,8 @@ model SimpleFLiBeLoop_withPowerConversion
     T_b_start=T_condenser,
     m_flow_start=m_flow_steam,
     redeclare model Eta_wetSteam =
-        Fluid.Machines.BaseClasses.WetSteamEfficiency.eta_Constant (eta_nominal
-          =eta),
+        Fluid.Machines.BaseClasses.WetSteamEfficiency.eta_Constant (eta_nominal=
+           eta),
     redeclare package Medium = Medium_bop)
     annotation (Placement(transformation(extent={{12,32},{32,52}})));
   Electrical.PowerConverters.Generator           generator
