@@ -1,8 +1,5 @@
 within TRANSFORM.Fluid.Machines.BaseClasses;
-partial model SteamTurbineBase "Steam turbine"
-
-  import TRANSFORM.Types.Dynamics;
-
+partial model SteamTurbineBaseold "Steam turbine"
   replaceable package Medium = Modelica.Media.Water.StandardWater
    constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium "Medium in the component"
     annotation(choicesAllMatching = true);
@@ -35,15 +32,8 @@ partial model SteamTurbineBase "Steam turbine"
 "= true to allow flow reversal, false restricts to design direction"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  parameter Integer nUnits = 1 "Number of turbine units, e.g., high pressure and low pressure" annotation(Dialog(tab="Advanced"));
-  parameter Dynamics energyDynamics = Dynamics.SteadyState "=true to use turbine dynamics" annotation(Dialog(tab="Advanced"));
-  parameter SI.Time taus[nUnits] = fill(1,nUnits) "Characteristic time constant of each unit" annotation(Dialog(tab="Advanced"));
-  parameter SIadd.NonDim Q_fracs[nUnits] = fill(1/nUnits,nUnits) "Fraction of power provided per unit" annotation(Dialog(tab="Advanced"));
-  parameter SI.Power Q_units_start[nUnits] = fill(m_flow_start*(h_a_start - h_b_start)/nUnits,nUnits) "Initial power output per unit" annotation(Dialog(tab="Initialization"));
-
   // Efficiency
   parameter Real eta_mech=1.0 "Mechanical efficiency" annotation(Dialog(group="Efficiency"));
-
   replaceable model Eta_wetSteam =
       TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency.eta_Constant
     constrainedby
@@ -105,10 +95,7 @@ partial model SteamTurbineBase "Steam turbine"
   Medium.AbsolutePressure p_in(start=p_a_start) "Inlet pressure";
   Medium.AbsolutePressure p_out(start=p_b_start) "Outlet pressure";
 
-  SI.Power Q_mech "Total mechanical power";
-  SI.Power Q_units[nUnits](start=Q_units_start) "Mechanical power per unit";
-  SI.Power Qbs[nUnits] "Power balance";
-
+  SI.Power Q_mech "Mechanical power input";
   SI.Efficiency eta_is "Isentropic efficiency";
 
   constant SI.Pressure p_crit = Medium.fluidConstants[1].criticalPressure "Medium critical pressure";
@@ -141,14 +128,6 @@ partial model SteamTurbineBase "Steam turbine"
   Modelica.Blocks.Interfaces.RealInput partialArc annotation (Placement(
         transformation(extent={{-60,-50},{-40,-30}}, rotation=0),
         iconTransformation(extent={{-60,-50},{-40,-30}})));
-
-initial equation
-  if energyDynamics == Dynamics.FixedInitial then
-    Q_units = Q_units_start;
-  elseif energyDynamics == Dynamics.SteadyStateInitial then
-    der(Q_units) = zeros(nUnits);
-  end if;
-
 equation
 
   state_a = Medium.setState_phX(portHP.p,
@@ -171,19 +150,7 @@ equation
   h_in - h_out = eta_is*(h_in - h_is) "Computation of outlet enthalpy";
 
   Q_mech = eta_mech*m_flow*(h_in - h_out)  "Mechanical power from the steam";
-  sum(Q_units) = -omega*tau "Mechanical power balance";
-
-  // Mechanical shaft power output per unit
-  Qbs = Q_mech*Q_fracs - Q_units;
-  if energyDynamics == Dynamics.SteadyState then
-    for i in 1:nUnits loop
-      0 = Qbs[i];
-    end for;
-  else
-    for i in 1:nUnits loop
-      taus[i]*der(Q_units[i]) = Qbs[i];
-    end for;
-  end if;
+  Q_mech = -omega*tau "Mechanical power balance";
 
   portHP.m_flow + portLP.m_flow  = 0 "Mass balance";
 
@@ -214,11 +181,6 @@ equation
 
    x_abs_in = noEvent(if p_in/p_crit < 1.0 then max(0.0, min(1.0, x_th_in)) else 1.0) "Steam inlet quality";
    x_abs_out = noEvent(if p_out/p_crit < 1.0 then max(0.0, min(1.0, x_th_out)) else 1.0) "Steam outlet quality";
-
-  //  //############
-  // tau_HP*der(Q_mech_HP) = Q_mech*hpFraction - Q_mech_HP "Power output to HP turbine";
-  // tau_LP*der(Q_mech_LP) = Q_mech*(1 - hpFraction) - Q_mech_LP "Power output to LP turbine";
-  // Q_mech_HP + Q_mech_LP = -tau*omega "Mechanical power balance";
 
   annotation (
     Icon(graphics={
@@ -283,4 +245,4 @@ equation
        Small changes in alias variables.</li>
 </ul>
 </html>"));
-end SteamTurbineBase;
+end SteamTurbineBaseold;
