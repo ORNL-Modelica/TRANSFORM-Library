@@ -12,16 +12,16 @@ model LP_turbine
     annotation (Dialog(group="Nominal operating data"), Placement(
         transformation(extent={{40,73},{60,94}})));
 
-  Machines.SteamTurbineStodola stage1(
+  Machines.SteamTurbine stage1(
     eta_mech=eta_mech,
     redeclare model Eta_wetSteam =
-        Machines.BaseClasses.WetSteamEfficiency.eta_Constant (  eta_nominal=
+        Machines.BaseClasses.WetSteamEfficiency.eta_Constant (eta_nominal=
             eta_is),
     m_flow_nominal=nominalData.m_flow_nom_turbine_LP_stage1/2,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     T_nominal=nominalData.T_nom_turbine_LP_stage1_feed,
-    p_in_nominal=nominalData.p_nom_turbine_LP_stage1_feed,
-    p_out_nominal=nominalData.p_nom_turbine_LP_stage1_drain,
+    p_inlet_nominal=nominalData.p_nom_turbine_LP_stage1_feed,
+    p_outlet_nominal=nominalData.p_nom_turbine_LP_stage1_drain,
     p_a_start=initData.p_start_turbine_LP_stage1_feed,
     p_b_start=initData.p_start_turbine_LP_stage1_drain,
     use_T_start=false,
@@ -34,16 +34,16 @@ model LP_turbine
         initData.T_start_turbine_IP_drain,
         stage1.Medium.reference_X))
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
-  Machines.SteamTurbineStodola stage2(
+  Machines.SteamTurbine stage2(
     eta_mech=eta_mech,
     redeclare model Eta_wetSteam =
-        Machines.BaseClasses.WetSteamEfficiency.eta_Constant (  eta_nominal=
+        Machines.BaseClasses.WetSteamEfficiency.eta_Constant (eta_nominal=
             eta_is),
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     m_flow_nominal=nominalData.m_flow_nom_turbine_LP_stage2/2,
     T_nominal=nominalData.T_nom_turbine_LP_stage1_drain,
-    p_in_nominal=nominalData.p_nom_turbine_LP_stage1_drain,
-    p_out_nominal=nominalData.p_nom_turbine_LP_stage2_drain,
+    p_inlet_nominal=nominalData.p_nom_turbine_LP_stage1_drain,
+    p_outlet_nominal=nominalData.p_nom_turbine_LP_stage2_drain,
     p_a_start=initData.p_start_turbine_LP_stage1_drain,
     p_b_start=initData.p_start_turbine_LP_stage2_drain,
     use_T_start=false,
@@ -56,16 +56,16 @@ model LP_turbine
         initData.T_start_turbine_LP_drain,
         stage2.Medium.reference_X))
     annotation (Placement(transformation(extent={{-4,-10},{16,10}})));
-  Machines.SteamTurbineStodola stage3(
+  Machines.SteamTurbine stage3(
     eta_mech=eta_mech,
     redeclare model Eta_wetSteam =
-        Machines.BaseClasses.WetSteamEfficiency.eta_Constant (  eta_nominal=
+        Machines.BaseClasses.WetSteamEfficiency.eta_Constant (eta_nominal=
             eta_is),
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     m_flow_nominal=nominalData.m_flow_nom_turbine_LP_stage3/2,
     T_nominal=nominalData.T_nom_turbine_LP_stage2_drain,
-    p_in_nominal=nominalData.p_nom_turbine_LP_stage2_drain,
-    p_out_nominal=nominalData.p_nom_condenser,
+    p_inlet_nominal=nominalData.p_nom_turbine_LP_stage2_drain,
+    p_outlet_nominal=nominalData.p_nom_condenser,
     use_T_start=false,
     h_a_start=stage3.Medium.specificEnthalpy_pTX(
         stage3.p_a_start,
@@ -75,8 +75,8 @@ model LP_turbine
         stage3.p_b_start,
         273.15 + 25.420,
         stage3.Medium.reference_X),
-    p_a_start=stage3.p_in_nominal,
-    p_b_start=stage3.p_out_nominal)
+    p_a_start=stage3.p_inlet_nominal,
+    p_b_start=stage3.p_outlet_nominal)
     annotation (Placement(transformation(extent={{49,-10},{69,10}})));
   Volumes.MixingVolume                 vol_turbine1(
     nPorts_b=2,

@@ -10,7 +10,8 @@ model PowerSensor "Measures power flow through the component (port_a to port_b i
   TRANSFORM.Electrical.Interfaces.ElectricalPowerPort_Flow port_a annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
   TRANSFORM.Electrical.Interfaces.ElectricalPowerPort_Flow port_b annotation (
-      Placement(transformation(extent={{90,-12},{110,8}}, rotation=0)));
+      Placement(transformation(extent={{90,-10},{110,10}},rotation=0),
+        iconTransformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealOutput W
     "Power flowing from port_a to port_b" annotation (Placement(
         transformation(

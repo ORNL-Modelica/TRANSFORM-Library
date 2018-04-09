@@ -33,7 +33,7 @@ model Regions_1_FD2DCyl
     "Formulation of energy balances" annotation(Dialog(tab="Advanced",group="Dynamics"));
 
   /* Initialization */
-  parameter SI.Temperature T_start_1=Medium_1.T_default
+  parameter SI.Temperature T_start_1=Material_1.T_default
     annotation (Dialog(tab="Initialization"));
   parameter SI.Temperature Ts_start_1[nR_1,nZ]=fill(
       T_start_1,

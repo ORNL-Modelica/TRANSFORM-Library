@@ -2,7 +2,7 @@ within TRANSFORM.Electrical.Sources;
 model PowerSource "Defines power variable for electrical power connector"
 
 parameter Boolean use_port = false "= true to use input signal" annotation(choices(checkBox=true));
-parameter SI.Power W "Active power";
+parameter SI.Power W = 0 "Active power";
 
   Interfaces.ElectricalPowerPort_Flow port
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));

@@ -34,7 +34,7 @@ model SteamTurbineStodola_Test
   inner TRANSFORM.Fluid.System
                   system
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  TRANSFORM.Fluid.Machines.SteamTurbineStodola steamTurbine(
+  TRANSFORM.Fluid.Machines.SteamTurbine steamTurbine(
     eta_mech=0.98,
     m_flow_start=70,
     m_flow_nominal=70,
@@ -45,7 +45,7 @@ model SteamTurbineStodola_Test
     use_NominalInlet=false,
     redeclare model Eta_wetSteam =
         TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency.eta_Constant (
-         eta_nominal=0.92),
+          eta_nominal=0.92),
     p_a_start=15000000,
     p_b_start=100000)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

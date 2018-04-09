@@ -174,17 +174,19 @@ model Rankine "Rankine cycle model"
   Modelica.Blocks.Sources.RealExpression gen_power(y=
         generator.power)
     annotation (Placement(transformation(extent={{202,-134},{187,-121}})));
-  Valves.ValveCompressible                valve_preheater_hp(
+  Valves.ValveCompressible valve_preheater_hp(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_HP_stage1_drain - nominalData.p_nom_preheater_HP,
+
     m_flow_nominal=nominalData.m_flow_nom_turbine_HP_stage1 - nominalData.m_flow_nom_turbine_HP_stage2,
-    p_nominal=HPT.stage1.p_out_nominal,
+
+    p_nominal=HPT.stage1.p_outlet_nominal,
     checkValve=true,
     rho_nominal=valve_preheater_hp.Medium.density_pTX(
         valve_preheater_hp.p_nominal,
         782.502,
-        valve_preheater_hp.Medium.X_default))
-                   annotation (Placement(transformation(
+        valve_preheater_hp.Medium.X_default)) annotation (Placement(
+        transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={-52,15})));
@@ -791,9 +793,10 @@ redeclare model Geometry =
 
   Modelica.Blocks.Sources.Constant const(k=1)
     annotation (Placement(transformation(extent={{-17,-68},{-25,-60}})));
-  Valves.ValveCompressible                valve_reheater_lp1(
+  Valves.ValveCompressible valve_reheater_lp1(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_LP_stage2_drain - nominalData.p_nom_preheater_LP,
+
     m_flow_nominal=(nominalData.m_flow_nom_turbine_LP_stage2 - nominalData.m_flow_nom_turbine_LP_stage3)
         *0.5,
     checkValve=true,
@@ -801,29 +804,29 @@ redeclare model Geometry =
         valve_reheater_lp1.p_nominal,
         LPT_1.stage2.T_nominal,
         valve_reheater_lp1.Medium.X_default),
-    p_nominal=LPT_1.stage2.p_out_nominal)
-                              annotation (Placement(transformation(
+    p_nominal=LPT_1.stage2.p_outlet_nominal) annotation (Placement(
+        transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={110,17})));
 
-  Valves.ValveCompressible                valve_msr_preheater_hp(
+  Valves.ValveCompressible valve_msr_preheater_hp(
     redeclare package Medium = Medium,
     m_flow_nominal=200,
-    p_nominal=HPT.stage1.p_out_nominal,
+    p_nominal=HPT.stage1.p_outlet_nominal,
     rho_nominal=valve_msr_preheater_hp.Medium.density_pTX(
         valve_msr_preheater_hp.p_nominal,
         509.352,
         valve_dearator.Medium.X_default),
     dp_nominal=300000,
-    checkValve=true)
-                   annotation (Placement(transformation(
+    checkValve=true) annotation (Placement(transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={-17,16})));
-  Valves.ValveCompressible                valve_dearator(
+  Valves.ValveCompressible valve_dearator(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_LP_stage1_drain - nominalData.p_nom_dearator,
+
     m_flow_nominal=(nominalData.m_flow_nom_turbine_LP_stage1 - nominalData.m_flow_nom_turbine_LP_stage2)
         *0.5,
     rho_nominal=valve_dearator.Medium.density_pTX(
@@ -831,14 +834,15 @@ redeclare model Geometry =
         nominalData.T_nom_turbine_HP_stage1_drain,
         valve_dearator.Medium.X_default),
     checkValve=true,
-    p_nominal=LPT_1.stage1.p_out_nominal)
-    annotation (Placement(transformation(
+    p_nominal=LPT_1.stage1.p_outlet_nominal) annotation (Placement(
+        transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={30,16})));
-  Valves.ValveCompressible                valve_dearator1(
+  Valves.ValveCompressible valve_dearator1(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_LP_stage1_drain - nominalData.p_nom_dearator,
+
     m_flow_nominal=(nominalData.m_flow_nom_turbine_LP_stage1 - nominalData.m_flow_nom_turbine_LP_stage2)
         *0.5,
     checkValve=true,
@@ -846,14 +850,15 @@ redeclare model Geometry =
         valve_dearator1.p_nominal,
         nominalData.T_nom_turbine_HP_stage1_drain,
         valve_dearator1.Medium.X_default),
-    p_nominal=LPT_1.stage1.p_out_nominal)
-    annotation (Placement(transformation(
+    p_nominal=LPT_1.stage1.p_outlet_nominal) annotation (Placement(
+        transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={45,16})));
-  Valves.ValveCompressible                valve_reheater_lp(
+  Valves.ValveCompressible valve_reheater_lp(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_LP_stage2_drain - nominalData.p_nom_preheater_LP,
+
     m_flow_nominal=(nominalData.m_flow_nom_turbine_LP_stage2 - nominalData.m_flow_nom_turbine_LP_stage3)
         *0.5,
     checkValve=true,
@@ -861,8 +866,8 @@ redeclare model Geometry =
         valve_reheater_lp.p_nominal,
         LPT_1.stage2.T_nominal,
         valve_reheater_lp.Medium.X_default),
-    p_nominal=LPT_1.stage2.p_out_nominal)
-                              annotation (Placement(transformation(
+    p_nominal=LPT_1.stage2.p_outlet_nominal) annotation (Placement(
+        transformation(
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={95,17})));

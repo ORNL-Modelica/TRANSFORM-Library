@@ -1,9 +1,8 @@
 within TRANSFORM.Electrical.Sources;
 model FrequencySource "Defines frequency variable for electrical power connector"
 
-parameter Boolean use_port = false
-                                  "= true to use input signal" annotation(choices(checkBox=true));
-parameter SI.Frequency f "Frequency";
+parameter Boolean use_port = false "= true to use input signal" annotation(choices(checkBox=true));
+parameter SI.Frequency f = 60 "Frequency";
 
   Interfaces.ElectricalPowerPort_State port
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
@@ -26,8 +25,8 @@ equation
    annotation (defaultComponentName="boundary",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
-          extent={{-150,108},{150,148}},
-          lineColor={0,140,72},
+          extent={{-150,106},{150,146}},
+          lineColor={238,46,47},
           textString="%name"), Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/FrequencySource.jpg")}),
                                                                   Diagram(
         coordinateSystem(preserveAspectRatio=false)));

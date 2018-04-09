@@ -56,7 +56,7 @@ model SimpleFLiBeLoop_withPowerConversion
     T=T_condenser,
     nPorts=1)
     annotation (Placement(transformation(extent={{60,2},{40,22}})));
-  Fluid.Machines.SteamTurbineStodola steamTurbine(
+  TRANSFORM.Fluid.Machines.SteamTurbine steamTurbine(
     p_a_start(displayUnit="kPa") = p_steam,
     p_b_start(displayUnit="kPa") = p_condenser,
     T_a_start=T_steam,

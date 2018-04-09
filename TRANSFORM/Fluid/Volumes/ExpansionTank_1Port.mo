@@ -18,7 +18,7 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
     annotation (Dialog(tab="Initialization"));
   parameter Boolean use_T_start=false annotation (Dialog(tab="Initialization"));
   parameter SI.Temperature T_start=293.15
-    annotation (Dialog(tab="Initialization"));
+    annotation (Dialog(tab="Initialization",enable=use_T_start));
   parameter SI.SpecificEnthalpy h_start=1e5
     annotation (Dialog(tab="Initialization",enable=not use_T_start));
   parameter Dynamics massDynamics=Dynamics.DynamicFreeInitial

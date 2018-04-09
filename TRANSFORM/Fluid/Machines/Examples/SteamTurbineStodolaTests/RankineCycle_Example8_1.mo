@@ -18,7 +18,7 @@ model RankineCycle_Example8_1
   inner TRANSFORM.Fluid.System
                         system
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  TRANSFORM.Fluid.Machines.SteamTurbineStodola steamTurbine(
+  TRANSFORM.Fluid.Machines.SteamTurbine steamTurbine(
     p_a_start(displayUnit="kPa") = p_steam,
     p_b_start(displayUnit="kPa") = p_condenser,
     T_a_start=T_steam,
@@ -27,7 +27,7 @@ model RankineCycle_Example8_1
     redeclare package Medium = Medium,
     redeclare model Eta_wetSteam =
         TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency.eta_Constant (
-         eta_nominal=eta))
+          eta_nominal=eta))
     annotation (Placement(transformation(extent={{-10,22},{10,42}})));
 
   TRANSFORM.Fluid.Volumes.IdealCondenser condenser(p(displayUnit="Pa")=
