@@ -116,9 +116,9 @@ equation
           {10,-8},{10,-19.5},{6,-19.5}}, color={0,127,255}));
   connect(sine1.y, sink1b.m_flow_in) annotation (Line(points={{69,-10},{60,-10},
           {60,0},{40,0}}, color={0,0,127}));
-  connect(volume.portLiquid, sinkLiquid.ports[1])
+  connect(volume.port_Liquid, sinkLiquid.ports[1])
     annotation (Line(points={{-4,16},{-20,16},{-20,40}}, color={0,127,255}));
-  connect(volume1.portLiquid, sinkLiquid1.ports[1])
+  connect(volume1.port_Liquid, sinkLiquid1.ports[1])
     annotation (Line(points={{-4,-24},{-4,-60}}, color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),

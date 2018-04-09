@@ -44,7 +44,7 @@ equation
     annotation (Line(points={{-60,0},{-6,0}}, color={0,127,255}));
   connect(resistance.port_a, volume.port_b[1])
     annotation (Line(points={{23,0},{6,0}}, color={0,127,255}));
-  connect(volume.portLiquid, sinkLiquid.ports[1])
+  connect(volume.port_Liquid, sinkLiquid.ports[1])
     annotation (Line(points={{-4,-4},{-20,-4},{-20,20}}, color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),

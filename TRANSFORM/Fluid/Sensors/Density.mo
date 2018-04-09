@@ -9,7 +9,6 @@ model Density "Ideal one port density sensor"
 
   Modelica.Blocks.Interfaces.RealOutput d(final quantity="Density",
                                           final unit="kg/m3",
-                                          displayUnit="g/cm3",
                                           min=0) "Density in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
