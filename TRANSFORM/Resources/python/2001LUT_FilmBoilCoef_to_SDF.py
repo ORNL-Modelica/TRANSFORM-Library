@@ -3,6 +3,8 @@
 Created on Tue Apr 03 11:06:37 2018
 
 @author: vmg
+"""
+
 import sdf
 import numpy as np
 
@@ -54,5 +56,5 @@ ds_alpha = sdf.Dataset('alpha', data=alpha, unit='W/(m2.K)', scales=[ds_x,ds_dT,
 # Create the root group and write the file:
 g = sdf.Group('/', comment='2001 FBCoef LUT', datasets=[ds_x,ds_dT,ds_G,ds_P,ds_alpha])
 sdf.save('../Data/2001LUTFB.sdf', g)
-])
+
 sdf.save('../Data/2006LUT.sdf', g)
