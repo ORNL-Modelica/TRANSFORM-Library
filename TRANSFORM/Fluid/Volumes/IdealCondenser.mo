@@ -83,7 +83,7 @@ equation
     port_b.p = p;
   end if;
 
-  port_a.h_outflow = h_fsat;
+  port_a.h_outflow = h_gsat;
   port_b.h_outflow = h_fsat;
 
   annotation (defaultComponentName="condenser",

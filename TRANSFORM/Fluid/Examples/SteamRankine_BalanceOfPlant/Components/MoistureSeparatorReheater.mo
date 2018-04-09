@@ -151,7 +151,7 @@ equation
       points={{50,20},{59,20}},
       color={0,127,255},
       thickness=0.5));
-  connect(separator.portLiquid, condensateDrain) annotation (Line(
+  connect(separator.port_Liquid, condensateDrain) annotation (Line(
       points={{48,16},{48,-42},{94,-42}},
       color={0,127,255},
       thickness=0.5));

@@ -177,9 +177,7 @@ model Rankine "Rankine cycle model"
   Valves.ValveCompressible valve_preheater_hp(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_HP_stage1_drain - nominalData.p_nom_preheater_HP,
-
     m_flow_nominal=nominalData.m_flow_nom_turbine_HP_stage1 - nominalData.m_flow_nom_turbine_HP_stage2,
-
     p_nominal=HPT.stage1.p_outlet_nominal,
     checkValve=true,
     rho_nominal=valve_preheater_hp.Medium.density_pTX(
@@ -796,7 +794,6 @@ redeclare model Geometry =
   Valves.ValveCompressible valve_reheater_lp1(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_LP_stage2_drain - nominalData.p_nom_preheater_LP,
-
     m_flow_nominal=(nominalData.m_flow_nom_turbine_LP_stage2 - nominalData.m_flow_nom_turbine_LP_stage3)
         *0.5,
     checkValve=true,
@@ -826,7 +823,6 @@ redeclare model Geometry =
   Valves.ValveCompressible valve_dearator(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_LP_stage1_drain - nominalData.p_nom_dearator,
-
     m_flow_nominal=(nominalData.m_flow_nom_turbine_LP_stage1 - nominalData.m_flow_nom_turbine_LP_stage2)
         *0.5,
     rho_nominal=valve_dearator.Medium.density_pTX(
@@ -839,10 +835,10 @@ redeclare model Geometry =
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={30,16})));
+
   Valves.ValveCompressible valve_dearator1(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_LP_stage1_drain - nominalData.p_nom_dearator,
-
     m_flow_nominal=(nominalData.m_flow_nom_turbine_LP_stage1 - nominalData.m_flow_nom_turbine_LP_stage2)
         *0.5,
     checkValve=true,
@@ -855,10 +851,10 @@ redeclare model Geometry =
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={45,16})));
+
   Valves.ValveCompressible valve_reheater_lp(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_LP_stage2_drain - nominalData.p_nom_preheater_LP,
-
     m_flow_nominal=(nominalData.m_flow_nom_turbine_LP_stage2 - nominalData.m_flow_nom_turbine_LP_stage3)
         *0.5,
     checkValve=true,
@@ -871,6 +867,7 @@ redeclare model Geometry =
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={95,17})));
+
   TRANSFORM.Fluid.Volumes.Condenser FWH_HP(
     p_start=initData.p_start_preheater_HP,
     T_start_wall=Medium.saturationTemperature(FWH_HP.p_start),

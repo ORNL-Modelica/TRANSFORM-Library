@@ -6,12 +6,13 @@ model CheckValve
   input SIadd.HydraulicResistance R = Modelica.Constants.eps "Hydraulic resistance" annotation(Dialog(group="Input Variables"));
 
   parameter Boolean checkValve=true "Reverse flow stopped";
+  parameter SI.MassFlowRate m_flow_start = 0 "Mass flow rate" annotation(Dialog(tab="Initialization"));
 
   SI.MassFlowRate m_flow;
 
 protected
   SI.Pressure dp;
-  Real s(start=0);
+  Real s(start=m_flow_start);
 equation
 
   if checkValve then
