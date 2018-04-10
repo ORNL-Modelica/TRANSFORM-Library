@@ -4,9 +4,12 @@ simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_De
 simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
 simulateModel("TRANSFORM.Blocks.Examples.IntegratorWithReset",stopTime=1.0,tolerance=1e-6,resultFile="IntegratorWithReset");
 simulateModel("TRANSFORM.Blocks.Examples.OffTimer",stopTime=1,tolerance=1e-6,resultFile="OffTimer");
+simulateModel("TRANSFORM.Controls.Examples.FeedForward.getOpening_ValveIncompressible_Test",stopTime=10,resultFile="getOpening_ValveIncompressible_Test");
+simulateModel("TRANSFORM.Controls.Examples.FeedForward.getRPM_centrifugalPump_Test",resultFile="getRPM_centrifugalPump_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_HysteresisTimer_Test",stopTime=86400,tolerance=1e-6,resultFile="LimPID_HysteresisTimer_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_Hysteresis_Test",stopTime=86400,tolerance=1e-6,resultFile="LimPID_Hysteresis_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_Test");
+simulateModel("TRANSFORM.Controls.Examples.LimPID_withReset_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_withReset_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
 simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
