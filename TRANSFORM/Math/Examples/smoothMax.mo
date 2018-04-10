@@ -1,7 +1,7 @@
 within TRANSFORM.Math.Examples;
 model smoothMax
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   Real y "Function value";
 equation

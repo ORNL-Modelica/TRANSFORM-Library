@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.NucleateBoiling;
 model alpha_Chen_FvsInvXtt
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium = Modelica.Media.Water.StandardWater;
 

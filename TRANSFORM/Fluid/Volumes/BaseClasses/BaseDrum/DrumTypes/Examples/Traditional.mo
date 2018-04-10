@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.Examples;
 model Traditional
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   //parameter Real Vfrac_liquid = 0.5;
 
   TRANSFORM.Units.NonDim Vfrac_liquid=variableVfrac_liquid.y;

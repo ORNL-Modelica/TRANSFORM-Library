@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Volumes.InProgress;
 model Pressurizer_BaseInternal_Test
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow vaporHeater
     annotation (Placement(transformation(extent={{-58,10},{-38,30}})));

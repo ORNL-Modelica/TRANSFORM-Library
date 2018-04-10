@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Examples;
 model Cylinder_NodeCentered_2O_vs_Analytic_1Dradial
   "Cylindrical node centered 2O component vs the 1D radial analytic solution"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   Utilities.ErrorAnalysis.Errors_AbsRelRMSold summary_Error(
     n=nRadial,

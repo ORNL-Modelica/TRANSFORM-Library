@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels;
 model Winding_12D
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   DiscritizedModels.Conduction_2D winding(
     redeclare package Material =

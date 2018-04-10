@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Volumes.InProgress.Verification;
 model AdiabaticCompression
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium = Modelica.Media.Water.StandardWater "Medium in component";
   constant SI.Pressure p_start = 100e3 "Initial pressure";

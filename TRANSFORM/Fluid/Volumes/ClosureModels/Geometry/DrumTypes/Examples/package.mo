@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes;
 package Examples
-  extends Modelica.Icons.ExamplesPackage;
+  extends TRANSFORM.Icons.ExamplesPackage;
 
 
 

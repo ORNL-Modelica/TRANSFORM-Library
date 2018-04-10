@@ -1,6 +1,6 @@
 within TRANSFORM.Blocks.Examples;
 model IntegratorWithReset "Test model for integrator with reset"
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.Constant cons(k=10) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 

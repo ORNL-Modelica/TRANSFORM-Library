@@ -1,7 +1,7 @@
 within TRANSFORM.Math.Examples.Verification;
 model gamma_Lanczos
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   Utilities.ErrorAnalysis.Errors_AbsRelRMSold summary_Error(
     n=n,

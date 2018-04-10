@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.Examples;
 model SimpleCylinder
   import TRANSFORM;
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   TRANSFORM.Units.NonDim Vfrac_liquid=variableVfrac_liquid.y;
   parameter SI.Length r_1 = 1;

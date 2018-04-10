@@ -1,6 +1,6 @@
 within TRANSFORM.Nuclear.CoreSubchannels.Examples;
 model Regions_2_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   Regions_2 coreSubchannel(
     Ts_start_1(displayUnit="K"),

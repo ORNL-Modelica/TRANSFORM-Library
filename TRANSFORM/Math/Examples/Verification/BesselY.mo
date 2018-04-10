@@ -1,7 +1,7 @@
 within TRANSFORM.Math.Examples.Verification;
 model BesselY
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   Utilities.ErrorAnalysis.Errors_AbsRelRMSold[2] summary_Error(
     n={n,n},

@@ -1,6 +1,6 @@
 within TRANSFORM.Nuclear.CoreSubchannels.Examples;
 model Regions_1_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   Modelica.Fluid.Sources.MassFlowSource_T m_boundary(
     nPorts=1,
     redeclare package Medium = Modelica.Media.Water.StandardWater,

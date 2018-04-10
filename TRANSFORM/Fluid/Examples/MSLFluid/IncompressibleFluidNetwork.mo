@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Examples.MSLFluid;
 model IncompressibleFluidNetwork
   "Multi-way connections of pipes and incompressible medium model"
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   parameter Modelica.Fluid.Types.ModelStructure pipeModelStructure=Modelica.Fluid.Types.ModelStructure.av_vb;
   //parameter Types.ModelStructure pipeModelStructure = Modelica.Fluid.Types.ModelStructure.a_v_b;

@@ -2,7 +2,7 @@ within TRANSFORM.HeatExchangers.Examples;
 model WaterWater_STHX
   "Example of an water and water shell and tube exchanger"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T tube_inlet(
     m_flow=1,

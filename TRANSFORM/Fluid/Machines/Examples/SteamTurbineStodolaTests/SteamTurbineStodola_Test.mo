@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests;
 model SteamTurbineStodola_Test
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   TRANSFORM.Fluid.BoundaryConditions.Boundary_ph source(
     h=3.3e6,
     nPorts=1,

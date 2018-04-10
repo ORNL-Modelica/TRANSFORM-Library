@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Examples.MSLFluid;
 model HeatingSystem "Simple model of a heating system"
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
    replaceable package Medium =
       Modelica.Media.Water.StandardWater
      constrainedby Modelica.Media.Interfaces.PartialMedium;

@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Examples;
 model variableArea_Test3
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   Cylinder_FD Winding(
     r_inner=0.01,

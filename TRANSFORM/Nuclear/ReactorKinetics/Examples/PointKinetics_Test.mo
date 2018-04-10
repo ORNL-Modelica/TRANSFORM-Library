@@ -1,6 +1,6 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
 model PointKinetics_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.Sine Teff_Fuel(
     amplitude=5,
     offset=reactorKinetics.Teffref_fuel,

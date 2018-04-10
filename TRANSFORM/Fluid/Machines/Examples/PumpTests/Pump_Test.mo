@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Machines.Examples.PumpTests;
 model Pump_Test
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   TRANSFORM.Fluid.BoundaryConditions.Boundary_ph Source(
     h=1.5e5,

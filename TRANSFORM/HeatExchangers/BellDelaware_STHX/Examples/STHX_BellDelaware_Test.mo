@@ -1,6 +1,6 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX.Examples;
 model STHX_BellDelaware_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   Modelica.Fluid.Sources.MassFlowSource_T shell_inlet(
     m_flow=20/60^2*983,

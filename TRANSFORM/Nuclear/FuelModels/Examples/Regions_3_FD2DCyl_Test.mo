@@ -1,7 +1,7 @@
 within TRANSFORM.Nuclear.FuelModels.Examples;
 model Regions_3_FD2DCyl_Test
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   TRANSFORM.Nuclear.FuelModels.Regions_3_FD2DCyl fuelModel(
     energyDynamics=system.energyDynamics,

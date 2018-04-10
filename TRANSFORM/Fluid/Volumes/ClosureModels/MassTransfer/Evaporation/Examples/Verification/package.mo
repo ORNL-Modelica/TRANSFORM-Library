@@ -1,4 +1,4 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.Evaporation.Examples;
 package Verification
-  extends Modelica.Icons.ExamplesPackage;
+  extends TRANSFORM.Icons.ExamplesPackage;
 end Verification;

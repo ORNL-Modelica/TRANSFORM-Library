@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Examples;
 model TestFlow1D2phChen "Test case for Flow1D2phChen"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium = Modelica.Media.Water.WaterIF97_ph;
   import Modelica.Constants.*;

@@ -1,6 +1,6 @@
 within TRANSFORM.Utilities.CharacteristicNumbers.Examples;
 model Verification
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   constant Integer nNumbers = 1;
 

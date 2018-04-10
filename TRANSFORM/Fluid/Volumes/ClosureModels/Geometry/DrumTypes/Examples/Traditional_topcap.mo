@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.Examples;
 model Traditional_topcap
   import TRANSFORM;
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   //parameter Real Vfrac_liquid = 0.5;
 
   TRANSFORM.Units.NonDim Vfrac_liquid=variableVfrac_liquid.y;

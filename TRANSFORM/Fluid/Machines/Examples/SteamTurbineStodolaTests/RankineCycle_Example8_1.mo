@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests;
 model RankineCycle_Example8_1
   "Example 8.1 from Intro to Chemical Engineering"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium = Modelica.Media.Water.StandardWater "Working fluid";
   parameter SI.MassFlowRate m_flow = 59.02 "Flow rate in cycle";

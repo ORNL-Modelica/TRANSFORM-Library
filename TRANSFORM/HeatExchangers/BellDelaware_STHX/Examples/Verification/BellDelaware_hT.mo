@@ -1,7 +1,7 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX.Examples.Verification;
 model BellDelaware_hT
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   TRANSFORM.Utilities.ErrorAnalysis.Errors_AbsRelRMSold[2] summary_Error(
     n={1,1},

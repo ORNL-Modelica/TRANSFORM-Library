@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 package Examples
-  extends Modelica.Icons.ExamplesPackage;
+  extends TRANSFORM.Icons.ExamplesPackage;
 
 
 

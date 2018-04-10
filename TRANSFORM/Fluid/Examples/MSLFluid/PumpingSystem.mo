@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Examples.MSLFluid;
 model PumpingSystem "Model of a pumping system for drinking water"
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   replaceable package Medium =
       Modelica.Media.Water.StandardWaterOnePhase

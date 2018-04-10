@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model Pressurizer_withWall_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   TRANSFORM.Fluid.Volumes.Pressurizer_withWall pressurizer(
     redeclare model BulkCondensation =

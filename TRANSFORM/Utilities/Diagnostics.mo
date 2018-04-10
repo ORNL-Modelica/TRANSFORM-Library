@@ -5,7 +5,7 @@ package Diagnostics "Models to diagnose model errors"
     extends TRANSFORM.Icons.ExamplesPackage;
 
     model CheckEquality
-      extends Modelica.Icons.Example;
+      extends TRANSFORM.Icons.Example;
 
       TRANSFORM.Utilities.Diagnostics.CheckEquality check
         annotation (Placement(transformation(extent={{20,-4},{40,16}})));

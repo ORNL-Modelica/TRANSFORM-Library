@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Examples.MSLFluid;
 model BranchingDynamicPipes_MultiSurface
   "Multi-way connections of pipes with dynamic momentum balance, pressure wave and flow reversal"
-extends Modelica.Icons.Example;
+extends TRANSFORM.Icons.Example;
   replaceable package Medium=Modelica.Media.Air.MoistAir constrainedby
     Modelica.Media.Interfaces.PartialMedium;
 

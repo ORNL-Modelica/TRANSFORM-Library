@@ -2,7 +2,7 @@ within TRANSFORM.HeatExchangers.Examples;
 model SteamWater_HCSG
   "Evaporation of a subcooled inlet water stream to superheated steam (helical coil tube side) and subcooled water (shell side)"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   import SI = Modelica.SIunits;
   import TRANSFORM.Units.Conversions.Functions;

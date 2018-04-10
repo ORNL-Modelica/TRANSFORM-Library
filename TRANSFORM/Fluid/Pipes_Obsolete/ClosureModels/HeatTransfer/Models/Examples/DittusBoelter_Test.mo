@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.Examples
 model DittusBoelter_Test
   import TRANSFORM;
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium = Modelica.Media.Water.StandardWater;
 

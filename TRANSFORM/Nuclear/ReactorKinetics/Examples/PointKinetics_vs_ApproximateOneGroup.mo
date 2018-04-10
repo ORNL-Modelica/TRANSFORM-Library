@@ -1,7 +1,7 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
 model PointKinetics_vs_ApproximateOneGroup
   "Point kinetics model vs a textbook approximate solution using one effective delayed group"
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   Utilities.ErrorAnalysis.UnitTests           unitTests(
     n=1,
     x={Pratio_exp},
