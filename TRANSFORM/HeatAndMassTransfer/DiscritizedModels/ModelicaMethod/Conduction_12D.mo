@@ -10,7 +10,8 @@ model Conduction_12D
   extends
     TRANSFORM.HeatAndMassTransfer.Interfaces.Records.InitialConditions.DistributedVolume_solid2D(
       final ns=nVs);
-  extends TRANSFORM.HeatAndMassTransfer.Interfaces.Records.EnergyDynamics;
+  extends
+    TRANSFORM.HeatAndMassTransfer.Interfaces.Records.EnergyDynamics;
 
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D

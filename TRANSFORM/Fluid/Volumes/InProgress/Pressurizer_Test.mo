@@ -85,7 +85,8 @@ model Pressurizer_Test
         rotation=90,
         origin={0,-52})));
   FittingsAndResistances.SpecifiedResistance lineToPump(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1) annotation (Placement(
+              Medium =
+               Modelica.Media.Water.StandardWater, R=1) annotation (Placement(
         transformation(
         extent={{10,9.5},{-10,-9.5}},
         rotation=180,

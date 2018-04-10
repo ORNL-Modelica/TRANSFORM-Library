@@ -7,7 +7,7 @@ partial model PartialTwoPhase
       constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium);
 
   TRANSFORM.Media.BaseProperties2Phase[nMT] mediums(redeclare package
-      Medium =
+              Medium =
         Medium, state=states) "Bulk fluid properties"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

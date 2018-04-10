@@ -304,7 +304,8 @@ model SFR_2
     m_flow=data.nIHXs*data.m_flow_IHX_IHTS)
     annotation (Placement(transformation(extent={{120,-112},{100,-92}})));
   Fluid.BoundaryConditions.Boundary_pT boundary9(          redeclare package
-      Medium = Medium,
+              Medium =
+               Medium,
     nPorts=1,
     p=data.p_start,
     T=data.T_IHX_outletIHTS)
@@ -369,7 +370,8 @@ model SFR_2
     nPorts=1)
     annotation (Placement(transformation(extent={{-134,-32},{-114,-12}})));
   Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow[4](redeclare package
-      Medium = Media.Fluids.Sodium.ConstantPropertyLiquidSodium, m_flow_nominal=
+              Medium =
+               Media.Fluids.Sodium.ConstantPropertyLiquidSodium, m_flow_nominal=
        {data.m_flow_shield,data.m_flow_reflector,data.m_flow_outer,data.m_flow_inner})
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

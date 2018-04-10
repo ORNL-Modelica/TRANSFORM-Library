@@ -4,7 +4,7 @@ partial model PartialSinglePhase
 extends PartialMassTransfer_setn_flows;
 
   TRANSFORM.Media.BaseProperties1Phase[nMT] mediums(redeclare package
-      Medium =
+              Medium =
         Medium, state=states) "Bulk fluid properties"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

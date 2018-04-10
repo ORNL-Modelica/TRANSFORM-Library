@@ -1,9 +1,12 @@
 Examples
 FeedForward
 LimPID
+LimPID_Hysteresis
+LimPID_HysteresisTimer
 P_Control
 PI_Control
 P_Control2
 PI_Control2
 PID_Control2
 TankLevelControl
+LimPIDold

@@ -95,7 +95,7 @@ protected
     annotation (Placement(transformation(extent={{-46,-56},{-58,-44}})));
 public
   TRANSFORM.Fluid.Sensors.Temperature sensor_T_forward(redeclare package
-      Medium =
+              Medium =
         Medium)
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
   TRANSFORM.Fluid.Sensors.Temperature sensor_T_return(redeclare package

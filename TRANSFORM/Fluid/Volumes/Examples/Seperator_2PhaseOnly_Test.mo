@@ -24,7 +24,8 @@ model Seperator_2PhaseOnly_Test
     p=100000,
     h=2e6) annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1)
+              Medium =
+               Modelica.Media.Water.StandardWater, R=1)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x={volume.medium.h})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

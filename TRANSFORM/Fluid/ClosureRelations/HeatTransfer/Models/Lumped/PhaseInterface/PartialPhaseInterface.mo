@@ -14,11 +14,13 @@ partial model PartialPhaseInterface
   input SI.Area surfaceArea "Mass transfer surface area"
     annotation (Dialog(tab="Internal Interface", group="Input Variables"));
 
-  Media.BaseProperties2Phase medium_liquid(redeclare package Medium = Medium,
+  Media.BaseProperties2Phase medium_liquid(redeclare package
+      Medium =                                                        Medium,
       state=state_liquid)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  Media.BaseProperties2Phase medium_vapor(redeclare package Medium = Medium,
+  Media.BaseProperties2Phase medium_vapor(redeclare package
+      Medium =                                                       Medium,
       state=state_vapor)
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
 

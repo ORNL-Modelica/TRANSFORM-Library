@@ -99,7 +99,7 @@ model RoomCO2WithControls
     annotation (Placement(transformation(extent={{-38,-40},{-18,-20}})));
 
   TRANSFORM.Fluid.Sensors.TraceSubstances traceDuctOut(redeclare package
-      Medium =
+              Medium =
         Medium) "Trace substance at duct outlet"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x=ductOut.port_b.C_outflow)

@@ -722,7 +722,8 @@ model MSR_5
         rotation=270,
         origin={-220,-70})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_drainTank(redeclare package
-      Medium = Medium_PFL, use_input=true)
+              Medium =
+               Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-180,-50},{-160,-30}})));
   TRANSFORM.Controls.TankLevelControl drainTankLevelControl(
     level=drainTank_liquid.level,

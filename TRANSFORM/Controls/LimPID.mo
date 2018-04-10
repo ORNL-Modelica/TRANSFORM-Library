@@ -1,6 +1,6 @@
 within TRANSFORM.Controls;
 block LimPID
-  "P, PI, PD, and PID controller with limited output, anti-windup compensation, setpoint weighting, and feed forward"
+  "P, PI, PD, and PID controller with limited output, anti-windup compensation, setpoint weighting, feed forward, and reset"
   import Modelica.Blocks.Types.InitPID;
   import Modelica.Blocks.Types.Init;
   import Modelica.Blocks.Types.SimpleController;
@@ -8,22 +8,22 @@ block LimPID
   output Real controlError = u_s - u_m
     "Control error (set point - measurement)";
 
-  parameter .Modelica.Blocks.Types.SimpleController controllerType=
-         .Modelica.Blocks.Types.SimpleController.PID "Type of controller";
+  parameter SimpleController controllerType=
+         SimpleController.PID "Type of controller";
   parameter Boolean with_FF=false "enable feed-forward input signal"
     annotation (Evaluate=true);
-  parameter Boolean derMeas = true "=true avoid derivative kick" annotation(Evaluate=true,Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+  parameter Boolean derMeas = true "=true avoid derivative kick" annotation(Evaluate=true,Dialog(enable=controllerType==SimpleController.PD or
+                                controllerType==SimpleController.PID));
 
   parameter Real k = 1 "Controller gain: +/- for direct/reverse acting" annotation(Dialog(group="Parameters: Tuning Controls"));
 
   parameter SI.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block" annotation (Dialog(group="Parameters: Tuning Controls",enable=
-          controllerType == .Modelica.Blocks.Types.SimpleController.PI or
-          controllerType == .Modelica.Blocks.Types.SimpleController.PID));
+          controllerType == SimpleController.PI or
+          controllerType == SimpleController.PID));
   parameter SI.Time Td(min=0)=0.1 "Time constant of Derivative block"
-    annotation (Dialog(group="Parameters: Tuning Controls",enable=controllerType == .Modelica.Blocks.Types.SimpleController.PD
-           or controllerType == .Modelica.Blocks.Types.SimpleController.PID));
+    annotation (Dialog(group="Parameters: Tuning Controls",enable=controllerType == SimpleController.PD
+           or controllerType == SimpleController.PID));
 
   parameter Real yb = 0 "Output bias. May improve simulation";
 
@@ -36,39 +36,55 @@ block LimPID
   parameter Real wp(min=0) = 1
     "Set-point weight for Proportional block (0..1)" annotation(Dialog(group="Parameters: Tuning Controls"));
   parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
-       annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+       annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==SimpleController.PD or
+                                controllerType==SimpleController.PID));
   parameter Real Ni(min=100*Modelica.Constants.eps) = 0.9
     "Ni*Ti is time constant of anti-windup compensation"
-     annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==.Modelica.Blocks.Types.SimpleController.PI or
-                              controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+     annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==SimpleController.PI or
+                              controllerType==SimpleController.PID));
   parameter Real Nd(min=100*Modelica.Constants.eps) = 10
     "The higher Nd, the more ideal the derivative block"
-       annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+       annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==SimpleController.PD or
+                                controllerType==SimpleController.PID));
   // Initialization
   parameter .Modelica.Blocks.Types.InitPID initType= .Modelica.Blocks.Types.InitPID.NoInit
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
                                      annotation(Evaluate=true,
       Dialog(tab="Initialization"));
-  parameter Boolean limitsAtInit = true
-    "= false, if limits are ignored during initialization"
-    annotation(Evaluate=true, Dialog(tab="Initialization"));
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
     annotation (Dialog(tab="Initialization",
-                enable=controllerType==.Modelica.Blocks.Types.SimpleController.PI or
-                       controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+                enable=controllerType==SimpleController.PI or
+                       controllerType==SimpleController.PID));
   parameter Real xd_start=0
     "Initial or guess value for state of derivative block"
     annotation (Dialog(tab="Initialization",
-                         enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
-                                controllerType==.Modelica.Blocks.Types.SimpleController.PID));
+                         enable=controllerType==SimpleController.PD or
+                                controllerType==SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
     annotation(Dialog(enable=initType == .Modelica.Blocks.Types.InitPID.InitialOutput, tab=
           "Initialization"));
   parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
+  parameter TRANSFORM.Types.Reset reset = TRANSFORM.Types.Reset.Disabled
+    "Type of controller output reset"
+    annotation(Evaluate=true, Dialog(group="Integrator reset"));
+  parameter Real y_reset=xi_start
+    "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == TRANSFORM.Types.Reset.Parameter"
+    annotation(Dialog(enable=reset == TRANSFORM.Types.Reset.Parameter,
+                      group="Integrator reset"));
+
+  Modelica.Blocks.Interfaces.BooleanInput trigger if
+       reset <> TRANSFORM.Types.Reset.Disabled
+    "Resets the controller output when trigger becomes true"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-80,-120})));
+
+  Modelica.Blocks.Interfaces.RealInput y_reset_in if
+       reset == TRANSFORM.Types.Reset.Input
+    "Input signal for state to which integrator is reset, enabled if reset = TRANSFORM.Types.Reset.Input"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 
   Modelica.Blocks.Math.Add addP(k1=wp, k2=-1)
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
@@ -76,13 +92,16 @@ block LimPID
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Modelica.Blocks.Math.Gain P(k=1)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Continuous.Integrator I(
+  Blocks.IntegratorWithReset            I(
     k=unitTime/Ti,
     y_start=xi_start,
     initType=if initType == InitPID.SteadyState then Init.SteadyState else if
         initType == InitPID.InitialState or initType == InitPID.DoNotUse_InitialIntegratorState
-         then Init.InitialState else Init.NoInit) if with_I
+         then Init.InitialState else Init.NoInit,
+    reset=if reset == TRANSFORM.Types.Reset.Disabled then reset else TRANSFORM.Types.Reset.Input,
+    y_reset=y_reset) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+
   Modelica.Blocks.Continuous.Derivative D(
     k=Td/unitTime,
     T=max([Td/Nd,1.e-14]),
@@ -108,16 +127,8 @@ block LimPID
     uMax=yMax,
     uMin=yMin,
     strict=strict,
-    limitsAtInit=limitsAtInit,
     u(start=y_start))
     annotation (Placement(transformation(extent={{72,-10},{92,10}})));
-protected
-  constant SI.Time unitTime=1  annotation(HideResult=true);
-  parameter Boolean with_I = controllerType==SimpleController.PI or
-                             controllerType==SimpleController.PID annotation(Evaluate=true, HideResult=true);
-  parameter Boolean with_D = controllerType==SimpleController.PD or
-                             controllerType==SimpleController.PID annotation(Evaluate=true, HideResult=true);
-public
   Modelica.Blocks.Interfaces.RealInput u_ff if with_FF
     "Connector of feed-forward signal" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -149,10 +160,26 @@ public
     annotation (Placement(transformation(extent={{-98,-30},{-86,-18}})));
   Modelica.Blocks.Sources.Constant null_bias(k=yb)
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+protected
+  constant SI.Time unitTime=1  annotation(HideResult=true);
+  parameter Boolean with_I = controllerType==SimpleController.PI or
+                             controllerType==SimpleController.PID annotation(Evaluate=true, HideResult=true);
+  parameter Boolean with_D = controllerType==SimpleController.PD or
+                             controllerType==SimpleController.PID annotation(Evaluate=true, HideResult=true);
+  Modelica.Blocks.Interfaces.RealInput y_reset_internal
+   "Internal connector for controller output reset"
+   annotation(Evaluate=true);
+  Modelica.Blocks.Sources.RealExpression intRes(final y=y_reset_internal/k -
+        addPID.u1 - addPID.u2) if
+       reset <> TRANSFORM.Types.Reset.Disabled
+    "Signal source for integrator reset"
+    annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
+
 initial equation
   if initType==InitPID.InitialOutput then
      y = y_start;
   end if;
+
 equation
   assert(yMax >= yMin, "LimPID: Limits must be consistent. However, yMax (=" +
     String(yMax) + ") < yMin (=" + String(yMin) + ")");
@@ -161,11 +188,14 @@ equation
       y_start) + ") is outside of the limits of yMin (=" + String(yMin) +
       ") and yMax (=" + String(yMax) + ")");
   end if;
-  assert(limitsAtInit or not limitsAtInit and y >= yMin and y <= yMax,
-    "LimPID: During initialization the limits have been switched off.\n" +
-    "After initialization, the output y (=" + String(y) +
-    ") is outside of the limits of yMin (=" + String(yMin) + ") and yMax (=" +
-    String(yMax) + ")");
+
+  // Equations for conditional connectors
+  connect(y_reset_in, y_reset_internal);
+
+  if reset <> TRANSFORM.Types.Reset.Input then
+    y_reset_internal = y_reset;
+  end if;
+
 
   connect(addP.y, P.u) annotation (Line(points={{-49,50},{-42,50}}, color={0,
           0,127}));
@@ -228,6 +258,10 @@ equation
     annotation (Line(points={{-85.4,-24},{-67.2,-24}}, color={255,0,255}));
   connect(null_bias.y, addFF.u3) annotation (Line(points={{41,-30},{44,-30},{44,
           -4},{49,-4}}, color={0,0,127}));
+  connect(intRes.y, I.y_reset_in) annotation (Line(points={{-69,-90},{-46,-90},{
+          -46,-58},{-42,-58}}, color={0,0,127}));
+  connect(trigger, I.trigger) annotation (Line(points={{-80,-120},{-80,-96},{-30,
+          -96},{-30,-62}}, color={255,0,255}));
   annotation (defaultComponentName="PID",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -259,13 +293,20 @@ equation
 <dl><dt>&Aring;str&ouml;m K.J., and H&auml;gglund T.:</dt>
 <dd><b>PID Controllers: Theory, Design, and Tuning</b>. Instrument Society of America, 2nd edition, 1995. </dd>
 </dl><p>Besides the additive <b>proportional, integral</b> and <b>derivative</b> part of this controller, the following features are present: </p>
-<ul>
+<ol>
 <li>The output of this controller is limited. If the controller is in its limits, anti-windup compensation is activated to drive the integrator state to zero. </li>
 <li>The high-frequency gain of the derivative part is limited to avoid excessive amplification of measurement noise.</li>
 <li>Setpoint weighting is present, which allows to weight the setpoint in the proportional and the derivative part independently from the measurement. The controller will respond to load disturbances and measurement noise independently of this setting (parameters wp, wd). However, setpoint changes will depend on this setting. For example, it is useful to set the setpoint weight wd for the derivative part to zero, if steps may occur in the setpoint signal. </li>
 <li>Feed forward option is available on any controllerType</li>
-<li>derMeas = true uses the derivative on measurement value only to avoid the derivative kick of setpoint changes.  = false will take the derivative w.r.t. error</li>
+<li>derMeas = true uses the derivative on measurement value only to avoid the derivative kick of setpoint changes. = false will take the derivative w.r.t. error</li>
+<li>It can be configured to enable an input port that allows resetting the controller output. The controller output can be reset as follows: </li>
+<ul>
+<li>If reset = TRANSFORM.Types.Reset.Disabled, which is the default, then the controller output is never reset. </li>
+<li>If reset = TRANSFORM.Types.Reset.Parameter, then a boolean input signal trigger is enabled. Whenever the value of this input changes from false to true, the controller output is reset by setting y to the value of the parameter y_reset. </li>
+<li>If reset = TRANSFORM.Types.Reset.Input, then a boolean input signal trigger is enabled. Whenever the value of this input changes from false to true, the controller output is reset by setting y to the value of the input signal y_reset_in. </li>
 </ul>
+</ol>
+<p>Note that this controller implements an integrator anti-windup. Therefore, for most applications, keeping the default setting of reset = TRANSFORM.Types.Reset.Disabled is sufficient. Examples where it may be beneficial to reset the controller output are situations where the equipment control input should continuously increase as the equipment is switched on, such as as a light dimmer that may slowly increase the luminance, or a variable speed drive of a motor that should continuously increase the speed. </p>
 <p>The parameters of the controller can be manually adjusted by performing simulations of the closed loop system (= controller + plant connected together) and using the following strategy: </p>
 <ol>
 <li>Set very large limits, e.g., yMax = Modelica.Constants.inf</li>
@@ -309,8 +350,8 @@ equation
 <td valign=\"top\"><p>NoInit</p></td>
 </tr>
 </table>
-<p><br><br>In many cases, the most useful initial condition is <b>SteadyState</b> because initial transients are then no longer present. If initType = InitPID.SteadyState, then in some cases difficulties might occur. The reason is the equation of the integrator: </p>
-<p><code><b>der</b>(y) = k*u;</code> </p>
+<p><br><br><br><br><br><br>In many cases, the most useful initial condition is <b>SteadyState</b> because initial transients are then no longer present. If initType = InitPID.SteadyState, then in some cases difficulties might occur. The reason is the equation of the integrator: </p>
+<p><b><span style=\"font-family: Courier New;\">der</span></b>(y) = k*u; </p>
 <p>The steady state equation &quot;der(x)=0&quot; leads to the condition that the input u to the integrator is zero. If the input u is already (directly or indirectly) defined by another initial condition, then the initialization problem is <b>singular</b> (has none or infinitely many solutions). This situation occurs often for mechanical systems, where, e.g., u = desiredSpeed - measuredSpeed and since speed is both a state and a derivative, it is natural to initialize it with zero. As sketched this is, however, not possible. The solution is to not initialize u_m or the variable that is used to compute u_m by an algebraic equation. </p>
 <p>If parameter <b>limitAtInit</b> = <b>false</b>, the limits at the output of this controller block are removed from the initialization problem which leads to a much simpler equation system. After initialization has been performed, it is checked via an assert whether the output is in the defined limits. For backward compatibility reasons <b>limitAtInit</b> = <b>true</b>. In most cases it is best to use <b>limitAtInit</b> = <b>false</b>. </p>
 </html>"),

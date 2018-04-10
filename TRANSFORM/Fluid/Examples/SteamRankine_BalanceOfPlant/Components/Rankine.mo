@@ -138,13 +138,13 @@ model Rankine "Rankine cycle model"
         origin={174,-17})));
 
   FittingsAndResistances.ElevationChange heightDiff1(redeclare package
-      Medium =
+              Medium =
         Medium, dheight=-1) annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={104,-69})));
   FittingsAndResistances.ElevationChange heightDiff2(redeclare package
-      Medium =
+              Medium =
         Modelica.Media.Water.StandardWater, dheight=-1) annotation (Placement(
         transformation(
         extent={{-6,-6},{6,6}},
@@ -166,7 +166,7 @@ model Rankine "Rankine cycle model"
         origin={-25,-85})));
 
   FittingsAndResistances.ElevationChange heightDiff3(redeclare package
-      Medium =
+              Medium =
         Medium, dheight=-1) annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,

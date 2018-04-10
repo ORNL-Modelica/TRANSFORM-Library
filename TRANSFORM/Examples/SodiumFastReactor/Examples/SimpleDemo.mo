@@ -27,7 +27,8 @@ model SimpleDemo
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Medium, R=1)                                   annotation (
+              Medium =
+               Medium, R=1)                                   annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

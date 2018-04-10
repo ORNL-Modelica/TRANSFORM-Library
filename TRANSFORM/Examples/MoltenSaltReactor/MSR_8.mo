@@ -712,7 +712,8 @@ model MSR_8
         rotation=270,
         origin={-250,-90})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_drainTank(redeclare package
-      Medium = Medium_PFL, use_input=true)
+              Medium =
+               Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
   TRANSFORM.Controls.TankLevelControl drainTankLevelControl(
     level=drainTank_liquid.level,
@@ -742,7 +743,8 @@ model MSR_8
         rotation=90,
         origin={-270,90})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_bypass(redeclare package
-      Medium = Medium_PFL, use_input=true)
+              Medium =
+               Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-238,102},{-258,122}})));
   Modelica.Blocks.Sources.RealExpression m_flow_pump_bypass(y=x_bypass.y*abs(
         pump_PFL.port_a.m_flow))

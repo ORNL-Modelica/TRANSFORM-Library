@@ -2,6 +2,11 @@ simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
 simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
 simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
+simulateModel("TRANSFORM.Blocks.Examples.IntegratorWithReset",stopTime=1.0,tolerance=1e-6,resultFile="IntegratorWithReset");
+simulateModel("TRANSFORM.Blocks.Examples.OffTimer",stopTime=1,tolerance=1e-6,resultFile="OffTimer");
+simulateModel("TRANSFORM.Controls.Examples.LimPID_HysteresisTimer_Test",stopTime=86400,tolerance=1e-6,resultFile="LimPID_HysteresisTimer_Test");
+simulateModel("TRANSFORM.Controls.Examples.LimPID_Hysteresis_Test",stopTime=86400,tolerance=1e-6,resultFile="LimPID_Hysteresis_Test");
+simulateModel("TRANSFORM.Controls.Examples.LimPID_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
 simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
@@ -38,6 +43,7 @@ simulateModel("TRANSFORM.Fluid.Pipes.Examples.TransportDelayPipeTests.Test2_Mult
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.UseOfGeometryModel",stopTime=1,resultFile="UseOfGeometryModel");
 simulateModel("TRANSFORM.Fluid.TraceComponents.Examples.TraceDecayAdsorberBed_Test",stopTime=100,resultFile="TraceDecayAdsorberBed_Test");
 simulateModel("TRANSFORM.Fluid.TraceComponents.Examples.TraceSeparator_Test",resultFile="TraceSeparator_Test");
+simulateModel("TRANSFORM.Fluid.Valves.Examples.CheckValve_Test",numberOfIntervals=100,resultFile="CheckValve_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.Condenser_Test",stopTime=1000,tolerance=1e-008,resultFile="Condenser_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.DumpTank_Test",stopTime=100,resultFile="DumpTank_Test");
 simulateModel("TRANSFORM.Fluid.Volumes.Examples.ExpansionTank2_Test",stopTime=100,resultFile="ExpansionTank2_Test");

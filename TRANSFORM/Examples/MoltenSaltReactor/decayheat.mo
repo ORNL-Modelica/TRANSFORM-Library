@@ -146,7 +146,8 @@ model decayheat
     p=100000,
     nPorts=1) annotation (Placement(transformation(extent={{200,52},{180,72}})));
   Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, use_input=true)
+              Medium =
+               Modelica.Media.Water.StandardWater, use_input=true)
     annotation (Placement(transformation(extent={{152,52},{172,72}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=waterTank.port_a.m_flow)
     annotation (Placement(transformation(extent={{140,78},{160,98}})));

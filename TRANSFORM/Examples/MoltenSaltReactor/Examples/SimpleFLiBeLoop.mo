@@ -59,7 +59,8 @@ model SimpleFLiBeLoop
         downcomer.nV, Q_flow=fill(-5e4, boundary2.nPorts))
     annotation (Placement(transformation(extent={{64,-10},{44,10}})));
   Fluid.Sensors.TraceSubstancesTwoPort_multi traceSubstance(redeclare package
-      Medium = Medium)
+              Medium =
+               Medium)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=270,
         origin={20,-30})));
@@ -80,12 +81,14 @@ model SimpleFLiBeLoop
     T_start=773.15)
     annotation (Placement(transformation(extent={{-30,54},{-10,74}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Medium, R=1e6) annotation (Placement(transformation(
+              Medium =
+               Medium, R=1e6) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,40})));
   Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow(redeclare package
-      Medium = Medium, m_flow_nominal=1)
+              Medium =
+               Medium, m_flow_nominal=1)
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
 equation
   connect(boundary2.port, downcomer.heatPorts[:, 1])

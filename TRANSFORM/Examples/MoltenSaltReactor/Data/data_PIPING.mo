@@ -2,7 +2,8 @@ within TRANSFORM.Examples.MoltenSaltReactor.Data;
 model data_PIPING
   extends Icons.Record;
 
-  import TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.from_gpm;
+  import
+    TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.from_gpm;
   import TRANSFORM.Units.Conversions.Functions.Distance_m.from_feet;
   import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
 

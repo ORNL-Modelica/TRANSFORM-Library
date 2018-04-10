@@ -361,10 +361,12 @@ model IRIS
         rotation=0,
         origin={74,-40})));
 
-  Fluid.Sensors.Temperature          T_Core_Inlet(redeclare package Medium =
+  Fluid.Sensors.Temperature          T_Core_Inlet(redeclare package
+      Medium =
         Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-68,-68},{-76,-76}})));
-  Fluid.Sensors.Temperature          T_Core_Outlet(redeclare package Medium =
+  Fluid.Sensors.Temperature          T_Core_Outlet(redeclare package
+      Medium =
         Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-68,-48},{-76,-40}})));
 

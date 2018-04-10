@@ -1,7 +1,8 @@
 within TRANSFORM.Examples.MoltenSaltReactor.Data.Tritium;
 record FLiBe
 
-  extends TRANSFORM.Examples.MoltenSaltReactor.Data.Tritium.PartialTritium(
+  extends
+    TRANSFORM.Examples.MoltenSaltReactor.Data.Tritium.PartialTritium(
 extraPropertiesNames={"Li-6","Li-7","Be-9","He-6"},
 C_nominal=fill(1e14, nC),
 lambdas={0,0,0,log(2)/0.8},
