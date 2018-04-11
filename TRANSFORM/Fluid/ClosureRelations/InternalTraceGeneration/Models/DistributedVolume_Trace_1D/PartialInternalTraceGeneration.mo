@@ -9,25 +9,25 @@ partial model PartialInternalTraceGeneration
     annotation (Dialog(tab="Internal Interface"));
 
   input Medium.ThermodynamicState[nV] states "Volume thermodynamic state"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SIadd.ExtraProperty Cs[nV,Medium.nC] "Trace mass-specific value  in volumes"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Volume Vs[nV]
     "Volumes"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Diameter dimensions[nV]
     "Characteristic dimension (e.g. hydraulic diameter)"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Area crossAreas[nV] "Volumes cross sectional area"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Length dlengths[nV]
     "Volumes length"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   // Variables defined by model
   output SIadd.ExtraPropertyFlowRate mC_flows[nV,Medium.nC] "Internal mass generation"
     annotation (Dialog(
-      group="Output Variables",
+      group="Outputs",
       tab="Internal Interface",
       enable=false));
 

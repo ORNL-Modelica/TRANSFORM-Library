@@ -11,11 +11,11 @@ partial model PartialFlowChar
 
   // Inputs provided to heat transfer model
   input Medium.ThermodynamicState state
-    "Thermodynamic state" annotation(Dialog(tab="Internal Interface",group="Input Variables:"));
+    "Thermodynamic state" annotation(Dialog(tab="Internal Interface",group="Inputs"));
 
-  input SI.MassFlowRate m_flow "Mass flow rate" annotation(Dialog(tab="Internal Interface",group="Input Variables:"));
-  input SI.Conversions.NonSIunits.AngularVelocity_rpm N "Pump speed" annotation(Dialog(tab="Internal Interface",group="Input Variables:"));
-  input SI.Length diameter "Impeller Diameter" annotation(Dialog(tab="Internal Interface",group="Input Variables:"));
+  input SI.MassFlowRate m_flow "Mass flow rate" annotation(Dialog(tab="Internal Interface",group="Inputs"));
+  input SI.Conversions.NonSIunits.AngularVelocity_rpm N "Pump speed" annotation(Dialog(tab="Internal Interface",group="Inputs"));
+  input SI.Length diameter "Impeller Diameter" annotation(Dialog(tab="Internal Interface",group="Inputs"));
 
   parameter SI.MassFlowRate m_flow_nominal "Mass flow rate" annotation(Dialog(tab="Internal Interface",group="Nominal Operating Parameters:"));
   parameter SI.Density rho_nominal "Density" annotation(Dialog(tab="Internal Interface",group="Nominal Operating Parameters:"));

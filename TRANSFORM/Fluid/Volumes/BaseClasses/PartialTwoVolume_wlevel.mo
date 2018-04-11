@@ -136,8 +136,8 @@ partial model PartialTwoVolume_wlevel "Base class for volume models"
           X_vapor_start[1:Medium.nXi])));
 
   // Inputs provided to the volume model
-  input SI.Height level(start=level_start) = 0 "Liquid level" annotation(Dialog(group="Input Variables"));
-  input SI.Volume V_vapor(min=0) "Vapor volume" annotation(Dialog(group="Input Variables"));
+  input SI.Height level(start=level_start) = 0 "Liquid level" annotation(Dialog(group="Inputs"));
+  input SI.Volume V_vapor(min=0) "Vapor volume" annotation(Dialog(group="Inputs"));
 
   // V_liquid or level is input but not both
   SI.Volume V_liquid(min=0) "Liquid volume";

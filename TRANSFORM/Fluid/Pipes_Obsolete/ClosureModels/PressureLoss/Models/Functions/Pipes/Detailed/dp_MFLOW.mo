@@ -20,7 +20,7 @@ function dp_MFLOW "calculate mass flow rate"
   input SI.AbsolutePressure dp_small=1
     "Regularization of zero flow if |dp| < dp_small (dummy if use_dp_small = false)";
 
-  //output variables
+  //Outputs
   output SI.MassFlowRate M_FLOW "Output of function dp_overall_MFLOW";
 
 protected

@@ -144,16 +144,18 @@ equation
     annotation (Line(points={{-30,0},{-25,0},{-20,0}}, color={191,0,0}));
   connect(water.port, composite.port_a1)
     annotation (Line(points={{-60,0},{-55,0},{-50,0}}, color={191,0,0}));
-  connect(dTdx.y, scope.u) annotation (Line(points={{-79,-54},{-72.4857,-54},{
-          -72.4857,-67.0769}}, color={0,0,127}));
+  connect(dTdx.y, scope.u) annotation (Line(points={{-79,-54},{-72.4857,
+          -54},{-72.4857,-67.0769}},
+                               color={0,0,127}));
   connect(composite1.port_b1, adiabatic1.port)
     annotation (Line(points={{70,0},{70,0},{80,0}}, color={191,0,0}));
   connect(gas.port, convection.port_b)
     annotation (Line(points={{14,0},{23,0}},        color={191,0,0}));
   connect(convection.port_a, composite1.port_a1)
     annotation (Line(points={{37,0},{37,0},{50,0}}, color={191,0,0}));
-  connect(dTdx1.y, scope1.u) annotation (Line(points={{21,-54},{27.5143,-54},{
-          27.5143,-67.0769}}, color={0,0,127}));
+  connect(dTdx1.y, scope1.u) annotation (Line(points={{21,-54},{27.5143,
+          -54},{27.5143,-67.0769}},
+                              color={0,0,127}));
   connect(T_water.y, water.T_ext)
     annotation (Line(points={{-79,20},{-79,0},{-74,0}}, color={0,0,127}));
   connect(gas.T_ext, T_water.y)

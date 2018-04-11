@@ -6,19 +6,19 @@ model Nus_SinglePhase_2Region "Specify Nus | Single Phase | 2 Regions"
   input SI.NusseltNumber Nus_lam=
       HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Re, Pr) "Laminar Nusselt number"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.NusseltNumber Nus_turb=
       HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Re, Pr) "Turbulent Nusselt number"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Length L_char=dimension
     "Characteristic dimension for calculation of alpha"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.ThermalConductivity lambda=mediaProps.lambda
     "Thermal conductivity for calculation of alpha"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

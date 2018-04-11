@@ -6,10 +6,10 @@ model VolumetricTraceGeneration
   extends PartialInternalTraceGeneration;
 
   input SIadd.ExtraPropertyConcentration mC_ppp[Medium.nC]=zeros(Medium.nC) "Mass concentration generation"  annotation(Dialog(group=
-          "Input Variables"));
+          "Inputs"));
   input SIadd.ExtraPropertyConcentration mC_ppps[nV,Medium.nC]=fillArray_1D(mC_ppp, nV)
     "if non-uniform then set mC_ppps"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

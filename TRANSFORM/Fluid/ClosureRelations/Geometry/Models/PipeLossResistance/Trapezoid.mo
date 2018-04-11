@@ -5,15 +5,15 @@ model Trapezoid
   // Diagram 2.6 - Non-circular correction factor for stabilized flow - Trapezoid
 
   input SI.Length a1=0.01 "Small parallel dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length a2=0.02 "Large parallel dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length h=0.01 "Distance between a1 and a2"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Angle theta1=Modelica.Constants.pi/3 "Angle formed by a2 and side 1"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Angle theta2=Modelica.Constants.pi/3 "Angle formed by a2 and side 2"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   extends PartialGeometry(
     final dimension=4*crossArea/perimeter,

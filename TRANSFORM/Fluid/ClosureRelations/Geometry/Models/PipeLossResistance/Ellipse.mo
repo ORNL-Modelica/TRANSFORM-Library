@@ -5,9 +5,9 @@ model Ellipse
   // Diagram 2.6 - Non-circular correction factor for stabilized flow - Ellipse
 
   input SI.Length a0=0.01 "Major radial dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length b0=0.02 "Minor radial dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   extends PartialGeometry(
     final dimension=4*crossArea/perimeter,

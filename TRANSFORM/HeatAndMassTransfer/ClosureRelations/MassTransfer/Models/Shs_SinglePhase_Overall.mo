@@ -9,16 +9,16 @@ model Shs_SinglePhase_Overall "Specify Shs | Single Phase | Overall"
       Scs[i, j],
       sum(dlengths),
       dimensions[i]) for i in 1:nMT,j in 1:nC} "Laminar Schmidt number"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.SchmidtNumber Shs_turb[nMT,nC]={
       Functions.SinglePhase.InternalFlow.Sh_Turbulent_Local_Developed_Circular_DittusBoelter(
        Res[i], Scs[i, j]) for i in 1:nMT,j in 1:nC}
-    "Turbulent Schmidt number" annotation (Dialog(group="Input Variables"));
+    "Turbulent Schmidt number" annotation (Dialog(group="Inputs"));
 
   input SI.Length[nMT] L_char=dimensions
     "Characteristic dimension for calculation of alphaM"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

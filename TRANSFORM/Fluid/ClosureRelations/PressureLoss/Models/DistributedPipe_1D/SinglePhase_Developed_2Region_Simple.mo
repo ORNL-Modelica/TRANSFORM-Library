@@ -12,7 +12,7 @@ model SinglePhase_Developed_2Region_Simple
       roughnessesAvg,
       Re_center,
       Re_width) "Turbulent Friction factor"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SI.Pressure[nFM] dps_f "Frictional pressure drop";
   SI.Pressure[nFM] dps_g "Gravitational pressure drop";

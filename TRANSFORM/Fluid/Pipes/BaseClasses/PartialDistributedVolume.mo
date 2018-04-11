@@ -13,7 +13,7 @@ partial model PartialDistributedVolume
 
   // Inputs provided to the volume model
   input SI.Volume Vs[nV](min=0) "Discretized volumes"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   // Initialization
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
@@ -228,7 +228,7 @@ equation
 <li>Qb_flows[nVs], heat flow term (e.g., conductive heat flows across discritized boundaries)</li>
 <li>Qb_volumes[nVs], sources of energy that are calculated from volume element state (e.g., convection or internal heat generation)</li>
 </ul>
-<p>The following input variables need to be set in an extending class to complete the model: </p>
+<p>The following Inputs need to be set in an extending class to complete the model: </p>
 <ul>
 <li>Vs[nVs], distributed volumes</li>
 </ul>

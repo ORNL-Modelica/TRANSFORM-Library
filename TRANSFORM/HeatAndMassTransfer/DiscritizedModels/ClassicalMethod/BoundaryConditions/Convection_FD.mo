@@ -7,7 +7,7 @@ parameter Modelica.SIunits.CoefficientOfHeatTransfer[nNodes] alphas
     "Convection heat transfer coefficient";
 
 input Modelica.SIunits.Area[nNodes] Areas = linspace(0,1,nNodes)
-    "Nodal heat transfer area" annotation(Dialog(group="Input Variables"));
+    "Nodal heat transfer area" annotation(Dialog(group="Inputs"));
 
 Modelica.Fluid.Interfaces.HeatPorts_a[nNodes] port_a annotation (Placement(
         transformation(

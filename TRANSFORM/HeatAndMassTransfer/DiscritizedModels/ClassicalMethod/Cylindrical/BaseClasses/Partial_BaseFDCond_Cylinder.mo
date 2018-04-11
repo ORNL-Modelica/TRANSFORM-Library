@@ -16,20 +16,20 @@ partial model Partial_BaseFDCond_Cylinder
   parameter Integer nZ(min=2) = 2 "Nodes in axial direction";
 
   input SI.Length r_inner(min=0) = 0 "Centerline/Inner radius of cylinder or specify rs"
-  annotation(Dialog(group="Input Variables"));
+  annotation(Dialog(group="Inputs"));
   input SI.Length r_outer "Outer radius of cylinder or specify rs"
-  annotation(Dialog(group="Input Variables"));
+  annotation(Dialog(group="Inputs"));
   input SI.Length length "Length of cylinder or specify zs"
-  annotation(Dialog(group="Input Variables"));
+  annotation(Dialog(group="Inputs"));
   input SI.Length rs[nR]=if nR == 1 then {0.5*(r_inner + r_outer)} else
       linspace(
       r_inner,
       r_outer,
-      nR) "Define radial nodal positions" annotation (Dialog(group="Input Variables"));
+      nR) "Define radial nodal positions" annotation (Dialog(group="Inputs"));
   input SI.Length zs[nZ]=if nZ == 1 then {0.5*length} else linspace(
       0,
       length,
-      nZ) "Define axial nodal positions" annotation (Dialog(group="Input Variables"));
+      nZ) "Define axial nodal positions" annotation (Dialog(group="Inputs"));
 
   /* Assumptions */
   parameter Modelica.Fluid.Types.Dynamics energyDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial

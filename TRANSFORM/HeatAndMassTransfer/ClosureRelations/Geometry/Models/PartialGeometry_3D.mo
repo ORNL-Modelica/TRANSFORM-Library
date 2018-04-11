@@ -13,40 +13,40 @@ partial model PartialGeometry_3D
 
   output SI.Volume Vs[ns[1],ns[2],ns[3]] "Unit volumes" annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Area crossAreas_1[ns[1] + 1,ns[2],ns[3]]
     "Cross sectional area of unit volume faces perpendicular to dimension-1"
     annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Length dlengths_1[ns[1],ns[2],ns[3]]
     "Unit cell length in dimension-1" annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Area crossAreas_2[ns[1],ns[2] + 1,ns[3]]
     "Cross sectional area of unit volume faces perpendicular to dimension-2"
     annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Length dlengths_2[ns[1],ns[2],ns[3]]
     "Unit cell length in dimension-2" annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Area crossAreas_3[ns[1],ns[2],ns[3] + 1]
     "Cross sectional area of unit volume faces perpendicular to dimension-3"
     annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Length dlengths_3[ns[1],ns[2],ns[3]]
     "Unit cell length in dimension-3" annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
 
   SI.Volume V_total=sum(Vs) "Total volume of component";

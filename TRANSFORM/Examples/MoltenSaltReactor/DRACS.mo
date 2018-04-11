@@ -9,10 +9,10 @@ model DRACS
 
   input SI.Area surfaceAreas_thimble[2] = fill(1,2)
     "Heat transfer surface area for gas and salt"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.CoefficientOfHeatTransfer alphas_drainTank[2]=fill(2000,2)
     "Convection heat transfer coefficient at thimble-drain tank interface for gas and salt"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_drainTank(
     exposeState_b=true,

@@ -1,8 +1,8 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume;
 model Cylinder
 
-  input SI.Length length = 1.0 "Cylinder length" annotation (Dialog(group="Input Variables"));
-  input SI.Area crossArea = 0.0 "Cross sectional area" annotation (Dialog(group="Input Variables"));
+  input SI.Length length = 1.0 "Cylinder length" annotation (Dialog(group="Inputs"));
+  input SI.Area crossArea = 0.0 "Cross sectional area" annotation (Dialog(group="Inputs"));
 
   extends
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume(

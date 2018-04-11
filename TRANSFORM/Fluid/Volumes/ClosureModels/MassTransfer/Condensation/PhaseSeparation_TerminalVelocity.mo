@@ -8,8 +8,8 @@ model PhaseSeparation_TerminalVelocity
   1. NUREG-CR-4449 pg 28
   */
 
-  input SI.Volume V_fluid "Volume of fluid" annotation(Dialog(group="Input Variables:"));
-  input SI.Length L_c "Average distance bubbles/drop travel" annotation(Dialog(group="Input Variables:"));
+  input SI.Volume V_fluid "Volume of fluid" annotation(Dialog(group="Inputs"));
+  input SI.Length L_c "Average distance bubbles/drop travel" annotation(Dialog(group="Inputs"));
 
   parameter SI.Velocity v_drop = 0.79248 "Velocity of bubbles/droplets (default = terminal velocity)";
 

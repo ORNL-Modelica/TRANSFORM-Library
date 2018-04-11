@@ -13,10 +13,10 @@ model UnitVolume
     annotation(Dialog(tab = "Initialization",group="Start Value: Temperature"));
   parameter SI.Temperature T_reference = 273.15 "Reference temperature for zero enthalpy" annotation(Dialog(tab="Advanced"));
 
-  input SI.Volume V "Volume" annotation(Dialog(group="Input Variables"));
-  input SI.Density d "Density" annotation(Dialog(group="Input Variables"));
-  input SI.SpecificHeatCapacity cp "Specific heat capacity" annotation(Dialog(group="Input Variables"));
-  input SI.HeatFlowRate Q_gen = 0 "Internal heat generation" annotation(Dialog(group="Input Variables"));
+  input SI.Volume V "Volume" annotation(Dialog(group="Inputs"));
+  input SI.Density d "Density" annotation(Dialog(group="Inputs"));
+  input SI.SpecificHeatCapacity cp "Specific heat capacity" annotation(Dialog(group="Inputs"));
+  input SI.HeatFlowRate Q_gen = 0 "Internal heat generation" annotation(Dialog(group="Inputs"));
 
   SI.InternalEnergy U "Internal energy";
   SI.Mass m "Mass";

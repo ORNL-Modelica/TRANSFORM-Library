@@ -9,17 +9,17 @@ partial model PartialHeatTransfer_setT "Base model"
 
   input Medium.ThermodynamicState state
     "Thermodynamic state of fluid"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Velocity v "Fluid Velocity"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Diameter dimension
     "Characteristic dimension (e.g. hydraulic diameter)"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Area crossArea "Cross sectional flow area"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Area surfaceArea "Surface area for heat transfer"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   parameter SI.ReynoldsNumber Re_lam(max=Re_turb) = 2300 "Laminar transition Reynolds number" annotation(Dialog(tab="Advanced"));
   parameter SI.ReynoldsNumber Re_turb(min=Re_lam) = 4000 "Turbulent transition Reynolds number" annotation(Dialog(tab="Advanced"));

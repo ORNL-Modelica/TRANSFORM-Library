@@ -38,7 +38,7 @@ block DataTable
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}})),
     Documentation(info="<html>
-<p>This block generates a graphical interface for the generation of a parameter table data that can then be referenced by component parameters or input variables.</p>
+<p>This block generates a graphical interface for the generation of a parameter table data that can then be referenced by component parameters or Inputs.</p>
 <p>The number of tables and rows are specified by clicking on the edit icon next to the variable table.</p>
 <p>Example: </p>
 <p>Rows = 4 and Columns = 2</p>

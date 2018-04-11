@@ -11,33 +11,33 @@ model GenericPipe
 
   input SI.Length dimensions[nV]=4*crossAreas ./ perimeters
     "Characteristic dimension (e.g., hydraulic diameter)"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Area crossAreas[nV]=pi*dimensions .* dimensions ./ 4
     "Cross sectional area of unit volumes"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length perimeters[nV]=4*crossAreas ./ dimensions
     "Wetted perimeter of unit volumes"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length dlengths[nV]=ones(nV) "Unit cell length"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Height[nV] roughnesses=fill(2.5e-5, nV)
     "Average heights of surface asperities"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Area surfaceAreas[nV,nSurfaces]=[perimeters .* dlengths]
     "Discretized area per transfer surface"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   // Elevation
   input SI.Angle[nV] angles(min=-Modelica.Constants.pi/2-0.01,max=Modelica.Constants.pi/2+0.01)=fill(0,nV) "Vertical angle from the horizontal (-pi/2 <= x <= pi/2)"
-    annotation (Dialog(group="Input Variables: Elevation"));
+    annotation (Dialog(group="Inputs Elevation"));
   input SI.Length[nV] dheights=dlengths.*sin(angles)  "Height(port_b) - Height(port_a)"
-    annotation (Dialog(group="Input Variables: Elevation"));
+    annotation (Dialog(group="Inputs Elevation"));
   input SI.Length height_a=0
     "Elevation at port_a: Reference value only. No impact on calculations."
-    annotation (Dialog(group="Input Variables: Elevation"));
+    annotation (Dialog(group="Inputs Elevation"));
   output SI.Length height_b=height_a + sum(dheights)
     "Elevation at port_b: Reference value only. No impact on calculations."
-    annotation (Dialog(group="Input Variables: Elevation", enable=false));
+    annotation (Dialog(group="Inputs Elevation", enable=false));
 
   SI.Volume Vs[nV]=crossAreas .* dlengths "Unit volumes";
   SI.Volume V_total=sum(Vs) "Total volume of component";

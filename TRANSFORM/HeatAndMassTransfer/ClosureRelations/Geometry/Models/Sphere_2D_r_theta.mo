@@ -10,35 +10,35 @@ model Sphere_2D_r_theta
 
   input SI.Length r_inner=0
     "Specify inner radius or dthetas in r-dimension and r_outer"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length r_outer=1 "Specify outer radius or dthetas in r-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Angle angle_theta(
     min=0,
     max=2*Modelica.Constants.pi) = 2*Modelica.Constants.pi
     "Specify overall angle or dthetas in theta-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Angle angle_phi(
     min=0,
     max=Modelica.Constants.pi) = Modelica.Constants.pi
     "Specify angle or dphis in phi-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Length drs[nR,nTheta](min=0) = fill(
     (r_outer - r_inner)/nR,
     nR,
     nTheta) "Unit volume lengths of r-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Angle dthetas[nR,nTheta](min=0) = fill(
     angle_theta/nTheta,
     nR,
     nTheta) "Unit volume lengths of theta-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Angle dphis[nR,nTheta](min=0) = fill(
     angle_phi,
     nR,
     nTheta) "Unit volume lengths of phi-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SI.Length rs[nR,nTheta] "Position in r-dimension";
   SI.Angle thetas[nR,nTheta] "Position in theta-dimension";

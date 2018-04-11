@@ -9,11 +9,11 @@ model AxialPowToNodeVolHeat_2DCyl
   parameter Integer nZ(min=3) "Nodes in axial direction";
 
   input SI.Length r_inner "Centerline/Inner radius of cylinder"
-  annotation(Dialog(group="Input Variables"));
+  annotation(Dialog(group="Inputs"));
   input SI.Length r_outer "Outer radius of cylinder"
-  annotation(Dialog(group="Input Variables"));
+  annotation(Dialog(group="Inputs"));
   input SI.Length length "length of cylinder"
-  annotation(Dialog(group="Input Variables"));
+  annotation(Dialog(group="Inputs"));
 
   Modelica.Blocks.Interfaces.RealInput Power_in[nZ - 1]
     "Input Axial Power Distribution (volume approach)"

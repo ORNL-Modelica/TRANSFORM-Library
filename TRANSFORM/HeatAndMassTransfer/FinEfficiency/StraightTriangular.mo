@@ -5,13 +5,13 @@ model StraightTriangular
 
   parameter Boolean use_NonDimensional = false;
 
-  input SI.CoefficientOfHeatTransfer alpha "Average heat transfer coefficient" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
-  input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
-  input SI.Length th "Fin thickness" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
-  input SI.Length L "Fin length" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
-  input SI.Length W "Fin width" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
+  input SI.CoefficientOfHeatTransfer alpha "Average heat transfer coefficient" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
+  input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
+  input SI.Length th "Fin thickness" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
+  input SI.Length L "Fin length" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
+  input SI.Length W "Fin width" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
 
-  input Units.NonDim mL = sqrt(2*alpha/(lambda*th))*L "Non-dimensional fin parameter" annotation(Dialog(group="Input Variables",enable=use_NonDimensional));
+  input Units.NonDim mL = sqrt(2*alpha/(lambda*th))*L "Non-dimensional fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
 
   SI.Area surfaceArea = 2*W^sqrt(L^2 + (0.5*th)^2);
 algorithm

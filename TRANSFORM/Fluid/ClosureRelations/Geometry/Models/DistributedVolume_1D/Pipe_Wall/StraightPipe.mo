@@ -13,9 +13,9 @@ model StraightPipe
     final dzs=fillArray_1D(dlengths, nR));
 
   input SI.Length th_wall = 0.01 "Wall thickness or specify dr"
-    annotation (Dialog(group="Input Variables: Wall"));
+    annotation (Dialog(group="Inputs: Wall"));
   input SI.Length dr[nR](min=0) = fill(th_wall/nR,nR) "Wall unit volume lengths of r-dimension"
-    annotation (Dialog(group="Input Variables: Wall"));
+    annotation (Dialog(group="Inputs: Wall"));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

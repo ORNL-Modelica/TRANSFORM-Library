@@ -6,7 +6,7 @@ partial model PartialMassTransfer
   parameter Integer flagIdeal = 0 "Flag for models to handle ideal mass transfer" annotation (Dialog(tab="Internal Interface"));
 
   input Medium.ThermodynamicState state "Thermodynamic state"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
    parameter SI.ReynoldsNumber Re_lam(max=Re_turb) = 2300
      "Laminar transition Reynolds number" annotation (Dialog(tab="Advanced"));

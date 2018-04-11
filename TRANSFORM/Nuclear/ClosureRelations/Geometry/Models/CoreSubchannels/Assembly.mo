@@ -1,8 +1,8 @@
 within TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels;
 model Assembly
 
-  input SI.Length width_FtoF_inner = 0.1 "Inner flat to flat distance" annotation(Dialog(group="Input Variables"));
-  input SI.Length D_wireWrap = 0 "Wire wrap diameter" annotation(Dialog(group="Input Variables"));
+  input SI.Length width_FtoF_inner = 0.1 "Inner flat to flat distance" annotation(Dialog(group="Inputs"));
+  input SI.Length D_wireWrap = 0 "Wire wrap diameter" annotation(Dialog(group="Inputs"));
 
   extends
     TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Generic(

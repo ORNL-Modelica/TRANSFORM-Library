@@ -8,11 +8,11 @@ partial model PartialPhaseInterface
 
   // Inputs provided to heat transfer model
   input Medium.ThermodynamicState state_liquid "Thermodynamic state"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input Medium.ThermodynamicState state_vapor "Thermodynamic state"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Area surfaceArea "Mass transfer surface area"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   Media.BaseProperties2Phase medium_liquid(redeclare package
       Medium =                                                        Medium,

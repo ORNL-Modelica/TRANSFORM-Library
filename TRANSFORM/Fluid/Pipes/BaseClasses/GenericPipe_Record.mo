@@ -160,7 +160,7 @@ record GenericPipe_Record
 
   // Advanced
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
-    annotation (Dialog(tab="Advanced", group="Input Variables"));
+    annotation (Dialog(tab="Advanced", group="Inputs"));
 
   parameter Boolean useInnerPortProperties=false
     "=true to take port properties for flow models from internal control volumes"

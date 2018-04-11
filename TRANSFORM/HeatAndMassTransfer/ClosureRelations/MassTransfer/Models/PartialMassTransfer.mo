@@ -14,33 +14,33 @@ partial model PartialMassTransfer "Base model"
   parameter Integer flagIdeal = 0 "Flag for models to handle ideal heat transfer" annotation (Dialog(tab="Internal Interface"));
 
   input Medium.ThermodynamicState states[nMT] "Thermodynamic state of fluid"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Temperature Ts_wall[nMT] "Wall temperature"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Concentration Cs_wall[nMT,nC] "Wall concentration"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Concentration Cs_fluid[nMT,nC] "Fluid concentration"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Velocity vs[nMT] "Fluid Velocity"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Diameter dimensions[nMT]
     "Characteristic dimension (e.g. hydraulic diameter)"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Area crossAreas[nMT] "Cross sectional flow area"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Length dlengths[nMT]
     "Characteristic length of heat transfer segment"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Height roughnesses[nMT] "Average height of surface asperities"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.DiffusionCoefficient Ds_ab[nMT,nC]
     "Diffusion coefficient in fluid"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
    parameter SI.ReynoldsNumber Re_lam(max=Re_turb) = 2300
      "Laminar transition Reynolds number" annotation (Dialog(tab="Advanced"));

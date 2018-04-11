@@ -4,12 +4,12 @@ model ElevationChange "Elevation pressure change (i.e., port_a.p - port_b.p = dp
   extends BaseClasses.PartialResistance;
 
   input SI.Length dheight=0 "Height change (port_b - port_a)"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
-  input SI.Density d = Medium.density(state) "Density" annotation (Dialog(group="Input Variables"));
+  input SI.Density d = Medium.density(state) "Density" annotation (Dialog(group="Inputs"));
 
 equation
 

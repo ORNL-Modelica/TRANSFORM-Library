@@ -23,59 +23,59 @@ partial model PartialDistributedMassFlow
   // Inputs provided to the model
   input Material.ThermodynamicState states_1[nFM_1 + 1,nVs[2],nVs[3]]
     "Temperature at nodal interfaces"
-    annotation (Dialog(group="Input Variables",tab="Internal Interface"));
+    annotation (Dialog(group="Inputs",tab="Internal Interface"));
   input Material.ThermodynamicState states_2[nVs[1],nFM_2 + 1,nVs[3]]
     "Temperature at nodal interfaces"
-    annotation (Dialog(group="Input Variables",tab="Internal Interface"));
+    annotation (Dialog(group="Inputs",tab="Internal Interface"));
   input Material.ThermodynamicState states_3[nVs[1],nVs[2],nFM_3 + 1]
     "Temperature at nodal interfaces"
-    annotation (Dialog(group="Input Variables",tab="Internal Interface"));
+    annotation (Dialog(group="Inputs",tab="Internal Interface"));
 
   input SI.Concentration Cs_1[nFM_1 + 1,nVs[2],nVs[3],nC] "Concentration at nodal interfaces"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Concentration Cs_2[nVs[1],nFM_2 + 1,nVs[3],nC] "Concentration at nodal interfaces"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Concentration Cs_3[nVs[1],nVs[2],nFM_3 + 1,nC] "Concentration at nodal interfaces"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
 
   input SI.Area crossAreas_1[nFM_1,nVs[2],nVs[3]]
     "Cross sectional area of heat transfer"
-    annotation (Dialog(group="Input Variables",tab="Internal Interface"));
+    annotation (Dialog(group="Inputs",tab="Internal Interface"));
   input SI.Area crossAreas_2[nVs[1],nFM_2,nVs[3]]
     "Cross sectional area of heat transfer"
-    annotation (Dialog(group="Input Variables",tab="Internal Interface"));
+    annotation (Dialog(group="Inputs",tab="Internal Interface"));
   input SI.Area crossAreas_3[nVs[1],nVs[2],nFM_3]
     "Cross sectional area of heat transfer"
-    annotation (Dialog(group="Input Variables",tab="Internal Interface"));
+    annotation (Dialog(group="Inputs",tab="Internal Interface"));
 
   input SI.Length lengths_1[nFM_1,nVs[2],nVs[3]] "Length of heat transfer"
-    annotation (Dialog(group="Input Variables",tab="Internal Interface"));
+    annotation (Dialog(group="Inputs",tab="Internal Interface"));
   input SI.Length lengths_2[nVs[1],nFM_2,nVs[3]] "Length of heat transfer"
-    annotation (Dialog(group="Input Variables",tab="Internal Interface"));
+    annotation (Dialog(group="Inputs",tab="Internal Interface"));
   input SI.Length lengths_3[nVs[1],nVs[2],nFM_3] "Length of heat transfer"
-    annotation (Dialog(group="Input Variables",tab="Internal Interface"));
+    annotation (Dialog(group="Inputs",tab="Internal Interface"));
 
   input SI.DiffusionCoefficient D_abs_1[nFM_1 + 1,nVs[2],nVs[3],nC] "Diffusion coefficient"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.DiffusionCoefficient D_abs_2[nVs[1],nFM_2 + 1,nVs[3],nC] "Diffusion coefficient"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.DiffusionCoefficient D_abs_3[nVs[1],nVs[2],nFM_3 + 1,nC] "Diffusion coefficient"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
 
   // Variables defined by model
   output SI.MolarFlowRate n_flows_1[nFM_1,nVs[2],nVs[3],nC] "Molar flow rate across interfaces"
     annotation (Dialog(
-      group="Output Variables",
+      group="Outputs",
       tab="Internal Interface",
       enable=false));
   output SI.MolarFlowRate n_flows_2[nVs[1],nFM_2,nVs[3],nC] "Molar flow rate across interfaces"
     annotation (Dialog(
-      group="Output Variables",
+      group="Outputs",
       tab="Internal Interface",
       enable=false));
   output SI.MolarFlowRate n_flows_3[nVs[1],nVs[2],nFM_3,nC] "Molar flow rate across interfaces"
     annotation (Dialog(
-      group="Output Variables",
+      group="Outputs",
       tab="Internal Interface",
       enable=false));
 

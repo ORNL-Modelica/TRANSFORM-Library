@@ -3,12 +3,12 @@ model DiffusiveHeatTimeConstant
 
   parameter Boolean use_alpha_d = false "= true, to specify thermal diffusivity";
 
-  input SI.Length L "Characteristic length" annotation(Dialog(group="Input Variables"));
+  input SI.Length L "Characteristic length" annotation(Dialog(group="Inputs"));
 
-  input SI.Density d "Density" annotation(Dialog(group="Input Variables",enable = not use_alpha_d));
-  input SI.SpecificHeatCapacity cp "Specific heat capacity" annotation(Dialog(group="Input Variables",enable = not use_alpha_d));
-  input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Input Variables",enable = not use_alpha_d));
-  input SI.ThermalDiffusivity alpha_d = lambda/(d*cp) "Thermal diffusivity" annotation(Dialog(group="Input Variables",enable = use_alpha_d));
+  input SI.Density d "Density" annotation(Dialog(group="Inputs",enable = not use_alpha_d));
+  input SI.SpecificHeatCapacity cp "Specific heat capacity" annotation(Dialog(group="Inputs",enable = not use_alpha_d));
+  input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs",enable = not use_alpha_d));
+  input SI.ThermalDiffusivity alpha_d = lambda/(d*cp) "Thermal diffusivity" annotation(Dialog(group="Inputs",enable = use_alpha_d));
 
   SI.Time tau "Diffusive heat transfer time constant";
 

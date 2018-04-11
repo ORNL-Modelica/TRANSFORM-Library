@@ -28,13 +28,13 @@ model Conduction_1D
 
   /* Advanced Tab */
   parameter Boolean use_Density = false "=true to use uniform input thermal conductivity" annotation(Dialog(tab="Advanced"));
-   input SI.Density d = 1 "Density" annotation (Dialog(group="Input Variables:",tab="Advanced",enable=use_Density));
+   input SI.Density d = 1 "Density" annotation (Dialog(group="Inputs",tab="Advanced",enable=use_Density));
   parameter Boolean use_HeatCapacity = false "=true to use uniform input thermal conductivity" annotation(Dialog(tab="Advanced"));
    input SI.SpecificHeatCapacity cp = 1 "Specific heat capacity"
-     annotation (Dialog(group="Input Variables:",tab="Advanced",enable=use_HeatCapacity));
+     annotation (Dialog(group="Inputs",tab="Advanced",enable=use_HeatCapacity));
   parameter Boolean use_Lambda = false "=true to use uniform input thermal conductivity" annotation(Dialog(tab="Advanced"));
    input SI.ThermalConductivity lambda = 1 "Thermal conductivity"
-      annotation (Dialog(group="Input Variables:",tab="Advanced",enable=use_Lambda));
+      annotation (Dialog(group="Inputs",tab="Advanced",enable=use_Lambda));
 
   parameter Boolean exposeState_a1=true
     "=true, T is calculated at port_a1 else Q_flow" annotation(Dialog(group="Model Structure",tab="Advanced"),choices(checkBox=true));

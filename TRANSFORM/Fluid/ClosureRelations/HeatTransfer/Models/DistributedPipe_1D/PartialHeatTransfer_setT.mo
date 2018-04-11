@@ -13,24 +13,24 @@ partial model PartialHeatTransfer_setT "Base model"
   parameter Integer flagIdeal = 0 "Flag for models to handle ideal boundary" annotation (Dialog(tab="Internal Interface"));
 
   input Medium.ThermodynamicState states[nHT] "Thermodynamic state of fluid"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Velocity vs[nHT] "Fluid Velocity"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Diameter dimensions[nHT]
     "Characteristic dimension (e.g. hydraulic diameter)"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Area crossAreas[nHT] "Cross sectional flow area"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Length dlengths[nHT]
     "Characteristic length of heat transfer segment"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Height roughnesses[nHT] "Average height of surface asperities"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Area surfaceAreas[nHT] "Surface area for heat transfer"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   parameter SI.Temperature Ts_start[nHT] annotation (Dialog(tab="Internal Interface", group="Initialization"));
 

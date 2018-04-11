@@ -6,7 +6,7 @@ model BaseProperties1Phase
                                                     "Medium in component"
    annotation(choicesAllMatching=true);
 
-  input Medium.ThermodynamicState state "Medium state" annotation(Dialog(group="Input Variables:"));
+  input Medium.ThermodynamicState state "Medium state" annotation(Dialog(group="Inputs"));
 
   SI.SpecificEnthalpy h "Fluid specific enthalpy";
   SI.Density d "Fluid density";

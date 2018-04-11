@@ -5,11 +5,11 @@ model Plane "Plane Wall"
     TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
 
   input SI.Length L "Wall thickness parallel to flow"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Area crossArea "Cross-sectional area perpindicular to flow"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.DiffusionCoefficient D_ab[nC] "Diffusion coefficient"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

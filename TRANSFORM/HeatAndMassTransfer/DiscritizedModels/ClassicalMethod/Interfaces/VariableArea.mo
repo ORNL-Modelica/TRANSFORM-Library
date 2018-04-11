@@ -5,8 +5,8 @@ model VariableArea
   parameter Integer nVar = 1 "# of variable nodal areas";
   parameter Integer nFixed = 1 "# of fixed nodal areas";
 
-  input SI.Area[nVar] surfaceAreas_Var "Variable surface areas. sum(Var) = sum(Fixed)" annotation(Dialog(group="Input Variables"));
-  input SI.Area[nFixed] surfaceAreas_Fixed "Fixed surface areas. sum(Var) = sum(Fixed)" annotation(Dialog(group="Input Variables"));
+  input SI.Area[nVar] surfaceAreas_Var "Variable surface areas. sum(Var) = sum(Fixed)" annotation(Dialog(group="Inputs"));
+  input SI.Area[nFixed] surfaceAreas_Fixed "Fixed surface areas. sum(Var) = sum(Fixed)" annotation(Dialog(group="Inputs"));
 
   Real[nVar,nFixed] fA "Weighted average area correction factors";
   Real[nVar,nFixed] f "Weighted area correction factors";

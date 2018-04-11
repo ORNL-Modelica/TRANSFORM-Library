@@ -16,7 +16,7 @@ function dp_fric_of_m_flow
     "Boundary between transition and turbulent regime";
   input Real Delta "Relative IN_con.roughness";
 
-  //output variables
+  //Outputs
   output SI.Pressure dp_fric
     "Pressure loss due to friction (dp_fric = port_a.p - port_b.p - dp_grav)";
   output Real ddp_fric_dm_flow

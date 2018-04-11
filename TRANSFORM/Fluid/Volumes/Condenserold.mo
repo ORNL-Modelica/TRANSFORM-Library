@@ -65,7 +65,7 @@ model Condenserold
   parameter SI.CoefficientOfHeatTransfer alpha=1
     "Convection heat transfer coefficient";
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
-    annotation (Dialog(tab="Advanced", group="Input Variables"));
+    annotation (Dialog(tab="Advanced", group="Inputs"));
 
   parameter SI.Temperature Twall_start=300 "Tube wall temperature start value"
     annotation (Dialog(tab="Initialization"));

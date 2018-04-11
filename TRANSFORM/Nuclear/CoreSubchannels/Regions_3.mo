@@ -75,9 +75,9 @@ model Regions_3
                                  annotation (Dialog(tab="Kinetics", group="Reactivity Feedback Parameters"));
   parameter SI.Temperature Teffref_coolant "Coolant reference temperature"
                                     annotation (Dialog(tab="Kinetics", group="Reactivity Feedback Parameters"));
-  input Real CR_reactivity = 0.0 "Control rod reactivity" annotation (Dialog(tab="Kinetics", group="Input Variables"));
-  input Real Other_reactivity = 0.0 "Additional non-classified reactivity" annotation (Dialog(tab="Kinetics", group="Input Variables"));
-  input SI.Power S_external = 0.0 "External heat source" annotation (Dialog(tab="Kinetics", group="Input Variables"));
+  input Real CR_reactivity = 0.0 "Control rod reactivity" annotation (Dialog(tab="Kinetics", group="Inputs"));
+  input Real Other_reactivity = 0.0 "Additional non-classified reactivity" annotation (Dialog(tab="Kinetics", group="Inputs"));
+  input SI.Power S_external = 0.0 "External heat source" annotation (Dialog(tab="Kinetics", group="Inputs"));
 
   parameter Boolean use_DecayHeat=false
     "Include decay heat in power calculation" annotation(Dialog(group="Nominal Parameters"));

@@ -4,13 +4,13 @@ model GenericDuct
   import Modelica.Constants.pi;
 
   input SI.Length widths_inner[nV] = zeros(nV) "Inner duct width"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length heights_inner[nV] = zeros(nV) "Inner duct height"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length widths_outer[nV] = ones(nV) "Outer duct width"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length heights_outer[nV] = ones(nV) "Outer duct height"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   extends
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe(

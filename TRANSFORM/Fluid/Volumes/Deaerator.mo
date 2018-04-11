@@ -26,16 +26,16 @@ model Deaerator
     medium(phase(start = if (h_start < Medium.bubbleEnthalpy(Medium.setSat_p(p_start)) or h_start > Medium.dewEnthalpy(Medium.setSat_p(p_start)) or p_start >
              Medium.fluidConstants[1].criticalPressure) then 1 else 2)));
 
-  input SI.Density d_wall=0 "Density of wall" annotation (Dialog(group="Input Variables"));
-  input SI.SpecificHeatCapacity cp_wall= 0 "Wall specific heat capacity" annotation (Dialog(group="Input Variables"));
+  input SI.Density d_wall=0 "Density of wall" annotation (Dialog(group="Inputs"));
+  input SI.SpecificHeatCapacity cp_wall= 0 "Wall specific heat capacity" annotation (Dialog(group="Inputs"));
 
-  input SI.Temperature T_external=293.15 "External atmospheric temperature" annotation (Dialog(group="Input Variables: Heat Transfer"));
+  input SI.Temperature T_external=293.15 "External atmospheric temperature" annotation (Dialog(group="Inputs Heat Transfer"));
   input SI.CoefficientOfHeatTransfer alpha_external=0
     "Heat transfer coefficient between wall and external environment (T_external)"
-    annotation (Dialog(group="Input Variables: Heat Transfer"));
+    annotation (Dialog(group="Inputs Heat Transfer"));
   input SI.CoefficientOfHeatTransfer alpha_internal=200
     "Heat transfer coefficient between wall and internal state" annotation (
-     Evaluate=true, Dialog(group="Input Variables: Heat Transfer"));
+     Evaluate=true, Dialog(group="Inputs Heat Transfer"));
 
   parameter SI.Temperature Twall_start=293.15 "Initial wall temperature"
     annotation (Dialog(tab="Initialization"));

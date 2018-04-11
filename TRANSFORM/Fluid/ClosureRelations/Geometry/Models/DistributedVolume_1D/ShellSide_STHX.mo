@@ -5,17 +5,17 @@ model ShellSide_STHX
   parameter Real nTubes(min=0)=1 "Number of parallel tubes";
 
   input SI.Length length_shell = 1.0 "Overall shell side length"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Diameter D_o_shell=4*crossAreaEmpty_shell/perimeterEmpty_shell "Outer diameter of shell"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Diameter D_i_shell=0  "Inner diameter of shell"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Area crossAreaEmpty_shell = 0.25*pi*(D_o_shell^2-D_i_shell^2) "Cross-sectional area of an empty shell (i.e., no tubes)"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length perimeterEmpty_shell = pi*(D_o_shell+D_i_shell) "Wetted perimeter of an empty shell (i.e., no tubes)"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Area surfaceArea_shell = pi*D_o_tube*length_tube*nTubes "Heat Transfer surface area"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   extends StraightPipe(
       final length = length_shell,
@@ -25,9 +25,9 @@ model ShellSide_STHX
       final surfaceArea = {surfaceArea_shell + 0});
 
   input SI.Length length_tube "Overall tube side length"
-    annotation (Dialog(group="Input Variables: Tube"));
+    annotation (Dialog(group="Inputs: Tube"));
   input SI.Length D_o_tube   "Outer diameter of tubes"
-    annotation (Dialog(group="Input Variables: Tube"));
+    annotation (Dialog(group="Inputs: Tube"));
 
   Units.NonDim lengthRatio = length_tube/length_shell "Ratio of tube length to shell length";
 

@@ -16,7 +16,7 @@ function m_flow_of_dp_fric
   input SI.Pressure dp_fric
     "Pressure loss due to friction (dp = port_a.p - port_b.p)";
 
-  //output variables
+  //Outputs
   output SI.MassFlowRate m_flow;
   output Real dm_flow_ddp_fric "Derivative of mass flow rate with dp_fric";
 

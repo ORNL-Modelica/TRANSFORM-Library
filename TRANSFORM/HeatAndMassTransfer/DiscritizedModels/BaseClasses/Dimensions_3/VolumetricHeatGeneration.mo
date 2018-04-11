@@ -4,13 +4,13 @@ model VolumetricHeatGeneration
   extends PartialInternalHeatGeneration;
 
   input Units.VolumetricHeatGenerationRate q_ppp=0 "Volumetric heat generation"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input Units.VolumetricHeatGenerationRate q_ppps[nVs[1],nVs[2],nVs[3]]=fill(
       q_ppp,
       nVs[1],
       nVs[2],
       nVs[3]) "if non-uniform then set q_ppps"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

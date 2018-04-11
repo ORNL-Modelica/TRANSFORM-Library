@@ -6,10 +6,10 @@ model SolubilityInterface
     "Exponential of (C/kb)^nb (i.e., if Sievert than nb = 2)";
   input Real Ka[nC]=fill(1, nC)
     "port a solubility coefficient (i.e., Henry/Sievert)"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input Real Kb[nC]=fill(1, nC)
     "port b solubility coefficient (i.e., Henry/Sievert)"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   Interfaces.MolePort_State port_a(nC=nC) annotation (Placement(transformation(
           extent={{-80,-10},{-60,10}}), iconTransformation(extent={{-80,-10},{-60,

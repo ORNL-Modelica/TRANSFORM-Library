@@ -20,32 +20,32 @@ partial model PartialDistributedFlow
   // Inputs provided to the model
   input Material.ThermodynamicState states_1[nFM_1 + 1,nVs[2]]
     "Temperature at nodal interfaces"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input Material.ThermodynamicState states_2[nVs[1],nFM_2 + 1]
     "Temperature at nodal interfaces"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
 
   input SI.Area crossAreas_1[nFM_1,nVs[2]]
     "Cross sectional area of heat transfer"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Area crossAreas_2[nVs[1],nFM_2]
     "Cross sectional area of heat transfer"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
 
   input SI.Length lengths_1[nFM_1,nVs[2]] "Length of heat transfer"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Length lengths_2[nVs[1],nFM_2] "Length of heat transfer"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
 
   // Variables defined by model
   output SI.HeatFlowRate Q_flows_1[nFM_1,nVs[2]]
     "Heat flow rate across interfaces" annotation (Dialog(
-      group="Output Variables",
+      group="Outputs",
       tab="Internal Interface",
       enable=false));
   output SI.HeatFlowRate Q_flows_2[nVs[1],nFM_2]
     "Heat flow rate across interfaces" annotation (Dialog(
-      group="Output Variables",
+      group="Outputs",
       tab="Internal Interface",
       enable=false));
 

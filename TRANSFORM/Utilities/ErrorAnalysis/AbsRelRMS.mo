@@ -4,8 +4,8 @@ function AbsRelRMS
 
   extends Icons.Function;
 
-input Real[:] x_1 "Values of interest" annotation(Dialog(group="Input Variables:"));
-input Real[:] x_2 "Reference values" annotation(Dialog(group="Input Variables:"));
+input Real[:] x_1 "Values of interest" annotation(Dialog(group="Inputs"));
+input Real[:] x_2 "Reference values" annotation(Dialog(group="Inputs"));
 input Real errorExpected = 1e-6 "if Error_rms < errorExpected then test = Passed";
 input Real tolerance = 100*Modelica.Constants.eps "To avoid division by 0";
 

@@ -6,10 +6,10 @@ model GenericTraceGeneration
   extends PartialInternalTraceGeneration;
 
   input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=zeros(Medium.nC) "Mass generation"  annotation(Dialog(group=
-          "Input Variables"));
+          "Inputs"));
   input SIadd.ExtraPropertyFlowRate mC_gens[nV,Medium.nC]=fillArray_1D(mC_gen, nV)
     "if non-uniform then set mC_gens"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

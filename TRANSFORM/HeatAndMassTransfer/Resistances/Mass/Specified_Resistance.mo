@@ -3,7 +3,7 @@ model Specified_Resistance "Specify Resistance"
 
   extends BaseClasses.PartialResistance;
 
-  input Units.DiffusionResistance R_val[nC] "Diffusion resistance" annotation(Dialog(group="Input Variables"));
+  input Units.DiffusionResistance R_val[nC] "Diffusion resistance" annotation(Dialog(group="Inputs"));
 
 equation
 

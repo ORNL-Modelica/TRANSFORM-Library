@@ -9,8 +9,8 @@ model BaseProperties2Phase
   TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.VoidFraction.Functions.alphaV_Homogeneous_wSlipRatio
     "Void fraction model" annotation(choicesAllMatching=true);
 
-  input Medium.ThermodynamicState state "Medium state" annotation(Dialog(group="Input Variables:"));
-  input Units.NonDim S = 1.0 "Slip ratio for void fraction" annotation(Dialog(group="Input Variables:"));
+  input Medium.ThermodynamicState state "Medium state" annotation(Dialog(group="Inputs"));
+  input Units.NonDim S = 1.0 "Slip ratio for void fraction" annotation(Dialog(group="Inputs"));
 
   constant SI.Pressure p_crit = Medium.fluidConstants[1].criticalPressure "Critical pressure";
   constant SI.Temperature T_crit = Medium.fluidConstants[1].criticalTemperature "Critical temperature";

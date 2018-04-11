@@ -9,7 +9,7 @@ partial model PartialVolume_wlevel "Base class for volume models"
     annotation (choicesAllMatching=true);
 
   // Inputs provided to the volume model
-  SI.Volume V(min=0) "Volume";// annotation (Dialog(group="Input Variables"));
+  SI.Volume V(min=0) "Volume";// annotation (Dialog(group="Inputs"));
 
   // Initialization
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
@@ -85,7 +85,7 @@ partial model PartialVolume_wlevel "Base class for volume models"
           X_start[1:Medium.nXi])));
 
   // Total quantities
-  input SI.Height level(start=level_start) "Liquid level" annotation(Dialog(group="Input Variables"));
+  input SI.Height level(start=level_start) "Liquid level" annotation(Dialog(group="Inputs"));
   SI.Mass m "Mass";
   SI.InternalEnergy U "Internal energy";
   SI.Mass mXi[Medium.nXi] "Species mass";

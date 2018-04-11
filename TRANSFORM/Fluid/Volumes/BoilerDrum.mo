@@ -48,31 +48,31 @@ model BoilerDrum
   parameter Boolean use_LiquidHeatPort=false "Enable heat connector to liquid"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
 
-  input SI.Density d_wall=0 "Density of wall" annotation (Dialog(group="Input Variables"));
-  input SI.SpecificHeatCapacity cp_wall= 0 "Wall specific heat capacity" annotation (Dialog(group="Input Variables"));
+  input SI.Density d_wall=0 "Density of wall" annotation (Dialog(group="Inputs"));
+  input SI.SpecificHeatCapacity cp_wall= 0 "Wall specific heat capacity" annotation (Dialog(group="Inputs"));
 
-  input Real eta_sep=1.0 "Phase separation efficiency coefficient" annotation (Dialog(group="Input Variables: Mass Transfer"));
+  input Real eta_sep=1.0 "Phase separation efficiency coefficient" annotation (Dialog(group="Inputs Mass Transfer"));
   input SI.Time tau_eBulk=15 "Time constant of bulk evaporation"
-    annotation (Dialog(group="Input Variables: Mass Transfer"));
+    annotation (Dialog(group="Inputs Mass Transfer"));
   input SI.Time tau_cBulk=15 "Time constant of bulk condensation"
-    annotation (Dialog(group="Input Variables: Mass Transfer"));
+    annotation (Dialog(group="Inputs Mass Transfer"));
   input Real alphaM_VL(unit="kg/(s.m2.K)")=0
     "Vapor/liquid surface condensation coefficient"
-    annotation (Dialog(group="Input Variables: Mass Transfer"));
+    annotation (Dialog(group="Inputs Mass Transfer"));
 
-  input SI.Temperature T_external=293.15 "External atmospheric temperature" annotation (Dialog(group="Input Variables: Heat Transfer"));
+  input SI.Temperature T_external=293.15 "External atmospheric temperature" annotation (Dialog(group="Inputs Heat Transfer"));
   input SI.CoefficientOfHeatTransfer alpha_external=0
     "Heat transfer coefficient between wall and external environment (T_external)"
-    annotation (Dialog(group="Input Variables: Heat Transfer"));
+    annotation (Dialog(group="Inputs Heat Transfer"));
   input SI.CoefficientOfHeatTransfer alpha_WL=200
     "Heat transfer coefficient between wall and liquid phase" annotation (
-     Evaluate=true, Dialog(group="Input Variables: Heat Transfer"));
+     Evaluate=true, Dialog(group="Inputs Heat Transfer"));
   input SI.CoefficientOfHeatTransfer alpha_WV=200
     "Heat transfer coefficient between wall and vapor phase" annotation (
-      Evaluate=true, Dialog(group="Input Variables: Heat Transfer"));
+      Evaluate=true, Dialog(group="Inputs Heat Transfer"));
   input SI.CoefficientOfHeatTransfer alpha_VL=0
     "Vapor/liquid surface heat transfer coefficient"
-    annotation (Dialog(group="Input Variables: Heat Transfer"));
+    annotation (Dialog(group="Inputs Heat Transfer"));
 
   parameter SI.Temperature Twall_start=293.15 "Initial wall temperature"
     annotation (Dialog(tab="Initialization"));

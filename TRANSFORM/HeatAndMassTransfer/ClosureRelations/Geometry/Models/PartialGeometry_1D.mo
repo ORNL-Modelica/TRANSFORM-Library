@@ -12,17 +12,17 @@ partial model PartialGeometry_1D
 
   output SI.Volume Vs[ns[1]] "Unit volumes" annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Area crossAreas_1[ns[1] + 1]
     "Cross sectional area of unit volume faces perpendicular to dimension-1"
     annotation (Dialog(
-      group="Output Variables",
+      group="Outputs",
       tab="Internal Interface",
       enable=false));
   output SI.Length dlengths_1[ns[1]] "Unit cell length in dimension-1"
     annotation (Dialog(
-      group="Output Variables",
+      group="Outputs",
       tab="Internal Interface",
       enable=false));
 

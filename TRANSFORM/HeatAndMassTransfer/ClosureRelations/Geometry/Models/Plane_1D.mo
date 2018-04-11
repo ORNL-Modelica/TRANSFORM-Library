@@ -8,21 +8,21 @@ model Plane_1D
   parameter Integer nX(min=1) = 1 "Number of nodes in x-direction";
 
   input SI.Length length_x=1 "Specify overall length or dxs in x-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length length_y=1 "Specify length or dys in y-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length length_z=1 "Specify length or dzs in z-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Length dxs[nX](min=0) = fill((length_x)/nX, nX)
     "Unit volume lengths of x-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length dys[nX](min=0) = fill(length_y, nX)
     "Unit volume lengths of y-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length dzs[nX](min=0) = fill(length_z, nX)
     "Unit volume lengths of z-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SI.Length xs[nX] "Position in x-dimension";
   SI.Length ys[nX] "Position in y-dimension";

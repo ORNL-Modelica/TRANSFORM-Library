@@ -6,8 +6,8 @@ parameter Integer n "Length of variable vector";
 parameter Real errorExpected = 1e-6 "if Error_rms < errorExpected then test = Passed";
 parameter Real tolerance = 100 "eps = tolerance*MachineError to avoid division by 0";
 
-input Real[n] x_1 "Values of first variable" annotation(Dialog(group="Input Variables:"));
-input Real[n] x_2 "Values of second variable" annotation(Dialog(group="Input Variables:"));
+input Real[n] x_1 "Values of first variable" annotation(Dialog(group="Inputs"));
+input Real[n] x_2 "Values of second variable" annotation(Dialog(group="Inputs"));
 
 Boolean passedTest "if false then expected and actual values to not match within the expected error";
 

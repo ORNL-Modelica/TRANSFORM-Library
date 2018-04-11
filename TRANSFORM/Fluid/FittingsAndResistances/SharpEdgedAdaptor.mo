@@ -10,16 +10,16 @@ model SharpEdgedAdaptor
 
   input SI.Length dimensions_ab[2]={0.01,0.02}
     "Characteristic dimension (e.g., hydraulic diameter) at {port_a,port_b}"
-    annotation (Dialog(group="Input Variables", enable=use_Dimension));
+    annotation (Dialog(group="Inputs", enable=use_Dimension));
   input SI.Area crossAreas_ab[2]=0.25*Modelica.Constants.pi*dimensions_ab .*
       dimensions_ab "Cross sectional area at {port_a,port_b}"
-    annotation (Dialog(group="Input Variables", enable=not use_Dimension));
+    annotation (Dialog(group="Inputs", enable=not use_Dimension));
   input SI.Length perimeters_ab[2]=Modelica.Constants.pi*dimensions_ab
     "Wetted perimeter at {port_a,port_b}"
-    annotation (Dialog(group="Input Variables", enable=not use_Dimension));
+    annotation (Dialog(group="Inputs", enable=not use_Dimension));
   input Units.NonDim CFs[4]={1.0,1.0,1.0,1.0}
     "Expansion correction factors: {Laminar expansion, Turbulent expansion, Laminar contraction, Turbulent contraction}"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SI.ReynoldsNumber Re "Reynolds number";
 

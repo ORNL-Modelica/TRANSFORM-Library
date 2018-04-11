@@ -20,7 +20,7 @@ function m_flow_of_dp_fric
     "Boundary between transition and turbulent regime";
   input Real Delta "Relative IN_con.roughness";
 
-  //output variables
+  //Outputs
   output SI.MassFlowRate m_flow;
   output Real dm_flow_ddp_fric "Derivative of mass flow rate with dp_fric";
 

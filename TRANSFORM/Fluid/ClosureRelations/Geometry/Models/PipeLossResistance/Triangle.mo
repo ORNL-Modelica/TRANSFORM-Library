@@ -8,9 +8,9 @@ model Triangle
   // relatively small variation between the three
 
   input SI.Length h=0.01 "Triangle height"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Angle beta=Modelica.SIunits.Conversions.from_deg(30) "Angle between center and hypotenuse"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   extends PartialGeometry(
     final dimension=4*crossArea/perimeter,

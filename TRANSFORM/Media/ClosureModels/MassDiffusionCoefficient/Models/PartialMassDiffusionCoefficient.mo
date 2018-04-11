@@ -3,9 +3,9 @@ partial model PartialMassDiffusionCoefficient
 
   parameter Integer nC = 1 "Number of substances" annotation(Dialog(tab="Internal Interface"));
 
-  input SI.Temperature T "Temperature" annotation(Dialog(tab="Internal Interface",group="Input Variables"));
+  input SI.Temperature T "Temperature" annotation(Dialog(tab="Internal Interface",group="Inputs"));
 
-  output SI.DiffusionCoefficient D_abs[nC] "Diffusion Coefficient" annotation(Dialog(tab="Internal Interface",group="Output Variables",enable=false));
+  output SI.DiffusionCoefficient D_abs[nC] "Diffusion Coefficient" annotation(Dialog(tab="Internal Interface",group="Outputs",enable=false));
 
   annotation (defaultComponentName="massDiffusionCoeff",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{

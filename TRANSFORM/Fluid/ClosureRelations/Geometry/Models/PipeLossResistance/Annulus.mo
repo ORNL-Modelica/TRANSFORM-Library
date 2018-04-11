@@ -5,18 +5,18 @@ model Annulus
   // Diagram 2.7 - Circular correction factor for stabilized flow - Concentric Annulus
 
   input SI.Length d0=0.01 "Small diameter"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length d1=0.02 "Large diameter"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   parameter Boolean use_e_abs=true
     "=true then use absolute eccentricity else relative";
   input SI.Length e_abs=0.0 "Absolute off-center distance"
-    annotation (Dialog(group="Input Variables", enable=use_e_abs));
+    annotation (Dialog(group="Inputs", enable=use_e_abs));
   input Units.NonDim e_rel(
     min=0.0,
     max=1.0) = 0.0 "Relative off-center distance, min = 0; max = 1.0"
-    annotation (Dialog(group="Input Variables", enable=not use_e_abs));
+    annotation (Dialog(group="Inputs", enable=not use_e_abs));
 
   extends PartialGeometry(
     final dimension=4*crossArea/perimeter,

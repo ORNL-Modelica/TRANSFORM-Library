@@ -5,7 +5,7 @@ partial model GenericVolume
 //   SI.Area crossArea_liquid "Average liquid cross sectional area";
 //   SI.Area crossArea_vapor "Average vapor cross sectional area";
 
-  input SI.Volume V_liquid=0 "Liquid volume" annotation (Dialog(tab="Internal Interface",group="Input Variables"));
+  input SI.Volume V_liquid=0 "Liquid volume" annotation (Dialog(tab="Internal Interface",group="Inputs"));
   SI.Volume V_vapor "Vapor volume";
   SI.Volume V_wall "Wall volume";
   SI.Volume V "Total volume";

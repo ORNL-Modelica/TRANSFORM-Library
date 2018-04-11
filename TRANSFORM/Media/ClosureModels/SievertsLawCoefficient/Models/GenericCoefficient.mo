@@ -4,7 +4,7 @@ model GenericCoefficient
 extends PartialSievertsLawCoefficient;
 
   input Real kS0=0 "Sievert's Law Coefficient [mol/(m3.Pa^(0.5)]"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

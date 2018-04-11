@@ -4,9 +4,9 @@ model GenericCoefficient
 extends PartialMassDiffusionCoefficient;
 
   input SI.DiffusionCoefficient D_ab0=Modelica.Constants.eps "Diffusion Coefficient"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.DiffusionCoefficient D_abs0[nC]=fill(D_ab0,nC) "if non-uniform then set"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

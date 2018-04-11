@@ -9,7 +9,7 @@ partial model PartialRelativeIcon_withValueIndicator
       TRANSFORM.Units.Conversions.Functions.BaseClasses.PartialConversion
     "Unit for icon display" annotation (choicesAllMatching=true);
 
-  input Real var "Variable to be converted" annotation(Dialog(group="Input Variables"));
+  input Real var "Variable to be converted" annotation(Dialog(group="Inputs"));
 
   Real y = iconUnit(var) "Icon display";
 

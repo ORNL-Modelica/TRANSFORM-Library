@@ -14,7 +14,7 @@ function dp_DP_staticHead "calculate pressure loss with static head"
   input Real g_times_height_ab
     "Gravity times (Height(port_b) - Height(port_a))";
 
-  //output variables
+  //Outputs
   output SI.Pressure DP "Output for function dp_overall_DP";
 
 protected

@@ -4,9 +4,9 @@ model SimpleWall_noMedia
   import Modelica.Fluid.Types.Dynamics;
 
   input SI.Length th "Wall thickness"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Area surfaceArea "Surface area for heat transfer"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   extends BaseClasses.PartialVolume_noMedia(
     final V=th*surfaceArea,
@@ -14,11 +14,11 @@ model SimpleWall_noMedia
     cp=0.3986*T + 341.74);
 
   input SI.ThermalConductivity lambda=-0.0469*T + 76.813 "Thermal conductivity"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.ThermalResistance R=th/(lambda*surfaceArea) "Thermal resistance"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.HeatFlowRate Q_gen=0 "Internal heat generation"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   // Advanced
   parameter Boolean exposeState_a=false

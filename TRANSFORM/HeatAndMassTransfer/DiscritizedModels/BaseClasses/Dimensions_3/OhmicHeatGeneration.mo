@@ -4,13 +4,13 @@ model OhmicHeatGeneration
   extends PartialInternalHeatGeneration;
 
   input SI.Current I=0 "Current through material"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Current Is[nVs[1],nVs[2],nVs[3]]=fill(
       I,
       nVs[1],
       nVs[2],
       nVs[3]) "if non-uniform then set Is"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SI.Resistance R[nVs[1],nVs[2],nVs[3]] "Electrical resistance";
   SI.Resistivity rho_e[nVs[1],nVs[2],nVs[3]]=Material.electricalResistivity(

@@ -45,10 +45,10 @@ model Condenser
 
   input SI.CoefficientOfHeatTransfer alphaInt_WExt=1
     "Heat transfer coeffient for coolant wall outer surface and the condenser fluid state"
-    annotation (Dialog(group="Input Variables: Heat Transfer"));
+    annotation (Dialog(group="Inputs Heat Transfer"));
 
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
-    annotation (Dialog(tab="Advanced", group="Input Variables"));
+    annotation (Dialog(tab="Advanced", group="Inputs"));
 
   parameter SI.Temperature T_start_wall=293.15
     "Tube wall temperature start value"
@@ -65,12 +65,12 @@ model Condenser
       group="Coolant",
       enable=Medium_coolant.nC > 0));
 
-  parameter Boolean exposeState_a_coolant = true "=false to use resistance between port and volume" annotation(Dialog(tab="Advanced",group="Input Variables: Coolant"),Evaluate=true);
-  parameter Boolean exposeState_b_coolant = false "=false to use resistance between port and volume" annotation(Dialog(tab="Advanced",group="Input Variables: Coolant"),Evaluate=true);
+  parameter Boolean exposeState_a_coolant = true "=false to use resistance between port and volume" annotation(Dialog(tab="Advanced",group="Inputs Coolant"),Evaluate=true);
+  parameter Boolean exposeState_b_coolant = false "=false to use resistance between port and volume" annotation(Dialog(tab="Advanced",group="Inputs Coolant"),Evaluate=true);
   input Units.HydraulicResistance R_a_coolant=1
-    "Hydraulic resistance at portCoolant_a" annotation(Dialog(tab="Advanced",group="Input Variables: Coolant",enable=not exposeState_a_coolant));
+    "Hydraulic resistance at portCoolant_a" annotation(Dialog(tab="Advanced",group="Inputs Coolant",enable=not exposeState_a_coolant));
   input Units.HydraulicResistance R_b_coolant=1
-    "Hydraulic resistance at portCoolant_b" annotation(Dialog(tab="Advanced",group="Input Variables: Coolant",enable= not exposeState_b_coolant));
+    "Hydraulic resistance at portCoolant_b" annotation(Dialog(tab="Advanced",group="Inputs Coolant",enable= not exposeState_b_coolant));
 
   Interfaces.FluidPort_State portSteamFeed(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}),
