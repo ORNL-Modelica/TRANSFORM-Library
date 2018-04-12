@@ -75,9 +75,12 @@ partial model SteamTurbineBase "Steam turbine"
   parameter Medium.SpecificEnthalpy h_a_start=Medium.specificEnthalpy_pTX(p_a_start,T_a_start,X_start)
       "Specific enthalpy at port a"
     annotation(Dialog(tab = "Initialization",group="Start Value: Specific Enthalpy", enable = not use_T_start));
-  parameter Medium.SpecificEnthalpy h_b_start=Medium.specificEnthalpy_pTX(p_b_start,T_b_start,X_start)
+  parameter Medium.SpecificEnthalpy h_b_start=Medium.isentropicEnthalpy(p_b_start,Medium.setState_phX(p_a_start,h_a_start,X_start))
       "Specific enthalpy at port b"
     annotation(Dialog(tab = "Initialization",group="Start Value: Specific Enthalpy", enable = not use_T_start));
+  // parameter Medium.SpecificEnthalpy h_b_start=Medium.specificEnthalpy_pTX(p_b_start,T_b_start,X_start)
+  //     "Specific enthalpy at port b"
+  //   annotation(Dialog(tab = "Initialization",group="Start Value: Specific Enthalpy", enable = not use_T_start));
 
   parameter Medium.MassFraction X_start[Medium.nX]=Medium.X_default
     "Mass fractions m_i/m"
