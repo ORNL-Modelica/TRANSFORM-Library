@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes;
 package Examples
-  extends Modelica.Icons.ExamplesPackage;
+  extends TRANSFORM.Icons.ExamplesPackage;
 
 
 

@@ -9,26 +9,26 @@ model Cylinder_1D_theta
 
   input SI.Length r_inner=0
     "Specify inner radius or dthetas in r-dimension and r_outer"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length r_outer=1 "Specify outer radius or dthetas in r-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Angle angle_theta(
     min=0,
     max=2*Modelica.Constants.pi) = 2*Modelica.Constants.pi
     "Specify overall angle or dthetas in theta-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length length_z=1 "Specify length or dzs in z-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Length drs[nTheta](min=0) = fill(r_outer - r_inner, nTheta)
     "Unit volume lengths of r-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Angle dthetas[nTheta](min=0) = fill(angle_theta/nTheta, nTheta)
     "Unit volume lengths of theta-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length dzs[nTheta](min=0) = fill(length_z, nTheta)
     "Unit volume lengths of z-dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SI.Length rs[nTheta] "Position in r-dimension";
   SI.Angle thetas[nTheta] "Position in theta-dimension";

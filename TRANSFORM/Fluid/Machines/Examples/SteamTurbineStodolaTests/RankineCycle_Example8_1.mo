@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests;
 model RankineCycle_Example8_1
   "Example 8.1 from Intro to Chemical Engineering"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium = Modelica.Media.Water.StandardWater "Working fluid";
   parameter SI.MassFlowRate m_flow = 59.02 "Flow rate in cycle";
@@ -112,8 +112,7 @@ equation
   connect(steamTurbine.portLP, condenser.port_a) annotation (Line(points={{7,22},{
           6,22},{6,-4},{6,-6},{29,-6},{29,-15}},  color={0,127,255}));
   connect(generator.port, boundary.port)
-    annotation (Line(points={{40.2,32.2},{40.2,32},{60,32}},
-                                                       color={255,0,0}));
+    annotation (Line(points={{40,32},{40,32},{60,32}}, color={255,0,0}));
   connect(steamTurbine.shaft_b, generator.shaft)
     annotation (Line(points={{10,32},{20,32}}, color={0,0,0}));
   connect(pump.port_a, condenser.port_b)

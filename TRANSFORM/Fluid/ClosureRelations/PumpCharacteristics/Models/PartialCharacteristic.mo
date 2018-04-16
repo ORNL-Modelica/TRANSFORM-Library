@@ -6,14 +6,14 @@ partial model PartialCharacteristic
     "Medium in the component" annotation (Dialog(tab="Internal Interface"));
 
   input Medium.ThermodynamicState state "Thermodynamic state"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.VolumeFlowRate V_flow(start=V_flow_start) "Mass flow rate"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Conversions.NonSIunits.AngularVelocity_rpm N "Pump speed"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Length diameter "Impeller Diameter"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   parameter SI.Conversions.NonSIunits.AngularVelocity_rpm N_nominal
     "Pump speed" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));

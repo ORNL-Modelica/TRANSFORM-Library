@@ -9,7 +9,7 @@ partial model PartialDistributedStaggeredFlow
   parameter Integer nFM(min=1) = 1 "Number of discrete flow models"
     annotation (Dialog(tab="Internal Interface"));
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
 
   // Initialization
   parameter Dynamics momentumDynamics = Dynamics.DynamicFreeInitial "Formulation of momentum balance"
@@ -22,28 +22,28 @@ partial model PartialDistributedStaggeredFlow
 
   // State parameters
   input Medium.ThermodynamicState states[nFM + 1] "State at volumes"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Velocity[nFM + 1] vs "Mean velocities of fluid flow"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Temperature[nFM + 1] Ts_wall
     "Mean wall temperatures of heat transfer surface"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
 
   // Geometry
   input SI.Length dimensions[nFM + 1]
     "Characteristic dimensions (e.g. hydraulic diameter)"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Area crossAreas[nFM + 1] "Cross sectional area"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Length perimeters[nFM + 1] "Wetted perimeter"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Length dlengths[nFM] "Length of flow model"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Height[nFM + 1] roughnesses "Average height of surface asperities"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.Length[nFM] dheights
     "Height(states[2:nFM+1]) - Height(states[1:nFM])"
-    annotation (Dialog(group="Input Variables", tab="Internal Interface"));
+    annotation (Dialog(group="Inputs", tab="Internal Interface"));
 
   parameter Boolean allowFlowReversal = true
 "= true to allow flow reversal, false restricts to design direction (m_flows >= zeros(m))"

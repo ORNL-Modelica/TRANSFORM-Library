@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Examples;
 model FuelTest "Representative nuclear fuel element"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   Cylinder_FD Fuel(
     r_outer=0.005,
     nR=5,

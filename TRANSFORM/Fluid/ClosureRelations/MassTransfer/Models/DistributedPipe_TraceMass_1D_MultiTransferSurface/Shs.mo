@@ -6,22 +6,22 @@ model Shs "Specify Sherwood Number (Sh)"
   extends PartialSinglePhase;
 
   input Units.SherwoodNumber Sh0[nC]=fill(7.54, nC)
-    "Nusselt number" annotation (Dialog(group="Input Variables"));
+    "Nusselt number" annotation (Dialog(group="Inputs"));
   input Units.SherwoodNumber Shs0[nMT,nSurfaces,nC]=fillArray_1D_2ns(
       Sh0,
       nMT,
       nSurfaces) "if non-uniform then set"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   parameter Boolean use_DefaultDimension=true
     "= false to set characteristic dimension else from geometry model"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length dimension0=0 "Characteristic dimension" annotation (Dialog(
-        group="Input Variables", enable=not use_DefaultDimension));
+        group="Inputs", enable=not use_DefaultDimension));
   input SI.Length dimensions0[nMT,nSurfaces]=fill(
       dimension0,
       nMT,
-      nSurfaces) "if non-uniform then set" annotation (Dialog(group="Input Variables",
+      nSurfaces) "if non-uniform then set" annotation (Dialog(group="Inputs",
         enable=not use_DefaultDimension));
 
   SI.Length[nMT,nSurfaces] L_char "Characteristic length";

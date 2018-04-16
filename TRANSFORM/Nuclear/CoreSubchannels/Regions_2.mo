@@ -8,10 +8,12 @@ model Regions_2
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
 
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package
+      Medium =                                                                Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package
+      Medium =                                                                   Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
 
@@ -36,9 +38,9 @@ model Regions_2
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
 
   replaceable model HeatTransfer =
-      TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal
+      TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal
     constrainedby
-    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.PartialHeatTransfer_setT
+    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.PartialHeatTransfer_setT
     "Coolant coefficient of heat transfer" annotation (choicesAllMatching=true,
       Dialog(group="Heat Transfer"));
 
@@ -65,9 +67,9 @@ model Regions_2
   parameter SI.Temperature Teffref_coolant "Coolant reference temperature"
                                     annotation (Dialog(tab="Kinetics", group="Reactivity Feedback Parameters"));
 
-  input Real CR_reactivity = 0.0 "Control rod reactivity" annotation (Dialog(tab="Kinetics", group="Input Variables"));
-  input Real Other_reactivity = 0.0 "Additional non-classified reactivity" annotation (Dialog(tab="Kinetics", group="Input Variables"));
-  input SI.Power S_external = 0.0 "External heat source" annotation (Dialog(tab="Kinetics", group="Input Variables"));
+  input Real CR_reactivity = 0.0 "Control rod reactivity" annotation (Dialog(tab="Kinetics", group="Inputs"));
+  input Real Other_reactivity = 0.0 "Additional non-classified reactivity" annotation (Dialog(tab="Kinetics", group="Inputs"));
+  input SI.Power S_external = 0.0 "External heat source" annotation (Dialog(tab="Kinetics", group="Inputs"));
 
   replaceable package Material_1 =
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy
@@ -272,7 +274,8 @@ model Regions_2
     C_i_start=C_i_start)
     annotation (Placement(transformation(extent={{-14,43},{14,64}})));
 
-  Fluid.Pipes.GenericPipe              coolantSubchannel(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                       coolantSubchannel(
     use_HeatTransfer=true,
     redeclare package Medium = Medium,
     p_a_start=p_a_start,
@@ -294,7 +297,7 @@ model Regions_2
     h_b_start=h_b_start,
     hs_start=hs_start,
     ps_start=ps_start,
-    Ts_wall(start=fuelModel.Ts_start_2[end, :]),
+    Ts_wall(start={{fuelModel.Ts_start_2[end, i] for j in 1:coolantSubchannel.heatTransfer.nSurfaces} for i in 1:coolantSubchannel.nV}),
     Xs_start=Xs_start,
     Cs_start=Cs_start,
     X_a_start=X_a_start,
@@ -360,8 +363,6 @@ model Regions_2
     annotation (Placement(transformation(extent={{-54,48},{-40,56}})));
 equation
 
-  connect(fuelModel.heatPorts_b, coolantSubchannel.heatPorts) annotation (Line(
-        points={{0.1,-0.2},{0.1,-7.5},{0,-7.5}},      color={127,0,0}));
   connect(T_effective_fuel.y, reactorKinetics.Teff_fuel_in) annotation (Line(
         points={{-39.3,42},{-30,42},{-30,48.8734},{-12.565,48.8734}}, color={0,0,
           127}));
@@ -385,6 +386,8 @@ equation
           127}));
   connect(reactorKinetics.Q_total, powerProfile.Q_total) annotation (Line(
         points={{12.565,53.5328},{36,53.5328},{36,31},{27.4,31}}, color={0,0,127}));
+  connect(coolantSubchannel.heatPorts[:, 1], fuelModel.heatPorts_b) annotation (
+     Line(points={{0,-7.5},{0,-4},{0,-0.2},{0.1,-0.2}}, color={191,0,0}));
   annotation (defaultComponentName="coreSubchannel",
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),        Icon(coordinateSystem(preserveAspectRatio=false,

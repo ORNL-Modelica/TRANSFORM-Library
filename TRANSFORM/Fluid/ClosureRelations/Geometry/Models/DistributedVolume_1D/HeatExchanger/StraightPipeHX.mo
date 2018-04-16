@@ -26,55 +26,55 @@ model StraightPipeHX
   // Shell Side
   input SI.Length dimension_shell=4*crossArea_shell/perimeter_shell
     "Characteristic dimension (e.g., hydraulic diameter)"
-    annotation (Dialog(tab="Shell Side", group="Input Variables"));
+    annotation (Dialog(tab="Shell Side", group="Inputs"));
   input SI.Area crossArea_shell=0.25*pi*dimension_shell*dimension_shell
     "Cross-sectional flow areas"
-    annotation (Dialog(tab="Shell Side", group="Input Variables"));
+    annotation (Dialog(tab="Shell Side", group="Inputs"));
   input SI.Length perimeter_shell=4*crossArea_shell/dimension_shell
     "Wetted perimeters"
-    annotation (Dialog(tab="Shell Side", group="Input Variables"));
+    annotation (Dialog(tab="Shell Side", group="Inputs"));
   input SI.Length length_shell=1.0 "Pipe length"
-    annotation (Dialog(tab="Shell Side", group="Input Variables"));
+    annotation (Dialog(tab="Shell Side", group="Inputs"));
   input SI.Height roughness_shell=2.5e-5
     "Average heights of surface asperities"
-    annotation (Dialog(tab="Shell Side", group="Input Variables"));
+    annotation (Dialog(tab="Shell Side", group="Inputs"));
   input SI.Area surfaceArea_shell[nSurfaces_shell]={pi*D_o_tube*length_tube*nTubes} "Outer surface area"
-    annotation (Dialog(tab="Shell Side", group="Input Variables"));
+    annotation (Dialog(tab="Shell Side", group="Inputs"));
 
   // Static head
   input SI.Angle angle_shell=0.0 "Vertical angle from the horizontal  (-pi/2 < x <= pi/2)"
-    annotation (Dialog(tab="Shell Side", group="Input Variables: Elevation"));
+    annotation (Dialog(tab="Shell Side", group="Inputs Elevation"));
   input SI.Length dheight_shell= length_shell*sin(angle_shell)
     "Height(port_b) - Height(port_a) distributed by flow segment"
-    annotation (Dialog(tab="Shell Side", group="Input Variables: Elevation"));
+    annotation (Dialog(tab="Shell Side", group="Inputs Elevation"));
 
   // Tube Side
   input SI.Length dimension_tube=4*crossArea_tube/perimeter_tube
     "Characteristic dimension (e.g., hydraulic diameter)"
-    annotation (Dialog(tab="Tube Side", group="Input Variables"));
+    annotation (Dialog(tab="Tube Side", group="Inputs"));
   input SI.Area crossArea_tube=0.25*pi*dimension_tube*dimension_tube
     "Cross-sectional flow areas"
-    annotation (Dialog(tab="Tube Side", group="Input Variables"));
+    annotation (Dialog(tab="Tube Side", group="Inputs"));
   input SI.Length perimeter_tube=4*crossArea_tube/dimension_tube
     "Wetted perimeters"
-    annotation (Dialog(tab="Tube Side", group="Input Variables"));
+    annotation (Dialog(tab="Tube Side", group="Inputs"));
   input SI.Length length_tube=1.0 "Pipe length"
-    annotation (Dialog(tab="Tube Side", group="Input Variables"));
+    annotation (Dialog(tab="Tube Side", group="Inputs"));
   input SI.Height roughness_tube=2.5e-5 "Average heights of surface asperities"
-    annotation (Dialog(tab="Tube Side", group="Input Variables"));
+    annotation (Dialog(tab="Tube Side", group="Inputs"));
   input SI.Area surfaceArea_tube[nSurfaces_tube]={perimeter_tube*
       length_tube} "Inner surface area"
-    annotation (Dialog(tab="Tube Side", group="Input Variables"));
+    annotation (Dialog(tab="Tube Side", group="Inputs"));
 
   // Static head
   input SI.Angle angle_tube=0.0 "Vertical angle from the horizontal  (-pi/2 < x <= pi/2)"
-    annotation (Dialog(tab="Tube Side", group="Input Variables: Elevation"));
+    annotation (Dialog(tab="Tube Side", group="Inputs Elevation"));
   input SI.Length dheight_tube= length_tube*sin(angle_tube)
     "Height(port_b) - Height(port_a) distributed by flow segment"
-    annotation (Dialog(tab="Tube Side", group="Input Variables: Elevation"));
+    annotation (Dialog(tab="Tube Side", group="Inputs Elevation"));
 
   input SI.Length th_wall=0.001 "Tube wall thickness"
-    annotation (Dialog(tab="Tube Side",group="Input Variables: Tube Wall"));
+    annotation (Dialog(tab="Tube Side",group="Inputs: Tube Wall"));
 
   SI.Length dimension_tube_outer = sum(dimensions_tube_outer)/nV "Tube outer diameter";
 

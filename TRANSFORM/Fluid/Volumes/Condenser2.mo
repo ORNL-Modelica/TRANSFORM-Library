@@ -43,13 +43,13 @@ model Condenser2
 
   input SI.CoefficientOfHeatTransfer alphaInt_WExt=1
     "Coeffient for internals outer surface and the fluid state"
-    annotation (Dialog(group="Input Variables: Heat Transfer"));
+    annotation (Dialog(group="Inputs Heat Transfer"));
   input SI.CoefficientOfHeatTransfer alphaInt_WInt=16912
     "Coeffient for internals inner surface and the coolant fluid state"
-    annotation (Dialog(group="Input Variables: Heat Transfer"));
+    annotation (Dialog(group="Inputs Heat Transfer"));
 
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
-    annotation (Dialog(tab="Advanced", group="Input Variables"));
+    annotation (Dialog(tab="Advanced", group="Inputs"));
 
   parameter SI.Temperature T_start_wall=293.15
     "Tube wall temperature start value"

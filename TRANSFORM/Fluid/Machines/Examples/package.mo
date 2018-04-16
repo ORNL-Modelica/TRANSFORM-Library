@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Machines;
 package Examples
-  extends Modelica.Icons.ExamplesPackage;
+  extends TRANSFORM.Icons.ExamplesPackage;
 
 
 end Examples;

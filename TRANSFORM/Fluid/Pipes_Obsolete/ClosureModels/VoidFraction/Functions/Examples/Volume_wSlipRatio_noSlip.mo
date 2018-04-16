@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.VoidFraction.Functions.Examples;
 model Volume_wSlipRatio_noSlip
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   constant Integer n = 10 "Number of data points";
   constant SI.Density rho_lsat = 887.1064 "Saturated liquid density at 10 bar";

@@ -38,10 +38,10 @@ model TraceSeparator
     "Index in carrier of separated substances";
 
   input SIadd.NonDim[nSep] eta=fill(1, nSep) "Separation efficiency"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.MassFlowRate m_flow_sepFluid=0
     "Mass flow rate of fluid removed with carrier fluid"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SIadd.NonDim[Medium.nC] eta_sep=TRANSFORM.Math.replaceArrayValues(
       zeros(Medium.nC),

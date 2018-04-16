@@ -3,7 +3,7 @@ model SpecifiedResistance
 
   extends BaseClasses.PartialResistance;
 
-  input Units.HydraulicResistance R "Hydraulic resistance" annotation(Dialog(group="Input Variables"));
+  input Units.HydraulicResistance R "Hydraulic resistance" annotation(Dialog(group="Inputs"));
 
 equation
 

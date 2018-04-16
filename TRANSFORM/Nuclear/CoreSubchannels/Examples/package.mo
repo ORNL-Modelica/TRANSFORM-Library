@@ -1,6 +1,6 @@
 within TRANSFORM.Nuclear.CoreSubchannels;
 package Examples
-extends Modelica.Icons.ExamplesPackage;
+extends TRANSFORM.Icons.ExamplesPackage;
 
 
 

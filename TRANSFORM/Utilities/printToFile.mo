@@ -1,6 +1,6 @@
 within TRANSFORM.Utilities;
 model printToFile
-  input Real x "Variable to be printed" annotation(Dialog(group="Input Variables:"));
+  input Real x "Variable to be printed" annotation(Dialog(group="Inputs"));
   parameter Real dtime "Time interval for printing. Note: Choose proper simulation and output intervals";
   parameter String fileName = "" "file name (e.g. ''myfile.txt'')";
 equation

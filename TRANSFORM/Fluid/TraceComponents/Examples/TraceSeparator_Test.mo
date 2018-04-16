@@ -69,7 +69,7 @@ equation
     annotation (Line(points={{10,6},{26,6},{26,0},{40,0}},
                                              color={0,127,255}));
   connect(sink_sepFluid.ports[1], traceSeparator.port_sepFluid) annotation (
-      Line(points={{40,-30},{26,-30},{26,-1},{10,-1}}, color={0,127,255}));
+      Line(points={{40,-30},{26,-30},{26,0},{10,0}},   color={0,127,255}));
   connect(sink_carrier.ports[1], traceSeparator.port_b_carrier) annotation (
       Line(points={{40,-60},{24,-60},{24,-6},{10,-6}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

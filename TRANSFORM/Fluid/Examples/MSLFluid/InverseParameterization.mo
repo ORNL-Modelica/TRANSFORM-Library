@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Examples.MSLFluid;
 model InverseParameterization
   "Demonstrates the parameterization of a pump and a pipe for given nominal values"
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   replaceable package Medium = Modelica.Media.Water.StandardWater;
   //replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;

@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Interfaces.Examples;
 model BaseProperties2Phase_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium=Modelica.Media.Water.StandardWater;
 

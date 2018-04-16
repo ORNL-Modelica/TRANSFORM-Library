@@ -1,4 +1,4 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.Condensation;
 package Examples
-  extends Modelica.Icons.ExamplesPackage;
+  extends TRANSFORM.Icons.ExamplesPackage;
 end Examples;

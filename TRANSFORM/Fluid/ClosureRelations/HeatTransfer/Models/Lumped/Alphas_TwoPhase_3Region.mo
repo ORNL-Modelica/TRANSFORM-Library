@@ -7,38 +7,38 @@ model Alphas_TwoPhase_3Region "Specify alphas | Two Phase | 3 Regions"
        ./ dimension .*
       HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Re, Pr) "Turbulent coefficient of heat transfer - Liquid Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.CoefficientOfHeatTransfer alpha_TwoPhaseSaturated=mediaProps.lambda
        ./ dimension .*
       HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Re, Pr) "Coefficient of heat transfer - Saturated Two Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.CoefficientOfHeatTransfer alpha_SinglePhaseVapor=mediaProps.lambda
        ./ dimension .*
       HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(
       Re, Pr) "Turbulent coefficient of heat transfer - Vapor Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Length L_char=dimension
     "Characteristic dimension for calculation of Nu"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.ThermalConductivity lambda=mediaProps.lambda
     "Thermal conductivity for calculation of Nu"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input Real HT_width[3]={0.02,0.02,0.02}
    "Smooth transition width"
-   annotation (Dialog(tab="Advanced",group="Input Variables"));
+   annotation (Dialog(tab="Advanced",group="Inputs"));
 
   input Real HT_smooth[3]={0,0.5,0.9}
    "Smooth value for transition between regions with phase transition"
-   annotation (Dialog(tab="Advanced",group="Input Variables"));
+   annotation (Dialog(tab="Advanced",group="Inputs"));
 
   input Real Var_smooth=mediaProps.alphaV
     "Variable for smoothing between regions with phase transition"
-    annotation (Dialog(tab="Advanced",group="Input Variables"));
+    annotation (Dialog(tab="Advanced",group="Inputs"));
 
 protected
   SI.CoefficientOfHeatTransfer

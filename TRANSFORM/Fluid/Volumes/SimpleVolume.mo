@@ -25,7 +25,7 @@ model SimpleVolume
 
   Geometry geometry annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
 
-  input SI.Acceleration g_n = Modelica.Constants.g_n "Gravitational acceleration" annotation(Dialog(tab="Advanced",group="Input Variables"));
+  input SI.Acceleration g_n = Modelica.Constants.g_n "Gravitational acceleration" annotation(Dialog(tab="Advanced",group="Inputs"));
 
   parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced",group="Heat Transfer"),Evaluate=true);
   input SI.HeatFlowRate Q_gen=0 "Internal heat generation" annotation(Dialog(tab="Advanced",group="Heat Transfer"));

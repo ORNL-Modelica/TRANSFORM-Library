@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.Examples;
 model Constant_alphas_Test
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium = Modelica.Media.Water.StandardWater;
 

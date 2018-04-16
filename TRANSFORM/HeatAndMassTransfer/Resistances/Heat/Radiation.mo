@@ -7,10 +7,10 @@ model Radiation "Radiation"
   import Modelica.Constants.sigma;
 
   parameter Boolean useExact = true "=false to use average temperature approximation Tbar^3";
-  input SI.Area surfaceArea "Heat transfer surface area" annotation(Dialog(group="Input Variables"));
-  input SI.Emissivity epsilon "Emissivity" annotation(Dialog(group="Input Variables"));
-//   input SI.Temperature Tsurf "Absolute surface temperature" annotation(Dialog(group="Input Variables", enable=not useExact));
-//   input SI.Temperature Tsur "Absolute surroundings temperature" annotation(Dialog(group="Input Variables", enable=not useExact));
+  input SI.Area surfaceArea "Heat transfer surface area" annotation(Dialog(group="Inputs"));
+  input SI.Emissivity epsilon "Emissivity" annotation(Dialog(group="Inputs"));
+//   input SI.Temperature Tsurf "Absolute surface temperature" annotation(Dialog(group="Inputs", enable=not useExact));
+//   input SI.Temperature Tsur "Absolute surroundings temperature" annotation(Dialog(group="Inputs", enable=not useExact));
 
   SI.Temperature T_bar "Average temperature";
 

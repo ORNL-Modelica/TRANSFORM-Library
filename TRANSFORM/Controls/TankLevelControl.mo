@@ -7,12 +7,12 @@ model TankLevelControl
   parameter SI.Length level_min "Min fluid level (pump turns off)";
 
   input SI.Length level "Fluid level"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input Real drainRate_active "Specified flow rate out of tank when active"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input Real drainRate_nonActive=0
     "Specified flow rate out of tank when not active"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   Modelica.Blocks.Logical.Hysteresis hysteresis(uLow=level_min, uHigh=level_max)
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));

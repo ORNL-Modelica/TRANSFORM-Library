@@ -19,7 +19,8 @@ model SimpleVolume_Test
     p=100000,
     h=1e5) annotation (Placement(transformation(extent={{80,10},{60,30}})));
   FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1)
+              Medium =
+               Modelica.Media.Water.StandardWater, R=1)
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   SimpleVolume volume1(redeclare package Medium =
         Modelica.Media.Water.StandardWater, redeclare model Geometry =
@@ -38,10 +39,12 @@ model SimpleVolume_Test
     p=100000,
     h=1e5) annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   FittingsAndResistances.SpecifiedResistance resistance1(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1)
+              Medium =
+               Modelica.Media.Water.StandardWater, R=1)
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
   FittingsAndResistances.SpecifiedResistance resistance2(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1)
+              Medium =
+               Modelica.Media.Water.StandardWater, R=1)
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/10,

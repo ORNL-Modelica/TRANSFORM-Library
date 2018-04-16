@@ -5,7 +5,7 @@ partial model PartialVolume_noMedia
 
   extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
 
-  input SI.Volume V "Volume" annotation (Dialog(group="Input Variables"));
+  input SI.Volume V "Volume" annotation (Dialog(group="Inputs"));
 
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
@@ -17,9 +17,9 @@ partial model PartialVolume_noMedia
     "Reference temperature for zero enthalpy"
     annotation (Dialog(tab="Advanced"));
 
-  input SI.Density d "Density" annotation (Dialog(group="Input Variables"));
+  input SI.Density d "Density" annotation (Dialog(group="Inputs"));
   input SI.SpecificHeatCapacity cp "Specific heat capacity"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SI.Temperature T(stateSelect=StateSelect.prefer, start=T_start) "Temperature";
 

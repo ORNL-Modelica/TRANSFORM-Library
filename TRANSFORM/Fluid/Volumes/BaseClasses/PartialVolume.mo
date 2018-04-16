@@ -9,7 +9,7 @@ partial model PartialVolume
     "Medium properties" annotation (choicesAllMatching=true);
 
   // Inputs provided to the volume model
-  input SI.Volume V(min=0) "Volume" annotation (Dialog(group="Input Variables"));
+  input SI.Volume V(min=0) "Volume" annotation (Dialog(group="Inputs"));
 
   // Initialization
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial

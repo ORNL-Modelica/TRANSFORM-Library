@@ -3,22 +3,22 @@ model Pump "Centrifugal pump with ideally controlled speed"
   extends TRANSFORM.Fluid.Machines.BaseClasses.PartialPump;
 
   parameter String controlType="RPM" annotation (Dialog(group=
-          "Input Variables: Control Setting"), choices(
+          "Inputs Control Setting"), choices(
       choice="RPM",
       choice="m_flow",
       choice="pressure"));
   parameter Boolean use_port=false "=true to toggle port for control signal"
-    annotation (Dialog(group="Input Variables: Control Setting"));
+    annotation (Dialog(group="Inputs Control Setting"));
 
   input SI.Conversions.NonSIunits.AngularVelocity_rpm N_input=N_nominal
     "Set rotational speed" annotation (Dialog(group=
-          "Input Variables: Control Setting", enable=if controlType == "RPM"
+          "Inputs Control Setting", enable=if controlType == "RPM"
            and use_port == false then true else false));
   input SI.MassFlowRate m_flow_input=m_flow_nominal "Set mass flow rate"
-    annotation (Dialog(group="Input Variables: Control Setting", enable=if
+    annotation (Dialog(group="Inputs Control Setting", enable=if
           controlType == "m_flow" and use_port == false then true else false));
   input SI.Pressure p_input=p_a_start + dp_nominal "Set pressure" annotation (
-      Dialog(group="Input Variables: Control Setting", enable=if controlType
+      Dialog(group="Inputs Control Setting", enable=if controlType
            == "pressure" and use_port == false then true else false));
 
   Modelica.Blocks.Interfaces.RealInput inputSignal if  use_port annotation (

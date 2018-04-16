@@ -3,11 +3,11 @@ model LumpedHeatTimeConstant
 
   parameter Boolean use_C = false "= true, to specify thermal capacitance";
 
-  input SI.ThermalResistance R "Total thermal resistance" annotation(Dialog(group="Input Variables"));
-  input SI.Density d "Density" annotation(Dialog(group="Input Variables",enable = not use_C));
-  input SI.SpecificHeatCapacity cp "Specific heat capacity" annotation(Dialog(group="Input Variables",enable = not use_C));
-  input SI.Volume V "Volume" annotation(Dialog(group="Input Variables",enable = not use_C));
-  input SI.HeatCapacity C = d*V*cp "Thermal capacitance" annotation(Dialog(group="Input Variables",enable = use_C));
+  input SI.ThermalResistance R "Total thermal resistance" annotation(Dialog(group="Inputs"));
+  input SI.Density d "Density" annotation(Dialog(group="Inputs",enable = not use_C));
+  input SI.SpecificHeatCapacity cp "Specific heat capacity" annotation(Dialog(group="Inputs",enable = not use_C));
+  input SI.Volume V "Volume" annotation(Dialog(group="Inputs",enable = not use_C));
+  input SI.HeatCapacity C = d*V*cp "Thermal capacitance" annotation(Dialog(group="Inputs",enable = use_C));
 
   SI.Time tau "Diffusive heat transfer time constant";
 

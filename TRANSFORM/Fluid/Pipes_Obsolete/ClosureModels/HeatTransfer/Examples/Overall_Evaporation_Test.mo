@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Examples;
 model Overall_Evaporation_Test
   "Test case for overall evaporation heat transfer model"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   inner System_TP system(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 

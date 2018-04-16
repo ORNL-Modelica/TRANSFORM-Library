@@ -23,34 +23,34 @@ model Regions_3_FD2DCyl
   parameter Integer nR_3=3 "# nodes in region 2 radial direction";
 
   input SI.Length length "Length of axial dimension"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length zs[nZ]=linspace(
       0.5*length/nZ,
       length*(1 - 0.5/nZ),
-      nZ) "Axial positions" annotation (Dialog(group="Input Variables"));
+      nZ) "Axial positions" annotation (Dialog(group="Inputs"));
   input SI.Length r_1_inner = 0 "Inner radius of region 1"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length r_1_outer = 0.01 "Outer radius of region 1"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length r_2_outer = r_1_outer + 0.001 "Outer radius of region 2"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length r_3_outer = r_2_outer + 0.001 "Outer radius of region 2"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length rs_1[nR_1]=linspace(
       r_1_inner,
       r_1_outer,
       nR_1) "Region 1 radial positions"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length rs_2[nR_2]=linspace(
       r_1_outer,
       r_2_outer,
       nR_2) "Region 2 radial positions"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length rs_3[nR_3]=linspace(
       r_2_outer,
       r_3_outer,
       nR_3) "Region 3 radial positions"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   /* Assumptions */
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial

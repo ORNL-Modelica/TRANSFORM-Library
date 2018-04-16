@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Interfaces.Examples;
 model VariableArea_Test "Verification of VariableArea component"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   VariableArea variableArea(
     nVar=2,

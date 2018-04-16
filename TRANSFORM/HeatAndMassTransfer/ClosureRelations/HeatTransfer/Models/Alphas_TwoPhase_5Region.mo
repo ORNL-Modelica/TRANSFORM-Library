@@ -12,7 +12,7 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions"
       xs,
       dimensions,
       true) "Laminar coefficient of heat transfer - Liquid Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_SinglePhaseLiquid_turb=
       mediums_film.lambda ./ dimensions .*
@@ -22,7 +22,7 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions"
       xs,
       dimensions,
       roughnesses) "Turbulent coefficient of heat transfer - Liquid Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_TwoPhaseSaturated={mediums_film[
       i].lambda/dimensions[i]*
@@ -41,7 +41,7 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions"
       Delta_Tsat=Ts_wall[i] - mediums[i].sat.Tsat,
       Delta_psat=Medium.saturationPressure(Ts_wall[i]) - mediums[i].p) for i in
           1:nHT} "Coefficient of heat transfer - Saturated Two Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_SinglePhaseVapor_lam=
       mediums_film.lambda ./ dimensions .*
@@ -51,7 +51,7 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions"
       xs,
       dimensions,
       true) "Laminar coefficient of heat transfer - Vapor Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.CoefficientOfHeatTransfer[nHT] alpha_SinglePhaseVapor_turb=
       mediums_film.lambda ./ dimensions .*
@@ -61,14 +61,14 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions"
       xs,
       dimensions,
       roughnesses) "Turbulent coefficient of heat transfer - Vapor Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Length[nHT] L_char=dimensions
     "Characteristic dimension for calculation of Nu"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.ThermalConductivity[nHT] lambda=mediums_film.lambda
     "Thermal conductivity for calculation of Nu"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   parameter Units.NonDim x_CHF=0.9
     "Steam quality corresponding to Critical Heat Flux"

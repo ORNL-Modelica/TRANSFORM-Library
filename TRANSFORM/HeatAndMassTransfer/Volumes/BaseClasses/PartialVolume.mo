@@ -10,7 +10,7 @@ partial model PartialVolume
                                             "Material properties" annotation (
       choicesAllMatching=true);
 
-  input SI.Volume V "Volume" annotation (Dialog(group="Input Variables"));
+  input SI.Volume V "Volume" annotation (Dialog(group="Inputs"));
 
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"

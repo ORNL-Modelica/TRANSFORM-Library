@@ -5,8 +5,8 @@ model GenericMassGeneration
 
   extends PartialInternalMassGeneration;
 
-  input SI.MolarFlowRate n_gen[nC] = zeros(nC) "Per volume mole generation" annotation(Dialog(group="Input Variables"));
-  input SI.MolarFlowRate n_gens[nVs[1],nVs[2],nVs[3],nC] = fillArray_3D(n_gen,nVs[1],nVs[2],nVs[3]) "if non-uniform then set n_gens" annotation(Dialog(group="Input Variables"));
+  input SI.MolarFlowRate n_gen[nC] = zeros(nC) "Per volume mole generation" annotation(Dialog(group="Inputs"));
+  input SI.MolarFlowRate n_gens[nVs[1],nVs[2],nVs[3],nC] = fillArray_3D(n_gen,nVs[1],nVs[2],nVs[3]) "if non-uniform then set n_gens" annotation(Dialog(group="Inputs"));
 
 equation
 

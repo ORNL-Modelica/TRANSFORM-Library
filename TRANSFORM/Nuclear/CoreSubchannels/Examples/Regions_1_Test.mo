@@ -1,6 +1,6 @@
 within TRANSFORM.Nuclear.CoreSubchannels.Examples;
 model Regions_1_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   Modelica.Fluid.Sources.MassFlowSource_T m_boundary(
     nPorts=1,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
@@ -23,8 +23,6 @@ model Regions_1_Test
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     redeclare package Material_1 = Media.Solids.UO2,
     p_b_start=P_boundary.p,
-    redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
     energyDynamics=system.energyDynamics,
     energyDynamics_fuel=system.energyDynamics,
     CR_reactivity=ControlRod_Reactivity.y,
@@ -36,6 +34,9 @@ model Regions_1_Test
         length=4.27,
         rs_outer={0.5*0.0095},
         nPins=23496),
+    redeclare model HeatTransfer =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
     Teffref_fuel=624.087,
     Teffref_coolant=547.25,
     T_start_1=623.15)

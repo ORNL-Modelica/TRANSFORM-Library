@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Examples;
 model DittusBoelter_Test
   "Test case for Dittus-Boelter Correlation heat transfer model"
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   inner System_TP system(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 

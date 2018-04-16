@@ -1,7 +1,7 @@
 within TRANSFORM.Math.Examples;
 model logspace
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   parameter Integer n=10;
 

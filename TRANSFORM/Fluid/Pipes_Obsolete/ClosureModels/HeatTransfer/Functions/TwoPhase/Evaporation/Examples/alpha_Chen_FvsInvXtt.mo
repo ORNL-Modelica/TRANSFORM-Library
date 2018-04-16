@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.TwoPhase.Evaporation.Examples;
 model alpha_Chen_FvsInvXtt
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium = Modelica.Media.Water.StandardWater;
 

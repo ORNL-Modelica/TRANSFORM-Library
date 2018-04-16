@@ -1,6 +1,6 @@
 within TRANSFORM.Math.Examples;
 package Verification
-  extends Modelica.Icons.ExamplesPackage;
+  extends TRANSFORM.Icons.ExamplesPackage;
 
 
 

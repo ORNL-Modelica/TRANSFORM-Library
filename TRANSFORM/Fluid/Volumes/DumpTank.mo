@@ -21,7 +21,7 @@ model DumpTank "Expansion tank with cover gas"
   parameter SI.Area A "Cross-sectional area";
   parameter SI.Volume V0=0 "Volume at zero level";
   input SI.Pressure p_surface=p_start "Liquid surface/gas pressure"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction"

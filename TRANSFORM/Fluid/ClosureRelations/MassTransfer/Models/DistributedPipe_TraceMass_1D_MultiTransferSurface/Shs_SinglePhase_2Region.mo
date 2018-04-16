@@ -9,17 +9,17 @@ model Shs_SinglePhase_2Region "Specify Sh | Single Phase | 2 Region - Laminar & 
       Scs[i, k],
       sum(dlengths),
       dimensions[i]) for k in 1:nC} for j in 1:nSurfaces} for i in 1:nMT}
-    "Laminar Schmidt number" annotation (Dialog(group="Input Variables"));
+    "Laminar Schmidt number" annotation (Dialog(group="Inputs"));
 
   input SI.SchmidtNumber Shs_turb[nMT,nSurfaces,nC]={{{
       HeatAndMassTransfer.ClosureRelations.MassTransfer.Functions.SinglePhase.InternalFlow.Sh_Turbulent_Local_Developed_Circular_DittusBoelter(
       Res[i], Scs[i, k]) for k in 1:nC} for j in 1:nSurfaces} for i in 1
       :nMT} "Turbulent Schmidt number"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Length[nMT,nSurfaces] L_char=transpose({dimensions for i in 1:
       nSurfaces}) "Characteristic dimension for calculation of alphaM"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

@@ -5,9 +5,9 @@ model UnitTests
   parameter Integer n=1 "Array size of x and x_reference";
 
   input Real x[n] "Variables of interest"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input Real x_reference[n]=fill(0, n) "Reference values"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   parameter Boolean errorCalcs=false
     "=true to perform error calculations of x vs x_reference"

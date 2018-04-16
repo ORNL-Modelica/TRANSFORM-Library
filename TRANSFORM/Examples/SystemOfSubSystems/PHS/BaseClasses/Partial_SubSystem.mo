@@ -2,7 +2,8 @@ within TRANSFORM.Examples.SystemOfSubSystems.PHS.BaseClasses;
 partial model Partial_SubSystem
   import TRANSFORM;
 
-  extends TRANSFORM.Examples.SystemOfSubSystems.BaseClasses.Partial_SubSystem(
+  extends
+    TRANSFORM.Examples.SystemOfSubSystems.BaseClasses.Partial_SubSystem(
       redeclare replaceable BaseClasses.Partial_ControlSystem CS
       constrainedby BaseClasses.Partial_ControlSystem, redeclare replaceable
                   BaseClasses.Partial_EventDriver ED constrainedby

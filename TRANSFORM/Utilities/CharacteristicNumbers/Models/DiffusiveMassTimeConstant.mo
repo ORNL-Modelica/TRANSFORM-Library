@@ -1,9 +1,9 @@
 within TRANSFORM.Utilities.CharacteristicNumbers.Models;
 model DiffusiveMassTimeConstant
 
-  input SI.Length L "Characteristic length" annotation(Dialog(group="Input Variables"));
+  input SI.Length L "Characteristic length" annotation(Dialog(group="Inputs"));
 
-  input SI.DiffusionCoefficient D_ab "Diffusion coefficient" annotation(Dialog(group="Input Variables"));
+  input SI.DiffusionCoefficient D_ab "Diffusion coefficient" annotation(Dialog(group="Inputs"));
 
   SI.Time tau "Diffusive mass transfer time constant";
 

@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Examples.MSLFluid;
 model HeatingSystem "Simple model of a heating system"
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
    replaceable package Medium =
       Modelica.Media.Water.StandardWater
      constrainedby Modelica.Media.Interfaces.PartialMedium;
@@ -95,7 +95,7 @@ protected
     annotation (Placement(transformation(extent={{-46,-56},{-58,-44}})));
 public
   TRANSFORM.Fluid.Sensors.Temperature sensor_T_forward(redeclare package
-      Medium =
+              Medium =
         Medium)
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
   TRANSFORM.Fluid.Sensors.Temperature sensor_T_return(redeclare package

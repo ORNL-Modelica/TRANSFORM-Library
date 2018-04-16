@@ -1,9 +1,9 @@
 within TRANSFORM.Utilities.CharacteristicNumbers.Models;
 model BiotNumber
 
-  input SI.CoefficientOfHeatTransfer alpha "Heat transfer coefficient" annotation(Dialog(group="Input Variables"));
-  input SI.Length L "Characteristic length" annotation(Dialog(group="Input Variables"));
-  input SI.ThermalConductivity lambda "Thermal conductivity (e.g., of the solid)" annotation(Dialog(group="Input Variables"));
+  input SI.CoefficientOfHeatTransfer alpha "Heat transfer coefficient" annotation(Dialog(group="Inputs"));
+  input SI.Length L "Characteristic length" annotation(Dialog(group="Inputs"));
+  input SI.ThermalConductivity lambda "Thermal conductivity (e.g., of the solid)" annotation(Dialog(group="Inputs"));
 
   Units.NonDim Bi "Biot number";
 

@@ -14,51 +14,51 @@ model PointKinetics_Drift
 
   input SI.Mass[nV,nI] mCs
     "Absolute delayed precursor group concentration per volume"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Power[nV] Qs_input=fill(Q_nominal/nV, nV)
     "Specifed power if specifyPower=true"
-    annotation (Dialog(group="Input Variables", enable=specifyPower));
+    annotation (Dialog(group="Inputs", enable=specifyPower));
   input Units.InverseTime Ns_external[nV]=zeros(nV)
     "Rate of neutrons added from an external neutron source"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input Units.NonDim[nV] rhos_input=zeros(nV) "External Reactivity"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   // Neutron Kinetics
   input TRANSFORM.Units.InverseTime[nI] lambda_i={0.0125,0.0318,0.109,0.317,1.35,
       8.64} "Decay constants for each precursor group" annotation (Dialog(tab="Kinetics",
-        group="Input Variables: Neutron Kinetics"));
+        group="Inputs Neutron Kinetics"));
   input TRANSFORM.Units.NonDim[nI] alpha_i={0.0320,0.1664,0.1613,0.4596,0.1335,0.0472}
-    "Normalized precursor fractions" annotation (Dialog(tab="Kinetics", group="Input Variables: Neutron Kinetics"));
+    "Normalized precursor fractions" annotation (Dialog(tab="Kinetics", group="Inputs Neutron Kinetics"));
   input TRANSFORM.Units.NonDim[nI] beta_i=alpha_i*Beta
     "Delayed neutron precursor fractions" annotation (Dialog(tab="Kinetics",
-        group="Input Variables: Neutron Kinetics"));
+        group="Inputs Neutron Kinetics"));
   input TRANSFORM.Units.NonDim Beta=0.0065
     "Effective delay neutron fraction [e.g., Beta = sum(beta_i)]" annotation (
-      Dialog(tab="Kinetics", group="Input Variables: Neutron Kinetics"));
+      Dialog(tab="Kinetics", group="Inputs Neutron Kinetics"));
   input Units.NonDim nu_bar=2.4 "Neutrons per fission" annotation (Dialog(tab="Kinetics",
-        group="Input Variables: Neutron Kinetics"));
+        group="Inputs Neutron Kinetics"));
   input SI.Energy w_f=200e6*1.6022e-19 "Energy released per fission"
-    annotation (Dialog(tab="Kinetics", group="Input Variables: Neutron Kinetics"));
+    annotation (Dialog(tab="Kinetics", group="Inputs Neutron Kinetics"));
   input SI.Time Lambda=1e-5 "Prompt neutron generation time" annotation (Dialog(
-        tab="Kinetics", group="Input Variables: Neutron Kinetics"));
+        tab="Kinetics", group="Inputs Neutron Kinetics"));
 
   // Reactivity Feedback
   parameter Integer nFeedback = 1 "# of reactivity feedbacks (alpha*(val-val_ref)" annotation (Dialog(tab="Kinetics",
-        group="Input Variables: Reactivity Feedback"));
+        group="Inputs Reactivity Feedback"));
   input Units.TempFeedbackCoeff alphas_feedback[nV,nFeedback]=fill(
       -1e-4,
       nV,
       nFeedback) "Reactivity feedback coefficient"
-                                       annotation (Dialog(tab="Kinetics", group="Input Variables: Reactivity Feedback"));
+                                       annotation (Dialog(tab="Kinetics", group="Inputs Reactivity Feedback"));
   input Real vals_feedback[nV,nFeedback] = vals_feedback_reference "Variable value for reactivity feedback"
-    annotation (Dialog(tab="Kinetics",group="Input Variables: Reactivity Feedback"));
+    annotation (Dialog(tab="Kinetics",group="Inputs Reactivity Feedback"));
   input SI.Temperature vals_feedback_reference[nV,nFeedback]=fill(
       500 + 273.15,
       nV,
       nFeedback) "Reference value for reactivity feedback"
                                                  annotation (Dialog(tab="Kinetics",
-        group="Input Variables: Reactivity Feedback"));
+        group="Inputs Reactivity Feedback"));
 
   // Fission products
   parameter Integer nC=0 "# of fission products"
@@ -74,30 +74,30 @@ model PointKinetics_Drift
 
   input SIadd.NonDim fissionSource[nFS]=fill(0, nFS)
     "Source of fissile material fractional composition (sum=1)"
-    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+    annotation (Dialog(tab="Fission Products", group="Inputs"));
   input SI.MacroscopicCrossSection SigmaF=1
     "Macroscopic fission cross-section of fissile material"
-    annotation (Dialog(tab="Fission Products", group="Input Variables"));
-  input SI.Area[nC] sigmaA_FP = fill(0,nC) "Absorption cross-section for reactivity feedback" annotation (Dialog(tab="Fission Products", group="Input Variables"));
+    annotation (Dialog(tab="Fission Products", group="Inputs"));
+  input SI.Area[nC] sigmaA_FP = fill(0,nC) "Absorption cross-section for reactivity feedback" annotation (Dialog(tab="Fission Products", group="Inputs"));
 
   input Real fissionYield[nC,nFS]=fill(
       0,
       nC,
       nFS)
     "# fission product atoms yielded per fission per fissile source [#/fission]"
-    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+    annotation (Dialog(tab="Fission Products", group="Inputs"));
   input TRANSFORM.Units.InverseTime[nC] lambda_FP=fill(0, nC)
     "Decay constants for each fission product"
-    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+    annotation (Dialog(tab="Fission Products", group="Inputs"));
   input SI.Energy w_FP_decay[nC]=fill(0, nC)
     "Energy released per decay of each fission product [J/decay] (near field - e.g., beta)"
-    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+    annotation (Dialog(tab="Fission Products", group="Inputs"));
   input SI.Energy wG_FP_decay[nC]=fill(0, nC)
     "Energy released per decay of each fission product [J/decay] (far field - e.g., gamma)"
-    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+    annotation (Dialog(tab="Fission Products", group="Inputs"));
   input SI.Mass[nV,nC] mCs_FP={{0 for j in 1:nC} for i in 1:nV}
     "Fission product concentration in each volume [#]"
-    annotation (Dialog(tab="Fission Products", group="Input Variables"));
+    annotation (Dialog(tab="Fission Products", group="Inputs"));
 
   // Initialization
   parameter SI.Power Qs_start[nV]=fill(Q_nominal/nV, nV)
@@ -114,27 +114,27 @@ model PointKinetics_Drift
   output SI.Power Qs[nV](start=Qs_start) "Power determined from kinetics. Does not include fission product decay heat"
     annotation (Dialog(
       tab="Internal Inteface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.MassFlowRate[nV,nI] mC_gens "Generation rate of precursor groups"
     annotation (Dialog(
       tab="Internal Inteface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Power Qs_FP[nV] "Near field (e.g, beta) power released from fission product decay"
     annotation (Dialog(
       tab="Internal Inteface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Power Qs_FP_gamma[nV] "Far field (e.g., gamma) power released from fission product decay"
     annotation (Dialog(
       tab="Internal Inteface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.MassFlowRate[nV,nC] mC_gens_FP
     "Generation rate of fission products" annotation (Dialog(
       tab="Internal Inteface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
 
   TRANSFORM.Units.NonDim[nV,nC] rhos_FP "Fission product reactivity feedback";
@@ -154,19 +154,19 @@ model PointKinetics_Drift
     "Matrix of parent sources (sum(column) = 1 or 0) for each tritium contributor 'daughter'. Row is daughter, Column is parent."
     annotation (Dialog(tab="Tritium Balance"));
 
-  input SI.Area[nTR] sigmaA_TR = fill(0,nTR) "Absorption cross-section for reactivity feedback" annotation (Dialog(tab="Tritium Balance", group="Input Variables"));
-  input SI.Area[nTR] sigmaT_TR = fill(0,nTR) "Cross-section for tritium generation" annotation (Dialog(tab="Tritium Balance", group="Input Variables"));
+  input SI.Area[nTR] sigmaA_TR = fill(0,nTR) "Absorption cross-section for reactivity feedback" annotation (Dialog(tab="Tritium Balance", group="Inputs"));
+  input SI.Area[nTR] sigmaT_TR = fill(0,nTR) "Cross-section for tritium generation" annotation (Dialog(tab="Tritium Balance", group="Inputs"));
   input TRANSFORM.Units.InverseTime[nTR] lambda_TR=fill(0, nTR)
     "Decay constants for each tritium contributor"
-    annotation (Dialog(tab="Tritium Balance", group="Input Variables"));
+    annotation (Dialog(tab="Tritium Balance", group="Inputs"));
 
   input SI.Mass[nV,nTR] mCs_TR={{0 for j in 1:nTR} for i in 1:nV}
     "Contributors to tritium [#]"
-    annotation (Dialog(tab="Tritium Balance", group="Input Variables"));
+    annotation (Dialog(tab="Tritium Balance", group="Inputs"));
   output SI.MassFlowRate[nV,nTR] mC_gens_TR "Generation rate of tritium contributors"
     annotation (Dialog(
       tab="Internal Inteface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
 
   SI.MassFlowRate[nV,nTR] mC_gen_H3 "Generation rate of tritium";

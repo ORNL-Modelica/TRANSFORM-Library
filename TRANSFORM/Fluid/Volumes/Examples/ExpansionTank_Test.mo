@@ -46,9 +46,9 @@ model ExpansionTank_Test
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(boundary.ports[1], expansionTank.port_a)
-    annotation (Line(points={{-20,0},{-6,0},{-6,16}}, color={0,127,255}));
+    annotation (Line(points={{-20,0},{-7,0},{-7,16}}, color={0,127,255}));
   connect(resistance.port_a, expansionTank.port_b)
-    annotation (Line(points={{23,0},{6,0},{6,16}}, color={0,127,255}));
+    annotation (Line(points={{23,0},{7,0},{7,16}}, color={0,127,255}));
   connect(resistance.port_b, boundary1.ports[1])
     annotation (Line(points={{37,0},{60,0}}, color={0,127,255}));
   connect(ramp.y, boundary.m_flow_in)

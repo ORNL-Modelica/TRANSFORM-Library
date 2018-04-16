@@ -18,7 +18,7 @@ function dp_MFLOW_staticHead "calculate mass flow rate  with static head"
   input Real g_times_height_ab
     "Gravity times (Height(port_b) - Height(port_a))";
 
-  //output variables
+  //Outputs
   output SI.MassFlowRate M_FLOW "Output of function dp_overall_MFLOW";
 
 protected

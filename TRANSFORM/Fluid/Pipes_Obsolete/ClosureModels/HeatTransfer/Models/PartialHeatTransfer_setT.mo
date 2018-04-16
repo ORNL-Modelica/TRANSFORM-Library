@@ -10,9 +10,9 @@ partial model PartialHeatTransfer_setT
   parameter SI.Acceleration g = Modelica.Constants.g_n "Gravitational acceleration";
 
   input Medium.ThermodynamicState[nHT] states "Thermodynamic state of fluid"
-   annotation(Dialog(tab="Internal Interface",group="Input Variables:"));
+   annotation(Dialog(tab="Internal Interface",group="Inputs"));
   input SI.MassFlowRate[nHT] m_flows "Mass flow rate"
-   annotation(Dialog(tab="Internal Interface",group="Input Variables:"));
+   annotation(Dialog(tab="Internal Interface",group="Inputs"));
 
   // Geometry
   replaceable model Geometry =
@@ -30,19 +30,19 @@ partial model PartialHeatTransfer_setT
     annotation(Dialog(tab="Internal Interface",group="Geometry"));
 
   input SI.Length[nHT] lengths = geometry.dlengths "Characteristic length of heat transfer segment"
-   annotation(Dialog(tab="Internal Interface",group="Input Variables:"));
+   annotation(Dialog(tab="Internal Interface",group="Inputs"));
 
   final parameter Boolean use_Dimensions=geometry.use_Dimensions
     "= true to specify characteristic dimension"
-   annotation(Dialog(tab="Internal Interface",group="Input Variables:"), Evaluate=true);
+   annotation(Dialog(tab="Internal Interface",group="Inputs"), Evaluate=true);
   input SI.Diameter[nHT] dimensions=geometry.dimensions  "Characteristic dimension (e.g. hydraulic diameter)"
-   annotation(Dialog(tab="Internal Interface",group="Input Variables:", enable=use_Dimensions));
+   annotation(Dialog(tab="Internal Interface",group="Inputs", enable=use_Dimensions));
   input SI.Area[nHT] crossAreas = geometry.crossAreas "Cross sectional area"
-   annotation(Dialog(tab="Internal Interface",group="Input Variables:", enable=not use_Dimensions));
+   annotation(Dialog(tab="Internal Interface",group="Inputs", enable=not use_Dimensions));
   input SI.Length[nHT] perimeters=geometry.perimeters "Wetted perimeter"
-   annotation(Dialog(tab="Internal Interface",group="Input Variables:"), enable=not use_Dimensions);
+   annotation(Dialog(tab="Internal Interface",group="Inputs"), enable=not use_Dimensions);
   input SI.Area[nHT] surfaceAreas=geometry.surfaceAreas_23 "Heat transfer area"
-   annotation(Dialog(tab="Internal Interface",group="Input Variables:"));
+   annotation(Dialog(tab="Internal Interface",group="Inputs"));
 
   parameter SI.MassFlowRate m_flow_nominal = 1 "Mass flow rate"
    annotation(Dialog(tab="Internal Interface",group="Nominal Conditions:"));

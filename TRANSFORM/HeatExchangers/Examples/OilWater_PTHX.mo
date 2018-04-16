@@ -2,7 +2,7 @@ within TRANSFORM.HeatExchangers.Examples;
 model OilWater_PTHX
   "Example of an oil and water compact plate-type heat exchanger"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T tube_inlet(
     redeclare package Medium = Modelica.Media.Water.StandardWater,

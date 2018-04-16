@@ -1,7 +1,7 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
 model PointKinetics_Drift_Test_flat
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   replaceable package Medium =
       TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT (

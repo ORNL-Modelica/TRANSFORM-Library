@@ -565,7 +565,8 @@ equation
   connect(lowerPlenum.port_b[1:4], resistances.port_a) annotation (Line(points={{-19.25,
           -122},{-20,-122},{-20,-115}},         color={0,127,255}));
   connect(resistance_toExpTank.port_b, expansionTank.port_a)
-    annotation (Line(points={{-20,47},{-20,58}}, color={0,127,255}));
+    annotation (Line(points={{-20,47},{-20,52},{-20,58},{-21,58}},
+                                                 color={0,127,255}));
   connect(lowerPlenum_outer.port_b[1:3], pump.port_a) annotation (Line(points={{44,
           -67.3333},{40,-67.3333},{40,0},{30,0},{30,-8}},        color={0,127,255}));
   connect(convection.port_b, vessel.port_a1)
@@ -581,7 +582,7 @@ equation
   connect(IHX.port_b_shell, lowerPlenum_outer.port_a[1:3]) annotation (Line(
         points={{67.4,-8},{68,-8},{68,-68.1667},{56,-68.1667}},   color={0,127,255}));
   connect(expansionTank.port_b, resistance_toExpTank1.port_a)
-    annotation (Line(points={{-8,58},{3,58}},    color={0,127,255}));
+    annotation (Line(points={{-7,58},{3,58}},    color={0,127,255}));
   connect(resistance_toExpTank1.port_b, boundary_dummy.ports[1])
     annotation (Line(points={{17,58},{26,58}},   color={0,127,255}));
   connect(IHTS.port_b, IHX.port_b_tube)

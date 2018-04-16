@@ -1,0 +1,6 @@
+simulateModel("TRANSFORM.Blocks.Examples.IntegratorWithReset",stopTime=1.0,tolerance=1e-6,resultFile="IntegratorWithReset");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
+createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
+createPlot(id=3, y={"unitTests.x[3]"}, grid=true);
+createPlot(id=4, y={"unitTests.x[4]"}, grid=true);

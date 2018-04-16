@@ -31,7 +31,7 @@ partial model PartialPump "Base model for centrifugal pumps"
         actualStream(port_b.C_outflow) + mC_flow_internal);
 
   input SI.Length diameter=diameter_nominal "Impeller diameter"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   // Initialization
   parameter Medium.MassFlowRate m_flow_start=0 "Mass flow rate through pump"

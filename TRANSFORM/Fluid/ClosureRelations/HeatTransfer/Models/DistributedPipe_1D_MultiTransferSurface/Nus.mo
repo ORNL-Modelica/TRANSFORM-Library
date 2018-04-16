@@ -4,34 +4,34 @@ model Nus "Specify Nusselt Number (Nu)"
   extends PartialSinglePhase;
 
   input SI.NusseltNumber Nu0=7.54 "Nusselt number"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.NusseltNumber Nus0[nHT,nSurfaces]=fill(
       Nu0,
       nHT,
       nSurfaces) "if non-uniform then set"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   parameter Boolean use_DefaultDimension=true
     "= false to set characteristic dimension else from geometry model"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length dimension0=0 "Characteristic dimension" annotation (Dialog(
-        group="Input Variables", enable=not use_DefaultDimension));
+        group="Inputs", enable=not use_DefaultDimension));
   input SI.Length dimensions0[nHT,nSurfaces]=fill(
       dimension0,
       nHT,
       nSurfaces) "if non-uniform then set" annotation (Dialog(group=
-          "Input Variables", enable=not use_DefaultDimension));
+          "Inputs", enable=not use_DefaultDimension));
 
   parameter Boolean use_LambdaState=true
     "= false to set thermal conductivity else from film state"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   parameter SI.ThermalConductivity lambda0=0 "Thermal conductivity"
-    annotation (Dialog(group="Input Variables", enable=not use_LambdaState));
+    annotation (Dialog(group="Inputs", enable=not use_LambdaState));
   input SI.ThermalConductivity lambdas0[nHT,nSurfaces]=fill(
       lambda0,
       nHT,
       nSurfaces) "if non-uniform then set"
-    annotation (Dialog(group="Input Variables", enable=not use_LambdaState));
+    annotation (Dialog(group="Inputs", enable=not use_LambdaState));
 
   SI.Length[nHT,nSurfaces] L_char "Characteristic length";
   SI.ThermalConductivity[nHT,nSurfaces] lambdas "Thermal conductivity";

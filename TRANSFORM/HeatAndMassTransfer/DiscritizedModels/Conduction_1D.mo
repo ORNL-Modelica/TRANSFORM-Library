@@ -106,7 +106,7 @@ model Conduction_1D "1-D Conduction Models"
   Material.ThermodynamicState state_b1
     "state defined by volume outside port_b1";
   input SI.Velocity velocity_1=0 "Velocity of material through control volumes"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 

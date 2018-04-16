@@ -11,9 +11,9 @@ model Volume_Closed
   parameter SI.AbsolutePressure p_start = 1e5 "Pressure"
     annotation (Dialog(tab="Initialization",group="Start Value: Pressure"));
 
-  input SI.Volume V "Volume" annotation(Dialog(group="Input Variables"));
-  input SI.Temperature T "Temperature" annotation(Dialog(group="Input Variables"));
-  input SI.MolarFlowRate n_gen = 0 "Internal mole generation" annotation(Dialog(group="Input Variables"));
+  input SI.Volume V "Volume" annotation(Dialog(group="Inputs"));
+  input SI.Temperature T "Temperature" annotation(Dialog(group="Inputs"));
+  input SI.MolarFlowRate n_gen = 0 "Internal mole generation" annotation(Dialog(group="Inputs"));
 
   SI.Concentration C "Concentration";
   Units.Mole n "Moles in volume";

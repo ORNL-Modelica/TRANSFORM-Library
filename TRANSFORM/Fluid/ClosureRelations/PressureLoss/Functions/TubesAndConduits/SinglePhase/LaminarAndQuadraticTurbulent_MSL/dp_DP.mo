@@ -16,7 +16,7 @@ function dp_DP
    input SI.MassFlowRate m_flow_small=0.01
      "Regularization of zero flow if |m_flow| < m_flow_small (dummy if use_m_flow_small = false)";
 
-   //output variables
+   //Outputs
    output SI.Pressure DP "Output for function dp_overall_DP";
 
 protected

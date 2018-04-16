@@ -4,11 +4,11 @@ model SimpleWall_Cylinder
   import Modelica.Fluid.Types.Dynamics;
 
   input SI.Length length "Length"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length r_inner "Inner radius"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length r_outer "Outer radius"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SI.Area surfaceArea_inner = 2*pi*r_inner*length "Inner surface area for heat transfer";
   SI.Area surfaceArea_outer = 2*pi*r_outer*length "Outer surface area for heat transfer";
@@ -17,9 +17,9 @@ model SimpleWall_Cylinder
     final V=pi*(r_outer^2-r_inner^2)*length);
 
   input SI.ThermalResistance R=log(r_outer/r_inner)/(2*pi*length*lambda) "Thermal resistance"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.HeatFlowRate Q_gen=0 "Internal heat generation"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   // Advanced
   parameter Boolean exposeState_a=false

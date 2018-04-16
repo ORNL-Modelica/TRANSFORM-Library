@@ -152,10 +152,12 @@ replaceable package Medium =
     annotation (Placement(transformation(extent={{50,-80},{70,-60}})));
   Fluid.Sensors.Temperature temperature1(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{50,40},{70,60}})));
-  Fluid.Sensors.TemperatureTwoPort temperature2(redeclare package Medium =
+  Fluid.Sensors.TemperatureTwoPort temperature2(redeclare package
+      Medium =
         Medium_Ambient)
     annotation (Placement(transformation(extent={{90,-6},{110,14}})));
-  Fluid.Sensors.TemperatureTwoPort temperature3(redeclare package Medium =
+  Fluid.Sensors.TemperatureTwoPort temperature3(redeclare package
+      Medium =
         Medium_Ambient)
     annotation (Placement(transformation(extent={{92,-36},{112,-16}})));
   Controls.LimPID PID(

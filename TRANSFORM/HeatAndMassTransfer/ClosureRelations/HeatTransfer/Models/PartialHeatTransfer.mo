@@ -12,27 +12,27 @@ partial model PartialHeatTransfer
   parameter Integer flagIdeal = 0 "Flag for models to handle ideal heat transfer" annotation (Dialog(tab="Internal Interface"));
 
   input Medium.ThermodynamicState states[nHT] "Thermodynamic state of fluid"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Temperature Ts_wall[nHT] "Wall temperature"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Temperature Ts_fluid[nHT] "Fluid temperature"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Velocity vs[nHT] "Fluid Velocity"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Diameter dimensions[nHT]
     "Characteristic dimension (e.g. hydraulic diameter)"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input SI.Area crossAreas[nHT] "Cross sectional flow area"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Length dlengths[nHT]
     "Characteristic length of heat transfer segment"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Height roughnesses[nHT] "Average height of surface asperities"
-    annotation (Dialog(tab="Internal Interface", group="Input Variables"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
    parameter SI.ReynoldsNumber Re_lam(max=Re_turb) = 2300
      "Laminar transition Reynolds number" annotation (Dialog(tab="Advanced"));

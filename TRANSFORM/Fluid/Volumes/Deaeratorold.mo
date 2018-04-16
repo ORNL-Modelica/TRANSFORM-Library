@@ -13,7 +13,7 @@ model Deaeratorold
     h_start=Medium.bubbleEnthalpy(Medium.setSat_p(p_start)));
 
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
-    annotation (Dialog(tab="Advanced", group="Input Variables"));
+    annotation (Dialog(tab="Advanced", group="Inputs"));
 
   constant SI.Pressure p_crit=Medium.fluidConstants[1].criticalPressure;
   parameter SI.Length rint=0 "Internal radius"

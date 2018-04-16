@@ -4,9 +4,9 @@ model Alphas "Specify Heat Transfer Coefficient (alpha)"
   extends PartialSinglePhase;
 
   input SI.CoefficientOfHeatTransfer alpha0=0 "Coefficient of heat transfer"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.CoefficientOfHeatTransfer alphas0[nHT,nSurfaces]=fill(alpha0, nHT, nSurfaces)
-    "if non-uniform then set" annotation (Dialog(group="Input Variables"));
+    "if non-uniform then set" annotation (Dialog(group="Inputs"));
 
 equation
 

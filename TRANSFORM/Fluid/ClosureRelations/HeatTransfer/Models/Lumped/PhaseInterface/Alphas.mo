@@ -4,7 +4,7 @@ model Alphas "Specify Heat Transfer Coefficient (alpha)"
   extends PartialPhaseInterface;
 
   input SI.CoefficientOfHeatTransfer alpha0=0 "Coefficient of heat transfer"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

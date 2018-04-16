@@ -3,8 +3,8 @@ model Homogeneous_wSlipVelocity
   "Volume void fraction with velocity slip ratio (i.e., S = 1 is homogeneous model)"
   extends PartialVoidFraction;
 
-  input SI.Velocity v_p "Primary phase velocity (e.g., liquid)" annotation(Dialog(group="Input Variables:"));
-  input SI.Velocity v_s "Secondary phase velocity (e.g., vapor)" annotation(Dialog(group="Input Variables:"));
+  input SI.Velocity v_p "Primary phase velocity (e.g., liquid)" annotation(Dialog(group="Inputs"));
+  input SI.Velocity v_s "Secondary phase velocity (e.g., vapor)" annotation(Dialog(group="Inputs"));
 
   Units.NonDim S "Velocity slip ratio";
 

@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model Pressurizer_withWall_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   TRANSFORM.Fluid.Volumes.Pressurizer_withWall pressurizer(
     redeclare model BulkCondensation =
@@ -85,7 +85,8 @@ model Pressurizer_withWall_Test
         rotation=90,
         origin={0,-52})));
   FittingsAndResistances.SpecifiedResistance lineToPump(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1) annotation (Placement(
+              Medium =
+               Modelica.Media.Water.StandardWater, R=1) annotation (Placement(
         transformation(
         extent={{10,9.5},{-10,-9.5}},
         rotation=180,

@@ -1,5 +1,7 @@
 Examples
+RealExpression
 DataTable
 IntegerTable
 TimerTotal
-RealExpression
+OffTimer
+IntegratorWithReset

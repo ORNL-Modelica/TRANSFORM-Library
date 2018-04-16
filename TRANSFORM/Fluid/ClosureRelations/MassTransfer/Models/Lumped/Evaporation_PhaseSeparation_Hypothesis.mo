@@ -8,7 +8,7 @@ model Evaporation_PhaseSeparation_Hypothesis
   1. NUREG-CR-4449 pg 30
   */
 
-  input SI.Area Ac "Average cross sectional area" annotation(Dialog(group="Input Variables"));
+  input SI.Area Ac "Average cross sectional area" annotation(Dialog(group="Inputs"));
   parameter SI.Length d_e = 0.001 "Equivalent spherical bubble diameter";
 
   SI.Velocity v_bub=ClosureRelations.MassTransfer.Functions.v_Stokes(

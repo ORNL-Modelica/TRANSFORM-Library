@@ -3,7 +3,7 @@ model OilWater_CTHX
   "Example of an oil and water concentric tube heat exchanger"
   import TRANSFORM;
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
    parameter SI.TemperatureDifference DT_lm2 = 43.2 "Log mean temperature difference";
    parameter SI.CoefficientOfHeatTransfer U2_shell = 38.1 "Overall heat transfer coefficient - shell side";

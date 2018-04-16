@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.Condensation.Examples.Verification;
 model PhaseSeparation_TerminalVelocity_Test
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium=Modelica.Media.Water.StandardWater;
 

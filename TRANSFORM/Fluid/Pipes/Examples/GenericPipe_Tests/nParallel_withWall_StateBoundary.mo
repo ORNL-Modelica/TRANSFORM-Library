@@ -17,7 +17,7 @@ model nParallel_withWall_StateBoundary
     redeclare model TraceMassTransfer =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.AlphasM
         (                                               redeclare model
-          DiffusionCoeff =
+                DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
             (D_ab0=1), alphaM0=fill(1, Medium.nC)),
     use_HeatTransferOuter=true,
@@ -91,7 +91,7 @@ model nParallel_withWall_StateBoundary
     redeclare model TraceMassTransfer =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.AlphasM
         (                                               redeclare model
-          DiffusionCoeff =
+                DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
             (D_ab0=1), alphaM0=fill(1, Medium.nC)),
     redeclare model Geometry =

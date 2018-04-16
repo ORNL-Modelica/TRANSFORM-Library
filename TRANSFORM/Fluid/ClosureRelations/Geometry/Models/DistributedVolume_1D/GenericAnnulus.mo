@@ -4,9 +4,9 @@ model GenericAnnulus
   import Modelica.Constants.pi;
 
   input SI.Length rs_inner[nV] = zeros(nV) "Inner radius"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length rs_outer[nV] = ones(nV) "Outer radius"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   extends
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe(

@@ -9,13 +9,13 @@ model CompactPlateHX
 //     "# of overall channels (i.e., tube and shell)";
 
   input SI.Length height_tube=0.01 "Tube duct height"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length height_shell=height_tube "Shell duct height"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length width=0 "Duct width"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length length=1.0 "Duct length"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   extends StraightPipeHX(
     final nTubes=if plateStructure == "Tube-Shell-Tube" then 2

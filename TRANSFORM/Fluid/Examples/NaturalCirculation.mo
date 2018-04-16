@@ -120,9 +120,9 @@ equation
   connect(resistance2.port_b, riser.port_a) annotation (Line(points={{-7,-20},{-20,
           -20},{-20,-10}}, color={0,127,255}));
   connect(riser.port_b, expansionTank.port_a)
-    annotation (Line(points={{-20,10},{-20,20},{-6,20}}, color={0,127,255}));
+    annotation (Line(points={{-20,10},{-20,20},{-7,20}}, color={0,127,255}));
   connect(downcomer.port_a, expansionTank.port_b) annotation (Line(points={{20,10},
-          {20,20},{6,20}},                 color={0,127,255}));
+          {20,20},{7,20}},                 color={0,127,255}));
   connect(rampDownWallTemp.y, add.u2) annotation (Line(points={{-99,-20},{-92,
           -20},{-92,-6},{-82,-6}}, color={0,0,127}));
   connect(rampUpWallTemp.y, add.u1) annotation (Line(points={{-99,20},{-92,20},

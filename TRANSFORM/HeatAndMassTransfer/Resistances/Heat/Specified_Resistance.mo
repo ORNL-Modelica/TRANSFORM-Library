@@ -3,7 +3,7 @@ model Specified_Resistance "Specify Resistance"
 
   extends BaseClasses.PartialResistance;
 
-  input SI.ThermalResistance R_val "Thermal resistance" annotation(Dialog(group="Input Variables"));
+  input SI.ThermalResistance R_val "Thermal resistance" annotation(Dialog(group="Inputs"));
 
 equation
 

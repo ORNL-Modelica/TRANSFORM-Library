@@ -89,7 +89,7 @@ redeclare model Geometry =
       Placement(transformation(rotation=0, extent={{110,-10},{130,10}}),
         iconTransformation(extent={{110,-10},{130,10}})));
   Interfaces.FluidPort_Flow                   port_a(redeclare package
-      Medium =
+              Medium =
         Modelica.Media.Water.StandardWater)
                 annotation (Placement(transformation(rotation=0, extent={{-94,34},
             {-74,54}}),iconTransformation(extent={{-94,34},

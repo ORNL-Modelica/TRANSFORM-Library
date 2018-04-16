@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Examples.MSLFluid;
 model RoomCO2WithControls
   "Demonstrates a room volume with CO2 controls"
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   package Medium=Modelica.Media.Air.MoistAir(extraPropertiesNames={"CO2"},
                                              C_nominal={1.519E-1});
   Modelica.Blocks.Sources.Constant CAtm(k=0.3*1.519E-3)
@@ -99,7 +99,7 @@ model RoomCO2WithControls
     annotation (Placement(transformation(extent={{-38,-40},{-18,-20}})));
 
   TRANSFORM.Fluid.Sensors.TraceSubstances traceDuctOut(redeclare package
-      Medium =
+              Medium =
         Medium) "Trace substance at duct outlet"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x=ductOut.port_b.C_outflow)

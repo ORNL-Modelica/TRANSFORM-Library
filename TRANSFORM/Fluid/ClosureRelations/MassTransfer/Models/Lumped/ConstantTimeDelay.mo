@@ -3,7 +3,7 @@ model ConstantTimeDelay
 
   extends PartialTwoPhase;
 
-  input SI.Mass m "Mass of region" annotation(Dialog(group="Input Variables"));
+  input SI.Mass m "Mass of region" annotation(Dialog(group="Inputs"));
 
   parameter SI.Time tau = 1e6 "Time constant for bubble/droplet transport";
 

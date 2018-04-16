@@ -4,11 +4,11 @@ partial model PartialSievertsLawCoefficient
   parameter Integer nC = 1 "Number of substances";
 
   input SI.Temperature T "Temperature"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   output Real kSs[nC] "Sievert's Law Coefficient [mol/(m3.Pa^(0.5)]" annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
 
   annotation (defaultComponentName="sievertsLawCoeff",

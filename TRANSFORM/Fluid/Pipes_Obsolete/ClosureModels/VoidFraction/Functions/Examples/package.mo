@@ -1,4 +1,4 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.VoidFraction.Functions;
 package Examples
-  extends Modelica.Icons.ExamplesPackage;
+  extends TRANSFORM.Icons.ExamplesPackage;
 end Examples;

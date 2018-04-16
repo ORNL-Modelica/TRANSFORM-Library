@@ -4,9 +4,9 @@ model GenericCoefficient
 extends PartialHenrysLawCoefficient;
 
   input TRANSFORM.Units.HenrysLawCoefficient kH0=0 "Henry's Law Coefficient"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input TRANSFORM.Units.HenrysLawCoefficient kHs0[nC]=fill(kH0, nC)
-    "if non-uniform then set" annotation (Dialog(group="Input Variables"));
+    "if non-uniform then set" annotation (Dialog(group="Inputs"));
 
 equation
 

@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.VoidFraction.Functions.SlipRatio.Examples.Verification;
 model SlipRatio_simpleVelocity_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   constant Integer n = 10 "Number of data points";
   constant SI.Velocity v_l = 1.0 "Liquid velocity";

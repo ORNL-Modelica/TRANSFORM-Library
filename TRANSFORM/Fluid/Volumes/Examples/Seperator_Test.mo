@@ -22,7 +22,8 @@ model Seperator_Test
     p=100000,
     h=1e5) annotation (Placement(transformation(extent={{80,10},{60,30}})));
   FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1)
+              Medium =
+               Modelica.Media.Water.StandardWater, R=1)
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
   Separator volume1(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
@@ -45,10 +46,12 @@ model Seperator_Test
     p=100000)
            annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
   FittingsAndResistances.SpecifiedResistance resistance1(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1)
+              Medium =
+               Modelica.Media.Water.StandardWater, R=1)
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
   FittingsAndResistances.SpecifiedResistance resistance2(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1)
+              Medium =
+               Modelica.Media.Water.StandardWater, R=1)
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/10,
@@ -116,9 +119,9 @@ equation
           {10,-8},{10,-19.5},{6,-19.5}}, color={0,127,255}));
   connect(sine1.y, sink1b.m_flow_in) annotation (Line(points={{69,-10},{60,-10},
           {60,0},{40,0}}, color={0,0,127}));
-  connect(volume.portLiquid, sinkLiquid.ports[1])
+  connect(volume.port_Liquid, sinkLiquid.ports[1])
     annotation (Line(points={{-4,16},{-20,16},{-20,40}}, color={0,127,255}));
-  connect(volume1.portLiquid, sinkLiquid1.ports[1])
+  connect(volume1.port_Liquid, sinkLiquid1.ports[1])
     annotation (Line(points={{-4,-24},{-4,-60}}, color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),

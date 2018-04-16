@@ -1,6 +1,6 @@
 within TRANSFORM.Nuclear.ReactorKinetics;
 package Examples
-extends Modelica.Icons.ExamplesPackage;
+extends TRANSFORM.Icons.ExamplesPackage;
 
 
 

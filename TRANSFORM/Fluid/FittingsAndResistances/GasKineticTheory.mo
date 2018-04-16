@@ -3,8 +3,8 @@ model GasKineticTheory
 
   extends BaseClasses.PartialResistance;
 
-  input Real f = 1.0 "Fraction of vapor molecules striking the liquid surface that enter the liquid phase" annotation(Dialog(group="Input Variables"));
-  input SI.Area surfaceArea "Mass transfer surface area" annotation(Dialog(group="Input Variables"));
+  input Real f = 1.0 "Fraction of vapor molecules striking the liquid surface that enter the liquid phase" annotation(Dialog(group="Inputs"));
+  input SI.Area surfaceArea "Mass transfer surface area" annotation(Dialog(group="Inputs"));
 
   Medium.ThermodynamicState state_a=
       Medium.setState_phX(port_a.p,

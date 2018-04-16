@@ -10,7 +10,7 @@ model Alphas_TwoPhase_3Regionefwef42
       Res[i],
       Prs[i]) for j in 1:nSurfaces} for i in 1:nHT}
     "Turbulent coefficient of heat transfer - Liquid Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alpha_TwoPhaseSaturated={{
       HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.NucleateBoiling.alpha_Chen_TubeFlow(
@@ -29,7 +29,7 @@ model Alphas_TwoPhase_3Regionefwef42
       Delta_psat=Medium.saturationPressure(Ts_wall[i, j]) - mediaProps[i].p)
       for j in 1:nSurfaces} for i in 1:nHT}
     "Coefficient of heat transfer - Saturated Two Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alpha_SinglePhaseVapor={{
       mediaProps[i].lambda/dimensions[i]*
@@ -37,22 +37,22 @@ model Alphas_TwoPhase_3Regionefwef42
       Res[i],
       Prs[i]) for j in 1:nSurfaces} for i in 1:nHT}
     "Turbulent coefficient of heat transfer - Vapor Phase"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Length[nHT,nSurfaces] L_char=transpose({dimensions for i in 1:
       nSurfaces}) "Characteristic dimension for calculation of Nu"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.ThermalConductivity[nHT,nSurfaces] lambda=transpose({mediaProps.lambda
       for i in 1:nSurfaces}) "Thermal conductivity for calculation of Nu"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input Real HT_width[3]={0.02,0.02,0.02}
    "Smooth transition width"
-   annotation (Dialog(tab="Advanced",group="Input Variables"));
+   annotation (Dialog(tab="Advanced",group="Inputs"));
 
   input Real Var_smooth[nHT]=mediaProps.x_th
     "Variable for smoothing between regions with phase transition"
-    annotation (Dialog(tab="Advanced",group="Input Variables"));
+    annotation (Dialog(tab="Advanced",group="Inputs"));
 
 //   input Real HT_smooth[nHT]={
 //       HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.CHF.EPRI_quality(
@@ -62,7 +62,7 @@ model Alphas_TwoPhase_3Regionefwef42
 //       m_flows[i]/crossAreas[i],
 //       mediaProps[i].p/mediaProps[i].p_crit) for i in 1:nHT}
 //     "Smooth value for transition between regions with phase transition"
-//     annotation (Dialog(tab="Advanced", group="Input Variables"));
+//     annotation (Dialog(tab="Advanced", group="Inputs"));
 
 protected
   SI.CoefficientOfHeatTransfer[nHT,nSurfaces]

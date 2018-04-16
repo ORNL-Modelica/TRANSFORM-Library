@@ -1,16 +1,20 @@
 within TRANSFORM.Fluid.Volumes;
 model Separator_2phaseOnly
 
+  Interfaces.FluidPort_Flow port_Liquid(redeclare package Medium = Medium, p(
+        start=p_start)) annotation (Placement(transformation(extent={{-50,-50},{
+            -30,-30}}), iconTransformation(extent={{-50,-50},{-30,-30}})));
+
   extends TRANSFORM.Fluid.Volumes.MixingVolume(
     redeclare replaceable package Medium =
         Modelica.Media.Interfaces.PartialTwoPhaseMedium,
-    mb=sum(port_a.m_flow) + sum(port_b.m_flow) + portLiquid.m_flow,
-    Ub=sum(H_flows_a) + sum(H_flows_b) + portLiquid.m_flow*actualStream(
-        portLiquid.h_outflow) + Q_flow_internal + Q_gen,
-    mXib={sum(mXi_flows_a[:, i]) + sum(mXi_flows_b[:, i]) + portLiquid.m_flow*
-        actualStream(portLiquid.Xi_outflow[i]) for i in 1:Medium.nXi},
-    mCb={sum(mC_flows_a[:, i]) + sum(mC_flows_b[:, i]) + portLiquid.m_flow*
-        actualStream(portLiquid.C_outflow[i]) + mC_flow_internal[i] + mC_gen[i]
+    mb=sum(port_a.m_flow) + sum(port_b.m_flow) + port_Liquid.m_flow,
+    Ub=sum(H_flows_a) + sum(H_flows_b) + port_Liquid.m_flow*actualStream(
+        port_Liquid.h_outflow) + Q_flow_internal + Q_gen,
+    mXib={sum(mXi_flows_a[:, i]) + sum(mXi_flows_b[:, i]) + port_Liquid.m_flow*
+        actualStream(port_Liquid.Xi_outflow[i]) for i in 1:Medium.nXi},
+    mCb={sum(mC_flows_a[:, i]) + sum(mC_flows_b[:, i]) + port_Liquid.m_flow*
+        actualStream(port_Liquid.C_outflow[i]) + mC_flow_internal[i] + mC_gen[i]
         for i in 1:Medium.nC});
 
   parameter SI.Efficiency eta_sep(
@@ -23,9 +27,6 @@ model Separator_2phaseOnly
   SI.SpecificEnthalpy h_lsat;
   SI.SpecificEnthalpy h_vsat;
 
-  Interfaces.FluidPort_Flow portLiquid(redeclare package Medium = Medium, p(
-        start=p_start)) annotation (Placement(transformation(extent={{-50,-50},
-            {-30,-30}}), iconTransformation(extent={{-50,-50},{-30,-30}})));
 
 equation
 
@@ -39,10 +40,10 @@ equation
   m_cond = -max(0, 1 - x_abs)*max({sum(port_a.m_flow),sum(port_b.m_flow),0})*
     eta_sep;
 
-  portLiquid.m_flow = m_cond;
-  portLiquid.h_outflow = h_lsat;
-  portLiquid.Xi_outflow = medium.Xi;
-  portLiquid.C_outflow = C;
+  port_Liquid.m_flow = m_cond;
+  port_Liquid.h_outflow = h_lsat;
+  port_Liquid.Xi_outflow = medium.Xi;
+  port_Liquid.C_outflow = C;
 
   annotation (
     defaultComponentName="volume",

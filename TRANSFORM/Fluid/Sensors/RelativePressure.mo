@@ -29,7 +29,9 @@ equation
           lineColor={0,0,0},
           textString="p_rel"),
           Text(extent={{-60,-50},{60,-22}}, textString=DynamicSelect("0.0",
-              String(y, format="1." + String(precision) + "f")))}),
+              String(y, format="1." + String(precision) + "f"))),
+        Line(points={{-100,0},{-70,0}}, color={0,128,255}),
+        Line(points={{70,0},{100,0}}, color={0,128,255})}),
     Documentation(info="<html>
 <p>
 The relative pressure \"port_a.p - port_b.p\" is determined between

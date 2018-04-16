@@ -7,14 +7,14 @@ model RectangleAnnular
 
   parameter Boolean use_NonDimensional = false;
 
-  input SI.CoefficientOfHeatTransfer alpha "Average heat transfer coefficient" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
-  input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
-  input SI.Length r_inner "Fin inner diameter" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
-  input SI.Length r_outer "Fin outer diameter" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
-  input SI.Length th "Fin thickness" annotation(Dialog(group="Input Variables",enable=not use_NonDimensional));
+  input SI.CoefficientOfHeatTransfer alpha "Average heat transfer coefficient" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
+  input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
+  input SI.Length r_inner "Fin inner diameter" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
+  input SI.Length r_outer "Fin outer diameter" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
+  input SI.Length th "Fin thickness" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
 
-  input Units.NonDim mr_inner = sqrt(2*alpha/(lambda*th))*r_inner "Non-dimensional r_inner fin parameter" annotation(Dialog(group="Input Variables",enable=use_NonDimensional));
-  input Units.NonDim mr_outer = sqrt(2*alpha/(lambda*th))*r_outer "Non-dimensional r_outer fin parameter" annotation(Dialog(group="Input Variables",enable=use_NonDimensional));
+  input Units.NonDim mr_inner = sqrt(2*alpha/(lambda*th))*r_inner "Non-dimensional r_inner fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
+  input Units.NonDim mr_outer = sqrt(2*alpha/(lambda*th))*r_outer "Non-dimensional r_outer fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
 
   SI.Area surfaceArea= 2^Modelica.Constants.pi*(r_outer^2 - r_inner^2);
 

@@ -1,4 +1,4 @@
 within TRANSFORM.Fluid.Interfaces;
 package Examples
-  extends Modelica.Icons.ExamplesPackage;
+  extends TRANSFORM.Icons.ExamplesPackage;
 end Examples;

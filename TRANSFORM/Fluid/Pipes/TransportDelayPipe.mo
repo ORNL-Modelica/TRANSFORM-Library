@@ -24,26 +24,26 @@ model TransportDelayPipe
   input SI.NusseltNumber fRe2_lam=
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.fRe2_Laminar_Local_Developed_Circular(
        Re) "Laminar Friction factor"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.NusseltNumber fRe2_turb=
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.fRe2_Turbulent_Local_Developed_SwameeJain(
       Re,
       dimension,
       roughness) "Turbulent Friction factor"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input TRANSFORM.Units.NonDim K_ab=0
     "Minor loss coefficients. Flow in direction a -> b"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input TRANSFORM.Units.NonDim K_ba=0
     "Minor loss coefficients. Flow in direction b -> a"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.PressureDifference dp_add_ab=0
     "Additional pressure losses. Flow in direction a -> b"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.PressureDifference dp_add_ba=0
     "Additional pressure losses. Flow in direction b -> a"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SI.Volume V=crossArea*length;
 

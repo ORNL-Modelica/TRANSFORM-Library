@@ -6,9 +6,9 @@ model FlowAcrossTubeBundles_Grimison
   parameter Boolean tubesAligned=false " = false if staggered";
   parameter Real nRows=10 "Not necessary if nRows >= 10";
 
-  input SI.Length D "Diameter of tubes in tube bank" annotation(Dialog(group="Input Variables"));
-  input SI.Length S_T "Transverse (within same row) tube pitch" annotation(Dialog(group="Input Variables"));
-  input SI.Length S_L "Longitudinal (between rows) tube pitch" annotation(Dialog(group="Input Variables"));
+  input SI.Length D "Diameter of tubes in tube bank" annotation(Dialog(group="Inputs"));
+  input SI.Length S_T = 1.0*D "Transverse (within same row) tube pitch" annotation(Dialog(group="Inputs"));
+  input SI.Length S_L = 1.0*D "Longitudinal (between rows) tube pitch" annotation(Dialog(group="Inputs"));
 
 protected
   Modelica.Blocks.Sources.RealExpression R_T(y=S_T/D) "Ratio of S_T/D"

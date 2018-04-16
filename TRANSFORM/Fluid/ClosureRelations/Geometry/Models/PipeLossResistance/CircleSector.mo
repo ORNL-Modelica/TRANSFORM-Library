@@ -8,9 +8,9 @@ model CircleSector
   // relatively small variation between the three
 
   input SI.Length r0=0.01 "Sector radius"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Angle theta=Modelica.SIunits.Conversions.from_deg(30) "Sector angle"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   extends PartialGeometry(
     final dimension=4*crossArea/perimeter,

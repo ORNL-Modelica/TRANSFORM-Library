@@ -2,13 +2,13 @@ within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Hea
 model ShellAndTubeHX
 
   input SI.Diameter D_i_shell=0  "Inner diameter of shell (if shell is an annulus)"
-    annotation(Dialog(tab="Shell Side",group="Input Variables"));
+    annotation(Dialog(tab="Shell Side",group="Inputs"));
   input SI.Diameter D_o_shell=4*crossAreaEmpty_shell/perimeterEmpty_shell  "Outer diameter of shell"
-    annotation(Dialog(tab="Shell Side",group="Input Variables"));
+    annotation(Dialog(tab="Shell Side",group="Inputs"));
   input SI.Area crossAreaEmpty_shell = 0.25*pi*(D_o_shell^2-D_i_shell^2) "Cross-sectional area of an empty shell (i.e., no tubes)"
-    annotation(Dialog(tab="Shell Side",group="Input Variables"));
+    annotation(Dialog(tab="Shell Side",group="Inputs"));
   input SI.Length perimeterEmpty_shell = pi*(D_o_shell+D_i_shell) "Wetted perimeter of an empty shell (i.e., no tubes)"
-    annotation(Dialog(tab="Shell Side",group="Input Variables"));
+    annotation(Dialog(tab="Shell Side",group="Inputs"));
 
   extends StraightPipeHX(
   surfaceArea_shell={pi*D_o_tube*length_tube*nTubes},

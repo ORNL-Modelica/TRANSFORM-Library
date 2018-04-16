@@ -4,10 +4,10 @@ model SemiInfinitePlane "Semi-Infinite plane"
   extends
     TRANSFORM.HeatAndMassTransfer.Resistances.Heat.BaseClasses.PartialResistance;
 
-  input SI.Area crossArea "Cross-sectional area perpindicular to heat flow" annotation(Dialog(group="Input Variables"));
-  input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Input Variables"));
-  input SI.ThermalDiffusivity alpha_d "Thermal diffusivity (i.e., lambda/(d*cp))" annotation(Dialog(group="Input Variables"));
-  input SI.Time t = time "Time" annotation(Dialog(group="Input Variables"));
+  input SI.Area crossArea "Cross-sectional area perpindicular to heat flow" annotation(Dialog(group="Inputs"));
+  input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs"));
+  input SI.ThermalDiffusivity alpha_d "Thermal diffusivity (i.e., lambda/(d*cp))" annotation(Dialog(group="Inputs"));
+  input SI.Time t = time "Time" annotation(Dialog(group="Inputs"));
 
 equation
 

@@ -1,7 +1,7 @@
 within TRANSFORM.Math.Examples.Verification;
 model variableFactor
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   constant Real[3] variable_1 = {0.3,0.3,0.4};
   constant Real[5] fixed_1 = {0.2,0.2,0.2,0.2,0.2};

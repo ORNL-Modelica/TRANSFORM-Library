@@ -4,7 +4,8 @@ partial model PartialSinglePhase "Base model"
 extends PartialMassTransfer(
      final flagIdeal=0);
 
-  TRANSFORM.Media.BaseProperties1Phase[nMT] mediaProps(redeclare package Medium =
+  TRANSFORM.Media.BaseProperties1Phase[nMT] mediaProps(redeclare package
+              Medium =
         Medium, state=states) "Bulk fluid properties"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

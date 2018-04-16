@@ -3,10 +3,10 @@ model GenericHeatGeneration
 
   extends PartialInternalHeatGeneration;
 
-  input SI.HeatFlowRate Q_gen = 0 "Per volume heat generation" annotation(Dialog(group="Input Variables"));
+  input SI.HeatFlowRate Q_gen = 0 "Per volume heat generation" annotation(Dialog(group="Inputs"));
   input SI.HeatFlowRate Q_gens[nV]=fill(Q_gen, nV)
     "if non-uniform then set Q_gens"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
 equation
 

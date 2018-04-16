@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model IdealCondenser_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
   Volumes.IdealCondenser condenser(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     p=100000,

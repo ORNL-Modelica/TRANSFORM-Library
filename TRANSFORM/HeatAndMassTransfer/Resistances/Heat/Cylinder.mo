@@ -7,10 +7,10 @@ model Cylinder "Cylinder | Radial"
   import Modelica.Math.log;
   import Modelica.Constants.pi;
 
-  input SI.Length L "Cylinder length" annotation(Dialog(group="Input Variables"));
-  input SI.Length r_in "Inner radius" annotation(Dialog(group="Input Variables"));
-  input SI.Length r_out "Outer radius" annotation(Dialog(group="Input Variables"));
-  input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Input Variables"));
+  input SI.Length L "Cylinder length" annotation(Dialog(group="Inputs"));
+  input SI.Length r_in "Inner radius" annotation(Dialog(group="Inputs"));
+  input SI.Length r_out "Outer radius" annotation(Dialog(group="Inputs"));
+  input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs"));
 
 equation
 

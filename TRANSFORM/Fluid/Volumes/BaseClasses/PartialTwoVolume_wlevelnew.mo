@@ -9,8 +9,8 @@ partial model PartialTwoVolume_wlevelnew "Base class for volume models"
     annotation (choicesAllMatching=true);
 
   // Inputs provided to the volume model
-  SI.Volume V_liquid(min=0) "Volume" annotation (Dialog(group="Input Variables"));
-  SI.Volume V_vapor(min=0) "Volume" annotation (Dialog(group="Input Variables"));
+  SI.Volume V_liquid(min=0) "Volume" annotation (Dialog(group="Inputs"));
+  SI.Volume V_vapor(min=0) "Volume" annotation (Dialog(group="Inputs"));
 
   // Initialization
   parameter Dynamics energyDynamics=Dynamics.FixedInitial

@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels;
 model Winding_123D
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   DiscritizedModels.Conduction_3D winding(
     exposeState_a1=true,

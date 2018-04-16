@@ -24,7 +24,8 @@ model Seperator_2PhaseOnly_Test
     p=100000,
     h=2e6) annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1)
+              Medium =
+               Modelica.Media.Water.StandardWater, R=1)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x={volume.medium.h})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
@@ -44,7 +45,7 @@ equation
     annotation (Line(points={{-60,0},{-6,0}}, color={0,127,255}));
   connect(resistance.port_a, volume.port_b[1])
     annotation (Line(points={{23,0},{6,0}}, color={0,127,255}));
-  connect(volume.portLiquid, sinkLiquid.ports[1])
+  connect(volume.port_Liquid, sinkLiquid.ports[1])
     annotation (Line(points={{-4,-4},{-20,-4},{-20,20}}, color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),

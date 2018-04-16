@@ -2,7 +2,7 @@ within TRANSFORM.HeatExchangers.Examples;
 model WaterWater_STHX_withMass
   "Example of an water and water shell and tube exchanger"
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   package Medium_tube = Modelica.Media.Water.StandardWater (
   extraPropertiesNames={"t1","t2","t3"},

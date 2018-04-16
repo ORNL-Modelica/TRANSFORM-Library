@@ -12,26 +12,26 @@ model ConvectionMedia
 
   input Medium.ThermodynamicState[n] states=Medium.setState_pTX(fill(1e5, n),
       port_b.T) "Thermodynamic state of fluid at port_b"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.MassFlowRate m_flows[n]=zeros(n) "Mass flow rate"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Diameter dimensions[n]=fill(1, n)
     "Characteristic dimension (e.g. hydraulic diameter)"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Area crossAreas[n]=0.25*pi*dimensions.^2 "Cross sectional flow area"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Length dlengths[n]=fill(1, n)
     "Characteristic length of heat transfer segment"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   input SI.Area surfaceAreas[n]=dimensions .* dlengths
     "Surface area for heat transfer"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Height roughnesses[n]=fill(2.5e-5, n)
     "Average height of surface asperities"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   replaceable model HeatTransferCoeff =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Ideal

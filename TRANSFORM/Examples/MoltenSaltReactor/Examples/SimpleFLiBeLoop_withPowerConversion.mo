@@ -124,7 +124,8 @@ model SimpleFLiBeLoop_withPowerConversion
         origin={-16,2})));
 
   Fluid.Sensors.TraceSubstancesTwoPort_multi traceSubstance(redeclare package
-      Medium = Medium)
+              Medium =
+               Medium)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-16,-28})));
@@ -150,7 +151,8 @@ model SimpleFLiBeLoop_withPowerConversion
     T_start=773.15)
     annotation (Placement(transformation(extent={{-66,56},{-46,76}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Medium, R=1e6) annotation (Placement(transformation(
+              Medium =
+               Medium, R=1e6) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-56,42})));

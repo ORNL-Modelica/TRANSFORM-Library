@@ -4,7 +4,7 @@ partial model PartialFlowChar
 
   extends PartialCharacteristic;
 
-  input Boolean checkValve "=true then no reverse flow" annotation (Dialog(tab="Internal Interface",group="Input Variables"));
+  input Boolean checkValve "=true then no reverse flow" annotation (Dialog(tab="Internal Interface",group="Inputs"));
 
   parameter SI.Height head_nominal "Nominal head" annotation (Dialog(tab="Internal Interface",group="Nominal Operating Parameters"));
 

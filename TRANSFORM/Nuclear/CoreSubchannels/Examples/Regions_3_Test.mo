@@ -1,6 +1,6 @@
 within TRANSFORM.Nuclear.CoreSubchannels.Examples;
 model Regions_3_Test
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   Regions_3 coreSubchannel(
     Ts_start_1(displayUnit="K") = [817.624633789063,829.4697265625,840.789428710938,
@@ -20,8 +20,6 @@ model Regions_3_Test
     T_a_start=m_boundary.T,
     T_b_start=P_boundary.T,
     m_flow_a_start=m_boundary.m_flow,
-    redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
     energyDynamics=system.energyDynamics,
     energyDynamics_fuel=system.energyDynamics,
     redeclare package Material_1 = Media.Solids.UO2,
@@ -35,10 +33,13 @@ model Regions_3_Test
         perimeter=767.6466/23496,
         length=4.27,
         rs_outer={0.5*0.0081915,0.5*0.0083566,0.5*0.0095}),
-    Teffref_fuel=745.394,
-    Teffref_coolant=547.25,
     CR_reactivity=ControlRod_Reactivity.y,
     Other_reactivity=Other_Reactivity.y,
+    redeclare model HeatTransfer =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
+    Teffref_fuel=745.394,
+    Teffref_coolant=547.25,
     T_start_1=743.15,
     T_start_2=623.15,
     T_start_3=573.15)

@@ -22,12 +22,12 @@ model TraceDecayAdsorberBed
 
   input SIadd.InverseTime lambdas[Medium.nC]=fill(1e-3, Medium.nC)
     "Decay constant of trace substances"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.SpecificVolume K[Medium.nC]=fill(1e3, Medium.nC)
     "Dynamic adsorption coefficient"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.Energy Qs_decay[Medium.nC]=fill(1, Medium.nC)
-    "Energy released per decay" annotation (Dialog(group="Input Variables"));
+    "Energy released per decay" annotation (Dialog(group="Inputs"));
 
   parameter Boolean use_tau=true
     "=true to specify reference resident time else based on carbon mass";
@@ -36,22 +36,22 @@ model TraceDecayAdsorberBed
     annotation (Dialog(enable=use_tau));
   input SI.Time tau_res=from_hr(1)
     "Specified residence time for chosen substance (iC) or mass of carbon"
-    annotation (Dialog(group="Input Variables", enable=use_tau));
+    annotation (Dialog(group="Inputs", enable=use_tau));
   input SI.Mass mAdsorber=V_flow*tau_res/K[iC] "Specify total mass of adsorber"
-    annotation (Dialog(group="Input Variables", enable=not use_tau));
+    annotation (Dialog(group="Inputs", enable=not use_tau));
 
-  input Units.HydraulicResistance R = 1 "Hydraulic resistance across adsorber bed" annotation(Dialog(group="Input Variables"));
+  input Units.HydraulicResistance R = 1 "Hydraulic resistance across adsorber bed" annotation(Dialog(group="Inputs"));
   parameter Real[Medium.nC,Medium.nC] parents = fill(0,Medium.nC,Medium.nC) "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
 
 //   input SI.PressureDifference dp=1
 //     "Pressure drop across adsorber bed (dp = port_a.p - port_b.p)"
-//     annotation (Dialog(group="Input Variables"));
+//     annotation (Dialog(group="Inputs"));
 
   input SI.Density d_adsorber=500 "Density of adsorber bed"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.SpecificHeatCapacity cp_adsorber=1000
     "Specific heat capacity of adsorber bed"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"

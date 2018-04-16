@@ -4,7 +4,7 @@ model Interface_MassTransportCoefficient
   extends PhaseInterface.PartialPhaseInterface;
 
   input Real alphaM0(unit="kg/(s.m2.K)")=0
-    "Coefficient of mass transfer" annotation (Dialog(group="Input Variables"));
+    "Coefficient of mass transfer" annotation (Dialog(group="Inputs"));
 
 equation
 

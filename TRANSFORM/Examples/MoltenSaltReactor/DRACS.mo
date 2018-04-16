@@ -9,10 +9,10 @@ model DRACS
 
   input SI.Area surfaceAreas_thimble[2] = fill(1,2)
     "Heat transfer surface area for gas and salt"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input SI.CoefficientOfHeatTransfer alphas_drainTank[2]=fill(2000,2)
     "Convection heat transfer coefficient at thimble-drain tank interface for gas and salt"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_drainTank(
     exposeState_b=true,
@@ -169,7 +169,8 @@ model DRACS
     showName=false)
               annotation (Placement(transformation(extent={{200,52},{180,72}})));
   Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, use_input=true)
+              Medium =
+               Modelica.Media.Water.StandardWater, use_input=true)
     annotation (Placement(transformation(extent={{152,52},{172,72}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=waterTank.port_a.m_flow)
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
@@ -206,7 +207,8 @@ model DRACS
         rotation=90,
         origin={-100,-10})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Medium_DRACS,
+              Medium =
+               Medium_DRACS,
     showName=false,
     R=-2000)                          annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},

@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ModelicaMethod.Examples;
 model Winding_12D
   import TRANSFORM;
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ModelicaMethod.Conduction_12D
     winding(

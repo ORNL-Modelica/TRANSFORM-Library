@@ -1,7 +1,7 @@
 within TRANSFORM.Math.Examples.Verification;
 model factorial
 
-  extends Modelica.Icons.Example;
+  extends TRANSFORM.Icons.Example;
 
   Utilities.ErrorAnalysis.Errors_AbsRelRMSold summary_Error(
     n=1,

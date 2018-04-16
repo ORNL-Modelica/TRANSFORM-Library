@@ -13,29 +13,29 @@ partial model PartialGeometry_2D
 
   output SI.Volume Vs[ns[1],ns[2]] "Unit volumes" annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Area crossAreas_1[ns[1] + 1,ns[2]]
     "Cross sectional area of unit volume faces perpendicular to dimension-1"
     annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Length dlengths_1[ns[1],ns[2]] "Unit cell length in dimension-1"
     annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output Modelica.Blocks.Interfaces.RealOutput crossAreas_2[ns[1],ns[2] + 1]
     "Cross sectional area of unit volume faces perpendicular to dimension-2"
     annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
   output SI.Length dlengths_2[ns[1],ns[2]] "Unit cell length in dimension-2"
     annotation (Dialog(
       tab="Internal Interface",
-      group="Output Variables",
+      group="Outputs",
       enable=false));
 
   SI.Volume V_total=sum(Vs) "Total volume of component";

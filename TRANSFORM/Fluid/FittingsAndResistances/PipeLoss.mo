@@ -10,19 +10,19 @@ model PipeLoss
   //
   //   input SI.Length dimension=0.01
   //     "Characteristic dimension (e.g., hydraulic diameter) at {port_a,port_b}"
-  //     annotation (Dialog(group="Input Variables", enable=use_Dimension));
+  //     annotation (Dialog(group="Inputs", enable=use_Dimension));
   //   input SI.Area crossArea=0.25*Modelica.Constants.pi*dimension*dimension
   //     "Cross sectional area at {port_a,port_b}"
-  //     annotation (Dialog(group="Input Variables", enable=not use_Dimension));
+  //     annotation (Dialog(group="Inputs", enable=not use_Dimension));
   //   input SI.Length perimeter=Modelica.Constants.pi*dimension
   //     "Wetted perimeter at {port_a,port_b}"
-  //     annotation (Dialog(group="Input Variables", enable=not use_Dimension));
+  //     annotation (Dialog(group="Inputs", enable=not use_Dimension));
   //   input SI.Length dlength=1.0 "Pipe length"
-  //     annotation (Dialog(group="Input Variables"));
+  //     annotation (Dialog(group="Inputs"));
   //   input SI.Length dheight=0 "Height change (port_b - port_a)"
-  //     annotation (Dialog(group="Input Variables"));
+  //     annotation (Dialog(group="Inputs"));
   // input SI.Height roughness=2.5e-5 "Average height of surface asperities"
-  //   annotation (Dialog(group="Input Variables"));
+  //   annotation (Dialog(group="Inputs"));
 
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.Circle
@@ -33,14 +33,14 @@ model PipeLoss
   Geometry geometry annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
 
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input Units.NonDim K_ab=0 "Minor loss coefficient. Flow in direction a -> b"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input Units.NonDim K_ba=0 "Minor loss coefficient. Flow in direction b -> a"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
   input Units.NonDim CFs[2]={1.0,1.0}
     "Frictional loss correction factors: {Laminar, Turbulent}"
-    annotation (Dialog(group="Input Variables"));
+    annotation (Dialog(group="Inputs"));
 
   SI.ReynoldsNumber Re "Reynolds number";
 

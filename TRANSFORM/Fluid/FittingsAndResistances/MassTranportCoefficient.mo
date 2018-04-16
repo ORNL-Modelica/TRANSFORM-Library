@@ -4,8 +4,8 @@ model MassTranportCoefficient
   extends BaseClasses.PartialResistance;
 
   input Real alphaM0(unit="kg/(s.m2.K)")=0
-    "Coefficient of mass transfer" annotation (Dialog(group="Input Variables"));
-  input SI.Area surfaceArea "Mass transfer surface area"  annotation(Dialog(group="Input Variables"));
+    "Coefficient of mass transfer" annotation (Dialog(group="Inputs"));
+  input SI.Area surfaceArea "Mass transfer surface area"  annotation(Dialog(group="Inputs"));
 
   Medium.ThermodynamicState state_a=
       Medium.setState_phX(port_a.p,

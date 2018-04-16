@@ -1,6 +1,7 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
 model PointKinetics_Drift_Test_feedback_Xenon
-  extends TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_feedback(
+  extends
+    TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_feedback(
       core_kinetics(
       rhos_input=fill(Reactivity.y/core.nV, core.nV),
       Q_nominal=0,

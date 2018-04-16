@@ -1,5 +1,5 @@
 within TRANSFORM.Math.ComplexMath;
 package Examples
-  extends Modelica.Icons.ExamplesPackage;
+  extends TRANSFORM.Icons.ExamplesPackage;
 
 end Examples;

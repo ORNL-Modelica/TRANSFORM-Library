@@ -5,7 +5,7 @@ model Conversion "Base model for conversion models"
     annotation (Evaluate=true, choices(checkBox=true));
 
   input Real val=0.0 "Value to be converted"
-    annotation (Dialog(group="Input Variables", enable=not use_Port));
+    annotation (Dialog(group="Inputs", enable=not use_Port));
 
   replaceable function convert =
       TRANSFORM.Units.Conversions.Functions.BaseClasses.PartialConversion
