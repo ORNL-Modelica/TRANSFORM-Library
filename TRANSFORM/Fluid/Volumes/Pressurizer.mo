@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Volumes;
 model Pressurizer
   "internal pressurizer region two phase drum model with 3 fluid ports and 4 heat ports"
 
-  extends TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.PartialDrum2Phase;
+  extends TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.PartialDrum2Phase(V_total=drumType.V_total_parameter);
 
   /* General */
   replaceable model DrumType =

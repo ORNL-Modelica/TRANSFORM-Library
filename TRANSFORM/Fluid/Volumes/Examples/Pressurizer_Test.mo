@@ -31,7 +31,6 @@ model Pressurizer_Test
     nPorts=1)
              annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
   TRANSFORM.Fluid.Volumes.Pressurizer drum2Phase(
-    V_total=2/3*pi + pi + 2/3*pi,
     redeclare model DrumType =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.Traditional (
         r_1=1,

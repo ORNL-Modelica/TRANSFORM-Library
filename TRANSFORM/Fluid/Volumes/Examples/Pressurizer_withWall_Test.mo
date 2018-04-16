@@ -7,9 +7,7 @@ model Pressurizer_withWall_Test
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay
         (tau=15),
     cp_wall=600,
-    rho_wall=7000,
     V_wall=2/3*pi*((3.105 + 0.14)^3 - 3.105^3),
-    V_total=pi*1.596^2*1.109 + pi*3.105^2*0.19 + 2/3*pi*3.105^3,
     redeclare model DrumType =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.Integral (
         r_1=1.596,
@@ -31,7 +29,8 @@ model Pressurizer_withWall_Test
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     redeclare model HeatTransfer_WV =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
-    Vfrac_liquid_start=1/3)
+    Vfrac_liquid_start=1/3,
+    rho_wall=7000)
     annotation (Placement(transformation(extent={{-20,-26},{20,26}})));
 
   Modelica.Fluid.Sources.MassFlowSource_h spray(

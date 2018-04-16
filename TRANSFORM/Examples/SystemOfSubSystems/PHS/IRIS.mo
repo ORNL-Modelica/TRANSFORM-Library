@@ -207,9 +207,7 @@ model IRIS
   Fluid.Volumes.Pressurizer_withWall
                                  pressurizer(
     cp_wall=600,
-    rho_wall=7000,
     V_wall=2/3*pi*((3.105 + 0.14)^3 - 3.105^3),
-    V_total=pi*1.596^2*1.109 + pi*3.105^2*0.19 + 2/3*pi*3.105^3,
     redeclare package Medium = Medium_PHTS,
     Vfrac_liquid_start=0.3495,
     p_start(displayUnit="Pa") = 15521780,
@@ -235,7 +233,10 @@ model IRIS
     redeclare model HeatTransfer_WL =
         Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     redeclare model HeatTransfer_WV =
-        Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient)
+        Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
+
+    V_total=1,
+    rho_wall=7000)
     annotation (Placement(transformation(extent={{-34,70},{-22,84}})));
 
   HeatAndMassTransfer.BoundaryConditions.Heat.Temperature Temp_walLiquid(
