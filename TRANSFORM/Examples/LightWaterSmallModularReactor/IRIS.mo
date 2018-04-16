@@ -51,25 +51,27 @@ model IRIS
     energyDynamics=system.energyDynamics,
     energyDynamics_fuel=system.energyDynamics,
     exposeState_b=true,
-    redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
     redeclare model Geometry =
         Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Generic (
-        nRs={6,3,3},
         length=4.27,
         dheight=coreSubchannel.geometry.length,
-        rs_outer={0.5*0.0081915,0.5*0.0083566,0.5*0.0095},
         nPins=23496,
         nV=4,
         crossArea=2.726627,
-        perimeter=767.6466),
+        perimeter=767.6466,
+        nRs={6,3,3},
+        rs_outer={0.5*0.0081915,0.5*0.0083566,0.5*0.0095}),
+    CR_reactivity=CR_reactivity.y,
+    redeclare model HeatTransfer =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     Teffref_fuel=786.152,
     Teffref_coolant=581.457) annotation (Placement(transformation(
         extent={{-7,-6},{7,6}},
         rotation=90,
         origin={-60,-58})));
 
-  Fluid.Pipes.GenericPipe       Core_OutletPlenum(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                Core_OutletPlenum(
     redeclare package Medium = Medium_PHTS,
     p_a_start(displayUnit="Pa") = 15598719,
     p_b_start(displayUnit="Pa") = 15595051,
@@ -97,7 +99,8 @@ model IRIS
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=14.83))
     annotation (Placement(transformation(extent={{-24,-78},{-36,-90}})));
-  Fluid.Pipes.GenericPipe DownComer(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                          DownComer(
     redeclare package Medium = Medium_PHTS,
     p_a_start(displayUnit="Pa") = 15734121,
     p_b_start(displayUnit="Pa") = 15777586,
@@ -117,7 +120,8 @@ model IRIS
         extent={{-6,6},{6,-6}},
         rotation=-90,
         origin={0,-70})));
-  Fluid.Pipes.GenericPipe       LowerRiser(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                LowerRiser(
     redeclare package Medium = Medium_PHTS,
     p_a_start(displayUnit="Pa") = 15595051,
     p_b_start(displayUnit="Pa") = 15560693,
@@ -137,7 +141,8 @@ model IRIS
         extent={{6,-6},{-6,6}},
         rotation=-90,
         origin={-60,0})));
-  Fluid.Pipes.GenericPipe UpperRiser(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                          UpperRiser(
     redeclare package Medium = Medium_PHTS,
     p_a_start(displayUnit="Pa") = 15560693,
     p_b_start(displayUnit="Pa") = 15531747,
@@ -164,8 +169,8 @@ model IRIS
     nPorts_a=1,
     energyDynamics=system.energyDynamics,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1.5))
-                                         annotation (Placement(transformation(
+        Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=
+            1.5))                        annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=90,
         origin={-60,40})));
@@ -261,13 +266,15 @@ model IRIS
     T_start=565.15)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance SG_OutletPressureDrop(R=0.7*(15642500 - (15644200
-         - 750*9.81*0.3))/(8*589), redeclare package Medium = Medium_PHTS)
+         - 750*9.81*0.3))/(8*589), redeclare package Medium =
+        Medium_PHTS)
     annotation (Placement(transformation(
         origin={46,-26.5},
         extent={{5.5,-5},{-5.5,5}},
         rotation=90)));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance SG_InletPressureDrop(R=0.7*((15659500 + 666*9.81
-        *0.3) - 15660700)/(8*589), redeclare package Medium = Medium_PHTS)
+        *0.3) - 15660700)/(8*589), redeclare package Medium =
+        Medium_PHTS)
     annotation (Placement(transformation(
         origin={46,24.5},
         extent={{5.5,-5},{-5.5,5}},
@@ -282,7 +289,8 @@ model IRIS
         origin={58,24.5},
         extent={{-5.5,-5},{5.5,5}},
         rotation=90)));
-  Fluid.Pipes.GenericPipe       SG_InletPlenum(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                SG_InletPlenum(
     redeclare package Medium = Medium_PHTS,
     p_a_start(displayUnit="Pa") = 15675945,
     p_b_start(displayUnit="Pa") = 15677931,
@@ -303,7 +311,8 @@ model IRIS
         extent={{-6,6},{6,-6}},
         rotation=-90,
         origin={46,42})));
-  Fluid.Pipes.GenericPipe       SG_OutletPlenum(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                SG_OutletPlenum(
     redeclare package Medium = Medium_PHTS,
     p_a_start(displayUnit="Pa") = 15731892,
     p_b_start(displayUnit="Pa") = 15734121,
@@ -322,7 +331,8 @@ model IRIS
         extent={{-6,6},{6,-6}},
         rotation=-90,
         origin={46,-50})));
-  Fluid.Pipes.GenericPipe       Steam_OutletPipe(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                Steam_OutletPipe(
     p_a_start(displayUnit="Pa") = 5.8e6,
     p_b_start(displayUnit="Pa"),
     use_Ts_start=false,
@@ -339,7 +349,8 @@ model IRIS
         extent={{-6,6},{6,-6}},
         rotation=0,
         origin={74,40})));
-  Fluid.Pipes.GenericPipe       Steam_InletPipe(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                Steam_InletPipe(
     m_flow_a_start=502.8,
     redeclare package Medium = Medium,
     p_a_start(displayUnit="Pa") = 6.1856e+06,
@@ -374,7 +385,7 @@ model IRIS
     "Electricity loss/gain not accounted for in connections (e.g., heating/cooling, pumps, etc.) [W]"
     annotation (Placement(transformation(extent={{-96,118},{-84,130}})));
   Modelica.Blocks.Sources.RealExpression FuelConsumption(y=(1 + 0.169)*
-        coreSubchannel.reactorKinetics.Q_total/(200*1.6e-13*6.022e23/0.235))
+        Q_total.y/(200*1.6e-13*6.022e23/0.235))
     "Approximate nuclear fuel consumption [kg/s]"
     annotation (Placement(transformation(extent={{-96,108},{-84,120}})));
   Fluid.Machines.Pump pump(
@@ -406,7 +417,7 @@ model IRIS
   Fluid.Pipes.parallelFlow nFlow1(redeclare package Medium = Medium, nParallel=
         nFlow.nParallel)
     annotation (Placement(transformation(extent={{38,48},{32,56}})));
-  HeatExchangers.GenericDistributed_HXold steamGenerator(
+  HeatExchangers.GenericDistributed_HX    steamGenerator(
     nParallel=8,
     use_Ts_start_tube=false,
     p_b_start_tube(displayUnit="Pa") = 5.9e6,
@@ -435,19 +446,6 @@ model IRIS
     p_a_start_shell(displayUnit="bar") = 15677399,
     p_b_start_shell(displayUnit="bar") = 15732247,
     m_flow_a_start_shell=system.m_flow_start,
-    redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Alphas_TwoPhase_3Region,
-    redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (
-        Nus0=
-            HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.Nu_Grimison_FlowAcrossTubeBanks(
-            steamGenerator.shell.heatTransfer.Res,
-            steamGenerator.shell.heatTransfer.Prs,
-            steamGenerator.geometry.dimensions_tube + 2*steamGenerator.geometry.ths_wall,
-            1.25*(steamGenerator.geometry.dimensions_tube + 2*steamGenerator.geometry.ths_wall),
-            1.25*(steamGenerator.geometry.dimensions_tube + 2*steamGenerator.geometry.ths_wall)),
-        use_DefaultDimension=false,
-        dimensions0=steamGenerator.geometry.dimensions_tube + 2*steamGenerator.geometry.ths_wall),
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
         (
@@ -462,17 +460,26 @@ model IRIS
         th_wall=0.00211,
         length_shell=7.9,
         surfaceArea_tube={Modelica.Constants.pi*steamGenerator.geometry.perimeter_tube
-            *steamGenerator.geometry.length_tube})) annotation (Placement(
+            *steamGenerator.geometry.length_tube}),
+    redeclare model HeatTransfer_tube =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas_TwoPhase_3Region,
+    redeclare model HeatTransfer_shell =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
+        (
+        S_T=1.25*steamGenerator.shell.heatTransfer.D,
+        S_L=1.25*steamGenerator.shell.heatTransfer.D,
+        D=steamGenerator.geometry.dimension_tube + 2*steamGenerator.geometry.th_wall))
+                                                    annotation (Placement(
         transformation(
         extent={{13,11},{-13,-11}},
         rotation=-90,
         origin={52,1})));
 
+  Blocks.RealExpression CR_reactivity
+    annotation (Placement(transformation(extent={{-54,128},{-42,140}})));
   Modelica.Blocks.Sources.RealExpression Q_total(y=coreSubchannel.reactorKinetics.Q_total)
     "total thermal power"
     annotation (Placement(transformation(extent={{-76,118},{-64,130}})));
-  Blocks.RealExpression CR_reactivity
-    annotation (Placement(transformation(extent={{-54,128},{-42,140}})));
 equation
 
   connect(LowerRiser.port_a,Core_OutletPlenum. port_b)
