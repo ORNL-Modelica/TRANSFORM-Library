@@ -26,7 +26,6 @@ model Regions_2_Test
     Other_reactivity=Other_Reactivity.y,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     Teffref_fuel=636.321,
     Teffref_coolant=547.25,
     T_start_1=743.15,

@@ -369,8 +369,8 @@ equation
   connect(reactorKinetics.Q_total, powerProfile.Q_total) annotation (Line(
         points={{12.565,53.5328},{34,53.5328},{34,31},{27.4,31}}, color={0,0,
           127}));
-  connect(fuelModel.heatPorts_b, coolantSubchannel.heatPorts[:, 1]) annotation
-    (Line(points={{0.1,-0.2},{0.1,-4.1},{0,-4.1},{0,-7.5}}, color={127,0,0}));
+  connect(fuelModel.heatPorts_b, coolantSubchannel.heatPorts[:, 1]) annotation (
+     Line(points={{0.1,-0.2},{0.1,-4.1},{0,-4.1},{0,-7.5}}, color={127,0,0}));
   annotation (defaultComponentName="coreSubchannel",
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),        Icon(coordinateSystem(preserveAspectRatio=false,

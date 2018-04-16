@@ -64,7 +64,6 @@ model IRIS
     CR_reactivity=CR_reactivity.y,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     Teffref_fuel=786.152,
     Teffref_coolant=581.457) annotation (Placement(transformation(
         extent={{-7,-6},{7,6}},
@@ -464,7 +463,6 @@ model IRIS
             *steamGenerator.geometry.length_tube}),
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas_TwoPhase_3Region,
-
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
         (
