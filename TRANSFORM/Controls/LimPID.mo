@@ -29,6 +29,7 @@ block LimPID
 
   parameter Real k_s= 1 "Setpoint input scaling: k_s*u_s. May improve simulation";
   parameter Real k_m= 1 "Measurement input scaling: k_m*u_m. May improve simulation";
+  parameter Real k_ff= 1 "Measurement input scaling: k_ff*u_ff. May improve simulation" annotation(Dialog(enable=with_FF));
 
   parameter Real yMax(start=1)=Modelica.Constants.inf "Upper limit of output";
   parameter Real yMin=-yMax "Lower limit of output";
@@ -175,6 +176,9 @@ protected
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
 
+public
+  Modelica.Blocks.Math.Gain gain_u_ff(k=k_ff)
+    annotation (Placement(transformation(extent={{-96,74},{-84,86}})));
 initial equation
   if initType==InitPID.InitialOutput then
      y = y_start;
@@ -228,8 +232,6 @@ equation
     annotation (Line(points={{60.5,0},{64,0},{70,0}}, color={0,0,127}));
   connect(addSat.u2, limiter.u) annotation (Line(points={{74,-38},{74,-20},{64,-20},
           {64,0},{70,0}}, color={0,0,127}));
-  connect(u_ff, addFF.u1) annotation (Line(points={{-120,80},{-52,80},{44,80},{44,
-          4},{49,4}},             color={0,0,127}));
   connect(Izero.y, addPID.u3) annotation (Line(points={{-19.5,-25},{-14,-25},{
           -14,-50},{-10,-50},{-10,-8},{-6,-8}}, color={0,0,127}));
   connect(u_s, gain_u_s.u)
@@ -262,6 +264,11 @@ equation
           -46,-58},{-42,-58}}, color={0,0,127}));
   connect(trigger, I.trigger) annotation (Line(points={{-80,-120},{-80,-96},{-30,
           -96},{-30,-62}}, color={255,0,255}));
+  connect(u_ff, gain_u_ff.u)
+    annotation (Line(points={{-120,80},{-97.2,80}}, color={0,0,127}));
+  connect(gain_u_ff.y, addFF.u1) annotation (Line(points={{-83.4,80},{44,80},{
+          44,4},{49,4}},
+                      color={0,0,127}));
   annotation (defaultComponentName="PID",
     Icon(coordinateSystem(
         preserveAspectRatio=true,

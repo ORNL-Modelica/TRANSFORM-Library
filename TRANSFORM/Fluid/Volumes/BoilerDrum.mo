@@ -282,7 +282,7 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
-          extent={{-6,-22},{4,-80}},
+          extent={{-6,-22},{6,-80}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.VerticalCylinder),

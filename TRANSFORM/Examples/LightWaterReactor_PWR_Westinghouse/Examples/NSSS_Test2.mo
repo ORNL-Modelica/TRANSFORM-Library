@@ -1,9 +1,9 @@
 within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples;
-model NSSS_Test
+model NSSS_Test2
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
 
-  TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.NSSS PHS
+  TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.NSSS2 PHS
     annotation (Placement(transformation(extent={{-40,-42},{40,38}})));
 
   Modelica.Fluid.Sources.Boundary_ph sink(
@@ -44,4 +44,4 @@ equation
       __Dymola_NumberOfIntervals=100,
       __Dymola_Algorithm="Esdirk45a"),
     __Dymola_experimentSetupOutput);
-end NSSS_Test;
+end NSSS_Test2;

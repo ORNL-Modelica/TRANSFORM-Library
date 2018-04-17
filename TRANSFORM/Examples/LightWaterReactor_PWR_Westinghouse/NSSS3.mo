@@ -1,6 +1,5 @@
 within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse;
-model NSSS "Nuclear steam supply system"
-
+model NSSS3 "Nuclear steam supply system"
 
   extends BaseClasses.Partial_SubSystem_A(
     replaceable package Medium = Modelica.Media.Water.StandardWater,
@@ -233,42 +232,6 @@ model NSSS "Nuclear steam supply system"
         extent={{-6,6},{6,-6}},
         rotation=-90,
         origin={24,-50})));
-  Fluid.Pipes.GenericPipe_MultiTransferSurface
-                                Steam_OutletPipe(
-    p_a_start(displayUnit="Pa") = 5.8e6,
-    p_b_start(displayUnit="Pa"),
-    use_Ts_start=false,
-    redeclare package Medium = Medium,
-    h_a_start=2953664,
-    h_b_start=2953630,
-    energyDynamics=system.energyDynamics,
-    redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=3.776),
-    momentumDynamics=system.momentumDynamics,
-    m_flow_a_start=data.m_flow_shellSide_total)
-                       annotation (Placement(transformation(
-        extent={{-6,6},{6,-6}},
-        rotation=0,
-        origin={74,40})));
-  Fluid.Pipes.GenericPipe_MultiTransferSurface
-                                Steam_InletPipe(
-    redeclare package Medium = Medium,
-    p_a_start(displayUnit="Pa") = 6.1856e+06,
-    p_b_start(displayUnit="Pa") = 6.1856e+06,
-    T_a_start(displayUnit="K") = 497.0025,
-    T_b_start(displayUnit="K") = 497.0025,
-    redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=3.776, nV=2),
-    exposeState_b=true,
-    energyDynamics=system.energyDynamics,
-    momentumDynamics=system.momentumDynamics,
-    m_flow_a_start=data.m_flow_shellSide_total)
-                                           annotation (Placement(transformation(
-        extent={{6,6},{-6,-6}},
-        rotation=0,
-        origin={74,-40})));
 
   Fluid.Sensors.Temperature          T_Core_Inlet(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
@@ -405,6 +368,159 @@ public
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={4,-42})));
+  Fluid.Volumes.BoilerDrum drum(
+    redeclare model Geometry =
+        Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.Cylinder (
+        length=data.length_upperShell,
+        r_inner=0.5*data.diameter_inner_upperShell,
+        th_wall=data.th_shell),
+    redeclare package Medium = Medium,
+    cp_wall=600,
+    p_liquid_start=data.p_shellSide,
+    p_vapor_start=data.p_shellSide,
+    T_liquid_start=data.sat.Tsat,
+    T_vapor_start=data.sat.Tsat,
+    Twall_start=data.sat.Tsat,
+    d_wall=7000)
+    annotation (Placement(transformation(extent={{56,38},{36,58}})));
+  Fluid.Volumes.MixingVolume volume_port_a(
+    nPorts_a=1,
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    redeclare model Geometry =
+        Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1),
+
+    nPorts_b=2,
+    p_start=data.p_shellSide,
+    T_start=data.sat.Tsat - 20)
+    annotation (Placement(transformation(extent={{92,-50},{72,-30}})));
+  Modelica.Fluid.Sources.Boundary_ph sink(
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    nPorts=1,
+    use_p_in=true,
+    p(displayUnit="MPa") = data.p_shellSide,
+    h=data.h_vsat)
+    annotation (Placement(transformation(extent={{155,27},{145,37}})));
+  Modelica.Blocks.Sources.Sine sine(
+    freqHz=1/1000,
+    amplitude=5e5,
+    startTime=1000,
+    offset=port_b_nominal.p)
+    annotation (Placement(transformation(extent={{186,24},{166,44}})));
+  Modelica.Fluid.Sources.MassFlowSource_T source(
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    nPorts=1,
+    use_m_flow_in=false,
+    T=data.sat.Tsat - 20,
+    m_flow=data.m_flow_shellSide_total)
+    annotation (Placement(transformation(extent={{155,-6},{143,6}})));
+  Fluid.Valves.ValveIncompressible                    orificeLiquid(
+    m_flow_nominal=data.m_flow_shellSide_total,
+    redeclare package Medium = Medium,
+    dp_nominal=10000,
+    rho_nominal=1000)
+                annotation (Placement(transformation(
+        extent={{-7,-7},{7,7}},
+        rotation=270,
+        origin={61,1})));
+  Modelica.Blocks.Sources.Constant const(k=1)
+    annotation (Placement(transformation(extent={{89,-2},{81,6}})));
+  Modelica.Blocks.Math.Product massFlowInverse
+    annotation (Placement(transformation(extent={{100,-73},{90,-63}})));
+  Modelica.Blocks.Sources.RealExpression k(y=circulationPump.N_nominal/(
+        circulationPump.V_flow_nominal*circulationPump.d))
+    annotation (Placement(transformation(extent={{128,-69},{114,-57}})));
+  Modelica.Blocks.Sources.RealExpression universalSensor(y=1.1*data.m_flow_shellSide_total)
+    annotation (Placement(transformation(extent={{128,-79},{114,-67}})));
+  Fluid.Examples.SteamRankine_BalanceOfPlant.Components.PumpSimple
+                                                          circulationPump(
+    V=0.2,
+    h_start=900e3,
+    use_N_input=true,
+    eta=0.9,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    redeclare package Medium = Medium,
+    m_flow_nominal=1.1*data.m_flow_shellSide_total,
+    V_flow_nominal=1.1*data.m_flow_shellSide_total/Medium.bubbleDensity(
+        Medium.setSat_p(data.p_shellSide)),
+    m_flow_start=1.1*data.m_flow_shellSide_total,
+    p_a_start=data.p_shellSide + (-60*0.0254*12)*drum.g_n_start*
+        Medium.bubbleDensity(Medium.setSat_p(data.p_shellSide)),
+    p_b_start=circulationPump.p_a_start + 1e5)
+    annotation (Placement(transformation(extent={{60,-74},{40,-54}})));
+  Fluid.Valves.ValveCompressible valve_MSI(
+    m_flow_nominal=data.m_flow_shellSide_total,
+    rho_nominal=Medium.density_pT(valve_MSI.p_nominal, data.sat.Tsat + 1),
+    p_nominal=data.p_shellSide,
+    redeclare package Medium = Medium,
+    dp_nominal=10000) "Main Steam Isolation Valve" annotation (Placement(
+        transformation(extent={{68,44},{88,64}}, rotation=0)));
+  Controls.FeedForward.getOpening_ValveIncompressible
+                                 valveLiquidInverse(
+    dp_nom=(nominalData.p_nom_preheater_HP_cooling_out - nominalData.p_nom_to_SG_drain)
+        /2,
+    m_flow_nom=nominalData.m_flow_nom_feedWaterPump/3,
+    d_nom=Medium.density(Medium.setState_pTX(
+        nominalData.p_nom_preheater_HP_cooling_out,
+        nominalData.T_nom_preheater_HP_cooling_out - 5,
+        Medium.X_default)),
+    d=valveLiquidInverse.d_nom,
+    dp=valve_MSI.dp,
+    m_flow_ref=valve_MSI.m_flow)
+    annotation (Placement(transformation(extent={{98,146},{118,166}})));
+  Modelica.Blocks.Continuous.FirstOrder FF_firstOrder(
+    T=2,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=0.3)
+    annotation (Placement(transformation(extent={{134,150},{146,162}})));
+  Modelica.Blocks.Math.Gain scaling_FF(k=100) annotation (Placement(
+        transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={160,132})));
+  Controls.LimPID controller(
+    with_FF=true,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    initType=Modelica.Blocks.Types.InitPID.InitialOutput,
+    Td=0.1,
+    Ti=200,
+    yMax=100,
+    k=1,
+    yMin=1,
+    y_start=40)
+    annotation (Placement(transformation(extent={{156,90},{176,110}})));
+  Modelica.Blocks.Math.Gain scaling_out(k=1/100)
+    annotation (Placement(transformation(extent={{200,90},{220,110}})));
+  Modelica.Blocks.Sources.RealExpression level_setpoint(y=50)
+            annotation (Placement(transformation(extent={{124,90},{144,109}},
+          rotation=0)));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=drum.geometry.level_meas_percentage)
+    annotation (Placement(transformation(extent={{124,60},{144,80}})));
+  parameter Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Records.RankineNominalValues
+                                         nominalData "Nominal data"
+    annotation (Dialog(group="Nominal operating data"), Placement(
+        transformation(extent={{64,162},{84,182}})));
+  Fluid.Volumes.MixingVolume              vol_turbine_HP_feed(
+    nPorts_a=1,
+    nPorts_b=1,
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    redeclare model Geometry =
+        Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=20),
+
+    p_start=data.p_shellSide - 0.1e5,
+    T_start=data.sat.Tsat + 5)
+    annotation (Placement(transformation(extent={{191,-17},{210,2}})));
+  Fluid.Valves.ValveCompressible          SGBlockValve(
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    m_flow_nominal=data.m_flow_shellSide_total,
+    rho_nominal=Medium.density_pT(SGBlockValve.p_nominal, data.sat.Tsat + 1),
+    p_nominal=data.p_shellSide,
+    dp_nominal=10000)
+                   "Steam Generator Block Valve" annotation (Placement(
+        transformation(extent={{212,-18},{232,2}},
+                                                 rotation=0)));
+  Modelica.Blocks.Sources.Constant const1(k=1)
+    annotation (Placement(transformation(extent={{250,32},{270,52}})));
 equation
 
   connect(res_toPzr.port_b, PressurizerHeader.port_3) annotation (Line(points={{
@@ -425,14 +541,6 @@ equation
           84},{-32,84},{-32,89},{-34,89}}, color={0,127,255}));
   connect(pressurizer.reliefPort,relief. ports[1]) annotation (Line(points={{-24.4,
           84},{-24,84},{-24,89},{-22,89}}, color={0,127,255}));
-  connect(Steam_OutletPipe.port_a, res_SGshellOutlet.port_b)
-    annotation (Line(points={{68,40},{36,40},{36,28.35}}, color={0,127,255}));
-  connect(Steam_InletPipe.port_b, res_SGshellInlet.port_a) annotation (Line(
-        points={{68,-40},{36,-40},{36,-30.35}}, color={0,127,255}));
-  connect(Steam_OutletPipe.port_b,port_b)
-    annotation (Line(points={{80,40},{100,40}}, color={0,127,255}));
-  connect(Steam_InletPipe.port_a,port_a)
-    annotation (Line(points={{80,-40},{100,-40}}, color={0,127,255}));
   connect(sensorBus.p_pressurizer, p_pressurizer.y) annotation (Line(
       points={{-29.9,100.1},{-80,100.1},{-80,134},{-83.4,134}},
       color={239,82,82},
@@ -512,6 +620,59 @@ equation
           {-6,-22},{-6,-22.5},{-3.85,-22.5}}, color={0,127,255}));
   connect(res_coldLeg.port_a, pump.port_b) annotation (Line(points={{3.85,-22.5},
           {3.85,-26.25},{4,-26.25},{4,-32}}, color={0,127,255}));
+  connect(res_SGshellOutlet.port_b, drum.riserPort) annotation (Line(points={{
+          36,28.35},{36,36},{39,36},{39,40}}, color={0,127,255}));
+  connect(volume_port_a.port_a[1], port_a)
+    annotation (Line(points={{88,-40},{100,-40}}, color={0,127,255}));
+  connect(sine.y,sink. p_in) annotation (Line(points={{165,34},{160,34},{160,36},
+          {156,36}},
+                   color={0,0,127}));
+  connect(source.ports[1], port_a) annotation (Line(points={{143,0},{122,0},{
+          122,-40},{100,-40}}, color={0,127,255}));
+  connect(sink.ports[1], port_b) annotation (Line(points={{145,32},{122.5,32},{
+          122.5,40},{100,40}}, color={0,127,255}));
+  connect(orificeLiquid.port_a, drum.downcomerPort) annotation (Line(points={{
+          61,8},{60,8},{60,40},{53,40}}, color={0,127,255}));
+  connect(orificeLiquid.port_b, volume_port_a.port_b[1]) annotation (Line(
+        points={{61,-6},{66,-6},{66,-40.5},{76,-40.5}}, color={0,127,255}));
+  connect(orificeLiquid.opening, const.y) annotation (Line(points={{66.6,1},{
+          77.3,1},{77.3,2},{80.6,2}}, color={0,0,127}));
+  connect(circulationPump.port_b, res_SGshellInlet.port_a) annotation (Line(
+        points={{40,-64},{36,-64},{36,-30.35}}, color={0,127,255}));
+  connect(circulationPump.port_a, volume_port_a.port_b[2]) annotation (Line(
+        points={{60,-64},{60,-39.5},{76,-39.5}}, color={0,127,255}));
+  connect(massFlowInverse.y, circulationPump.N_input) annotation (Line(points={
+          {89.5,-68},{70,-68},{70,-48},{50,-48},{50,-54}}, color={0,0,127}));
+  connect(massFlowInverse.u1, k.y) annotation (Line(points={{101,-65},{107.5,
+          -65},{107.5,-63},{113.3,-63}}, color={0,0,127}));
+  connect(massFlowInverse.u2, universalSensor.y) annotation (Line(points={{101,
+          -71},{106.5,-71},{106.5,-73},{113.3,-73}}, color={0,0,127}));
+  connect(valve_MSI.port_a, drum.steamPort) annotation (Line(points={{68,54},{
+          62,54},{62,64},{40,64},{40,55.6},{39,55.6}}, color={0,127,255}));
+  connect(valveLiquidInverse.y, FF_firstOrder.u)
+    annotation (Line(points={{119,156},{132.8,156}}, color={0,0,127}));
+  connect(FF_firstOrder.y, scaling_FF.u) annotation (Line(points={{146.6,156},{
+          160,156},{160,144}}, color={0,0,127}));
+  connect(scaling_FF.y, controller.u_ff) annotation (Line(points={{160,121},{
+          158,121},{158,114},{148,114},{148,108},{154,108}}, color={0,0,127}));
+  connect(level_setpoint.y, controller.u_s) annotation (Line(points={{145,99.5},
+          {149.5,99.5},{149.5,100},{154,100}}, color={0,0,127}));
+  connect(realExpression.y, controller.u_m)
+    annotation (Line(points={{145,70},{166,70},{166,88}}, color={0,0,127}));
+  connect(controller.y, scaling_out.u) annotation (Line(points={{177,100},{188,
+          100},{188,100},{198,100}}, color={0,0,127}));
+  connect(scaling_out.y, valve_MSI.opening) annotation (Line(points={{221,100},
+          {234,100},{234,62},{86,62},{86,70},{78,70},{78,62}}, color={0,0,127}));
+  connect(valve_MSI.port_b, vol_turbine_HP_feed.port_a[1]) annotation (Line(
+        points={{88,54},{102,54},{102,56},{194.8,56},{194.8,-7.5}}, color={0,
+          127,255}));
+  connect(vol_turbine_HP_feed.port_b[1], SGBlockValve.port_a) annotation (Line(
+        points={{206.2,-7.5},{209.1,-7.5},{209.1,-8},{212,-8}}, color={0,127,
+          255}));
+  connect(SGBlockValve.port_b, port_b) annotation (Line(points={{232,-8},{232,
+          18},{100,18},{100,40}}, color={0,127,255}));
+  connect(const1.y, SGBlockValve.opening) annotation (Line(points={{271,42},{
+          246,42},{246,0},{222,0}}, color={0,0,127}));
   annotation (
     defaultComponentName="PHS",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -700,5 +861,6 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,136,0},
           origin={28,0},
-          rotation=-90)}));
-end NSSS;
+          rotation=-90)}),
+    experiment(StopTime=1000, __Dymola_Algorithm="Esdirk45a"));
+end NSSS3;

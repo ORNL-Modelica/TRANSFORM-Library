@@ -9,13 +9,13 @@ partial record Record_SubSystem_A
 
   /* Nominal Conditions */
   parameter TRANSFORM.Examples.Utilities.Record_fluidPorts port_a_nominal(
-      redeclare package Medium = Medium, h=Medium.specificEnthalpy(
-        Medium.setState_pT(port_a_nominal.p, port_a_nominal.T))) "port_a"
+      redeclare package Medium = Medium, T=Medium.temperature(
+        Medium.setState_ph(port_a_nominal.p, port_a_nominal.h))) "port_a"
     annotation (Dialog(tab="Nominal Conditions"));
   parameter TRANSFORM.Examples.Utilities.Record_fluidPorts port_b_nominal(
     redeclare package Medium = Medium,
-    h=Medium.specificEnthalpy(Medium.setState_pT(port_b_nominal.p,
-        port_b_nominal.T)),
+    T=Medium.temperature(Medium.setState_ph(port_b_nominal.p,
+        port_b_nominal.h)),
     m_flow=-port_a_nominal.m_flow) "port_b"
     annotation (Dialog(tab="Nominal Conditions"));
 
@@ -23,16 +23,16 @@ partial record Record_SubSystem_A
   parameter TRANSFORM.Examples.Utilities.Record_fluidPorts port_a_start(
     redeclare package Medium = Medium,
     p=port_a_nominal.p,
-    T=port_a_nominal.T,
-    h=Medium.specificEnthalpy(Medium.setState_pT(port_a_start.p, port_a_start.T)),
+    T=Medium.temperature(Medium.setState_ph(port_a_start.p, port_a_start.h)),
+    h= port_a_nominal.h,
     m_flow=port_a_nominal.m_flow) "port_a"
     annotation (Dialog(tab="Initialization"));
 
   parameter TRANSFORM.Examples.Utilities.Record_fluidPorts port_b_start(
     redeclare package Medium = Medium,
     p=port_b_nominal.p,
-    T=port_b_nominal.T,
-    h=Medium.specificEnthalpy(Medium.setState_pT(port_b_start.p, port_b_start.T)),
+    T=Medium.temperature(Medium.setState_ph(port_b_start.p, port_b_start.h)),
+    h= port_b_nominal.h,
     m_flow=-port_a_start.m_flow) "port_b"
     annotation (Dialog(tab="Initialization"));
 
