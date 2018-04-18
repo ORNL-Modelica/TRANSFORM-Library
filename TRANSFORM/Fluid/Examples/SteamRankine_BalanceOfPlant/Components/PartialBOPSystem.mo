@@ -116,8 +116,7 @@ equation
       pattern=LinePattern.Dash));
   connect(SG_2.controlBus, controlSystem.controlBus_SteamGenerator2)
     annotation (Line(
-      points={{-73,-44},{-106,-44},{-106,-44},{-106,-92},{54,-92},{54,
-          -90.8235}},
+      points={{-73,-44},{-106,-44},{-106,-44},{-106,-92},{54,-92},{54,-90.8235}},
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash));
@@ -136,8 +135,8 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(SG_1.drain_steam, steamCycle.feed_SG1) annotation (Line(
-      points={{-58,28.5818},{-44,28.5818},{-44,28},{-20,28},{-20,-13.5714},
-          {-7.82727,-13.5714}},
+      points={{-58,28.5818},{-44,28.5818},{-44,28},{-20,28},{-20,-13.5714},{
+          -7.82727,-13.5714}},
       color={0,127,255},
       thickness=0.5));
   connect(SG_3.port_feedWater, steamCycle.drain_to_SG3) annotation (Line(
@@ -151,8 +150,8 @@ equation
       thickness=0.5));
 
   connect(SG_1.port_feedWater, steamCycle.drain_to_SG1) annotation (Line(
-      points={{-58,8.18182},{-46,8.18182},{-46,8},{-20,8},{-20,-35.5714},
-          {-7.82727,-35.5714}},
+      points={{-58,8.18182},{-46,8.18182},{-46,8},{-20,8},{-20,-35.5714},{
+          -7.82727,-35.5714}},
       color={0,127,255},
       thickness=0.5));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,

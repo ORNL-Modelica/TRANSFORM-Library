@@ -41,8 +41,8 @@ record Data_Basic
 
    parameter SI.Temperature T_core_inlet_nominal = from_degF(557.5) "Nominal core inlet temperature (d2s1)";
    parameter SI.Temperature T_core_outlet_nominal = from_degF(618.5) "Nominal core inlet temperature (d2s1)";
-   parameter SI.Temperature T_core_avgRise_nominal = T_core_outlet_nominal - T_core_inlet_nominal "Nominal core temperature rise (d2s1)";
-
+   parameter SI.TemperatureDifference T_core_avgRise_nominal = T_core_outlet_nominal - T_core_inlet_nominal "Nominal core temperature rise (d2s1)";
+   parameter SI.Temperature T_core_avg = 0.5*(T_core_outlet_nominal+T_core_inlet_nominal) "Average temperature of core";
 
    parameter SI.Length dimension_core = from_feet(11.06) "Equivalent core diameter (d2s1)";
    parameter SI.Length length_fuel = from_feet(12) "Core length between fuel ends (d2s1)";
@@ -90,6 +90,8 @@ record Data_Basic
    parameter Real nSG = 4 "Total number of steam generators (i.e., 4 loops and 1 per loop)";
    parameter String Material_SGtube = "Inconel (d6s1)";
    parameter SI.Pressure p_shellSide = from_psi(1000) "Shell side full load pressure (d6s1)";
+   parameter SI.Temperature T_inlet_shell = sat.Tsat - 100 "Guess at inlet shell temperature from FWH";
+   parameter SI.SpecificEnthalpy h_inlet_shell = Medium.specificEnthalpy_pT(p_shellSide,T_inlet_shell) "Guess at inlet shell temperature from FWH";
    parameter SI.MassFlowRate m_flow_shellSide_per = from_lbm_hr(3.813e6) "Steam flow per steam generator (d6s1)";
    parameter SI.MassFlowRate m_flow_shellSide_total = m_flow_shellSide_per*nSG "Total Steam flow to steam generators";
    parameter SI.Length length_SGshell = from_inch(67*12+8) "Overall height of steam generator (d6s2)";
@@ -97,11 +99,15 @@ record Data_Basic
    parameter SI.Length length_upperShell = length_SGshell-length_lowerShell "Estimate of vertical length of upper shell";
    parameter SI.Length diameter_outer_lowerShell = from_inch(11*12+3) "Lower shell outer diameter (d6s1)";
    parameter SI.Length diameter_outer_upperShell = from_inch(14*12+7.75) "Upper shell outer diameter (d6s1)";
+   parameter SI.Length r_outer_upperShell_eff = 0.5*diameter_outer_upperShell*sqrt(nSG) "Upper shell outer radius effective based on nSG steam generators lumped together";
    parameter SI.Length th_shell = from_inch(8) "Estimate of shell thickness (s2 picture)";
    parameter SI.Length diameter_inner_lowerShell = diameter_outer_lowerShell-2*th_shell "Lower shell inner diameter (d6s1)";
    parameter SI.Length diameter_inner_upperShell = diameter_outer_upperShell-2*th_shell "Upper shell inner diameter (d6s1)";
 
-   parameter Real nTubes = 7500 "# of tubes in SG, estimate based on available area";
+   parameter SI.Area crossArea_SG_downcomer = 0.2*nSG*0.25*Modelica.Constants.pi*(diameter_outer_lowerShell^2 - diameter_outer_SGtube^2*nTubes) "Estimate of SG downcomer cross area (0.2 of available)";
+   parameter SI.Volume volume_SG_downcomer = crossArea_SG_downcomer*length_lowerShell "Estimate of volume for SG downcomer";
+
+   parameter Real nTubes = 6500 "# of tubes in SG, estimate based on available area";
    parameter SI.Length length_SGtube = 2*length_lowerShell "Estimate of SG tube length";
    parameter SI.Length diameter_outer_SGtube = 0.0222 "SG tube outer diameter (d1s2)";
    parameter SI.Length th_SGtube = 0.00127 "SG tube thickness (d1s2)";

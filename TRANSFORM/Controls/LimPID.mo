@@ -177,7 +177,7 @@ protected
     annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
 
 public
-  Modelica.Blocks.Math.Gain gain_u_ff(k=k_ff)
+  Modelica.Blocks.Math.Gain gain_u_ff(k=k_ff) if with_FF
     annotation (Placement(transformation(extent={{-96,74},{-84,86}})));
 initial equation
   if initType==InitPID.InitialOutput then

@@ -508,7 +508,8 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         D=data_PHX.D_tube_outer,
         S_T=data_PHX.pitch_tube,
         S_L=data_PHX.pitch_tube,
-        CF=fill(
+        CFs=
+           fill(
             0.44,
             PHX.shell.heatTransfer.nHT,
             PHX.shell.heatTransfer.nSurfaces))) annotation (Placement(
@@ -723,7 +724,8 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         D=data_SHX.D_tube_outer,
         S_T=data_SHX.pitch_tube,
         S_L=data_SHX.pitch_tube,
-        CF=fill(
+        CFs=
+           fill(
             0.44,
             SHX.shell.heatTransfer.nHT,
             SHX.shell.heatTransfer.nSurfaces))) annotation (Placement(

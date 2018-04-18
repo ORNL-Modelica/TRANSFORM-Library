@@ -28,7 +28,7 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
         th_wall=0.04),
     alpha_external=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
-      Placement(transformation(extent={{20,-18},{-20,22}}, rotation=0)));
+      Placement(transformation(extent={{-20,-18},{20,22}}, rotation=0)));
 
   Valves.ValveCompressible                MSIValve(
     m_flow_nominal=nominalData.m_flow_nom_feedWater,
@@ -229,7 +229,7 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(drum.steamPort, sensorSteamFlow.port_a) annotation (Line(
-      points={{-14,17.2},{-14,20.6},{-16,20.6},{-16,30}},
+      points={{14,17.2},{14,20.6},{-16,20.6},{-16,30}},
       color={0,127,255},
       thickness=0.5));
   connect(pSteam.port, sensorSteamFlow.port_a)

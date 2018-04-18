@@ -1,6 +1,5 @@
 within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse;
-model NSSS "Nuclear steam supply system"
-
+model NSSS5 "Nuclear steam supply system"
 
   extends BaseClasses.Partial_SubSystem_A(
     replaceable package Medium = Modelica.Media.Water.StandardWater,
@@ -404,6 +403,20 @@ public
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={4,-42})));
+  Modelica.Fluid.Sources.Boundary_ph sink(
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    nPorts=1,
+    p(displayUnit="MPa") = data.p_shellSide,
+    h=data.h_vsat,
+    use_p_in=false)
+    annotation (Placement(transformation(extent={{155,27},{145,37}})));
+  Modelica.Fluid.Sources.MassFlowSource_T source(
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    nPorts=1,
+    use_m_flow_in=false,
+    m_flow=data.m_flow_shellSide_total,
+    T=data.T_inlet_shell)
+    annotation (Placement(transformation(extent={{153,-44},{141,-32}})));
 equation
 
   connect(res_toPzr.port_b, PressurizerHeader.port_3) annotation (Line(points={{
@@ -511,6 +524,10 @@ equation
           {-6,-22},{-6,-22.5},{-3.85,-22.5}}, color={0,127,255}));
   connect(res_coldLeg.port_a, pump.port_b) annotation (Line(points={{3.85,-22.5},
           {3.85,-26.25},{4,-26.25},{4,-32}}, color={0,127,255}));
+  connect(source.ports[1], port_a) annotation (Line(points={{141,-38},{120,-38},
+          {120,-40},{100,-40}}, color={0,127,255}));
+  connect(sink.ports[1], port_b) annotation (Line(points={{145,32},{123.5,32},{
+          123.5,40},{100,40}}, color={0,127,255}));
   annotation (
     defaultComponentName="PHS",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -699,5 +716,9 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,136,0},
           origin={28,0},
-          rotation=-90)}));
-end NSSS;
+          rotation=-90)}),
+    experiment(
+      StopTime=10000,
+      __Dymola_NumberOfIntervals=10000,
+      __Dymola_Algorithm="Esdirk45a"));
+end NSSS5;

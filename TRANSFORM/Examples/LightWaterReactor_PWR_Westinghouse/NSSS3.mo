@@ -388,11 +388,11 @@ public
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1),
-
     nPorts_b=2,
     p_start=data.p_shellSide,
     T_start=data.sat.Tsat - 20)
     annotation (Placement(transformation(extent={{92,-50},{72,-30}})));
+
   Modelica.Fluid.Sources.Boundary_ph sink(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     nPorts=1,
@@ -506,10 +506,10 @@ public
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=20),
-
     p_start=data.p_shellSide - 0.1e5,
     T_start=data.sat.Tsat + 5)
     annotation (Placement(transformation(extent={{191,-17},{210,2}})));
+
   Fluid.Valves.ValveCompressible          SGBlockValve(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     m_flow_nominal=data.m_flow_shellSide_total,

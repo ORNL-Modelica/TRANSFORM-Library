@@ -396,9 +396,9 @@ public
     nPorts_b=2,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1),
-
     p_start=data.p_shellSide - 0.1e5)
     annotation (Placement(transformation(extent={{92,-50},{72,-30}})));
+
   Fluid.Valves.ValveIncompressible                    orificeLiquid(
     redeclare package Medium = Medium,
     dp_nominal=10000,
@@ -550,8 +550,8 @@ equation
   connect(boilerDrum.downcomerPort, orificeLiquid.port_a) annotation (Line(
         points={{57,40},{58,40},{58,20},{67,20},{67,8}}, color={0,127,255}));
   connect(orificeLiquid.port_b, volume_port_a.port_b[2]) annotation (Line(
-        points={{67,-6},{66,-6},{66,-34},{72,-34},{72,-39.5},{76,-39.5}}, color
-        ={0,127,255}));
+        points={{67,-6},{66,-6},{66,-34},{72,-34},{72,-39.5},{76,-39.5}}, color=
+         {0,127,255}));
   connect(const.y, orificeLiquid.opening) annotation (Line(points={{80.6,2},{78,
           2},{78,1},{72.6,1}}, color={0,0,127}));
   connect(port_b, valve_MSI.port_b)

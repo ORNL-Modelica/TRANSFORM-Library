@@ -382,11 +382,11 @@ public
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1),
-
     nPorts_b=2,
     p_start=data.p_shellSide,
     T_start=data.sat.Tsat - 20)
     annotation (Placement(transformation(extent={{92,-50},{72,-30}})));
+
   Modelica.Fluid.Sources.Boundary_ph sink(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     nPorts=1,
@@ -547,8 +547,8 @@ equation
           {-6,-22},{-6,-22.5},{-3.85,-22.5}}, color={0,127,255}));
   connect(res_coldLeg.port_a, pump.port_b) annotation (Line(points={{3.85,-22.5},
           {3.85,-26.25},{4,-26.25},{4,-32}}, color={0,127,255}));
-  connect(res_SGshellOutlet.port_b, drum.riserPort) annotation (Line(points={{
-          36,28.35},{36,36},{39,36},{39,40}}, color={0,127,255}));
+  connect(res_SGshellOutlet.port_b, drum.riserPort) annotation (Line(points={{36,
+          28.35},{36,36},{53,36},{53,40}},    color={0,127,255}));
   connect(volume_port_a.port_a[1], port_a)
     annotation (Line(points={{88,-40},{100,-40}}, color={0,127,255}));
   connect(sine.y,sink. p_in) annotation (Line(points={{165,34},{160,34},{160,36},
@@ -558,8 +558,8 @@ equation
           122,-40},{100,-40}}, color={0,127,255}));
   connect(sink.ports[1], port_b) annotation (Line(points={{145,32},{122.5,32},{
           122.5,40},{100,40}}, color={0,127,255}));
-  connect(orificeLiquid.port_a, drum.downcomerPort) annotation (Line(points={{
-          61,8},{60,8},{60,40},{53,40}}, color={0,127,255}));
+  connect(orificeLiquid.port_a, drum.downcomerPort) annotation (Line(points={{61,8},{
+          60,8},{60,40},{39,40}},        color={0,127,255}));
   connect(orificeLiquid.port_b, volume_port_a.port_b[1]) annotation (Line(
         points={{61,-6},{66,-6},{66,-40.5},{76,-40.5}}, color={0,127,255}));
   connect(orificeLiquid.opening, const.y) annotation (Line(points={{66.6,1},{

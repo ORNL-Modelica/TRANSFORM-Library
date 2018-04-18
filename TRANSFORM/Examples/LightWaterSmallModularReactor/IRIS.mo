@@ -234,7 +234,6 @@ model IRIS
         Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     redeclare model HeatTransfer_WV =
         Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
-
     rho_wall=7000)
     annotation (Placement(transformation(extent={{-34,70},{-22,84}})));
 

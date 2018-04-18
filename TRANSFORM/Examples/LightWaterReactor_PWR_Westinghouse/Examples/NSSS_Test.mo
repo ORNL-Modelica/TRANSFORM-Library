@@ -3,6 +3,10 @@ model NSSS_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
 
+  SI.SpecificEnthalpy Ts_tube[PHS.steamGenerator.geometry.nV] = PHS.steamGenerator.tube.mediums.T;
+  SI.SpecificEnthalpy hs_tube[PHS.steamGenerator.geometry.nV] = PHS.steamGenerator.tube.mediums.h;
+  SI.SpecificEnthalpy hs_shell[PHS.steamGenerator.geometry.nV] = PHS.steamGenerator.shell.mediums.h;
+
   TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.NSSS PHS
     annotation (Placement(transformation(extent={{-40,-42},{40,38}})));
 
@@ -21,10 +25,10 @@ model NSSS_Test
     T=PHS.data.sat.Tsat - 20)
     annotation (Placement(transformation(extent={{69,-24},{57,-12}})));
   Modelica.Blocks.Sources.Sine sine(
-    startTime=100,
     freqHz=1/1000,
     amplitude=20e5,
-    offset=PHS.port_b_nominal.p)
+    offset=PHS.port_b_nominal.p,
+    startTime=1000000)
     annotation (Placement(transformation(extent={{100,6},{80,26}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={PHS.pressurizer.drum2Phase.p,
         PHS.coreSubchannel.reactorKinetics.Q_total})
