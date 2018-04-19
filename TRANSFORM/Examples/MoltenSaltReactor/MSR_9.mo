@@ -105,7 +105,7 @@ model MSR_9
     m_flow_a_start=0.95*data_RCTR.m_flow,
     redeclare model InternalHeatGen =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=kinetics.Qs + kinetics.Qs_FP),
+        (Q_gens=kinetics.Qs +kinetics.Qs_FP_near),
     redeclare model InternalTraceMassGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_fuelCell))
