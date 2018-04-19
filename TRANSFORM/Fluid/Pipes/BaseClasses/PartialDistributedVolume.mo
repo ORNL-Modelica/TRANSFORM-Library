@@ -77,7 +77,7 @@ partial model PartialDistributedVolume
   SI.Energy Us[nV] "Internal energy";
   SI.Mass mXis[nV,Medium.nXi] "Species mass";
   SIadd.ExtraPropertyExtrinsic mCs[nV,Medium.nC] "Trace substance extrinsic value";
-  SI.Mass[nV,Medium.nC] mCs_scaled
+  SIadd.ExtraPropertyExtrinsic[nV,Medium.nC] mCs_scaled
     "Scaled trace substance mass for improved numerical stability";
 
   // C has the additional parameter because it is not included in the medium

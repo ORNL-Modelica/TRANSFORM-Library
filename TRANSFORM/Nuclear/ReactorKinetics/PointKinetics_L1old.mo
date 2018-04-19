@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics;
-model PointKinetics_Drift
+model PointKinetics_L1old
 
   import TRANSFORM.Types.Dynamics;
   import TRANSFORM.Math.fillArray_1D;
@@ -46,17 +46,17 @@ model PointKinetics_Drift
   // Reactivity Feedback
   parameter Integer nFeedback = 1 "# of reactivity feedbacks (alpha*(val-val_ref)" annotation (Dialog(tab="Kinetics",
         group="Inputs Reactivity Feedback"));
-  input Real alphas_feedback[nV,nFeedback]=fill(
+  input Units.TempFeedbackCoeff alphas_feedback[nV,nFeedback]=fill(
       -1e-4,
       nV,
-      nFeedback) "Reactivity feedback coefficient (e.g., temperature [1/K])"
+      nFeedback) "Reactivity feedback coefficient"
                                        annotation (Dialog(tab="Kinetics", group="Inputs Reactivity Feedback"));
-  input Real vals_feedback[nV,nFeedback] = vals_feedback_reference "Variable value for reactivity feedback (e.g. fuel temperature)"
+  input Real vals_feedback[nV,nFeedback] = vals_feedback_reference "Variable value for reactivity feedback"
     annotation (Dialog(tab="Kinetics",group="Inputs Reactivity Feedback"));
-  input Real vals_feedback_reference[nV,nFeedback]=fill(
+  input SI.Temperature vals_feedback_reference[nV,nFeedback]=fill(
       500 + 273.15,
       nV,
-      nFeedback) "Reference value for reactivity feedback (e.g. fuel reference temperature)"
+      nFeedback) "Reference value for reactivity feedback"
                                                  annotation (Dialog(tab="Kinetics",
         group="Inputs Reactivity Feedback"));
 
@@ -96,7 +96,7 @@ model PointKinetics_Drift
     "Energy released per decay of each fission product [J/decay] (far field - e.g., gamma)"
     annotation (Dialog(tab="Fission Products", group="Inputs"));
   input SIadd.ExtraPropertyExtrinsic[nV,nC] mCs_FP={{0 for j in 1:nC} for i in 1:nV}
-    "Fission product number in each volume [atoms]"
+    "Fission product concentration in each volume [#]"
     annotation (Dialog(tab="Fission Products", group="Inputs"));
 
   // Initialization
@@ -116,75 +116,14 @@ model PointKinetics_Drift
       tab="Internal Inteface",
       group="Outputs",
       enable=false));
-  output SIadd.ExtraPropertyFlowRate[nV,nI] mC_gens "Generation rate of precursor groups [atoms/s]"
+  output SIadd.ExtraPropertyFlowRate[nV,nI] mC_gens "Generation rate of precursor groups"
     annotation (Dialog(
-      tab="Internal Inteface",
-      group="Outputs",
-      enable=false));
-  output SI.Power Qs_FP_near[nV]
-    "Near field (e.g, beta) power released from fission product decay"
-    annotation (Dialog(
-      tab="Internal Inteface",
-      group="Outputs",
-      enable=false));
-  output SI.Power Qs_FP_far[nV]
-    "Far field (e.g., gamma) power released from fission product decay"
-    annotation (Dialog(
-      tab="Internal Inteface",
-      group="Outputs",
-      enable=false));
-  output SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_FP
-    "Generation rate of fission products [atoms/s]" annotation (Dialog(
       tab="Internal Inteface",
       group="Outputs",
       enable=false));
 
-  TRANSFORM.Units.NonDim[nV,nC] rhos_FP "Fission product reactivity feedback";
   TRANSFORM.Units.NonDim[nV,nFeedback] rhos_feedback "Linear reactivity feedback";
-  TRANSFORM.Units.NonDim[nV,nTR] rhos_TR "Tritium contributors reactivity feedback";
   TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
-
-  // Tritium Sources
-  parameter Integer nTR = 0 "Tritium contributers"
-                                                  annotation (Dialog(tab="Tritium Balance"));
-  parameter Integer iH3 = 1 "Index of tritium (1-H-3) in fission products array"
-                                                                                annotation (Dialog(tab="Tritium Balance"));
-  parameter Real[nTR,nTR] parents_TR=fill(
-      0,
-      nTR,
-      nTR)
-    "Matrix of parent sources (sum(column) = 1 or 0) for each tritium contributor 'daughter'. Row is daughter, Column is parent."
-    annotation (Dialog(tab="Tritium Balance"));
-
-  input SI.Area[nTR] sigmaA_TR = fill(0,nTR) "Absorption cross-section for reactivity feedback" annotation (Dialog(tab="Tritium Balance", group="Inputs"));
-  input SI.Area[nTR] sigmaT_TR = fill(0,nTR) "Cross-section for tritium generation" annotation (Dialog(tab="Tritium Balance", group="Inputs"));
-  input TRANSFORM.Units.InverseTime[nTR] lambda_TR=fill(0, nTR)
-    "Decay constants for each tritium contributor"
-    annotation (Dialog(tab="Tritium Balance", group="Inputs"));
-
-  input SI.Mass[nV,nTR] mCs_TR={{0 for j in 1:nTR} for i in 1:nV}
-    "Contributors to tritium [#]"
-    annotation (Dialog(tab="Tritium Balance", group="Inputs"));
-  output SIadd.ExtraPropertyFlowRate[nV,nTR] mC_gens_TR "Generation rate of tritium contributors [atoms/s]"
-    annotation (Dialog(
-      tab="Internal Inteface",
-      group="Outputs",
-      enable=false));
-
-  Units.ExtraPropertyFlowRate mC_gens_H3[nV,nTR]
-    "Generation rate of tritium [atoms/s]";
-
-  input SI.Volume[nV] Vs "Volume for fisson product concentration basis" annotation(Dialog);
-
-  parameter Boolean includeLeak = false "=true to include power leakage across volumes in energy balance" annotation(Dialog(tab="Advanced"));
-  parameter Real LF[nV+1] = zeros(nV+1) annotation(Dialog(tab="Advanced",enable=includeLeak));
-  SI.Power Qs_leak[nV];
-
-protected
-  SI.Power Qs_FP_near_i[nV,nC]
-    "Near field (e.g, beta) power released from fission product decay (per species per volume)";
-  SI.Power Qs_FP_far_i[nV,nC]
-    "Far field (e.g., gamma) power released from fission product decay (per species per volume)";
 
 initial equation
 
@@ -201,67 +140,27 @@ equation
   rhos_feedback = {{alphas_feedback[i,j]*(vals_feedback[i,j] - vals_feedback_reference[i,j]) for j in 1:nFeedback} for i in 1:nV};
 
   rhos = {sum(rhos_feedback[i,:]) +
-    rhos_input[i] + sum(rhos_FP[i, :]) + sum(rhos_TR[i, :]) for i in 1:nV};
+    rhos_input[i] for i in 1:nV};
 
   if specifyPower then
-    Qs = Qs_input + (if includeLeak then Qs_leak else zeros(nV));
+    Qs = Qs_input;
   else
     if energyDynamics == Dynamics.SteadyState then
       for i in 1:nV loop
         0 = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(lambda_i .*
-          mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i] + (if includeLeak then + Qs_leak[i] else 0);
+          mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i];
+        zeros(nI) = mC_gens[i, :];
       end for;
     else
       for i in 1:nV loop
-        der(Qs[i]) = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(
-          lambda_i .* mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i] + (if includeLeak then + Qs_leak[i] else 0);
+        der(Qs[i]) = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(lambda_i .* mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i];
+        der(mCs[i, :]) = mC_gens[i, :];
       end for;
     end if;
   end if;
 
-  if nV == 1 then
-    Qs_leak[1] = -LF[1]*Qs[1] - LF[2]*Qs[1];
-  else
-    Qs_leak[1] = -LF[1]*Qs[1] + LF[2]*(Qs[2]-Qs[1]);
-    for i in 2:nV-1 loop
-      Qs_leak[i] = LF[i]*(Qs[i-1]-Qs[i]) + LF[i+1]*(Qs[i+1] - Qs[i]);
-    end for;
-    Qs_leak[nV] = LF[nV]*(Qs[nV-1]-Qs[nV]) - LF[nV+1]*Qs[nV];
-  end if;
-
   mC_gens = {{beta_i[j]*nu_bar/w_f*Qs[i] - lambda_i[j]*mCs[i, j] for j in 1:nI}
     for i in 1:nV};
-
-  // Fission product
-  for i in 1:nV loop
-    for j in 1:nC loop
-      mC_gens_FP[i, j] =Qs[i]/w_f*sum({fissionSource[k]*fissionYield[j, k] for
-        k in 1:nFS}) - lambda_FP[j]*mCs_FP[i, j] + sum(lambda_FP .* mCs_FP[i, :]
-         .* parents[j, :]) - sigmaA_FP[j]*mCs_FP[i, j]*Qs[i]/(w_f*SigmaF)/Vs[i] +
-        (if j == iH3 then sum(mC_gens_H3[i, :]) else 0);
-      rhos_FP[i,j] = -sigmaA_FP[j]*mCs_FP[i,j]/(nu_bar*SigmaF)/Vs[i];
-        end for;
-  end for;
-
-  Qs_FP_near_i = {{w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in
-        1:nV};
-  Qs_FP_far_i = {{wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in
-        1:nV};
-
-  Qs_FP_near = {sum(Qs_FP_near_i[i, :]) for i in 1:nV};
-  Qs_FP_far = {sum(Qs_FP_far_i[i, :]) for i in 1:nV};
-
-// Tritium
-  for i in 1:nV loop
-    for j in 1:nTR loop
-       mC_gens_TR[i, j] = -lambda_TR[j]*mCs_TR[i, j] + sum(lambda_TR .* mCs_TR[
-         i, :] .* parents_TR[j, :]) - (sigmaA_TR[j] + sigmaT_TR[j])*mCs_TR[i,j]*Qs[i]/(w_f*SigmaF)/Vs[i];
-      rhos_TR[i,j] = -(sigmaA_TR[j] + sigmaT_TR[j])*mCs_TR[i,j]/(nu_bar*SigmaF)/Vs[i];
-        end for;
-  end for;
-
-  mC_gens_H3 = {{sigmaT_TR[j]*mCs_TR[i, j]*Qs[i]/(w_f*SigmaF)/Vs[i] for j in 1:
-    nTR} for i in 1:nV};
 
   annotation (
     defaultComponentName="kinetics",
@@ -460,4 +359,4 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
-end PointKinetics_Drift;
+end PointKinetics_L1old;

@@ -44,7 +44,6 @@ model NSSS7 "Nuclear steam supply system"
     Q_nominal=data.Q_total_th,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     T_start_1=data.T_core_avg + 400,
     T_start_2=data.T_core_avg + 130,
     T_start_3=data.T_core_avg + 30,

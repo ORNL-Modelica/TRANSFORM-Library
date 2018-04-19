@@ -31,8 +31,8 @@ model PointKinetics_Drift_Test_flat
   SI.Temperature[loop_.nV] Ts1=loop_.mediums.T;
   SI.Power[core.nV] Q_gens=core_kinetics.Qs;
   SI.Power Power=sum(core_kinetics.Qs);
-  SI.Power Power_beta = sum(core_kinetics.Qs_FP);
-  SI.Power Power_gamma = sum(core_kinetics.Qs_FP_gamma);
+  SI.Power Power_beta=sum(core_kinetics.Qs_FP_near);
+  SI.Power Power_gamma=sum(core_kinetics.Qs_FP_far);
   SI.Power Power_DH = Power_beta + Power_gamma;
   SI.Power Power_total = Power_DH + Power;
 
@@ -60,7 +60,8 @@ protected
         dlengths=fill(H/core.nV,core.nV)),
     redeclare model InternalHeatGen =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=core_kinetics.Qs + core_kinetics.Qs_FP + core_kinetics.Qs_FP_gamma),
+        (Q_gens=core_kinetics.Qs +core_kinetics.Qs_FP_near
+                                                       +core_kinetics.Qs_FP_far),
     p_a_start=100000,
     T_a_start=573.15,
     T_b_start=773.15,
@@ -131,7 +132,7 @@ public
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[
-        6],core.mCs[6, 3],core_kinetics.Qs_FP[6]})
+        6],core.mCs[6, 3],core_kinetics.Qs_FP_near[6]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
 protected
