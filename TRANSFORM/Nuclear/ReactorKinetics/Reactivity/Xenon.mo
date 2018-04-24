@@ -1,6 +1,8 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Reactivity;
 model Xenon
 
+  extends TRANSFORM.Icons.ObsoleteModel;
+
   /*****************************************/
   /*              Parameters               */
   /*****************************************/

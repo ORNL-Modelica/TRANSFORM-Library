@@ -1,0 +1,4 @@
+simulateModel("TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples.NSSS_Test2",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="NSSS_Test2");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
+createPlot(id=2, y={"unitTests.x[2]"}, grid=true);

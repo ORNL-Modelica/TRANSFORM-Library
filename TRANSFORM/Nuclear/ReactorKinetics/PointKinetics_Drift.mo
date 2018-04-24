@@ -72,13 +72,13 @@ model PointKinetics_Drift
     "Matrix of parent sources (sum(column) = 1 or 0) for each fission product 'daughter'. Row is daughter, Column is parent."
     annotation (Dialog(tab="Fission Products"));
 
-  input SIadd.NonDim fissionSource[nFS]=fill(0, nFS)
+  input SIadd.NonDim fissionSource[nFS]=fill(1/nFS, nFS)
     "Source of fissile material fractional composition (sum=1)"
     annotation (Dialog(tab="Fission Products", group="Inputs"));
   input SI.MacroscopicCrossSection SigmaF=1
     "Macroscopic fission cross-section of fissile material"
     annotation (Dialog(tab="Fission Products", group="Inputs"));
-  input SI.Area[nC] sigmaA_FP = fill(0,nC) "Absorption cross-section for reactivity feedback" annotation (Dialog(tab="Fission Products", group="Inputs"));
+  input SI.Area[nC] sigmaA_FP = fill(0,nC) "Microscopic absorption cross-section for reactivity feedback" annotation (Dialog(tab="Fission Products", group="Inputs"));
 
   input Real fissionYield[nC,nFS]=fill(
       0,
@@ -86,7 +86,7 @@ model PointKinetics_Drift
       nFS)
     "# fission product atoms yielded per fission per fissile source [#/fission]"
     annotation (Dialog(tab="Fission Products", group="Inputs"));
-  input TRANSFORM.Units.InverseTime[nC] lambda_FP=fill(0, nC)
+  input Units.InverseTime lambda_FP[nC]=fill(0, nC)
     "Decay constants for each fission product"
     annotation (Dialog(tab="Fission Products", group="Inputs"));
   input SI.Energy w_FP_decay[nC]=fill(0, nC)
@@ -179,6 +179,7 @@ model PointKinetics_Drift
   parameter Boolean includeLeak = false "=true to include power leakage across volumes in energy balance" annotation(Dialog(tab="Advanced"));
   parameter Real LF[nV+1] = zeros(nV+1) annotation(Dialog(tab="Advanced",enable=includeLeak));
   SI.Power Qs_leak[nV];
+  SIadd.NeutronFlux phi[nV] "Neutron flux";
 
 protected
   SI.Power Qs_FP_near_i[nV,nC]
@@ -234,6 +235,7 @@ equation
 
   // Fission product
   for i in 1:nV loop
+    phi[i] = Qs[i]/(w_f*SigmaF)/Vs[i];
     for j in 1:nC loop
       mC_gens_FP[i, j] =Qs[i]/w_f*sum({fissionSource[k]*fissionYield[j, k] for
         k in 1:nFS}) - lambda_FP[j]*mCs_FP[i, j] + sum(lambda_FP .* mCs_FP[i, :]
@@ -243,9 +245,9 @@ equation
         end for;
   end for;
 
-  Qs_FP_near_i = {{w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in
+  Qs_FP_near_i ={{w_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in
         1:nV};
-  Qs_FP_far_i = {{wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in
+  Qs_FP_far_i ={{wG_FP_decay[j]*lambda_FP[j]*mCs_FP[i, j] for j in 1:nC} for i in
         1:nV};
 
   Qs_FP_near = {sum(Qs_FP_near_i[i, :]) for i in 1:nV};

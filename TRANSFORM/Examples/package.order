@@ -5,6 +5,7 @@ LightWaterSmallModularReactor
 LightWaterReactor_PWR_Westinghouse
 SodiumFastReactor
 MoltenSaltReactor
+SupercriticalCO2
 Interfaces
 Utilities
 BaseClasses

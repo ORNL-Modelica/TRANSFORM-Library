@@ -68,25 +68,19 @@ model PointKinetics_L1
   final parameter TRANSFORM.Units.NonDim[nI] beta_i_start=alpha_i_start*
       Beta_start "Delayed neutron precursor fractions";
 
-//   parameter Boolean initPower=false
-//     "=true to initialize with power else precursor group"
-//     annotation (Dialog(tab="Initialization"));
-  parameter SI.Power Qs_start[nV]=fill(Q_nominal/nV, nV) "Initial reactor power per volume" annotation (Dialog(tab=
-         "Initialization", enable=not specifyPower));
+  parameter SI.Power Qs_start[nV]=fill(Q_nominal/nV, nV)
+    "Initial reactor power per volume"
+    annotation (Dialog(tab="Initialization", enable=not specifyPower));
   parameter SI.Power[nV,nI] Cs_start={{beta_i_start[j]/(lambda_i_start[j]*
       Lambda_start)*Q_nominal for j in 1:nI} for i in 1:nV}
     "Power of the initial delayed-neutron precursor concentrations"
     annotation (Dialog(tab="Initialization"));
 
   // Advanced
-  parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial annotation (
-      Dialog(
-      tab="Advanced",
-      group="Dynamics"));
-  parameter Dynamics traceDynamics=energyDynamics annotation (
-      Dialog(
-      tab="Advanced",
-      group="Dynamics"));
+  parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
+    annotation (Dialog(tab="Advanced", group="Dynamics"));
+  parameter Dynamics traceDynamics=energyDynamics
+    annotation (Dialog(tab="Advanced", group="Dynamics"));
   TRANSFORM.Units.NonDim[nI] beta_i=alpha_i*Beta
     "Delayed neutron precursor fractions";
 
@@ -94,32 +88,30 @@ model PointKinetics_L1
     "Linear reactivity feedback";
   TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
 
-  SI.Power Q_total = sum(Qs) "Total power output";
+  SI.Power Q_total=sum(Qs) "Total power output";
   SI.Power Qs[nV](start=Qs_start)
     "Power determined from kinetics. Does not include fission product decay heat";
   SI.Power[nV,nI] Cs(start=Cs_start)
     "Power of the delayed-neutron precursor concentration";
 
 initial equation
-//
-//     if initPower then
-      if not specifyPower then
-        if energyDynamics == Dynamics.FixedInitial then
-          Qs = Qs_start;
-        elseif energyDynamics == Dynamics.SteadyStateInitial then
-          der(Qs) = zeros(nV);
-        end if;
-      end if;
-//     else
-    if traceDynamics == Dynamics.FixedInitial then
-      Cs = Cs_start;
-    elseif traceDynamics == Dynamics.SteadyStateInitial then
-      der(Cs) = fill(
-        0,
-        nV,
-        nI);
+
+  if not specifyPower then
+    if energyDynamics == Dynamics.FixedInitial then
+      Qs = Qs_start;
+    elseif energyDynamics == Dynamics.SteadyStateInitial then
+      der(Qs) = zeros(nV);
     end if;
-//    end if;
+  end if;
+
+  if traceDynamics == Dynamics.FixedInitial then
+    Cs = Cs_start;
+  elseif traceDynamics == Dynamics.SteadyStateInitial then
+    der(Cs) = fill(
+      0,
+      nV,
+      nI);
+  end if;
 
 equation
 

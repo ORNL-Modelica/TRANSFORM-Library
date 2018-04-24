@@ -627,9 +627,9 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     specifyPower=true,
     fissionSource=fill(1.0/kinetics.nFS, kinetics.nFS))
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
+  TRANSFORM.Nuclear.ReactorKinetics.Data.data_traceSubstances
     data_traceSubstances(redeclare record FissionProducts =
-        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_cut6_U235_Pu239)
+        TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_cut6_U235_Pu239)
     annotation (Placement(transformation(extent={{260,120},{280,140}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
                                                pipeFromPHX_PCL(

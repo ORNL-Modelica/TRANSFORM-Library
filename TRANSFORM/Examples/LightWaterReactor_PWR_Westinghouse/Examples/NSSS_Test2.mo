@@ -26,9 +26,6 @@ model NSSS_Test2
     amplitude=20e5,
     offset=PHS.port_b_nominal.p)
     annotation (Placement(transformation(extent={{100,6},{80,26}})));
-  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={PHS.pressurizer.drum2Phase.p,
-        PHS.coreSubchannel.reactorKinetics.Q_total})
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(sink.ports[1], PHS.port_b)
     annotation (Line(points={{59,14},{40,14}}, color={0,127,255}));
