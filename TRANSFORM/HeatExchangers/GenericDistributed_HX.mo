@@ -509,7 +509,16 @@ model GenericDistributed_HX
         rotation=90,
         origin={0,-30})));
 
-  TRANSFORM.HeatExchangers.BaseClasses.Summary summary
+  TRANSFORM.HeatExchangers.BaseClasses.Summary summary(
+    R_tubeWall=log(tubeWall.geometry.r_outer/tubeWall.geometry.r_inner)/(2*
+        Modelica.Constants.pi*geometry.length_tube*tubeWall.summary.lambda_effective),
+
+    R_shell=if shell.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({shell.heatTransfer.alphas[
+        i, 1]*shell.geometry.surfaceAreas[i, 1] for i in 1:shell.nV})*shell.nParallel
+        /shell.nV),
+    R_tube=if tube.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({tube.heatTransfer.alphas[
+        i, 1]*tube.geometry.surfaceAreas[i, 1] for i in 1:tube.nV})*tube.nParallel
+        /tube.nV))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi
     adiabaticWall_a2(nPorts=geometry.nR)

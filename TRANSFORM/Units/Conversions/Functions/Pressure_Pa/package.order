@@ -1,5 +1,7 @@
 BaseClasses
 to_Pa
+to_kPa
+to_MPa
 to_psi
 to_bar
 to_atm
