@@ -2,7 +2,7 @@ PartialTwoPortSensor
 PartialAbsoluteSensor
 PartialRelativeSensor
 PartialRotationIcon_withValueIndicator
-PartialRotationIcon_withValueIndicator_2values
+PartialMultiSensor_2values
 PartialRelativeIcon_withValueIndicator
 stateDisplay
 stateSensor

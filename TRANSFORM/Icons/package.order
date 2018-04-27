@@ -40,7 +40,7 @@ UnderConstruction
 ObsoleteModel
 MechanicsPackage
 RotationalSensor
-RotationalSensor_2values
+MultiSensor_2values
 TranslationalSensor
 ClosureRelationsPackage
 TemplatePackage

@@ -92,7 +92,8 @@ to specify system properties.",
         Text(
           extent={{-150,150},{150,110}},
           lineColor={0,0,255},
-          textString="%name"),
+          textString="%name",
+          visible=DynamicSelect(true, showName)),
           Ellipse(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},

@@ -28,14 +28,14 @@ model PrintedCircuitHX
         length*(2*nShells - 2)/nShells elseif plateStructure == "Tube-Shell-Tube"
          then perimeter_shell*length*2 else perimeter_shell*length*(2*nShells - 1)/nShells},
     final dimension_tube=4*crossArea_tube/perimeter_tube,
-    final crossArea_tube=0.5*Modelica.Constants.pi*r_tube^2*nT,
-    final perimeter_tube=nT*(2*r_tube+Modelica.Constants.pi*r_tube),
+    final crossArea_tube=0.5*Modelica.Constants.pi*r_tube^2,
+    final perimeter_tube=(2*r_tube+Modelica.Constants.pi*r_tube),
     final length_tube=length,
     final dimension_shell=4*crossArea_shell/perimeter_shell,
-    final crossArea_shell=0.5*Modelica.Constants.pi*r_shell^2*nS,
-    final perimeter_shell=nS*(2*r_shell+Modelica.Constants.pi*r_shell),
+    final crossArea_shell=0.5*Modelica.Constants.pi*r_shell^2,
+    final perimeter_shell=(2*r_shell+Modelica.Constants.pi*r_shell),
     final length_shell=length,
-    final th_wall=0.5*((th_tube - 0.5*Modelica.Constants.pi*r_tube^2/pitch_tube) + (th_shell - 0.5*Modelica.Constants.pi*r_shell^2/pitch_shell)),
+    final th_wall=CF_th_wall*0.5*((th_tube - 0.5*Modelica.Constants.pi*r_tube^2/pitch_tube) + (th_shell - 0.5*Modelica.Constants.pi*r_shell^2/pitch_shell)),
     final drs=fill(th_wall/nR,nR,nV));
 
   parameter String plateStructure="Tube-Shell" annotation (choices(
@@ -43,8 +43,7 @@ model PrintedCircuitHX
       choice="Tube-Shell",
       choice="Shell-Tube-Shell"));
 
-  parameter Real nT = 1 "Number of tube channels";
-  parameter Real nS = nT "Number of shell channels";
+  parameter SIadd.NonDim CF_th_wall = 1.0 "Correction factor for scaling tube thickness";
 
   final parameter Real nShells=if plateStructure == "Tube-Shell-Tube" then
       nTubes - 1 elseif plateStructure == "Shell-Tube-Shell" then nTubes + 1

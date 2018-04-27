@@ -490,7 +490,7 @@ model GenericDistributed_HX_withMass
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,-80})));
-  HeatAndMassTransfer.DiscritizedModels.HMTransfer_2D wall(
+  HeatAndMassTransfer.DiscritizedModels.HMTransfer_2D tubeWall(
     nParallel=tube.nParallel,
     energyDynamics=energyDynamics[3],
     adiabaticDims=adiabaticDims,
@@ -534,13 +534,21 @@ model GenericDistributed_HX_withMass
     redeclare model InternalHeatModel = InternalHeatModel_wall,
     ds_reference=ds_reference,
     use_nCs_scaled=use_nCs_scaled,
-    C_nominal=C_nominal)                                        annotation (
-      Placement(transformation(
+    C_nominal=C_nominal) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,-34})));
 
-  TRANSFORM.HeatExchangers.BaseClasses.Summary summary
+  TRANSFORM.HeatExchangers.BaseClasses.Summary summary(
+    R_shell=if shell.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({shell.heatTransfer.alphas[
+        i, 1]*shell.geometry.surfaceAreas[i, 1] for i in 1:shell.nV})*shell.nParallel
+        /shell.nV),
+    R_tubeWall=log(tubeWall.geometry.r_outer/tubeWall.geometry.r_inner)/(2*
+        Modelica.Constants.pi*geometry.length_tube*tubeWall.summary.lambda_effective),
+
+    R_tube=if tube.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({tube.heatTransfer.alphas[
+        i, 1]*tube.geometry.surfaceAreas[i, 1] for i in 1:tube.nV})*tube.nParallel
+        /tube.nV))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 
   parameter Integer nC=0 "Number of trace substances transfered through wall. Currently nC must be <= min(Medium_tube.nC,Medium_shell.nC)" annotation(Dialog(tab="Trace Mass Transfer"),Evalutate=true);
@@ -751,36 +759,36 @@ equation
           -80},{-10,-80}}, color={0,127,255}));
   connect(tube.port_b, port_b_tube) annotation (Line(points={{10,-80},{60,-80},{
           60,0},{100,0}}, color={0,127,255}));
-  connect(tube.heatPorts[:, 1], wall.port_a1)
+  connect(tube.heatPorts[:, 1], tubeWall.port_a1)
     annotation (Line(points={{0,-75},{0,-44}}, color={191,0,0}));
   connect(counterFlow.port_b, shell.heatPorts[:, 1])
     annotation (Line(points={{0,28},{0,41}}, color={191,0,0}));
 
-  connect(counterFlow.port_a, wall.port_b1)
+  connect(counterFlow.port_a, tubeWall.port_b1)
     annotation (Line(points={{0,8},{0,-24}}, color={191,0,0}));
-  connect(adiabatic_shellSide.port, wall.port_b1)
+  connect(adiabatic_shellSide.port, tubeWall.port_b1)
     annotation (Line(points={{40,2},{0,2},{0,-24}}, color={191,0,0}));
-  connect(adiabaticM_a.port, wall.portM_a2) annotation (Line(points={{-40,-16},{
-          -24,-16},{-24,-30},{-9.8,-30}}, color={0,140,72}));
-  connect(adiabaticM_b.port, wall.portM_b2) annotation (Line(points={{40,-16},{26,
-          -16},{26,-30},{10,-30}}, color={0,140,72}));
+  connect(adiabaticM_a.port, tubeWall.portM_a2) annotation (Line(points={{-40,-16},
+          {-24,-16},{-24,-30},{-9.8,-30}}, color={0,140,72}));
+  connect(adiabaticM_b.port, tubeWall.portM_b2) annotation (Line(points={{40,-16},
+          {26,-16},{26,-30},{10,-30}}, color={0,140,72}));
 
-  connect(interfaceM_tubeSide.port_b, wall.portM_a1)
+  connect(interfaceM_tubeSide.port_b, tubeWall.portM_a1)
     annotation (Line(points={{-4,-55},{-4,-44}}, color={0,140,72}));
-  connect(adiabaticM_tubeSide.port, wall.portM_a1)
+  connect(adiabaticM_tubeSide.port, tubeWall.portM_a1)
     annotation (Line(points={{-40,-52},{-4,-52},{-4,-44}}, color={0,140,72}));
   connect(adiabatic_tubeSide.port, tube.heatPorts[:, 1])
     annotation (Line(points={{40,-52},{0,-52},{0,-75}}, color={191,0,0}));
-  connect(adiabatic_a.port, wall.port_a2)
+  connect(adiabatic_a.port, tubeWall.port_a2)
     annotation (Line(points={{-40,-34},{-10,-34}}, color={191,0,0}));
-  connect(adiabatic_b.port, wall.port_b2)
+  connect(adiabatic_b.port, tubeWall.port_b2)
     annotation (Line(points={{40,-34},{10,-34}}, color={191,0,0}));
   connect(counterFlowM.port_a, interfaceM_shellSide.port_a) annotation (Line(
         points={{-20,8},{-20,0},{-4,0},{-4,-3}}, color={0,140,72}));
-  connect(interfaceM_shellSide.port_b, wall.portM_b1)
+  connect(interfaceM_shellSide.port_b, tubeWall.portM_b1)
     annotation (Line(points={{-4,-17},{-4,-24}}, color={0,140,72}));
-  connect(adiabaticM_shellSide.port, wall.portM_b1) annotation (Line(points={{-40,
-          2},{-22,2},{-22,-20},{-4,-20},{-4,-24}}, color={0,140,72}));
+  connect(adiabaticM_shellSide.port, tubeWall.portM_b1) annotation (Line(points
+        ={{-40,2},{-22,2},{-22,-20},{-4,-20},{-4,-24}}, color={0,140,72}));
 
 //   for i in 1:geometry.nV loop
 //     for j in 1:nC loop

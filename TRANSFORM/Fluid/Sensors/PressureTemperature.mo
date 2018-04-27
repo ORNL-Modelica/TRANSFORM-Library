@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Sensors;
 model PressureTemperature "Ideal pressure and temperature sensor"
   extends BaseClasses.PartialAbsoluteSensor;
-  extends BaseClasses.PartialRotationIcon_withValueIndicator_2values(final var=p,
+  extends BaseClasses.PartialMultiSensor_2values(                    final var=p,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_Pa
       constrainedby
@@ -18,7 +18,7 @@ model PressureTemperature "Ideal pressure and temperature sensor"
     displayUnit="bar",
     min=0) "Pressure at port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{100,-10},{120,10}})));
+        iconTransformation(extent={{52,14},{72,34}})));
 
   Modelica.Blocks.Interfaces.RealOutput T(
     final quantity="ThermodynamicTemperature",
@@ -26,8 +26,8 @@ model PressureTemperature "Ideal pressure and temperature sensor"
     displayUnit="degC",
     min=0) "Temperature in port medium" annotation (Placement(transformation(
           extent={{-100,-10},{-120,10}}),
-                                        iconTransformation(extent={{-100,-10},{-120,
-            10}})));
+                                        iconTransformation(extent={{52,-32},{72,
+            -12}})));
 
 equation
   p = port.p;
@@ -39,15 +39,15 @@ equation
 
   annotation (defaultComponentName="sensor_pT",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
-        Line(points={{0,-70},{0,-100}}, color={0,127,255}),
+        Line(points={{0,-50},{0,-100}}, color={0,127,255}),
         Text(
-          extent={{137,50},{43,20}},
+          extent={{-30,-10},{-110,-40}},
           lineColor={0,0,0},
-          textString="p"),
+          textString="T"),
         Text(
-          extent={{-30,44},{-150,14}},
+          extent={{-30,40},{-110,10}},
           lineColor={0,0,0},
-          textString="T")}), Documentation(info="<html>
+          textString="p")}), Documentation(info="<html>
 <p>
 This component monitors the absolute pressure at its fluid port. The sensor is
 ideal, i.e., it does not influence the fluid.

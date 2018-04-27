@@ -60,6 +60,9 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
   SI.Temperature Tst[10] = PHX.tube.mediums.T;
   SI.Temperature Tss[10] = PHX.shell.mediums.T;
 
+  SI.Temperature ms_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.m},reflA_lower.ms,fuelCell.ms,reflA_upper.ms,
+  {plenum_upper.m},pipeToPHX_PFL.ms,PHX.tube.ms,pipeFromPHX_PFL.ms,{tee_inlet.m});
+
   SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
@@ -516,6 +519,7 @@ protected
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={160,-70})));
+public
   TRANSFORM.HeatExchangers.GenericDistributed_HX_withMass PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
@@ -576,6 +580,7 @@ protected
         rotation=90,
         origin={160,0})));
 
+protected
   Fluid.Pipes.GenericPipe_MultiTransferSurface pipeToPHX_PFL(
     nParallel=3,
     redeclare package Medium = Medium_PFL,
