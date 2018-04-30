@@ -27,7 +27,6 @@ model Separator_2phaseOnly
   SI.SpecificEnthalpy h_lsat;
   SI.SpecificEnthalpy h_vsat;
 
-
 equation
 
   x_abs = noEvent(if medium.p/p_crit < 1.0 then max(0.0, min(1.0, (medium.h -

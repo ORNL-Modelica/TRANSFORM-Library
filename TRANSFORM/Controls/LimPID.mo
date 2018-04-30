@@ -200,7 +200,6 @@ equation
     y_reset_internal = y_reset;
   end if;
 
-
   connect(addP.y, P.u) annotation (Line(points={{-49,50},{-42,50}}, color={0,
           0,127}));
   connect(addI.y, I.u) annotation (Line(points={{-49,-50},{-42,-50}}, color={

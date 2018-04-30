@@ -136,7 +136,6 @@ record Data_Basic
 //   parameter SI.SpecificHeatCapacity cp_tubeSide = Medium.specificHeatCapacityCp(Medium.setState_pT(p_nominal,0.5*(T_core_inlet_nominal+T_core_outlet_nominal)));
 //   parameter SI.HeatFlowRate Q_flow_tubeSide = cp_tubeSide*m_flow_nominal*(T_core_outlet_nominal-T_core_inlet_nominal);
 
-
   annotation (
     defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(

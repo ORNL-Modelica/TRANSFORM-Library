@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger;
 model CompactPlateHX
 
-
-
   input SI.Length height_tube=0.01 "Tube duct height"
     annotation (Dialog(group="Inputs"));
   input SI.Length height_shell=height_tube "Shell duct height"

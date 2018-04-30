@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Utilities.Diagnostics.Examples.CheckEquality",stopTime=1,tolerance=1e-6,resultFile="CheckEquality");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

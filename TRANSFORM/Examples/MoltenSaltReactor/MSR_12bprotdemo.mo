@@ -65,7 +65,6 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
 
   SI.Temperature ms_PCL[pipeFromPHX_PCL.nV+1+pipeToSHX_PCL.nV+SHX.shell.nV+pipeToPHX_PCL.nV+PHX.shell.nV] = cat(1, pipeFromPHX_PCL.ms*pipeFromPHX_PCL.nParallel,{pumpBowl_PCL.m},pipeToSHX_PCL.ms*pipeToSHX_PCL.nParallel,SHX.shell.ms*SHX.shell.nParallel,pipeToPHX_PCL.ms*pipeToPHX_PCL.nParallel,PHX.shell.ms*PHX.shell.nParallel);
 
-
   SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
@@ -174,7 +173,6 @@ protected
   // Trace Substances Parent->Daughter contribution:  Off-Gas and Drain Tank
   SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_drainTank_gas_PtoD = {sum({data_traceSubstances.lambdas[k].*drainTank_gas.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
   SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid_PtoD = {sum({data_traceSubstances.lambdas[k].*drainTank_liquid.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-
 
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_OffGas_sink(
     redeclare package Medium = Medium_OffGas,

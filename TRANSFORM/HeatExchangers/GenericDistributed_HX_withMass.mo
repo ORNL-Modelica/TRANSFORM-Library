@@ -545,7 +545,6 @@ model GenericDistributed_HX_withMass
         /shell.nV),
     R_tubeWall=log(tubeWall.geometry.r_outer/tubeWall.geometry.r_inner)/(2*
         Modelica.Constants.pi*geometry.length_tube*tubeWall.summary.lambda_effective),
-
     R_tube=if tube.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({tube.heatTransfer.alphas[
         i, 1]*tube.geometry.surfaceAreas[i, 1] for i in 1:tube.nV})*tube.nParallel
         /tube.nV))
@@ -787,8 +786,8 @@ equation
         points={{-20,8},{-20,0},{-4,0},{-4,-3}}, color={0,140,72}));
   connect(interfaceM_shellSide.port_b, tubeWall.portM_b1)
     annotation (Line(points={{-4,-17},{-4,-24}}, color={0,140,72}));
-  connect(adiabaticM_shellSide.port, tubeWall.portM_b1) annotation (Line(points
-        ={{-40,2},{-22,2},{-22,-20},{-4,-20},{-4,-24}}, color={0,140,72}));
+  connect(adiabaticM_shellSide.port, tubeWall.portM_b1) annotation (Line(points=
+         {{-40,2},{-22,2},{-22,-20},{-4,-20},{-4,-24}}, color={0,140,72}));
 
 //   for i in 1:geometry.nV loop
 //     for j in 1:nC loop

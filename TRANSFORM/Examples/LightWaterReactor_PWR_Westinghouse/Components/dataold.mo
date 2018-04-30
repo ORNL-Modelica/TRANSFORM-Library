@@ -1,13 +1,11 @@
 within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Components;
 record dataold
 
-
   // parameters to reference in model
   parameter SI.MassFlowRate m_flow_steam_nominal=
       Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr(1.8e6);                                                       // steamRate*lb_to_kg/3600;
   parameter SI.MassFlowRate m_flow_circulation_nominal=
       Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr(2.2e6);                                                                   //drumRecirculationRate*lb_to_kg/3600*10^6;
-
 
   parameter SI.Pressure p_steam_nominal=
       Units.Conversions.Functions.Pressure_Pa.from_psi(1000);                                                 // steamPressure*psi_to_Pa;
@@ -23,7 +21,6 @@ record dataold
       Units.Conversions.Functions.Temperature_K.from_degF(420);
   parameter SI.Temperature T_SG_inlet_nominal=
       Units.Conversions.Functions.Temperature_K.from_degF(440);
-
 
   // Pressure
   parameter SI.Pressure p_boiler_nominal=p_steam_nominal
