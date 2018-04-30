@@ -16,7 +16,7 @@ model PointKinetics_Test
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Modelica.Blocks.Sources.Constant ControlRod_Reactivity(k=0.0025)
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  PointKinetics_L1 reactorKinetics(
+  PointKinetics_L1 kinetics(
     nI=1,
     Q_nominal=1e9,
     lambda_i_start={0.08},
@@ -28,7 +28,7 @@ model PointKinetics_Test
     vals_feedback=[Teff_Fuel.y,Teff_Coolant.y],
     vals_feedback_reference=[Teff_Fuel.offset,Teff_Coolant.offset])
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
-  Utilities.ErrorAnalysis.UnitTests unitTests(x={reactorKinetics.Q_total})
+  Utilities.ErrorAnalysis.UnitTests unitTests(x={kinetics.Q_total})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

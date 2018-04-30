@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics;
-model PointKinetics_L1
+model PointKinetics_L2
 
   import TRANSFORM.Types.Dynamics;
   import TRANSFORM.Math.fillArray_1D;
@@ -351,4 +351,4 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
-end PointKinetics_L1;
+end PointKinetics_L2;
