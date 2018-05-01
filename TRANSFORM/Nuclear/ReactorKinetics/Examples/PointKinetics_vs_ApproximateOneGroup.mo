@@ -13,7 +13,7 @@ model PointKinetics_vs_ApproximateOneGroup
   parameter Real rho0 = 0.0025;
   parameter Real Lambda = 1e-4;
 
-  PointKinetics_L1 kinetics(
+  PointKinetics_L1_powerBased kinetics(
     nI=1,
     Q_nominal=1e9,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

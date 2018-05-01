@@ -10,6 +10,8 @@ partial record PartialPrecursorGroup
 
   // Data
   parameter TRANSFORM.Units.InverseTime[nC] lambdas "Decay constants for each precursor group";
+  parameter TRANSFORM.Units.NonDim[nC] alphas "Normalized precursor fractions [betas = alphas*Beta]";
+  parameter TRANSFORM.Units.NonDim Beta "Effective delayed neutron fraction";
 
   constant Real[nC,nC] parents = fill(0,nC,nC) "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
 

@@ -37,7 +37,6 @@ model PointKinetics_Drift_Test_flat_Xenon
   SI.Power Power_DH = Power_beta + Power_gamma;
   SI.Power Power_total = Power_DH + Power;
 
-protected
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT back_to_core(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -118,10 +117,6 @@ public
         *core.nParallel,
     sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
     fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1],
-    vals_feedback_reference=matrix(linspace(
-        300 + 273.15,
-        500 + 273.15,
-        core.nV)),
     vals_feedback=matrix(core.mediums.T),
     wG_FP_decay=data_traceSubstances.fissionProducts.wG_decay,
     Vs=core.Vs*core.nParallel,
@@ -129,7 +124,11 @@ public
     SigmaF=26,
     nFS=data_traceSubstances.fissionProducts.nFS,
     fissionSource=fill(1/core_kinetics.nFS, core_kinetics.nFS),
-    Qs_input=fill(PowerInput.y/core.nV, core.nV))
+    Qs_input=fill(PowerInput.y/core.nV, core.nV),
+    vals_feedback_reference=matrix({TRANSFORM.Math.Sigmoid(
+        core.summary.xpos_norm[i],
+        0.5,
+        10)*200 + 573.15 for i in 1:core.nV}))
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[

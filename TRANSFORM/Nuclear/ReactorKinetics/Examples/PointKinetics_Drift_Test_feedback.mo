@@ -8,6 +8,7 @@ model PointKinetics_Drift_Test_feedback
   extraPropertiesNames=data_traceSubstances.extraPropertiesNames,
   C_nominal=data_traceSubstances.C_nominal);
 
+
   parameter SI.Length H = 3.4;
   parameter SI.Length L = 6.296;
   parameter SI.Velocity v=0.4772;
@@ -36,7 +37,6 @@ model PointKinetics_Drift_Test_feedback
   SI.Power Power_DH = Power_beta + Power_gamma;
   SI.Power Power_total = Power_DH + Power;
 
-protected
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT back_to_core(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -116,10 +116,6 @@ public
     mCs_FP=core.mCs[:, data_traceSubstances.iFP[1]:data_traceSubstances.iFP[2]]
         *core.nParallel,
     sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
-    vals_feedback_reference=matrix(linspace(
-        300 + 273.15,
-        500 + 273.15,
-        core.nV)),
     vals_feedback=matrix(core.mediums.T),
     wG_FP_decay=data_traceSubstances.fissionProducts.wG_decay,
     Vs=core.Vs*core.nParallel,
@@ -131,7 +127,11 @@ public
     fissionYield=fill(
         0,
         core_kinetics.nC,
-        core_kinetics.nFS))
+        core_kinetics.nFS),
+    vals_feedback_reference=matrix({TRANSFORM.Math.Sigmoid(
+        core.summary.xpos_norm[i],
+        0.5,
+        10)*200 + 573.15 for i in 1:core.nV}))
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[

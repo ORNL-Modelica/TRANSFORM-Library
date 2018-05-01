@@ -16,7 +16,7 @@ model PointKinetics_Test
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Modelica.Blocks.Sources.Constant ControlRod_Reactivity(k=0.0025)
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  PointKinetics_L1 kinetics(
+  PointKinetics_L1_powerBased kinetics(
     nI=1,
     Q_nominal=1e9,
     lambda_i_start={0.08},
