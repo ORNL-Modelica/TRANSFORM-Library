@@ -129,10 +129,10 @@ model PointKinetics_L1_powerBased
   SI.Power Q_total=sum(Qs) "Total power output, excluding decay-heat";
   SI.Power Qs[nV](start=Qs_start)
     "Power determined from kinetics. Not including fission product decay-heat";
-  SI.Power[nV,nI] Cs(start=Cs_start)
+  SI.Power[nV,nI] Cs(start=if use_history then {{Cs_start_history[j] for j in 1:nI} for i in 1:nV} else Cs_start)
     "Power of the delayed-neutron precursor concentration";
 
-  SI.Energy Es_dh[nV,nDH](start=Es_dh_start)
+  SI.Energy Es_dh[nV,nDH](start=if use_history then {{Es_start_history[j] for j in 1:nDH} for i in 1:nV} else Es_dh_start)
     "Energy of the decay-heat precursor group";
   SI.Power Qs_dh[nV,nDH] "Decay-heat per group per volume";
    SI.Power Qs_effective[nV]
@@ -140,7 +140,25 @@ model PointKinetics_L1_powerBased
    SI.Power Q_effective_total=sum(Qs_effective)
      "Total power output, including decay-heat";
 
+  parameter Boolean use_history = false annotation(Dialog(tab="Initialization",group="Decay-Heat"));
+  parameter SI.Power[:,2] history = fill(0,0,2) "Power history up to simulation time=0, [t,Q]" annotation(Dialog(tab="Initialization",group="Decay-Heat",enable=use_history));
+  parameter Boolean includeDH = false "=true if power history includes decay heat" annotation(Dialog(tab="Initialization",group="Decay-Heat",enable=use_history));
+
+  final parameter SI.Power Cs_start_history[nI](fixed=false);
+  final parameter SI.Energy Es_start_history[nDH](fixed=false);
+
 initial equation
+
+  (Cs_start_history,Es_start_history) =
+    TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_powerBased_powerHistory(
+    history,
+    lambda_i_start,
+    alpha_i_start,
+    Beta_start,
+    Lambda_start,
+    lambda_dh_start,
+    w_frac_dh_start,
+    includeDH=includeDH);
 
   if not specifyPower then
     if energyDynamics == Dynamics.FixedInitial then
@@ -151,7 +169,11 @@ initial equation
   end if;
 
   if traceDynamics == Dynamics.FixedInitial then
-    Cs = Cs_start;
+    if use_history then
+      Cs = {{Cs_start_history[j] for j in 1:nI} for i in 1:nV};
+    else
+      Cs = Cs_start;
+    end if;
   elseif traceDynamics == Dynamics.SteadyStateInitial then
     der(Cs) = fill(
       0,
@@ -160,7 +182,12 @@ initial equation
   end if;
 
    if decayDynamics == Dynamics.FixedInitial then
-    Es_dh  =Es_dh_start;
+    if use_history then
+      Es_dh  = {{Es_start_history[j] for j in 1:nDH} for i in 1:nV};
+    else
+      Es_dh  =Es_dh_start;
+    end if;
+
    elseif decayDynamics == Dynamics.SteadyStateInitial then
      der(Es_dh) = fill(
        0,

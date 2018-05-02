@@ -11,11 +11,13 @@ extends TRANSFORM.Icons.Example;
     specifyPower=true,
     lambda_dh_start=data_dh.lambdas,
     nDH=data_dh.nC,
-    w_frac_dh_start=data_dh.w_frac)
+    w_frac_dh_start=data_dh.w_frac,
+    use_history=true,
+    history=data_history.table)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Data.PrecursorGroups.precursorGroups_6_TRACEdefault data
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  Blocks.DataTable history(table=[0,0; 1e4,1e3;2e4,1e4;1e16,1e6])
+  Blocks.DataTable data_history(table=[0,0; 1e4,1e3; 2e4,1e4; 1e16,1e6])
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
 
    Utilities.ErrorAnalysis.UnitTests unitTests(
@@ -32,18 +34,18 @@ extends TRANSFORM.Icons.Example;
 initial equation
   (Cs,Es) =
     TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_powerBased_powerHistory(
-    history.table,
+    data_history.table,
     data.lambdas,
     data.alphas,
     data.Beta,
     kinetics.Lambda_start,
     data_dh.lambdas,
     data_dh.w_frac,
-    includeDH=true);
+    includeDH=kinetics.includeDH);
 
 equation
-  der(Cs) = zeros(data.nC);
-  der(Es) = zeros(data_dh.nC);
+   der(Cs) = zeros(data.nC);
+   der(Es) = zeros(data_dh.nC);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Initial_powerBased_powerHistory;
