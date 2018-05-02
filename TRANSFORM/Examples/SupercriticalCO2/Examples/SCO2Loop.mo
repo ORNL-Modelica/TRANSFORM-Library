@@ -4,7 +4,8 @@ model SCO2Loop
   extends TRANSFORM.Icons.Example;
 
   package Medium = ExternalMedia.Examples.CO2CoolProp(p_default=8e6);  //Requires VS2012 compiler option
-  package Medium_salt = TRANSFORM.Media.Fluids.KClMgCl2.LinearKClMgCl2_67_33_pT;
+  package Medium_salt =
+      TRANSFORM.Media.Fluids.KClMgCl2.LinearKClMgCl2_67_33_pT;
 
   Data.Data_Basic data
     annotation (Placement(transformation(extent={{110,80},{130,100}})));

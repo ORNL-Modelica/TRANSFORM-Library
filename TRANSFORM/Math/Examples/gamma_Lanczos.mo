@@ -13,9 +13,9 @@ model gamma_Lanczos
   Real[n] y "Function value";
 
   Utilities.ErrorAnalysis.UnitTests unitTests(
-    n=n,
     x=y,
-    x_reference=gamma_Matlab)
+    x_reference=gamma_Matlab,
+    n=10)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 

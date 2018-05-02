@@ -8,7 +8,8 @@ model factorial
 
   Real y "Function value";
 
-  Utilities.ErrorAnalysis.UnitTests unitTests(x={y}, x_reference={ExactValue})
+  Utilities.ErrorAnalysis.UnitTests unitTests(x={y}, x_reference={
+        ExactValue})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 

@@ -22,6 +22,7 @@ package Sensors
 
 
 
+
   annotation (preferredView="info", Documentation(info="<html>
 <p align = justify>
 Package <b>Sensors</b> consists of idealized sensor components that

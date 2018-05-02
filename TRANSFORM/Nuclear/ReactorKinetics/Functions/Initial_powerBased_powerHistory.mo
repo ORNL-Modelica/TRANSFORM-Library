@@ -15,7 +15,7 @@ function Initial_powerBased_powerHistory
 
   input TRANSFORM.Units.InverseTime[:] lambdas_dh
     "Decay constants for each group";
-  input TRANSFORM.Units.NonDim[size(lambdas_dh, 1)] w_frac
+  input Units.NonDim efs[size(lambdas_dh, 1)]
     "Decay-heat fraction of fission power";
 
   input Boolean includeDH = false "=true if power history includes decay heat";
@@ -84,9 +84,9 @@ algorithm
       // Decay-heat group
       for j in 1:nDH loop
         elamdt_dh := min(1, max(0, exp(-lambdas_dh[j]*dt)));
-        Es[j] := max(0, Es[j]*elamdt_dh + w_frac[j]/(lambdas_dh[j])*(a*(1 -
-          elamdt_dh) + b/lambdas_dh[j]*(lambdas_dh[j]*t[i + 1] - 1 - (
-          lambdas_dh[j]*t[i] - 1)*elamdt_dh)));
+        Es[j] :=max(0, Es[j]*elamdt_dh + efs[j]/(lambdas_dh[j])*(a*(1
+           - elamdt_dh) + b/lambdas_dh[j]*(lambdas_dh[j]*t[i + 1] - 1
+           - (lambdas_dh[j]*t[i] - 1)*elamdt_dh)));
       end for;
         end for;
   else
@@ -98,11 +98,7 @@ algorithm
     Cs := Cs_0;
     Es := Es_0;
 
-    // for i in 1:nT loop
-    //   Q_fission[i] := max(0,Q_total[i]- Q_decay[i]);
-    // end for;
-
-    for i in 1:nT - 1 loop
+      for i in 1:nT - 1 loop
       dt := max(1, t[i + 1] - t[i]);
       a := (t[i + 1]*Q_fission[i] - t[i]*Q_fission[i + 1])/dt;
       b := (Q_fission[i + 1] - Q_fission[i])/dt;
@@ -118,13 +114,13 @@ algorithm
       // Decay-heat group
       for j in 1:nDH loop
         elamdt_dh := min(1, max(0, exp(-lambdas_dh[j]*dt)));
-        Es[j] := max(0, Es[j]*elamdt_dh + w_frac[j]/(lambdas_dh[j])*(a*(1 -
-          elamdt_dh) + b/lambdas_dh[j]*(lambdas_dh[j]*t[i + 1] - 1 - (
-          lambdas_dh[j]*t[i] - 1)*elamdt_dh)));
+        Es[j] :=max(0, Es[j]*elamdt_dh + efs[j]/(lambdas_dh[j])*(a*(1
+             - elamdt_dh) + b/lambdas_dh[j]*(lambdas_dh[j]*t[i + 1] - 1
+             - (lambdas_dh[j]*t[i] - 1)*elamdt_dh)));
       end for;
 
       // Determine error
-      eta_new := sum({lambdas_dh[j]*Es[j] for j in 1:nDH})/Q_total[i + 1];
+      eta_new := sum({lambdas_dh[j]*Es[j] for j in 1:nDH})/Q_fission[i+1];
       error_i[i+1] := eta_new - eta[i + 1];
 
       // Update values
@@ -132,7 +128,6 @@ algorithm
       Q_fission[i + 1] := Q_total[i + 1]/(1 + eta[i + 1]);
       Q_decay[i + 1] := eta[i + 1]*Q_fission[i + 1];
       iter :=iter + 1;
-      Modelica.Utilities.Streams.print(Modelica.Math.Vectors.toString({error}));
     end for;
     error :=sum(abs(error_i));
   end while;

@@ -5,13 +5,13 @@ model PointKinetics_L1_powerBased
   import TRANSFORM.Math.fillArray_1D;
 
   parameter Integer nV=1 "# of discrete volumes";
-  parameter SI.Power Q_nominal=1e6 "Total nominal reactor power";
+  parameter SI.Power Q_nominal=1e6 "Total nominal reactor power (fission + decay)";
   parameter Boolean specifyPower=false
     "=true to specify power (i.e., no der(P) equation)";
 
   // Inputs
-  input SI.Power[nV] Qs_input=fill(Q_nominal/nV, nV)
-    "Specifed power if specifyPower=true"
+  input SI.Power Qs_fission_input[nV]=fill(Q_nominal/nV, nV)
+    "Fission power (if specifyPower=true)"
     annotation (Dialog(group="Inputs", enable=specifyPower));
   input SI.Power Qs_external[nV]=zeros(nV)
     "Power from external source of neutrons" annotation (Dialog(group="Inputs"));
@@ -21,11 +21,11 @@ model PointKinetics_L1_powerBased
   // Neutron Kinetics
   parameter Integer nI=6 "# of delayed-neutron precursors groups"
     annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
-  input TRANSFORM.Units.InverseTime[nI] dlambda_i=fill(0, nI)
+  input Units.InverseTime dlambdas[nI]=fill(0, nI)
     "Change in decay constants for each precursor group"
     annotation (Dialog(tab="Kinetics", group="Inputs: Neutron Kinetics"));
-  input TRANSFORM.Units.NonDim[nI] dalpha_i=fill(0, nI)
-    "Change in normalized precursor fractions [beta_i = alpha_i*Beta]"
+  input Units.NonDim dalphas[nI]=fill(0, nI)
+    "Change in normalized precursor fractions [betas = alphas*Beta]"
     annotation (Dialog(tab="Kinetics", group="Inputs: Neutron Kinetics"));
   input TRANSFORM.Units.NonDim dBeta=0
     "Change in effective delayed neutron fraction [e.g., Beta = sum(beta_i)]"
@@ -33,9 +33,9 @@ model PointKinetics_L1_powerBased
   input SI.Time dLambda=0 "Change in prompt neutron generation time"
     annotation (Dialog(tab="Kinetics", group="Inputs: Neutron Kinetics"));
 
-  TRANSFORM.Units.InverseTime[nI] lambda_i=lambda_i_start + dlambda_i
+  Units.InverseTime lambdas[nI]=lambdas_start + dlambdas
     "Decay constants for each precursor group";
-  TRANSFORM.Units.NonDim[nI] alpha_i=alpha_i_start + dalpha_i
+  Units.NonDim alphas[nI]=alphas_start + dalphas
     "Normalized precursor fractions [beta_i = alpha_i*Beta]";
   TRANSFORM.Units.NonDim Beta=Beta_start + dBeta
     "Effective delayed neutron fraction [e.g., Beta = sum(beta_i)]";
@@ -63,24 +63,23 @@ model PointKinetics_L1_powerBased
   // Decay-heat
   parameter Integer nDH=0 "# of decay-heat groups"
     annotation (Dialog(tab="Initialization",group="Decay-Heat"));
-  input Units.InverseTime dlambda_dh[nDH]=fill(0, nDH)
+  input Units.InverseTime dlambdas_dh[nDH]=fill(0, nDH)
     "Change in decay constant"
     annotation (Dialog(tab="Kinetics", group="Inputs: Decay-Heat"));
-  input Units.NonDim dw_dh[nDH]=fill(0, nDH)
+  input Units.NonDim defs_dh[nDH]=fill(0, nDH)
     "Change in effective energy fraction"
     annotation (Dialog(tab="Kinetics", group="Inputs: Decay-Heat"));
 
-  Units.InverseTime lambda_dh[nDH]=lambda_dh_start + dlambda_dh
+  Units.InverseTime lambda_dh[nDH]=lambda_dh_start + dlambdas_dh
     "Decay constant";
-  Units.NonDim w_frac_dh[nDH]=w_frac_dh_start + dw_dh
-    "Effective energy fraction";
+  Units.NonDim efs_dh[nDH]=efs_dh_start + defs_dh "Effective energy fraction";
 
   // Initialization
-  parameter TRANSFORM.Units.InverseTime[nI] lambda_i_start=fill(1, nI)
+  parameter Units.InverseTime lambdas_start[nI]=fill(1, nI)
     "Decay constants for each precursor group"
     annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
-  parameter TRANSFORM.Units.NonDim[nI] alpha_i_start=fill(1/nI, nI)
-    "Normalized precursor fractions [beta_i = alpha_i*Beta]"
+  parameter Units.NonDim alphas_start[nI]=fill(1/nI, nI)
+    "Normalized precursor fractions [betas = alphas*Beta]"
     annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
   parameter TRANSFORM.Units.NonDim Beta_start=0.0065
     "Effective delayed neutron fraction [e.g., Beta = sum(beta_i)]"
@@ -88,83 +87,89 @@ model PointKinetics_L1_powerBased
   parameter SI.Time Lambda_start=1e-5 "Prompt neutron generation time"
     annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
 
-  final parameter TRANSFORM.Units.NonDim[nI] beta_i_start=alpha_i_start*
-      Beta_start "Delayed neutron precursor fractions";
+  final parameter Units.NonDim betas_start[nI]=alphas_start*Beta_start
+    "Delayed neutron precursor fractions";
 
   parameter Units.InverseTime lambda_dh_start[nDH]=fill(1, nDH)
     "Decay constant"
     annotation (Dialog(tab="Initialization", group="Decay-Heat"));
-  parameter Units.NonDim w_frac_dh_start[nDH]=fill(0, nDH)
+  parameter Units.NonDim efs_dh_start[nDH]=fill(0, nDH)
     "Effective energy fraction"
     annotation (Dialog(tab="Initialization", group="Decay-Heat"));
 
-  parameter SI.Power Qs_start[nV]=fill(Q_nominal/nV, nV)
-    "Initial reactor power per volume"
+  parameter SI.Power Qs_fission_start[nV]=fill(Q_nominal/nV, nV)/(1 + sum(
+      efs_dh_start)) "Initial reactor fission power per volume"
     annotation (Dialog(tab="Initialization"));
-  parameter SI.Power[nV,nI] Cs_start={{beta_i_start[j]/(lambda_i_start[j]*
-      Lambda_start)*Qs_start[i] for j in 1:nI} for i in 1:nV}
+  parameter SI.Power[nV,nI] Cs_start={{betas_start[j]/(lambdas_start[j]*
+      Lambda_start)*Qs_fission_start[i] for j in 1:nI} for i in 1:nV}
     "Power of the initial delayed-neutron precursor concentrations"
-    annotation (Dialog(tab="Initialization"));
+    annotation (Dialog(tab="Initialization",enable=not use_history));
 
-  parameter SI.Energy Es_dh_start[nV,nDH]={{Qs_start[i]*w_frac_dh_start[j]/
+  parameter SI.Energy Es_start[nV,nDH]={{Qs_fission_start[i]*efs_dh_start[j]/
       lambda_dh_start[j] for j in 1:nDH} for i in 1:nV}
     "Initial decay heat group energy per product volume"
-    annotation (Dialog(tab="Initialization"));
+    annotation (Dialog(tab="Initialization",enable=not use_history));
 
-  // Advanced
-  parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
-    annotation (Dialog(tab="Advanced", group="Dynamics"));
-  parameter Dynamics traceDynamics=energyDynamics
-    annotation (Dialog(tab="Advanced", group="Dynamics"));
-  parameter Dynamics decayDynamics=energyDynamics
-    annotation (Dialog(tab="Advanced", group="Dynamics"));
-
-  TRANSFORM.Units.NonDim[nI] beta_i=alpha_i*Beta
-    "Delayed neutron precursor fractions";
-
-  TRANSFORM.Units.NonDim[nV,nFeedback] rhos_feedback
-    "Linear reactivity feedback";
-  TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
-
-  SI.Power Q_total=sum(Qs) "Total power output, excluding decay-heat";
-  SI.Power Qs[nV](start=Qs_start)
-    "Power determined from kinetics. Not including fission product decay-heat";
-  SI.Power[nV,nI] Cs(start=if use_history then {{Cs_start_history[j] for j in 1:nI} for i in 1:nV} else Cs_start)
-    "Power of the delayed-neutron precursor concentration";
-
-  SI.Energy Es_dh[nV,nDH](start=if use_history then {{Es_start_history[j] for j in 1:nDH} for i in 1:nV} else Es_dh_start)
-    "Energy of the decay-heat precursor group";
-  SI.Power Qs_dh[nV,nDH] "Decay-heat per group per volume";
-   SI.Power Qs_effective[nV]
-     "Power determined from kinetics. Including fission product decay-heat";
-   SI.Power Q_effective_total=sum(Qs_effective)
-     "Total power output, including decay-heat";
-
-  parameter Boolean use_history = false annotation(Dialog(tab="Initialization",group="Decay-Heat"));
+  parameter Boolean use_history = false "=true to provide power history" annotation(Dialog(tab="Initialization",group="Decay-Heat"));
   parameter SI.Power[:,2] history = fill(0,0,2) "Power history up to simulation time=0, [t,Q]" annotation(Dialog(tab="Initialization",group="Decay-Heat",enable=use_history));
   parameter Boolean includeDH = false "=true if power history includes decay heat" annotation(Dialog(tab="Initialization",group="Decay-Heat",enable=use_history));
 
   final parameter SI.Power Cs_start_history[nI](fixed=false);
   final parameter SI.Energy Es_start_history[nDH](fixed=false);
 
+  // Advanced
+  parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial "Formulation of nuclear kinetics balances"
+    annotation (Dialog(tab="Advanced", group="Dynamics"));
+  parameter Dynamics traceDynamics=energyDynamics "Formulation of neutron precursor balances"
+    annotation (Dialog(tab="Advanced", group="Dynamics"));
+  parameter Dynamics decayDynamics=energyDynamics "Formulation of decay-heat balances"
+    annotation (Dialog(tab="Advanced", group="Dynamics"));
+
+  Units.NonDim betas[nI]=alphas*Beta "Delayed neutron precursor fractions";
+
+  TRANSFORM.Units.NonDim[nV,nFeedback] rhos_feedback
+    "Linear reactivity feedback";
+  TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
+
+  SI.Power Qs[nV] "Power determined from kinetics and decay-heat per volume";
+  SI.Power Q_total=sum(Qs) "Total power output, including decay-heat";
+
+  SI.Power Qs_fission[nV](start=Qs_fission_start)
+    "Fission power determined from kinetics";
+  SI.Power Q_fission_total=sum(Qs_fission)
+    "Total fission power output, excluding decay-heat";
+
+  SI.Power Qs_decay[nV,nDH] "Decay-heat per group per volume";
+  SI.Power Qs_decay_total[nV] = {sum(Qs_decay[i,:]) for i in 1:nV} "Total decay-heat per volume";
+  SI.Power Q_decay_total = sum(Qs_decay_total) "Total decay-heat";
+
+  SIadd.NonDim etas[nV] = Qs_decay_total./Qs_fission "Ratio of decay heat to fisson power per volume";
+  SIadd.NonDim eta = Q_decay_total/Q_fission_total "Ratio of decay heat to fisson power";
+
+  SI.Power[nV,nI] Cs(start=if use_history then {{Cs_start_history[j] for j in 1:nI} for i in 1:nV} else Cs_start)
+    "Power of the delayed-neutron precursor concentration";
+  SI.Energy Es[nV,nDH](start=if use_history then {{Es_start_history[j] for j in
+            1:nDH} for i in 1:nV} else Es_start)
+    "Energy of the decay-heat precursor group";
+
 initial equation
 
   (Cs_start_history,Es_start_history) =
     TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_powerBased_powerHistory(
     history,
-    lambda_i_start,
-    alpha_i_start,
+    lambdas_start,
+    alphas_start,
     Beta_start,
     Lambda_start,
     lambda_dh_start,
-    w_frac_dh_start,
+    efs_dh_start,
     includeDH=includeDH);
 
   if not specifyPower then
     if energyDynamics == Dynamics.FixedInitial then
-      Qs = Qs_start;
+      Qs_fission =Qs_fission_start;
     elseif energyDynamics == Dynamics.SteadyStateInitial then
-      der(Qs) = zeros(nV);
+      der(Qs_fission) = zeros(nV);
     end if;
   end if;
 
@@ -183,15 +188,16 @@ initial equation
 
    if decayDynamics == Dynamics.FixedInitial then
     if use_history then
-      Es_dh  = {{Es_start_history[j] for j in 1:nDH} for i in 1:nV};
+      Es = {{Es_start_history[j] for j in 1:nDH} for i in 1:nV};
     else
-      Es_dh  =Es_dh_start;
+      Es =Es_start;
     end if;
 
    elseif decayDynamics == Dynamics.SteadyStateInitial then
-     der(Es_dh) = fill(
-       0,
-       nV,nDH);
+    der(Es) = fill(
+      0,
+      nV,
+      nDH);
    end if;
 
 equation
@@ -202,46 +208,46 @@ equation
   rhos = {sum(rhos_feedback[i, :]) + rhos_input[i] for i in 1:nV};
 
   if specifyPower then
-    Qs = Qs_input;
+    Qs_fission =Qs_fission_input;
   else
     if energyDynamics == Dynamics.SteadyState then
       for i in 1:nV loop
-        0 = (rhos[i] - Beta)/Lambda*Qs[i] + sum(lambda_i .* Cs[i, :]) +
+        0 =(rhos[i] - Beta)/Lambda*Qs_fission[i] + sum(lambdas .* Cs[i, :]) +
           Qs_external[i]/(Lambda*(1 - rhos[i]));
       end for;
     else
       for i in 1:nV loop
-        der(Qs[i]) = (rhos[i] - Beta)/Lambda*Qs[i] + sum(lambda_i .* Cs[i, :]) +
-          Qs_external[i]/(Lambda*(1 - rhos[i]));
+        der(Qs_fission[i]) =(rhos[i] - Beta)/Lambda*Qs_fission[i] + sum(lambdas .*
+          Cs[i, :]) + Qs_external[i]/(Lambda*(1 - rhos[i]));
       end for;
     end if;
   end if;
 
   if traceDynamics == Dynamics.SteadyState then
     for i in 1:nV loop
-      zeros(nI) = beta_i ./ Lambda*Qs[i] - lambda_i .* Cs[i, :];
+      zeros(nI) =betas ./ Lambda*Qs_fission[i] - lambdas .* Cs[i, :];
     end for;
   else
     for i in 1:nV loop
-      der(Cs[i, :]) = beta_i ./ Lambda*Qs[i] - lambda_i .* Cs[i, :];
+      der(Cs[i, :]) =betas ./ Lambda*Qs_fission[i] - lambdas .* Cs[i, :];
     end for;
   end if;
 
    for i in 1:nV loop
-    Qs_dh [i, :] =lambda_dh  .*Es_dh [i, :];
-     Qs_effective[i] = Qs[i] + sum(Qs_dh[i, :]);
+    Qs_decay[i, :] = lambda_dh .* Es[i, :];
+    Qs[i] = Qs_fission[i] + sum(Qs_decay[i, :]);
    end for;
 
    if decayDynamics == Dynamics.SteadyState then
      for i in 1:nV loop
        for j in 1:nDH loop
-         0 =w_frac_dh[j]*Qs[i] - lambda_dh[j]*Es_dh[i, j];
+         0 =efs_dh[j]*Qs_fission[i] - lambda_dh[j]*Es[i, j];
        end for;
      end for;
    else
      for i in 1:nV loop
        for j in 1:nDH loop
-         der(Es_dh[i, j]) =w_frac_dh[j]*Qs[i] - lambda_dh[j]*Es_dh[i, j];
+        der(Es[i, j]) =efs_dh[j]*Qs_fission[i] - lambda_dh[j]*Es[i, j];
        end for;
      end for;
    end if;

@@ -212,7 +212,8 @@ model QuadraticCurve_Test
         61.5489])
     annotation (Placement(transformation(extent={{22,-10},{42,10}})));
 
-  Utilities.ErrorAnalysis.UnitTests unitTests(x={y}, x_reference={y_answer.y[1]})
+  Utilities.ErrorAnalysis.UnitTests unitTests(x={y}, x_reference={
+        y_answer.y[1]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 

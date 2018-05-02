@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Math.Examples.meanFactor",stopTime=10,resultFile="meanFactor");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -3,7 +3,8 @@ model Properties_KClMgCl2_Test "Generate data for external plot file"
 
   extends TRANSFORM.Icons.Example;
 
-  package Medium = TRANSFORM.Media.Fluids.KClMgCl2.LinearKClMgCl2_67_33_pT;
+  package Medium =
+      TRANSFORM.Media.Fluids.KClMgCl2.LinearKClMgCl2_67_33_pT;
 
   Medium.BaseProperties medium;
 

@@ -8,7 +8,6 @@ model PointKinetics_Drift_Test_feedback
   extraPropertiesNames=data_traceSubstances.extraPropertiesNames,
   C_nominal=data_traceSubstances.C_nominal);
 
-
   parameter SI.Length H = 3.4;
   parameter SI.Length L = 6.296;
   parameter SI.Velocity v=0.4772;

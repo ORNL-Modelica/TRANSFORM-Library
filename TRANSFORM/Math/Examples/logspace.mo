@@ -7,7 +7,7 @@ model logspace
 
   Real[n] y "Function value";
   Real[n-1] dy "Difference betwee y values";
-  Utilities.ErrorAnalysis.UnitTests unitTests(x=y, n=n)
+  Utilities.ErrorAnalysis.UnitTests unitTests(x=y, n=10)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   (y,dy) =TRANSFORM.Math.logspace(

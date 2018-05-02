@@ -19,7 +19,7 @@ model PointKinetics_Test
   PointKinetics_L1_powerBased kinetics(
     nI=1,
     Q_nominal=1e9,
-    lambda_i_start={0.08},
+    lambdas_start={0.08},
     Beta_start=0.0075,
     Lambda_start=1e-3,
     rhos_input={ControlRod_Reactivity.y},
@@ -28,7 +28,7 @@ model PointKinetics_Test
     vals_feedback=[Teff_Fuel.y,Teff_Coolant.y],
     vals_feedback_reference=[Teff_Fuel.offset,Teff_Coolant.offset])
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
-  Utilities.ErrorAnalysis.UnitTests unitTests(x={kinetics.Q_total})
+  Utilities.ErrorAnalysis.UnitTests unitTests(x={kinetics.Q_fission_total})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

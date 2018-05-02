@@ -17,7 +17,7 @@ model PointKinetics_vs_ApproximateOneGroup
     nI=1,
     Q_nominal=1e9,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lambda_i_start={lambda},
+    lambdas_start={lambda},
     Lambda_start=Lambda,
     rhos_input={rho0},
     Beta_start=Beta)
@@ -29,7 +29,7 @@ model PointKinetics_vs_ApproximateOneGroup
 equation
   Pratio_ref = Beta/(Beta - rho0)*exp(time*Lambda*rho0/(Beta - rho0)) - rho0/(Beta - rho0)*exp(time*(rho0 - Beta)/Lambda);
 
-  Pratio_exp =kinetics.Q_total/kinetics.Q_nominal;
+  Pratio_exp =kinetics.Q_fission_total/kinetics.Q_nominal;
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

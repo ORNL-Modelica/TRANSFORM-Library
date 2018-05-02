@@ -10,7 +10,8 @@ partial record PartialDecayHeat_powerBased
 
   // Data
   parameter TRANSFORM.Units.InverseTime[nC] lambdas "Decay constants for each decay-heat group";
-  parameter TRANSFORM.Units.NonDim[nC] w_frac "Decay-heat group fractions of fission power";
+  parameter Units.NonDim efs[nC]
+    "Decay-heat group fractions of fission power";
 
   annotation (defaultComponentName="data",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
