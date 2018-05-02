@@ -9,6 +9,6 @@ record FLiBe
     sigmaT=1e-28*{148.026,1e-3,0,0},
     parents=[[0,0,0,1]; [0,0,0,0]; [0,0,0,0]; [0,0,0,0]]);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="data",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end FLiBe;

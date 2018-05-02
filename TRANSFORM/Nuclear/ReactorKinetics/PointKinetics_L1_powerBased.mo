@@ -20,7 +20,7 @@ model PointKinetics_L1_powerBased
 
   // Neutron Kinetics
   parameter Integer nI=6 "# of delayed-neutron precursors groups"
-    annotation (Dialog(tab="Kinetics", group="Inputs: Neutron Kinetics"));
+    annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
   input TRANSFORM.Units.InverseTime[nI] dlambda_i=fill(0, nI)
     "Change in decay constants for each precursor group"
     annotation (Dialog(tab="Kinetics", group="Inputs: Neutron Kinetics"));
@@ -61,17 +61,19 @@ model PointKinetics_L1_powerBased
     annotation (Dialog(tab="Kinetics", group="Inputs: Reactivity Feedback"));
 
   // Decay-heat
-  parameter Integer nDG=0 "# of decay-heat groups"
-    annotation (Dialog(tab="Decay-Heat"));
-  input SIadd.InverseTime[nDG] dlambda_dg=fill(0, nDG)
+  parameter Integer nDH=0 "# of decay-heat groups"
+    annotation (Dialog(tab="Initialization",group="Decay-Heat"));
+  input Units.InverseTime dlambda_dh[nDH]=fill(0, nDH)
     "Change in decay constant"
-    annotation (Dialog(tab="Decay-Heat", group="Inputs"));
-  input SIadd.NonDim[nDG] dw_dg=fill(0, nDG)
+    annotation (Dialog(tab="Kinetics", group="Inputs: Decay-Heat"));
+  input Units.NonDim dw_dh[nDH]=fill(0, nDH)
     "Change in effective energy fraction"
-    annotation (Dialog(tab="Decay-Heat", group="Inputs"));
+    annotation (Dialog(tab="Kinetics", group="Inputs: Decay-Heat"));
 
-  SIadd.InverseTime[nDG] lambda_dg=lambda_dg + dlambda_dg "Decay constant";
-  SIadd.NonDim[nDG] w_dg=w_dg + dw_dg "Effective energy fraction";
+  Units.InverseTime lambda_dh[nDH]=lambda_dh_start + dlambda_dh
+    "Decay constant";
+  Units.NonDim w_frac_dh[nDH]=w_frac_dh_start + dw_dh
+    "Effective energy fraction";
 
   // Initialization
   parameter TRANSFORM.Units.InverseTime[nI] lambda_i_start=fill(1, nI)
@@ -89,27 +91,25 @@ model PointKinetics_L1_powerBased
   final parameter TRANSFORM.Units.NonDim[nI] beta_i_start=alpha_i_start*
       Beta_start "Delayed neutron precursor fractions";
 
-  parameter SIadd.InverseTime[nDG] lambda_dg_start=fill(1, nDG)
+  parameter Units.InverseTime lambda_dh_start[nDH]=fill(1, nDH)
     "Decay constant"
     annotation (Dialog(tab="Initialization", group="Decay-Heat"));
-  parameter SIadd.NonDim[nDG] w_dg_start=fill(0, nDG)
+  parameter Units.NonDim w_frac_dh_start[nDH]=fill(0, nDH)
     "Effective energy fraction"
     annotation (Dialog(tab="Initialization", group="Decay-Heat"));
 
   parameter SI.Power Qs_start[nV]=fill(Q_nominal/nV, nV)
     "Initial reactor power per volume"
-    annotation (Dialog(tab="Initialization", enable=not specifyPower));
+    annotation (Dialog(tab="Initialization"));
   parameter SI.Power[nV,nI] Cs_start={{beta_i_start[j]/(lambda_i_start[j]*
-      Lambda_start)*Q_nominal for j in 1:nI} for i in 1:nV}
+      Lambda_start)*Qs_start[i] for j in 1:nI} for i in 1:nV}
     "Power of the initial delayed-neutron precursor concentrations"
     annotation (Dialog(tab="Initialization"));
 
-  parameter SI.Power Es_dg_start[nV,nDG]={{Qs_start[i]*w_dg_start[j]/
-      lambda_dg_start[j] for j in 1:nDG} for i in 1:nV}
-    "Initial decay heat group power per product volume" annotation (Dialog(
-      tab="Initialization",
-      group="Decay-Heat",
-      enable=true));
+  parameter SI.Energy Es_dh_start[nV,nDH]={{Qs_start[i]*w_frac_dh_start[j]/
+      lambda_dh_start[j] for j in 1:nDH} for i in 1:nV}
+    "Initial decay heat group energy per product volume"
+    annotation (Dialog(tab="Initialization"));
 
   // Advanced
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
@@ -132,13 +132,13 @@ model PointKinetics_L1_powerBased
   SI.Power[nV,nI] Cs(start=Cs_start)
     "Power of the delayed-neutron precursor concentration";
 
-  SI.Power Es_dg[nV,nDG](start=Es_dg_start)
+  SI.Energy Es_dh[nV,nDH](start=Es_dh_start)
     "Energy of the decay-heat precursor group";
-  SI.Power Qs_dg[nV,nDG] "Decay-heat per group per volume";
-  SI.Power Qs_effective[nV]
-    "Power determined from kinetics. Including fission product decay-heat";
-  SI.Power Q_effective_total=sum(Qs_effective)
-    "Total power output, including decay-heat";
+  SI.Power Qs_dh[nV,nDH] "Decay-heat per group per volume";
+   SI.Power Qs_effective[nV]
+     "Power determined from kinetics. Including fission product decay-heat";
+   SI.Power Q_effective_total=sum(Qs_effective)
+     "Total power output, including decay-heat";
 
 initial equation
 
@@ -159,14 +159,13 @@ initial equation
       nI);
   end if;
 
-  if decayDynamics == Dynamics.FixedInitial then
-    Es_dg = Es_dg_start;
-  elseif decayDynamics == Dynamics.SteadyStateInitial then
-    der(Es_dg) = fill(
-      0,
-      nV,
-      nDG);
-  end if;
+   if decayDynamics == Dynamics.FixedInitial then
+    Es_dh  =Es_dh_start;
+   elseif decayDynamics == Dynamics.SteadyStateInitial then
+     der(Es_dh) = fill(
+       0,
+       nV,nDH);
+   end if;
 
 equation
 
@@ -201,24 +200,24 @@ equation
     end for;
   end if;
 
-  for i in 1:nV loop
-    Qs_dg[i, :] = lambda_dg .* Es_dg[i, :];
-    Qs_effective[i] = Qs[i] + sum(Qs_dg[i, :]);
-  end for;
+   for i in 1:nV loop
+    Qs_dh [i, :] =lambda_dh  .*Es_dh [i, :];
+     Qs_effective[i] = Qs[i] + sum(Qs_dh[i, :]);
+   end for;
 
-  if decayDynamics == Dynamics.SteadyState then
-    for i in 1:nV loop
-      for j in 1:nDG loop
-        0 = -lambda_dg[j]*Es_dg[i, j] + w_dg[j]*Qs[i];
-      end for;
-    end for;
-  else
-    for i in 1:nV loop
-      for j in 1:nDG loop
-        der(Es_dg[i, j]) = -lambda_dg[j]*Es_dg[i, j] + w_dg[j]*Qs[i];
-      end for;
-    end for;
-  end if;
+   if decayDynamics == Dynamics.SteadyState then
+     for i in 1:nV loop
+       for j in 1:nDH loop
+         0 =w_frac_dh[j]*Qs[i] - lambda_dh[j]*Es_dh[i, j];
+       end for;
+     end for;
+   else
+     for i in 1:nV loop
+       for j in 1:nDH loop
+         der(Es_dh[i, j]) =w_frac_dh[j]*Qs[i] - lambda_dh[j]*Es_dh[i, j];
+       end for;
+     end for;
+   end if;
 
   annotation (
     defaultComponentName="kinetics",

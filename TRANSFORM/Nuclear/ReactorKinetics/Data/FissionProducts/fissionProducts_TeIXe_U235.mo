@@ -23,7 +23,7 @@ record fissionProducts_TeIXe_U235
     {0.061,0,0.003}})
       "Fission yield per thermal fission";
 
-  annotation (
+  annotation (defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info=""));

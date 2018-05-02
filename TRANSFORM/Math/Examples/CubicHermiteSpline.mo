@@ -12,6 +12,8 @@ model CubicHermiteSpline "Test problem for cubic hermite splines"
   Real y "Dependent variable without monotone interpolation";
   Real yMonotone "Dependent variable with monotone interpolation";
   Integer i "Integer to select data interval";
+  Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={y,yMonotone})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 initial algorithm
   // Get the derivative values at the support points
   d := splineDerivatives(

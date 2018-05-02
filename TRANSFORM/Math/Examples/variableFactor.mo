@@ -1,4 +1,4 @@
-within TRANSFORM.Math.Examples.Verification;
+within TRANSFORM.Math.Examples;
 model variableFactor
 
   extends TRANSFORM.Icons.Example;

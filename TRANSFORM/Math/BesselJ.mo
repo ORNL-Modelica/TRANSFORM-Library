@@ -35,11 +35,10 @@ algorithm
 
   if k < 0 then
     Jk := (-1)^nu*(0.5*x)^nu*sum_new;
+  elseif k == 0 and x == 0 then
+    Jk := 1.0;
   else
     Jk :=(0.5*x)^nu*sum_new;
   end if;
 
-  annotation (Documentation(info="<html>
-<p>An implementation of Kreisselmeier Steinhauser smooth maximum</p>
-</html>"));
 end BesselJ;

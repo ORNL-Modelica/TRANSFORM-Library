@@ -18,6 +18,6 @@ partial record PartialPrecursorGroup
   parameter SI.Energy[nC] w_decay = fill(0,nC) "Energy release (near field - beta) per fission product decay per type";
   parameter SI.Energy[nC] wG_decay = fill(0,nC) "Energy release (far field - gamma) per fission product decay per type";
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="data",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialPrecursorGroup;

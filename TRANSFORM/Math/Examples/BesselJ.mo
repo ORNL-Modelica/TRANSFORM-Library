@@ -1,20 +1,14 @@
-within TRANSFORM.Math.Examples.Verification;
+within TRANSFORM.Math.Examples;
 model BesselJ
 
   extends TRANSFORM.Icons.Example;
-
-  Utilities.ErrorAnalysis.Errors_AbsRelRMSold[2] summary_Error(
-    n={n,n},
-    x_1={J0,J1},
-    x_2={J0_Matlab,J1_Matlab})
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   final parameter Integer n=100 "Number of values of x in Jk(x)";
 
   Real[n] J0 "J0 function value";
   Real[n] J1 "J0 function value";
 
-  Real[n] x = linspace(0,10,n) "Value in Jk(x)";
+  Real[n] x = linspace(0.0,10,n) "Value in Jk(x)";
   Real[2] k = {0,1} "Order value";
 
   Real[n] J0_Matlab = {1,0.997450866006856,0.989822955517259,
@@ -69,6 +63,11 @@ model BesselJ
         0.140426953769791,0.117346773344862,0.0933283364800872,0.0686195550541594,
         0.0434727461688614}
 "Result of BesselJ1 from Matlab built-in function";
+  Utilities.ErrorAnalysis.UnitTests unitTests(
+    x={J0[1],J1[1]},
+    n=2,
+    x_reference={J0_Matlab[1],J1_Matlab[1]})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 
   for i in 1:n loop

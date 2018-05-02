@@ -2,4 +2,4 @@ data_traceSubstances
 FissionProducts
 PrecursorGroups
 Tritium
-DecayHeat_powerBased
+DecayHeat

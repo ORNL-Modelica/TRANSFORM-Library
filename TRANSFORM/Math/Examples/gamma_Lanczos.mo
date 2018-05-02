@@ -1,13 +1,7 @@
-within TRANSFORM.Math.Examples.Verification;
+within TRANSFORM.Math.Examples;
 model gamma_Lanczos
 
   extends TRANSFORM.Icons.Example;
-
-  Utilities.ErrorAnalysis.Errors_AbsRelRMSold summary_Error(
-    n=n,
-    x_1=y,
-    x_2=gamma_Matlab)
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   final parameter Integer n=10;
 
@@ -18,6 +12,11 @@ model gamma_Lanczos
 
   Real[n] y "Function value";
 
+  Utilities.ErrorAnalysis.UnitTests unitTests(
+    n=n,
+    x=y,
+    x_reference=gamma_Matlab)
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 
   for i in 1:10 loop

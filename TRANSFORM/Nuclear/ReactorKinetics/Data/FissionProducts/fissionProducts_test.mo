@@ -20,7 +20,7 @@ record fissionProducts_test "test for debugging"
 
   parameter Real[nC,nFS] fissionYield_f=0.01*transpose({{0.00269,0.00082,0.0108},{0.00346,0.00106,0.0142}}) "Fission yield per fast fission";
 
-  annotation (
+  annotation (defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info=""));

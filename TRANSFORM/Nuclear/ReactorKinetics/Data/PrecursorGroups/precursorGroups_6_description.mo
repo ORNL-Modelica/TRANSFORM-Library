@@ -7,7 +7,7 @@ record precursorGroups_6_description
   C_nominal=fill(1e14, nC),
   lambdas={0.0125,0.0318,0.109,0.317,1.35,8.64});
 
-  annotation (
+  annotation (defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info=""));

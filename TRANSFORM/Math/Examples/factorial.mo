@@ -1,19 +1,15 @@
-within TRANSFORM.Math.Examples.Verification;
+within TRANSFORM.Math.Examples;
 model factorial
 
   extends TRANSFORM.Icons.Example;
-
-  Utilities.ErrorAnalysis.Errors_AbsRelRMSold summary_Error(
-    n=1,
-    x_1={y},
-    x_2={ExactValue})
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
   final parameter Integer n=8;
   final parameter Real ExactValue=8*7*6*5*4*3*2*1;
 
   Real y "Function value";
 
+  Utilities.ErrorAnalysis.UnitTests unitTests(x={y}, x_reference={ExactValue})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 
   y = TRANSFORM.Math.factorial(n);
