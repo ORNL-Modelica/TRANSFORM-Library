@@ -10,8 +10,8 @@ model FissionProducts_Test
     parents=data.parents,
     sigmaA=data.sigmaA_thermal,
     lambda=data.lambdas,
-    w_decay=data.w_decay,
-    wG_decay=data.wG_decay,
+    w_near_decay=data.w_near_decay,
+    w_far_decay=data.w_far_decay,
     fissionYield=data.fissionYield_t,
     traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

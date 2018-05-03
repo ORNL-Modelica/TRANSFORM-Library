@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Reactivity;
-model FissionProducts
+model FissionProducts_L1_powerBased
 
   import Modelica.Fluid.Types.Dynamics;
 
@@ -164,4 +164,4 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="FP")}));
-end FissionProducts;
+end FissionProducts_L1_powerBased;

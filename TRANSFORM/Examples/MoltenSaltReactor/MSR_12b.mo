@@ -63,24 +63,52 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
   // Decay Heat Calculations: PFL
-   SI.Power Qs_gen_tee_inlet = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*tee_inlet.mC[j] for j in 1:data_traceSubstances.nC});
-   SI.Power Qs_gen_plenum_lower = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*plenum_lower.mC[j] for j in 1:data_traceSubstances.nC});
-  SI.Power[reflA_lower.nV] Qs_gen_reflA_lower = {sum({data_traceSubstances.w_decay[j]*data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_lower.nV};
+  SI.Power Qs_gen_tee_inlet=sum({(data_traceSubstances.w_near_decay[j] +
+      data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      tee_inlet.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power Qs_gen_plenum_lower=sum({(data_traceSubstances.w_near_decay[j] +
+      data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      plenum_lower.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power[reflA_lower.nV] Qs_gen_reflA_lower={sum({data_traceSubstances.w_near_decay[
+      j]*data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflA_lower.nV};
   SI.Power[fuelCell.nV] Qs_gen_fuelCell=kinetics.Qs + kinetics.Qs_FP_near;
-  SI.Power[reflR.nV] Qs_gen_reflR = {sum({data_traceSubstances.w_decay[j]*data_traceSubstances.lambdas[j]*reflR.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflR.nV};
-  SI.Power[reflA_upper.nV] Qs_gen_reflA_upper = {sum({data_traceSubstances.w_decay[j]*data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_upper.nV};
+  SI.Power[reflR.nV] Qs_gen_reflR={sum({data_traceSubstances.w_near_decay[j]*
+      data_traceSubstances.lambdas[j]*reflR.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflR.nV};
+  SI.Power[reflA_upper.nV] Qs_gen_reflA_upper={sum({data_traceSubstances.w_near_decay[
+      j]*data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflA_upper.nV};
 
-   SI.Power Qs_gen_plenum_upper = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*plenum_upper.mC[j] for j in 1:data_traceSubstances.nC});
-   SI.Power Qs_gen_pumpBowl_PFL = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*pumpBowl_PFL.mC[j] for j in 1:data_traceSubstances.nC});
-  SI.Power[pipeToPHX_PFL.nV] Qs_gen_pipeToPHX_PFL = {sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*pipeToPHX_PFL.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:pipeToPHX_PFL.nV};
-  SI.Power[PHX.tube.nV] Qs_gen_PHX_tube = {sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*PHX.tube.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:PHX.tube.nV};
-  SI.Power[pipeFromPHX_PFL.nV] Qs_gen_pipeFromPHX_PFL = {sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*pipeFromPHX_PFL.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:pipeFromPHX_PFL.nV};
+  SI.Power Qs_gen_plenum_upper=sum({(data_traceSubstances.w_near_decay[j] +
+      data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      plenum_upper.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power Qs_gen_pumpBowl_PFL=sum({(data_traceSubstances.w_near_decay[j] +
+      data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      pumpBowl_PFL.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power[pipeToPHX_PFL.nV] Qs_gen_pipeToPHX_PFL={sum({(data_traceSubstances.w_near_decay[
+      j] + data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]
+      *pipeToPHX_PFL.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:
+      pipeToPHX_PFL.nV};
+  SI.Power[PHX.tube.nV] Qs_gen_PHX_tube={sum({(data_traceSubstances.w_near_decay[
+      j] + data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]
+      *PHX.tube.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:PHX.tube.nV};
+  SI.Power[pipeFromPHX_PFL.nV] Qs_gen_pipeFromPHX_PFL={sum({(
+      data_traceSubstances.w_near_decay[j] + data_traceSubstances.w_far_decay[j])
+      *data_traceSubstances.lambdas[j]*pipeFromPHX_PFL.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:pipeFromPHX_PFL.nV};
 
   // Decay Heat Calculations: PFL - solid
-  SI.Power[reflA_lower.nV] QsG_reflA_lowerG = {sum({data_traceSubstances.wG_decay[j]*data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_lower.nV};
+  SI.Power[reflA_lower.nV] QsG_reflA_lowerG={sum({data_traceSubstances.w_far_decay[
+      j]*data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflA_lower.nV};
   //SI.Power[fuelCell.nV] QsG_fuelCellG = {sum({data_traceSubstances.wG_decay[j]*data_traceSubstances.lambdas[j]*fuelCell.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:fuelCell.nV};
-  SI.Power[reflR.nV] QsG_reflRG = {sum({data_traceSubstances.wG_decay[j]*data_traceSubstances.lambdas[j]*reflR.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflR.nV};
-  SI.Power[reflA_upper.nV] QsG_reflA_upperG = {sum({data_traceSubstances.wG_decay[j]*data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_upper.nV};
+  SI.Power[reflR.nV] QsG_reflRG={sum({data_traceSubstances.w_far_decay[j]*
+      data_traceSubstances.lambdas[j]*reflR.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflR.nV};
+  SI.Power[reflA_upper.nV] QsG_reflA_upperG={sum({data_traceSubstances.w_far_decay[
+      j]*data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflA_upper.nV};
 
   SI.Power[reflA_lowerG.nVs[1],reflA_lowerG.nVs[2]] Qs_gen_reflA_lowerG = {{QsG_reflA_lowerG[j]/reflA_lowerG.nVs[1] for j in 1:reflA_lowerG.nVs[2]} for i in 1:reflA_lowerG.nVs[1]};
   SI.Power[fuelCellG.nVs[1],fuelCellG.nVs[2]] Qs_gen_fuellCellG={{kinetics.Qs_FP_far[
@@ -90,8 +118,12 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
   SI.Power[reflA_upperG.nVs[1],reflA_upperG.nVs[2]] Qs_gen_reflA_upperG = {{QsG_reflA_upperG[j]/reflA_upperG.nVs[1] for j in 1:reflA_upperG.nVs[2]} for i in 1:reflA_upperG.nVs[1]};
 
   // Decay Heat Calculations: Off-Gas/DrainTank
-   SI.Power Qs_gen_drainTank_gas = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*drainTank_gas.mC[j] for j in 1:data_traceSubstances.nC});
-   SI.Power Qs_gen_drainTank_liquid = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*drainTank_liquid.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power Qs_gen_drainTank_gas=sum({(data_traceSubstances.w_near_decay[j] +
+      data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      drainTank_gas.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power Qs_gen_drainTank_liquid=sum({(data_traceSubstances.w_near_decay[j]
+       + data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      drainTank_liquid.mC[j] for j in 1:data_traceSubstances.nC});
 
   // Trace Substance Calculations: PFL
   SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet = {-data_traceSubstances.lambdas[j]*tee_inlet.mC[j] + mC_gen_tee_inlet_PtoD[j] for j in 1:data_traceSubstances.nC};
@@ -807,7 +839,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     lambdas=data_traceSubstances.lambdas,
     iC=8,
     parents=data_traceSubstances.parents,
-    Qs_decay=data_traceSubstances.w_decay + data_traceSubstances.wG_decay)
+    Qs_decay=data_traceSubstances.w_near_decay + data_traceSubstances.w_far_decay)
     annotation (Placement(transformation(extent={{-230,-30},{-210,-10}})));
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_OFFGAS
                    data_OFFGAS

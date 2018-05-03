@@ -19,8 +19,10 @@ partial record PartialFissionProduct
 
   parameter SIadd.InverseTime[nC] lambdas "Half-life of fission product";
 
-  parameter SI.Energy[nC] w_decay = fill(0,nC) "Energy release (near field - beta) per fission product decay per type";
-  parameter SI.Energy[nC] wG_decay = fill(0,nC) "Energy release (far field - gamma) per fission product decay per type";
+  parameter SI.Energy w_near_decay[nC]=fill(0, nC)
+    "Energy release (near field - beta) per fission product decay per type";
+  parameter SI.Energy w_far_decay[nC]=fill(0, nC)
+    "Energy release (far field - gamma) per fission product decay per type";
 
   parameter SI.Area[nC] sigmaA_thermal = fill(0,nC) "Thermal absorption cross-section for reactivity feedback";
   parameter SI.Area[nC] sigmaA_fast = fill(0,nC) "Fast absorption cross-section for reactivity feedback";
