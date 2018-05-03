@@ -59,7 +59,7 @@ Project: Modelica Standard Library https://github.com/modelica/Modelica
 3-Clause BSD License https://github.com/modelica/ModelicaStandardLibrary/blob/master/LICENSE
 
 ## Citation
-DOI: 10.11578/dc.20171109.1 
+Greenwood, M. S.: TRANSFORM - TRANsient Simulation Framework of Reconfigurable Models. Computer Software. https://github.com/ORNL-Modelica/TRANSFORM-Library. 07 Nov. 2017. Web. Oak Ridge National Laboratory. doi:10.11578/dc.20171109.1.
 
 ## Extended Description
 
