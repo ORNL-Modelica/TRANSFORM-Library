@@ -213,12 +213,12 @@ equation
     if energyDynamics == Dynamics.SteadyState then
       for i in 1:nV loop
         0 =(rhos[i] - Beta)/Lambda*Qs_fission[i] + sum(lambdas .* Cs[i, :]) +
-          Qs_external[i]/(Lambda*(1 - rhos[i]));
+          Qs_external[i]/Lambda;
       end for;
     else
       for i in 1:nV loop
         der(Qs_fission[i]) =(rhos[i] - Beta)/Lambda*Qs_fission[i] + sum(lambdas .*
-          Cs[i, :]) + Qs_external[i]/(Lambda*(1 - rhos[i]));
+          Cs[i, :]) + Qs_external[i]/Lambda;
       end for;
     end if;
   end if;

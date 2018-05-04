@@ -4,15 +4,16 @@ model FissionProducts_Test
 
   extends TRANSFORM.Icons.Example;
 
-  TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts fissionProducts(
+  TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_withDecayHeat
+    fissionProducts(
     nC=data.nC,
     nFS=data.nFS,
     parents=data.parents,
-    sigmaA=data.sigmaA_thermal,
-    lambda=data.lambdas,
+    sigmasA=data.sigmaA_thermal,
+    lambdas=data.lambdas,
     w_near_decay=data.w_near_decay,
     w_far_decay=data.w_far_decay,
-    fissionYield=data.fissionYield_t,
+    fissionYields=data.fissionYield_t,
     traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235
