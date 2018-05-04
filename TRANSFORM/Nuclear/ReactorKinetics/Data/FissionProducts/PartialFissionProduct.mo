@@ -12,17 +12,18 @@ partial record PartialFissionProduct
 
   final constant Integer nFS=size(fissionSourceNames, 1) "# of fission product sources (e.g., U/Pu)";
 
-  final constant Integer nT=size(fissionTypes, 1) "# of fission product sources (e.g., fast/thermal)";
+  final constant Integer nT=size(fissionTypes, 1) "# of fission product types (e.g., fast/thermal)";
 
   // Data
-  parameter Real[nC,nFS,nT] fissionYield "Fission yield per fission per source and type";
+  parameter Real fissionYields[nC,nFS,nT]
+    "Fission yield per fission per source and type";
 
   parameter SIadd.InverseTime[nC] lambdas "Half-life of fission product";
 
   parameter SI.Energy w_near_decay[nC]=fill(0, nC)
-    "Energy release (near field - beta) per fission product decay per type";
+    "Energy release (near field - beta) per fission product decay";
   parameter SI.Energy w_far_decay[nC]=fill(0, nC)
-    "Energy release (far field - gamma) per fission product decay per type";
+    "Energy release (far field - gamma) per fission product decay";
 
   parameter SI.Area[nC] sigmaA_thermal = fill(0,nC) "Thermal absorption cross-section for reactivity feedback";
   parameter SI.Area[nC] sigmaA_fast = fill(0,nC) "Fast absorption cross-section for reactivity feedback";

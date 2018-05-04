@@ -6,7 +6,7 @@ record fissionProducts_test "test for debugging"
     fissionSourceNames={"s1","s2"},
     fissionTypes={"thermal","fast"},
     C_nominal=fill(1e14, nC),
-    fissionYield={if k == 1 then fissionYield_t[i, j] else fissionYield_f[i, j]
+    fissionYields={if k == 1 then fissionYield_t[i, j] else fissionYield_f[i, j]
         for k in 1:2,j in 1:nFS,i in 1:nC},
     lambdas={0,0.00001,0.01},
     w_near_decay=1.6022e-16*{5.682,335,305},

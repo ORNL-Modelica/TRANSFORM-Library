@@ -21,7 +21,7 @@ record fissionProducts_91_U235_Pu239 "List of 91 fission products of U-235 and P
     fissionSourceNames={"U235","Pu239"},
     fissionTypes={"thermal","fast"},
     C_nominal=fill(1e14, nC),
-    fissionYield={if k == 1 then fissionYield_t[i, j] else fissionYield_f[i, j]
+    fissionYields={if k == 1 then fissionYield_t[i, j] else fissionYield_f[i, j]
         for k in 1:2,j in 1:nFS,i in 1:nC},
     lambdas={0.0,0.0,1.782833500456991e-09,0.0,0.0,0.003983604485976697,0.0,
         2.0453029821799166e-09,4.297787577876645e-05,0.0,7.600176029629801e-10,

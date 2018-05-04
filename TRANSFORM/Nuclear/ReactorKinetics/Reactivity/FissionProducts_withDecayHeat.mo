@@ -52,14 +52,5 @@ equation
   Qs_far = {sum(Qs_far_i[i, :]) for i in 1:nV};
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Text(
-          extent={{-38,28},{44,-28}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="FP")}));
+            {100,100}})));
 end FissionProducts_withDecayHeat;

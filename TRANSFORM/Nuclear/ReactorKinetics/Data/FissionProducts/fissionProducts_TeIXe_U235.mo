@@ -10,7 +10,7 @@ record fissionProducts_TeIXe_U235
     fissionSourceNames={"U235"},
     fissionTypes={"thermal"},
     C_nominal=fill(1e14, nC),
-    fissionYield={fissionYield_t[i, j] for k in 1:nT,j in 1:nFS,i in 1:nC},
+    fissionYields={fissionYield_t[i, j] for k in 1:nT,j in 1:nFS,i in 1:nC},
     lambdas={log(2)/19,log(2)/23760,log(2)/32760},
     w_near_decay=1.6022e-16*{6000,1300,910},
     w_far_decay=1.6022e-16*{603.5,1260.4,249.8},

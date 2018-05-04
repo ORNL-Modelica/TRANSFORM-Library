@@ -638,7 +638,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         2]]*fuelCell.nParallel,
     parents=data_traceSubstances.fissionProducts.parents,
     sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
-    fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1],
+    fissionYield=data_traceSubstances.fissionProducts.fissionYields[:, :, 1],
     vals_feedback=matrix(fuelCell.mediums.T),
     vals_feedback_reference=matrix(linspace(
         data_RCTR.T_inlet_core,

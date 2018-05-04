@@ -26,7 +26,8 @@ model PointKinetics_Test
     nFeedback=2,
     alphas_feedback=[-2.5e-5,-20e-5],
     vals_feedback=[Teff_Fuel.y,Teff_Coolant.y],
-    vals_feedback_reference=[Teff_Fuel.offset,Teff_Coolant.offset])
+    vals_feedback_reference=[Teff_Fuel.offset,Teff_Coolant.offset],
+    alphas_start={1})
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x={kinetics.Q_fission_total})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

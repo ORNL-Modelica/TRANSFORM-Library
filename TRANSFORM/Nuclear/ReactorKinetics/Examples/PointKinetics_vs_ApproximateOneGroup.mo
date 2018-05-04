@@ -9,6 +9,7 @@ model PointKinetics_vs_ApproximateOneGroup
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   parameter Real Beta = 0.0075;
+  parameter Real alpha = 1;
   parameter Real lambda = 0.08;
   parameter Real rho0 = 0.0025;
   parameter Real Lambda = 1e-4;
@@ -20,7 +21,8 @@ model PointKinetics_vs_ApproximateOneGroup
     lambdas_start={lambda},
     Lambda_start=Lambda,
     rhos_input={rho0},
-    Beta_start=Beta)
+    Beta_start=Beta,
+    alphas_start={alpha})
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 
   Real Pratio_ref "Reference power to nominal power ratio";

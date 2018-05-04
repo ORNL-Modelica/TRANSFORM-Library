@@ -72,5 +72,5 @@ equation
           lineColor={28,108,200},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="FP")}));
+          textString="TS")}));
 end TraceSubstance;
