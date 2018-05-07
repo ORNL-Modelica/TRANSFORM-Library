@@ -171,11 +171,6 @@ initial equation
 
 equation
 
-//   assert(abs(1 - sum(fissionSources)) < Modelica.Constants.eps, "sum(fissionSources) must be = 1");
-//   for i in 1:nFS loop
-//     assert(abs(1 - sum(fissionTypes[i, :])) < Modelica.Constants.eps, "sum(fissionTypes[i,:]) must be = 1");
-//   end for;
-
   if traceDynamics == Dynamics.SteadyState then
     for i in 1:nV loop
       zeros(nC) = mC_gens[i, :];

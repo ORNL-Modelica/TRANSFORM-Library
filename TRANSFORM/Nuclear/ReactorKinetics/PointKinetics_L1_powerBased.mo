@@ -184,8 +184,8 @@ model PointKinetics_L1_powerBased
   SI.Power[nV,nI] Cs(start=if use_history then {{Cs_start_history[j] for j in 1
         :nI} for i in 1:nV} else Cs_start)
     "Power of the delayed-neutron precursor concentration";
-  SI.Energy Es[nV,nDH](start=if use_history then {{Es_start_history[j] for j
-         in 1:nDH} for i in 1:nV} else Es_start)
+  SI.Energy Es[nV,nDH](start=if use_history then {{Es_start_history[j] for j in
+            1:nDH} for i in 1:nV} else Es_start)
     "Energy of the decay-heat precursor group";
 
   Reactivity.FissionProducts fissionProducts(
@@ -309,8 +309,8 @@ model PointKinetics_L1_powerBased
     annotation (Dialog(tab="Fission Products, etc.", group=
           "Inputs: Fission Products"));
   input Units.InverseTime dlambdas_FP[nC]=fill(0, nC)
-    "Change in decay constants for each fission product" annotation (Dialog(tab
-        ="Fission Products, etc.", group="Inputs: Fission Products"));
+    "Change in decay constants for each fission product" annotation (Dialog(tab=
+         "Fission Products, etc.", group="Inputs: Fission Products"));
 
   input SI.Volume[nV] Vs=fill(0.1, nV)
     "Volume for fisson product concentration basis"
@@ -395,7 +395,7 @@ equation
   rhos_feedback = {{alphas_feedback[i, j]*(vals_feedback[i, j] -
     vals_feedback_reference[i, j]) for j in 1:nFeedback} for i in 1:nV};
 
-  rhos = {sum(rhos_feedback[i, :]) + rhos_input[i] for i in 1:nV};
+  rhos = {rhos_input[i] + sum(rhos_feedback[i, :]) + sum(fissionProducts.rhos[i,:]) + sum(fissionProducts.rhos_add[i,:]) for i in 1:nV};
 
   if specifyPower then
     Qs_fission = Qs_fission_input;
