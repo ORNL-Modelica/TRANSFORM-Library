@@ -1,6 +1,7 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
 model PointKinetics_vs_ApproximateOneGroup
   "Point kinetics model vs a textbook approximate solution using one effective delayed group"
+  import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   Utilities.ErrorAnalysis.UnitTests           unitTests(
     n=1,
@@ -14,7 +15,7 @@ model PointKinetics_vs_ApproximateOneGroup
   parameter Real rho0 = 0.0025;
   parameter Real Lambda = 1e-4;
 
-  PointKinetics_L1_powerBased kinetics(
+  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
     nC=1,
     Q_nominal=1e9,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

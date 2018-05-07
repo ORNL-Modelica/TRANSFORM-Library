@@ -1,9 +1,10 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples.Functions;
 model Initial_powerBased_powerHistory
+  import TRANSFORM;
 
 extends TRANSFORM.Icons.Example;
 
-  PointKinetics_L1_powerBased kinetics(
+  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
     nC=data.nC,
     lambdas_start=data.lambdas,
     alphas_start=data.alphas,

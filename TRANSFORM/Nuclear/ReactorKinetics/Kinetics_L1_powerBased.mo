@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics;
-model PointKinetics_L1_powerBased
+model Kinetics_L1_powerBased
   import TRANSFORM;
 
   import TRANSFORM.Types.Dynamics;
@@ -636,4 +636,4 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
-end PointKinetics_L1_powerBased;
+end Kinetics_L1_powerBased;

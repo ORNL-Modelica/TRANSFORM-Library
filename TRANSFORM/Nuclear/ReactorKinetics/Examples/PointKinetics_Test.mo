@@ -1,5 +1,6 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
 model PointKinetics_Test
+  import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.Sine Teff_Fuel(
     amplitude=5,
@@ -16,7 +17,7 @@ model PointKinetics_Test
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Modelica.Blocks.Sources.Constant ControlRod_Reactivity(k=0.0025)
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  PointKinetics_L1_powerBased kinetics(
+  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
     nC=1,
     Q_nominal=1e9,
     lambdas_start={0.08},
