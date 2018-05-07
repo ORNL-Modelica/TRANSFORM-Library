@@ -110,22 +110,22 @@ model FissionProducts
   parameter SIadd.ExtraPropertyExtrinsic mCs_start[nV,nC]=fill(
       0,
       nV,
-      nC) "Number of atoms" annotation (Dialog(tab="Initialization"));
+      nC) "Number of fission product atoms per group per volume" annotation (Dialog(tab="Initialization"));
 
   parameter Dynamics traceDynamics=Dynamics.DynamicFreeInitial
     "Formulation of trace substance balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
   parameter Real mC_nominal[nC]=fill(1e-6, nC)
-    "Nominal atoms. For numeric purposes only."
+    "Nominal fission product atoms. For numeric purposes only."
     annotation (Dialog(tab="Advanced"));
 
   SIadd.NeutronFlux phi[nV] "Neutron flux";
   SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens
     "Generation rate of fission products [atoms/s]";
   SIadd.ExtraPropertyExtrinsic mCs[nV,nC](each stateSelect=StateSelect.prefer,
-      start=mCs_start) "Number of atoms";
+      start=mCs_start) "Number of fission product atoms";
   SIadd.ExtraPropertyExtrinsic[nV,nC] mCs_scaled
-    "Scaled number of atmos for improved numerical stability";
+    "Scaled number of fission product atoms for improved numerical stability";
 
 
   input SIadd.ExtraPropertyExtrinsic mCs_add[nV,nC_add]=fill(

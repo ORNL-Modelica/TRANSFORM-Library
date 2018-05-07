@@ -60,11 +60,11 @@ model PointKinetics_L1_powerBased
   SI.Time Lambda=Lambda_start + dLambda "Prompt neutron generation time";
 
   // Reactivity Feedback
-  parameter Integer nFeedback=1
+  parameter Integer nFeedback=0
     "# of reactivity feedbacks (alpha*(val-val_ref)"
     annotation (Dialog(tab="Kinetics", group="Inputs: Reactivity Feedback"));
   input Real alphas_feedback[nV,nFeedback]=fill(
-      -1e-4,
+      0,
       nV,
       nFeedback) "Reactivity feedback coefficient (e.g., temperature [1/K])"
     annotation (Dialog(tab="Kinetics", group="Inputs: Reactivity Feedback"));
@@ -72,7 +72,7 @@ model PointKinetics_L1_powerBased
     "Variable value for reactivity feedback (e.g. fuel temperature)"
     annotation (Dialog(tab="Kinetics", group="Inputs: Reactivity Feedback"));
   input Real vals_feedback_reference[nV,nFeedback]=fill(
-      500 + 273.15,
+      1,
       nV,
       nFeedback)
     "Reference value for reactivity feedback (e.g. fuel reference temperature)"
@@ -319,13 +319,13 @@ model PointKinetics_L1_powerBased
   parameter SIadd.ExtraPropertyExtrinsic mCs_start[nV,nC]=fill(
       0,
       nV,
-      nC) "Number of atoms" annotation (Dialog(tab="Initialization"));
+      nC) "Number of fission product atoms per group per volume" annotation (Dialog(tab="Initialization"));
 
   parameter Dynamics fissionProductDynamics=traceDynamics
     "Formulation of fission product balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
   parameter Real mC_nominal[nC]=fill(1e-6, nC)
-    "Nominal atoms. For numeric purposes only."
+    "Nominal fission product atoms. For numeric purposes only."
     annotation (Dialog(tab="Advanced"));
 
   input SIadd.ExtraPropertyExtrinsic mCs_add[nV,nC_add]=fill(

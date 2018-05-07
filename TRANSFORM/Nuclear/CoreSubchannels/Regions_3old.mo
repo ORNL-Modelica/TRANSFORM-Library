@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.CoreSubchannels;
-model Regions_3
+model Regions_3old
   "0-D point kinetics fuel channel model with three solid media regions"
 
   import TRANSFORM.Math.linspace_1D;
@@ -11,7 +11,8 @@ model Regions_3
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium
+      =                                                                          Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
 
@@ -259,7 +260,6 @@ model Regions_3
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
 
-  // Kinetics
   Modelica.Blocks.Sources.RealExpression Teff_fuel(y=fuelModel.region_1.solutionMethod.T_effective)
     "Effective fuel temperature"
     annotation (Placement(transformation(extent={{-54,38},{-40,46}})));
@@ -268,34 +268,20 @@ model Regions_3
       Q_shape=Q_shape)
     annotation (Placement(transformation(extent={{26,24},{12,38}})));
 
-  ReactorKinetics.PointKinetics_L1_powerBased
-                                reactorKinetics(
+  ReactorKinetics.PointKinetics reactorKinetics(
+    T_op=T_op,
+    nI=nI,
+    beta_i=beta_i,
+    lambda_i=lambda_i,
+    Lambda=Lambda,
+    alpha_fuel=alpha_fuel,
+    alpha_coolant=alpha_coolant,
+    Teffref_fuel=Teffref_fuel,
+    Teffref_coolant=Teffref_coolant,
     Q_nominal=Q_nominal,
     energyDynamics=energyDynamics,
-    specifyPower=specifyPower,
-    redeclare record Data_DH = Data_DH,
-    redeclare record Data_FP = Data_FP,
-    nC_add=Medium.nC,
-    mCs_add={{sum(coolantSubchannel.mCs[:, j])*coolantSubchannel.nParallel for
-        j in 1:Medium.nC}},
-    sigmasA_add_start=sigmasA_add_start,
-    nV=1,
-    redeclare record Data = Data_PG,
-    Qs_fission_input=fill(Q_fission_input, 1),
-    Qs_external=fill(Q_external, 1),
-    rhos_input=fill(rho_input, 1),
-    Vs_add={coolantSubchannel.geometry.V_total*coolantSubchannel.nParallel},
-    dsigmasA_add=dsigmasA_add,
-    Vs={fuelModel.region_1.solutionMethod.V_total*fuelModel.nParallel},
-    Lambda_start=Lambda_start,
-    Qs_fission_start=Qs_fission_start,
-    Cs_start=Cs_start2,
-    Es_start=Es_start,
-    use_history=use_history,
-    history=history,
-    includeDH=includeDH,
-    mCs_start=mCs_start)
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
+    C_i_start=C_i_start)
+    annotation (Placement(transformation(extent={{-14,43},{14,64}})));
 
   Fluid.Pipes.GenericPipe_MultiTransferSurface
                                        coolantSubchannel(
@@ -389,61 +375,31 @@ model Regions_3
     annotation (Placement(transformation(extent={{-54,54},{-40,62}})));
   Modelica.Blocks.Sources.RealExpression S_external_input(y=S_external)
     annotation (Placement(transformation(extent={{-54,48},{-40,56}})));
-  parameter Boolean specifyPower=false
-    "=true to specify power (i.e., no der(P) equation)";
-  replaceable record Data_PG =
-      ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_TRACEdefault
-    annotation (__Dymola_choicesAllMatching=true);
-  replaceable record Data_DH = ReactorKinetics.Data.DecayHeat.decayHeat_0
-    annotation (__Dymola_choicesAllMatching=true);
-  replaceable record Data_FP =
-      ReactorKinetics.Data.FissionProducts.fissionProducts_0 annotation (
-      __Dymola_choicesAllMatching=true);
-  parameter SI.Area sigmasA_add_start[Medium.nC]=fill(0, Mediums.nC)
-    "Microscopic absorption cross-section for reactivity feedback";
-  parameter SI.Power Q_fission_input=Q_nominal
-    "Fission power (if specifyPower=true)" annotation (Dialog(group="Input"));
-  parameter SI.Power Q_external=0
-    "Power from external source of neutrons" annotation (Dialog(group="Input"));
-  parameter Units.NonDim rho_input=0
-    "External Reactivity" annotation (Dialog(group="Input"));
-  parameter SI.Area dsigmasA_add[nC_add]=fill(0, reactorKinetics.nC_add)
-    "Change in microscopic absorption cross-section for reactivity feedback"
-    annotation (Dialog(group="Input"));
-  parameter SI.Time Lambda_start=1e-5 "Prompt neutron generation time"
-    annotation (Dialog(group="Input"));
-  parameter Boolean use_history=false "=true to provide power history";
-  parameter SI.Power history[:,2]=fill(
-      0,
-      0,
-      2) "Power history up to simulation time=0, [t,Q]";
-  parameter Boolean includeDH=false
-    "=true if power history includes decay heat";
-  parameter SI.Power Qs_fission_start[nV]=fill(reactorKinetics.Q_nominal/
-      reactorKinetics.nV, reactorKinetics.nV)/(1 + sum(reactorKinetics.efs_dh_start))
-    "Initial reactor fission power per volume";
-  parameter SI.Power Cs_start2[nV,nI]={{reactorKinetics.betas_start[j]/(
-      reactorKinetics.lambdas_start[j]*reactorKinetics.Lambda_start)*
-      reactorKinetics.Qs_fission_start[i] for j in 1:reactorKinetics.nI} for i
-       in 1:reactorKinetics.nV}
-    "Power of the initial delayed-neutron precursor concentrations";
-  parameter SI.Energy Es_start[nV,nDH]={{reactorKinetics.Qs_fission_start[i]*
-      reactorKinetics.efs_dh_start[j]/reactorKinetics.lambda_dh_start[j] for j
-       in 1:reactorKinetics.nDH} for i in 1:reactorKinetics.nV}
-    "Initial decay heat group energy per product volume";
-  parameter Units.ExtraPropertyExtrinsic mCs_start[nV,nC]=fill(
-      0,
-      reactorKinetics.nV,
-      reactorKinetics.nC)
-    "Number of fission product atoms per group per volume";
 equation
 
+  connect(Teff_fuel.y, reactorKinetics.Teff_fuel_in) annotation (Line(points={{-39.3,
+          42},{-30,42},{-30,48.8734},{-12.565,48.8734}}, color={0,0,127}));
   connect(powerProfile.Q_totalshaped, fuelModel.Power_in) annotation (Line(
         points={{11.3,31},{2.22045e-015,31},{2.22045e-015,21}}, color={0,0,127}));
   connect(port_a, coolantSubchannel.port_a) annotation (Line(points={{-100,0},{-70,
           0},{-40,0},{-40,-14},{-15,-14}}, color={0,127,255}));
   connect(coolantSubchannel.port_b, port_b) annotation (Line(points={{15,-14},{40,
           -14},{40,0},{100,0}}, color={0,127,255}));
+  connect(Teff_coolantSubchannel.y, reactorKinetics.Teff_coolant_in)
+    annotation (Line(points={{-38.9,33},{-24,33},{-24,44.3453},{-12.565,44.3453}},
+        color={0,0,127}));
+  connect(CR_reactivity_input.y, reactorKinetics.Reactivity_CR_in) annotation (
+      Line(points={{-39.3,64},{-26,64},{-26,62.7203},{-12.565,62.7203}}, color=
+          {0,0,127}));
+  connect(Other_reactivity_input.y, reactorKinetics.Reactivity_Other_in)
+    annotation (Line(points={{-39.3,58},{-12.565,58},{-12.565,58.1266}}, color=
+          {0,0,127}));
+  connect(S_external_input.y, reactorKinetics.S_external_in) annotation (Line(
+        points={{-39.3,52},{-26,52},{-26,53.5328},{-12.565,53.5328}}, color={0,
+          0,127}));
+  connect(reactorKinetics.Q_total, powerProfile.Q_total) annotation (Line(
+        points={{12.565,53.5328},{38,53.5328},{38,31},{27.4,31}}, color={0,0,
+          127}));
   connect(fuelModel.heatPorts_b, coolantSubchannel.heatPorts[:, 1]) annotation (
      Line(points={{0.1,-0.2},{0.1,-4.1},{0,-4.1},{0,-7.5}}, color={127,0,0}));
   annotation (defaultComponentName="coreSubchannel",
@@ -517,4 +473,4 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
           color={0,128,255},
           smooth=Smooth.None,
           visible=DynamicSelect(true,showDesignFlowDirection))}));
-end Regions_3;
+end Regions_3old;
