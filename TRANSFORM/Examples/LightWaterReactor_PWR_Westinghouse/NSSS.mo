@@ -50,10 +50,8 @@ model NSSS "Nuclear steam supply system"
     T_start_3=data.T_core_avg + 30,
     redeclare record Data_DH =
         TRANSFORM.Nuclear.ReactorKinetics.Data.DecayHeat.decayHeat_11_TRACEdefault,
-
     redeclare record Data_FP =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
-
     SigmaF_start=26,
     rho_input=CR_reactivity.y,
     Teffref_fuel=978.463,
@@ -538,8 +536,8 @@ equation
       color={111,216,99},
       pattern=LinePattern.Dash,
       thickness=0.5));
-  connect(actuatorBus.SGpump_m_flow, pump_SimpleMassFlow.in_m_flow) annotation
-    (Line(
+  connect(actuatorBus.SGpump_m_flow, pump_SimpleMassFlow.in_m_flow) annotation (
+     Line(
       points={{30.1,100.1},{100,100.1},{100,0},{63.3,0}},
       color={111,216,99},
       pattern=LinePattern.Dash,

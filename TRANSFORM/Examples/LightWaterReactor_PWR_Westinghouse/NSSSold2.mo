@@ -50,10 +50,8 @@ model NSSSold2 "Nuclear steam supply system"
     T_start_3=data.T_core_avg + 30,
     redeclare record Data_DH =
         TRANSFORM.Nuclear.ReactorKinetics.Data.DecayHeat.decayHeat_11_TRACEdefault,
-
     redeclare record Data_FP =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
-
     SigmaF_start=26,
     rho_input=CR_reactivity.y,
     Teffref_fuel=978.463,

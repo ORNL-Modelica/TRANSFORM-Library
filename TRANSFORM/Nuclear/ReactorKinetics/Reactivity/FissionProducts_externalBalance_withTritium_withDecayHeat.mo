@@ -1,7 +1,7 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Reactivity;
-model FissionProducts_withDecayHeat
+model FissionProducts_externalBalance_withTritium_withDecayHeat
 
-  extends FissionProducts;
+  extends FissionProducts_externalBalance_withTritium;
 
   parameter SI.Energy w_near_decay_start[nC]=data.w_near_decay
     "Energy released per decay of each fission product [J/decay] (near field - e.g., beta)"
@@ -52,6 +52,6 @@ equation
   Qs_far = {sum(Qs_far_i[i, :]) for i in 1:nV};
 
   annotation (defaultComponentName="fissionProducts",
-Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})));
-end FissionProducts_withDecayHeat;
+end FissionProducts_externalBalance_withTritium_withDecayHeat;

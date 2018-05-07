@@ -36,7 +36,6 @@ model Regions_1_Test
         nPins=23496),
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     Teffref_fuel=624.087,
     Teffref_coolant=547.25,
     T_start_1=623.15)

@@ -16,14 +16,16 @@ model PointKinetics_vs_ApproximateOneGroup
   parameter Real Lambda = 1e-4;
 
   TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
-    nC=1,
     Q_nominal=1e9,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lambdas_start={lambda},
-    Lambda_start=Lambda,
     rhos_input={rho0},
-    Beta_start=Beta,
-    alphas_start={alpha})
+    redeclare record Data =
+        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_1_userDefined
+        (
+        lambdas={lambda},
+        alphas={alpha},
+        Beta=Beta),
+    Lambda_start=Lambda)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 
   Real Pratio_ref "Reference power to nominal power ratio";

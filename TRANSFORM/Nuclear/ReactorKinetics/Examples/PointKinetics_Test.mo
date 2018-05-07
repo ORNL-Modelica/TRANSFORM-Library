@@ -18,17 +18,19 @@ model PointKinetics_Test
   Modelica.Blocks.Sources.Constant ControlRod_Reactivity(k=0.0025)
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
-    nC=1,
     Q_nominal=1e9,
-    lambdas_start={0.08},
-    Beta_start=0.0075,
     Lambda_start=1e-3,
     rhos_input={ControlRod_Reactivity.y},
     nFeedback=2,
     alphas_feedback=[-2.5e-5,-20e-5],
     vals_feedback=[Teff_Fuel.y,Teff_Coolant.y],
     vals_feedback_reference=[Teff_Fuel.offset,Teff_Coolant.offset],
-    alphas_start={1})
+    redeclare record Data =
+        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_1_userDefined
+        (
+        lambdas={0.08},
+        alphas={1},
+        Beta=0.0075))
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x={kinetics.Q_fission_total})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

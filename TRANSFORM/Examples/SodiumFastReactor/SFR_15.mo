@@ -46,8 +46,8 @@ model SFR_15
     T_start_2=data.T_start_hot,
     redeclare package Medium = Medium_PHTS,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0
-          =HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0=
+           HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             outerCore.coolantSubchannel.heatTransfer.Res,
             outerCore.coolantSubchannel.heatTransfer.Prs,
             data.PD_ratio)),
@@ -69,8 +69,8 @@ model SFR_15
     T_start_2=data.T_start_hot,
     redeclare package Medium = Medium_PHTS,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0
-          =HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0=
+           HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             innerCore.coolantSubchannel.heatTransfer.Res,
             innerCore.coolantSubchannel.heatTransfer.Prs,
             data.PD_ratio)),
@@ -104,8 +104,8 @@ model SFR_15
     redeclare package Medium = Medium_PHTS,
     redeclare package Material_1 = Media.Solids.SS316,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0
-          =HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0=
+           HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             reflector.coolantSubchannel.heatTransfer.Res,
             reflector.coolantSubchannel.heatTransfer.Prs,
             data.PD_ratio)),
@@ -135,8 +135,8 @@ model SFR_15
     redeclare package Medium = Medium_PHTS,
     redeclare package Material_1 = Media.Solids.SS316,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0
-          =HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0=
+           HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             shield.coolantSubchannel.heatTransfer.Res,
             shield.coolantSubchannel.heatTransfer.Prs,
             data.PD_ratio)),
@@ -197,8 +197,8 @@ model SFR_15
         nV=2,
         angle=1.5707963267949),
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0
-          =HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0=
+           HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             outerCore_out.coolantSubchannel.heatTransfer.Res,
             outerCore_out.coolantSubchannel.heatTransfer.Prs,
             data.PD_ratio)),
@@ -220,8 +220,8 @@ model SFR_15
     T_start_2=data.T_start_hot,
     redeclare package Medium = Medium_PHTS,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0
-          =HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0=
+           HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             outerCore_in.coolantSubchannel.heatTransfer.Res,
             outerCore_in.coolantSubchannel.heatTransfer.Prs,
             data.PD_ratio)),
@@ -252,8 +252,8 @@ model SFR_15
     T_start_2=data.T_start_hot,
     redeclare package Medium = Medium_PHTS,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0
-          =HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0=
+           HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             innerCore_out.coolantSubchannel.heatTransfer.Res,
             innerCore_out.coolantSubchannel.heatTransfer.Prs,
             data.PD_ratio)),
@@ -288,8 +288,8 @@ model SFR_15
     T_start_2=data.T_start_hot,
     redeclare package Medium = Medium_PHTS,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0
-          =HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus (Nus0=
+           HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             innerCore_in.coolantSubchannel.heatTransfer.Res,
             innerCore_in.coolantSubchannel.heatTransfer.Prs,
             data.PD_ratio)),

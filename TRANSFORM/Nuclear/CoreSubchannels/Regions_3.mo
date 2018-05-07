@@ -1,6 +1,7 @@
 within TRANSFORM.Nuclear.CoreSubchannels;
 model Regions_3
   "0-D point kinetics fuel channel model with three solid media regions"
+  import TRANSFORM;
 
   import TRANSFORM.Math.linspace_1D;
   import TRANSFORM.Math.linspaceRepeat_1D;
@@ -345,7 +346,7 @@ model Regions_3
     "Total power (fission+decay heat)"
     annotation (Placement(transformation(extent={{50,26},{34,36}})));
 
-  ReactorKinetics.PointKinetics_L1_powerBased kinetics(
+  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
     Q_nominal=Q_nominal,
     specifyPower=specifyPower,
     redeclare record Data_DH = Data_DH,

@@ -647,8 +647,8 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     nTR=data_traceSubstances.tritium.nC,
     iH3=data_traceSubstances.iH3,
     parents_TR=data_traceSubstances.tritium.parents,
-    sigmaA_TR=data_traceSubstances.tritium.sigmaA,
-    sigmaT_TR=data_traceSubstances.tritium.sigmaT,
+    sigmaA_TR=data_traceSubstances.tritium.sigmasA,
+    sigmaT_TR=data_traceSubstances.tritium.sigmasT,
     lambda_TR=data_traceSubstances.tritium.lambdas,
     mCs_TR=fuelCell.mCs[:, data_traceSubstances.iTR[1]:data_traceSubstances.iTR[
         2]]*fuelCell.nParallel,

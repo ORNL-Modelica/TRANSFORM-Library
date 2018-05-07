@@ -53,7 +53,6 @@ model SimpleDemo
     CR_reactivity=sine1.y,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     Teffref_fuel=673.15,
     Teffref_coolant=623.15,
     T_start_1=673.15,

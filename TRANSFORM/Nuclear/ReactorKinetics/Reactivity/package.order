@@ -1,4 +1,6 @@
 FissionProducts
 FissionProducts_withDecayHeat
-TraceSubstance
+TraceSubstances
+FissionProducts_externalBalance_withTritium
+FissionProducts_externalBalance_withTritium_withDecayHeat
 Xenon

@@ -1,11 +1,11 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Reactivity;
-model FissionProducts
+model FissionProducts_externalBalance_withTritium
+  "FissionProducts using external trace balance (e.g., fluid volumes) with an additional tritium contributor"
 
   import Modelica.Fluid.Types.Dynamics;
 
   // Fission products
   parameter Integer nV=1 "# of discrete volumes";
-
 
   replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_0
@@ -22,8 +22,6 @@ model FissionProducts
 
   parameter Real[nC,nC] parents=data.parents
     "Matrix of parent-daughter sources";
-  parameter Integer nC_add=0
-    "# of additional substances (i.e., trace fluid substances)";
 
   parameter Units.NonDim fissionSources_start[nFS]=fill(1/nFS, nFS)
     "Fission source material fractional composition (sum=1)"
@@ -106,80 +104,69 @@ model FissionProducts
     "Volume for fisson product concentration basis"
     annotation (Dialog(group="Inputs"));
 
-  parameter SIadd.ExtraPropertyExtrinsic mCs_start[nV,nC]=fill(
-      0,
-      nV,
-      nC) "Number of fission product atoms per group per volume" annotation (Dialog(tab="Initialization"));
-
-  parameter Dynamics traceDynamics=Dynamics.DynamicFreeInitial
-    "Formulation of trace substance balances"
-    annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-  parameter Real mC_nominal[nC]=fill(1e-6, nC)
-    "Nominal fission product atoms. For numeric purposes only."
-    annotation (Dialog(tab="Advanced"));
-
   SIadd.NeutronFlux phi[nV] "Neutron flux";
   SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens
     "Generation rate of fission products [atoms/s]";
-  SIadd.ExtraPropertyExtrinsic mCs[nV,nC](each stateSelect=StateSelect.prefer,
-      start=mCs_start) "Number of fission product atoms";
-  SIadd.ExtraPropertyExtrinsic[nV,nC] mCs_scaled
-    "Scaled number of fission product atoms for improved numerical stability";
+  SIadd.ExtraPropertyExtrinsic mCs[nV,nC] "Number of fission product atoms";
 
+  // Tritium Sources
+  replaceable record Data_TR =
+      TRANSFORM.Nuclear.ReactorKinetics.Data.Tritium.tritium_0
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.Tritium.PartialTritium
+    "Tritium Contributors Data" annotation (choicesAllMatching=true,Dialog(tab="Tritium Balance"));
 
-  input SIadd.ExtraPropertyExtrinsic mCs_add[nV,nC_add]=fill(
-      0,
-      nV,
-      nC_add) "Number of atoms"
-    annotation (Dialog(group="Inputs: Additional Reactivity"));
-  input SI.Volume[nV] Vs_add=fill(0.1, nV)
-    "Volume for fisson product concentration basis"
-    annotation (Dialog(group="Inputs: Additional Reactivity"));
-  parameter SI.Area sigmasA_add_start[nC_add]=fill(0, nC_add)
+  Data_TR data_TR;
+  parameter Integer nTR = data_TR.nC "Tritium contributers"
+                                                           annotation (Dialog(tab="Tritium Balance"));
+  //parameter Integer iH3 = 1 "Index of tritium (1-H-3) in fission products array"annotation (Dialog(tab="Tritium Balance"));
+  final parameter Integer iH3 = TRANSFORM.Utilities.Strings.index("1-H-3",data.extraPropertiesNames) "Index of tritium (1-H-3) in fission products array"
+                                                                                                                                                         annotation (Dialog(tab="Tritium Balance"));
+  parameter Real[nTR,nTR] parents_TR=data_TR.parents
+    "Matrix of parent sources for each tritium contributor 'daughter'."
+    annotation (Dialog(tab="Tritium Balance"));
+
+  parameter SI.Area sigmasA_TR_start[nTR]=data_TR.sigmasA
     "Microscopic absorption cross-section for reactivity feedback"
-    annotation (Dialog(group="Additional Reactivity", tab="Initialization"));
-  input SI.Area dsigmasA_add[nC_add]=fill(0, nC_add)
+    annotation (Dialog(tab="Tritium Balance"));
+  input SI.Area dsigmasA_TR[nTR]=fill(0, nTR)
     "Change in microscopic absorption cross-section for reactivity feedback"
-    annotation (Dialog(group="Inputs: Additional Reactivity", tab="Parameter Change"));
-  SI.Area sigmasA_add[nC_add]=sigmasA_add_start + dsigmasA_add
+    annotation (Dialog(group="Inputs: Parameter Change", tab="Tritium Balance"));
+  SI.Area sigmasA_TR[nTR]=sigmasA_TR_start + dsigmasA_TR
     "Microscopic absorption cross-section for reactivity feedback";
+
+  parameter SI.Area sigmasT_TR_start[nTR]=data_TR.sigmasT
+    "Microscopic absorption cross-section for tritium generation"
+    annotation (Dialog(tab="Tritium Balance"));
+  input SI.Area dsigmasT_TR[nTR]=fill(0, nTR)
+    "Change in microscopic absorption cross-section for tritium generation"
+    annotation (Dialog(group="Inputs: Parameter Change", tab="Tritium Balance"));
+  SI.Area sigmasT_TR[nTR]=sigmasT_TR_start + dsigmasT_TR
+    "Microscopic absorption cross-section for tritium generation";
+
+  parameter Units.InverseTime lambdas_TR_start[nTR]=data_TR.lambdas
+    "Decay constants for each tritium contributor" annotation (Dialog(tab="Tritium Balance"));
+  input Units.InverseTime dlambdas_TR[nTR]=fill(0,nTR)
+    "Decay constants for each tritium contributor" annotation (Dialog(group="Inputs: Parameter Change", tab="Tritium Balance"));
+  Units.InverseTime lambdas_TR[nTR]=lambdas_TR_start + dlambdas_TR
+    "Decay constants for each tritium contributor";
+
+  input SIadd.ExtraPropertyExtrinsic[nV,nTR] mCs_TR={{0 for j in 1:nTR} for i in 1:nV}
+    "Amount of each contributor to tritium [atoms]"
+    annotation (Dialog(tab="Tritium Balance", group="Inputs"));
+
+  Units.ExtraPropertyFlowRate mC_gens_H3[nV,nTR]
+    "Generation rate of tritium [atoms/s]";
 
   output SIadd.NonDim rhos[nV,nC] "Fission product reactivity feedback"
     annotation (Dialog(tab="Outputs", enable=false));
-
-  output SIadd.ExtraPropertyFlowRate[nV,nC_add] mC_gens_add
-    "Generation rate of additional substances [atoms/s] (e.g., Boron in fluid)"
+  output TRANSFORM.Units.NonDim[nV,nTR] rhos_TR "Tritium contributors reactivity feedback"
+    annotation (Dialog(tab="Outputs", enable=false));
+  output SIadd.ExtraPropertyFlowRate[nV,nTR] mC_gens_TR "Generation rate of tritium contributors [atoms/s]"
     annotation (Dialog(
-      group="Additional Reactivity",
       tab="Outputs",
       enable=false));
-  output SIadd.NonDim rhos_add[nV,nC_add]
-    "Additional subtances reactivity feedback" annotation (Dialog(
-      group="Additional Reactivity",
-      tab="Outputs",
-      enable=false));
-
-
-initial equation
-
-  if traceDynamics == Dynamics.FixedInitial then
-    mCs = mCs_start;
-  elseif traceDynamics == Dynamics.SteadyStateInitial then
-    der(mCs) = zeros(nV, nC);
-  end if;
 
 equation
-
-  if traceDynamics == Dynamics.SteadyState then
-    for i in 1:nV loop
-      zeros(nC) = mC_gens[i, :];
-    end for;
-  else
-    for i in 1:nV loop
-      der(mCs_scaled[i, :]) = mC_gens[i, :] ./ mC_nominal;
-      mCs[i, :] = mCs_scaled[i, :] .* mC_nominal;
-    end for;
-  end if;
 
   for i in 1:nV loop
     phi[i] = Qs_fission[i]/(w_f*SigmaF)/Vs[i];
@@ -187,19 +174,24 @@ equation
       mC_gens[i, j] = Qs_fission[i]/w_f*sum({fissionSources[k]*sum({
         fissionTypes[k, m]*fissionYields[j, k, m] for m in 1:nT}) for k in 1:
         nFS}) - lambdas[j]*mCs[i, j] + sum(lambdas .* mCs[i, :] .* parents[j, :])
-         - sigmasA[j]*mCs[i, j]*Qs_fission[i]/(w_f*SigmaF)/Vs[i];
+         - sigmasA[j]*mCs[i, j]*Qs_fission[i]/(w_f*SigmaF)/Vs[i] + (if j == iH3 then sum(mC_gens_H3[i, :]) else 0);
       rhos[i, j] = -sigmasA[j]*mCs[i, j]/(nu_bar*SigmaF)/Vs[i];
     end for;
   end for;
 
-  // Additional substances from another source
+  // Tritium sources from carrier fluid (e.g., FLiBe)
   for i in 1:nV loop
-    for j in 1:nC_add loop
-      mC_gens_add[i, j] = -sigmasA_add[j]*mCs_add[i, j]*Qs_fission[i]/(w_f*
-        SigmaF)/Vs_add[i];
-      rhos_add[i, j] = -sigmasA_add[j]*mCs_add[i, j]/(nu_bar*SigmaF)/Vs_add[i];
-    end for;
+    for j in 1:nTR loop
+       mC_gens_TR[i, j] =-lambdas_TR[j]*mCs_TR[i, j] + sum(lambdas_TR .* mCs_TR[
+        i, :] .* parents_TR[j, :]) - (sigmasA_TR[j] + sigmasT_TR[j])*mCs_TR[i,
+        j]*Qs_fission[i]/(w_f*SigmaF)/Vs[i];
+      rhos_TR[i,j] =-(sigmasA_TR[j] + sigmasT_TR[j])*mCs_TR[i, j]/(nu_bar*
+        SigmaF)/Vs[i];
+        end for;
   end for;
+
+  mC_gens_H3 ={{sigmasT_TR[j]*mCs_TR[i, j]*Qs_fission[i]/(w_f*SigmaF)/Vs[i]
+    for j in 1:nTR} for i in 1:nV};
 
   annotation (defaultComponentName="fissionProducts",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
@@ -213,4 +205,4 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="FP")}));
-end FissionProducts;
+end FissionProducts_externalBalance_withTritium;

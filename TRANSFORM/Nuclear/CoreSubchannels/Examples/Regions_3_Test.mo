@@ -39,7 +39,6 @@ model Regions_3_Test
         rs_outer={0.5*0.0081915,0.5*0.0083566,0.5*0.0095}),
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     rho_input=ControlRod_Reactivity.y + Other_Reactivity.y,
     Q_nominal=1e9,
     Teffref_fuel=745.394,

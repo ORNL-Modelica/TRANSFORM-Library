@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Reactivity;
-model TraceSubstance
+model TraceSubstances
   "Trace substances reactivity (i.e., substances in fluid pipes)"
 
   import Modelica.Fluid.Types.Dynamics;
@@ -62,7 +62,8 @@ equation
     end for;
   end for;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (defaultComponentName="traceSubstances",
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
@@ -73,4 +74,4 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="TS")}));
-end TraceSubstance;
+end TraceSubstances;

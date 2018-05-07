@@ -1,5 +1,6 @@
 within TRANSFORM.Nuclear.ReactorKinetics;
-model PointKinetics_L1old
+model PointKinetics_Driftsfefe
+  import TRANSFORM;
 
   import TRANSFORM.Types.Dynamics;
   import TRANSFORM.Math.fillArray_1D;
@@ -46,59 +47,19 @@ model PointKinetics_L1old
   // Reactivity Feedback
   parameter Integer nFeedback = 1 "# of reactivity feedbacks (alpha*(val-val_ref)" annotation (Dialog(tab="Kinetics",
         group="Inputs Reactivity Feedback"));
-  input Units.TempFeedbackCoeff alphas_feedback[nV,nFeedback]=fill(
+  input Real alphas_feedback[nV,nFeedback]=fill(
       -1e-4,
       nV,
-      nFeedback) "Reactivity feedback coefficient"
+      nFeedback) "Reactivity feedback coefficient (e.g., temperature [1/K])"
                                        annotation (Dialog(tab="Kinetics", group="Inputs Reactivity Feedback"));
-  input Real vals_feedback[nV,nFeedback] = vals_feedback_reference "Variable value for reactivity feedback"
+  input Real vals_feedback[nV,nFeedback] = vals_feedback_reference "Variable value for reactivity feedback (e.g. fuel temperature)"
     annotation (Dialog(tab="Kinetics",group="Inputs Reactivity Feedback"));
-  input SI.Temperature vals_feedback_reference[nV,nFeedback]=fill(
+  input Real vals_feedback_reference[nV,nFeedback]=fill(
       500 + 273.15,
       nV,
-      nFeedback) "Reference value for reactivity feedback"
+      nFeedback) "Reference value for reactivity feedback (e.g. fuel reference temperature)"
                                                  annotation (Dialog(tab="Kinetics",
         group="Inputs Reactivity Feedback"));
-
-  // Fission products
-  parameter Integer nC=0 "# of fission products"
-    annotation (Dialog(tab="Fission Products"));
-  parameter Integer nFS=0 "# of fission product sources"
-    annotation (Dialog(tab="Fission Products"));
-  parameter Real[nC,nC] parents=fill(
-      0,
-      nC,
-      nC)
-    "Matrix of parent sources (sum(column) = 1 or 0) for each fission product 'daughter'. Row is daughter, Column is parent."
-    annotation (Dialog(tab="Fission Products"));
-
-  input SIadd.NonDim fissionSource[nFS]=fill(0, nFS)
-    "Source of fissile material fractional composition (sum=1)"
-    annotation (Dialog(tab="Fission Products", group="Inputs"));
-  input SI.MacroscopicCrossSection SigmaF=1
-    "Macroscopic fission cross-section of fissile material"
-    annotation (Dialog(tab="Fission Products", group="Inputs"));
-  input SI.Area[nC] sigmaA_FP = fill(0,nC) "Absorption cross-section for reactivity feedback" annotation (Dialog(tab="Fission Products", group="Inputs"));
-
-  input Real fissionYield[nC,nFS]=fill(
-      0,
-      nC,
-      nFS)
-    "# fission product atoms yielded per fission per fissile source [#/fission]"
-    annotation (Dialog(tab="Fission Products", group="Inputs"));
-  input TRANSFORM.Units.InverseTime[nC] lambda_FP=fill(0, nC)
-    "Decay constants for each fission product"
-    annotation (Dialog(tab="Fission Products", group="Inputs"));
-  input SI.Energy w_FP_decay[nC]=fill(0, nC)
-    "Energy released per decay of each fission product [J/decay] (near field - e.g., beta)"
-    annotation (Dialog(tab="Fission Products", group="Inputs"));
-  input SI.Energy wG_FP_decay[nC]=fill(0, nC)
-    "Energy released per decay of each fission product [J/decay] (far field - e.g., gamma)"
-    annotation (Dialog(tab="Fission Products", group="Inputs"));
-  input SIadd.ExtraPropertyExtrinsic[nV,nC] mCs_FP={{0 for j in 1:nC} for i in 1:nV}
-    "Fission product concentration in each volume [#]"
-    annotation (Dialog(tab="Fission Products", group="Inputs"));
-
   // Initialization
   parameter SI.Power Qs_start[nV]=fill(Q_nominal/nV, nV)
     annotation (Dialog(tab="Initialization", enable=not specifyPower));
@@ -116,7 +77,7 @@ model PointKinetics_L1old
       tab="Internal Inteface",
       group="Outputs",
       enable=false));
-  output SIadd.ExtraPropertyFlowRate[nV,nI] mC_gens "Generation rate of precursor groups"
+  output SIadd.ExtraPropertyFlowRate[nV,nI] mC_gens "Generation rate of precursor groups [atoms/s]"
     annotation (Dialog(
       tab="Internal Inteface",
       group="Outputs",
@@ -125,6 +86,13 @@ model PointKinetics_L1old
   TRANSFORM.Units.NonDim[nV,nFeedback] rhos_feedback "Linear reactivity feedback";
   TRANSFORM.Units.NonDim[nV] rhos "Total reactivity feedback";
 
+  input SI.Volume[nV] Vs "Volume for fisson product concentration basis" annotation(Dialog);
+
+  Reactivity.FissionProducts_externalBalance_withTritium_withDecayHeat fissionProducts
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  replaceable record Data =
+      TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_0
+    annotation (__Dymola_choicesAllMatching=true);
 initial equation
 
   if not specifyPower then
@@ -140,7 +108,7 @@ equation
   rhos_feedback = {{alphas_feedback[i,j]*(vals_feedback[i,j] - vals_feedback_reference[i,j]) for j in 1:nFeedback} for i in 1:nV};
 
   rhos = {sum(rhos_feedback[i,:]) +
-    rhos_input[i] for i in 1:nV};
+    rhos_input[i] + sum(fissionProducts.rhos[i, :]) + sum(fissionProducts.rhos_TR[i, :]) for i in 1:nV};
 
   if specifyPower then
     Qs = Qs_input;
@@ -149,12 +117,11 @@ equation
       for i in 1:nV loop
         0 = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(lambda_i .*
           mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i];
-        zeros(nI) = mC_gens[i, :];
       end for;
     else
       for i in 1:nV loop
-        der(Qs[i]) = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(lambda_i .* mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i];
-        der(mCs[i, :]) = mC_gens[i, :];
+        der(Qs[i]) = (rhos[i] - Beta)/Lambda*Qs[i] + w_f/(Lambda*nu_bar)*sum(
+          lambda_i .* mCs[i, :]) + w_f/(Lambda*nu_bar)*Ns_external[i];
       end for;
     end if;
   end if;
@@ -359,4 +326,4 @@ equation
           pattern=LinePattern.None,
           lineColor={0,0,0})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
-end PointKinetics_L1old;
+end PointKinetics_Driftsfefe;
