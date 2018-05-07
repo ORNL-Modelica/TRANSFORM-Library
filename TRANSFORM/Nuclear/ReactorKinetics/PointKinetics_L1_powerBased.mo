@@ -37,12 +37,12 @@ model PointKinetics_L1_powerBased
     annotation (Dialog(group="Inputs"));
 
   // Neutron Kinetics
-  parameter Integer nI=data.nC "# of delayed-neutron precursors groups"
+  parameter Integer nC=data.nC "# of delayed-neutron precursors groups"
     annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
-  input Units.InverseTime dlambdas[nI]=fill(0, nI)
+  input Units.InverseTime dlambdas[nC]=fill(0, nC)
     "Change in decay constants for each precursor group"
     annotation (Dialog(tab="Kinetics", group="Inputs: Neutron Kinetics"));
-  input Units.NonDim dalphas[nI]=fill(0, nI)
+  input Units.NonDim dalphas[nC]=fill(0, nC)
     "Change in normalized precursor fractions [betas = alphas*Beta]"
     annotation (Dialog(tab="Kinetics", group="Inputs: Neutron Kinetics"));
   input TRANSFORM.Units.NonDim dBeta=0
@@ -51,9 +51,9 @@ model PointKinetics_L1_powerBased
   input SI.Time dLambda=0 "Change in prompt neutron generation time"
     annotation (Dialog(tab="Kinetics", group="Inputs: Neutron Kinetics"));
 
-  Units.InverseTime lambdas[nI]=lambdas_start + dlambdas
+  Units.InverseTime lambdas[nC]=lambdas_start + dlambdas
     "Decay constants for each precursor group";
-  Units.NonDim alphas[nI]=alphas_start + dalphas
+  Units.NonDim alphas[nC]=alphas_start + dalphas
     "Normalized precursor fractions [beta_i = alpha_i*Beta]";
   TRANSFORM.Units.NonDim Beta=Beta_start + dBeta
     "Effective delayed neutron fraction [e.g., Beta = sum(beta_i)]";
@@ -93,10 +93,10 @@ model PointKinetics_L1_powerBased
   Units.NonDim efs_dh[nDH]=efs_dh_start + defs_dh "Effective energy fraction";
 
   // Initialization
-  parameter Units.InverseTime lambdas_start[nI]=data.lambdas
+  parameter Units.InverseTime lambdas_start[nC]=data.lambdas
     "Decay constants for each precursor group"
     annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
-  parameter Units.NonDim alphas_start[nI]=data.alphas
+  parameter Units.NonDim alphas_start[nC]=data.alphas
     "Normalized precursor fractions [betas = alphas*Beta]"
     annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
   parameter TRANSFORM.Units.NonDim Beta_start=data.Beta
@@ -105,7 +105,7 @@ model PointKinetics_L1_powerBased
   parameter SI.Time Lambda_start=1e-5 "Prompt neutron generation time"
     annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
 
-  final parameter Units.NonDim betas_start[nI]=alphas_start*Beta_start
+  final parameter Units.NonDim betas_start[nC]=alphas_start*Beta_start
     "Delayed neutron precursor fractions";
 
   parameter Units.InverseTime lambda_dh_start[nDH]=data_DH.lambdas
@@ -118,8 +118,8 @@ model PointKinetics_L1_powerBased
   parameter SI.Power Qs_fission_start[nV]=fill(Q_nominal/nV, nV)/(1 + sum(
       efs_dh_start)) "Initial reactor fission power per volume"
     annotation (Dialog(tab="Initialization"));
-  parameter SI.Power[nV,nI] Cs_start={{betas_start[j]/(lambdas_start[j]*
-      Lambda_start)*Qs_fission_start[i] for j in 1:nI} for i in 1:nV}
+  parameter SI.Power[nV,nC] Cs_start={{betas_start[j]/(lambdas_start[j]*
+      Lambda_start)*Qs_fission_start[i] for j in 1:nC} for i in 1:nV}
     "Power of the initial delayed-neutron precursor concentrations"
     annotation (Dialog(tab="Initialization", enable=not use_history));
 
@@ -143,7 +143,7 @@ model PointKinetics_L1_powerBased
       group="Decay-Heat",
       enable=use_history));
 
-  final parameter SI.Power Cs_start_history[nI](fixed=false);
+  final parameter SI.Power Cs_start_history[nC](fixed=false);
   final parameter SI.Energy Es_start_history[nDH](fixed=false);
 
   // Advanced
@@ -157,7 +157,7 @@ model PointKinetics_L1_powerBased
     "Formulation of decay-heat balances"
     annotation (Dialog(tab="Advanced", group="Dynamics"));
 
-  Units.NonDim betas[nI]=alphas*Beta "Delayed neutron precursor fractions";
+  Units.NonDim betas[nC]=alphas*Beta "Delayed neutron precursor fractions";
 
   TRANSFORM.Units.NonDim[nV,nFeedback] rhos_feedback
     "Linear reactivity feedback";
@@ -181,8 +181,8 @@ model PointKinetics_L1_powerBased
   SIadd.NonDim eta=Q_decay_total/Q_fission_total
     "Ratio of decay heat to fisson power";
 
-  SI.Power[nV,nI] Cs(start=if use_history then {{Cs_start_history[j] for j in 1
-        :nI} for i in 1:nV} else Cs_start)
+  SI.Power[nV,nC] Cs(start=if use_history then {{Cs_start_history[j] for j in 1:
+        nC} for i in 1:nV} else Cs_start)
     "Power of the delayed-neutron precursor concentration";
   SI.Energy Es[nV,nDH](start=if use_history then {{Es_start_history[j] for j in
             1:nDH} for i in 1:nV} else Es_start)
@@ -201,7 +201,7 @@ model PointKinetics_L1_powerBased
     SigmaF_start=SigmaF_start,
     mCs_start=mCs_start,
     sigmasA_add_start=sigmasA_add_start,
-    nC=nC,
+    nC=nFP,
     nFS=nFS,
     parents=parents,
     sigmasA_start=sigmasA_start,
@@ -229,7 +229,7 @@ model PointKinetics_L1_powerBased
     TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
 
-  parameter Integer nC=fissionProducts.data.nC "# of fission products"
+  parameter Integer nFP=fissionProducts.data.nC "# of fission products"
     annotation (Dialog(tab="Fission Products, etc."));
   parameter Integer nFS=fissionProducts.data.nFS "# of fission product sources"
     annotation (Dialog(tab="Fission Products, etc."));
@@ -237,7 +237,7 @@ model PointKinetics_L1_powerBased
     "# of fission product types (e.g., fast/thermal)"
     annotation (Dialog(tab="Fission Products, etc."));
 
-  parameter Real[nC,nC] parents=fissionProducts.data.parents
+  parameter Real[nFP,nFP] parents=fissionProducts.data.parents
     "Matrix of parent-daughter sources"
     annotation (Dialog(tab="Fission Products, etc."));
   parameter Integer nC_add=0
@@ -264,17 +264,15 @@ model PointKinetics_L1_powerBased
   parameter SI.MacroscopicCrossSection SigmaF_start=1
     "Macroscopic fission cross-section of fissile material" annotation (Dialog(
         tab="Fission Products, etc.", group="Initialization: Fission Sources"));
-  parameter SI.Area sigmasA_start[nC]=fissionProducts.data.sigmaA_thermal
+  parameter SI.Area sigmasA_start[nFP]=fissionProducts.data.sigmaA_thermal
     "Microscopic absorption cross-section for reactivity feedback" annotation (
-      Dialog(tab="Fission Products, etc.", group=
-          "Initialization: Fission Products"));
-  parameter Real fissionYields_start[nC,nFS,nT]=fissionProducts.data.fissionYields
+      Dialog(tab="Fission Products, etc.", group="Initialization: Fission Products"));
+  parameter Real fissionYields_start[nFP,nFS,nT]=fissionProducts.data.fissionYields
     "# fission product atoms yielded per fission per fissile source [#/fission]"
-    annotation (Dialog(tab="Fission Products, etc.", group=
-          "Initialization: Fission Products"));
-  parameter Units.InverseTime lambdas_FP_start[nC]=fissionProducts.data.lambdas
-    "Decay constants for each fission product" annotation (Dialog(tab=
-          "Fission Products, etc.", group="Initialization: Fission Products"));
+    annotation (Dialog(tab="Fission Products, etc.", group="Initialization: Fission Products"));
+  parameter Units.InverseTime lambdas_FP_start[nFP]=fissionProducts.data.lambdas
+    "Decay constants for each fission product" annotation (Dialog(tab="Fission Products, etc.",
+        group="Initialization: Fission Products"));
 
   input Units.NonDim dfissionSources[nFS]=fill(0, nFS)
     "Change in source of fissile material fractional composition (sum=1)"
@@ -296,19 +294,17 @@ model PointKinetics_L1_powerBased
     annotation (Dialog(tab="Fission Products, etc.", group=
           "Inputs: Fission Sources"));
 
-  input SI.Area dsigmasA[nC]=fill(0, nC)
+  input SI.Area dsigmasA[nFP]=fill(0, nFP)
     "Change in microscopic absorption cross-section for reactivity feedback"
-    annotation (Dialog(tab="Fission Products, etc.", group=
-          "Inputs: Fission Products"));
-  input Real dfissionYields[nC,nFS,nT]=fill(
+    annotation (Dialog(tab="Fission Products, etc.", group="Inputs: Fission Products"));
+  input Real dfissionYields[nFP,nFS,nT]=fill(
       0,
-      nC,
+      nFP,
       nFS,
       nT)
     "Change in # fission product atoms yielded per fission per fissile source [#/fission]"
-    annotation (Dialog(tab="Fission Products, etc.", group=
-          "Inputs: Fission Products"));
-  input Units.InverseTime dlambdas_FP[nC]=fill(0, nC)
+    annotation (Dialog(tab="Fission Products, etc.", group="Inputs: Fission Products"));
+  input Units.InverseTime dlambdas_FP[nFP]=fill(0, nFP)
     "Change in decay constants for each fission product" annotation (Dialog(tab=
          "Fission Products, etc.", group="Inputs: Fission Products"));
 
@@ -316,15 +312,16 @@ model PointKinetics_L1_powerBased
     "Volume for fisson product concentration basis"
     annotation (Dialog(group="Inputs: Fission Products"));
 
-  parameter SIadd.ExtraPropertyExtrinsic mCs_start[nV,nC]=fill(
+  parameter SIadd.ExtraPropertyExtrinsic mCs_start[nV,nFP]=fill(
       0,
       nV,
-      nC) "Number of fission product atoms per group per volume" annotation (Dialog(tab="Initialization"));
+      nFP) "Number of fission product atoms per group per volume"
+    annotation (Dialog(tab="Initialization"));
 
   parameter Dynamics fissionProductDynamics=traceDynamics
     "Formulation of fission product balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-  parameter Real mC_nominal[nC]=fill(1e-6, nC)
+  parameter Real mC_nominal[nFP]=fill(1e-6, nFP)
     "Nominal fission product atoms. For numeric purposes only."
     annotation (Dialog(tab="Advanced"));
 
@@ -365,15 +362,15 @@ initial equation
 
   if traceDynamics == Dynamics.FixedInitial then
     if use_history then
-      Cs = {{Cs_start_history[j] for j in 1:nI} for i in 1:nV};
+      Cs ={{Cs_start_history[j] for j in 1:nC} for i in 1:nV};
     else
       Cs = Cs_start;
     end if;
   elseif traceDynamics == Dynamics.SteadyStateInitial then
-    der(Cs) = fill(
+    der(Cs) =fill(
       0,
       nV,
-      nI);
+      nC);
   end if;
 
   if decayheatDynamics == Dynamics.FixedInitial then
@@ -415,7 +412,7 @@ equation
 
   if traceDynamics == Dynamics.SteadyState then
     for i in 1:nV loop
-      zeros(nI) = betas ./ Lambda*Qs_fission[i] - lambdas .* Cs[i, :];
+      zeros(nC) = betas ./ Lambda*Qs_fission[i] - lambdas .* Cs[i, :];
     end for;
   else
     for i in 1:nV loop

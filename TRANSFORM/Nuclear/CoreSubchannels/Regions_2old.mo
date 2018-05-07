@@ -2,6 +2,8 @@ within TRANSFORM.Nuclear.CoreSubchannels;
 model Regions_2old
   "0-D point kinetics fuel channel model with two solid media regions"
 
+  extends TRANSFORM.Icons.ObsoleteModel;
+
   import TRANSFORM.Math.linspace_1D;
   import TRANSFORM.Math.linspaceRepeat_1D;
   import Modelica.Fluid.Types.ModelStructure;
@@ -11,8 +13,7 @@ model Regions_2old
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium
-      =                                                                          Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
 
@@ -254,8 +255,8 @@ model Regions_2old
     "Effective fuel temperature"
     annotation (Placement(transformation(extent={{-54,38},{-40,46}})));
 
-  PowerProfiles.GenericPowerProfile powerProfile(nNodes=geometry.nV,
-      Q_shape=Q_shape)
+  PowerProfiles.GenericPowerProfile powerProfile(nNodes=geometry.nV, Q_shape=
+        Q_shape)
     annotation (Placement(transformation(extent={{26,24},{12,38}})));
 
   ReactorKinetics.PointKinetics reactorKinetics(

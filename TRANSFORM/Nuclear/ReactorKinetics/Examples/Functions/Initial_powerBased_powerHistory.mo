@@ -4,7 +4,7 @@ model Initial_powerBased_powerHistory
 extends TRANSFORM.Icons.Example;
 
   PointKinetics_L1_powerBased kinetics(
-    nI=data.nC,
+    nC=data.nC,
     lambdas_start=data.lambdas,
     alphas_start=data.alphas,
     Beta_start=data.Beta,
@@ -13,8 +13,8 @@ extends TRANSFORM.Icons.Example;
     efs_dh_start=data_dh.efs,
     use_history=true,
     history=data_history.table,
-    includeDH=true) annotation (Placement(transformation(extent={{-10,
-            -10},{10,10}})));
+    includeDH=true)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Data.PrecursorGroups.precursorGroups_6_TRACEdefault data
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Blocks.DataTable data_history(table=[0,0; 1e4,1e3; 2e4,1e4; 1e16,1e6])

@@ -1,5 +1,6 @@
 within TRANSFORM.Examples.LightWaterSmallModularReactor;
 model IRIS
+  import TRANSFORM;
 
   extends BaseClasses.Partial_SubSystem_A(
     replaceable package Medium = Modelica.Media.Water.StandardWater,
@@ -16,21 +17,24 @@ model IRIS
   package Medium_PHTS = Modelica.Media.Water.StandardWater
     "Primary heat transport system medium" annotation (Dialog(enable=false));
 
-  Nuclear.CoreSubchannels.Regions_3 coreSubchannel(
+  TRANSFORM.Nuclear.CoreSubchannels.Regions_3old coreSubchannel(
     Ts_start_3(displayUnit="K") = [{coreSubchannel.Ts_start_2[end, 1]},{
       coreSubchannel.Ts_start_2[end, 2]},{coreSubchannel.Ts_start_2[end, 3]},{
-      coreSubchannel.Ts_start_2[end, 4]}; 588.673217773438,598.278564453125,607.177856445313,
-      615.421997070313; 583.928039550781,593.558532714844,602.48095703125,610.746276855469],
+      coreSubchannel.Ts_start_2[end, 4]}; 588.673217773438,598.278564453125,
+      607.177856445313,615.421997070313; 583.928039550781,593.558532714844,
+      602.48095703125,610.746276855469],
     Ts_start_2(displayUnit="K") = [{coreSubchannel.Ts_start_1[end, 1]},{
       coreSubchannel.Ts_start_1[end, 2]},{coreSubchannel.Ts_start_1[end, 3]},{
-      coreSubchannel.Ts_start_1[end, 4]}; 645.326904296875,654.579406738281,663.157775878906,
-      671.109558105469; 593.718627929688,603.297302246094,612.172241210938,620.393920898438],
-    Ts_start_1(displayUnit="K") = [855.985778808594,866.50341796875,876.264709472656,
-      885.321228027344; 849.067749023438,859.516784667969,869.214233398438,878.211303710938;
-      828.583129882813,838.829895019531,848.339050292969,857.160949707031; 795.317565917969,
-      805.238525390625,814.444396972656,822.984252929688; 750.507690429688,759.9951171875,
-      768.797485351563,776.962097167969; 695.743530273438,704.709289550781,713.0263671875,
-      720.73974609375],
+      coreSubchannel.Ts_start_1[end, 4]}; 645.326904296875,654.579406738281,
+      663.157775878906,671.109558105469; 593.718627929688,603.297302246094,
+      612.172241210938,620.393920898438],
+    Ts_start_1(displayUnit="K") = [855.985778808594,866.50341796875,
+      876.264709472656,885.321228027344; 849.067749023438,859.516784667969,
+      869.214233398438,878.211303710938; 828.583129882813,838.829895019531,
+      848.339050292969,857.160949707031; 795.317565917969,805.238525390625,
+      814.444396972656,822.984252929688; 750.507690429688,759.9951171875,
+      768.797485351563,776.962097167969; 695.743530273438,704.709289550781,
+      713.0263671875,720.73974609375],
     Lambda=16e-6,
     T_start_1=system.T_start + 225,
     T_start_2=system.T_start + 50,
@@ -40,8 +44,8 @@ model IRIS
     p_b_start(displayUnit="Pa") = 15655919,
     T_a_start(displayUnit="K") = 557.0997,
     T_b_start(displayUnit="K") = 595.1576,
-    Ts_start(displayUnit="K") = {567.265808105469,577.039306640625,586.362365722656,
-      595.158447265625},
+    Ts_start(displayUnit="K") = {567.265808105469,577.039306640625,
+      586.362365722656,595.158447265625},
     alpha_fuel=-3.24e-5,
     alpha_coolant=-2.88e-4,
     redeclare package Material_1 = Media.Solids.UO2,
@@ -64,6 +68,7 @@ model IRIS
     CR_reactivity=CR_reactivity.y,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
     Teffref_fuel=786.152,
     Teffref_coolant=581.457) annotation (Placement(transformation(
         extent={{-7,-6},{7,6}},

@@ -7,6 +7,8 @@ expandable connector SignalSubBus_SensorOutput
   SI.Temperature T_Core_Inlet "Core inlet temperature";
   SI.Temperature T_Core_Outlet "Core outlet temperature";
   SI.Pressure p_pressurizer "Pressurizer pressure";
+  SI.MassFlowRate m_flow_boilerDrum "Steam flow rate from boiler drum";
+  SI.MassFlowRate m_flow_feedWater "Feedwater mass flow rate";
 
   annotation (defaultComponentName="sensorBus",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

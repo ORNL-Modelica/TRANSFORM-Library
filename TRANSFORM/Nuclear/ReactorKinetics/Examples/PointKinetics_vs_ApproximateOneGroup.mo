@@ -15,7 +15,7 @@ model PointKinetics_vs_ApproximateOneGroup
   parameter Real Lambda = 1e-4;
 
   PointKinetics_L1_powerBased kinetics(
-    nI=1,
+    nC=1,
     Q_nominal=1e9,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lambdas_start={lambda},
