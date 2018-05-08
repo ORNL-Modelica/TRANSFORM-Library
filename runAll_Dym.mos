@@ -1,6 +1,6 @@
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
-simulateModel("TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples.NSSS_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="NSSS_Test");
+simulateModel("TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples.NSSS_Test",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NSSS_Test");
 simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
 simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
 simulateModel("TRANSFORM.Blocks.Examples.IntegratorWithReset",stopTime=1.0,tolerance=1e-6,resultFile="IntegratorWithReset");
@@ -13,7 +13,7 @@ simulateModel("TRANSFORM.Controls.Examples.LimPID_Test",stopTime=1.0,tolerance=1
 simulateModel("TRANSFORM.Controls.Examples.LimPID_withReset_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_withReset_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
-simulateModel("TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples.NSSS_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="NSSS_Test");
+simulateModel("TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples.NSSS_Test",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NSSS_Test");
 simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
 simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.BranchingDynamicPipes",stopTime=10,resultFile="BranchingDynamicPipes");
@@ -129,6 +129,7 @@ simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_pT",resultFile="Linea
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearKClMGCl2_67_33_pT",resultFile="LinearKClMGCl2_67_33_pT");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearNaK_22_78",resultFile="LinearNaK_22_78");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearWaterHot_pT",resultFile="LinearWaterHot_pT");
+simulateModel("TRANSFORM.Nuclear.CoreSubchannels.Examples.Regions_3_Test",stopTime=1000,numberOfIntervals=1000,resultFile="Regions_3_Test");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Functions.Initial_powerBased_powerHistory",resultFile="Initial_powerBased_powerHistory");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Reactivity.FissionProducts_Test",resultFile="FissionProducts_Test");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_feedback",stopTime=100000000,numberOfIntervals=10000,resultFile="PointKinetics_Drift_Test_feedback");
