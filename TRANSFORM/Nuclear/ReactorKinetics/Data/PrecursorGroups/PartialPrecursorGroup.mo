@@ -15,8 +15,10 @@ partial record PartialPrecursorGroup
 
   constant Real[nC,nC] parents = fill(0,nC,nC) "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
 
-  parameter SI.Energy[nC] w_decay = fill(0,nC) "Energy release (near field - beta) per fission product decay per type";
-  parameter SI.Energy[nC] wG_decay = fill(0,nC) "Energy release (far field - gamma) per fission product decay per type";
+  parameter SI.Energy w_near_decay[nC]=fill(0, nC)
+    "Energy release (near field - beta) per fission product decay per type";
+  parameter SI.Energy w_far_decay[nC]=fill(0, nC)
+    "Energy release (far field - gamma) per fission product decay per type";
 
   annotation (defaultComponentName="data",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

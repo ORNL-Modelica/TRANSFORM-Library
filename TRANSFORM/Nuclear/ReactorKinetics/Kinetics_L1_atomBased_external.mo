@@ -28,8 +28,14 @@ model Kinetics_L1_atomBased_external
     annotation (Dialog(group="Inputs"));
   input Units.NonDim[nV] rhos_input=zeros(nV) "External Reactivity"
     annotation (Dialog(group="Inputs"));
+  input SI.Volume[nV] Vs
+    "Volume for atom concentration basis"
+    annotation (Dialog(group="Inputs"));
   input SIadd.ExtraPropertyExtrinsic[nV,nC] mCs
     "# of neutron precursors in each volume [atoms]"
+    annotation (Dialog(group="Inputs"));
+  input SIadd.ExtraPropertyExtrinsic[nV,nFP] mCs_FP={{0 for j in 1:nFP} for i in 1:nV}
+    "Fission product number in each volume [atoms]"
     annotation (Dialog(group="Inputs"));
 
   // Reactivity Feedback
@@ -146,7 +152,8 @@ model Kinetics_L1_atomBased_external
     dsigmasA_TR=dsigmasA_TR,
     dsigmasT_TR=dsigmasT_TR,
     dlambdas_TR=dlambdas_TR,
-    mCs_TR=mCs_TR)
+    mCs_TR=mCs_TR,
+    mCs=mCs_FP)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable record Data_FP =
@@ -219,9 +226,6 @@ model Kinetics_L1_atomBased_external
     "Change in decay constants for each fission product" annotation (Dialog(tab=
          "Parameter Change", group="Inputs: Fission Products"));
 
-  input SI.Volume[nV] Vs
-    "Volume for atom concentration basis"
-    annotation (Dialog(group="Inputs"));
 
   SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens "Generation rate of neutron precursor groups [atoms/s]";
 
@@ -248,7 +252,7 @@ model Kinetics_L1_atomBased_external
     annotation (Dialog(tab="Parameter Change", group="Inputs: Tritium Balance"));
   input TRANSFORM.Units.ExtraPropertyExtrinsic mCs_TR[nV,nTR]={{0 for j in 1
       :fissionProducts.nTR} for i in 1:fissionProducts.nV}
-    "Amount of each contributor to tritium [atoms]";
+    "Amount of each contributor to tritium [atoms]" annotation(Dialog(group="Inputs"));
 
 initial equation
 

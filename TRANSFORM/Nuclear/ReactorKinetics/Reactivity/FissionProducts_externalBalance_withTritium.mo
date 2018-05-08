@@ -107,7 +107,9 @@ model FissionProducts_externalBalance_withTritium
   SIadd.NeutronFlux phi[nV] "Neutron flux";
   SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens
     "Generation rate of fission products [atoms/s]";
-  SIadd.ExtraPropertyExtrinsic mCs[nV,nC] "Number of fission product atoms";
+  input SIadd.ExtraPropertyExtrinsic[nV,nC] mCs={{0 for j in 1:nC} for i in 1:nV}
+    "Fission product number in each volume [atoms]"
+    annotation (Dialog(group="Inputs"));
 
   // Tritium Sources
   replaceable record Data_TR =
