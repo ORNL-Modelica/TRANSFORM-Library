@@ -21,8 +21,7 @@ model TwoPhaseFrictionMultiplier
 
   Real diff = sum(abs(phi2 - data))/(nX*nP);
 
-  Media.BaseProperties2Phase mediaProps[nX,nP](redeclare package
-      Medium =
+  Media.BaseProperties2Phase mediaProps[nX,nP](redeclare package Medium =
         Medium, state=states)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

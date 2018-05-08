@@ -11,12 +11,14 @@ record fissionProducts_test "test for debugging"
     lambdas={0,0.00001,0.01},
     w_near_decay=1.6022e-16*{5.682,335,305},
     w_far_decay=1.6022e-16*{18.591,2628,1165},
-    sigmaA_thermal=1e-28*{0,0,2650000},
-    sigmaA_fast=1e-28*{0,0,7600},
+    sigmasA=sigmasA_t,
     parents=[[0,0,0]; [0.5,0,0]; [0.5,1,0]]);
 
   parameter Real[nC,nFS] fissionYield_t=0.01*transpose({{0,0.01,1},
         {0.004,0.001,0.02}}) "Fission yield per fast fission";
+
+  parameter SI.Area[nC] sigmasA_t = 1e-28*{0,0,2650000} "Thermal absorption cross-section for reactivity feedback";
+  parameter SI.Area[nC] sigmasA_f = 1e-28*{0,0,7600} "Fast absorption cross-section for reactivity feedback";
 
   parameter Real[nC,nFS] fissionYield_f=0.01*transpose({{0.00269,0.00082,0.0108},{0.00346,0.00106,0.0142}}) "Fission yield per fast fission";
 

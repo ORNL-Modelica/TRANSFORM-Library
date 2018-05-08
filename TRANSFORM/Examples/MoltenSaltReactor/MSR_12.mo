@@ -612,10 +612,6 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     specifyPower=true,
     fissionSource=fill(1.0/kinetics.nFS, kinetics.nFS))
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
-    data_traceSubstances(redeclare record FissionProducts =
-        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_TeIXe_U235)
-    annotation (Placement(transformation(extent={{260,120},{280,140}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
                                                pipeFromPHX_PCL(
     nParallel=3,
@@ -832,8 +828,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         rotation=0,
         origin={-220,-60})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_drainTank(redeclare package
-              Medium =
-               Medium_PFL, use_input=true)
+      Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
   TRANSFORM.Controls.TankLevelControl drainTankLevelControl(
     level=drainTank_liquid.level,
@@ -864,8 +859,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         rotation=90,
         origin={-270,90})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_bypass(redeclare package
-              Medium =
-               Medium_PFL, use_input=true)
+      Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-238,102},{-258,122}})));
   Modelica.Blocks.Sources.RealExpression m_flow_pump_bypass(y=x_bypass.y*abs(
         pump_PFL.port_a.m_flow))
@@ -1074,7 +1068,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     alpha_shell_SHX=sum(SHX.shell.heatTransfer.alphas)/SHX.shell.nV)
     annotation (Placement(transformation(extent={{230,120},{250,140}})));
 
-  TRANSFORM.Examples.MoltenSaltReactor.DRACS DRACS(
+  TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS DRACS(
     redeclare package Medium_DRACS = Medium_DRACS,
     showName=systemTF.showName,
     surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*DRACS.nP_outer_drainTank[

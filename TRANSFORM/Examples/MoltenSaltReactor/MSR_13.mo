@@ -1,24 +1,112 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_10
+model MSR_13
   import TRANSFORM;
 
   package Medium_PFL =
       TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
-  extraPropertiesNames=data_traceSubstances.extraPropertiesNames,
-  C_nominal=data_traceSubstances.C_nominal) "Primary fuel loop medium";
+  extraPropertiesNames=kinetics.summary_data.extraPropertiesNames,
+  C_nominal=kinetics.summary_data.C_nominal) "Primary fuel loop medium";
 
   package Medium_PCL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT (
   extraPropertiesNames={"Tritium"},
   C_nominal={1e6}) "Primary coolant loop medium";
 
   package Medium_OffGas = Modelica.Media.IdealGases.SingleGases.He (
-  extraPropertiesNames=data_traceSubstances.extraPropertiesNames,
-  C_nominal=data_traceSubstances.C_nominal);
+  extraPropertiesNames=kinetics.summary_data.extraPropertiesNames,
+  C_nominal=kinetics.summary_data.C_nominal);
 
-  parameter Integer iOG[:] = {2,3}+fill(data_traceSubstances.precursorGroups.nC, 2) "Index array of substances sent to off-gas system";
+  package Medium_DRACS = TRANSFORM.Media.Fluids.NaK.LinearNaK_22_78_pT;
+
+  package Medium_BOP = Modelica.Media.Water.StandardWater (
+  extraPropertiesNames={"Tritium"},
+  C_nominal={1e6});
+
+  parameter Integer iOG[:]={2,3} + fill(kinetics.summary_data.data_PG.nC, 2)
+    "Index array of substances sent to off-gas system";
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
 
+  // Initialization
+  import Modelica.Constants.N_A;
+  parameter SIadd.ExtraProperty[kinetics.summary_data.data_TR.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0} "atoms/kg fluid";
+
+parameter SI.MassFraction Li7_enrichment = 0.99995 "mass fraction Li-7 enrichment in flibe.  Baseline is 99.995%";
+parameter SI.MoleFraction MMFrac_LiF = 0.67 "Mole fraction of LiF";
+parameter SI.MolarMass Flibe_MM = 0.0328931 "Molar mass of flibe [kg/mol] from doing 0.67*MM_LiF + 0.33*MM_BeF2";
+
+parameter SI.MolarMass Li7_MM = 0.00701600455 "[kg/mol]";
+parameter SI.MolarMass Li6_MM = 0.006015122795 "[kg/mol]";
+
+parameter SI.MoleFraction Li7_molefrac = (Li7_enrichment/Li7_MM)/((Li7_enrichment/Li7_MM)+((1.0-Li7_enrichment)/Li6_MM)) "Mole fraction of lithium in flibe that is Li-7";
+parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lithium in flibe that is Li-6";
+
+  parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_tee_inlet=cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start);
+  parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_plenum_lower=
+      cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start);
+  parameter SIadd.ExtraProperty[reflA_lower.nV,kinetics.summary_data.nC]
+    Cs_start_reflA_lower={cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start) for i in 1:reflA_lower.nV};
+  parameter SIadd.ExtraProperty[fuelCell.nV,kinetics.summary_data.nC]
+    Cs_start_fuelCell={cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start) for i in 1:fuelCell.nV};
+  parameter SIadd.ExtraProperty[reflR.nV,kinetics.summary_data.nC]
+    Cs_start_reflR={cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start) for i in 1:reflR.nV};
+  parameter SIadd.ExtraProperty[reflA_upper.nV,kinetics.summary_data.nC]
+    Cs_start_reflA_upper={cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start) for i in 1:reflA_upper.nV};
+  parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_plenum_upper=
+      cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start);
+  parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_pumpBowl_PFL=
+      cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start);
+  parameter SIadd.ExtraProperty[pipeToPHX_PFL.nV,kinetics.summary_data.nC]
+    Cs_start_pipeToPHX_PFL={cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start) for i in 1:pipeToPHX_PFL.nV};
+  parameter SIadd.ExtraProperty[PHX.tube.nV,kinetics.summary_data.nC]
+    Cs_start_PHX_tube={cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start) for i in 1:PHX.tube.nV};
+  parameter SIadd.ExtraProperty[pipeFromPHX_PFL.nV,kinetics.summary_data.nC]
+    Cs_start_pipeFromPHX_PFL={cat(
+      1,
+      fill(0, kinetics.summary_data.data_PG.nC),
+      fill(0, kinetics.summary_data.data_FP.nC),
+      C_start) for i in 1:pipeFromPHX_PFL.nV};
+
+  // Gathered info
   SI.Power Qt_total = sum(kinetics.Qs) "Total thermal power output (from primary fission)";
 
   SI.Temperature Ts[10] = fuelCell.mediums.T;
@@ -29,48 +117,112 @@ model MSR_10
   SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
+  // Decay Heat Calculations: PFL
+  SI.Power Qs_gen_tee_inlet=sum({(kinetics.summary_data.w_near_decay[j] +
+      kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]*
+      tee_inlet.mC[j] for j in 1:kinetics.summary_data.nC});
+  SI.Power Qs_gen_plenum_lower=sum({(kinetics.summary_data.w_near_decay[j] +
+      kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]*
+      plenum_lower.mC[j] for j in 1:kinetics.summary_data.nC});
+  SI.Power[reflA_lower.nV] Qs_gen_reflA_lower={sum({kinetics.summary_data.w_near_decay[
+      j]*kinetics.summary_data.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:
+      kinetics.summary_data.nC}) for i in 1:reflA_lower.nV};
+  SI.Power[fuelCell.nV] Qs_gen_fuelCell=kinetics.Qs;
+  SI.Power[reflR.nV] Qs_gen_reflR={sum({kinetics.summary_data.w_near_decay[j]*
+      kinetics.summary_data.lambdas[j]*reflR.mCs[i, j] for j in 1:
+      kinetics.summary_data.nC}) for i in 1:reflR.nV};
+  SI.Power[reflA_upper.nV] Qs_gen_reflA_upper={sum({kinetics.summary_data.w_near_decay[
+      j]*kinetics.summary_data.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:
+      kinetics.summary_data.nC}) for i in 1:reflA_upper.nV};
+
+  SI.Power Qs_gen_plenum_upper=sum({(kinetics.summary_data.w_near_decay[j] +
+      kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]*
+      plenum_upper.mC[j] for j in 1:kinetics.summary_data.nC});
+  SI.Power Qs_gen_pumpBowl_PFL=sum({(kinetics.summary_data.w_near_decay[j] +
+      kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]*
+      pumpBowl_PFL.mC[j] for j in 1:kinetics.summary_data.nC});
+  SI.Power[pipeToPHX_PFL.nV] Qs_gen_pipeToPHX_PFL={sum({(kinetics.summary_data.w_near_decay[
+      j] + kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]
+      *pipeToPHX_PFL.mCs[i, j] for j in 1:kinetics.summary_data.nC}) for i in 1:
+      pipeToPHX_PFL.nV};
+  SI.Power[PHX.tube.nV] Qs_gen_PHX_tube={sum({(kinetics.summary_data.w_near_decay[
+      j] + kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]
+      *PHX.tube.mCs[i, j] for j in 1:kinetics.summary_data.nC}) for i in 1:PHX.tube.nV};
+  SI.Power[pipeFromPHX_PFL.nV] Qs_gen_pipeFromPHX_PFL={sum({(
+      kinetics.summary_data.w_near_decay[j] + kinetics.summary_data.w_far_decay[j])
+      *kinetics.summary_data.lambdas[j]*pipeFromPHX_PFL.mCs[i, j] for j in 1:
+      kinetics.summary_data.nC}) for i in 1:pipeFromPHX_PFL.nV};
+
+  // Decay Heat Calculations: PFL - solid
+  SI.Power[reflA_lower.nV] QsG_reflA_lowerG={sum({kinetics.summary_data.w_far_decay[
+      j]*kinetics.summary_data.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:
+      kinetics.summary_data.nC}) for i in 1:reflA_lower.nV};
+  //SI.Power[fuelCell.nV] QsG_fuelCellG = {sum({kinetics.summary_data.wG_decay[j]*kinetics.summary_data.lambdas[j]*fuelCell.mCs[i, j] for j in 1:kinetics.summary_data.nC}) for i in 1:fuelCell.nV};
+  SI.Power[reflR.nV] QsG_reflRG={sum({kinetics.summary_data.w_far_decay[j]*
+      kinetics.summary_data.lambdas[j]*reflR.mCs[i, j] for j in 1:
+      kinetics.summary_data.nC}) for i in 1:reflR.nV};
+  SI.Power[reflA_upper.nV] QsG_reflA_upperG={sum({kinetics.summary_data.w_far_decay[
+      j]*kinetics.summary_data.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:
+      kinetics.summary_data.nC}) for i in 1:reflA_upper.nV};
+
+  SI.Power[reflA_lowerG.nVs[1],reflA_lowerG.nVs[2]] Qs_gen_reflA_lowerG = {{QsG_reflA_lowerG[j]/reflA_lowerG.nVs[1] for j in 1:reflA_lowerG.nVs[2]} for i in 1:reflA_lowerG.nVs[1]};
+  SI.Power[fuelCellG.nVs[1],fuelCellG.nVs[2]] Qs_gen_fuellCellG={{kinetics.fissionProducts.Qs_far[
+      j]/fuelCellG.nVs[1] for j in 1:fuelCellG.nVs[2]} for i in 1:fuelCellG.nVs[
+      1]};
+  SI.Power[reflRG.nVs[1],reflRG.nVs[2]] Qs_gen_reflRG = {{QsG_reflRG[j]/reflRG.nVs[1] + Qs_gen_fuellCellG[i,j] for j in 1:reflRG.nVs[2]} for i in 1:reflRG.nVs[1]};
+  SI.Power[reflA_upperG.nVs[1],reflA_upperG.nVs[2]] Qs_gen_reflA_upperG = {{QsG_reflA_upperG[j]/reflA_upperG.nVs[1] for j in 1:reflA_upperG.nVs[2]} for i in 1:reflA_upperG.nVs[1]};
+
+  // Decay Heat Calculations: Off-Gas/DrainTank
+  SI.Power Qs_gen_drainTank_gas=sum({(kinetics.summary_data.w_near_decay[j] +
+      kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]*
+      drainTank_gas.mC[j] for j in 1:kinetics.summary_data.nC});
+  SI.Power Qs_gen_drainTank_liquid=sum({(kinetics.summary_data.w_near_decay[j]
+       + kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]*
+      drainTank_liquid.mC[j] for j in 1:kinetics.summary_data.nC});
+
   // Trace Substance Calculations: PFL
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet = {-data_traceSubstances.lambdas[j]*tee_inlet.mC[j] + mC_gen_tee_inlet_PtoD[j] for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_lower = {-data_traceSubstances.lambdas[j]*plenum_lower.mC[j] + mC_gen_plenum_lower_PtoD[j] for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[reflA_lower.nV,data_traceSubstances.nC] mC_gens_reflA_lower = {{-data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j]*reflA_lower.nParallel + mC_gens_reflA_lower_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflA_lower.nV};
-  SI.MassFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_fuelCell = cat(2, kinetics.mC_gens, kinetics.mC_gens_FP);
-  SI.MassFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_reflR = {{-data_traceSubstances.lambdas[j]*reflR.mCs[i, j]*reflR.nParallel + mC_gens_reflR_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflR.nV};
-  SI.MassFlowRate[reflA_upper.nV,data_traceSubstances.nC] mC_gens_reflA_upper = {{-data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j]*reflA_upper.nParallel + mC_gens_reflA_upper_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:reflA_upper.nV};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_upper = {-data_traceSubstances.lambdas[j]*plenum_upper.mC[j] + mC_gen_plenum_upper_PtoD[j] for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_pumpBowl_PFL={-data_traceSubstances.lambdas[j]*pumpBowl_PFL.mC[j]*3 + mC_flows_fromOG[j] + mC_gen_pumpBowl_PFL_PtoD[j] for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[pipeToPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeToPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeToPHX_PFL.mCs[i, j]*pipeToPHX_PFL.nParallel + mC_gens_pipeToPHX_PFL_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:pipeToPHX_PFL.nV};
-  SI.MassFlowRate[PHX.tube.nV,data_traceSubstances.nC] mC_gens_PHX_tube = {{-data_traceSubstances.lambdas[j]*PHX.tube.mCs[i, j]*PHX.tube.nParallel + mC_gens_PHX_tube_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:PHX.tube.nV};
-  SI.MassFlowRate[pipeFromPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeFromPHX_PFL = {{-data_traceSubstances.lambdas[j]*pipeFromPHX_PFL.mCs[i, j]*pipeFromPHX_PFL.nParallel + mC_gens_pipeFromPHX_PFL_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:pipeFromPHX_PFL.nV};
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_tee_inlet = {-kinetics.summary_data.lambdas[j]*tee_inlet.mC[j] + mC_gen_tee_inlet_PtoD[j] for j in 1:kinetics.summary_data.nC};
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_lower = {-kinetics.summary_data.lambdas[j]*plenum_lower.mC[j] + mC_gen_plenum_lower_PtoD[j] for j in 1:kinetics.summary_data.nC};
+  SIadd.ExtraPropertyFlowRate[reflA_lower.nV,kinetics.summary_data.nC] mC_gens_reflA_lower = {{-kinetics.summary_data.lambdas[j]*reflA_lower.mCs[i, j]*reflA_lower.nParallel + mC_gens_reflA_lower_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflA_lower.nV};
+  SIadd.ExtraPropertyFlowRate[fuelCell.nV,kinetics.summary_data.nC] mC_gens_fuelCell = cat(2, kinetics.mC_gens, kinetics.fissionProducts.mC_gens,kinetics.fissionProducts.mC_gens_TR);
+  SIadd.ExtraPropertyFlowRate[reflR.nV,kinetics.summary_data.nC] mC_gens_reflR = {{-kinetics.summary_data.lambdas[j]*reflR.mCs[i, j]*reflR.nParallel + mC_gens_reflR_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflR.nV};
+  SIadd.ExtraPropertyFlowRate[reflA_upper.nV,kinetics.summary_data.nC] mC_gens_reflA_upper = {{-kinetics.summary_data.lambdas[j]*reflA_upper.mCs[i, j]*reflA_upper.nParallel + mC_gens_reflA_upper_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflA_upper.nV};
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_upper = {-kinetics.summary_data.lambdas[j]*plenum_upper.mC[j] + mC_gen_plenum_upper_PtoD[j] for j in 1:kinetics.summary_data.nC};
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_pumpBowl_PFL={-kinetics.summary_data.lambdas[j]*pumpBowl_PFL.mC[j]*3 + mC_flows_fromOG[j] + mC_gen_pumpBowl_PFL_PtoD[j] for j in 1:kinetics.summary_data.nC};
+  SIadd.ExtraPropertyFlowRate[pipeToPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeToPHX_PFL = {{-kinetics.summary_data.lambdas[j]*pipeToPHX_PFL.mCs[i, j]*pipeToPHX_PFL.nParallel + mC_gens_pipeToPHX_PFL_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:pipeToPHX_PFL.nV};
+  SIadd.ExtraPropertyFlowRate[PHX.tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube = {{-kinetics.summary_data.lambdas[j]*PHX.tube.mCs[i, j]*PHX.tube.nParallel + mC_gens_PHX_tube_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:PHX.tube.nV};
+  SIadd.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeFromPHX_PFL = {{-kinetics.summary_data.lambdas[j]*pipeFromPHX_PFL.mCs[i, j]*pipeFromPHX_PFL.nParallel + mC_gens_pipeFromPHX_PFL_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:pipeFromPHX_PFL.nV};
 
   // Trace Substances Parent->Daughter contribution
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet_PtoD = {sum({data_traceSubstances.lambdas[k].*tee_inlet.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_lower_PtoD= {sum({data_traceSubstances.lambdas[k].*plenum_lower.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[reflA_lower.nV,data_traceSubstances.nC] mC_gens_reflA_lower_PtoD = {{sum({data_traceSubstances.lambdas[k].*reflA_lower.mCs[i,k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:reflA_lower.nV};
-  //SI.MassFlowRate[fuelCell.nV,data_traceSubstances.nC] mC_gens_fuelCell_PtoD = {{sum({data_traceSubstances.lambdas[k].*fuelCell.mCs[i,k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:fuelCell.nV};
-  SI.MassFlowRate[reflR.nV,data_traceSubstances.nC] mC_gens_reflR_PtoD= {{sum({data_traceSubstances.lambdas[k].*reflR.mCs[i,k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:reflR.nV};
-  SI.MassFlowRate[reflA_upper.nV,data_traceSubstances.nC] mC_gens_reflA_upper_PtoD= {{sum({data_traceSubstances.lambdas[k].*reflA_upper.mCs[i,k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:reflA_upper.nV};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_plenum_upper_PtoD= {sum({data_traceSubstances.lambdas[k].*plenum_upper.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_pumpBowl_PFL_PtoD= {sum({data_traceSubstances.lambdas[k].*pumpBowl_PFL.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[pipeToPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeToPHX_PFL_PtoD = {{sum({data_traceSubstances.lambdas[k].*pipeToPHX_PFL.mCs[i,k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:pipeToPHX_PFL.nV};
-  SI.MassFlowRate[PHX.tube.nV,data_traceSubstances.nC] mC_gens_PHX_tube_PtoD = {{sum({data_traceSubstances.lambdas[k].*PHX.tube.mCs[i,k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:PHX.tube.nV};
-  SI.MassFlowRate[pipeFromPHX_PFL.nV,data_traceSubstances.nC] mC_gens_pipeFromPHX_PFL_PtoD = {{sum({data_traceSubstances.lambdas[k].*pipeFromPHX_PFL.mCs[i,k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:pipeFromPHX_PFL.nV};
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_tee_inlet_PtoD = {sum({kinetics.summary_data.lambdas[k].*tee_inlet.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_lower_PtoD= {sum({kinetics.summary_data.lambdas[k].*plenum_lower.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SIadd.ExtraPropertyFlowRate[reflA_lower.nV,kinetics.summary_data.nC] mC_gens_reflA_lower_PtoD = {{sum({kinetics.summary_data.lambdas[k].*reflA_lower.mCs[i,k].*reflA_lower.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:reflA_lower.nV};
+  //SIadd.ExtraPropertyFlowRate[fuelCell.nV,kinetics.summary_data.nC] mC_gens_fuelCell_PtoD = {{sum({kinetics.summary_data.lambdas[k].*fuelCell.mCs[i,k].*fuelCell.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:fuelCell.nV};
+  SIadd.ExtraPropertyFlowRate[reflR.nV,kinetics.summary_data.nC] mC_gens_reflR_PtoD= {{sum({kinetics.summary_data.lambdas[k].*reflR.mCs[i,k].*reflR.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:reflR.nV};
+  SIadd.ExtraPropertyFlowRate[reflA_upper.nV,kinetics.summary_data.nC] mC_gens_reflA_upper_PtoD= {{sum({kinetics.summary_data.lambdas[k].*reflA_upper.mCs[i,k].*reflA_upper.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:reflA_upper.nV};
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_upper_PtoD= {sum({kinetics.summary_data.lambdas[k].*plenum_upper.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_pumpBowl_PFL_PtoD= {sum({kinetics.summary_data.lambdas[k].*pumpBowl_PFL.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SIadd.ExtraPropertyFlowRate[pipeToPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeToPHX_PFL_PtoD = {{sum({kinetics.summary_data.lambdas[k].*pipeToPHX_PFL.mCs[i,k].*pipeToPHX_PFL.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:pipeToPHX_PFL.nV};
+  SIadd.ExtraPropertyFlowRate[PHX.tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube_PtoD = {{sum({kinetics.summary_data.lambdas[k].*PHX.tube.mCs[i,k].*PHX.tube.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:PHX.tube.nV};
+  SIadd.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeFromPHX_PFL_PtoD = {{sum({kinetics.summary_data.lambdas[k].*pipeFromPHX_PFL.mCs[i,k].*pipeFromPHX_PFL.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:pipeFromPHX_PFL.nV};
 
   // TraceSubstance Calculations: Off-Gas and Drain Tank
   SI.MassFlowRate m_flow_toDrainTank = data_OFFGAS.V_flow_sep_salt_total*Medium_PFL.density_ph(pump_PFL.port_b.p, pump_PFL.port_b.h_outflow) "Mass flow rate of salt to drain tank (+)";
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_gas=-data_traceSubstances.lambdas.*drainTank_gas.mC + mC_gen_drainTank_gas_PtoD;
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid=-data_traceSubstances.lambdas.*drainTank_liquid.mC + mC_gen_drainTank_liquid_PtoD;
-  SI.MassFlowRate[data_traceSubstances.nC] mC_flows_fromOG = abs(pump_OffGas_bypass.port_b.m_flow).*pump_OffGas_bypass.port_b.C_outflow+abs(pump_OffGas_adsorberBed.port_b.m_flow).*pump_OffGas_adsorberBed.port_b.C_outflow;
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_gas=-kinetics.summary_data.lambdas.*drainTank_gas.mC + mC_gen_drainTank_gas_PtoD;
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_liquid=-kinetics.summary_data.lambdas.*drainTank_liquid.mC + mC_gen_drainTank_liquid_PtoD;
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_flows_fromOG = abs(pump_OffGas_bypass.port_b.m_flow).*pump_OffGas_bypass.port_b.C_outflow+abs(pump_OffGas_adsorberBed.port_b.m_flow).*pump_OffGas_adsorberBed.port_b.C_outflow;
 
   // Trace Substances Parent->Daughter contribution:  Off-Gas and Drain Tank
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_gas_PtoD = {sum({data_traceSubstances.lambdas[k].*drainTank_gas.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
-  SI.MassFlowRate[data_traceSubstances.nC] mC_gen_drainTank_liquid_PtoD = {sum({data_traceSubstances.lambdas[k].*drainTank_liquid.mC[k].*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC};
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_gas_PtoD = {sum({kinetics.summary_data.lambdas[k].*drainTank_gas.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_liquid_PtoD = {sum({kinetics.summary_data.lambdas[k].*drainTank_liquid.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
 
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_OffGas_sink(
     redeclare package Medium = Medium_OffGas,
     nPorts=2,
     T=data_OFFGAS.T_carbon,
     p=data_OFFGAS.p_sep_ref,
-    use_p_in=true)
+    use_p_in=true,
+    showName=systemTF.showName)
     annotation (Placement(transformation(extent={{-170,20},{-190,40}})));
 
   Data.data_PHX data_PHX
@@ -95,10 +247,7 @@ model MSR_10
     use_HeatTransfer=true,
     showName=systemTF.showName,
     m_flow_a_start=0.95*data_RCTR.m_flow,
-    redeclare model InternalHeatGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=kinetics.Qs +kinetics.Qs_FP_near),
-    redeclare model InternalTraceMassGen =
+    redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_fuelCell),
     redeclare model Geometry =
@@ -110,7 +259,11 @@ model MSR_10
         nV=10,
         angle=toggleStaticHead*90,
         surfaceArea={fuelCellG.nParallel/fuelCell.nParallel*sum(fuelCellG.geometry.crossAreas_1
-            [1, :])}))
+            [1, :])}),
+    Cs_start=Cs_start_fuelCell,
+    redeclare model InternalHeatGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+        (Q_gens=Qs_gen_fuelCell))
     "frac*data_RCTR.Q_nominal/fuelCell.nV; mC_gens_fuelCell"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -126,7 +279,7 @@ model MSR_10
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     showName=systemTF.showName,
-    redeclare model InternalTraceMassGen =
+    redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflA_upper),
     redeclare model Geometry =
@@ -140,7 +293,11 @@ model MSR_10
         angle=toggleStaticHead*90,
         surfaceArea={reflA_upperG.nParallel/reflA_upper.nParallel*sum(
             reflA_upperG.geometry.crossAreas_1[1, :]),reflA_upperG.nParallel/
-            reflA_upper.nParallel*sum(reflA_upperG.geometry.crossAreas_1[end, :])}))
+            reflA_upper.nParallel*sum(reflA_upperG.geometry.crossAreas_1[end, :])}),
+    Cs_start=Cs_start_reflA_upper,
+    redeclare model InternalHeatGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+        (Q_gens=Qs_gen_reflA_upper))
                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -158,7 +315,9 @@ model MSR_10
         crossArea=data_RCTR.crossArea_plenum,
         angle=toggleStaticHead*90),
     showName=systemTF.showName,
-    mC_gen=mC_gen_plenum_upper)            annotation (Placement(transformation(
+    mC_gen=mC_gen_plenum_upper,
+    C_start=C_start_plenum_upper,
+    Q_gen=Qs_gen_plenum_upper)             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,90})));
@@ -173,7 +332,7 @@ model MSR_10
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     showName=systemTF.showName,
-    redeclare model InternalTraceMassGen =
+    redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflA_lower),
     redeclare model Geometry =
@@ -187,7 +346,11 @@ model MSR_10
         angle=toggleStaticHead*90,
         surfaceArea={reflA_lowerG.nParallel/reflA_lower.nParallel*sum(
             reflA_lowerG.geometry.crossAreas_1[1, :]),reflA_lowerG.nParallel/
-            reflA_lower.nParallel*sum(reflA_lowerG.geometry.crossAreas_1[end, :])}))
+            reflA_lower.nParallel*sum(reflA_lowerG.geometry.crossAreas_1[end, :])}),
+    Cs_start=Cs_start_reflA_lower,
+    redeclare model InternalHeatGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+        (Q_gens=Qs_gen_reflA_lower))
                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -212,7 +375,9 @@ model MSR_10
         angle=toggleStaticHead*90),
     T_start=data_PHX.T_outlet_tube,
     showName=systemTF.showName,
-    mC_gen=mC_gen_plenum_lower)          annotation (Placement(transformation(
+    mC_gen=mC_gen_plenum_lower,
+    C_start=C_start_plenum_lower,
+    Q_gen=Qs_gen_plenum_lower)           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-90})));
@@ -247,7 +412,10 @@ model MSR_10
     T_a1_start=0.5*(data_PHX.T_outlet_tube + data_PHX.T_outlet_tube),
     T_b1_start=0.5*(data_PHX.T_outlet_tube + data_PHX.T_outlet_tube) + 50,
     T_a2_start=data_PHX.T_outlet_tube,
-    showName=systemTF.showName)
+    showName=systemTF.showName,
+    redeclare model InternalHeatModel =
+        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
+        (Q_gens=Qs_gen_fuellCellG))
                          annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -286,8 +454,10 @@ model MSR_10
         r_inner=data_RCTR.rs_ring_edge_inner[6],
         r_outer=data_RCTR.rs_ring_edge_outer[6],
         length_z=data_RCTR.length_reflA,
-        angle_theta=data_RCTR.angle_reflA_ring_blockG))
-                                      annotation (Placement(transformation(
+        angle_theta=data_RCTR.angle_reflA_ring_blockG),
+    redeclare model InternalHeatModel =
+        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
+        (Q_gens=Qs_gen_reflA_upperG)) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,60})));
@@ -322,8 +492,10 @@ model MSR_10
         r_outer=data_RCTR.rs_ring_edge_outer[6],
         length_z=data_RCTR.length_reflA,
         nZ=reflA_lower.nV,
-        angle_theta=data_RCTR.angle_reflA_ring_blockG))
-                                      annotation (Placement(transformation(
+        angle_theta=data_RCTR.angle_reflA_ring_blockG),
+    redeclare model InternalHeatModel =
+        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
+        (Q_gens=Qs_gen_reflA_lowerG)) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,-60})));
@@ -360,7 +532,9 @@ model MSR_10
         angle=toggleStaticHead*90),
     nPorts_a=1,
     showName=systemTF.showName,
-    mC_gen=mC_gen_tee_inlet)             annotation (Placement(transformation(
+    mC_gen=mC_gen_tee_inlet,
+    C_start=C_start_tee_inlet,
+    Q_gen=Qs_gen_tee_inlet)              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-130})));
@@ -378,16 +552,19 @@ model MSR_10
         dheight=toggleStaticHead*data_PIPING.height_PHXToRCTR),
     m_flow_a_start=2*3*data_PHX.m_flow_tube,
     showName=systemTF.showName,
-    redeclare model InternalTraceMassGen =
+    redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens_pipeFromPHX_PFL))
+        (mC_gens=mC_gens_pipeFromPHX_PFL),
+    Cs_start=Cs_start_pipeFromPHX_PFL,
+    redeclare model InternalHeatGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+        (Q_gens=Qs_gen_pipeFromPHX_PFL))
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={160,-70})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HXold PHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HX_withMass PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
-    redeclare package Material_tubeWall = Media.Solids.AlloyN,
     p_a_start_shell=data_PHX.p_inlet_shell,
     T_a_start_shell=data_PHX.T_inlet_shell,
     T_b_start_shell=data_PHX.T_outlet_shell,
@@ -408,18 +585,39 @@ model MSR_10
     nParallel=2*3,
     m_flow_a_start_shell=2*3*data_PHX.m_flow_shell,
     m_flow_a_start_tube=2*3*data_PHX.m_flow_tube,
+    redeclare model InternalTraceGen_tube =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
+        (mC_gens=mC_gens_PHX_tube),
+    Cs_start_tube=Cs_start_PHX_tube,
+    redeclare model InternalHeatGen_tube =
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+        (Q_gens=Qs_gen_PHX_tube),
     redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
         (
         D=data_PHX.D_tube_outer,
         S_T=data_PHX.pitch_tube,
         S_L=data_PHX.pitch_tube,
-        CF=fill(0.44, PHX.shell.heatTransfer.nHT)),
-    redeclare model InternalTraceMassGen_tube =
-        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens_PHX_tube)) annotation (Placement(transformation(
+        CFs=
+           fill(
+            0.44,
+            PHX.shell.heatTransfer.nHT,
+            PHX.shell.heatTransfer.nSurfaces)),
+    redeclare package Material_wall = TRANSFORM.Media.Solids.AlloyN,
+    nC=1,
+    use_TraceMassTransfer_shell=true,
+    use_TraceMassTransfer_tube=true,
+    redeclare model TraceMassTransfer_shell =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
+        (MMs={6.022e23}),
+    redeclare model TraceMassTransfer_tube =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
+        (iC={7}, MMs={6.022e23}),
+    redeclare model DiffusionCoeff_wall =
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+        (D_ab0=0.00000001)) annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={160,0})));
@@ -438,17 +636,21 @@ model MSR_10
         dheight=toggleStaticHead*data_PIPING.height_pumpToPHX),
     m_flow_a_start=2*3*data_PHX.m_flow_tube,
     showName=systemTF.showName,
-    redeclare model InternalTraceMassGen =
+    redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens_pipeToPHX_PFL))                        annotation (
+        (mC_gens=mC_gens_pipeToPHX_PFL),
+    Cs_start=Cs_start_pipeToPHX_PFL,
+    redeclare model InternalHeatGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+        (Q_gens=Qs_gen_pipeToPHX_PFL))                          annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={160,70})));
   Fluid.Machines.Pump_SimpleMassFlow pump_PFL(redeclare package Medium =
         Medium_PFL,
-    use_input=true,
-    m_flow_nominal=2*3*data_PHX.m_flow_tube)
+    m_flow_nominal=2*3*data_PHX.m_flow_tube,
+    use_input=true)
     annotation (Placement(transformation(extent={{40,118},{60,138}})));
   Fluid.Volumes.ExpansionTank pumpBowl_PFL(
     redeclare package Medium = Medium_PFL,
@@ -457,7 +659,9 @@ model MSR_10
     h_start=pumpBowl_PFL.Medium.specificEnthalpy_pT(pumpBowl_PFL.p_start,
         data_PHX.T_inlet_tube),
     A=3*data_RCTR.crossArea_pumpbowl,
-    mC_gen=mC_gen_pumpBowl_PFL)
+    mC_gen=mC_gen_pumpBowl_PFL,
+    C_start=C_start_pumpBowl_PFL,
+    Q_gen=Qs_gen_pumpBowl_PFL)
     annotation (Placement(transformation(extent={{10,124},{30,144}})));
 
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
@@ -466,40 +670,46 @@ model MSR_10
     x2=if PHX.counterCurrent == true then Modelica.Math.Vectors.reverse(PHX.shell.summary.xpos_norm)
          else PHX.shell.summary.xpos_norm,
     y2={PHX.shell.mediums[i].T for i in 1:PHX.geometry.nV},
-    minY1=min({data_PHX.T_inlet_tube,data_PHX.T_inlet_shell,data_PHX.T_outlet_tube,
-        data_PHX.T_outlet_shell}),
     maxY1=max({data_PHX.T_inlet_tube,data_PHX.T_inlet_shell,data_PHX.T_outlet_tube,
-        data_PHX.T_outlet_shell}))
-    annotation (Placement(transformation(extent={{194,-122},{244,-78}})));
-  inner TRANSFORM.Fluid.SystemTF systemTF(showName=false)
+        data_PHX.T_outlet_shell}),
+    minY1=min({data_SHX.T_inlet_tube,data_SHX.T_inlet_shell,data_SHX.T_outlet_tube,
+        data_SHX.T_outlet_shell}))
+    annotation (Placement(transformation(extent={{172,-206},{244,-134}})));
+  inner TRANSFORM.Fluid.SystemTF systemTF(showName=false,
+    showColors=true,
+    val_max=data_PHX.T_inlet_tube,
+    val_min=data_PHX.T_inlet_shell)
     annotation (Placement(transformation(extent={{200,120},{220,140}})));
-  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_Drift kinetics(
+  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_atomBased_external kinetics(
     nV=fuelCell.nV,
     Q_nominal=data_RCTR.Q_nominal,
-    vals_feedback=fuelCell.mediums.T,
-    vals_feedback_reference=linspace(
+    mCs=fuelCell.mCs[:, kinetics.summary_data.iPG[1]:kinetics.summary_data.iPG[2]]
+        *fuelCell.nParallel,
+    mCs_FP=fuelCell.mCs[:, kinetics.summary_data.iFP[1]:kinetics.summary_data.iFP[
+        2]]*fuelCell.nParallel,
+    vals_feedback=matrix(fuelCell.mediums.T),
+    vals_feedback_reference=matrix(linspace(
         data_RCTR.T_inlet_core,
         data_RCTR.T_outlet_core,
-        fuelCell.nV),
-    specifyPower=true,
-    lambda_i=data_traceSubstances.precursorGroups.lambdas,
-    nC=data_traceSubstances.fissionProducts.nC,
-    mCs=fuelCell.mCs[:, data_traceSubstances.iPG[1]:data_traceSubstances.iPG[2]]
-        *fuelCell.nParallel,
-    nT=data_traceSubstances.fissionProducts.nT,
-    nFS=2,
-    lambda_FP=data_traceSubstances.fissionProducts.lambdas,
-    fissionYield=data_traceSubstances.fissionProducts.fissionYield,
-    fissionSource={0.6,0.4},
-    w_FP_decay=data_traceSubstances.fissionProducts.w_decay,
-    mCs_FP=fuelCell.mCs[:, data_traceSubstances.iFP[1]:data_traceSubstances.iFP[
+        fuelCell.nV)),
+    mCs_TR=fuelCell.mCs[:, kinetics.summary_data.iTR[1]:kinetics.summary_data.iTR[
         2]]*fuelCell.nParallel,
-    parents=data_traceSubstances.fissionProducts.parents)
+    Vs=fuelCell.Vs*fuelCell.nParallel,
+    specifyPower=true,
+    nFeedback=1,
+    alphas_feedback=fill(
+        -1e-4,
+        kinetics.nV,
+        kinetics.nFeedback),
+    SigmaF_start=26,
+    redeclare record Data =
+        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
+    redeclare record Data_FP =
+        TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_cut6_U235_Pu239,
+    redeclare record Data_TR =
+        TRANSFORM.Nuclear.ReactorKinetics.Data.Tritium.FLiBe)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
-    data_traceSubstances(redeclare record FissionProducts =
-        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_test)
-    annotation (Placement(transformation(extent={{260,120},{280,140}})));
+
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
                                                pipeFromPHX_PCL(
     nParallel=3,
@@ -527,7 +737,8 @@ model MSR_10
         data_SHX.T_outlet_shell))
     annotation (Placement(transformation(extent={{210,36},{230,56}})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_PCL(redeclare package
-      Medium = Medium_PCL, m_flow_nominal=2*3*data_PHX.m_flow_shell)
+      Medium = Medium_PCL, m_flow_nominal=2*3*data_PHX.m_flow_shell,
+    use_input=false)
     annotation (Placement(transformation(extent={{240,30},{260,50}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface pipeToSHX_PCL(
     nParallel=3,
@@ -568,20 +779,18 @@ model MSR_10
         origin={230,-40})));
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T
                                             boundary4(
-    redeclare package Medium = Modelica.Media.Water.StandardWater,
     m_flow=2*3*data_SHX.m_flow_tube,
     T=data_SHX.T_inlet_tube,
-    nPorts=1)                 annotation (Placement(transformation(
+    nPorts=1,
+    showName=systemTF.showName,
+    redeclare package Medium = Medium_BOP)
+                              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={330,-40})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HXold SHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HX_withMass SHX(
     redeclare package Medium_shell = Medium_PCL,
-    redeclare package Material_tubeWall = TRANSFORM.Media.Solids.AlloyN,
     nParallel=2*3,
-    redeclare model HeatTransfer_tube =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
-    redeclare package Medium_tube = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
         (
@@ -601,14 +810,33 @@ model MSR_10
     T_a_start_tube=data_SHX.T_inlet_tube,
     T_b_start_tube=data_SHX.T_outlet_tube,
     m_flow_a_start_tube=2*3*data_SHX.m_flow_tube,
+    redeclare model HeatTransfer_tube =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare model HeatTransfer_shell =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
         (
         D=data_SHX.D_tube_outer,
         S_T=data_SHX.pitch_tube,
         S_L=data_SHX.pitch_tube,
-        CF=fill(0.44, SHX.shell.heatTransfer.nHT))) annotation (Placement(
-        transformation(
+        CFs=
+           fill(
+            0.44,
+            SHX.shell.heatTransfer.nHT,
+            SHX.shell.heatTransfer.nSurfaces)),
+    redeclare package Material_wall = TRANSFORM.Media.Solids.AlloyN,
+    nC=1,
+    redeclare package Medium_tube = Medium_BOP,
+    use_TraceMassTransfer_shell=true,
+    use_TraceMassTransfer_tube=true,
+    redeclare model TraceMassTransfer_shell =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
+        (MMs={6.022e23}),
+    redeclare model TraceMassTransfer_tube =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
+        (MMs={6.022e23}),
+    redeclare model DiffusionCoeff_wall =
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+        (D_ab0=0.00000001)) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={300,0})));
@@ -617,8 +845,10 @@ model MSR_10
                                        boundary1(
     p=data_SHX.p_outlet_tube,
     T=data_SHX.T_outlet_tube,
-    redeclare package Medium = Modelica.Media.Water.StandardWater,
-    nPorts=1)                annotation (Placement(transformation(
+    nPorts=1,
+    showName=systemTF.showName,
+    redeclare package Medium = Medium_BOP)
+                             annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={330,40})));
@@ -632,7 +862,7 @@ model MSR_10
         data_SHX.T_outlet_shell}),
     maxY1=max({data_SHX.T_inlet_tube,data_SHX.T_inlet_shell,data_SHX.T_outlet_tube,
         data_SHX.T_outlet_shell}))
-    annotation (Placement(transformation(extent={{256,-122},{306,-78}})));
+    annotation (Placement(transformation(extent={{260,-204},{330,-134}})));
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T boundary_OffGas_source(
     T=data_OFFGAS.T_sep_ref,
     redeclare package Medium = Medium_OffGas,
@@ -640,12 +870,12 @@ model MSR_10
     use_m_flow_in=true,
     use_T_in=true,
     nPorts=1,
-    use_C_in=false)
+    use_C_in=false,
+    showName=systemTF.showName)
     annotation (Placement(transformation(extent={{-310,98},{-290,118}})));
   TRANSFORM.Fluid.TraceComponents.TraceDecayAdsorberBed adsorberBed(
     nV=10,
     redeclare package Medium = Medium_OffGas,
-    Qs_decay=fill(1e5, Medium_OffGas.nC),
     d_adsorber=data_OFFGAS.d_carbon,
     cp_adsorber=data_OFFGAS.cp_carbon,
     tau_res=data_OFFGAS.delay_charcoalBed,
@@ -653,9 +883,10 @@ model MSR_10
     use_HeatPort=true,
     T_a_start=data_OFFGAS.T_carbon,
     showName=systemTF.showName,
-    lambdas=data_traceSubstances.lambdas,
+    lambdas=kinetics.summary_data.lambdas,
     iC=8,
-    parents=data_traceSubstances.parents)
+    parents=kinetics.summary_data.parents,
+    Qs_decay=kinetics.summary_data.w_near_decay + kinetics.summary_data.w_far_decay)
     annotation (Placement(transformation(extent={{-230,-30},{-210,-10}})));
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_OFFGAS
                    data_OFFGAS
@@ -682,15 +913,10 @@ model MSR_10
     showName=systemTF.showName,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
-        (V=data_OFFGAS.volume_drainTank_inner - drainTank_liquid.V))
+        (V=data_OFFGAS.volume_drainTank_inner - drainTank_liquid.V),
+    Q_gen=Qs_gen_drainTank_gas)
     annotation (Placement(transformation(extent={{-260,-10},{-240,-30}})));
 
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature boundary_thermal_drainTank_gas(T=
-        data_OFFGAS.T_drainTank, showName=systemTF.showName)
-                                 annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-250,10})));
   TRANSFORM.Fluid.Volumes.ExpansionTank drainTank_liquid(
     redeclare package Medium = Medium_PFL,
     p_surface=drainTank_gas.medium.p,
@@ -700,7 +926,8 @@ model MSR_10
     use_HeatPort=true,
     A=data_OFFGAS.crossArea_drainTank_inner,
     level_start=0.20,
-    showName=systemTF.showName)
+    showName=systemTF.showName,
+    Q_gen=Qs_gen_drainTank_liquid)
     annotation (Placement(transformation(extent={{-260,-64},{-240,-44}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_fromDrainTank(
     redeclare package Medium = Medium_PFL,
@@ -709,15 +936,8 @@ model MSR_10
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-220,-60})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature boundary_thermal_drainTank_liquid(T=
-        data_OFFGAS.T_drainTank, showName=systemTF.showName)
-                                 annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={-250,-90})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_drainTank(redeclare package
-              Medium =
-               Medium_PFL, use_input=true)
+      Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
   TRANSFORM.Controls.TankLevelControl drainTankLevelControl(
     level=drainTank_liquid.level,
@@ -748,8 +968,7 @@ model MSR_10
         rotation=90,
         origin={-270,90})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_bypass(redeclare package
-              Medium =
-               Medium_PFL, use_input=true)
+      Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-238,102},{-258,122}})));
   Modelica.Blocks.Sources.RealExpression m_flow_pump_bypass(y=x_bypass.y*abs(
         pump_PFL.port_a.m_flow))
@@ -757,11 +976,8 @@ model MSR_10
   Modelica.Blocks.Sources.RealExpression boundary_fromPump_PFL_bypass_p(y=
         pumpBowl_PFL.p)
     annotation (Placement(transformation(extent={{-142,28},{-162,48}})));
-  Modelica.Blocks.Sources.RealExpression m_flow_pump_PFL(y=2*3*data_PHX.m_flow_tube
-        /(1 - x_bypass.y))
-    annotation (Placement(transformation(extent={{76,132},{56,152}})));
   Modelica.Blocks.Sources.Constant x_bypass(k=0.1)
-    annotation (Placement(transformation(extent={{180,90},{200,110}})));
+    annotation (Placement(transformation(extent={{200,90},{220,110}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface reflR(
     redeclare model HeatTransfer =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
@@ -773,19 +989,23 @@ model MSR_10
     showName=systemTF.showName,
     nParallel=data_RCTR.nRegions,
     m_flow_a_start=0.05*data_RCTR.m_flow,
-    redeclare model InternalTraceMassGen =
+    redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflR),
+    Cs_start=Cs_start_reflR,
+    redeclare model InternalHeatGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+        (Q_gens=Qs_gen_reflR),
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (
-        nV=10,
         angle=toggleStaticHead*90,
         crossArea=data_RCTR.crossArea_reflR,
         perimeter=data_RCTR.perimeter_reflR,
         length=data_RCTR.length_reflR,
         surfaceArea={reflRG.nParallel/reflR.nParallel*sum(reflRG.geometry.crossAreas_1
-            [1, :])}))                    annotation (Placement(transformation(
+            [1, :])},
+        nV=fuelCell.nV))                  annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={20,0})));
@@ -808,8 +1028,10 @@ model MSR_10
         nY=fuelCell.nV,
         length_x=0.5*data_RCTR.width_reflR_blockG,
         length_y=data_RCTR.length_reflR,
-        length_z=data_RCTR.length_reflR_blockG))
-                                          annotation (Placement(transformation(
+        length_z=data_RCTR.length_reflR_blockG),
+    redeclare model InternalHeatModel =
+        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
+        (Q_gens=Qs_gen_reflRG))           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,0})));
@@ -953,8 +1175,19 @@ model MSR_10
     alpha_shell_PHX=sum(PHX.shell.heatTransfer.alphas)/PHX.shell.nV,
     alpha_tube_SHX=sum(SHX.tube.heatTransfer.alphas)/SHX.tube.nV,
     alpha_shell_SHX=sum(SHX.shell.heatTransfer.alphas)/SHX.shell.nV)
-    annotation (Placement(transformation(extent={{-350,-130},{-330,-110}})));
+    annotation (Placement(transformation(extent={{260,120},{280,140}})));
 
+  TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS DRACS(
+    redeclare package Medium_DRACS = Medium_DRACS,
+    showName=systemTF.showName,
+    surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*DRACS.nP_outer_drainTank[
+        1].nParallel*{drainTank_liquid.level/data_OFFGAS.length_drainTank_inner,
+        1 - drainTank_liquid.level/data_OFFGAS.length_drainTank_inner},
+    alphas_drainTank={5000,1000})
+    annotation (Placement(transformation(extent={{-354,-96},{-284,-16}})));
+  Modelica.Blocks.Sources.RealExpression m_flow_pump_PFL(y=2*3*data_PHX.m_flow_tube
+        /(1 - x_bypass.y))
+    annotation (Placement(transformation(extent={{76,132},{56,152}})));
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},
@@ -1046,8 +1279,6 @@ equation
           0,0,127}));
   connect(boundary_thermal_adsorberBed.port, adsorberBed.heatPorts)
     annotation (Line(points={{-220,0},{-220,-15}},color={191,0,0}));
-  connect(boundary_thermal_drainTank_gas.port, drainTank_gas.heatPort)
-    annotation (Line(points={{-250,0},{-250,-14}},color={191,0,0}));
   connect(drainTank_liquid.port_b, resistance_fromDrainTank.port_a)
     annotation (Line(points={{-243,-60},{-227,-60}}, color={0,127,255}));
   connect(resistance_fromDrainTank.port_b, pump_drainTank.port_a)
@@ -1070,8 +1301,6 @@ equation
           -20},{-238,-20},{-238,-19.5},{-244,-19.5}},       color={0,127,255}));
   connect(pump_bypass.port_b, traceSeparator.port_a) annotation (Line(points={{-258,
           112},{-264,112},{-264,100}}, color={0,127,255}));
-  connect(boundary_thermal_drainTank_liquid.port, drainTank_liquid.heatPort)
-    annotation (Line(points={{-250,-80},{-250,-62.4}}, color={191,0,0}));
   connect(traceSeparator.port_sepFluid, drainTank_liquid.port_a) annotation (
       Line(points={{-270,80},{-270,-60},{-257,-60}},           color={0,127,255}));
   connect(traceSeparator.port_b_carrier, drainTank_gas.port_a[1]) annotation (
@@ -1094,8 +1323,6 @@ equation
                  color={0,127,255}));
   connect(pump_bypass.port_a, pipeToPHX_PFL.port_a) annotation (Line(points={{-238,
           112},{-230,112},{-230,150},{160,150},{160,80}},      color={0,127,255}));
-  connect(m_flow_pump_PFL.y, pump_PFL.in_m_flow)
-    annotation (Line(points={{55,142},{50,142},{50,135.3}}, color={0,0,127}));
   connect(resistance_reflR_outlet.port_b, reflA_upper.port_a) annotation (Line(
         points={{20,37},{20,46},{0,46},{0,50}}, color={0,127,255}));
   connect(reflR.port_a, resistance_reflR_inlet.port_b)
@@ -1112,8 +1339,46 @@ equation
     annotation (Line(points={{60,0},{68,0}}, color={191,0,0}));
   connect(reflRG.port_b2, reflRG_upper_bc.port)
     annotation (Line(points={{50,10},{50,20}}, color={191,0,0}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-360,-150},
-            {340,150}})),                                        Diagram(
-        coordinateSystem(preserveAspectRatio=false, extent={{-360,-150},{340,150}})),
-    experiment(StopTime=5000, __Dymola_NumberOfIntervals=5000));
-end MSR_10;
+  connect(drainTank_liquid.heatPort, DRACS.port_thimbleWall[1]) annotation (
+      Line(points={{-250,-62.4},{-250,-82},{-284,-82}}, color={191,0,0}));
+  connect(drainTank_gas.heatPort, DRACS.port_thimbleWall[2]) annotation (Line(
+        points={{-250,-14},{-250,-8},{-260,-8},{-260,-78},{-284,-78}}, color={
+          191,0,0}));
+  connect(m_flow_pump_PFL.y, pump_PFL.in_m_flow)
+    annotation (Line(points={{55,142},{50,142},{50,135.3}}, color={0,0,127}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-360,
+            -220},{340,180}})),                                  Diagram(
+        coordinateSystem(preserveAspectRatio=false, extent={{-360,-220},{340,
+            180}}), graphics={
+        Text(
+          extent={{188,-106},{312,-120}},
+          lineColor={0,0,0},
+          textString="Heat Exchanger Temperature Profiles",
+          textStyle={TextStyle.Bold,TextStyle.UnderLine}),
+        Text(
+          extent={{-33,5},{33,-5}},
+          lineColor={0,0,0},
+          origin={167,-173},
+          rotation=90,
+          textString="Temperature [K]"),
+        Text(
+          extent={{154,-126},{266,-136}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Bold,TextStyle.UnderLine},
+          textString="Primary Fuel HX"),
+        Text(
+          extent={{240,-126},{352,-136}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Bold,TextStyle.UnderLine},
+          textString="Primary Coolant HX"),
+        Text(
+          extent={{-33,5},{33,-5}},
+          lineColor={0,0,0},
+          origin={253,-215},
+          rotation=0,
+          textString="Position")}),
+    experiment(
+      StopTime=10000,
+      __Dymola_NumberOfIntervals=5000,
+      __Dymola_Algorithm="Esdirk45a"));
+end MSR_13;

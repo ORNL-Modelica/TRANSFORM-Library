@@ -304,8 +304,7 @@ model SFR_5
     m_flow=data.nIHXs*data.m_flow_IHX_IHTS)
     annotation (Placement(transformation(extent={{120,-112},{100,-92}})));
   Fluid.BoundaryConditions.Boundary_pT boundary9(          redeclare package
-              Medium =
-               Medium,
+      Medium = Medium,
     nPorts=1,
     p=data.p_start,
     T=data.T_IHX_outletIHTS)

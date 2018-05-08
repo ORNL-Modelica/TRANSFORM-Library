@@ -2,8 +2,7 @@ within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components;
 model MoistureSeparatorReheater "Moisture separator reheater"
   import TRANSFORM;
 
-  Interfaces.FluidPort_Flow                 feed(redeclare package
-      Medium =
+  Interfaces.FluidPort_Flow                 feed(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
                 annotation (Placement(transformation(extent={{-10,-56},{10,-36}}),
         iconTransformation(extent={{-10,-56},{10,-36}})));
@@ -97,8 +96,7 @@ redeclare model Geometry =
  parameter Integer N_drain=0 "Number of drain ports"
     annotation (Dialog(connectorSizing=true));
   Interfaces.FluidPort_Flow                 condensateDrain(redeclare package
-              Medium =
-               Modelica.Media.Water.StandardWater)
+      Medium = Modelica.Media.Water.StandardWater)
                        annotation (Placement(transformation(extent={{84,-52},{104,
             -32}}), iconTransformation(extent={{68,-56},{88,-36}})));
   Records.MoistureSeparatorReheaterSummary summary(

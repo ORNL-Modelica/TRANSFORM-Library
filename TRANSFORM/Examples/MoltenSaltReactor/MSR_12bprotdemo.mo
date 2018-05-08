@@ -740,7 +740,7 @@ public
     mCs_FP=fuelCell.mCs[:, data_traceSubstances.iFP[1]:data_traceSubstances.iFP[
         2]]*fuelCell.nParallel,
     parents=data_traceSubstances.data_FP.parents,
-    sigmaA_FP=data_traceSubstances.data_FP.sigmaA_thermal,
+    sigmaA_FP=data_traceSubstances.data_FP.sigmasA,
     fissionYield=data_traceSubstances.data_FP.fissionYields[:, :, 1],
     vals_feedback=matrix(fuelCell.mediums.T),
     vals_feedback_reference=matrix(linspace(
@@ -1231,7 +1231,7 @@ protected
     alpha_shell_SHX=sum(SHX.shell.heatTransfer.alphas)/SHX.shell.nV)
     annotation (Placement(transformation(extent={{230,120},{250,140}})));
 
-  TRANSFORM.Examples.MoltenSaltReactor.DRACS DRACS(
+  TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS DRACS(
     redeclare package Medium_DRACS = Medium_DRACS,
     showName=systemTF.showName,
     surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*DRACS.nP_outer_drainTank[

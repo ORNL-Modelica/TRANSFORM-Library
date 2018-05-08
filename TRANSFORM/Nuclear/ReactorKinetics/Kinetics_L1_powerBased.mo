@@ -611,5 +611,8 @@ equation
           fillPattern=FillPattern.Sphere,
           pattern=LinePattern.None,
           lineColor={0,0,0})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>For point kinetics leave nV = 1</p>
+</html>"));
 end Kinetics_L1_powerBased;

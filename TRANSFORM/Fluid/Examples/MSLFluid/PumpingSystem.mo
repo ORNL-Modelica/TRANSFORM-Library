@@ -86,8 +86,7 @@ model PumpingSystem "Model of a pumping system for drinking water"
     amplitude=1200,
     offset=0.001) annotation (Placement(transformation(extent={{0,60},{20,80}})));
   TRANSFORM.Fluid.Sensors.RelativePressure reservoirPressure(redeclare package
-              Medium =
-               Medium)
+      Medium = Medium)
     annotation (Placement(transformation(extent={{10,-12},{30,-32}})));
   Modelica.Blocks.Continuous.FirstOrder PT1(
     T=2,

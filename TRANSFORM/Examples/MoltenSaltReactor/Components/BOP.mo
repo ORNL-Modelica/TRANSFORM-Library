@@ -1,4 +1,4 @@
-within TRANSFORM.Examples.MoltenSaltReactor;
+within TRANSFORM.Examples.MoltenSaltReactor.Components;
 model BOP
 
   package Medium_PCL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT (

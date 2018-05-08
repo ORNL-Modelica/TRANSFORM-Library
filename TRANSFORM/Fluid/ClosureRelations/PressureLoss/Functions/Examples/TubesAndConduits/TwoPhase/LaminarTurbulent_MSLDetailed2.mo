@@ -19,8 +19,7 @@ model LaminarTurbulent_MSLDetailed2
 
   parameter SI.MassFlowRate m_flow=1;
 
-  Media.BaseProperties2Phase mediaProps(redeclare package
-      Medium =                                                     Medium,
+  Media.BaseProperties2Phase mediaProps(redeclare package Medium = Medium,
       state=state)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

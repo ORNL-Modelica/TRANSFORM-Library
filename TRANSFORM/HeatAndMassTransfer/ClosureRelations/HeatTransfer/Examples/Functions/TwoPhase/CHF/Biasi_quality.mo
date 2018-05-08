@@ -23,8 +23,7 @@ model Biasi_quality
 
   SIadd.NonDim x_CHF;
 
-  TRANSFORM.Media.BaseProperties2Phase mediaProps(redeclare package
-              Medium =
+  TRANSFORM.Media.BaseProperties2Phase mediaProps(redeclare package Medium =
         Medium, state=state)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

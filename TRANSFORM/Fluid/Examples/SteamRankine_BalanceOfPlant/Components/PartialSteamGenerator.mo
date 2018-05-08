@@ -48,8 +48,7 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
         transformation(extent={{90,-90},{110,-70}}), iconTransformation(extent=
             {{90,-90},{110,-70}})));
   Interfaces.FluidPort_Flow                 drain_steam(redeclare package
-              Medium =
-               Modelica.Media.Water.StandardWater)
+      Medium = Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{90,42},{110,62}})));
   PumpSimple                                              circulationPump(
     V=0.2,
@@ -68,8 +67,7 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
         initData.p_start_boiler)))
     annotation (Placement(transformation(extent={{10,-98},{-10,-78}})));
 
-  FittingsAndResistances.ElevationChange heightDiff(redeclare package
-      Medium =
+  FittingsAndResistances.ElevationChange heightDiff(redeclare package Medium =
         Modelica.Media.Water.StandardWater, dheight=-60*conversion_feet_to_m)
     annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},

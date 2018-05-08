@@ -40,7 +40,7 @@ model FissionProducts_externalBalance_withTritium
   parameter SI.MacroscopicCrossSection SigmaF_start=1
     "Macroscopic fission cross-section of fissile material"
     annotation (Dialog(tab="Initialization", group="Fission Sources"));
-  parameter SI.Area sigmasA_start[nC]=data.sigmaA_thermal
+  parameter SI.Area sigmasA_start[nC]=data.sigmasA
     "Microscopic absorption cross-section for reactivity feedback"
     annotation (Dialog(tab="Initialization", group="Fission Products"));
   parameter Real fissionYields_start[nC,nFS,nT]=data.fissionYields

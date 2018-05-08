@@ -692,7 +692,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     mCs_FP=fuelCell.mCs[:, data_traceSubstances.iFP[1]:data_traceSubstances.iFP[
         2]]*fuelCell.nParallel,
     parents=data_traceSubstances.data_FP.parents,
-    sigmaA_FP=data_traceSubstances.data_FP.sigmaA_thermal,
+    sigmaA_FP=data_traceSubstances.data_FP.sigmasA,
     fissionYield=data_traceSubstances.data_FP.fissionYields[:, :, 1],
     vals_feedback=matrix(fuelCell.mediums.T),
     vals_feedback_reference=matrix(linspace(
@@ -945,8 +945,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         rotation=0,
         origin={-220,-60})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_drainTank(redeclare package
-              Medium =
-               Medium_PFL, use_input=true)
+      Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
   TRANSFORM.Controls.TankLevelControl drainTankLevelControl(
     level=drainTank_liquid.level,
@@ -977,8 +976,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         rotation=90,
         origin={-270,90})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_bypass(redeclare package
-              Medium =
-               Medium_PFL, use_input=true)
+      Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-238,102},{-258,122}})));
   Modelica.Blocks.Sources.RealExpression m_flow_pump_bypass(y=x_bypass.y*abs(
         pump_PFL.port_a.m_flow))
@@ -1187,7 +1185,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     alpha_shell_SHX=sum(SHX.shell.heatTransfer.alphas)/SHX.shell.nV)
     annotation (Placement(transformation(extent={{230,120},{250,140}})));
 
-  TRANSFORM.Examples.MoltenSaltReactor.DRACS DRACS(
+  TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS DRACS(
     redeclare package Medium_DRACS = Medium_DRACS,
     showName=systemTF.showName,
     surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*DRACS.nP_outer_drainTank[

@@ -93,16 +93,13 @@ model Pressurizer_withWall
     energyDynamics=energyDynamics,
     massDynamics=massDynamics)
     annotation (Placement(transformation(extent={{-26,-30},{26,30}})));
-  Interfaces.FluidPort_State            sprayPort(redeclare package
-      Medium =
+  Interfaces.FluidPort_State            sprayPort(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
-  Interfaces.FluidPort_State            reliefPort(redeclare package
-      Medium =
+  Interfaces.FluidPort_State            reliefPort(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
-  Interfaces.FluidPort_State            surgePort(redeclare package
-      Medium =
+  Interfaces.FluidPort_State            surgePort(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 

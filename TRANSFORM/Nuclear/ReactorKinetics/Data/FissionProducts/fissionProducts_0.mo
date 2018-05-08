@@ -14,14 +14,14 @@ record fissionProducts_0 "Choose to define no fission products"
     lambdas=fill(1, nC),
     w_near_decay=fill(0, nC),
     w_far_decay=fill(0, nC),
-    sigmaA_thermal=fill(0, nC),
+    sigmasA=fill(0, nC),
     parents=fill(
         0,
         nC,
         nC));
 
-
-  annotation (defaultComponentName="data",
+  annotation (
+    defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info=""));

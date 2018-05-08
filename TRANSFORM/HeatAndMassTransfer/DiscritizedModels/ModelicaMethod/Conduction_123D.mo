@@ -10,8 +10,7 @@ model Conduction_123D
   extends
     TRANSFORM.HeatAndMassTransfer.Interfaces.Records.InitialConditions.DistributedVolume_solid3D(
       final ns=nVs);
-  extends
-    TRANSFORM.HeatAndMassTransfer.Interfaces.Records.EnergyDynamics;
+  extends TRANSFORM.HeatAndMassTransfer.Interfaces.Records.EnergyDynamics;
 
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_3D

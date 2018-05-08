@@ -1,6 +1,8 @@
 within TRANSFORM.Nuclear.ReactorKinetics;
 model PointKinetics_Drift
 
+  extends TRANSFORM.Icons.ObsoleteModel;
+
   import TRANSFORM.Types.Dynamics;
   import TRANSFORM.Math.fillArray_1D;
 

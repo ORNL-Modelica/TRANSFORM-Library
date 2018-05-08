@@ -25,8 +25,8 @@ partial record PartialFissionProduct
   parameter SI.Energy w_far_decay[nC]=fill(0, nC)
     "Energy release (far field - gamma) per fission product decay";
 
-  parameter SI.Area[nC] sigmaA_thermal = fill(0,nC) "Thermal absorption cross-section for reactivity feedback";
-  parameter SI.Area[nC] sigmaA_fast = fill(0,nC) "Fast absorption cross-section for reactivity feedback";
+  parameter SI.Area sigmasA[nC]=fill(0, nC)
+    "Microscopic absorption cross-section for reactivity feedback";
 
   constant Real[nC,nC] parents = fill(0,nC,nC) "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
 

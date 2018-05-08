@@ -14,7 +14,7 @@ record fissionProducts_TeIXe_U235
     lambdas={log(2)/19,log(2)/23760,log(2)/32760},
     w_near_decay=1.6022e-16*{6000,1300,910},
     w_far_decay=1.6022e-16*{603.5,1260.4,249.8},
-    sigmaA_thermal=1e-28*{0,0,2.6e6},
+    sigmasA=1e-28*{0,0,2.6e6},
     parents=[[0,0,0]; [1,0,0]; [0,1,0]]);
 
   parameter Real[nC,nFS] fissionYield_t=transpose({

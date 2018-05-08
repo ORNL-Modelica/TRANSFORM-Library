@@ -19,8 +19,7 @@ model data_RCTR
   import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
   import TRANSFORM.Units.Conversions.Functions.Area_m2.from_inch2;
   import TRANSFORM.Units.Conversions.Functions.Distance_m.from_feet;
-  import
-    TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr;
+  import TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr;
   import TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degF;
   import Modelica.Constants.pi;
 

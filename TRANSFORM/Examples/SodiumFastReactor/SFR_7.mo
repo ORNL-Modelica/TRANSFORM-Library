@@ -312,8 +312,7 @@ model SFR_7
     level_start=data.level_start_hot_expanstionTank)
     annotation (Placement(transformation(extent={{-64,22},{-44,42}})));
   Fluid.BoundaryConditions.Boundary_pT boundary9(          redeclare package
-              Medium =
-               Medium_PHTS,
+      Medium = Medium_PHTS,
     T=data.T_IHX_outletIHTS,
     p=100000,
     nPorts=3)

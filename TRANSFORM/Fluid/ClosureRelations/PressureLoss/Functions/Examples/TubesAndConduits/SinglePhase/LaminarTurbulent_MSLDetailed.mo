@@ -50,8 +50,7 @@ model LaminarTurbulent_MSLDetailed
     mu_b=mus_b)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
-  Media.BaseProperties1Phase[nFM + 1] mediaProps(redeclare package
-              Medium =
+  Media.BaseProperties1Phase[nFM + 1] mediaProps(redeclare package Medium =
         Medium, state=states_start) "Bulk fluid properties"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
