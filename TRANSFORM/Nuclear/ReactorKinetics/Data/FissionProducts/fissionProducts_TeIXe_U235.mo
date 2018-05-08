@@ -1,6 +1,6 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts;
 record fissionProducts_TeIXe_U235
-  "List of Te-135, I-135 and Xe-135 for U-235 fuel"
+  "FS = U-235 | FP = Te-135, I-135, Xe-135"
 
   // Values taken from Chapter 6 of W. M. STACEY, Nuclear Reactor Physics, Wiley-VCH Verlag GmbH & Co. KGaA, Weinheim, Germany (2007); https://doi.org/10.1002/9783527611041.
   // Decay values taken from most likely value from chart of the nuclides 17E
