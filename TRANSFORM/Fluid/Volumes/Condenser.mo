@@ -145,15 +145,13 @@ model Condenser
         rotation=90,
         origin={60,10})));
   FittingsAndResistances.SpecifiedResistance resistance_a(redeclare package
-              Medium =
-               Medium_coolant, R=R_a_coolant) if not exposeState_a_coolant
+      Medium = Medium_coolant, R=R_a_coolant) if not exposeState_a_coolant
                                     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={60,30})));
   FittingsAndResistances.SpecifiedResistance resistance_b(redeclare package
-              Medium =
-               Medium_coolant, R=R_b_coolant) if not exposeState_b_coolant
+      Medium = Medium_coolant, R=R_b_coolant) if not exposeState_b_coolant
                                     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,

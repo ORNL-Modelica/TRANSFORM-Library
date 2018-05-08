@@ -4,6 +4,8 @@ model smoothMax
   extends TRANSFORM.Icons.Example;
 
   Real y "Function value";
+  Utilities.ErrorAnalysis.UnitTests unitTests(x={y})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   y =TRANSFORM.Math.smoothMax(
     x1=0,

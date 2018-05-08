@@ -44,3 +44,4 @@ smoothMin_splice
 regStep
 replaceArrayValues
 indexFilter
+integral_TrapezoidalRule

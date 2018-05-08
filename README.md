@@ -1,9 +1,10 @@
 # TRANSFORM-Library
+__TRANsient Simulation Framework of Reconfigurable Models__
+
+
 A Modelica based library for modeling thermal hydraulic energy systems and other multi-physics systems
 
-DOI: 10.11578/dc.20171109.1 
 
-DOI: 10.11578/dc.20171025.2022 
 
 This is the development site for the Modelica _TRANSFORM_ library and its user guide.
 
@@ -56,3 +57,10 @@ This application uses Open Source components. You can find the source code of th
 Project: Modelica Standard Library https://github.com/modelica/Modelica
 
 3-Clause BSD License https://github.com/modelica/ModelicaStandardLibrary/blob/master/LICENSE
+
+## Citation
+Greenwood, M. S.: TRANSFORM - TRANsient Simulation Framework of Reconfigurable Models. Computer Software. https://github.com/ORNL-Modelica/TRANSFORM-Library. 07 Nov. 2017. Web. Oak Ridge National Laboratory. doi:10.11578/dc.20171109.1.
+
+## Extended Description
+
+Existing development tools for early stage design and scoping of energy systems are often time consuming to use, proprietary, and do not contain the necessary function to model complete systems (i.e., controls, primary, and secondary systems) in a common platform. The Modelica programming language based TRANSFORM tool (1) provides a standardized, common simulation environment for early design of energy systems (i.e., power plants), (2) provides a library of baseline component modules to be assembled into full plant models using available geometry, design, and thermal-hydraulic data, (3) defines modeling conventions for interconnecting component models, and (4) establishes user interfaces and support tools to facilitate simulation development (i.e., configuration and parameterization), execution, and results display and capture.

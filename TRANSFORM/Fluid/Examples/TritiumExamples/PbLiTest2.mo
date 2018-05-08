@@ -57,8 +57,7 @@ model PbLiTest2
     T_b_start=743.15,
     redeclare model TraceMassTransfer =
       ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.Shs_SinglePhase_Overall
-        (MMs=fill(0.006032, permeator.nC), redeclare model
-          DiffusionCoeff =
+        (MMs=fill(0.006032, permeator.nC), redeclare model DiffusionCoeff =
           TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
             (
             iTable={1},

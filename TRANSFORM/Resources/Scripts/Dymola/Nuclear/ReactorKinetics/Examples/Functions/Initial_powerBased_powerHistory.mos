@@ -1,0 +1,19 @@
+simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Functions.Initial_powerBased_powerHistory",resultFile="Initial_powerBased_powerHistory");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
+createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
+createPlot(id=3, y={"unitTests.x[3]"}, grid=true);
+createPlot(id=4, y={"unitTests.x[4]"}, grid=true);
+createPlot(id=5, y={"unitTests.x[5]"}, grid=true);
+createPlot(id=6, y={"unitTests.x[6]"}, grid=true);
+createPlot(id=7, y={"unitTests.x[7]"}, grid=true);
+createPlot(id=8, y={"unitTests.x[8]"}, grid=true);
+createPlot(id=9, y={"unitTests.x[9]"}, grid=true);
+createPlot(id=10, y={"unitTests.x[10]"}, grid=true);
+createPlot(id=11, y={"unitTests.x[11]"}, grid=true);
+createPlot(id=12, y={"unitTests.x[12]"}, grid=true);
+createPlot(id=13, y={"unitTests.x[13]"}, grid=true);
+createPlot(id=14, y={"unitTests.x[14]"}, grid=true);
+createPlot(id=15, y={"unitTests.x[15]"}, grid=true);
+createPlot(id=16, y={"unitTests.x[16]"}, grid=true);
+createPlot(id=17, y={"unitTests.x[17]"}, grid=true);

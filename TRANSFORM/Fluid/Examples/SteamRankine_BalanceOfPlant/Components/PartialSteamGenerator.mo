@@ -28,7 +28,7 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
         th_wall=0.04),
     alpha_external=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
-      Placement(transformation(extent={{20,-18},{-20,22}}, rotation=0)));
+      Placement(transformation(extent={{-20,-18},{20,22}}, rotation=0)));
 
   Valves.ValveCompressible                MSIValve(
     m_flow_nominal=nominalData.m_flow_nom_feedWater,
@@ -48,8 +48,7 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
         transformation(extent={{90,-90},{110,-70}}), iconTransformation(extent=
             {{90,-90},{110,-70}})));
   Interfaces.FluidPort_Flow                 drain_steam(redeclare package
-              Medium =
-               Modelica.Media.Water.StandardWater)
+      Medium = Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{90,42},{110,62}})));
   PumpSimple                                              circulationPump(
     V=0.2,
@@ -68,8 +67,7 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
         initData.p_start_boiler)))
     annotation (Placement(transformation(extent={{10,-98},{-10,-78}})));
 
-  FittingsAndResistances.ElevationChange heightDiff(redeclare package
-      Medium =
+  FittingsAndResistances.ElevationChange heightDiff(redeclare package Medium =
         Modelica.Media.Water.StandardWater, dheight=-60*conversion_feet_to_m)
     annotation (Placement(transformation(
         extent={{-8,-8},{8,8}},
@@ -229,7 +227,7 @@ equation
       color={0,127,255},
       thickness=0.5));
   connect(drum.steamPort, sensorSteamFlow.port_a) annotation (Line(
-      points={{-14,17.2},{-14,20.6},{-16,20.6},{-16,30}},
+      points={{14,17.2},{14,20.6},{-16,20.6},{-16,30}},
       color={0,127,255},
       thickness=0.5));
   connect(pSteam.port, sensorSteamFlow.port_a)

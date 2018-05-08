@@ -7,9 +7,7 @@ model Pressurizer_withWall_Test
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay
         (tau=15),
     cp_wall=600,
-    rho_wall=7000,
     V_wall=2/3*pi*((3.105 + 0.14)^3 - 3.105^3),
-    V_total=pi*1.596^2*1.109 + pi*3.105^2*0.19 + 2/3*pi*3.105^3,
     redeclare model DrumType =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.Integral (
         r_1=1.596,
@@ -31,7 +29,8 @@ model Pressurizer_withWall_Test
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     redeclare model HeatTransfer_WV =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
-    Vfrac_liquid_start=1/3)
+    Vfrac_liquid_start=1/3,
+    rho_wall=7000)
     annotation (Placement(transformation(extent={{-20,-26},{20,26}})));
 
   Modelica.Fluid.Sources.MassFlowSource_h spray(
@@ -41,8 +40,7 @@ model Pressurizer_withWall_Test
     nPorts=1)
              annotation (Placement(transformation(extent={{-68,50},{-48,70}})));
   Modelica.Fluid.Sources.MassFlowSource_h relief(          redeclare package
-              Medium =
-               Modelica.Media.Water.StandardWater,
+      Medium = Modelica.Media.Water.StandardWater,
     h=relief.Medium.dewEnthalpy(relief.Medium.setSat_p(system.p_start)),
     nPorts=1)
     annotation (Placement(transformation(extent={{68,50},{48,70}})));
@@ -85,8 +83,7 @@ model Pressurizer_withWall_Test
         rotation=90,
         origin={0,-52})));
   FittingsAndResistances.SpecifiedResistance lineToPump(redeclare package
-              Medium =
-               Modelica.Media.Water.StandardWater, R=1) annotation (Placement(
+      Medium = Modelica.Media.Water.StandardWater, R=1) annotation (Placement(
         transformation(
         extent={{10,9.5},{-10,-9.5}},
         rotation=180,

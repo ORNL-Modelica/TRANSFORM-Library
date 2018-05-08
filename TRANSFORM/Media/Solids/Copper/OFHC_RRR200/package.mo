@@ -2,10 +2,9 @@ within TRANSFORM.Media.Solids.Copper;
 package OFHC_RRR200 "Oxygen-free, high conductivity copper (OFHC) of Residual Resistivity Ratio = 200"
 
   import Poly =
-    TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
+  TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
 
-   extends
-    TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased(
+   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased(
      mediumName="OFHC_RRR200",
      T_min=0,
      T_max=750,

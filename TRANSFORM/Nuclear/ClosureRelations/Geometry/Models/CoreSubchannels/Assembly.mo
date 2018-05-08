@@ -7,8 +7,8 @@ model Assembly
   extends
     TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Generic(
   final dimension = 4*crossArea/perimeter,
-  final crossArea = crossArea_empty - pi*rs_outer[end]^2*nPins - 0.25*pi*D_wireWrap^2*nPins,
-  final perimeter = perimeter_empty + 2*pi*rs_outer[end]*nPins + pi*D_wireWrap*nPins,
+  final crossArea = crossArea_empty - pi*rs_outer[end]^2*(nPins+nPins_nonFuel) - 0.25*pi*D_wireWrap^2*nPins,
+  final perimeter = perimeter_empty + 2*pi*rs_outer[end]*(nPins+nPins_nonFuel) + pi*D_wireWrap*nPins,
   surfaceArea={2*pi*rs_outer[end]*length*nPins});
 
   parameter String assemblyType = "Square" "Assembly type" annotation(choices(choice="Square",choice="Hexagonal"),Evaluate=true);

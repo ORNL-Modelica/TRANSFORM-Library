@@ -27,8 +27,7 @@ model SimpleDemo
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-10,50},{10,70}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-              Medium =
-               Medium, R=1)                                   annotation (
+      Medium = Medium, R=1)                                   annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -43,7 +42,7 @@ model SimpleDemo
     use_port=false,
     Q_flow=fill(-1e3, 5))
     annotation (Placement(transformation(extent={{56,-10},{36,10}})));
-  Nuclear.CoreSubchannels.Regions_1 coreSubchannel(
+  Nuclear.CoreSubchannels.Regions_1old coreSubchannel(
     redeclare package Medium = Medium,
     redeclare package Material_1 = Media.Solids.UO2,
     redeclare model Geometry =
@@ -53,7 +52,6 @@ model SimpleDemo
     CR_reactivity=sine1.y,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     Teffref_fuel=673.15,
     Teffref_coolant=623.15,
     T_start_1=673.15,

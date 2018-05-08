@@ -20,7 +20,7 @@ model nParallel_FlowBoundary
     redeclare model TraceMassTransfer =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.AlphasM
         (                                               redeclare model
-                DiffusionCoeff =
+          DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
             (D_ab0=1), alphaM0=fill(1, Medium.nC)))
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
@@ -90,7 +90,7 @@ model nParallel_FlowBoundary
     redeclare model TraceMassTransfer =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.AlphasM
         (                                               redeclare model
-                DiffusionCoeff =
+          DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
             (D_ab0=1), alphaM0=fill(1, Medium.nC)))
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));

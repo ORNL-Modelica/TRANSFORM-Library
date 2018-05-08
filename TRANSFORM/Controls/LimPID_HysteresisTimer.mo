@@ -76,8 +76,6 @@ model LimPID_HysteresisTimer
     "Value of hysteresis output at initial time"
     annotation (Dialog(group="Hysteresis"));
 
-
-
   Modelica.Blocks.Interfaces.RealOutput tOn "Time since boiler switched on"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput tOff "Time since boiler switched off"

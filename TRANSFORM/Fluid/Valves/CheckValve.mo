@@ -27,7 +27,6 @@ equation
   port_a.m_flow = m_flow;
   port_a.p - port_b.p = dp;
 
-
   // Stream variables balance
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);

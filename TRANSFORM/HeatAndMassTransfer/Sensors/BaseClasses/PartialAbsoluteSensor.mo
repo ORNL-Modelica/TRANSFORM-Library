@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.Sensors.BaseClasses;
 partial model PartialAbsoluteSensor
   "Partial component to model a sensor that measures a potential variable"
 
-
   parameter Boolean showName=true "= false to hide component name"
     annotation (Dialog(tab="Visualization"));
 

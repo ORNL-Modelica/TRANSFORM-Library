@@ -76,8 +76,7 @@ model SFR_12b
     redeclare package Medium = Medium_PHTS,
     nPorts=1) annotation (Placement(transformation(extent={{-52,6},{-72,26}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-              Medium =
-               Medium_PHTS, R=1/data.m_flow_DRACS)
+      Medium = Medium_PHTS, R=1/data.m_flow_DRACS)
     annotation (Placement(transformation(extent={{-100,30},{-120,50}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance1(redeclare
       package Medium = Medium_PHTS, R=1/data.m_flow_DRACS)

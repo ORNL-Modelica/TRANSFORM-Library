@@ -3,5 +3,4 @@ package FeedForward
   extends TRANSFORM.Icons.VariantsPackage;
 
 
-
 end FeedForward;

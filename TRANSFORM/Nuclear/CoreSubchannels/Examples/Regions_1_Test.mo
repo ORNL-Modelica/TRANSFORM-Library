@@ -15,7 +15,7 @@ model Regions_1_Test
     annotation (Placement(transformation(extent={{110,-10},{90,10}})));
   inner Fluid.System    system(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Regions_1 coreSubchannel(
+  Regions_1old coreSubchannel(
     nParallel=23496,
     p_a_start=P_boundary.p + 1000,
     T_a_start=m_boundary.T,
@@ -36,7 +36,6 @@ model Regions_1_Test
         nPins=23496),
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     Teffref_fuel=624.087,
     Teffref_coolant=547.25,
     T_start_1=623.15)

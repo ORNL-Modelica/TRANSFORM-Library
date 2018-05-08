@@ -16,8 +16,6 @@ model Pressurizer_withWall
   parameter SI.Density rho_wall "Density of pressurizer wall";
   parameter SI.Volume V_wall "Volume of pressurizer wall";
 
-  parameter SI.Volume V_total "Total volume (liquid + vapor)" annotation(Dialog(group="Geometry"));
-
   replaceable model DrumType =
     TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.PartialDrumType
     "1. Select model 2. Set parameters (Total volume must match V_total)"
@@ -91,21 +89,17 @@ model Pressurizer_withWall
     redeclare model HeatTransfer_VL = HeatTransfer_VL,
     redeclare model HeatTransfer_WL = HeatTransfer_WL,
     redeclare model HeatTransfer_WV = HeatTransfer_WV,
-    V_total=V_total,
     allowFlowReversal=allowFlowReversal,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics)
     annotation (Placement(transformation(extent={{-26,-30},{26,30}})));
-  Interfaces.FluidPort_State            sprayPort(redeclare package
-      Medium =
+  Interfaces.FluidPort_State            sprayPort(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
-  Interfaces.FluidPort_State            reliefPort(redeclare package
-      Medium =
+  Interfaces.FluidPort_State            reliefPort(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{50,90},{70,110}})));
-  Interfaces.FluidPort_State            surgePort(redeclare package
-      Medium =
+  Interfaces.FluidPort_State            surgePort(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 

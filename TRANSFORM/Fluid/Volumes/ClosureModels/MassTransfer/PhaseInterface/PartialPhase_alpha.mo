@@ -16,8 +16,7 @@ partial model PartialPhase_alpha
     "Thermodynamic state" annotation(Dialog(tab="Internal Interface"));
   input SI.Area surfaceArea "Mass transfer surface area"  annotation(Dialog(tab="Internal Interface"));
 
-  Media.BaseProperties2Phase medium2_liquid(redeclare package
-      Medium =                                                         Medium,
+  Media.BaseProperties2Phase medium2_liquid(redeclare package Medium = Medium,
       state=state_liquid)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

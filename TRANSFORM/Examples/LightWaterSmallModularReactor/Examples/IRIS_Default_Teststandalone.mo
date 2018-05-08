@@ -26,7 +26,7 @@ model IRIS_Default_Teststandalone
     offset=PHS.port_b_nominal.p)
     annotation (Placement(transformation(extent={{100,6},{80,26}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={PHS.pressurizer.drum2Phase.p,
-        PHS.coreSubchannel.reactorKinetics.Q_total})
+        PHS.coreSubchannel.kinetics.Q_total})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(sink.ports[1], PHS.port_b)

@@ -4,8 +4,7 @@ model data_SHX
   extends Icons.Record;
 
 import TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degF;
-import
-    TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr;
+import TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr;
 import TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_psi;
 import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
 

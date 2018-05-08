@@ -31,8 +31,7 @@ model alpha_Groeneveld_wMedia
   SI.CoefficientOfHeatTransfer alpha;
   Real status "Success/Failure (0/1) status";
 
-  TRANSFORM.Media.BaseProperties2Phase mediaProps(redeclare package
-              Medium =
+  TRANSFORM.Media.BaseProperties2Phase mediaProps(redeclare package Medium =
         Medium, state=state)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={alpha})

@@ -105,16 +105,14 @@ redeclare model Geometry =
   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft_a annotation (
       Placement(transformation(rotation=0, extent={{-128,-10},{-108,10}}),
         iconTransformation(extent={{-128,-10},{-108,10}})));
-  Interfaces.FluidPort_Flow                 drain(redeclare package
-      Medium =
+  Interfaces.FluidPort_Flow                 drain(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
                 annotation (Placement(transformation(rotation=0, extent={{70,-84},
             {90,-64}}), iconTransformation(extent={{70,-84},{90,-64}})));
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b annotation (
       Placement(transformation(rotation=0, extent={{110,-10},{130,10}}),
         iconTransformation(extent={{110,-10},{130,10}})));
-  Interfaces.FluidPort_Flow                   port_a(redeclare package
-              Medium =
+  Interfaces.FluidPort_Flow                   port_a(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
                 annotation (Placement(transformation(rotation=0, extent={{-10,56},
             {10,76}}), iconTransformation(extent={{-10,56},{10,76}})));

@@ -27,8 +27,7 @@ partial model PartialLumpedHeatTransfer
         state)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  Media.BaseProperties2Phase medium2_film(redeclare package
-      Medium =                                                       Medium,
+  Media.BaseProperties2Phase medium2_film(redeclare package Medium = Medium,
       state=state)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 

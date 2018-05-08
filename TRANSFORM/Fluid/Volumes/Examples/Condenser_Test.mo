@@ -65,8 +65,7 @@ model Condenser_Test
     startTime=500)
     annotation (Placement(transformation(extent={{99,41},{83,57}})));
   Sensors.MassFlowRate                       massFlowRate(redeclare package
-              Medium =
-               Modelica.Media.Water.StandardWater)
+      Medium = Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-55,33},{-37,15}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x={cond.level})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

@@ -5,7 +5,7 @@ model Pump_SimpleMassFlow "Prescribes mass flow rate across the component"
     Modelica.Media.Interfaces.PartialMedium "Medium model"
     annotation(choicesAllMatching = true);
   parameter Boolean use_input=false "Use connector input for the mass flow" annotation(choices(checkBox=true));
-  parameter SI.MassFlowRate m_flow_nominal=0 "Nominal mass flowrate";
+  parameter SI.MassFlowRate m_flow_nominal=0 "Nominal mass flowrate" annotation(Dialog(enable=not use_input));
 
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction" annotation(Dialog(tab="Advanced"));

@@ -26,7 +26,7 @@ model IRIS_Default_Test
     startTime=100)
     annotation (Placement(transformation(extent={{100,8},{80,28}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={PHS.pressurizer.drum2Phase.p,
-        PHS.coreSubchannel.reactorKinetics.Q_total})
+        PHS.coreSubchannel.kinetics.Q_total})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(PHS.port_b, sink.ports[1])

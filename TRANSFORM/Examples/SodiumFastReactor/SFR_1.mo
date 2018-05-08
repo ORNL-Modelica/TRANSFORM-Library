@@ -10,7 +10,7 @@ model SFR_1
       TRANSFORM.Media.Fluids.Sodium.ConstantPropertyLiquidSodium
     "Primary heat system medium" annotation (Dialog(enable=false));
 
-  Nuclear.CoreSubchannels.Regions_2 outerCore(
+  Nuclear.CoreSubchannels.Regions_2old outerCore(
     nParallel=data.nOuterCore,
     redeclare package Material_1 = Media.Solids.UO2,
     redeclare package Material_2 = Media.Solids.SS316,
@@ -50,7 +50,7 @@ model SFR_1
     m_flow=data.m_flow_inner,
     nPorts=1)
     annotation (Placement(transformation(extent={{72,-96},{52,-76}})));
-  Nuclear.CoreSubchannels.Regions_2 innerCore(
+  Nuclear.CoreSubchannels.Regions_2old innerCore(
     redeclare package Material_1 = Media.Solids.UO2,
     redeclare package Material_2 = Media.Solids.SS316,
     p_a_start=data.p_start,
@@ -84,7 +84,7 @@ model SFR_1
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={12,-6})));
-  Nuclear.CoreSubchannels.Regions_1 reflector(
+  Nuclear.CoreSubchannels.Regions_1old reflector(
     p_a_start=data.p_start,
     T_a_start=data.T_start_cold,
     alpha_coolant=0,
@@ -114,7 +114,7 @@ model SFR_1
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-6})));
-  Nuclear.CoreSubchannels.Regions_1 shield(
+  Nuclear.CoreSubchannels.Regions_1old shield(
     p_a_start=data.p_start,
     T_a_start=data.T_start_cold,
     alpha_coolant=0,
@@ -176,7 +176,7 @@ model SFR_1
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,50})));
-  Nuclear.CoreSubchannels.Regions_2 outerCore_out(
+  Nuclear.CoreSubchannels.Regions_2old outerCore_out(
     nParallel=data.nOuterCore,
     redeclare package Material_2 = Media.Solids.SS316,
     p_a_start=data.p_start,
@@ -206,11 +206,11 @@ model SFR_1
            HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             outerCore_out.coolantSubchannel.heatTransfer.Res,
             outerCore_out.coolantSubchannel.heatTransfer.Prs,
-            data.PD_ratio)))    annotation (Placement(transformation(
+            data.PD_ratio))) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,22})));
-  Nuclear.CoreSubchannels.Regions_2 outerCore_in(
+  Nuclear.CoreSubchannels.Regions_2old outerCore_in(
     nParallel=data.nOuterCore,
     redeclare package Material_2 = Media.Solids.SS316,
     p_a_start=data.p_start,
@@ -244,7 +244,7 @@ model SFR_1
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,-34})));
-  Nuclear.CoreSubchannels.Regions_2 innerCore_out(
+  Nuclear.CoreSubchannels.Regions_2old innerCore_out(
     redeclare package Material_2 = Media.Solids.SS316,
     p_a_start=data.p_start,
     alpha_coolant=0,
@@ -278,7 +278,7 @@ model SFR_1
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={12,22})));
-  Nuclear.CoreSubchannels.Regions_2 innerCore_in(
+  Nuclear.CoreSubchannels.Regions_2old innerCore_in(
     redeclare package Material_2 = Media.Solids.SS316,
     p_a_start=data.p_start,
     T_a_start=data.T_start_cold,
@@ -322,8 +322,7 @@ model SFR_1
     level_start=data.level_start_hot_expanstionTank)
     annotation (Placement(transformation(extent={{-68,70},{-48,90}})));
   Fluid.BoundaryConditions.Boundary_pT boundary3(          redeclare package
-              Medium =
-               Medium,
+      Medium = Medium,
     nPorts=1,
     T=data.T_start_cold,
     p=data.p_start + 3e4)
@@ -335,8 +334,7 @@ model SFR_1
     m_flow=data.nIHXs*data.m_flow_IHX_IHTS)
     annotation (Placement(transformation(extent={{170,-32},{150,-12}})));
   Fluid.BoundaryConditions.Boundary_pT boundary9(          redeclare package
-              Medium =
-               Medium,
+      Medium = Medium,
     nPorts=1,
     p=data.p_start,
     T=data.T_IHX_outletIHTS)
@@ -392,8 +390,7 @@ model SFR_1
         data.T_IHX_oultetPHTS}))
     annotation (Placement(transformation(extent={{102,-88},{152,-44}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-              Medium =
-               Media.Fluids.Sodium.ConstantPropertyLiquidSodium, R=50)
+      Medium = Media.Fluids.Sodium.ConstantPropertyLiquidSodium, R=50)
     annotation (Placement(transformation(extent={{58,34},{78,54}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance1(redeclare
       package Medium = Media.Fluids.Sodium.ConstantPropertyLiquidSodium, R=1/
@@ -402,8 +399,7 @@ model SFR_1
         rotation=180,
         origin={-29,71})));
   Fluid.BoundaryConditions.Boundary_pT boundary6(          redeclare package
-              Medium =
-               Medium,
+      Medium = Medium,
     nPorts=1,
     T=data.T_start_cold,
     p=data.p_start + 0.75e5)

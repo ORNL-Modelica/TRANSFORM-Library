@@ -1,5 +1,6 @@
 within TRANSFORM.Examples.LightWaterSmallModularReactor;
 model IRIS
+  import TRANSFORM;
 
   extends BaseClasses.Partial_SubSystem_A(
     replaceable package Medium = Modelica.Media.Water.StandardWater,
@@ -16,22 +17,24 @@ model IRIS
   package Medium_PHTS = Modelica.Media.Water.StandardWater
     "Primary heat transport system medium" annotation (Dialog(enable=false));
 
-  Nuclear.CoreSubchannels.Regions_3 coreSubchannel(
+  TRANSFORM.Nuclear.CoreSubchannels.Regions_3    coreSubchannel(
     Ts_start_3(displayUnit="K") = [{coreSubchannel.Ts_start_2[end, 1]},{
       coreSubchannel.Ts_start_2[end, 2]},{coreSubchannel.Ts_start_2[end, 3]},{
-      coreSubchannel.Ts_start_2[end, 4]}; 588.673217773438,598.278564453125,607.177856445313,
-      615.421997070313; 583.928039550781,593.558532714844,602.48095703125,610.746276855469],
+      coreSubchannel.Ts_start_2[end, 4]}; 588.673217773438,598.278564453125,
+      607.177856445313,615.421997070313; 583.928039550781,593.558532714844,
+      602.48095703125,610.746276855469],
     Ts_start_2(displayUnit="K") = [{coreSubchannel.Ts_start_1[end, 1]},{
       coreSubchannel.Ts_start_1[end, 2]},{coreSubchannel.Ts_start_1[end, 3]},{
-      coreSubchannel.Ts_start_1[end, 4]}; 645.326904296875,654.579406738281,663.157775878906,
-      671.109558105469; 593.718627929688,603.297302246094,612.172241210938,620.393920898438],
-    Ts_start_1(displayUnit="K") = [855.985778808594,866.50341796875,876.264709472656,
-      885.321228027344; 849.067749023438,859.516784667969,869.214233398438,878.211303710938;
-      828.583129882813,838.829895019531,848.339050292969,857.160949707031; 795.317565917969,
-      805.238525390625,814.444396972656,822.984252929688; 750.507690429688,759.9951171875,
-      768.797485351563,776.962097167969; 695.743530273438,704.709289550781,713.0263671875,
-      720.73974609375],
-    Lambda=16e-6,
+      coreSubchannel.Ts_start_1[end, 4]}; 645.326904296875,654.579406738281,
+      663.157775878906,671.109558105469; 593.718627929688,603.297302246094,
+      612.172241210938,620.393920898438],
+    Ts_start_1(displayUnit="K") = [855.985778808594,866.50341796875,
+      876.264709472656,885.321228027344; 849.067749023438,859.516784667969,
+      869.214233398438,878.211303710938; 828.583129882813,838.829895019531,
+      848.339050292969,857.160949707031; 795.317565917969,805.238525390625,
+      814.444396972656,822.984252929688; 750.507690429688,759.9951171875,
+      768.797485351563,776.962097167969; 695.743530273438,704.709289550781,
+      713.0263671875,720.73974609375],
     T_start_1=system.T_start + 225,
     T_start_2=system.T_start + 50,
     T_start_3=system.T_start + 20,
@@ -40,8 +43,8 @@ model IRIS
     p_b_start(displayUnit="Pa") = 15655919,
     T_a_start(displayUnit="K") = 557.0997,
     T_b_start(displayUnit="K") = 595.1576,
-    Ts_start(displayUnit="K") = {567.265808105469,577.039306640625,586.362365722656,
-      595.158447265625},
+    Ts_start(displayUnit="K") = {567.265808105469,577.039306640625,
+      586.362365722656,595.158447265625},
     alpha_fuel=-3.24e-5,
     alpha_coolant=-2.88e-4,
     redeclare package Material_1 = Media.Solids.UO2,
@@ -61,9 +64,12 @@ model IRIS
         perimeter=767.6466,
         nRs={6,3,3},
         rs_outer={0.5*0.0081915,0.5*0.0083566,0.5*0.0095}),
-    CR_reactivity=CR_reactivity.y,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
+    Q_nominal=1e9,
+    rho_input=CR_reactivity.y,
+    Lambda_start=16e-6,
     Teffref_fuel=786.152,
     Teffref_coolant=581.457) annotation (Placement(transformation(
         extent={{-7,-6},{7,6}},
@@ -207,9 +213,7 @@ model IRIS
   Fluid.Volumes.Pressurizer_withWall
                                  pressurizer(
     cp_wall=600,
-    rho_wall=7000,
     V_wall=2/3*pi*((3.105 + 0.14)^3 - 3.105^3),
-    V_total=pi*1.596^2*1.109 + pi*3.105^2*0.19 + 2/3*pi*3.105^3,
     redeclare package Medium = Medium_PHTS,
     Vfrac_liquid_start=0.3495,
     p_start(displayUnit="Pa") = 15521780,
@@ -235,7 +239,8 @@ model IRIS
     redeclare model HeatTransfer_WL =
         Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     redeclare model HeatTransfer_WV =
-        Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient)
+        Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
+    rho_wall=7000)
     annotation (Placement(transformation(extent={{-34,70},{-22,84}})));
 
   HeatAndMassTransfer.BoundaryConditions.Heat.Temperature Temp_walLiquid(
@@ -368,12 +373,10 @@ model IRIS
         rotation=0,
         origin={74,-40})));
 
-  Fluid.Sensors.Temperature          T_Core_Inlet(redeclare package
-      Medium =
+  Fluid.Sensors.Temperature          T_Core_Inlet(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-68,-68},{-76,-76}})));
-  Fluid.Sensors.Temperature          T_Core_Outlet(redeclare package
-      Medium =
+  Fluid.Sensors.Temperature          T_Core_Outlet(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-68,-48},{-76,-40}})));
 
@@ -477,7 +480,7 @@ model IRIS
 
   Blocks.RealExpression CR_reactivity
     annotation (Placement(transformation(extent={{-54,128},{-42,140}})));
-  Modelica.Blocks.Sources.RealExpression Q_total(y=coreSubchannel.reactorKinetics.Q_total)
+  Modelica.Blocks.Sources.RealExpression Q_total(y=coreSubchannel.kinetics.Q_total)
     "total thermal power"
     annotation (Placement(transformation(extent={{-76,118},{-64,130}})));
 equation

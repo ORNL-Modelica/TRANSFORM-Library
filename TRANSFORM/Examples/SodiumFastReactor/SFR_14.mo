@@ -24,7 +24,7 @@ model SFR_14
   SI.Temperature T_lpo = lowerPlenum_outer.medium.T;
   SI.Temperature T_lp = lowerPlenum.medium.T;
 
-  Nuclear.CoreSubchannels.Regions_2 outerCore(
+  Nuclear.CoreSubchannels.Regions_2old outerCore(
     nParallel=data.nOuterCore,
     redeclare package Material_1 = Media.Solids.UO2,
     redeclare package Material_2 = Media.Solids.SS316,
@@ -58,7 +58,7 @@ model SFR_14
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,-54})));
-  Nuclear.CoreSubchannels.Regions_2 innerCore(
+  Nuclear.CoreSubchannels.Regions_2old innerCore(
     redeclare package Material_1 = Media.Solids.UO2,
     redeclare package Material_2 = Media.Solids.SS316,
     p_a_start=data.p_start,
@@ -92,7 +92,7 @@ model SFR_14
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={2,-54})));
-  Nuclear.CoreSubchannels.Regions_1 reflector(
+  Nuclear.CoreSubchannels.Regions_1old reflector(
     p_a_start=data.p_start,
     T_a_start=data.T_start_cold,
     alpha_coolant=0,
@@ -122,7 +122,7 @@ model SFR_14
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-54})));
-  Nuclear.CoreSubchannels.Regions_1 shield(
+  Nuclear.CoreSubchannels.Regions_1old shield(
     p_a_start=data.p_start,
     T_a_start=data.T_start_cold,
     alpha_coolant=0,
@@ -167,7 +167,7 @@ model SFR_14
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,18})));
-  Nuclear.CoreSubchannels.Regions_2 outerCore_out(
+  Nuclear.CoreSubchannels.Regions_2old outerCore_out(
     nParallel=data.nOuterCore,
     redeclare package Material_2 = Media.Solids.SS316,
     p_a_start=data.p_start,
@@ -197,11 +197,11 @@ model SFR_14
            HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             outerCore_out.coolantSubchannel.heatTransfer.Res,
             outerCore_out.coolantSubchannel.heatTransfer.Prs,
-            data.PD_ratio)))    annotation (Placement(transformation(
+            data.PD_ratio))) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,-26})));
-  Nuclear.CoreSubchannels.Regions_2 outerCore_in(
+  Nuclear.CoreSubchannels.Regions_2old outerCore_in(
     nParallel=data.nOuterCore,
     redeclare package Material_2 = Media.Solids.SS316,
     p_a_start=data.p_start,
@@ -235,7 +235,7 @@ model SFR_14
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,-82})));
-  Nuclear.CoreSubchannels.Regions_2 innerCore_out(
+  Nuclear.CoreSubchannels.Regions_2old innerCore_out(
     redeclare package Material_2 = Media.Solids.SS316,
     p_a_start=data.p_start,
     alpha_coolant=0,
@@ -269,7 +269,7 @@ model SFR_14
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={2,-26})));
-  Nuclear.CoreSubchannels.Regions_2 innerCore_in(
+  Nuclear.CoreSubchannels.Regions_2old innerCore_in(
     redeclare package Material_2 = Media.Solids.SS316,
     p_a_start=data.p_start,
     T_a_start=data.T_start_cold,
@@ -553,7 +553,8 @@ equation
   connect(lowerPlenum.port_b[1:4], resistances.port_a) annotation (Line(points={{-19.25,
           -122},{-20,-122},{-20,-115}},         color={0,127,255}));
   connect(resistance_toExpTank.port_b, expansionTank.port_a)
-    annotation (Line(points={{-20,47},{-20,58}}, color={0,127,255}));
+    annotation (Line(points={{-20,47},{-20,52},{-20,58},{-21,58}},
+                                                 color={0,127,255}));
   connect(lowerPlenum_outer.port_b[1:3], pump.port_a) annotation (Line(points={{44,
           -67.3333},{40,-67.3333},{40,0},{30,0},{30,-8}},        color={0,127,255}));
   connect(convection.port_b, vessel.port_a1)
@@ -569,7 +570,7 @@ equation
   connect(IHX.port_b_shell, lowerPlenum_outer.port_a[1:3]) annotation (Line(
         points={{67.4,-8},{68,-8},{68,-68.1667},{56,-68.1667}},   color={0,127,255}));
   connect(expansionTank.port_b, resistance_toExpTank1.port_a)
-    annotation (Line(points={{-8,58},{3,58}},    color={0,127,255}));
+    annotation (Line(points={{-7,58},{3,58}},    color={0,127,255}));
   connect(resistance_toExpTank1.port_b, boundary_dummy.ports[1])
     annotation (Line(points={{17,58},{26,58}},   color={0,127,255}));
   connect(IHTS.port_b, IHX.port_b_tube)

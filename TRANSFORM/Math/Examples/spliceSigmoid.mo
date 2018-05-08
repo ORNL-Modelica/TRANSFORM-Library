@@ -4,6 +4,8 @@ model spliceSigmoid
   extends TRANSFORM.Icons.Example;
 
   Real y "Function value";
+  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(x={y})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   y =TRANSFORM.Math.spliceSigmoid(
     below=-1,

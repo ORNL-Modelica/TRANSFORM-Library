@@ -8,6 +8,8 @@ model GenericDistributed_HX
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
 
+  outer TRANSFORM.Fluid.SystemTF systemTF;
+
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_tube(redeclare package
       Medium = Medium_tube) annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
@@ -509,8 +511,17 @@ model GenericDistributed_HX
         rotation=90,
         origin={0,-30})));
 
-  TRANSFORM.HeatExchangers.BaseClasses.Summary summary
+  TRANSFORM.HeatExchangers.BaseClasses.Summary summary(
+    R_tubeWall=log(tubeWall.geometry.r_outer/tubeWall.geometry.r_inner)/(2*
+        Modelica.Constants.pi*geometry.length_tube*tubeWall.summary.lambda_effective),
+    R_shell=if shell.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({shell.heatTransfer.alphas[
+        i, 1]*shell.geometry.surfaceAreas[i, 1] for i in 1:shell.nV})*shell.nParallel
+        /shell.nV),
+    R_tube=if tube.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({tube.heatTransfer.alphas[
+        i, 1]*tube.geometry.surfaceAreas[i, 1] for i in 1:tube.nV})*tube.nParallel
+        /tube.nV))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi
     adiabaticWall_a2(nPorts=geometry.nR)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
@@ -530,6 +541,10 @@ model GenericDistributed_HX
   replaceable model InternalHeatGen_shell =
       Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
       annotation (Dialog(group="Heat Transfer"),choicesAllMatching=true);
+
+  extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=shell.summary.T_effective);
+
+  Real dynColor_tube[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(tube.summary.T_effective, val_min, val_max, colorMap(n_colors));
 
 equation
 
@@ -619,21 +634,24 @@ equation
           extent={{-90,16},{90,-16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,63,125},
+          fillColor=DynamicSelect({0,63,125}, if showColors then dynColor else {
+              0,63,125}),
           origin={0,46},
           rotation=360),
         Rectangle(
           extent={{-90,26},{90,-26}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,128,255},
+          fillColor=DynamicSelect({0,128,255}, if showColors then dynColor_tube
+               else {0,128,255}),
           origin={0,0},
           rotation=360),
         Rectangle(
           extent={{-90,16},{90,-16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,63,125},
+          fillColor=DynamicSelect({0,63,125}, if showColors then dynColor else {
+              0,63,125}),
           origin={0,-46},
           rotation=360),
         Rectangle(

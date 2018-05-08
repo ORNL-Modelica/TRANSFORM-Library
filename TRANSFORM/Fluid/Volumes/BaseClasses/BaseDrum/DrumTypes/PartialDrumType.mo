@@ -15,6 +15,8 @@ partial model PartialDrumType
   SI.Area A_surfaceWV "Wall-Vapor interfacial area";
   SI.Area A_surfaceVL "Vapor-Liquid interfacial area";
 
+  parameter SI.Volume V_total_parameter = 1 "Needs to be re-set by extending class";
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
       Documentation(info="<html>
 <pre><span style=\"font-family: Courier New,courier; color: #006400;\">Calculations&nbsp;of&nbsp;liquid/vapor/metal&nbsp;volumes&nbsp;and&nbsp;surface&nbsp;areas</span>

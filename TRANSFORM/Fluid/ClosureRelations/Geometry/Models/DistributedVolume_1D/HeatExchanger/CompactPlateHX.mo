@@ -1,13 +1,6 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger;
 model CompactPlateHX
 
-  parameter String plateStructure="Tube-Shell" annotation (choices(
-      choice="Tube-Shell-Tube",
-      choice="Tube-Shell",
-      choice="Shell-Tube-Shell"));
-//   parameter Real nChannels(min=2) = 2
-//     "# of overall channels (i.e., tube and shell)";
-
   input SI.Length height_tube=0.01 "Tube duct height"
     annotation (Dialog(group="Inputs"));
   input SI.Length height_shell=height_tube "Shell duct height"
@@ -35,6 +28,13 @@ model CompactPlateHX
     final crossArea_shell=width*height_shell,
     final perimeter_shell=2*width + 2*height_shell,
     final length_shell=length);
+
+  parameter String plateStructure="Tube-Shell" annotation (choices(
+      choice="Tube-Shell-Tube",
+      choice="Tube-Shell",
+      choice="Shell-Tube-Shell"));
+//   parameter Real nChannels(min=2) = 2
+//     "# of overall channels (i.e., tube and shell)";
 
   final parameter Real nShells=if plateStructure == "Tube-Shell-Tube" then
       nTubes - 1 elseif plateStructure == "Shell-Tube-Shell" then nTubes + 1

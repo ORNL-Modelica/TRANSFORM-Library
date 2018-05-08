@@ -153,7 +153,7 @@ partial model PartialTwoVolume_wlevel "Base class for volume models"
   SI.InternalEnergy U_vapor "Internal energy";
   SI.Mass mXi_vapor[Medium.nXi] "Species mass";
   SIadd.ExtraPropertyExtrinsic mC_vapor[Medium.nC] "Trace substance extrinsic value";
-  SI.Mass[Medium.nC] mC_scaled_vapor "Scaled trace substance mass for improved numerical stability";
+  SIadd.ExtraPropertyExtrinsic[Medium.nC] mC_scaled_vapor "Scaled trace substance for improved numerical stability";
 
   // C has the additional parameter because it is not included in the medium
   // i.e.,Xi has medium[:].Xi but there is no variable medium[:].C

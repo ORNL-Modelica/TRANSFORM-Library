@@ -13,12 +13,10 @@ model TeeJunctionVolume
             + port_2.m_flow*actualStream(port_2.C_outflow)
             + port_3.m_flow*actualStream(port_3.C_outflow));
 
-  TRANSFORM.Fluid.Interfaces.FluidPort_State port_1(redeclare package
-      Medium =
+  TRANSFORM.Fluid.Interfaces.FluidPort_State port_1(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_State port_2(redeclare package
-      Medium =
+  TRANSFORM.Fluid.Interfaces.FluidPort_State port_2(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_3(

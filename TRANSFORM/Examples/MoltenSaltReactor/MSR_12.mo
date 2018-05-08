@@ -62,7 +62,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
    SI.Power Qs_gen_tee_inlet = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*tee_inlet.mC[j] for j in 1:data_traceSubstances.nC});
    SI.Power Qs_gen_plenum_lower = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*plenum_lower.mC[j] for j in 1:data_traceSubstances.nC});
   SI.Power[reflA_lower.nV] Qs_gen_reflA_lower = {sum({data_traceSubstances.w_decay[j]*data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_lower.nV};
-  SI.Power[fuelCell.nV] Qs_gen_fuelCell = kinetics.Qs + kinetics.Qs_FP;
+  SI.Power[fuelCell.nV] Qs_gen_fuelCell=kinetics.Qs + kinetics.Qs_FP_near;
   SI.Power[reflR.nV] Qs_gen_reflR = {sum({data_traceSubstances.w_decay[j]*data_traceSubstances.lambdas[j]*reflR.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflR.nV};
   SI.Power[reflA_upper.nV] Qs_gen_reflA_upper = {sum({data_traceSubstances.w_decay[j]*data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_upper.nV};
 
@@ -79,7 +79,9 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
   SI.Power[reflA_upper.nV] QsG_reflA_upperG = {sum({data_traceSubstances.wG_decay[j]*data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_upper.nV};
 
   SI.Power[reflA_lowerG.nVs[1],reflA_lowerG.nVs[2]] Qs_gen_reflA_lowerG = {{QsG_reflA_lowerG[j]/reflA_lowerG.nVs[1] for j in 1:reflA_lowerG.nVs[2]} for i in 1:reflA_lowerG.nVs[1]};
-  SI.Power[fuelCellG.nVs[1],fuelCellG.nVs[2]] Qs_gen_fuellCellG = {{kinetics.Qs_FP_gamma[j]/fuelCellG.nVs[1] for j in 1:fuelCellG.nVs[2]} for i in 1:fuelCellG.nVs[1]};
+  SI.Power[fuelCellG.nVs[1],fuelCellG.nVs[2]] Qs_gen_fuellCellG={{kinetics.Qs_FP_far[
+      j]/fuelCellG.nVs[1] for j in 1:fuelCellG.nVs[2]} for i in 1:fuelCellG.nVs[
+      1]};
   SI.Power[reflRG.nVs[1],reflRG.nVs[2]] Qs_gen_reflRG = {{QsG_reflRG[j]/reflRG.nVs[1] + Qs_gen_fuellCellG[i,j] for j in 1:reflRG.nVs[2]} for i in 1:reflRG.nVs[1]};
   SI.Power[reflA_upperG.nVs[1],reflA_upperG.nVs[2]] Qs_gen_reflA_upperG = {{QsG_reflA_upperG[j]/reflA_upperG.nVs[1] for j in 1:reflA_upperG.nVs[2]} for i in 1:reflA_upperG.nVs[1]};
 
@@ -508,7 +510,8 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         D=data_PHX.D_tube_outer,
         S_T=data_PHX.pitch_tube,
         S_L=data_PHX.pitch_tube,
-        CF=fill(
+        CFs=
+           fill(
             0.44,
             PHX.shell.heatTransfer.nHT,
             PHX.shell.heatTransfer.nSurfaces))) annotation (Placement(
@@ -609,10 +612,6 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     specifyPower=true,
     fissionSource=fill(1.0/kinetics.nFS, kinetics.nFS))
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
-    data_traceSubstances(redeclare record FissionProducts =
-        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_TeIXe_U235)
-    annotation (Placement(transformation(extent={{260,120},{280,140}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
                                                pipeFromPHX_PCL(
     nParallel=3,
@@ -723,7 +722,8 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         D=data_SHX.D_tube_outer,
         S_T=data_SHX.pitch_tube,
         S_L=data_SHX.pitch_tube,
-        CF=fill(
+        CFs=
+           fill(
             0.44,
             SHX.shell.heatTransfer.nHT,
             SHX.shell.heatTransfer.nSurfaces))) annotation (Placement(
@@ -828,8 +828,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         rotation=0,
         origin={-220,-60})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_drainTank(redeclare package
-              Medium =
-               Medium_PFL, use_input=true)
+      Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
   TRANSFORM.Controls.TankLevelControl drainTankLevelControl(
     level=drainTank_liquid.level,
@@ -860,8 +859,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         rotation=90,
         origin={-270,90})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_bypass(redeclare package
-              Medium =
-               Medium_PFL, use_input=true)
+      Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-238,102},{-258,122}})));
   Modelica.Blocks.Sources.RealExpression m_flow_pump_bypass(y=x_bypass.y*abs(
         pump_PFL.port_a.m_flow))
@@ -1070,7 +1068,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     alpha_shell_SHX=sum(SHX.shell.heatTransfer.alphas)/SHX.shell.nV)
     annotation (Placement(transformation(extent={{230,120},{250,140}})));
 
-  TRANSFORM.Examples.MoltenSaltReactor.DRACS DRACS(
+  TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS DRACS(
     redeclare package Medium_DRACS = Medium_DRACS,
     showName=systemTF.showName,
     surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*DRACS.nP_outer_drainTank[

@@ -21,13 +21,14 @@ model MSR_12b
   extraPropertiesNames={"Tritium"},
   C_nominal={1e6});
 
-  parameter Integer iOG[:] = {2,3}+fill(data_traceSubstances.precursorGroups.nC, 2) "Index array of substances sent to off-gas system";
+  parameter Integer iOG[:]={2,3} + fill(data_traceSubstances.data_PG.nC, 2)
+    "Index array of substances sent to off-gas system";
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
 
   // Initialization
   import Modelica.Constants.N_A;
-  parameter SIadd.ExtraProperty[data_traceSubstances.tritium.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0} "atoms/kg fluid";
+  parameter SIadd.ExtraProperty[data_traceSubstances.data_TR.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0} "atoms/kg fluid";
 
 parameter SI.MassFraction Li7_enrichment = 0.99995 "mass fraction Li-7 enrichment in flibe.  Baseline is 99.995%";
 parameter SI.MoleFraction MMFrac_LiF = 0.67 "Mole fraction of LiF";
@@ -39,17 +40,71 @@ parameter SI.MolarMass Li6_MM = 0.006015122795 "[kg/mol]";
 parameter SI.MoleFraction Li7_molefrac = (Li7_enrichment/Li7_MM)/((Li7_enrichment/Li7_MM)+((1.0-Li7_enrichment)/Li6_MM)) "Mole fraction of lithium in flibe that is Li-7";
 parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lithium in flibe that is Li-6";
 
-parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_tee_inlet = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
-parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_plenum_lower = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
-parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_reflA_lower = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflA_lower.nV};
- parameter SIadd.ExtraProperty[fuelCell.nV,data_traceSubstances.nC] Cs_start_fuelCell = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:fuelCell.nV};
- parameter SIadd.ExtraProperty[reflR.nV,data_traceSubstances.nC] Cs_start_reflR = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflR.nV};
- parameter SIadd.ExtraProperty[reflA_upper.nV,data_traceSubstances.nC] Cs_start_reflA_upper = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:reflA_upper.nV};
- parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_plenum_upper = cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
- parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_pumpBowl_PFL= cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start);
- parameter SIadd.ExtraProperty[pipeToPHX_PFL.nV,data_traceSubstances.nC] Cs_start_pipeToPHX_PFL = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:pipeToPHX_PFL.nV};
- parameter SIadd.ExtraProperty[PHX.tube.nV,data_traceSubstances.nC] Cs_start_PHX_tube = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:PHX.tube.nV};
- parameter SIadd.ExtraProperty[pipeFromPHX_PFL.nV,data_traceSubstances.nC] Cs_start_pipeFromPHX_PFL = {cat(1,fill(0,data_traceSubstances.precursorGroups.nC),fill(0,data_traceSubstances.fissionProducts.nC),C_start) for i in 1:pipeFromPHX_PFL.nV};
+  parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_tee_inlet=cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start);
+  parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_plenum_lower=
+      cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start);
+  parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC]
+    Cs_start_reflA_lower={cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start) for i in 1:reflA_lower.nV};
+  parameter SIadd.ExtraProperty[fuelCell.nV,data_traceSubstances.nC]
+    Cs_start_fuelCell={cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start) for i in 1:fuelCell.nV};
+  parameter SIadd.ExtraProperty[reflR.nV,data_traceSubstances.nC]
+    Cs_start_reflR={cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start) for i in 1:reflR.nV};
+  parameter SIadd.ExtraProperty[reflA_upper.nV,data_traceSubstances.nC]
+    Cs_start_reflA_upper={cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start) for i in 1:reflA_upper.nV};
+  parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_plenum_upper=
+      cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start);
+  parameter SIadd.ExtraProperty[data_traceSubstances.nC] C_start_pumpBowl_PFL=
+      cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start);
+  parameter SIadd.ExtraProperty[pipeToPHX_PFL.nV,data_traceSubstances.nC]
+    Cs_start_pipeToPHX_PFL={cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start) for i in 1:pipeToPHX_PFL.nV};
+  parameter SIadd.ExtraProperty[PHX.tube.nV,data_traceSubstances.nC]
+    Cs_start_PHX_tube={cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start) for i in 1:PHX.tube.nV};
+  parameter SIadd.ExtraProperty[pipeFromPHX_PFL.nV,data_traceSubstances.nC]
+    Cs_start_pipeFromPHX_PFL={cat(
+      1,
+      fill(0, data_traceSubstances.data_PG.nC),
+      fill(0, data_traceSubstances.data_FP.nC),
+      C_start) for i in 1:pipeFromPHX_PFL.nV};
 
   // Gathered info
   SI.Power Qt_total = sum(kinetics.Qs) "Total thermal power output (from primary fission)";
@@ -63,33 +118,67 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
   // Decay Heat Calculations: PFL
-   SI.Power Qs_gen_tee_inlet = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*tee_inlet.mC[j] for j in 1:data_traceSubstances.nC});
-   SI.Power Qs_gen_plenum_lower = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*plenum_lower.mC[j] for j in 1:data_traceSubstances.nC});
-  SI.Power[reflA_lower.nV] Qs_gen_reflA_lower = {sum({data_traceSubstances.w_decay[j]*data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_lower.nV};
-  SI.Power[fuelCell.nV] Qs_gen_fuelCell = kinetics.Qs + kinetics.Qs_FP;
-  SI.Power[reflR.nV] Qs_gen_reflR = {sum({data_traceSubstances.w_decay[j]*data_traceSubstances.lambdas[j]*reflR.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflR.nV};
-  SI.Power[reflA_upper.nV] Qs_gen_reflA_upper = {sum({data_traceSubstances.w_decay[j]*data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_upper.nV};
+  SI.Power Qs_gen_tee_inlet=sum({(data_traceSubstances.w_near_decay[j] +
+      data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      tee_inlet.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power Qs_gen_plenum_lower=sum({(data_traceSubstances.w_near_decay[j] +
+      data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      plenum_lower.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power[reflA_lower.nV] Qs_gen_reflA_lower={sum({data_traceSubstances.w_near_decay[
+      j]*data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflA_lower.nV};
+  SI.Power[fuelCell.nV] Qs_gen_fuelCell=kinetics.Qs + kinetics.Qs_FP_near;
+  SI.Power[reflR.nV] Qs_gen_reflR={sum({data_traceSubstances.w_near_decay[j]*
+      data_traceSubstances.lambdas[j]*reflR.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflR.nV};
+  SI.Power[reflA_upper.nV] Qs_gen_reflA_upper={sum({data_traceSubstances.w_near_decay[
+      j]*data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflA_upper.nV};
 
-   SI.Power Qs_gen_plenum_upper = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*plenum_upper.mC[j] for j in 1:data_traceSubstances.nC});
-   SI.Power Qs_gen_pumpBowl_PFL = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*pumpBowl_PFL.mC[j] for j in 1:data_traceSubstances.nC});
-  SI.Power[pipeToPHX_PFL.nV] Qs_gen_pipeToPHX_PFL = {sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*pipeToPHX_PFL.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:pipeToPHX_PFL.nV};
-  SI.Power[PHX.tube.nV] Qs_gen_PHX_tube = {sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*PHX.tube.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:PHX.tube.nV};
-  SI.Power[pipeFromPHX_PFL.nV] Qs_gen_pipeFromPHX_PFL = {sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*pipeFromPHX_PFL.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:pipeFromPHX_PFL.nV};
+  SI.Power Qs_gen_plenum_upper=sum({(data_traceSubstances.w_near_decay[j] +
+      data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      plenum_upper.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power Qs_gen_pumpBowl_PFL=sum({(data_traceSubstances.w_near_decay[j] +
+      data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      pumpBowl_PFL.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power[pipeToPHX_PFL.nV] Qs_gen_pipeToPHX_PFL={sum({(data_traceSubstances.w_near_decay[
+      j] + data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]
+      *pipeToPHX_PFL.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:
+      pipeToPHX_PFL.nV};
+  SI.Power[PHX.tube.nV] Qs_gen_PHX_tube={sum({(data_traceSubstances.w_near_decay[
+      j] + data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]
+      *PHX.tube.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:PHX.tube.nV};
+  SI.Power[pipeFromPHX_PFL.nV] Qs_gen_pipeFromPHX_PFL={sum({(
+      data_traceSubstances.w_near_decay[j] + data_traceSubstances.w_far_decay[j])
+      *data_traceSubstances.lambdas[j]*pipeFromPHX_PFL.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:pipeFromPHX_PFL.nV};
 
   // Decay Heat Calculations: PFL - solid
-  SI.Power[reflA_lower.nV] QsG_reflA_lowerG = {sum({data_traceSubstances.wG_decay[j]*data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_lower.nV};
+  SI.Power[reflA_lower.nV] QsG_reflA_lowerG={sum({data_traceSubstances.w_far_decay[
+      j]*data_traceSubstances.lambdas[j]*reflA_lower.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflA_lower.nV};
   //SI.Power[fuelCell.nV] QsG_fuelCellG = {sum({data_traceSubstances.wG_decay[j]*data_traceSubstances.lambdas[j]*fuelCell.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:fuelCell.nV};
-  SI.Power[reflR.nV] QsG_reflRG = {sum({data_traceSubstances.wG_decay[j]*data_traceSubstances.lambdas[j]*reflR.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflR.nV};
-  SI.Power[reflA_upper.nV] QsG_reflA_upperG = {sum({data_traceSubstances.wG_decay[j]*data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:data_traceSubstances.nC}) for i in 1:reflA_upper.nV};
+  SI.Power[reflR.nV] QsG_reflRG={sum({data_traceSubstances.w_far_decay[j]*
+      data_traceSubstances.lambdas[j]*reflR.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflR.nV};
+  SI.Power[reflA_upper.nV] QsG_reflA_upperG={sum({data_traceSubstances.w_far_decay[
+      j]*data_traceSubstances.lambdas[j]*reflA_upper.mCs[i, j] for j in 1:
+      data_traceSubstances.nC}) for i in 1:reflA_upper.nV};
 
   SI.Power[reflA_lowerG.nVs[1],reflA_lowerG.nVs[2]] Qs_gen_reflA_lowerG = {{QsG_reflA_lowerG[j]/reflA_lowerG.nVs[1] for j in 1:reflA_lowerG.nVs[2]} for i in 1:reflA_lowerG.nVs[1]};
-  SI.Power[fuelCellG.nVs[1],fuelCellG.nVs[2]] Qs_gen_fuellCellG = {{kinetics.Qs_FP_gamma[j]/fuelCellG.nVs[1] for j in 1:fuelCellG.nVs[2]} for i in 1:fuelCellG.nVs[1]};
+  SI.Power[fuelCellG.nVs[1],fuelCellG.nVs[2]] Qs_gen_fuellCellG={{kinetics.Qs_FP_far[
+      j]/fuelCellG.nVs[1] for j in 1:fuelCellG.nVs[2]} for i in 1:fuelCellG.nVs[
+      1]};
   SI.Power[reflRG.nVs[1],reflRG.nVs[2]] Qs_gen_reflRG = {{QsG_reflRG[j]/reflRG.nVs[1] + Qs_gen_fuellCellG[i,j] for j in 1:reflRG.nVs[2]} for i in 1:reflRG.nVs[1]};
   SI.Power[reflA_upperG.nVs[1],reflA_upperG.nVs[2]] Qs_gen_reflA_upperG = {{QsG_reflA_upperG[j]/reflA_upperG.nVs[1] for j in 1:reflA_upperG.nVs[2]} for i in 1:reflA_upperG.nVs[1]};
 
   // Decay Heat Calculations: Off-Gas/DrainTank
-   SI.Power Qs_gen_drainTank_gas = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*drainTank_gas.mC[j] for j in 1:data_traceSubstances.nC});
-   SI.Power Qs_gen_drainTank_liquid = sum({(data_traceSubstances.w_decay[j]+data_traceSubstances.wG_decay[j])*data_traceSubstances.lambdas[j]*drainTank_liquid.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power Qs_gen_drainTank_gas=sum({(data_traceSubstances.w_near_decay[j] +
+      data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      drainTank_gas.mC[j] for j in 1:data_traceSubstances.nC});
+  SI.Power Qs_gen_drainTank_liquid=sum({(data_traceSubstances.w_near_decay[j]
+       + data_traceSubstances.w_far_decay[j])*data_traceSubstances.lambdas[j]*
+      drainTank_liquid.mC[j] for j in 1:data_traceSubstances.nC});
 
   // Trace Substance Calculations: PFL
   SIadd.ExtraPropertyFlowRate[data_traceSubstances.nC] mC_gen_tee_inlet = {-data_traceSubstances.lambdas[j]*tee_inlet.mC[j] + mC_gen_tee_inlet_PtoD[j] for j in 1:data_traceSubstances.nC};
@@ -511,7 +600,8 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         D=data_PHX.D_tube_outer,
         S_T=data_PHX.pitch_tube,
         S_L=data_PHX.pitch_tube,
-        CF=fill(
+        CFs=
+           fill(
             0.44,
             PHX.shell.heatTransfer.nHT,
             PHX.shell.heatTransfer.nSurfaces)),
@@ -593,40 +683,40 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_Drift kinetics(
     nV=fuelCell.nV,
     Q_nominal=data_RCTR.Q_nominal,
-    lambda_i=data_traceSubstances.precursorGroups.lambdas,
-    nC=data_traceSubstances.fissionProducts.nC,
+    lambda_i=data_traceSubstances.data_PG.lambdas,
+    nC=data_traceSubstances.data_FP.nC,
     mCs=fuelCell.mCs[:, data_traceSubstances.iPG[1]:data_traceSubstances.iPG[2]]
         *fuelCell.nParallel,
-    lambda_FP=data_traceSubstances.fissionProducts.lambdas,
-    w_FP_decay=data_traceSubstances.fissionProducts.w_decay,
+    lambda_FP=data_traceSubstances.data_FP.lambdas,
+    w_FP_decay=data_traceSubstances.data_FP.w_decay,
     mCs_FP=fuelCell.mCs[:, data_traceSubstances.iFP[1]:data_traceSubstances.iFP[
         2]]*fuelCell.nParallel,
-    parents=data_traceSubstances.fissionProducts.parents,
-    sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
-    fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1],
+    parents=data_traceSubstances.data_FP.parents,
+    sigmaA_FP=data_traceSubstances.data_FP.sigmasA,
+    fissionYield=data_traceSubstances.data_FP.fissionYields[:, :, 1],
     vals_feedback=matrix(fuelCell.mediums.T),
     vals_feedback_reference=matrix(linspace(
         data_RCTR.T_inlet_core,
         data_RCTR.T_outlet_core,
         fuelCell.nV)),
-    nTR=data_traceSubstances.tritium.nC,
+    nTR=data_traceSubstances.data_TR.nC,
     iH3=data_traceSubstances.iH3,
-    parents_TR=data_traceSubstances.tritium.parents,
-    sigmaA_TR=data_traceSubstances.tritium.sigmaA,
-    sigmaT_TR=data_traceSubstances.tritium.sigmaT,
-    lambda_TR=data_traceSubstances.tritium.lambdas,
+    parents_TR=data_traceSubstances.data_TR.parents,
+    sigmaA_TR=data_traceSubstances.data_TR.sigmasA,
+    sigmaT_TR=data_traceSubstances.data_TR.sigmasT,
+    lambda_TR=data_traceSubstances.data_TR.lambdas,
     mCs_TR=fuelCell.mCs[:, data_traceSubstances.iTR[1]:data_traceSubstances.iTR[
         2]]*fuelCell.nParallel,
     Vs=fuelCell.Vs*fuelCell.nParallel,
     SigmaF=26,
-    wG_FP_decay=data_traceSubstances.fissionProducts.wG_decay,
-    nFS=data_traceSubstances.fissionProducts.nFS,
+    wG_FP_decay=data_traceSubstances.data_FP.wG_decay,
+    nFS=data_traceSubstances.data_FP.nFS,
     specifyPower=true,
     fissionSource=fill(1.0/kinetics.nFS, kinetics.nFS))
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
+  TRANSFORM.Nuclear.ReactorKinetics.Data.summary_traceSubstances
     data_traceSubstances(redeclare record FissionProducts =
-        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_cut6_U235_Pu239)
+        TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_cut6_U235_Pu239)
     annotation (Placement(transformation(extent={{260,120},{280,140}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
                                                pipeFromPHX_PCL(
@@ -736,7 +826,8 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         D=data_SHX.D_tube_outer,
         S_T=data_SHX.pitch_tube,
         S_L=data_SHX.pitch_tube,
-        CF=fill(
+        CFs=
+           fill(
             0.44,
             SHX.shell.heatTransfer.nHT,
             SHX.shell.heatTransfer.nSurfaces)),
@@ -803,7 +894,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     lambdas=data_traceSubstances.lambdas,
     iC=8,
     parents=data_traceSubstances.parents,
-    Qs_decay=data_traceSubstances.w_decay + data_traceSubstances.wG_decay)
+    Qs_decay=data_traceSubstances.w_near_decay + data_traceSubstances.w_far_decay)
     annotation (Placement(transformation(extent={{-230,-30},{-210,-10}})));
   TRANSFORM.Examples.MoltenSaltReactor.Data.data_OFFGAS
                    data_OFFGAS
@@ -854,8 +945,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         rotation=0,
         origin={-220,-60})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_drainTank(redeclare package
-              Medium =
-               Medium_PFL, use_input=true)
+      Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-200,-70},{-180,-50}})));
   TRANSFORM.Controls.TankLevelControl drainTankLevelControl(
     level=drainTank_liquid.level,
@@ -886,8 +976,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         rotation=90,
         origin={-270,90})));
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_bypass(redeclare package
-              Medium =
-               Medium_PFL, use_input=true)
+      Medium = Medium_PFL, use_input=true)
     annotation (Placement(transformation(extent={{-238,102},{-258,122}})));
   Modelica.Blocks.Sources.RealExpression m_flow_pump_bypass(y=x_bypass.y*abs(
         pump_PFL.port_a.m_flow))
@@ -1096,7 +1185,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     alpha_shell_SHX=sum(SHX.shell.heatTransfer.alphas)/SHX.shell.nV)
     annotation (Placement(transformation(extent={{230,120},{250,140}})));
 
-  TRANSFORM.Examples.MoltenSaltReactor.DRACS DRACS(
+  TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS DRACS(
     redeclare package Medium_DRACS = Medium_DRACS,
     showName=systemTF.showName,
     surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*DRACS.nP_outer_drainTank[

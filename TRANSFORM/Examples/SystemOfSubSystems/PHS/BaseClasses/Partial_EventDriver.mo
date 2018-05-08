@@ -2,8 +2,7 @@ within TRANSFORM.Examples.SystemOfSubSystems.PHS.BaseClasses;
 partial model Partial_EventDriver
   import TRANSFORM;
 
-  extends
-    TRANSFORM.Examples.SystemOfSubSystems.BaseClasses.Partial_EventDriver;
+  extends TRANSFORM.Examples.SystemOfSubSystems.BaseClasses.Partial_EventDriver;
 
   annotation (
     defaultComponentName="ED",

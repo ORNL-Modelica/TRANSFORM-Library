@@ -112,8 +112,8 @@ model BoilerDrum
     p(start=p_vapor_start),
     h_outflow(start=h_liquid_start),
     redeclare package Medium = Medium) annotation (Placement(transformation(
-          extent={{-110,-10},{-90,10}}, rotation=0), iconTransformation(extent={
-            {-104,-10},{-84,10}})));
+          extent={{90,-10},{110,10}},   rotation=0), iconTransformation(extent={{90,-10},
+            {110,10}})));
   Interfaces.FluidPort_State steamPort(
     p(start=p_vapor_start),
     h_outflow(start=h_vapor_start),
@@ -124,22 +124,22 @@ model BoilerDrum
     p(start=p_vapor_start),
     h_outflow(start=h_liquid_start),
     redeclare package Medium = Medium) annotation (Placement(transformation(
-        origin={70,-74},
+        origin={-70,-72},
         extent={{-10,-10},{10,10}},
         rotation=0), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={70,-80})));
+        origin={-70,-80})));
   Interfaces.FluidPort_State downcomerPort(
     p(start=p_vapor_start),
     h_outflow(start=h_liquid_start),
     redeclare package Medium = Medium) annotation (Placement(transformation(
-        origin={-70,-74},
+        origin={70,-74},
         extent={{-10,-10},{10,10}},
         rotation=0), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-70,-80})));
+        origin={70,-80})));
   Interfaces.FluidPort_State blowdownPort(
     p(start=p_vapor_start),
     h_outflow(start=h_liquid_start),
@@ -282,7 +282,7 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
-          extent={{-6,-22},{4,-80}},
+          extent={{-6,-22},{6,-80}},
           lineColor={0,0,0},
           fillColor={135,135,135},
           fillPattern=FillPattern.VerticalCylinder),

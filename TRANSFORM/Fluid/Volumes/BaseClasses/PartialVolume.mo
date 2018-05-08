@@ -78,8 +78,8 @@ partial model PartialVolume
   SI.InternalEnergy U "Internal energy";
   SI.Mass mXi[Medium.nXi] "Species mass";
   SIadd.ExtraPropertyExtrinsic mC[Medium.nC] "Trace substance extrinsic value";
-  SI.Mass[Medium.nC] mC_scaled
-    "Scaled trace substance mass for improved numerical stability";
+  SIadd.ExtraPropertyExtrinsic[Medium.nC] mC_scaled
+    "Scaled trace substance for improved numerical stability";
 
   // C has the additional parameter because it is not included in the medium
   // i.e.,Xi has medium[:].Xi but there is no variable medium[:].C

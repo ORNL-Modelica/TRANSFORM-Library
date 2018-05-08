@@ -2,6 +2,8 @@ within TRANSFORM.Nuclear.ReactorKinetics;
 model PointKinetics
   "0-D point kinetics model of reactor dynamics with 6-group default precursor concentrations"
 
+  extends TRANSFORM.Icons.ObsoleteModel;
+
   import Modelica.Fluid.Types.Dynamics;
 
   /* General parameters */

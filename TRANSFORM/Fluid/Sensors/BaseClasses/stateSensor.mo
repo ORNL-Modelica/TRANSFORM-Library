@@ -8,17 +8,14 @@ model stateSensor
 
   Modelica.Fluid.Sensors.Pressure pressure(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,9},{30,29}})));
-  Modelica.Fluid.Sensors.Temperature temperature(redeclare package
-      Medium =
+  Modelica.Fluid.Sensors.Temperature temperature(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{10,-31},{30,-11}})));
-  Modelica.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package
-      Medium =
+  Modelica.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-29,-30},{-9,-10}})));
   Modelica.Fluid.Sensors.SpecificEnthalpy specificEnthalpy(redeclare package
-              Medium =
-               Medium)
+      Medium = Medium)
     annotation (Placement(transformation(extent={{-30,9},{-10,29}})));
 
   TRANSFORM.Fluid.Sensors.BaseClasses.statePort statePort annotation (Placement(

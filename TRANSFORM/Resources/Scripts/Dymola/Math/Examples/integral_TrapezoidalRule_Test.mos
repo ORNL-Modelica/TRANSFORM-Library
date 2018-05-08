@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Math.Examples.integral_TrapezoidalRule_Test",numberOfIntervals=100,resultFile="integral_TrapezoidalRule_Test");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

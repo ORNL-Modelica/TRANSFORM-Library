@@ -8,6 +8,7 @@ model Generic
   parameter Integer nV=4 "# of discrete axial volumes";
   parameter Integer nSurfaces=1 "Number of transfer (heat/mass) surfaces for coolant channel";
   parameter Real nPins = 1 "# of solid media pins";
+  parameter Real nPins_nonFuel = 0 "# of pins non-fueled pins (e.g., control rod guides)";
   parameter Integer nRs[nRegions]=fill(3,nRegions) "# nodes in each region's radial direction";
 
   input SI.Length dimension = 4*crossArea/perimeter "Characteristic dimension (e.g., hydraulic diameter)" annotation(Dialog(group="Inputs"));

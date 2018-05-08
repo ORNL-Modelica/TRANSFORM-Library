@@ -2,7 +2,7 @@ within TRANSFORM.Media.Interfaces.Solids;
 partial package PartialSimpleAlloy_TableBased "Material properties based on tables"
 
   import Poly =
-    TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
+  TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
 
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy;
 
