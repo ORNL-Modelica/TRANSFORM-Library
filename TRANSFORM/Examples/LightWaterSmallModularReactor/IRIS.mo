@@ -17,7 +17,7 @@ model IRIS
   package Medium_PHTS = Modelica.Media.Water.StandardWater
     "Primary heat transport system medium" annotation (Dialog(enable=false));
 
-  TRANSFORM.Nuclear.CoreSubchannels.Regions_3old coreSubchannel(
+  TRANSFORM.Nuclear.CoreSubchannels.Regions_3    coreSubchannel(
     Ts_start_3(displayUnit="K") = [{coreSubchannel.Ts_start_2[end, 1]},{
       coreSubchannel.Ts_start_2[end, 2]},{coreSubchannel.Ts_start_2[end, 3]},{
       coreSubchannel.Ts_start_2[end, 4]}; 588.673217773438,598.278564453125,
@@ -35,7 +35,6 @@ model IRIS
       814.444396972656,822.984252929688; 750.507690429688,759.9951171875,
       768.797485351563,776.962097167969; 695.743530273438,704.709289550781,
       713.0263671875,720.73974609375],
-    Lambda=16e-6,
     T_start_1=system.T_start + 225,
     T_start_2=system.T_start + 50,
     T_start_3=system.T_start + 20,
@@ -65,9 +64,12 @@ model IRIS
         perimeter=767.6466,
         nRs={6,3,3},
         rs_outer={0.5*0.0081915,0.5*0.0083566,0.5*0.0095}),
-    CR_reactivity=CR_reactivity.y,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
+    Q_nominal=1e9,
+    rho_input=CR_reactivity.y,
+    Lambda_start=16e-6,
     Teffref_fuel=786.152,
     Teffref_coolant=581.457) annotation (Placement(transformation(
         extent={{-7,-6},{7,6}},
@@ -478,7 +480,7 @@ model IRIS
 
   Blocks.RealExpression CR_reactivity
     annotation (Placement(transformation(extent={{-54,128},{-42,140}})));
-  Modelica.Blocks.Sources.RealExpression Q_total(y=coreSubchannel.reactorKinetics.Q_total)
+  Modelica.Blocks.Sources.RealExpression Q_total(y=coreSubchannel.kinetics.Q_total)
     "total thermal power"
     annotation (Placement(transformation(extent={{-76,118},{-64,130}})));
 equation
