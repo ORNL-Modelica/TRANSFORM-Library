@@ -175,9 +175,9 @@ model Kinetics_L1_powerBased
     "Total decay-heat per volume";
   SI.Power Q_decay_total=sum(Qs_decay_total) "Total decay-heat";
 
-  SIadd.NonDim etas[nV]=Qs_decay_total ./ Qs_fission
+  SIadd.NonDim etas[nV]={Qs_decay_total[i]/ max(1,Qs_fission[i]) for i in 1:nV}
     "Ratio of decay heat to fisson power per volume";
-  SIadd.NonDim eta=Q_decay_total/Q_fission_total
+  SIadd.NonDim eta=Q_decay_total/max(1,Q_fission_total)
     "Ratio of decay heat to fisson power";
 
   SI.Power[nV,nC] Cs(start=if use_history then {{Cs_start_history[j] for j in 1:

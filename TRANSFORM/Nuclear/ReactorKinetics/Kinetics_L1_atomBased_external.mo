@@ -122,9 +122,9 @@ model Kinetics_L1_atomBased_external
     "Total decay-heat per volume";
   SI.Power Q_decay_total=sum(Qs_decay_total) "Total decay-heat";
 
-  SIadd.NonDim etas[nV]=Qs_decay_total ./ Qs_fission
+  SIadd.NonDim etas[nV]={Qs_decay_total[i]/ max(1,Qs_fission[i]) for i in 1:nV}
     "Ratio of decay heat to fisson power per volume";
-  SIadd.NonDim eta=Q_decay_total/Q_fission_total
+  SIadd.NonDim eta=Q_decay_total/max(1,Q_fission_total)
     "Ratio of decay heat to fisson power";
 
   TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_externalBalance_withTritium_withDecayHeat
@@ -254,6 +254,11 @@ model Kinetics_L1_atomBased_external
       :fissionProducts.nTR} for i in 1:fissionProducts.nV}
     "Amount of each contributor to tritium [atoms]" annotation(Dialog(group="Inputs"));
 
+  TRANSFORM.Nuclear.ReactorKinetics.Data.summary_traceSubstances summary_data(
+    redeclare record Data_PG = Data,
+    redeclare record Data_FP = Data_FP,
+    redeclare record Data_TR = Data_TR)
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 initial equation
 
   if not specifyPower then
