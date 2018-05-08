@@ -5,8 +5,8 @@ model PointKinetics_Drift_Test_feedback
 
   replaceable package Medium =
       TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT (
-  extraPropertiesNames=data_traceSubstances.extraPropertiesNames,
-  C_nominal=data_traceSubstances.C_nominal);
+  extraPropertiesNames=core_kinetics.summary_data.extraPropertiesNames,
+  C_nominal=core_kinetics.summary_data.C_nominal);
 
   parameter SI.Length H = 3.4;
   parameter SI.Length L = 6.296;
@@ -22,17 +22,22 @@ model PointKinetics_Drift_Test_feedback
   parameter SI.Density[core.nV] rhos = Medium.density_pT(ps,Tsr);
   parameter SI.Density[loop_.nV] rhos1 = Medium.density_pT(ps1,Tsr1);
 
-  SIadd.ExtraPropertyFlowRate [loop_.nV,data_traceSubstances.nC] mC_gens_pipe1 = {{-data_traceSubstances.lambdas[j]*loop_.mCs[
-      i, j]                                                                                                           *loop_.nParallel + mC_gens_pipe1_PtoD[i,j] for j in 1:data_traceSubstances.nC} for i in 1:loop_.nV};
-  SIadd.ExtraPropertyFlowRate[loop_.nV,data_traceSubstances.nC] mC_gens_pipe1_PtoD = {{sum({data_traceSubstances.lambdas[k].*loop_.mCs[
-      i, k]                                                                                                                    .*loop_.nParallel.*data_traceSubstances.parents[j,k] for k in 1:data_traceSubstances.nC}) for j in 1:data_traceSubstances.nC} for i in 1:loop_.nV};
+  SIadd.ExtraPropertyFlowRate[loop_.nV,core_kinetics.summary_data.nC] mC_gens_pipe1={{
+      -core_kinetics.summary_data.lambdas[j]*loop_.mCs[i, j]*loop_.nParallel +
+      mC_gens_pipe1_PtoD[i, j] for j in 1:core_kinetics.summary_data.nC} for i in 1:
+      loop_.nV};
+  SIadd.ExtraPropertyFlowRate[loop_.nV,core_kinetics.summary_data.nC]
+    mC_gens_pipe1_PtoD={{sum({core_kinetics.summary_data.lambdas[k] .* loop_.mCs[i, k]
+       .* loop_.nParallel .* core_kinetics.summary_data.parents[j, k] for k in 1:
+      core_kinetics.summary_data.nC}) for j in 1:core_kinetics.summary_data.nC} for i in 1:
+      loop_.nV};
 
   SI.Temperature[core.nV] Ts=core.mediums.T;
   SI.Temperature[loop_.nV] Ts1=loop_.mediums.T;
   SI.Power[core.nV] Q_gens=core_kinetics.Qs;
   SI.Power Power=sum(core_kinetics.Qs);
-  SI.Power Power_beta=sum(core_kinetics.Qs_FP_near);
-  SI.Power Power_gamma=sum(core_kinetics.Qs_FP_far);
+  SI.Power Power_beta=sum(core_kinetics.Qs_decay);
+  SI.Power Power_gamma=sum(core_kinetics.fissionProducts.Qs_far);
   SI.Power Power_DH = Power_beta + Power_gamma;
   SI.Power Power_total = Power_DH + Power;
 
@@ -59,18 +64,17 @@ model PointKinetics_Drift_Test_feedback
         dlengths=fill(H/core.nV,core.nV)),
     redeclare model InternalHeatGen =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=core_kinetics.Qs +core_kinetics.Qs_FP_near
-                                                       +core_kinetics.Qs_FP_far),
-    p_a_start=100000,
-    T_a_start=573.15,
-    T_b_start=773.15,
+        (Q_gens=core_kinetics.Qs + core_kinetics.fissionProducts.Qs_far),
     redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=cat(
             2,
             core_kinetics.mC_gens,
-            core_kinetics.mC_gens_FP,
-            core_kinetics.mC_gens_TR)))
+            core_kinetics.fissionProducts.mC_gens,
+            core_kinetics.fissionProducts.mC_gens_TR)),
+    p_a_start=100000,
+    T_a_start=573.15,
+    T_b_start=773.15)
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
 
   Fluid.Pipes.GenericPipe_MultiTransferSurface           loop_(
@@ -100,50 +104,37 @@ model PointKinetics_Drift_Test_feedback
   Fluid.Sensors.TraceSubstancesTwoPort_multi Concentration_Measure(redeclare
       package Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
-public
-  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_Drift core_kinetics(
+
+  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_atomBased_external
+    core_kinetics(
     nV=core.nV,
     Q_nominal=5e4*core.nV,
-    Qs_input=fill(core_kinetics.Q_nominal/core_kinetics.nV, core_kinetics.nV),
-    mCs=core.mCs[:, data_traceSubstances.iPG[1]:data_traceSubstances.iPG[2]]*
-        core.nParallel,
-    lambda_i=data_traceSubstances.precursorGroups.lambdas,
-    nC=data_traceSubstances.fissionProducts.nC,
-    parents=data_traceSubstances.fissionProducts.parents,
-    lambda_FP=data_traceSubstances.fissionProducts.lambdas,
-    w_FP_decay=data_traceSubstances.fissionProducts.w_decay,
-    mCs_FP=core.mCs[:, data_traceSubstances.iFP[1]:data_traceSubstances.iFP[2]]
-        *core.nParallel,
-    sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
-    vals_feedback=matrix(core.mediums.T),
-    wG_FP_decay=data_traceSubstances.fissionProducts.wG_decay,
-    Vs=core.Vs*core.nParallel,
-    nTR=data_traceSubstances.tritium.nC,
-    SigmaF=26,
-    nFS=data_traceSubstances.fissionProducts.nFS,
-    fissionSource=fill(1/core_kinetics.nFS, core_kinetics.nFS),
     specifyPower=false,
-    fissionYield=fill(
-        0,
-        core_kinetics.nC,
-        core_kinetics.nFS),
     vals_feedback_reference=matrix({TRANSFORM.Math.Sigmoid(
         core.summary.xpos_norm[i],
         0.5,
-        10)*200 + 573.15 for i in 1:core.nV}))
+        10)*200 + 573.15 for i in 1:core.nV}),
+    vals_feedback=matrix(core.mediums.T),
+    Vs=core.Vs*core.nParallel,
+    SigmaF_start=26,
+    mCs=core.mCs[:, core_kinetics.summary_data.iPG[1]:core_kinetics.summary_data.iPG[
+        2]]*core.nParallel,
+    mCs_FP=core.mCs[:, core_kinetics.summary_data.iFP[1]:core_kinetics.summary_data.iFP[
+        2]]*core.nParallel,
+    nFeedback=1,
+    alphas_feedback=fill(
+        -1e-4,
+        core_kinetics.nV,
+        core_kinetics.nFeedback),
+    redeclare record Data =
+        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt)
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[
-        6],core.mCs[6, 3],core_kinetics.Qs_FP_near[6]})
+        6],core.mCs[6, 3],sum(core_kinetics.Qs_decay[6, :])})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
-protected
-  TRANSFORM.Examples.MoltenSaltReactor.Data.data_traceSubstances
-    data_traceSubstances(redeclare record PrecursorGroups =
-        TRANSFORM.Examples.MoltenSaltReactor.Data.PrecursorGroups.precursorGroups_6_description,
-      redeclare record FissionProducts =
-        TRANSFORM.Examples.MoltenSaltReactor.Data.FissionProducts.fissionProducts_TeIXe_U235)
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+
 equation
 
   connect(core_inlet.ports[1], core.port_a)
