@@ -1,7 +1,6 @@
 within TRANSFORM.Blocks;
 model ShapeFactor "Return output array by shaping a scaler input"
 
-
   parameter Integer n=1 "Output array size";
 
   parameter Real SF_start[n] = fill(1/n,n) "Initial shape function, sum(SF) = 1";

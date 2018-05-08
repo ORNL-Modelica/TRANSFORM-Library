@@ -134,7 +134,6 @@ model PointKinetics_Drift_Test_feedback
         6],core.mCs[6, 3],sum(core_kinetics.Qs_decay[6, :])})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
-
 equation
 
   connect(core_inlet.ports[1], core.port_a)

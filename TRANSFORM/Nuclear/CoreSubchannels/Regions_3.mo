@@ -12,8 +12,7 @@ model Regions_3
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium
-      =                                                                          Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
 
@@ -126,7 +125,6 @@ model Regions_3
                                  annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
   parameter SI.Temperature Teffref_coolant "Coolant reference temperature"
                                     annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
-
 
   parameter Units.NonDim fissionSources_start[kinetics.nFS]=fill(1/kinetics.nFS,
       kinetics.nFS) "Source of fissile material fractional composition (sum=1)" annotation(Dialog(tab="Kinetics",group="Fission Products"));
@@ -313,7 +311,6 @@ model Regions_3
   parameter Dynamics fissionProductDynamics=kineticDynamics
     "Formulation of fission product balances" annotation (Dialog(tab="Advanced", group="Dynamics: Kinetics"));
 
-
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Advanced", group="Coolant"));
@@ -341,7 +338,6 @@ model Regions_3
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
 
   Real SF_mC_add[geometry.nV,Medium.nC] = {{coolantSubchannel.mCs[i, j]/sum(coolantSubchannel.mCs[:, j]) for j in 1:Medium.nC} for i in 1:geometry.nV};
-
 
   Modelica.Blocks.Sources.RealExpression Q_total(y=kinetics.Q_total)
     "Total power (fission+decay heat)"

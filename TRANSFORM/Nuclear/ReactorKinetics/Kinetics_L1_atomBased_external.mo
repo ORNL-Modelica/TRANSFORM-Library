@@ -226,7 +226,6 @@ model Kinetics_L1_atomBased_external
     "Change in decay constants for each fission product" annotation (Dialog(tab=
          "Parameter Change", group="Inputs: Fission Products"));
 
-
   SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens "Generation rate of neutron precursor groups [atoms/s]";
 
   input SI.Energy dw_near_decay[nFP]=fill(0, nFP)

@@ -6,7 +6,6 @@ model FissionProducts
   // Fission products
   parameter Integer nV=1 "# of discrete volumes";
 
-
   replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_0
     constrainedby
@@ -126,7 +125,6 @@ model FissionProducts
   SIadd.ExtraPropertyExtrinsic[nV,nC] mCs_scaled
     "Scaled number of fission product atoms for improved numerical stability";
 
-
   input SIadd.ExtraPropertyExtrinsic mCs_add[nV,nC_add]=fill(
       0,
       nV,
@@ -158,7 +156,6 @@ model FissionProducts
       group="Additional Reactivity",
       tab="Outputs",
       enable=false));
-
 
 initial equation
 
