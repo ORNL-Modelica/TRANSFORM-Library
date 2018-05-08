@@ -129,7 +129,6 @@ model PointKinetics_Drift_Test_flat_Xenon
     Qs_fission_input=fill(PowerInput.y/core.nV, core.nV),
     redeclare record Data_FP =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
-
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt)
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));

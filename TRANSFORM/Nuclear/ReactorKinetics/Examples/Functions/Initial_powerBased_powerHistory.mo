@@ -5,16 +5,11 @@ model Initial_powerBased_powerHistory
 extends TRANSFORM.Icons.Example;
 
   TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
-    nC=data.nC,
-    lambdas_start=data.lambdas,
-    alphas_start=data.alphas,
-    Beta_start=data.Beta,
-    lambda_dh_start=data_dh.lambdas,
-    nDH=data_dh.nC,
-    efs_dh_start=data_dh.efs,
     use_history=true,
     history=data_history.table,
-    includeDH=true)
+    includeDH=true,
+    redeclare record Data_DH =
+        TRANSFORM.Nuclear.ReactorKinetics.Data.DecayHeat.decayHeat_11_TRACEdefault)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Data.PrecursorGroups.precursorGroups_6_TRACEdefault data
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
