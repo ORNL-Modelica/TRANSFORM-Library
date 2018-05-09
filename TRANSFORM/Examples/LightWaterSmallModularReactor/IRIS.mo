@@ -66,7 +66,6 @@ model IRIS
         rs_outer={0.5*0.0081915,0.5*0.0083566,0.5*0.0095}),
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     Q_nominal=1e9,
     rho_input=CR_reactivity.y,
     Lambda_start=16e-6,
