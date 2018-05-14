@@ -644,7 +644,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         redeclare model DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
             (iTable={1}),
-        iC={kinetics.fissionProducts.iH3}))
+        iC={kinetics.summary_data.iH3}))
                         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,

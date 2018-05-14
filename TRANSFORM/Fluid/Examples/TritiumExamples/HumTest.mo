@@ -47,14 +47,14 @@ model HumTest
         nR=7,
         th_wall=0.00025),
     redeclare package Material = Media.Solids.AlloyN,
-    p_a_start=100000,
-    T_a_start=973.15,
-    T_b_start=973.15,
     redeclare model TraceMassTransfer =
         ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.Shs_SinglePhase_Overall
         (MMs=fill(0.006032, permeator.nC), redeclare model DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1})))
+            (iTable={1})),
+    p_a_start=100000,
+    T_a_start=973.15,
+    T_b_start=973.15)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
 
   Modelica.Fluid.Sources.Boundary_pT sink(
@@ -94,7 +94,7 @@ model HumTest
     kS0=0.953,
     deltaH=10.7e3,
     T=973.15,
-    iTable={9})    "kS0=0.953,deltaH= 10.7e3"
+    iTable={9}) "kS0=0.953,deltaH= 10.7e3"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
     kH(iTable={1}, T=973.15)

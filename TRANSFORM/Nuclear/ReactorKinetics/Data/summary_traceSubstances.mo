@@ -49,7 +49,7 @@ model summary_traceSubstances
     "First and last index of fission products";
   final constant Integer[2] iTR={iFP[2] + 1,iFP[2] +data_TR.nC}  "First and last index of tritium contributors";
 
-  final constant Integer iH3=TRANSFORM.Utilities.Strings.index("1-H-3", data_FP.extraPropertiesNames)
+  final constant Integer iH3=TRANSFORM.Utilities.Strings.index("1-H-3", extraPropertiesNames)
     "Index of tritium (1-H-3) in fission products array"
     annotation (Dialog(tab="Tritium Balance"));
 
