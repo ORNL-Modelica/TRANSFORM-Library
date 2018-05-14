@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
-model PointKinetics_vs_ApproximateOneGroup
+model Kinetics_vs_ApproximateOneGroup
   "Point kinetics model vs a textbook approximate solution using one effective delayed group"
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
@@ -15,17 +15,17 @@ model PointKinetics_vs_ApproximateOneGroup
   parameter Real rho0 = 0.0025;
   parameter Real Lambda = 1e-4;
 
-  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_powerBased kinetics(
+  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
     Q_nominal=1e9,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    rhos_input={rho0},
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_1_userDefined
         (
         lambdas={lambda},
         alphas={alpha},
         Beta=Beta),
-    Lambda_start=Lambda,
-    rhos_input=rho0)
+    Lambda_start=Lambda)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 
   Real Pratio_ref "Reference power to nominal power ratio";
@@ -44,4 +44,4 @@ equation
     Documentation(info="<html>
 <p>Comparison of the full point kinetics equations to the example of an approximate solution using one effective delayed group presented in Figure 6-1 (pg. 244) of Nuclear Reactor Analysis by Duderstadt and Hamilton (1976).</p>
 </html>"));
-end PointKinetics_vs_ApproximateOneGroup;
+end Kinetics_vs_ApproximateOneGroup;

@@ -343,20 +343,15 @@ model Regions_3
     "Total power (fission+decay heat)"
     annotation (Placement(transformation(extent={{50,26},{34,36}})));
 
-  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
+  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_powerBased kinetics(
     Q_nominal=Q_nominal,
     specifyPower=specifyPower,
     redeclare record Data_DH = Data_DH,
     redeclare record Data_FP = Data_FP,
     nC_add=Medium.nC,
-    mCs_add={{sum(coolantSubchannel.mCs[:, j])*coolantSubchannel.nParallel for
-        j in 1:Medium.nC}},
     sigmasA_add_start=sigmasA_add_start,
-    nV=1,
     redeclare record Data = Data_PG,
-    Vs_add={coolantSubchannel.geometry.V_total*coolantSubchannel.nParallel},
     dsigmasA_add=dsigmasA_add,
-    Vs={fuelModel.region_1.solutionMethod.V_total*fuelModel.nParallel},
     Lambda_start=Lambda_start,
     use_history=use_history,
     history=history,
@@ -368,17 +363,6 @@ model Regions_3
     dLambda=dLambda,
     dlambdas_dh=dlambdas_dh,
     defs_dh=defs_dh,
-    Qs_fission_start={Q_fission_start},
-    Cs_start={Cs_pg_start},
-    Es_start={Es_start},
-    mCs_start={mCs_fp_start},
-    alphas_feedback=[[alpha_fuel],[alpha_coolant]],
-    vals_feedback=[[fuelModel.region_1.solutionMethod.T_effective],[
-        coolantSubchannel.summary.T_effective]],
-    vals_feedback_reference=[[Teffref_fuel],[Teffref_coolant]],
-    Qs_fission_input={Q_fission_input},
-    Qs_external={Q_external},
-    rhos_input={rho_input},
     fissionSources_start=fissionSources_start,
     fissionTypes_start=fissionTypes_start,
     nu_bar_start=nu_bar_start,
@@ -395,7 +379,22 @@ model Regions_3
     energyDynamics=kineticDynamics,
     traceDynamics=precursorDynamics,
     decayheatDynamics=decayheatDynamics,
-    fissionProductDynamics=fissionProductDynamics)
+    fissionProductDynamics=fissionProductDynamics,
+    Qs_fission_input=Q_fission_input,
+    Qs_external=Q_external,
+    rhos_input=rho_input,
+    alphas_feedback={alpha_fuel,alpha_coolant},
+    vals_feedback={fuelModel.region_1.solutionMethod.T_effective,
+        coolantSubchannel.summary.T_effective},
+    vals_feedback_reference={Teffref_fuel,Teffref_coolant},
+    Qs_fission_start=Q_fission_start,
+    Cs_start=Cs_pg_start,
+    Es_start=Es_start,
+    Vs=fuelModel.region_1.solutionMethod.V_total*fuelModel.nParallel,
+    mCs_start=mCs_fp_start,
+    mCs_add={sum(coolantSubchannel.mCs[:, j])*coolantSubchannel.nParallel for j
+         in 1:Medium.nC},
+    Vs_add=coolantSubchannel.geometry.V_total*coolantSubchannel.nParallel)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   Fluid.Pipes.GenericPipe_MultiTransferSurface
@@ -451,8 +450,8 @@ model Regions_3
         angle=geometry.angle),
     redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens={{SF_mC_add[i, j]*kinetics.fissionProducts.mC_gens_add[1, j]
-            for j in 1:Medium.nC} for i in 1:coolantSubchannel.nV}))
+        (mC_gens={{SF_mC_add[i, j]*kinetics.fissionProducts.mC_gens_add[j] for
+            j in 1:Medium.nC} for i in 1:coolantSubchannel.nV}))
                                              annotation (Placement(
         transformation(
         extent={{-15,-13},{15,13}},

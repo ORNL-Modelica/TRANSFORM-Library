@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
-model PointKinetics_Test
+model Kinetics_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.Sine Teff_Fuel(
@@ -17,20 +17,20 @@ model PointKinetics_Test
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Modelica.Blocks.Sources.Constant ControlRod_Reactivity(k=0.0025)
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
-  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_powerBased kinetics(
+  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
     Q_nominal=1e9,
     Lambda_start=1e-3,
+    rhos_input={ControlRod_Reactivity.y},
     nFeedback=2,
+    alphas_feedback=[-2.5e-5,-20e-5],
+    vals_feedback=[Teff_Fuel.y,Teff_Coolant.y],
+    vals_feedback_reference=[Teff_Fuel.offset,Teff_Coolant.offset],
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_1_userDefined
         (
         lambdas={0.08},
         alphas={1},
-        Beta=0.0075),
-    rhos_input=ControlRod_Reactivity.y,
-    alphas_feedback={-2.5e-5,-20e-5},
-    vals_feedback={Teff_Fuel.y,Teff_Coolant.y},
-    vals_feedback_reference={Teff_Fuel.offset,Teff_Coolant.offset})
+        Beta=0.0075))
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x={kinetics.Q_fission_total})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
@@ -39,4 +39,4 @@ model PointKinetics_Test
             100}})),
     experiment(StopTime=10, __Dymola_NumberOfIntervals=1000),
     __Dymola_experimentSetupOutput);
-end PointKinetics_Test;
+end Kinetics_Test;
