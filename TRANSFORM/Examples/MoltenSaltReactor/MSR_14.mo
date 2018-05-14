@@ -26,6 +26,10 @@ model MSR_14
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
 
+  // Constant volume spacing for radial geometry
+//   SI.Length rs[reflA_upperG.geometry.nR+1,reflA_upperG.geometry.nZ] = {{if i == 1 then reflA_upperG.geometry.r_inner else sqrt((reflA_upperG.geometry.r_outer^2-reflA_upperG.geometry.r_inner^2)/reflA_upperG.geometry.nR + rs[i-1,j]^2) for j in 1:reflA_upperG.geometry.nZ} for i in 1:reflA_upperG.geometry.nR+1};
+//   SI.Length drs[reflA_upperG.geometry.nR,reflA_upperG.geometry.nZ]={{rs[i+1,j] - rs[i,j] for j in 1:reflA_upperG.geometry.nZ} for i in 1:reflA_upperG.geometry.nR};
+
   // Initialization
   import Modelica.Constants.N_A;
   parameter SIadd.ExtraProperty[kinetics.summary_data.data_TR.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0} "atoms/kg fluid";
@@ -114,6 +118,10 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
       parameter Integer nV_pipeFromPHX_PCL = 2;
       parameter Integer nV_pipeToPHX_PCL = 2;
       parameter Integer nV_pipeToSHX_PCL = 2;
+
+  SI.Temperature Tref_fuelCell[fuelCell.geometry.nV] = {TRANSFORM.Math.Sigmoid(fuelCell.summary.xpos_norm[i], 0.5, fuelCell.geometry.nV)*(data_RCTR.T_outlet_core-data_RCTR.T_inlet_core) + data_RCTR.T_inlet_core for i in 1:fuelCell.geometry.nV};
+  SI.Temperature Tref_fuelCellG[fuelCell.geometry.nV] = {TRANSFORM.Math.Sigmoid(fuelCell.summary.xpos_norm[i], 0.5, fuelCell.geometry.nV)*(data_RCTR.T_outlet_core-data_RCTR.T_inlet_core) + data_RCTR.T_inlet_core+1 for i in 1:fuelCell.geometry.nV};
+  SI.Temperature Tref_core[fuelCell.geometry.nV,kinetics.nFeedback] = {{if j == 1 then Tref_fuelCell[i] else Tref_fuelCellG[i] for j in 1:kinetics.nFeedback} for i in 1:fuelCell.geometry.nV};
 
   // Gathered info
   SI.Power Qt_total = sum(kinetics.Qs) "Total thermal power output (from primary fission)";
@@ -715,27 +723,25 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         *fuelCell.nParallel,
     mCs_FP=fuelCell.mCs[:, kinetics.summary_data.iFP[1]:kinetics.summary_data.iFP[
         2]]*fuelCell.nParallel,
-    vals_feedback=matrix(fuelCell.mediums.T),
-    vals_feedback_reference=matrix(linspace(
-        data_RCTR.T_inlet_core,
-        data_RCTR.T_outlet_core,
-        fuelCell.nV)),
     mCs_TR=fuelCell.mCs[:, kinetics.summary_data.iTR[1]:kinetics.summary_data.iTR[
         2]]*fuelCell.nParallel,
     Vs=fuelCell.Vs*fuelCell.nParallel,
-    specifyPower=true,
-    nFeedback=1,
-    alphas_feedback=fill(
-        -1e-4,
-        kinetics.nV,
-        kinetics.nFeedback),
     SigmaF_start=26,
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
     redeclare record Data_FP =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_cut6_U235_Pu239,
     redeclare record Data_TR =
-        TRANSFORM.Nuclear.ReactorKinetics.Data.Tritium.FLiBe)
+        TRANSFORM.Nuclear.ReactorKinetics.Data.Tritium.FLiBe,
+    nFeedback=2,
+    vals_feedback_reference=Tref_core,
+    vals_feedback={{if j == 1 then fuelCell.mediums[i].T else sum(fuelCellG.materials[
+        :, i].T)/fuelCellG.geometry.nX for j in 1:kinetics.nFeedback} for i in
+        1:kinetics.nV},
+    alphas_feedback={{if j == 1 then -3.22e-5 else 2.35e-5 for j in 1:kinetics.nFeedback}
+        for i in 1:kinetics.nV},
+    rhos_input=fill(0.0001, fuelCell.nV),
+    specifyPower=true)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
