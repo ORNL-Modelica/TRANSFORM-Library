@@ -152,7 +152,8 @@ model PointKinetics_L1_atomBased_external_new
     dsigmasT_TR=dsigmasT_TR,
     dlambdas_TR=dlambdas_TR,
     mCs_TR=mCs_TR,
-    mCs=mCs_FP)
+    mCs=mCs_FP,
+    SF_Qs_fission=SF_Qs_fission)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable record Data_FP =

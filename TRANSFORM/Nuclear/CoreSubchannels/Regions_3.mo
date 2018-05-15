@@ -392,8 +392,8 @@ model Regions_3
     Es_start=Es_start,
     Vs=fuelModel.region_1.solutionMethod.V_total*fuelModel.nParallel,
     mCs_start=mCs_fp_start,
-    mCs_add={sum(coolantSubchannel.mCs[:, j])*coolantSubchannel.nParallel for j
-         in 1:Medium.nC},
+    mCs_add={sum(coolantSubchannel.mCs[:, j])*coolantSubchannel.nParallel for j in
+            1:Medium.nC},
     Vs_add=coolantSubchannel.geometry.V_total*coolantSubchannel.nParallel)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 

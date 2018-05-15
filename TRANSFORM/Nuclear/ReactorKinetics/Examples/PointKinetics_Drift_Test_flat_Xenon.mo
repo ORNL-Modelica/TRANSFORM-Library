@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
-model Kinetics_Drift_Test_feedback
+model PointKinetics_Drift_Test_flat_Xenon
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
 
@@ -56,6 +56,12 @@ model Kinetics_Drift_Test_feedback
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface core(
     redeclare package Medium = Medium,
     m_flow_a_start=1,
+    redeclare model Geometry =
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
+        (
+        nV=10,
+        dimensions=Ds,
+        dlengths=fill(H/core.nV,core.nV)),
     redeclare model InternalHeatGen =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=core_kinetics.Qs + core_kinetics.fissionProducts.Qs_far),
@@ -68,13 +74,7 @@ model Kinetics_Drift_Test_feedback
             core_kinetics.fissionProducts.mC_gens_TR)),
     p_a_start=100000,
     T_a_start=573.15,
-    T_b_start=773.15,
-    redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
-        dimensions=Ds,
-        dlengths=fill(H/core.nV, core.nV),
-        nV=10))
+    T_b_start=773.15)
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
 
   Fluid.Pipes.GenericPipe_MultiTransferSurface           loop_(
@@ -105,16 +105,11 @@ model Kinetics_Drift_Test_feedback
       package Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
 
-  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_atomBased_external
+  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external_new
     core_kinetics(
     nV=core.nV,
     Q_nominal=5e4*core.nV,
-    specifyPower=false,
-    vals_feedback_reference=matrix({TRANSFORM.Math.Sigmoid(
-        core.summary.xpos_norm[i],
-        0.5,
-        10)*200 + 573.15 for i in 1:core.nV}),
-    vals_feedback=matrix(core.mediums.T),
+    specifyPower=true,
     Vs=core.Vs*core.nParallel,
     SigmaF_start=26,
     mCs=core.mCs[:, core_kinetics.summary_data.iPG[1]:core_kinetics.summary_data.iPG[
@@ -122,17 +117,28 @@ model Kinetics_Drift_Test_feedback
     mCs_FP=core.mCs[:, core_kinetics.summary_data.iFP[1]:core_kinetics.summary_data.iFP[
         2]]*core.nParallel,
     nFeedback=1,
-    alphas_feedback=fill(
-        -1e-4,
-        core_kinetics.nV,
-        core_kinetics.nFeedback),
+    redeclare record Data_FP =
+        TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
     redeclare record Data =
-        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt)
+        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
+
+    Qs_fission_input=PowerInput.y,
+    alphas_feedback={-1e-4},
+    vals_feedback={core.summary.T_effective},
+    vals_feedback_reference={400 + 273.15})
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[
         6],core.mCs[6, 3],sum(core_kinetics.Qs_decay[6, :])})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
+
+  Modelica.Blocks.Sources.Pulse PowerInput(
+    amplitude=core_kinetics.Q_nominal,
+    nperiod=1,
+    startTime=6*60*60,
+    width=100*60*60,
+    period=100*60*60 + 1)
+    annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
 
 equation
 
@@ -151,5 +157,5 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=100000000, __Dymola_NumberOfIntervals=10000));
-end Kinetics_Drift_Test_feedback;
+    experiment(StopTime=741600, __Dymola_NumberOfIntervals=74160));
+end PointKinetics_Drift_Test_flat_Xenon;

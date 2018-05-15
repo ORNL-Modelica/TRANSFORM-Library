@@ -41,6 +41,11 @@ model Kinetics_Drift_Test_feedback_Xenon
   SI.Power Power_DH = Power_beta + Power_gamma;
   SI.Power Power_total = Power_DH + Power;
 
+  Real rhos_IN[10]= {core_kinetics.rhos_input[i] for i in 1:core_kinetics.nV};
+  Real rhos_FB[10]= {sum(core_kinetics.rhos_feedback[i, :]) for i in 1:core_kinetics.nV};
+  Real rhos_FP[10]= {sum(core_kinetics.fissionProducts.rhos[i,:]) for i in 1:core_kinetics.nV};
+  Real rhos_TR[10]= {sum(core_kinetics.fissionProducts.rhos_TR[i,:]) for i in 1:core_kinetics.nV};
+
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT back_to_core(
     nPorts=1,
     redeclare package Medium = Medium,
