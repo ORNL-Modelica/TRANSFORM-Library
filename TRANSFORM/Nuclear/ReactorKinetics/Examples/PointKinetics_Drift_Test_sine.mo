@@ -105,7 +105,7 @@ model PointKinetics_Drift_Test_sine
       package Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
 
-  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external_new
+  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external
     core_kinetics(
     nV=core.nV,
     Q_nominal=5e4*core.nV,

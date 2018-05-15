@@ -105,7 +105,7 @@ model PointKinetics_Drift_Test_flat
       package Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
 
-  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external_new
+  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external
     core_kinetics(
     nV=core.nV,
     Q_nominal=5e4*core.nV,
@@ -119,6 +119,7 @@ model PointKinetics_Drift_Test_flat
     nFeedback=1,
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
+
     alphas_feedback={-1e-4},
     vals_feedback={core.summary.T_effective},
     vals_feedback_reference={400 + 273.15})

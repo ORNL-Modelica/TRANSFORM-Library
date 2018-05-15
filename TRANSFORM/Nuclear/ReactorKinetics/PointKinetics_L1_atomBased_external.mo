@@ -5,6 +5,8 @@ model PointKinetics_L1_atomBased_external
   import TRANSFORM.Types.Dynamics;
   import TRANSFORM.Math.fillArray_1D;
 
+  parameter Integer nV=1 "# of discrete volumes";
+
   parameter SI.Power Q_nominal=1e6
     "Total nominal reactor power (fission + decay)";
   parameter Boolean specifyPower=false
@@ -27,13 +29,13 @@ model PointKinetics_L1_atomBased_external
     annotation (Dialog(group="Inputs"));
   input Units.NonDim rhos_input=0 "External Reactivity"
     annotation (Dialog(group="Inputs"));
-  input SI.Volume Vs
+  input SI.Volume[nV] Vs
     "Volume for atom concentration basis"
     annotation (Dialog(group="Inputs"));
-  input SIadd.ExtraPropertyExtrinsic[nC] mCs
+  input SIadd.ExtraPropertyExtrinsic[nV,nC] mCs
     "# of neutron precursors in each volume [atoms]"
     annotation (Dialog(group="Inputs"));
-  input SIadd.ExtraPropertyExtrinsic[nFP] mCs_FP={0 for j in 1:nFP}
+  input SIadd.ExtraPropertyExtrinsic[nV,nFP] mCs_FP={{0 for j in 1:nFP} for i in 1:nV}
     "Fission product number in each volume [atoms]"
     annotation (Dialog(group="Inputs"));
 
@@ -106,26 +108,27 @@ model PointKinetics_L1_atomBased_external
     "Linear reactivity feedback";
   TRANSFORM.Units.NonDim rhos "Total reactivity feedback";
 
-  SI.Power Qs "Power determined from kinetics and decay-heat per volume";
-  SI.Power Q_total=Qs "Total power output, including decay-heat";
+  SI.Power Qs[nV] "Power determined from kinetics and decay-heat per volume";
+  SI.Power Q_total=sum(Qs) "Total power output, including decay-heat";
 
   SI.Power Qs_fission(start=Qs_fission_start)
     "Fission power determined from kinetics";
   SI.Power Q_fission_total=Qs_fission
     "Total fission power output, excluding decay-heat";
 
-  SI.Power Qs_decay[nFP] "Decay-heat per fission product per volume";
-  SI.Power Qs_decay_total=sum(Qs_decay[:])
+  SI.Power Qs_decay[nV,nFP] "Decay-heat per fission product per volume";
+  SI.Power Qs_decay_total[nV]={sum(Qs_decay[i, :]) for i in 1:nV}
     "Total decay-heat per volume";
-  SI.Power Q_decay_total=Qs_decay_total "Total decay-heat";
+  SI.Power Q_decay_total=sum(Qs_decay_total) "Total decay-heat";
 
-  SIadd.NonDim etas=Qs_decay_total/ max(1,Qs_fission)
-    "Ratio of decay heat to fisson power per volume";
+//   SIadd.NonDim etas={Qs_decay_total/ max(1,Qs_fission[i]) for i in 1:nV}
+//     "Ratio of decay heat to fisson power per volume";
   SIadd.NonDim eta=Q_decay_total/max(1,Q_fission_total)
     "Ratio of decay heat to fisson power";
 
-  TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_externalBalance_withTritium_withDecayHeat_point
+  TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_externalBalance_withTritium_withDecayHeat_new
                              fissionProducts(
+    nV=nV,
     Qs_fission=Qs_fission,
     Vs=Vs,
     fissionSources_start=fissionSources_start,
@@ -149,7 +152,8 @@ model PointKinetics_L1_atomBased_external
     dsigmasT_TR=dsigmasT_TR,
     dlambdas_TR=dlambdas_TR,
     mCs_TR=mCs_TR,
-    mCs=mCs_FP)
+    mCs=mCs_FP,
+    SF_Qs_fission=SF_Qs_fission)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable record Data_FP =
@@ -222,7 +226,7 @@ model PointKinetics_L1_atomBased_external
     "Change in decay constants for each fission product" annotation (Dialog(tab=
          "Parameter Change", group="Inputs: Fission Products"));
 
-  SIadd.ExtraPropertyFlowRate[nC] mC_gens "Generation rate of neutron precursor groups [atoms/s]";
+  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens "Generation rate of neutron precursor groups [atoms/s]";
 
   input SI.Energy dw_near_decay[nFP]=fill(0, nFP)
     "Change in energy released per decay of each fission product [J/decay] (near field - e.g., beta)"
@@ -245,9 +249,11 @@ model PointKinetics_L1_atomBased_external
   input TRANSFORM.Units.InverseTime dlambdas_TR[nTR]=fill(0,
       fissionProducts.nTR) "Decay constants for each tritium contributor"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Tritium Balance"));
-  input TRANSFORM.Units.ExtraPropertyExtrinsic mCs_TR[nTR]={0 for j in 1
-      :fissionProducts.nTR}
+  input TRANSFORM.Units.ExtraPropertyExtrinsic mCs_TR[nV,nTR]={{0 for j in 1
+      :fissionProducts.nTR} for i in 1:fissionProducts.nV}
     "Amount of each contributor to tritium [atoms]" annotation(Dialog(group="Inputs"));
+
+  input SIadd.NonDim SF_Qs_fission[nV] = fill(1/nV,nV) "Shape factor for Qs_fission, sum() = 1" annotation(Dialog(group="Shape Factors"));
 
   TRANSFORM.Nuclear.ReactorKinetics.Data.summary_traceSubstances summary_data(
     redeclare record Data_PG = Data,
@@ -269,24 +275,26 @@ equation
   rhos_feedback = {alphas_feedback[j]*(vals_feedback[j] -
     vals_feedback_reference[j]) for j in 1:nFeedback};
 
-  rhos = rhos_input + sum(rhos_feedback[:]) + sum(fissionProducts.rhos[:]) + sum(fissionProducts.rhos_TR[:]);
+  rhos = rhos_input + sum(rhos_feedback[:]) + sum(fissionProducts.rhos[:,:]) + sum(fissionProducts.rhos_TR[:,:]);
 
   if specifyPower then
     Qs_fission = Qs_fission_input;
   else
     if energyDynamics == Dynamics.SteadyState then
-         0 = (rhos - Beta)/Lambda*Qs_fission + fissionProducts.w_f/(Lambda*fissionProducts.nu_bar)*sum(lambdas .*
-           mCs[:]) + fissionProducts.w_f/(Lambda*fissionProducts.nu_bar)*Ns_external;
-    else
-         der(Qs_fission) = (rhos - Beta)/Lambda*Qs_fission + fissionProducts.w_f/(Lambda*fissionProducts.nu_bar)*sum(lambdas .*
-           mCs[:]) + fissionProducts.w_f/(Lambda*fissionProducts.nu_bar)*Ns_external;
+         0 = (rhos - Beta)/Lambda*Qs_fission + sum({fissionProducts.w_f/(Lambda*fissionProducts.nu_bar)*sum(lambdas .*
+           mCs[i, :]) for i in 1:nV}) + fissionProducts.w_f/(Lambda*fissionProducts.nu_bar)*Ns_external;
+    else der(Qs_fission) = (rhos - Beta)/Lambda*Qs_fission + sum({fissionProducts.w_f/(Lambda*fissionProducts.nu_bar)*sum(lambdas .*
+           mCs[i, :]) for i in 1:nV}) + fissionProducts.w_f/(Lambda*fissionProducts.nu_bar)*Ns_external;
     end if;
   end if;
 
-  mC_gens = {betas[j]*fissionProducts.nu_bar/fissionProducts.w_f*Qs_fission - lambdas[j]*mCs[j] for j in 1:nC};
+  mC_gens = {{betas[j]*fissionProducts.nu_bar/fissionProducts.w_f*Qs_fission*SF_Qs_fission[i] - lambdas[j]*mCs[i, j] for j in 1:nC}
+    for i in 1:nV};
 
-    Qs_decay[:] = fissionProducts.Qs_near_i[:];
-    Qs = Qs_fission + sum(Qs_decay[:]);
+  for i in 1:nV loop
+    Qs_decay[i, :] = fissionProducts.Qs_near_i[i,:];
+    Qs[i] = Qs_fission*SF_Qs_fission[i] + sum(Qs_decay[i, :]);
+  end for;
 
   annotation (
     defaultComponentName="kinetics",

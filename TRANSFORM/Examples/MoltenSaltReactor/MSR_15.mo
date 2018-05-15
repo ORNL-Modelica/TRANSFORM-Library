@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_14b_newpointkinetics
+model MSR_15
   import TRANSFORM;
 
   package Medium_PFL =
@@ -280,7 +280,16 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         angle=toggleStaticHead*90,
         surfaceArea={fuelCellG.nParallel/fuelCell.nParallel*sum(fuelCellG.geometry.crossAreas_1
             [1, :])},
-        nV=nV_fuelCell))
+        nV=nV_fuelCell),
+    use_TraceMassTransfer=true,
+    redeclare model TraceMassTransfer =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
+        (
+        iC={7},
+        MMs={6.022e23},
+        redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+            (iTable={1})))
     "frac*data_RCTR.Q_nominal/fuelCell.nV; mC_gens_fuelCell"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -314,7 +323,16 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     Cs_start=Cs_start_reflA_upper,
     redeclare model InternalHeatGen =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=Qs_gen_reflA_upper))
+        (Q_gens=Qs_gen_reflA_upper),
+    use_TraceMassTransfer=true,
+    redeclare model TraceMassTransfer =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
+        (
+        redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+            (iTable={1}),
+        iC={7},
+        MMs={6.022e23}))
                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -367,7 +385,16 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     Cs_start=Cs_start_reflA_lower,
     redeclare model InternalHeatGen =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=Qs_gen_reflA_lower))
+        (Q_gens=Qs_gen_reflA_lower),
+    use_TraceMassTransfer=true,
+    redeclare model TraceMassTransfer =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
+        (
+        iC={7},
+        MMs={6.022e23},
+        redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+            (iTable={1})))
                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -412,7 +439,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,112})));
-  HeatAndMassTransfer.DiscritizedModels.Conduction_2D fuelCellG(
+  TRANSFORM.HeatAndMassTransfer.DiscritizedModels.HMTransfer_2D
+                                                      fuelCellG(
     redeclare package Material = Media.Solids.Graphite.Graphite_0,
     nParallel=2*data_RCTR.nfG*data_RCTR.nFcells,
     redeclare model Geometry =
@@ -432,8 +460,10 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         (Q_gens=Qs_gen_fuellCellG),
     T_a1_start=0.5*(data_PHX.T_inlet_tube + data_PHX.T_outlet_tube),
     T_b1_start=0.5*(data_PHX.T_inlet_tube + data_PHX.T_outlet_tube),
-    T_b2_start=data_PHX.T_inlet_tube)
-                         annotation (Placement(transformation(
+    T_b2_start=data_PHX.T_inlet_tube,
+    redeclare model DiffusionCoeff =
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+        (iTable={12}))   annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,0})));
@@ -454,7 +484,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-30,-30})));
-  HeatAndMassTransfer.DiscritizedModels.Conduction_2D reflA_upperG(
+  TRANSFORM.HeatAndMassTransfer.DiscritizedModels.HMTransfer_2D
+                                                      reflA_upperG(
     redeclare package Material = Media.Solids.Graphite.Graphite_0,
     T_a2_start=data_PHX.T_inlet_tube,
     T_b2_start=data_PHX.T_inlet_tube,
@@ -474,7 +505,10 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         angle_theta=data_RCTR.angle_reflA_ring_blockG),
     redeclare model InternalHeatModel =
         TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-        (Q_gens=Qs_gen_reflA_upperG)) annotation (Placement(transformation(
+        (Q_gens=Qs_gen_reflA_upperG),
+    redeclare model DiffusionCoeff =
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+        (iTable={12}))                annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,60})));
@@ -492,7 +526,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-30,30})));
-  HeatAndMassTransfer.DiscritizedModels.Conduction_2D reflA_lowerG(
+  TRANSFORM.HeatAndMassTransfer.DiscritizedModels.HMTransfer_2D
+                                                      reflA_lowerG(
     redeclare package Material = Media.Solids.Graphite.Graphite_0,
     exposeState_b2=true,
     exposeState_b1=true,
@@ -512,7 +547,10 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         angle_theta=data_RCTR.angle_reflA_ring_blockG),
     redeclare model InternalHeatModel =
         TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-        (Q_gens=Qs_gen_reflA_lowerG)) annotation (Placement(transformation(
+        (Q_gens=Qs_gen_reflA_lowerG),
+    redeclare model DiffusionCoeff =
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+        (iTable={12}))                annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,-60})));
@@ -741,8 +779,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
 
     Qs_fission_input=data_RCTR.Q_nominal*(1 - 0.12),
     vals_feedback_reference={649.114 + 273.15,649.385 + 273.15},
-    rhos_input=PID.y,
-    alphas_feedback={-3.22e-5,2.35e-5})
+    alphas_feedback={-3.22e-5,2.35e-5},
+    rhos_input=0.00337)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
@@ -1050,12 +1088,21 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         length=data_RCTR.length_reflR,
         surfaceArea={reflRG.nParallel/reflR.nParallel*sum(reflRG.geometry.crossAreas_1
             [1, :])},
-        nV=fuelCell.nV))                  annotation (Placement(transformation(
+        nV=fuelCell.nV),
+    use_TraceMassTransfer=true,
+    redeclare model TraceMassTransfer =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
+        (
+        iC={7},
+        MMs={6.022e23},
+        redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+            (iTable={1})))                annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={20,0})));
 
-  TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_2D reflRG(
+  TRANSFORM.HeatAndMassTransfer.DiscritizedModels.HMTransfer_2D reflRG(
     redeclare package Material =
         TRANSFORM.Media.Solids.Graphite.Graphite_0,
     exposeState_b2=true,
@@ -1076,14 +1123,17 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         length_z=data_RCTR.length_reflR_blockG),
     redeclare model InternalHeatModel =
         TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-        (Q_gens=Qs_gen_reflRG))           annotation (Placement(transformation(
+        (Q_gens=Qs_gen_reflRG),
+    redeclare model DiffusionCoeff =
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+        (iTable={12}))                    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,0})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi reflRG_lower_bc(showName=
         systemTF.showName, nPorts=reflRG.geometry.nX) annotation (Placement(
         transformation(
-        extent={{10,-10},{-10,10}},
+        extent={{10,10},{-10,-10}},
         rotation=270,
         origin={50,-30})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi reflRG_centerline_bc(showName=
@@ -1092,7 +1142,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi reflRG_upper_bc(showName=
         systemTF.showName, nPorts=reflRG.geometry.nX) annotation (Placement(
         transformation(
-        extent={{-10,-10},{10,10}},
+        extent={{-10,10},{10,-10}},
         rotation=270,
         origin={50,30})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_reflR_inlet(
@@ -1286,15 +1336,130 @@ public
     each nC=Medium_PCL.nC,
     T=SHX.shell.mediums.T)
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
-  TRANSFORM.Controls.LimPID PID(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k_s=1/data_RCTR.T_outlet_core,
-    k_m=1/data_RCTR.T_outlet_core)
-    annotation (Placement(transformation(extent={{-76,-138},{-56,-118}})));
-  Modelica.Blocks.Sources.RealExpression setpoint(y=data_RCTR.T_outlet_core)
-    annotation (Placement(transformation(extent={{-124,-138},{-104,-118}})));
-  Modelica.Blocks.Sources.RealExpression meas(y=reflA_upper.mediums[1].T)
-    annotation (Placement(transformation(extent={{-126,-170},{-106,-150}})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
+    fuelCellG_centerline_bcM(showName=systemTF.showName, nPorts=fuelCell.nV)
+    annotation (Placement(transformation(extent={{-68,-2},{-48,-22}})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
+    fuelCellG_lower_bcM(showName=systemTF.showName, nPorts=fuelCellG.geometry.nX)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-42,-30})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
+    fuelCellG_upper_bcM(showName=systemTF.showName, nPorts=fuelCellG.geometry.nX)
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-42,30})));
+public
+  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
+    kH_core[fuelCell.geometry.nV](each iTable={1}, T=fuelCell.mediums.T)
+    annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
+  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
+    kS_coreG[fuelCell.geometry.nV](T=fuelCell.mediums.T, each iTable={11})
+    annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
+  TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
+    interface_fuelCell[fuelCell.nV](
+    showName=systemTF.showName,
+    Ka=kH_core.kHs,
+    Kb=kS_coreG.kSs,
+    each nb={2})
+    annotation (Placement(transformation(extent={{-8,-8},{-16,0}})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
+    reflRG_lower_bcM(showName=systemTF.showName, nPorts=reflRG.geometry.nX)
+    annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={62,-30})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
+    reflRG_centerline_bcM(showName=systemTF.showName, nPorts=reflR.nV)
+    annotation (Placement(transformation(extent={{88,-2},{68,-22}})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
+    reflRG_upper_bcM(showName=systemTF.showName, nPorts=reflRG.geometry.nX)
+    annotation (Placement(transformation(
+        extent={{10,10},{-10,-10}},
+        rotation=90,
+        origin={62,30})));
+  TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
+    interface_reflR[reflR.nV](
+    showName=systemTF.showName,
+    each nb={2},
+    Ka=kH_reflR.kHs,
+    Kb=kS_reflRG.kSs)
+    annotation (Placement(transformation(extent={{28,-8},{36,0}})));
+public
+  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
+    kH_reflR[reflR.geometry.nV](each iTable={1}, T=reflR.mediums.T)
+    annotation (Placement(transformation(extent={{-100,-180},{-80,-160}})));
+  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
+    kS_reflRG[reflR.geometry.nV](each iTable={11}, T=reflR.mediums.T)
+    annotation (Placement(transformation(extent={{-60,-180},{-40,-160}})));
+public
+  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
+    kH_reflA_upper[reflA_upper.geometry.nV](each iTable={1}, T=reflA_upper.mediums.T)
+    annotation (Placement(transformation(extent={{-100,-200},{-80,-180}})));
+  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
+    kS_reflAG_upper[reflA_upper.geometry.nV](each iTable={11}, T=reflA_upper.mediums.T)
+    annotation (Placement(transformation(extent={{-60,-200},{-40,-180}})));
+public
+  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
+    kH_reflA_lower[reflA_lower.geometry.nV](each iTable={1}, T=reflA_lower.mediums.T)
+    annotation (Placement(transformation(extent={{-100,-220},{-80,-200}})));
+  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
+    kS_reflAG_lower[reflA_lower.geometry.nV](each iTable={11}, T=reflA_lower.mediums.T)
+    annotation (Placement(transformation(extent={{-60,-220},{-40,-200}})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
+    reflA_upperG_upper_bcM(showName=systemTF.showName, nPorts=reflA_upperG.geometry.nR)
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-42,90})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
+    reflA_upperG_lower_bcM(showName=systemTF.showName, nPorts=reflA_upperG.geometry.nR)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-42,30})));
+  TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
+    interface_reflA_upper1[reflA_upper.nV](
+    showName=systemTF.showName,
+    each nb={2},
+    Ka=kH_reflA_upper.kHs,
+    Kb=kS_reflAG_upper.kSs)
+    annotation (Placement(transformation(extent={{-8,52},{-16,60}})));
+  TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
+    interface_reflA_upper2[reflA_upper.nV](
+    showName=systemTF.showName,
+    each nb={2},
+    Ka=kH_reflA_upper.kHs,
+    Kb=kS_reflAG_upper.kSs)
+    annotation (Placement(transformation(extent={{-8,42},{-16,50}})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
+    reflA_lowerG_upper_bcM(showName=systemTF.showName, nPorts=reflA_lowerG.geometry.nR)
+    annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={-42,-30})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
+    reflA_lowerG_lower_bcM(showName=systemTF.showName, nPorts=reflA_lowerG.geometry.nR)
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-42,-90})));
+  TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
+    interface_reflA_lower1[reflA_lower.nV](
+    showName=systemTF.showName,
+    each nb={2},
+    Ka=kH_reflA_lower.kHs,
+    Kb=kS_reflAG_lower.kSs)
+    annotation (Placement(transformation(extent={{-8,-68},{-16,-60}})));
+  TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
+    interface_reflA_lower2[reflA_lower.nV](
+    showName=systemTF.showName,
+    each nb={2},
+    Ka=kH_reflA_lower.kHs,
+    Kb=kS_reflAG_lower.kSs)
+    annotation (Placement(transformation(extent={{-8,-78},{-16,-70}})));
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},
@@ -1453,10 +1618,52 @@ equation
     annotation (Line(points={{55,142},{50,142},{50,135.3}}, color={0,0,127}));
   connect(boundary_OffGas_T1.y, pump_drainTank.in_m_flow) annotation (Line(
         points={{-201,-42},{-190,-42},{-190,-52.7}}, color={0,0,127}));
-  connect(setpoint.y, PID.u_s) annotation (Line(points={{-103,-128},{-91.5,-128},
-          {-91.5,-128},{-78,-128}}, color={0,0,127}));
-  connect(meas.y, PID.u_m) annotation (Line(points={{-105,-160},{-88,-160},{-88,
-          -162},{-66,-162},{-66,-140}}, color={0,0,127}));
+  connect(fuelCellG_centerline_bcM.port, fuelCellG.portM_b1) annotation (Line(
+        points={{-48,-12},{-44,-12},{-44,-4},{-40,-4}}, color={0,140,72}));
+  connect(fuelCellG_lower_bcM.port, fuelCellG.portM_a2) annotation (Line(points
+        ={{-42,-20},{-42,-16},{-34,-16},{-34,-9.8}}, color={0,140,72}));
+  connect(fuelCellG_upper_bcM.port, fuelCellG.portM_b2) annotation (Line(points
+        ={{-42,20},{-42,16},{-34,16},{-34,10}}, color={0,140,72}));
+  connect(interface_fuelCell.port_b, fuelCellG.portM_a1)
+    annotation (Line(points={{-14.8,-4},{-20,-4}}, color={0,140,72}));
+  connect(interface_fuelCell.port_a, fuelCell.massPorts[:, 1])
+    annotation (Line(points={{-9.2,-4},{-5,-4}}, color={0,140,72}));
+  connect(reflRG_centerline_bcM.port, reflRG.portM_b1) annotation (Line(points=
+          {{68,-12},{66,-12},{66,-4},{60,-4}}, color={0,140,72}));
+  connect(reflRG_lower_bcM.port, reflRG.portM_a2) annotation (Line(points={{62,
+          -20},{62,-16},{54,-16},{54,-9.8}}, color={0,140,72}));
+  connect(reflRG_upper_bcM.port, reflRG.portM_b2) annotation (Line(points={{62,
+          20},{62,16},{54,16},{54,10}}, color={0,140,72}));
+  connect(interface_reflR.port_b, reflRG.portM_a1)
+    annotation (Line(points={{34.8,-4},{40,-4}}, color={0,140,72}));
+  connect(reflR.massPorts[:, 1], interface_reflR.port_a)
+    annotation (Line(points={{25,-4},{29.2,-4}}, color={0,140,72}));
+  connect(reflA_upperG_lower_bcM.port, reflA_upperG.portM_a2) annotation (Line(
+        points={{-42,40},{-42,44},{-34,44},{-34,50.2}}, color={0,140,72}));
+  connect(reflA_upperG_upper_bcM.port, reflA_upperG.portM_b2) annotation (Line(
+        points={{-42,80},{-42,76},{-34,76},{-34,70}}, color={0,140,72}));
+  connect(interface_reflA_upper1.port_b, reflA_upperG.portM_a1)
+    annotation (Line(points={{-14.8,56},{-20,56}}, color={0,140,72}));
+  connect(interface_reflA_upper1.port_a, reflA_upper.massPorts[:, 1])
+    annotation (Line(points={{-9.2,56},{-5,56}}, color={0,140,72}));
+  connect(interface_reflA_upper2.port_a, reflA_upper.massPorts[:, 2])
+    annotation (Line(points={{-9.2,46},{-8,46},{-8,56},{-5,56}}, color={0,140,
+          72}));
+  connect(interface_reflA_upper2.port_b, reflA_upperG.portM_b1) annotation (
+      Line(points={{-14.8,46},{-44,46},{-44,56},{-40,56}}, color={0,140,72}));
+  connect(reflA_lowerG_lower_bcM.port, reflA_lowerG.portM_a2) annotation (Line(
+        points={{-42,-80},{-42,-76},{-34,-76},{-34,-69.8}}, color={0,140,72}));
+  connect(reflA_lowerG_upper_bcM.port, reflA_lowerG.portM_b2) annotation (Line(
+        points={{-42,-40},{-42,-44},{-34,-44},{-34,-50}}, color={0,140,72}));
+  connect(interface_reflA_lower2.port_b, reflA_lowerG.portM_b1) annotation (
+      Line(points={{-14.8,-74},{-40,-74},{-40,-64}}, color={0,140,72}));
+  connect(interface_reflA_lower1.port_a, reflA_lower.massPorts[:, 1])
+    annotation (Line(points={{-9.2,-64},{-5,-64}}, color={0,140,72}));
+  connect(interface_reflA_lower1.port_b, reflA_lowerG.portM_a1)
+    annotation (Line(points={{-14.8,-64},{-20,-64}}, color={0,140,72}));
+  connect(interface_reflA_lower2.port_a, reflA_lower.massPorts[:, 2])
+    annotation (Line(points={{-9.2,-74},{-8,-74},{-8,-64},{-5,-64}}, color={0,
+          140,72}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-360,
             -220},{340,180}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-220},{340,
@@ -1494,7 +1701,7 @@ equation
           textString="PHX",
           textStyle={TextStyle.Bold,TextStyle.UnderLine}),
         Text(
-          extent={{-310,-146},{-268,-154}},
+          extent={{-312,-146},{-270,-154}},
           lineColor={0,0,0},
           textString="Fluid"),
         Text(
@@ -1521,9 +1728,37 @@ equation
         Text(
           extent={{-350,-186},{-308,-194}},
           lineColor={0,0,0},
-          textString="Shell side")}),
+          textString="Shell side"),
+        Text(
+          extent={{-112,-126},{-70,-134}},
+          lineColor={0,0,0},
+          textString="Fluid"),
+        Text(
+          extent={{-70,-126},{-28,-134}},
+          lineColor={0,0,0},
+          textString="Wall"),
+        Text(
+          extent={{-154,-146},{-112,-154}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Bold,TextStyle.UnderLine},
+          textString="Core"),
+        Text(
+          extent={{-154,-166},{-112,-174}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Bold,TextStyle.UnderLine},
+          textString="ReflR"),
+        Text(
+          extent={{-154,-184},{-112,-192}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Bold,TextStyle.UnderLine},
+          textString="ReflA_upper"),
+        Text(
+          extent={{-154,-200},{-112,-208}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Bold,TextStyle.UnderLine},
+          textString="ReflA_lower")}),
     experiment(
       StopTime=10000,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Esdirk45a"));
-end MSR_14b_newpointkinetics;
+end MSR_15;

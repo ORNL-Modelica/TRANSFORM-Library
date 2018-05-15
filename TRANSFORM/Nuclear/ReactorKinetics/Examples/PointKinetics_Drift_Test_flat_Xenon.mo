@@ -105,7 +105,7 @@ model PointKinetics_Drift_Test_flat_Xenon
       package Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
 
-  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external_new
+  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external
     core_kinetics(
     nV=core.nV,
     Q_nominal=5e4*core.nV,
@@ -119,6 +119,7 @@ model PointKinetics_Drift_Test_flat_Xenon
     nFeedback=1,
     redeclare record Data_FP =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
+
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
 
