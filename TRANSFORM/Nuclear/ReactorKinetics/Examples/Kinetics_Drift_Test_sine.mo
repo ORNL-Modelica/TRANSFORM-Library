@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
-model PointKinetics_Drift_Test_feedback
+model Kinetics_Drift_Test_sine
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
 
@@ -109,11 +109,11 @@ model PointKinetics_Drift_Test_feedback
     core_kinetics(
     nV=core.nV,
     Q_nominal=5e4*core.nV,
-    specifyPower=false,
-    vals_feedback_reference=matrix({TRANSFORM.Math.Sigmoid(
-        core.summary.xpos_norm[i],
-        0.5,
-        10)*200 + 573.15 for i in 1:core.nV}),
+    specifyPower=true,
+    vals_feedback_reference=matrix(linspace(
+        300 + 273.15,
+        500 + 273.15,
+        core.nV)),
     vals_feedback=matrix(core.mediums.T),
     Vs=core.Vs*core.nParallel,
     SigmaF_start=26,
@@ -126,6 +126,7 @@ model PointKinetics_Drift_Test_feedback
         -1e-4,
         core_kinetics.nV,
         core_kinetics.nFeedback),
+    Qs_fission_input=core_kinetics.Q_nominal/6.5*sin(Modelica.Constants.pi/H*core.summary.xpos),
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt)
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
@@ -152,4 +153,4 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=100000000, __Dymola_NumberOfIntervals=10000));
-end PointKinetics_Drift_Test_feedback;
+end Kinetics_Drift_Test_sine;

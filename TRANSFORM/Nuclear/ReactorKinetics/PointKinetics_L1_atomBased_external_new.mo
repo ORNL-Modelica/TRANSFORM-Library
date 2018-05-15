@@ -252,8 +252,7 @@ model PointKinetics_L1_atomBased_external_new
       :fissionProducts.nTR} for i in 1:fissionProducts.nV}
     "Amount of each contributor to tritium [atoms]" annotation(Dialog(group="Inputs"));
 
-  input SIadd.NonDim SF_mC_gens[nV] = fill(1/nV,nV) "Shape factor for mC_gens" annotation(Dialog(group="Shape Factors"));
-  input SIadd.NonDim SF_Qs_fission[nV] = fill(1/nV,nV) "Shape factor for Qs_fission" annotation(Dialog(group="Shape Factors"));
+  input SIadd.NonDim SF_Qs_fission[nV] = fill(1/nV,nV) "Shape factor for Qs_fission, sum() = 1" annotation(Dialog(group="Shape Factors"));
 
   TRANSFORM.Nuclear.ReactorKinetics.Data.summary_traceSubstances summary_data(
     redeclare record Data_PG = Data,
@@ -289,7 +288,7 @@ equation
     end if;
   end if;
 
-  mC_gens = {{betas[j]*fissionProducts.nu_bar/fissionProducts.w_f*Qs_fission*SF_mC_gens[i] - lambdas[j]*mCs[i, j] for j in 1:nC}
+  mC_gens = {{betas[j]*fissionProducts.nu_bar/fissionProducts.w_f*Qs_fission*SF_Qs_fission[i] - lambdas[j]*mCs[i, j] for j in 1:nC}
     for i in 1:nV};
 
   for i in 1:nV loop

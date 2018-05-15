@@ -1,5 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples;
-model Kinetics_Drift_Test_flat_point
+model Kinetics_Drift_Test_flat
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
 
@@ -151,4 +151,4 @@ equation
 
   annotation (
       experiment(StopTime=100000000, __Dymola_NumberOfIntervals=10000));
-end Kinetics_Drift_Test_flat_point;
+end Kinetics_Drift_Test_flat;
