@@ -22,11 +22,12 @@ model ArrheniusEquation "Arrhenius equation y = A*exp(-(Ea/RT)^b)"
   parameter Real beta=1.0 "Correction factor";
   parameter Real betas[nC]=fill(beta, nC) "if non-uniform then set";
 
-  TRANSFORM.Blocks.DataTable data(table=[0.758,15700; 0.427,13900; 7.59,26700; 1.98,
-        28500; 0.517,17500; 1.98,23100; 1.84,17200; 0.137,31200; 0.953,10700; 0.955,
-        26700; 0.019,-19200; 0.046,39700; 0.438,-29000; 0.436,28600; 0.266,6900;
-        0.564,15800; 0.792,38900; 34000,35800; 3.3,37400; 0.258,56700; 1.49,101000;
-        0.207,46000; 77.9,99400; 0.0189,16800; 5900,96600])
+  TRANSFORM.Blocks.DataTable data(table=[0.758,15700; 0.427,13900; 7.59,26700;
+        1.98,28500; 0.517,17500; 1.98,23100; 1.84,17200; 0.137,31200; 0.953,
+        10700; 0.955,26700; 0.019,-19200; 0.046,39700; 0.438,-29000; 0.436,
+        28600; 0.266,6900; 0.564,15800; 0.792,38900; 34000,35800; 3.3,37400;
+        0.258,56700; 1.49,101000; 0.207,46000; 77.9,99400; 0.0189,16800; 5900,
+        96600; 1,0])
     "Col 1 = kS0; Col 2 = Ea"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -232,6 +233,13 @@ equation
 <td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">5.90E+03</span></p></td>
 <td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">9.66E+04</span></p></td>
 <td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">2</span></p></td>
+</tr>
+<tr>
+<td><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">26</span></p></td>
+<td><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Constant</span></p></td>
+<td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">1</span></p></td>
+<td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">0</span></p></td>
+<td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">-</span></p></td>
 </tr>
 </table>
 <p><br><br><br><br>Source:</p>

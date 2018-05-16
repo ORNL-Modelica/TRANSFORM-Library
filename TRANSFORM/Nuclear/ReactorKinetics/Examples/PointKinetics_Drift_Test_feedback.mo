@@ -119,7 +119,6 @@ model PointKinetics_Drift_Test_feedback
     nFeedback=1,
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
-
     alphas_feedback={-1e-4},
     vals_feedback={core.summary.T_effective},
     vals_feedback_reference={400 + 273.15},

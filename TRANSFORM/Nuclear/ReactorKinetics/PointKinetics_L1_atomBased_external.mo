@@ -20,6 +20,7 @@ model PointKinetics_L1_atomBased_external
 
    Data data;
 
+
   // Inputs
   input SI.Power Qs_fission_input=Q_nominal
     "Fission power (if specifyPower=true)"
@@ -255,10 +256,17 @@ model PointKinetics_L1_atomBased_external
 
   input SIadd.NonDim SF_Qs_fission[nV] = fill(1/nV,nV) "Shape factor for Qs_fission, sum() = 1" annotation(Dialog(group="Shape Factors"));
 
+  replaceable record Data_CP =
+      TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.corrosionProduct_0
+                                                                                              constrainedby
+    TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.PartialCorrosionProduct
+    "Corrosion Product information" annotation (choicesAllMatching=true);
+
   TRANSFORM.Nuclear.ReactorKinetics.Data.summary_traceSubstances summary_data(
     redeclare record Data_PG = Data,
     redeclare record Data_FP = Data_FP,
-    redeclare record Data_TR = Data_TR)
+    redeclare record Data_TR = Data_TR,
+    redeclare record Data_CP = Data_CP)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 initial equation
 

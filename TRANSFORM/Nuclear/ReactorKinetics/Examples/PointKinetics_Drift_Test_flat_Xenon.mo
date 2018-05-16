@@ -119,10 +119,8 @@ model PointKinetics_Drift_Test_flat_Xenon
     nFeedback=1,
     redeclare record Data_FP =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
-
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
-
     Qs_fission_input=PowerInput.y,
     alphas_feedback={-1e-4},
     vals_feedback={core.summary.T_effective},

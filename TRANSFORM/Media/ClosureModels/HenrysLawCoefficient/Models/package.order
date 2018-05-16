@@ -2,3 +2,4 @@ PartialHenrysLawCoefficient
 GenericCoefficient
 ArrheniusEquation
 ExponentialTemperature
+ExponentialTemperature_withT_reference

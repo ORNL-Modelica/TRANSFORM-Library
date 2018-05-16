@@ -118,10 +118,8 @@ model PointKinetics_Drift_Test_feedback_Xenon
     nFeedback=1,
     redeclare record Data_FP =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
-
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
-
     SF_Qs_fission=sin(Modelica.Constants.pi/H*core.summary.xpos)/sum(sin(
         Modelica.Constants.pi/H*core.summary.xpos)),
     rhos_input=Reactivity.y,

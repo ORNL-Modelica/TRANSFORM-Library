@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_15
+model MSR_16b
   import TRANSFORM;
 
   package Medium_PFL =
@@ -666,15 +666,11 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     redeclare model DiffusionCoeff_wall =
         TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
         (iTable={10}),
-    Kb_wall_tubeSide=kS_PHX_tubeSide_wall.kSs,
-    Ka_tubeSide=kH_PHX_tubeSide.kHs,
     redeclare model TraceMassTransfer_shell =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
         (MMs={6.022e23}, redeclare model DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
             (iTable={1})),
-    Ka_shellSide=kH_PHX_shellSide.kHs,
-    Kb_wall_shellSide=kS_PHX_shellSide_wall.kSs,
     nb_wall_shellSide=fill(
         2,
         PHX.geometry.nV,
@@ -690,7 +686,13 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         redeclare model DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
             (iTable={1}),
-        iC={kinetics.summary_data.iH3}))
+        iC={kinetics.summary_data.iH3}),
+    Ka_shellSide={{kH_PHX_shellSide[i].kHs[j] for j in 1:1} for i in 1:PHX.geometry.nV},
+
+    Ka_tubeSide={{kH_PHX_tubeSide[i].kHs[j] for j in 1:1} for i in 1:PHX.geometry.nV},
+
+    Kb_wall_shellSide={{kS_PHX_shellSide_wall[i].kSs[j] for j in 1:1} for i in
+        1:PHX.geometry.nV})
                         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -1284,55 +1286,6 @@ protected
   Modelica.Blocks.Sources.RealExpression boundary_OffGas_T1(y=drainTank_liquid.port_a.m_flow)
     annotation (Placement(transformation(extent={{-222,-52},{-202,-32}})));
 public
-  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
-    kH_PHX_tubeSide[PHX.geometry.nV](
-    T=PHX.tube.mediums.T,
-    each iTable={1},
-    each nC=Medium_PCL.nC)
-    annotation (Placement(transformation(extent={{-300,-180},{-280,-160}})));
-  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
-    kS_PHX_tubeSide_wall[PHX.geometry.nV](
-    each iTable={9},
-    T=PHX.tube.mediums.T,
-    each nC=Medium_PCL.nC)
-    annotation (Placement(transformation(extent={{-260,-180},{-240,-160}})));
-  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
-    kH_PHX_shellSide[PHX.geometry.nV](
-    each iTable={1},
-    each nC=Medium_PCL.nC,
-    T=PHX.shell.mediums.T)
-    annotation (Placement(transformation(extent={{-300,-200},{-280,-180}})));
-  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
-    kS_PHX_shellSide_wall[PHX.geometry.nV](
-    each iTable={9},
-    each nC=Medium_PCL.nC,
-    T=PHX.shell.mediums.T)
-    annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
-  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
-    kH_SHX_tubeSide[SHX.geometry.nV](
-    each nC=Medium_PCL.nC,
-    T=SHX.tube.mediums.T,
-    each use_RecordData=false,
-    each kH0=7.7e-6)
-    annotation (Placement(transformation(extent={{-180,-180},{-160,-160}})));
-  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
-    kS_SHX_tubeSide_wall[SHX.geometry.nV](
-    each iTable={9},
-    each nC=Medium_PCL.nC,
-    T=SHX.tube.mediums.T)
-    annotation (Placement(transformation(extent={{-220,-180},{-200,-160}})));
-  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
-    kH_SHX_shellSide[SHX.geometry.nV](
-    each iTable={1},
-    each nC=Medium_PCL.nC,
-    T=SHX.shell.mediums.T)
-    annotation (Placement(transformation(extent={{-180,-200},{-160,-180}})));
-  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
-    kS_SHX_shellSide_wall[SHX.geometry.nV](
-    each iTable={9},
-    each nC=Medium_PCL.nC,
-    T=SHX.shell.mediums.T)
-    annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass_multi
     fuelCellG_centerline_bcM(showName=systemTF.showName, nPorts=fuelCell.nV)
     annotation (Placement(transformation(extent={{-68,-2},{-48,-22}})));
@@ -1457,6 +1410,59 @@ public
     Ka=kH_reflA_lower.kHs,
     Kb=kS_reflAG_lower.kSs)
     annotation (Placement(transformation(extent={{-8,-78},{-16,-70}})));
+public
+  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature_withT_reference
+    kH_PHX_tubeSide[PHX.geometry.nV](
+    T=PHX.tube.mediums.T,
+    each iTable={1,1},
+    each T_reference={0,0.5*(data_PHX.T_inlet_tube + data_PHX.T_outlet_tube)},
+    each nC=2)
+    annotation (Placement(transformation(extent={{-300,-180},{-280,-160}})));
+  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
+    kS_PHX_tubeSide_wall[PHX.geometry.nV](
+    T=PHX.tube.mediums.T,
+    each iTable={9,26},
+    each nC=2)
+    annotation (Placement(transformation(extent={{-260,-180},{-240,-160}})));
+  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature_withT_reference
+    kH_PHX_shellSide[PHX.geometry.nV](
+    T=PHX.shell.mediums.T,
+    each iTable={1,1},
+    each T_reference={0,0.5*(data_PHX.T_inlet_shell + data_PHX.T_outlet_shell)},
+
+    each nC=2)
+    annotation (Placement(transformation(extent={{-300,-200},{-280,-180}})));
+  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
+    kS_PHX_shellSide_wall[PHX.geometry.nV](
+    T=PHX.shell.mediums.T,
+    each iTable={9,26},
+    each nC=2)
+    annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
+  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
+    kH_SHX_tubeSide[SHX.geometry.nV](
+    T=SHX.tube.mediums.T,
+    each use_RecordData=false,
+    each kH0=7.7e-6,
+    each nC=1)
+    annotation (Placement(transformation(extent={{-180,-180},{-160,-160}})));
+  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
+    kS_SHX_tubeSide_wall[SHX.geometry.nV](
+    each iTable={9},
+    T=SHX.tube.mediums.T,
+    each nC=1)
+    annotation (Placement(transformation(extent={{-220,-180},{-200,-160}})));
+  TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
+    kH_SHX_shellSide[SHX.geometry.nV](
+    each iTable={1},
+    T=SHX.shell.mediums.T,
+    each nC=1)
+    annotation (Placement(transformation(extent={{-180,-200},{-160,-180}})));
+  TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
+    kS_SHX_shellSide_wall[SHX.geometry.nV](
+    each iTable={9},
+    T=SHX.shell.mediums.T,
+    each nC=1)
+    annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},
@@ -1693,6 +1699,34 @@ equation
           rotation=0,
           textString="Position"),
         Text(
+          extent={{-112,-126},{-70,-134}},
+          lineColor={0,0,0},
+          textString="Fluid"),
+        Text(
+          extent={{-70,-126},{-28,-134}},
+          lineColor={0,0,0},
+          textString="Wall"),
+        Text(
+          extent={{-154,-146},{-112,-154}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Bold,TextStyle.UnderLine},
+          textString="Core"),
+        Text(
+          extent={{-154,-166},{-112,-174}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Bold,TextStyle.UnderLine},
+          textString="ReflR"),
+        Text(
+          extent={{-154,-184},{-112,-192}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Bold,TextStyle.UnderLine},
+          textString="ReflA_upper"),
+        Text(
+          extent={{-154,-200},{-112,-208}},
+          lineColor={0,0,0},
+          textStyle={TextStyle.Bold,TextStyle.UnderLine},
+          textString="ReflA_lower"),
+        Text(
           extent={{-290,-132},{-248,-140}},
           lineColor={0,0,0},
           textString="PHX",
@@ -1725,37 +1759,9 @@ equation
         Text(
           extent={{-350,-186},{-308,-194}},
           lineColor={0,0,0},
-          textString="Shell side"),
-        Text(
-          extent={{-112,-126},{-70,-134}},
-          lineColor={0,0,0},
-          textString="Fluid"),
-        Text(
-          extent={{-70,-126},{-28,-134}},
-          lineColor={0,0,0},
-          textString="Wall"),
-        Text(
-          extent={{-154,-146},{-112,-154}},
-          lineColor={0,0,0},
-          textStyle={TextStyle.Bold,TextStyle.UnderLine},
-          textString="Core"),
-        Text(
-          extent={{-154,-166},{-112,-174}},
-          lineColor={0,0,0},
-          textStyle={TextStyle.Bold,TextStyle.UnderLine},
-          textString="ReflR"),
-        Text(
-          extent={{-154,-184},{-112,-192}},
-          lineColor={0,0,0},
-          textStyle={TextStyle.Bold,TextStyle.UnderLine},
-          textString="ReflA_upper"),
-        Text(
-          extent={{-154,-200},{-112,-208}},
-          lineColor={0,0,0},
-          textStyle={TextStyle.Bold,TextStyle.UnderLine},
-          textString="ReflA_lower")}),
+          textString="Shell side")}),
     experiment(
       StopTime=10000,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Esdirk45a"));
-end MSR_15;
+end MSR_16b;
