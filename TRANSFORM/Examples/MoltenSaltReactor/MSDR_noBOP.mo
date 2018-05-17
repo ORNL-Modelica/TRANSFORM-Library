@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_15
+model MSDR_noBOP
   import TRANSFORM;
 
   package Medium_PFL =
@@ -1758,4 +1758,4 @@ equation
       StopTime=10000,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Esdirk45a"));
-end MSR_15;
+end MSDR_noBOP;

@@ -508,8 +508,6 @@ model GenericDistributed_HXold
         rotation=90,
         origin={0,-30})));
 
-  TRANSFORM.HeatExchangers.BaseClasses.Summary summary
-    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi
     adiabaticWall_a2(nPorts=geometry.nR)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
@@ -530,6 +528,17 @@ model GenericDistributed_HXold
       Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
       annotation (Dialog(group="Heat Transfer"),choicesAllMatching=true);
 
+  BaseClasses.Summary                          summary(
+    R_tubeWall=log(tubeWall.geometry.r_outer/tubeWall.geometry.r_inner)/(2*
+        Modelica.Constants.pi*geometry.length_tube*tubeWall.summary.lambda_effective),
+
+    R_shell=if shell.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({shell.heatTransfer.alphas[
+        i]*shell.geometry.surfaceAreas[i] for i in 1:shell.nV})*shell.nParallel
+        /shell.nV),
+    R_tube=if tube.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({tube.heatTransfer.alphas[
+        i]*tube.geometry.surfaceAreas[i] for i in 1:tube.nV})*tube.nParallel/
+        tube.nV))
+    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 equation
 
   //    SI.TemperatureDifference DT_lm "Log mean temperature difference";

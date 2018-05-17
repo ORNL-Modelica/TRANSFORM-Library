@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Volumes;
-model UnitVolume_wTraceMass
-  extends Volumes.UnitVolume;
+model UnitVolume_wTraceMass_withMedia
+  extends Volumes.UnitVolume_withMedia;
 
   import Modelica.Fluid.Types.Dynamics;
 
@@ -54,4 +54,4 @@ equation
   annotation (defaultComponentName="volume",
 Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end UnitVolume_wTraceMass;
+end UnitVolume_wTraceMass_withMedia;

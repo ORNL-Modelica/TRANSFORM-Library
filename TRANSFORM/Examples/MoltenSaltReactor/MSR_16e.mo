@@ -1,6 +1,8 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_16
+model MSR_16e
   import TRANSFORM;
+
+  import TRANSFORM.Math.linspaceRepeat_1D;
 
   package Medium_PFL =
       TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_12Th_05U_pT (
@@ -108,13 +110,13 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:pipeToPHX_PFL.nV};
-  parameter SIadd.ExtraProperty[PHX.tube.nV,kinetics.summary_data.nC]
+  parameter SIadd.ExtraProperty[tube.nV,kinetics.summary_data.nC]
     Cs_start_PHX_tube={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
-      fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:PHX.tube.nV};
+      fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:tube.nV};
   parameter SIadd.ExtraProperty[pipeFromPHX_PFL.nV,kinetics.summary_data.nC]
     Cs_start_pipeFromPHX_PFL={cat(
       1,
@@ -141,11 +143,11 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
 
   SI.Temperature Ts[fuelCell.geometry.nV] = fuelCell.mediums.T;
 
-  SI.Temperature Tst[PHX.geometry.nV] = PHX.tube.mediums.T;
-  SI.Temperature Tss[PHX.geometry.nV] = PHX.shell.mediums.T;
+  SI.Temperature Tst[geometry.nV] = tube.mediums.T;
+  SI.Temperature Tss[geometry.nV] = shell.mediums.T;
 
-  SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
-  {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
+  SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
+  {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
 
   // Decay Heat Calculations: PFL
   SI.Power Qs_gen_tee_inlet=sum({(kinetics.summary_data.w_near_decay[j] +
@@ -175,9 +177,9 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
       j] + kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]
       *pipeToPHX_PFL.mCs[i, j] for j in 1:kinetics.summary_data.nC}) for i in 1:
       pipeToPHX_PFL.nV};
-  SI.Power[PHX.tube.nV] Qs_gen_PHX_tube={sum({(kinetics.summary_data.w_near_decay[
+  SI.Power[tube.nV] Qs_gen_PHX_tube={sum({(kinetics.summary_data.w_near_decay[
       j] + kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]
-      *PHX.tube.mCs[i, j] for j in 1:kinetics.summary_data.nC}) for i in 1:PHX.tube.nV};
+      *tube.mCs[i, j] for j in 1:kinetics.summary_data.nC}) for i in 1:tube.nV};
   SI.Power[pipeFromPHX_PFL.nV] Qs_gen_pipeFromPHX_PFL={sum({(
       kinetics.summary_data.w_near_decay[j] + kinetics.summary_data.w_far_decay[j])
       *kinetics.summary_data.lambdas[j]*pipeFromPHX_PFL.mCs[i, j] for j in 1:
@@ -220,7 +222,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_upper = {-kinetics.summary_data.lambdas[j]*plenum_upper.mC[j] + mC_gen_plenum_upper_PtoD[j] for j in 1:kinetics.summary_data.nC};
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_pumpBowl_PFL={-kinetics.summary_data.lambdas[j]*pumpBowl_PFL.mC[j]*3 + mC_flows_fromOG[j] + mC_gen_pumpBowl_PFL_PtoD[j] for j in 1:kinetics.summary_data.nC};
   SIadd.ExtraPropertyFlowRate[pipeToPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeToPHX_PFL = {{-kinetics.summary_data.lambdas[j]*pipeToPHX_PFL.mCs[i, j]*pipeToPHX_PFL.nParallel + mC_gens_pipeToPHX_PFL_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:pipeToPHX_PFL.nV};
-  SIadd.ExtraPropertyFlowRate[PHX.tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube = {{-kinetics.summary_data.lambdas[j]*PHX.tube.mCs[i, j]*PHX.tube.nParallel + mC_gens_PHX_tube_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:PHX.tube.nV};
+  SIadd.ExtraPropertyFlowRate[tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube = {{-kinetics.summary_data.lambdas[j]*tube.mCs[i, j]*tube.nParallel + mC_gens_PHX_tube_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:tube.nV};
   SIadd.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeFromPHX_PFL = {{-kinetics.summary_data.lambdas[j]*pipeFromPHX_PFL.mCs[i, j]*pipeFromPHX_PFL.nParallel + mC_gens_pipeFromPHX_PFL_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:pipeFromPHX_PFL.nV};
 
   // Trace Substances Parent->Daughter contribution
@@ -233,7 +235,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_upper_PtoD= {sum({kinetics.summary_data.lambdas[k].*plenum_upper.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_pumpBowl_PFL_PtoD= {sum({kinetics.summary_data.lambdas[k].*pumpBowl_PFL.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
   SIadd.ExtraPropertyFlowRate[pipeToPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeToPHX_PFL_PtoD = {{sum({kinetics.summary_data.lambdas[k].*pipeToPHX_PFL.mCs[i,k].*pipeToPHX_PFL.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:pipeToPHX_PFL.nV};
-  SIadd.ExtraPropertyFlowRate[PHX.tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube_PtoD = {{sum({kinetics.summary_data.lambdas[k].*PHX.tube.mCs[i,k].*PHX.tube.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:PHX.tube.nV};
+  SIadd.ExtraPropertyFlowRate[tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube_PtoD = {{sum({kinetics.summary_data.lambdas[k].*tube.mCs[i,k].*tube.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:tube.nV};
   SIadd.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeFromPHX_PFL_PtoD = {{sum({kinetics.summary_data.lambdas[k].*pipeFromPHX_PFL.mCs[i,k].*pipeFromPHX_PFL.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:pipeFromPHX_PFL.nV};
 
   // TraceSubstance Calculations: Off-Gas and Drain Tank
@@ -246,6 +248,20 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_gas_PtoD = {sum({kinetics.summary_data.lambdas[k].*drainTank_gas.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_liquid_PtoD = {sum({kinetics.summary_data.lambdas[k].*drainTank_liquid.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
 
+
+  ////////
+
+  parameter SI.Temperature Ts_start_wall[geometry.nR,geometry.nV]=
+      linspaceRepeat_1D(
+      Ts_start_wall_tubeSide,
+      if counterFlow.counterCurrent then Modelica.Math.Vectors.reverse(
+        Ts_start_wall_shellSide) else Ts_start_wall_shellSide,
+      geometry.nR) "Tube wall temperature" annotation (Dialog(tab="Wall Initialization",
+        group="Start Value: Temperature"));
+  parameter SI.Temperature Ts_start_wall_tubeSide[geometry.nV]=tube.Ts_start;
+  parameter SI.Temperature Ts_start_wall_shellSide[geometry.nV]=shell.Ts_start;
+
+  ////////
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_OffGas_sink(
     redeclare package Medium = Medium_OffGas,
     nPorts=2,
@@ -630,85 +646,6 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={160,-70})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HX_withMass PHX(
-    redeclare package Medium_shell = Medium_PCL,
-    redeclare package Medium_tube = Medium_PFL,
-    p_a_start_shell=data_PHX.p_inlet_shell,
-    T_a_start_shell=data_PHX.T_inlet_shell,
-    T_b_start_shell=data_PHX.T_outlet_shell,
-    p_a_start_tube=data_PHX.p_inlet_tube,
-    T_a_start_tube=data_PHX.T_inlet_tube,
-    T_b_start_tube=data_PHX.T_outlet_tube,
-    nParallel=2*3,
-    m_flow_a_start_shell=2*3*data_PHX.m_flow_shell,
-    m_flow_a_start_tube=2*3*data_PHX.m_flow_tube,
-    redeclare model InternalTraceGen_tube =
-        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens_PHX_tube),
-    Cs_start_tube=Cs_start_PHX_tube,
-    redeclare model InternalHeatGen_tube =
-        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=Qs_gen_PHX_tube),
-    redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-    redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
-        (
-        D=data_PHX.D_tube_outer,
-        S_T=data_PHX.pitch_tube,
-        S_L=data_PHX.pitch_tube,
-        CFs=fill(
-            0.44,
-            PHX.shell.heatTransfer.nHT,
-            PHX.shell.heatTransfer.nSurfaces)),
-    redeclare package Material_wall = TRANSFORM.Media.Solids.AlloyN,
-    use_TraceMassTransfer_shell=true,
-    use_TraceMassTransfer_tube=true,
-    redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
-        D_o_shell=data_PHX.D_shell_inner,
-        nTubes=data_PHX.nTubes,
-        nR=3,
-        length_shell=data_PHX.length_tube,
-        th_wall=data_PHX.th_tube,
-        dimension_tube=data_PHX.D_tube_inner,
-        length_tube=data_PHX.length_tube,
-        nV=nV_PHX),
-    Kb_wall_tubeSide=kS_PHX_tubeSide_wall.kSs,
-    Ka_tubeSide=kH_PHX_tubeSide.kHs,
-    Ka_shellSide=kH_PHX_shellSide.kHs,
-    Kb_wall_shellSide=kS_PHX_shellSide_wall.kSs,
-    redeclare model TraceMassTransfer_shell =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
-        (MMs=fill(6.022e23, 2), redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1,27})),
-    redeclare model TraceMassTransfer_tube =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
-        (
-        iC={kinetics.summary_data.iH3,kinetics.summary_data.iCP[1]},
-        MMs=fill(6.022e23, 2),
-        redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1,27})),
-    redeclare model DiffusionCoeff_wall =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-        (iTable={10,26}),
-    nb_wall_shellSide={{if j == 1 then 2 else 1 for j in 1:Medium_PCL.nC} for i in
-            1:PHX.geometry.nV},
-    nb_wall_tubeSide={{if j == 1 then 2 else 1 for j in 1:Medium_PCL.nC} for i in
-            1:PHX.geometry.nV},
-    nC=2,
-    Cs_start_wall_tubeSide={{if j == 1 then 0 else C_start_Cr for j in 1:2}
-        for i in 1:PHX.geometry.nV},
-    Cs_start_wall_shellSide={{if j == 1 then 0 else C_start_Cr for j in 1:2}
-        for i in 1:PHX.geometry.nV})
-    "{{if j == 1 then 0 else C_start_Cr for j in 1:2} for i in 1:PHX.geometry.nV}"
-                        annotation (Placement(transformation(
-        extent={{10,10},{-10,-10}},
-        rotation=90,
-        origin={160,0})));
 
   Fluid.Pipes.GenericPipe_MultiTransferSurface pipeToPHX_PFL(
     nParallel=3,
@@ -753,11 +690,11 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     annotation (Placement(transformation(extent={{10,124},{30,144}})));
 
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
-    x1=PHX.tube.summary.xpos_norm,
-    y1={PHX.tube.mediums[i].T for i in 1:PHX.geometry.nV},
-    x2=if PHX.counterCurrent == true then Modelica.Math.Vectors.reverse(PHX.shell.summary.xpos_norm)
-         else PHX.shell.summary.xpos_norm,
-    y2={PHX.shell.mediums[i].T for i in 1:PHX.geometry.nV},
+    x1=tube.summary.xpos_norm,
+    y1={tube.mediums[i].T for i in 1:geometry.nV},
+    x2=if counterFlow.counterCurrent == true then Modelica.Math.Vectors.reverse(shell.summary.xpos_norm)
+         else shell.summary.xpos_norm,
+    y2={shell.mediums[i].T for i in 1:geometry.nV},
     maxY1=max({data_PHX.T_inlet_tube,data_PHX.T_inlet_shell,data_PHX.T_outlet_tube,
         data_PHX.T_outlet_shell}),
     minY1=min({data_SHX.T_inlet_tube,data_SHX.T_inlet_shell,data_SHX.T_outlet_tube,
@@ -1228,19 +1165,19 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     T_shell_outlet_PHX=data_PHX.T_outlet_shell,
     p_inlet_shell_PHX=data_PHX.p_inlet_shell,
     m_flow_shell_PHX=data_PHX.m_flow_shell,
-    nTubes_PHX=PHX.geometry.nTubes,
-    diameter_outer_tube_PHX=PHX.geometry.D_o_tube,
-    th_tube_PHX=PHX.geometry.th_wall,
-    length_tube_PHX=PHX.geometry.length_tube,
+    nTubes_PHX=geometry.nTubes,
+    diameter_outer_tube_PHX=geometry.D_o_tube,
+    th_tube_PHX=geometry.th_wall,
+    length_tube_PHX=geometry.length_tube,
     tube_pitch_PHX=data_PHX.pitch_tube,
-    m_tube_PHX=PHX.geometry.nTubes*sum(PHX.tube.ms),
-    crossArea_shell_PHX=PHX.geometry.crossArea_shell,
-    perimeter_shell_PHX=PHX.geometry.perimeter_shell,
-    m_shell_PHX=sum(PHX.shell.ms),
-    surfaceArea_shell_PHX=PHX.geometry.surfaceArea_shell[1],
-    dp_tube_PHX=abs(PHX.port_a_tube.p - PHX.port_b_tube.p),
-    dp_shell_PHX=abs(PHX.port_a_shell.p - PHX.port_b_shell.p),
-    surfaceArea_tube_PHX=PHX.geometry.nTubes*PHX.geometry.surfaceArea_tube[1],
+    m_tube_PHX=geometry.nTubes*sum(tube.ms),
+    crossArea_shell_PHX=geometry.crossArea_shell,
+    perimeter_shell_PHX=geometry.perimeter_shell,
+    m_shell_PHX=sum(shell.ms),
+    surfaceArea_shell_PHX=geometry.surfaceArea_shell[1],
+    dp_tube_PHX=abs(tube.port_a.p - tube.port_b.p),
+    dp_shell_PHX=abs(shell.port_a.p - shell.port_b.p),
+    surfaceArea_tube_PHX=geometry.nTubes*geometry.surfaceArea_tube[1],
     m_tee_inlet=tee_inlet.m,
     redeclare package Medium_PCL = Medium_PCL,
     dims_pumpBowl_PCL_1=sqrt(4*pumpBowl_PCL.A/pi/3),
@@ -1281,8 +1218,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     alpha_reflA=sum(reflA_upper.heatTransfer.alphas)/reflA_upper.nV,
     alpha_reflR=sum(reflR.heatTransfer.alphas)/reflR.nV,
     alpha_fuel=sum(fuelCell.heatTransfer.alphas)/fuelCell.nV,
-    alpha_tube_PHX=sum(PHX.tube.heatTransfer.alphas)/PHX.tube.nV,
-    alpha_shell_PHX=sum(PHX.shell.heatTransfer.alphas)/PHX.shell.nV,
+    alpha_tube_PHX=sum(tube.heatTransfer.alphas)/tube.nV,
+    alpha_shell_PHX=sum(shell.heatTransfer.alphas)/shell.nV,
     alpha_tube_SHX=sum(SHX.tube.heatTransfer.alphas)/SHX.tube.nV,
     alpha_shell_SHX=sum(SHX.shell.heatTransfer.alphas)/SHX.shell.nV)
     annotation (Placement(transformation(extent={{260,120},{280,140}})));
@@ -1303,29 +1240,29 @@ protected
     annotation (Placement(transformation(extent={{-222,-52},{-202,-32}})));
 public
   TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature_withT_reference
-    kH_PHX_tubeSide[PHX.geometry.nV](
-    T=PHX.tube.mediums.T,
+    kH_PHX_tubeSide[geometry.nV](
+    T=tube.mediums.T,
     each nC=Medium_PCL.nC,
     each iTable={1,1},
     each T_reference={0,0.5*(data_PHX.T_inlet_tube + data_PHX.T_outlet_tube)})
     annotation (Placement(transformation(extent={{-300,-180},{-280,-160}})));
   TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
-    kS_PHX_tubeSide_wall[PHX.geometry.nV](
-    T=PHX.tube.mediums.T,
+    kS_PHX_tubeSide_wall[geometry.nV](
+    T=tube.mediums.T,
     each nC=Medium_PCL.nC,
     each iTable={9,26})
     annotation (Placement(transformation(extent={{-260,-180},{-240,-160}})));
   TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature_withT_reference
-    kH_PHX_shellSide[PHX.geometry.nV](
+    kH_PHX_shellSide[geometry.nV](
     each nC=Medium_PCL.nC,
-    T=PHX.shell.mediums.T,
+    T=shell.mediums.T,
     each iTable={1,1},
     each T_reference={0,0.5*(data_PHX.T_inlet_shell + data_PHX.T_outlet_shell)})
     annotation (Placement(transformation(extent={{-300,-200},{-280,-180}})));
   TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models.ArrheniusEquation
-    kS_PHX_shellSide_wall[PHX.geometry.nV](
+    kS_PHX_shellSide_wall[geometry.nV](
     each nC=Medium_PCL.nC,
-    T=PHX.shell.mediums.T,
+    T=shell.mediums.T,
     each iTable={9,26})
     annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
   TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models.ExponentialTemperature
@@ -1477,6 +1414,188 @@ public
     Ka=kH_reflA_lower.kHs,
     Kb=kS_reflAG_lower.kSs)
     annotation (Placement(transformation(extent={{-8,-78},{-16,-70}})));
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                               shell(
+    Ts_wall(start=transpose(TRANSFORM.Math.fillArray_1D(Ts_start_wall_shellSide,
+          geometry.nSurfaces_shell))),
+    redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
+        (
+        nV=geometry.nV,
+        crossAreas=geometry.crossAreas_shell,
+        perimeters=geometry.perimeters_shell,
+        dlengths=geometry.dlengths_shell,
+        roughnesses=geometry.roughnesses_shell,
+        surfaceAreas=geometry.surfaceAreas_shell,
+        dheights=geometry.dheights_shell,
+        height_a=geometry.height_a_shell,
+        dimensions=geometry.dimensions_shell,
+        nSurfaces=geometry.nSurfaces_shell,
+        angles=geometry.angles_shell),
+    redeclare package Medium = Medium_PCL,
+    use_HeatTransfer=true,
+    use_TraceMassTransfer=true,
+    nParallel=2*3,
+    redeclare model HeatTransfer =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
+        (
+        D=data_PHX.D_tube_outer,
+        S_T=data_PHX.pitch_tube,
+        S_L=data_PHX.pitch_tube,
+        CFs=fill(
+            0.44,
+            shell.heatTransfer.nHT,
+            shell.heatTransfer.nSurfaces)),
+    redeclare model TraceMassTransfer =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
+        (MMs={6.022e23,6.022e23}, redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+            (iTable={1,27})),
+    p_a_start=data_PHX.p_inlet_shell,
+    T_a_start=data_PHX.T_inlet_shell,
+    T_b_start=data_PHX.T_outlet_shell,
+    m_flow_a_start=2*3*data_PHX.m_flow_shell)                    annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={72,-164})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.CounterFlow
+                                                          counterFlowM(
+    counterCurrent=true,
+    n=geometry.nV,
+    nC=2)                                         annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={52,-192})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.CounterFlow
+                                                          counterFlow(
+      counterCurrent=true, n=geometry.nV)                                     annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={72,-192})));
+  TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
+                                                           interfaceM_shellSide[geometry.nV](
+    each nC=2,
+    Ka=kH_PHX_shellSide.kHs,
+    Kb=kS_PHX_shellSide_wall.kSs,
+    each nb={2,1})                                       annotation (Placement(
+        transformation(
+        extent={{10,-10},{-10,10}},
+        rotation=90,
+        origin={68,-220})));
+  TRANSFORM.HeatAndMassTransfer.DiscritizedModels.HMTransfer_2D
+                                                      tubeWall(
+    nParallel=tube.nParallel,
+    Ts_start=Ts_start_wall,
+    exposeState_a1=true,
+    exposeState_b1=true,
+    exposeState_a2=true,
+    exposeState_b2=false,
+    redeclare package Material = TRANSFORM.Media.Solids.AlloyN,
+    redeclare model Geometry =
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
+        (
+        r_inner=0.5*sum(geometry.dimensions_tube)/geometry.nV,
+        r_outer=0.5*sum(geometry.dimensions_tube_outer)/geometry.nV,
+        length_z=sum(geometry.dlengths_tube),
+        drs=geometry.drs,
+        nR=geometry.nR,
+        nZ=geometry.nV,
+        dzs=transpose({fill(geometry.dlengths_tube[i], geometry.nR) for i in 1:
+            geometry.nV})),
+    nC=2,
+    redeclare model DiffusionCoeff =
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+        (iTable={10,26}),
+    C_a1_start={if j == 1 then 0 else C_start_Cr for j in 1:2},
+    C_a2_start={if j == 1 then 0 else C_start_Cr for j in 1:2})
+                         annotation (Placement(transformation(
+        extent={{-10,10},{10,-10}},
+        rotation=90,
+        origin={72,-244})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass
+                                                            adiabaticM_b[
+    geometry.nR](each nC=2)
+    annotation (Placement(transformation(extent={{132,-236},{112,-216}})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic
+                                                        adiabatic_b[geometry.nR]
+    annotation (Placement(transformation(extent={{132,-254},{112,-234}})));
+  TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
+                                                           interfaceM_tubeSide[geometry.nV](
+    each nC=2,
+    Ka=kH_PHX_tubeSide.kHs,
+    Kb=kS_PHX_tubeSide_wall.kSs,
+    each nb={2,1})                       annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={68,-272})));
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                               tube(
+    Ts_wall(start=transpose(TRANSFORM.Math.fillArray_1D(Ts_start_wall_tubeSide,
+          geometry.nSurfaces_tube))),
+    redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
+        (
+        nV=geometry.nV,
+        dimensions=geometry.dimensions_tube,
+        dlengths=geometry.dlengths_tube,
+        roughnesses=geometry.roughnesses_tube,
+        surfaceAreas=geometry.surfaceAreas_tube,
+        dheights=geometry.dheights_tube,
+        height_a=geometry.height_a_tube,
+        crossAreas=geometry.crossAreas_tube,
+        perimeters=geometry.perimeters_tube,
+        nSurfaces=geometry.nSurfaces_tube,
+        angles=geometry.angles_tube),
+    redeclare package Medium = Medium_PFL,
+    redeclare model HeatTransfer =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+    use_HeatTransfer=true,
+    redeclare model InternalHeatGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+        (Q_gens=Qs_gen_PHX_tube),
+    use_TraceMassTransfer=true,
+    redeclare model InternalTraceGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
+        (mC_gens=mC_gens_PHX_tube),
+    redeclare model TraceMassTransfer =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
+        (
+        iC={kinetics.summary_data.iH3,kinetics.summary_data.iCP[1]},
+        MMs={6.022e23,6.022e23},
+        redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+            (iTable={1,27})),
+    p_a_start=data_PHX.p_inlet_tube,
+    T_a_start=data_PHX.T_inlet_tube,
+    T_b_start=data_PHX.T_outlet_tube,
+    m_flow_b_start=2*3*data_PHX.m_flow_tube,
+    nParallel=geometry.nTubes*shell.nParallel,
+    Cs_start=Cs_start_PHX_tube)                                 annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={72,-290})));
+
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic
+                                                        adiabatic_a[geometry.nR]
+    annotation (Placement(transformation(extent={{12,-254},{32,-234}})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass
+                                                            adiabaticM_a[
+    geometry.nR](each nC=2)
+    annotation (Placement(transformation(extent={{12,-236},{32,-216}})));
+  TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
+    geometry(
+    D_o_shell=data_PHX.D_shell_inner,
+    nTubes=data_PHX.nTubes,
+    length_shell=data_PHX.length_tube,
+    nR=3,
+    dimension_tube=data_PHX.D_tube_inner,
+    th_wall=data_PHX.th_tube,
+    length_tube=data_PHX.length_tube,
+    nV=10) annotation (Placement(transformation(extent={{-10,-280},{10,-260}})));
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},
@@ -1524,9 +1643,6 @@ equation
     annotation (Line(points={{0,-96},{0,-103}}, color={0,127,255}));
   connect(resistance_teeTOplenum.port_a, tee_inlet.port_b[1])
     annotation (Line(points={{0,-117},{0,-124}}, color={0,127,255}));
-  connect(pipeToPHX_PFL.port_b, PHX.port_a_tube)
-    annotation (Line(points={{160,60},{160,10}},
-                                               color={0,127,255}));
   connect(pump_PFL.port_b, pipeToPHX_PFL.port_a)
     annotation (Line(points={{60,128},{160,128},{160,80}},
                                                          color={0,127,255}));
@@ -1535,15 +1651,9 @@ equation
                                                  color={0,127,255}));
   connect(pumpBowl_PFL.port_a, resistance_toPump_PFL.port_b)
     annotation (Line(points={{13,128},{0,128},{0,119}}, color={0,127,255}));
-  connect(pipeFromPHX_PFL.port_a, PHX.port_b_tube)
-    annotation (Line(points={{160,-60},{160,-10}},
-                                                 color={0,127,255}));
   connect(pipeFromPHX_PFL.port_b, tee_inlet.port_a[1]) annotation (Line(points={{160,-80},
           {160,-140},{-4.44089e-16,-140},{-4.44089e-16,-136}},
                                                  color={0,127,255}));
-  connect(PHX.port_b_shell, pipeFromPHX_PCL.port_a) annotation (Line(points={{164.6,
-          10},{164,10},{164,40},{180,40}},
-                                         color={0,127,255}));
   connect(pipeFromPHX_PCL.port_b, pumpBowl_PCL.port_a)
     annotation (Line(points={{200,40},{213,40}}, color={0,127,255}));
   connect(pumpBowl_PCL.port_b, pump_PCL.port_a)
@@ -1558,8 +1668,6 @@ equation
     annotation (Line(points={{320,40},{300,40},{300,10}}, color={0,127,255}));
   connect(SHX.port_a_tube, boundary4.ports[1]) annotation (Line(points={{300,-10},
           {300,-40},{320,-40}}, color={0,127,255}));
-  connect(pipeToPHX_PCL.port_b, PHX.port_a_shell) annotation (Line(points={{220,-40},
-          {164.6,-40},{164.6,-10}},    color={0,127,255}));
   connect(boundary_OffGas_T.y, boundary_OffGas_source.T_in) annotation (Line(
         points={{-329,112},{-312,112}},                       color={0,0,127}));
   connect(boundary_OffGas_m_flow.y, boundary_OffGas_source.m_flow_in)
@@ -1681,6 +1789,39 @@ equation
   connect(interface_reflA_lower2.port_a, reflA_lower.massPorts[:, 2])
     annotation (Line(points={{-9.2,-74},{-8,-74},{-8,-64},{-5,-64}}, color={0,
           140,72}));
+  connect(interfaceM_tubeSide.port_a, tube.massPorts[:, 1])
+    annotation (Line(points={{68,-279},{68,-285}}, color={0,140,72}));
+  connect(tube.heatPorts[:, 1], tubeWall.port_a1)
+    annotation (Line(points={{72,-285},{72,-254}}, color={191,0,0}));
+  connect(interfaceM_tubeSide.port_b, tubeWall.portM_a1)
+    annotation (Line(points={{68,-265},{68,-254}}, color={0,140,72}));
+  connect(adiabatic_a.port, tubeWall.port_a2)
+    annotation (Line(points={{32,-244},{62,-244}}, color={191,0,0}));
+  connect(adiabaticM_a.port, tubeWall.portM_a2) annotation (Line(points={{32,-226},
+          {48,-226},{48,-240},{62.2,-240}}, color={0,140,72}));
+  connect(tubeWall.portM_b2, adiabaticM_b.port) annotation (Line(points={{82,-240},
+          {98,-240},{98,-226},{112,-226}}, color={0,140,72}));
+  connect(tubeWall.port_b2, adiabatic_b.port)
+    annotation (Line(points={{82,-244},{112,-244}}, color={191,0,0}));
+  connect(tubeWall.portM_b1, interfaceM_shellSide.port_b)
+    annotation (Line(points={{68,-234},{68,-227}}, color={0,140,72}));
+  connect(interfaceM_shellSide.port_a, counterFlowM.port_a) annotation (Line(
+        points={{68,-213},{60,-213},{60,-202},{52,-202}}, color={0,140,72}));
+  connect(counterFlowM.port_b, shell.massPorts[:, 1]) annotation (Line(points={{
+          52,-182},{64,-182},{64,-174},{76,-174},{76,-169}}, color={0,140,72}));
+  connect(counterFlow.port_b, shell.heatPorts[:, 1])
+    annotation (Line(points={{72,-182},{72,-169}}, color={191,0,0}));
+  connect(tubeWall.port_b1, counterFlow.port_a)
+    annotation (Line(points={{72,-234},{72,-202}}, color={191,0,0}));
+  connect(shell.port_b, pipeFromPHX_PCL.port_a) annotation (Line(points={{62,-164},
+          {56,-164},{56,-144},{48,-144},{48,8},{136,8},{136,40},{180,40}},
+        color={0,127,255}));
+  connect(shell.port_a, pipeToPHX_PCL.port_b) annotation (Line(points={{82,-164},
+          {138,-164},{138,-88},{204,-88},{204,-40},{220,-40}}, color={0,127,255}));
+  connect(tube.port_b, pipeFromPHX_PFL.port_a) annotation (Line(points={{82,-290},
+          {132,-290},{132,-50},{160,-50},{160,-60}}, color={0,127,255}));
+  connect(tube.port_a, pipeToPHX_PFL.port_b) annotation (Line(points={{62,-290},
+          {28,-290},{28,-24},{160,-24},{160,60}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-360,
             -220},{340,180}})),                                  Diagram(
         coordinateSystem(preserveAspectRatio=false, extent={{-360,-220},{340,
@@ -1778,4 +1919,4 @@ equation
       StopTime=10000,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Esdirk45a"));
-end MSR_16;
+end MSR_16e;

@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSR_16
+model MSR_16d
   import TRANSFORM;
 
   package Medium_PFL =
@@ -699,12 +699,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
             1:PHX.geometry.nV},
     nb_wall_tubeSide={{if j == 1 then 2 else 1 for j in 1:Medium_PCL.nC} for i in
             1:PHX.geometry.nV},
-    nC=2,
-    Cs_start_wall_tubeSide={{if j == 1 then 0 else C_start_Cr for j in 1:2}
-        for i in 1:PHX.geometry.nV},
-    Cs_start_wall_shellSide={{if j == 1 then 0 else C_start_Cr for j in 1:2}
-        for i in 1:PHX.geometry.nV})
-    "{{if j == 1 then 0 else C_start_Cr for j in 1:2} for i in 1:PHX.geometry.nV}"
+    nC=2)
+    "{{if i == 1 then 0 else C_start_Cr for j in 1:2} for i in 1:PHX.geometry.nV}"
                         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -1778,4 +1774,4 @@ equation
       StopTime=10000,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Esdirk45a"));
-end MSR_16;
+end MSR_16d;

@@ -4,3 +4,5 @@ MassFlow
 ParallelFlow
 CounterFlow
 AdiabaticMass_multi
+Concentration_multi
+MassFlow_multi

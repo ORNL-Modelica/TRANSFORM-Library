@@ -10,6 +10,11 @@ MSR_13b
 MSR_13c
 MSR_14
 MSR_14b_newpointkinetics
-MSR_15
+MSDR_noBOP
 MSR_16
 MSR_16b
+MSR_16c
+MSR_16d
+MSR_16e
+MSR_16f
+MSDR_noBOP_Case1a
