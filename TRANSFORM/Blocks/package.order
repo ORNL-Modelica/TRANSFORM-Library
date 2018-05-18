@@ -8,3 +8,4 @@ IntegratorWithReset
 Noise
 ShapeFactor
 SmoothTransition
+ExponentialDecay

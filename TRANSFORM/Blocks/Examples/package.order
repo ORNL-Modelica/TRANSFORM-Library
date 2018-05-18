@@ -1,2 +1,4 @@
 IntegratorWithReset
 OffTimer
+ExponentialDecay_Test
+PRBS_nBit_Test

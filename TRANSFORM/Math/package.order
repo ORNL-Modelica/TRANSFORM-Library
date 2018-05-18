@@ -46,3 +46,5 @@ replaceArrayValues
 indexFilter
 integral_TrapezoidalRule
 radialspace
+max_len_seq
+xor

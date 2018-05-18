@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.MoltenSaltReactor;
-model MSDR_noBOP_Case1a
+model MSDR_noBOP_CaseBase
   import TRANSFORM;
 
   SI.Temperature T_core_inlet = reflA_lower.mediums[2].T;
@@ -78,6 +78,15 @@ model MSDR_noBOP_Case1a
   SI.Temperature T_drainTank = drainTank_liquid.Medium.temperature_ph(drainTank_liquid.p,drainTank_liquid.h);
 
   SIadd.ExtraPropertyFlowRate H3_flow = SHX.port_b_tube.m_flow*SHX.port_b_tube.C_outflow[1];
+
+  SI.Time tau_PFL = sum(ms_PFL)/m_flow_PFL;
+  SI.Time tau_PCL = sum(ms_PCL)/m_flow_PCL;
+
+  SIadd.ExtraPropertyFlowRate mC_flows_PFL_PHX = sum(PHX.tube.traceMassTransfer.mC_flows[:, 1, kinetics.summary_data.iH3])*PHX.tube.nParallel;
+  SIadd.ExtraPropertyFlowRate mC_flows_PCL_PHX = sum(PHX.shell.traceMassTransfer.mC_flows[:, 1, 1])*PHX.shell.nParallel;
+  SIadd.ExtraPropertyFlowRate mC_flows_PFL_SHX = sum(SHX.tube.traceMassTransfer.mC_flows[:, 1, 1])*SHX.tube.nParallel;
+  SIadd.ExtraPropertyFlowRate mC_flows_PCL_SHX = sum(SHX.shell.traceMassTransfer.mC_flows[:, 1, 1])*SHX.shell.nParallel;
+  SIadd.ExtraPropertyFlowRate mC_gens_H3 = sum(kinetics.fissionProducts.mC_gens[:, 1]);
 
 protected
   package Medium_PFL =
@@ -1843,4 +1852,4 @@ equation
       StopTime=10000,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Esdirk45a"));
-end MSDR_noBOP_Case1a;
+end MSDR_noBOP_CaseBase;
