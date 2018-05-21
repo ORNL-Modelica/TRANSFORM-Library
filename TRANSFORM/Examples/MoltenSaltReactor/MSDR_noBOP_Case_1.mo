@@ -51,10 +51,10 @@ model MSDR_noBOP_Case_1
   SI.Power Q_decay_near = kinetics.Q_decay_total;
   SI.Power Q_decay_far = sum(kinetics.fissionProducts.Qs_far);
 
-  SI.Temperature ms_PFL[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1+1+reflR.nV] = cat(1,{plenum_lower.m},reflA_lower.ms*reflA_lower.nParallel,fuelCell.ms*fuelCell.nParallel,reflA_upper.ms*reflA_upper.nParallel,
+  SI.Mass ms_PFL[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1+1+reflR.nV] = cat(1,{plenum_lower.m},reflA_lower.ms*reflA_lower.nParallel,fuelCell.ms*fuelCell.nParallel,reflA_upper.ms*reflA_upper.nParallel,
   {plenum_upper.m},pipeToPHX_PFL.ms*pipeToPHX_PFL.nParallel,PHX.tube.ms*PHX.tube.nParallel,pipeFromPHX_PFL.ms*pipeFromPHX_PFL.nParallel,{tee_inlet.m},{pumpBowl_PFL.m},reflR.ms*reflR.nParallel);
 
-  SI.Temperature ms_PCL[pipeFromPHX_PCL.nV+1+pipeToSHX_PCL.nV+SHX.shell.nV+pipeToPHX_PCL.nV+PHX.shell.nV] = cat(1, pipeFromPHX_PCL.ms*pipeFromPHX_PCL.nParallel,{pumpBowl_PCL.m},pipeToSHX_PCL.ms*pipeToSHX_PCL.nParallel,SHX.shell.ms*SHX.shell.nParallel,pipeToPHX_PCL.ms*pipeToPHX_PCL.nParallel,PHX.shell.ms*PHX.shell.nParallel);
+  SI.Mass ms_PCL[pipeFromPHX_PCL.nV+1+pipeToSHX_PCL.nV+SHX.shell.nV+pipeToPHX_PCL.nV+PHX.shell.nV] = cat(1, pipeFromPHX_PCL.ms*pipeFromPHX_PCL.nParallel,{pumpBowl_PCL.m},pipeToSHX_PCL.ms*pipeToSHX_PCL.nParallel,SHX.shell.ms*SHX.shell.nParallel,pipeToPHX_PCL.ms*pipeToPHX_PCL.nParallel,PHX.shell.ms*PHX.shell.nParallel);
 
   SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
