@@ -1,5 +1,5 @@
 within TRANSFORM.Blocks.Noise;
-model PRBS_nBit
+model PRTS_nBit
 
   parameter Real amplitude=1 "Amplitude of signal";
   parameter SI.Frequency freqHz(start=1) "Frequency of signal";
@@ -7,10 +7,10 @@ model PRBS_nBit
   parameter SI.Time startTime=0 "Output = offset for time < startTime";
   extends Modelica.Blocks.Interfaces.SO;
 
-  parameter Integer seed[:]={1,0,1};
-  parameter Integer generator[size(seed, 1) + 1]={1,1,0,1};
-  final parameter Integer mls[integer(2^(size(seed, 1)) - 1)]=
-      TRANSFORM.Math.max_len_seq(seed, generator);
+  parameter Integer seed[:]={0,1,2};
+  parameter Integer generator[size(seed, 1)]={1,2,2};
+  final parameter Integer mls[integer(3^(size(seed, 1)) - 1)]=
+      TRANSFORM.Math.max_len_seq_ternary(seed, generator);
 protected
   Real dy;
   Real i(start=1);
@@ -24,7 +24,8 @@ algorithm
 equation
   y = offset + (if time < startTime then 0 else dy);
 
-  annotation (defaultComponentName="sequencer",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="sequencer",
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
         Line(points={{-90,-70},{68,-70}}, color={192,192,192}),
         Polygon(
@@ -40,4 +41,4 @@ equation
         Line(points={{-80,-40},{-22,-40},{-22,40},{-6,40},{-6,-40},{18,-40},{18,
               40},{46,40},{46,-40},{66,-40}}, color={0,0,0})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PRBS_nBit;
+end PRTS_nBit;

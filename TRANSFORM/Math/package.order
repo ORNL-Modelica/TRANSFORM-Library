@@ -47,4 +47,5 @@ indexFilter
 integral_TrapezoidalRule
 radialspace
 max_len_seq
+max_len_seq_ternary
 xor

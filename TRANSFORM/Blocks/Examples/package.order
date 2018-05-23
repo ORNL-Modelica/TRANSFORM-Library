@@ -2,3 +2,4 @@ IntegratorWithReset
 OffTimer
 ExponentialDecay_Test
 PRBS_nBit_Test
+PRTS_nBit_Test

@@ -17,8 +17,8 @@ algorithm
   for i in 1:nVal loop
     y[i] :=seed_int[end];
 
-    for i in 1:nBit loop
-      seed_int[i] :=seed_int[i + 1];
+    for j in 1:nBit loop
+      seed_int[j] :=seed_int[j + 1];
     end for;
     seed_int[nBit+1] :=0;
 
