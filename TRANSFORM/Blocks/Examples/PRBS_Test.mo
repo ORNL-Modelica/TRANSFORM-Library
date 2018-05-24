@@ -1,8 +1,8 @@
 within TRANSFORM.Blocks.Examples;
-model PRBS_nBit_Test
+model PRBS_Test
   extends TRANSFORM.Icons.Example;
 
-  TRANSFORM.Blocks.Noise.PRBS_nBit sequencer(
+  TRANSFORM.Blocks.Noise.PRBS sequencer(
     freqHz=10,
     offset=1,
     startTime=0.5)
@@ -12,4 +12,4 @@ model PRBS_nBit_Test
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=10));
-end PRBS_nBit_Test;
+end PRBS_Test;

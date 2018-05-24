@@ -1,5 +1,5 @@
 within TRANSFORM.Blocks.Noise;
-model PRTS_nBit
+model PRTS
 
   parameter Real amplitude=1 "Amplitude of signal";
   parameter SI.Frequency freqHz(start=1) "Frequency of signal";
@@ -17,7 +17,7 @@ protected
 
 algorithm
   when sample(startTime, 1/freqHz) then
-    i := if i + 1 > integer(2^(size(seed, 1)) - 1) then 1 else i + 1;
+    i := if i + 1 > integer(3^(size(seed, 1)) - 1) then 1 else i + 1;
     dy := amplitude*mls[integer(i)];
   end when;
 
@@ -41,4 +41,4 @@ equation
         Line(points={{-80,-40},{-22,-40},{-22,40},{-6,40},{-6,-40},{18,-40},{18,
               40},{46,40},{46,-40},{66,-40}}, color={0,0,0})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PRTS_nBit;
+end PRTS;

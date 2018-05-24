@@ -1,5 +1,5 @@
 within TRANSFORM.Blocks.Noise;
-model PRBS_nBit
+model PRBS
 
   parameter Real amplitude=1 "Amplitude of signal";
   parameter SI.Frequency freqHz(start=1) "Frequency of signal";
@@ -40,4 +40,4 @@ equation
         Line(points={{-80,-40},{-22,-40},{-22,40},{-6,40},{-6,-40},{18,-40},{18,
               40},{46,40},{46,-40},{66,-40}}, color={0,0,0})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PRBS_nBit;
+end PRBS;
