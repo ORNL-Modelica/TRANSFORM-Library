@@ -49,3 +49,4 @@ radialspace
 max_len_seq
 max_len_seq_ternary
 xor
+max_len_seq_sine

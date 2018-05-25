@@ -1,23 +1,23 @@
 within TRANSFORM.Blocks.Noise;
-model PRTS
+model MFBS
 
   parameter Real amplitude=1 "Amplitude of signal";
-  parameter SI.Frequency freqHz(start=1) "Frequency of signal";
+  parameter SI.Time period "Period for repeating sequence";
   parameter Real offset=0 "Offset of output signal";
   parameter SI.Time startTime=0 "Output = offset for time < startTime";
   extends Modelica.Blocks.Interfaces.SO;
 
-  parameter Integer seed[:]={0,1,2};
-  parameter Integer generator[size(seed, 1)]={1,2,2};
-  final parameter Integer mls[integer(3^(size(seed, 1)) - 1)]=
-      TRANSFORM.Math.max_len_seq_ternary(seed, generator);
+  parameter Integer weights[:]={1,1,1,1,1,1,1};
+  parameter Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64};
+  final parameter Integer mls[integer(max(harmonics)^2)]=
+      TRANSFORM.Math.max_len_seq_sine(weights, harmonics);
 protected
   Real dy;
   Real i(start=1);
 
 algorithm
-  when sample(startTime, 1/freqHz) then
-    i := if i + 1 > integer(3^(size(seed, 1)) - 1) then 1 else i + 1;
+  when sample(startTime, period/size(mls,1)) then
+    i := if i + 1 > integer(max(harmonics)^2) then 1 else i + 1;
     dy := amplitude*mls[integer(i)];
   end when;
 
@@ -38,8 +38,8 @@ equation
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,-40},{-54,-40},{-54,40},{-44,40},{-44,0},{-20,0},{-20,
-              -40},{18,-40},{18,40},{46,40},{46,-40},{66,-40}},
-                                              color={0,0,0})}),  Diagram(
+        Line(points={{-80,-40},{-70,-40},{-70,40},{-56,40},{-56,-40},{-38,-40},
+              {-38,40},{-32,40},{-32,-40},{18,-40},{18,40},{46,40},{46,-40},{66,
+              -40}},                          color={0,0,0})}),  Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PRTS;
+end MFBS;
