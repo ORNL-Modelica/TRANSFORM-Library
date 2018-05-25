@@ -68,6 +68,15 @@ model MSDR_noBOP_Case_1
   SIadd.ExtraProperty Cs_loop_Xe[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.C[9]},reflA_lower.Cs[:,9],fuelCell.Cs[:,9],reflA_upper.Cs[:,9],
   {plenum_upper.C[9]},pipeToPHX_PFL.Cs[:,9],PHX.tube.Cs[:,9],pipeFromPHX_PFL.Cs[:,9],{tee_inlet.C[9]});
 
+  SIadd.ExtraProperty mCs_loop_H3[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.mC[kinetics.summary_data.iH3]},reflA_lower.mCs[:,kinetics.summary_data.iH3],fuelCell.mCs[:,kinetics.summary_data.iH3],reflA_upper.mCs[:,kinetics.summary_data.iH3],
+  {plenum_upper.mC[kinetics.summary_data.iH3]},pipeToPHX_PFL.mCs[:,kinetics.summary_data.iH3],PHX.tube.mCs[:,kinetics.summary_data.iH3],pipeFromPHX_PFL.mCs[:,kinetics.summary_data.iH3],{tee_inlet.mC[kinetics.summary_data.iH3]});
+
+  SIadd.ExtraProperty mCs_loop_PG[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.mC[5]},reflA_lower.mCs[:,5],fuelCell.mCs[:,5],reflA_upper.mCs[:,5],
+  {plenum_upper.mC[5]},pipeToPHX_PFL.mCs[:,5],PHX.tube.mCs[:,5],pipeFromPHX_PFL.mCs[:,5],{tee_inlet.mC[5]});
+
+  SIadd.ExtraProperty mCs_loop_Xe[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.mC[9]},reflA_lower.mCs[:,9],fuelCell.mCs[:,9],reflA_upper.mCs[:,9],
+  {plenum_upper.mC[9]},pipeToPHX_PFL.mCs[:,9],PHX.tube.mCs[:,9],pipeFromPHX_PFL.mCs[:,9],{tee_inlet.mC[9]});
+
   SI.Length xpos_loop[9] = cat(1,{plenum_lower.geometry.length},{reflA_lower.geometry.length},{fuelCell.geometry.length},{reflA_upper.geometry.length},
   {plenum_upper.geometry.length},{pipeToPHX_PFL.geometry.length},{sum(PHX.tube.geometry.dlengths)},{pipeFromPHX_PFL.geometry.length},{tee_inlet.geometry.length});
 
