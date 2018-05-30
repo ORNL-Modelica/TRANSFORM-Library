@@ -531,7 +531,6 @@ model GenericDistributed_HXold
   BaseClasses.Summary                          summary(
     R_tubeWall=log(tubeWall.geometry.r_outer/tubeWall.geometry.r_inner)/(2*
         Modelica.Constants.pi*geometry.length_tube*tubeWall.summary.lambda_effective),
-
     R_shell=if shell.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({shell.heatTransfer.alphas[
         i]*shell.geometry.surfaceAreas[i] for i in 1:shell.nV})*shell.nParallel
         /shell.nV),
@@ -539,6 +538,7 @@ model GenericDistributed_HXold
         i]*tube.geometry.surfaceAreas[i] for i in 1:tube.nV})*tube.nParallel/
         tube.nV))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+
 equation
 
   //    SI.TemperatureDifference DT_lm "Log mean temperature difference";

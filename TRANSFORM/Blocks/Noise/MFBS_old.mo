@@ -1,5 +1,6 @@
 within TRANSFORM.Blocks.Noise;
-model MFBS
+model MFBS_old
+  extends TRANSFORM.Icons.ObsoleteModel;
 
   parameter Real amplitude=1 "Amplitude of signal";
   parameter SI.Time period "Period for repeating sequence";
@@ -9,42 +10,23 @@ model MFBS
 
   parameter Integer weights[:]={1,1,1,1,1,1,1};
   parameter Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64};
-
-  final parameter SI.Time mls_t[:]= TRANSFORM.Math.max_len_seq__sine_time(weights, harmonics);
-  final parameter Real mls0 = mls_t[end];
-
+  final parameter Integer mls[integer(max(harmonics)^2)]=
+      TRANSFORM.Math.max_len_seq_sine(weights, harmonics);
 protected
   Real dy;
-  Integer i(start=0);
-  Integer j(start=0);
-  SI.Time tseq(start=0);
-
-initial equation
-  dy = amplitude*mls0;
+  Real i(start=1);
 
 algorithm
-  when sample(startTime, period) then
-    j :=j + 1;
-    i := 0;
-  end when;
-
-  when tseq/period >= mls_t[i+1] then
-    i := i + 1;
-    dy := amplitude*(mls0 + (if mod(i, 2) == 0 then 0 else -mls0));
+  when sample(startTime, period/size(mls,1)) then
+    i := if i + 1 > integer(max(harmonics)^2) then 1 else i + 1;
+    dy := amplitude*mls[integer(i)];
   end when;
 
 equation
-  if time < startTime then
-    tseq = 0;
-  else
-    tseq = time - startTime - (j - 1)*period;
-  end if;
-
   y = offset + (if time < startTime then 0 else dy);
 
-  annotation (
-    defaultComponentName="sequencer",
-    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="sequencer",
+  Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
         Line(points={{-90,-70},{68,-70}}, color={192,192,192}),
         Polygon(
@@ -57,8 +39,8 @@ equation
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,-40},{-70,-40},{-70,40},{-56,40},{-56,-40},{-38,-40},{
-              -38,40},{-32,40},{-32,-40},{18,-40},{18,40},{46,40},{46,-40},{66,-40}},
-            color={0,0,0})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
-end MFBS;
+        Line(points={{-80,-40},{-70,-40},{-70,40},{-56,40},{-56,-40},{-38,-40},
+              {-38,40},{-32,40},{-32,-40},{18,-40},{18,40},{46,40},{46,-40},{66,
+              -40}},                          color={0,0,0})}),  Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
+end MFBS_old;
