@@ -31,8 +31,17 @@ model Alphas_TwoPhase_4Region
     "Coefficient of heat transfer - Saturated Two Phase"
     annotation (Dialog(group="Inputs"));
 
-  input SI.CoefficientOfHeatTransfer alphas_PostCHF[nHT,nSurfaces]=
-      alphas_NucleateBoiling/3 "Post-CHF heat transfer coefficient"
+  input SI.CoefficientOfHeatTransfer alphas_PostCHF[nHT,nSurfaces]={{TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.PostCHF.alpha_Groeneveld(
+    D_hyd=dimensions[i],
+    crossArea=crossAreas[i],
+    m_flow=m_flows[i],
+    x_abs=mediaProps[i].x_abs,
+    mu_vsat=mediaProps[i].mu_vsat,
+    rho_lsat=mediaProps[i].rho_lsat,
+    rho_vsat=mediaProps[i].rho_vsat,
+    lambda_vsat=mediaProps[i].lambda_vsat,
+    Pr_vw=mediaProps[i].mu_vsat*mediaProps[i].cp_vsat/mediaProps[i].lambda_vsat)
+                                                                       for j in 1:nSurfaces} for i in 1:nHT} "Post-CHF heat transfer coefficient"
     annotation (Dialog(group="Inputs"));
 
   input SI.CoefficientOfHeatTransfer[nHT,nSurfaces] alphas_SinglePhaseVapor={{
