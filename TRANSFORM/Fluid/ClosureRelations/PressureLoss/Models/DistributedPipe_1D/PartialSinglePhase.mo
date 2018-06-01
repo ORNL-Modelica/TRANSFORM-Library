@@ -3,7 +3,7 @@ partial model PartialSinglePhase
 
   extends PartialMomentumBalance;
 
-  TRANSFORM.Media.BaseProperties1Phase[nFM + 1] mediaProps(redeclare package
+  TRANSFORM.Media.BaseProperties1Phase mediaProps[nFM + 1](redeclare package
       Medium = Medium, state=states) "Bulk fluid properties"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 //   TRANSFORM.Media.BaseProperties1Phase[nFM + 1] mediums_film(redeclare package

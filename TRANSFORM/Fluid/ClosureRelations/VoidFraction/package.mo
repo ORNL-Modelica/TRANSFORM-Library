@@ -1,4 +1,4 @@
-within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels;
+within TRANSFORM.Fluid.ClosureRelations;
 package VoidFraction
   extends Modelica.Icons.VariantsPackage;
 

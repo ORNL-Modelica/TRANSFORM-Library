@@ -5,12 +5,25 @@ model BaseProperties2Phase
    constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium
                                                     "Medium in component"
    annotation(choicesAllMatching=true);
-  replaceable function alphaVoid =
-  TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.VoidFraction.Functions.alphaV_Homogeneous_wSlipRatio
-    "Void fraction model" annotation(choicesAllMatching=true);
+
+  replaceable model VoidFraction =
+      TRANSFORM.Fluid.ClosureRelations.VoidFraction.Homogeneous_wSlipVelocity
+    constrainedby
+    TRANSFORM.Fluid.ClosureRelations.VoidFraction.PartialVoidFraction
+    annotation (choicesAllMatching=true);
+
+  VoidFraction voidFraction(
+    x_abs=x_abs,
+    rho_p=rho_lsat,
+    rho_s=rho_vsat)             annotation(Placement(transformation(extent={{-8,-8},
+            {8,8}})));
+
+//   replaceable function alphaVoid =
+//   TRANSFORM.Fluid.ClosureRelations.VoidFraction.Functions.alphaV_Homogeneous_wSlipRatio
+//     "Void fraction model" annotation(choicesAllMatching=true);
 
   input Medium.ThermodynamicState state "Medium state" annotation(Dialog(group="Inputs"));
-  input Units.NonDim S = 1.0 "Slip ratio for void fraction" annotation(Dialog(group="Inputs"));
+//   input Units.NonDim S = 1.0 "Slip ratio for void fraction" annotation(Dialog(group="Inputs"));
 
   constant SI.Pressure p_crit = Medium.fluidConstants[1].criticalPressure "Critical pressure";
   constant SI.Temperature T_crit = Medium.fluidConstants[1].criticalTemperature "Critical temperature";
@@ -90,11 +103,12 @@ equation
      x_abs = noEvent(if p/p_crit < 1.0 then max(0.0, min(1.0, (h - h_lsat)/max(h_vsat - h_lsat,
     1e-6))) else 1.0);
 
-     alphaV = alphaVoid(
-      x_abs,
-      rho_lsat,
-      rho_vsat,
-      S);
+     alphaV = voidFraction.alphaV;
+//       alphaVoid(
+//       x_abs,
+//       rho_lsat,
+//       rho_vsat,
+//       S);
 
   annotation (defaultComponentName="mediaProps",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
