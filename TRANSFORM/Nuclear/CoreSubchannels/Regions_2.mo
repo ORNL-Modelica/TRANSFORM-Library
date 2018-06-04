@@ -1,8 +1,7 @@
 within TRANSFORM.Nuclear.CoreSubchannels;
-model Regions_2old
+model Regions_2
   "0-D point kinetics fuel channel model with two solid media regions"
-
-  extends TRANSFORM.Icons.ObsoleteModel;
+  import TRANSFORM;
 
   import TRANSFORM.Math.linspace_1D;
   import TRANSFORM.Math.linspaceRepeat_1D;
@@ -21,6 +20,12 @@ model Regions_2old
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Coolant medium" annotation (choicesAllMatching=true);
+  replaceable package Material_1 =
+      TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      annotation (choicesAllMatching=true);
+  replaceable package Material_2 =
+      TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      annotation (choicesAllMatching=true);
 
   replaceable model Geometry =
       ClosureRelations.Geometry.Models.CoreSubchannels.Generic
@@ -45,56 +50,116 @@ model Regions_2old
       Dialog(group="Heat Transfer"));
 
   /* Kinetics */
-  parameter Integer nI=6
-    "Number of groups of the delayed-neutron precursors groups" annotation (
-      Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter Units.NonDim beta_i[nI]={0.000169,0.000832,0.00264,0.00122,
-      0.00138,0.000247} "Delayed neutron precursor fractions"
-    annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter Units.InverseTime lambda_i[nI]={3.87,1.40,0.311,0.115,0.0317,
-      0.0127} "Decay constants for each precursor group"
-    annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
-  parameter SI.Time Lambda=1e-5 "Prompt neutron generation time"
-                                     annotation (Dialog(tab="Kinetics", group="Neutron Kinetics Parameters"));
+  parameter SI.Power Q_nominal=1e6
+    "Total nominal reactor power (fission + decay)";
+  parameter Boolean specifyPower=false
+    "=true to specify power (i.e., no der(P) equation)";
+  parameter Units.NonDim SF_start_power[geometry.nV]=fill(1/geometry.nV,
+      geometry.nV) "Shape factor for the power profile, sum(SF) = 1";
+  replaceable record Data_PG =
+      ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_TRACEdefault constrainedby
+    TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
+    annotation (choicesAllMatching=true,Dialog(tab="Kinetics",group="Neutron Kinetics"));
+  replaceable record Data_DH = ReactorKinetics.Data.DecayHeat.decayHeat_0 constrainedby
+    TRANSFORM.Nuclear.ReactorKinetics.Data.DecayHeat.PartialDecayHeat_powerBased
+    annotation (choicesAllMatching=true,Dialog(tab="Kinetics",group="Decay-Heat"));
+  replaceable record Data_FP =
+      ReactorKinetics.Data.FissionProducts.fissionProducts_0 constrainedby
+    TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
+                                                                                                                                                        annotation (
+     choicesAllMatching=true,Dialog(tab="Kinetics",group="Fission Products"));
+  parameter SI.Area sigmasA_add_start[Medium.nC]=fill(0, Medium.nC)
+    "Microscopic absorption cross-section for reactivity feedback" annotation(Dialog(tab="Kinetics",group="Fluid Trace Substances"));
+  input SI.Power Q_fission_input=Q_nominal
+    "Fission power (if specifyPower=true)" annotation (Dialog(group="Input"));
+  input SI.Power Q_external=0
+    "Power from external source of neutrons" annotation (Dialog(group="Input"));
+  input Units.NonDim rho_input=0
+    "External Reactivity" annotation (Dialog(group="Input"));
+  parameter SI.Area dsigmasA_add[Medium.nC]=fill(0, Medium.nC)
+    "Change in microscopic absorption cross-section for reactivity feedback"
+    annotation (Dialog(tab="Parameter Change",group="Input: Fluid Trace Substances"));
+  parameter SI.Time Lambda_start=1e-5 "Prompt neutron generation time"
+    annotation (Dialog(tab="Kinetics",group="Neutron Kinetics"));
+  parameter Boolean use_history=false "=true to provide power history"
+                                                                      annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
+  parameter SI.Power history[:,2]=fill(
+      0,
+      0,
+      2) "Power history up to simulation time=0, [t,Q]" annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
+  parameter Boolean includeDH=false
+    "=true if power history includes decay heat" annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
+  parameter SI.Power Q_fission_start=Q_nominal/(1 + sum(kinetics.efs_dh_start))
+    "Initial reactor fission power" annotation (Dialog(tab="Kinetics",group="Neutron Kinetics"));
+  parameter SI.Power Cs_pg_start[kinetics.nC]={kinetics.betas_start[j]/(kinetics.lambdas_start[
+      j]*Lambda_start)*Q_fission_start for j in 1:kinetics.nC}
+    "Power of the initial delayed-neutron precursor concentrations" annotation (Dialog(tab="Kinetics",group="Neutron Kinetics"));
+  parameter SI.Energy Es_start[kinetics.nDH]={Q_fission_start*kinetics.efs_dh_start[
+      j]/kinetics.lambda_dh_start[j] for j in 1:kinetics.nDH}
+    "Initial decay heat group energy" annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
+  parameter Units.ExtraPropertyExtrinsic mCs_fp_start[kinetics.nFP]=fill(
+      0,
+      kinetics.nFP) "Number of fission product atoms per group" annotation (Dialog(tab="Kinetics",group="Fission Products"));
+  input Units.InverseTime dlambdas[kinetics.nC]=fill(0, kinetics.nC)
+    "Change in decay constants for each precursor group" annotation(Dialog(tab="Parameter Change",group="Input: Neutron Kinetics"));
+  input Units.NonDim dalphas[kinetics.nC]=fill(0, kinetics.nC)
+    "Change in normalized precursor fractions [betas = alphas*Beta]" annotation(Dialog(tab="Parameter Change",group="Input: Neutron Kinetics"));
+  input Units.NonDim dBeta=0
+    "Change in effective delayed neutron fraction [e.g., Beta = sum(beta_i)]" annotation(Dialog(tab="Parameter Change",group="Input: Neutron Kinetics"));
+  input SI.Time dLambda=0 "Change in prompt neutron generation time" annotation(Dialog(tab="Parameter Change",group="Input: Neutron Kinetics"));
+  input Units.InverseTime dlambdas_dh[kinetics.nDH]=fill(0, kinetics.nDH)
+    "Change in decay constant" annotation(Dialog(tab="Parameter Change",group="Input: Decay-Heat"));
+  input Units.NonDim defs_dh[kinetics.nDH]=fill(0, kinetics.nDH)
+    "Change in effective energy fraction" annotation(Dialog(tab="Parameter Change",group="Input: Decay-Heat"));
+
   parameter Units.TempFeedbackCoeff alpha_fuel=-2.5e-5
     "Doppler feedback coefficient"
-    annotation (Dialog(tab="Kinetics", group="Reactivity Feedback Parameters"));
+    annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
   parameter Units.TempFeedbackCoeff alpha_coolant=-20e-5
     "Moderator feedback coefficient"
-    annotation (Dialog(tab="Kinetics", group="Reactivity Feedback Parameters"));
+    annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
   parameter SI.Temperature Teffref_fuel "Fuel reference temperature"
-                                 annotation (Dialog(tab="Kinetics", group="Reactivity Feedback Parameters"));
+                                 annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
   parameter SI.Temperature Teffref_coolant "Coolant reference temperature"
-                                    annotation (Dialog(tab="Kinetics", group="Reactivity Feedback Parameters"));
+                                    annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
 
-  input Real CR_reactivity = 0.0 "Control rod reactivity" annotation (Dialog(tab="Kinetics", group="Inputs"));
-  input Real Other_reactivity = 0.0 "Additional non-classified reactivity" annotation (Dialog(tab="Kinetics", group="Inputs"));
-  input SI.Power S_external = 0.0 "External heat source" annotation (Dialog(tab="Kinetics", group="Inputs"));
+  parameter Units.NonDim fissionSources_start[kinetics.nFS]=fill(1/kinetics.nFS,
+      kinetics.nFS) "Source of fissile material fractional composition (sum=1)" annotation(Dialog(tab="Kinetics",group="Fission Products"));
+  parameter Units.NonDim fissionTypes_start[kinetics.nFS,kinetics.nT]=fill(
+      1/kinetics.nT,
+      kinetics.nFS,
+      kinetics.nT)
+    "Fraction of fission from each fission type per fission source, sum(row) = 1" annotation(Dialog(tab="Kinetics",group="Fission Products"));
+  parameter Units.NonDim nu_bar_start=2.4 "Neutrons per fission" annotation(Dialog(tab="Kinetics",group="Fission Products"));
+  parameter SI.Energy w_f_start=200e6*1.6022e-19 "Energy released per fission" annotation(Dialog(tab="Kinetics",group="Fission Products"));
+  parameter SI.MacroscopicCrossSection SigmaF_start=1
+    "Macroscopic fission cross-section of fissile material" annotation(Dialog(tab="Kinetics",group="Fission Products"));
+  input Units.NonDim dfissionSources[kinetics.nFS]=fill(0, kinetics.nFS)
+    "Change in source of fissile material fractional composition (sum=1)" annotation(Dialog(tab="Parameter Change",group="Input: Fission Products"));
+  input Units.NonDim dfissionTypes[kinetics.nFS,kinetics.nT]=fill(
+      0,
+      kinetics.nFS,
+      kinetics.nT)
+    "Change in fraction of fission from each fission type per fission source, sum(row) = 1" annotation(Dialog(tab="Parameter Change",group="Input: Fission Products"));
+  input Units.NonDim dnu_bar=0 "Change in neutrons per fission" annotation(Dialog(tab="Parameter Change",group="Input: Fission Products"));
+  input SI.Energy dw_f=0 "Change in energy released per fission" annotation(Dialog(tab="Parameter Change",group="Input: Fission Products"));
+  input SI.MacroscopicCrossSection dSigmaF=0
+    "Change in macroscopic fission cross-section of fissile material" annotation(Dialog(tab="Parameter Change",group="Input: Fission Products"));
+  input SI.Area dsigmasA[kinetics.nFP]=fill(0, kinetics.nFP)
+    "Change in microscopic absorption cross-section for reactivity feedback" annotation(Dialog(tab="Parameter Change",group="Input: Fission Products"));
+  input Real dfissionYields[kinetics.nFP,kinetics.nFS,kinetics.nT]=fill(
+      0,
+      kinetics.nFP,
+      kinetics.nFS,
+      kinetics.nT)
+    "Change in # fission product atoms yielded per fission per fissile source [#/fission]" annotation(Dialog(tab="Parameter Change",group="Input: Fission Products"));
+  input Units.InverseTime dlambdas_FP[kinetics.nFP]=fill(0, kinetics.nFP)
+    "Change in decay constants for each fission product" annotation(Dialog(tab="Parameter Change",group="Input: Fission Products"));
 
-  replaceable package Material_1 =
-      TRANSFORM.Media.Interfaces.Solids.PartialAlloy
-      annotation (__Dymola_choicesAllMatching=true);
-  replaceable package Material_2 =
-      TRANSFORM.Media.Interfaces.Solids.PartialAlloy
-    annotation (__Dymola_choicesAllMatching=true);
-
-  parameter Boolean use_DecayHeat=false
-    "Include decay heat in power calculation" annotation(Dialog(group="Nominal Parameters"));
-  parameter SI.Time T_op=360*24*3600 "Time since reactor startup"
-    annotation (Dialog(group="Nominal Parameters", enable = use_DecayHeat));
-  parameter SI.Power Q_nominal=1000e6 "Nominal thermal power rating (W)"
-    annotation (Dialog(group="Nominal Parameters"));
-  parameter Units.NonDim[geometry.nV] Q_shape=1/geometry.nV*ones(geometry.nV)
-    "Per Node Fractional Power Profile. (i.e., sum(Power_shape) = 1"
-    annotation (Dialog(group="Nominal Parameters"));
-
-  parameter SI.Power[nI] C_i_start = {beta_i[i]/(lambda_i[i]*Lambda)*Q_nominal for i in 1:nI}
-    "Delayed-neutron precursor concentrations power"
-    annotation(Dialog(tab="Fuel Element Initialization",group="Start Value: Neutron Precursors"));
-
-  parameter SI.Temperature T_start_1=Material_1.T_default
+  // Fuel Initialization
+  parameter SI.Temperature T_start_1=Material_1.T_default "Fuel temperature"
     annotation (Dialog(tab="Fuel Element Initialization",group="Reference Temperatures for Start Values"));
-  parameter SI.Temperature T_start_2=Material_2.T_default
+  parameter SI.Temperature T_start_2=Material_1.T_default "Cladding temperature"
     annotation (Dialog(tab="Fuel Element Initialization",group="Reference Temperatures for Start Values"));
 
   parameter SI.Temperature Ts_start_1[geometry.nRs[1],geometry.nV]=fill(
@@ -102,8 +167,8 @@ model Regions_2old
       geometry.nRs[1],
       geometry.nV) "Fuel temperatures"     annotation (Dialog(tab="Fuel Element Initialization",
         group="Start Value: Temperature"));
-  parameter SI.Temperature Ts_start_2[geometry.nRs[2],geometry.nV]=[{
-      Ts_start_1[end, :]}; fill(
+  parameter SI.Temperature Ts_start_2[geometry.nRs[2],geometry.nV]=[{Ts_start_1
+      [end, :]}; fill(
       T_start_2,
       geometry.nRs[2] - 1,
       geometry.nV)] "Cladding temperatures" annotation (Dialog(tab="Fuel Element Initialization",
@@ -225,6 +290,15 @@ model Regions_2old
   parameter Dynamics momentumDynamics=Dynamics.SteadyState "Formulation of momentum balances {coolant}"
     annotation (Dialog(tab="Advanced", group="Dynamics"));
 
+  parameter Dynamics kineticDynamics=energyDynamics_fuel
+    "Formulation of nuclear kinetics balances" annotation (Dialog(tab="Advanced", group="Dynamics: Kinetics"));
+  parameter Dynamics precursorDynamics=kineticDynamics
+    "Formulation of neutron precursor balances" annotation (Dialog(tab="Advanced", group="Dynamics: Kinetics"));
+  parameter Dynamics decayheatDynamics=kineticDynamics
+    "Formulation of decay-heat balances" annotation (Dialog(tab="Advanced", group="Dynamics: Kinetics"));
+  parameter Dynamics fissionProductDynamics=kineticDynamics
+    "Formulation of fission product balances" annotation (Dialog(tab="Advanced", group="Dynamics: Kinetics"));
+
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Advanced", group="Coolant"));
@@ -251,28 +325,65 @@ model Regions_2old
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
 
-  Modelica.Blocks.Sources.RealExpression T_effective_fuel(y=fuelModel.region_1.solutionMethod.T_effective)
-    "Effective fuel temperature"
-    annotation (Placement(transformation(extent={{-54,38},{-40,46}})));
+  Real SF_mC_add[geometry.nV,Medium.nC] = {{coolantSubchannel.mCs[i, j]/sum(coolantSubchannel.mCs[:, j]) for j in 1:Medium.nC} for i in 1:geometry.nV};
 
-  PowerProfiles.GenericPowerProfile powerProfile(nNodes=geometry.nV, Q_shape=
-        Q_shape)
-    annotation (Placement(transformation(extent={{26,24},{12,38}})));
+  Modelica.Blocks.Sources.RealExpression Q_total(y=kinetics.Q_total)
+    "Total power (fission+decay heat)"
+    annotation (Placement(transformation(extent={{50,26},{34,36}})));
 
-  ReactorKinetics.PointKinetics reactorKinetics(
-    T_op=T_op,
-    nI=nI,
-    beta_i=beta_i,
-    lambda_i=lambda_i,
-    Lambda=Lambda,
-    alpha_fuel=alpha_fuel,
-    alpha_coolant=alpha_coolant,
-    Teffref_fuel=Teffref_fuel,
-    Teffref_coolant=Teffref_coolant,
+  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_powerBased kinetics(
     Q_nominal=Q_nominal,
-    energyDynamics=energyDynamics,
-    C_i_start=C_i_start)
-    annotation (Placement(transformation(extent={{-14,43},{14,64}})));
+    specifyPower=specifyPower,
+    redeclare record Data_DH = Data_DH,
+    redeclare record Data_FP = Data_FP,
+    nC_add=Medium.nC,
+    sigmasA_add_start=sigmasA_add_start,
+    redeclare record Data = Data_PG,
+    dsigmasA_add=dsigmasA_add,
+    Lambda_start=Lambda_start,
+    use_history=use_history,
+    history=history,
+    includeDH=includeDH,
+    nFeedback=2,
+    dlambdas=dlambdas,
+    dalphas=dalphas,
+    dBeta=dBeta,
+    dLambda=dLambda,
+    dlambdas_dh=dlambdas_dh,
+    defs_dh=defs_dh,
+    fissionSources_start=fissionSources_start,
+    fissionTypes_start=fissionTypes_start,
+    nu_bar_start=nu_bar_start,
+    w_f_start=w_f_start,
+    SigmaF_start=SigmaF_start,
+    dfissionSources=dfissionSources,
+    dfissionTypes=dfissionTypes,
+    dnu_bar=dnu_bar,
+    dw_f=dw_f,
+    dSigmaF=dSigmaF,
+    dsigmasA=dsigmasA,
+    dfissionYields=dfissionYields,
+    dlambdas_FP=dlambdas_FP,
+    energyDynamics=kineticDynamics,
+    traceDynamics=precursorDynamics,
+    decayheatDynamics=decayheatDynamics,
+    fissionProductDynamics=fissionProductDynamics,
+    Qs_fission_input=Q_fission_input,
+    Qs_external=Q_external,
+    rhos_input=rho_input,
+    alphas_feedback={alpha_fuel,alpha_coolant},
+    vals_feedback={fuelModel.region_1.solutionMethod.T_effective,
+        coolantSubchannel.summary.T_effective},
+    vals_feedback_reference={Teffref_fuel,Teffref_coolant},
+    Qs_fission_start=Q_fission_start,
+    Cs_start=Cs_pg_start,
+    Es_start=Es_start,
+    Vs=fuelModel.region_1.solutionMethod.V_total*fuelModel.nParallel,
+    mCs_start=mCs_fp_start,
+    mCs_add={sum(coolantSubchannel.mCs[:, j])*coolantSubchannel.nParallel for j in
+            1:Medium.nC},
+    Vs_add=coolantSubchannel.geometry.V_total*coolantSubchannel.nParallel)
+    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   Fluid.Pipes.GenericPipe_MultiTransferSurface
                                        coolantSubchannel(
@@ -324,70 +435,52 @@ model Regions_2old
         dheight=geometry.dheight,
         nSurfaces=geometry.nSurfaces,
         height_a=geometry.height_a,
-        angle=geometry.angle))               annotation (Placement(
+        angle=geometry.angle),
+    redeclare model InternalTraceGen =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
+        (mC_gens={{SF_mC_add[i, j]*kinetics.fissionProducts.mC_gens_add[j] for
+            j in 1:Medium.nC} for i in 1:coolantSubchannel.nV}))
+                                             annotation (Placement(
         transformation(
         extent={{-15,-13},{15,13}},
         rotation=0,
         origin={0,-14})));
 
-  FuelModels.Regions_2_FD2DCyl fuelModel(
+  TRANSFORM.Nuclear.FuelModels.Regions_2_FD2DCyl
+                               fuelModel(
     energyDynamics=energyDynamics_fuel,
     length=geometry.length,
     nParallel=geometry.nPins*nParallel,
     nZ=geometry.nV,
+    redeclare package Material_1 = Material_1,
+    redeclare package Material_2 = Material_2,
     T_start_1=T_start_1,
     T_start_2=T_start_2,
     Ts_start_1=Ts_start_1,
     Ts_start_2=Ts_start_2,
-    redeclare package Material_1 = Material_1,
-    redeclare package Material_2 = Material_2,
-    r_1_outer=geometry.rs_outer[1],
-    r_2_outer=geometry.rs_outer[2],
     nR_1=geometry.nRs[1],
-    nR_2=geometry.nRs[2])                      annotation (Placement(
-        transformation(
+    nR_2=geometry.nRs[2],
+    r_1_outer=geometry.rs_outer[1],
+    r_2_outer=geometry.rs_outer[2])
+                           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,10})));
 
-  Modelica.Blocks.Sources.RealExpression T_effective_coolantSubchannel(y=
-        coolantSubchannel.summary.T_effective) "Effective coolant temperature"
-    annotation (Placement(transformation(extent={{-62,28},{-40,38}})));
-
-  Modelica.Blocks.Sources.RealExpression CR_reactivity_input(y=CR_reactivity)
-    annotation (Placement(transformation(extent={{-54,60},{-40,68}})));
-  Modelica.Blocks.Sources.RealExpression Other_reactivity_input(y=
-        Other_reactivity)
-    annotation (Placement(transformation(extent={{-54,54},{-40,62}})));
-  Modelica.Blocks.Sources.RealExpression S_external_input(y=S_external)
-    annotation (Placement(transformation(extent={{-54,48},{-40,56}})));
+  Blocks.ShapeFactor shapeFactor(n=geometry.nV, SF_start=SF_start_power)
+    annotation (Placement(transformation(extent={{24,26},{14,36}})));
 equation
 
-  connect(T_effective_fuel.y, reactorKinetics.Teff_fuel_in) annotation (Line(
-        points={{-39.3,42},{-30,42},{-30,48.8734},{-12.565,48.8734}}, color={0,0,
-          127}));
-  connect(powerProfile.Q_totalshaped, fuelModel.Power_in) annotation (Line(
-        points={{11.3,31},{2.22045e-015,31},{2.22045e-015,21}}, color={0,0,127}));
   connect(port_a, coolantSubchannel.port_a) annotation (Line(points={{-100,0},{-70,
           0},{-40,0},{-40,-14},{-15,-14}}, color={0,127,255}));
   connect(coolantSubchannel.port_b, port_b) annotation (Line(points={{15,-14},{40,
           -14},{40,0},{100,0}}, color={0,127,255}));
-  connect(T_effective_coolantSubchannel.y, reactorKinetics.Teff_coolant_in)
-    annotation (Line(points={{-38.9,33},{-24,33},{-24,44.3453},{-12.565,44.3453}},
-        color={0,0,127}));
-  connect(CR_reactivity_input.y, reactorKinetics.Reactivity_CR_in) annotation (
-      Line(points={{-39.3,64},{-26,64},{-26,62.7203},{-12.565,62.7203}}, color={
-          0,0,127}));
-  connect(Other_reactivity_input.y, reactorKinetics.Reactivity_Other_in)
-    annotation (Line(points={{-39.3,58},{-12.565,58},{-12.565,58.1266}}, color={
-          0,0,127}));
-  connect(S_external_input.y, reactorKinetics.S_external_in) annotation (Line(
-        points={{-39.3,52},{-26,52},{-26,53.5328},{-12.565,53.5328}}, color={0,0,
-          127}));
-  connect(reactorKinetics.Q_total, powerProfile.Q_total) annotation (Line(
-        points={{12.565,53.5328},{36,53.5328},{36,31},{27.4,31}}, color={0,0,127}));
-  connect(coolantSubchannel.heatPorts[:, 1], fuelModel.heatPorts_b) annotation (
-     Line(points={{0,-7.5},{0,-4},{0,-0.2},{0.1,-0.2}}, color={191,0,0}));
+  connect(fuelModel.heatPorts_b, coolantSubchannel.heatPorts[:, 1]) annotation (
+     Line(points={{0.1,-0.2},{0.1,-4.1},{0,-4.1},{0,-7.5}}, color={127,0,0}));
+  connect(shapeFactor.u, Q_total.y)
+    annotation (Line(points={{25,31},{33.2,31}}, color={0,0,127}));
+  connect(shapeFactor.y, fuelModel.Power_in)
+    annotation (Line(points={{13.5,31},{0,31},{0,21}}, color={0,0,127}));
   annotation (defaultComponentName="coreSubchannel",
 Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),        Icon(coordinateSystem(preserveAspectRatio=false,
@@ -459,4 +552,4 @@ Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
           color={0,128,255},
           smooth=Smooth.None,
           visible=DynamicSelect(true,showDesignFlowDirection))}));
-end Regions_2old;
+end Regions_2;

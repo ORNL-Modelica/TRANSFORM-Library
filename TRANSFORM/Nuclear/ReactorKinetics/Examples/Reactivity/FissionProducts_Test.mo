@@ -4,9 +4,9 @@ model FissionProducts_Test
 
   extends TRANSFORM.Icons.Example;
 
-  Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x=fissionProducts.mCs[1, :])
+  Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x=fissionProducts.mCs)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_withDecayHeat
+  TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_withDecayHeat_point
     fissionProducts(traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
       redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235)

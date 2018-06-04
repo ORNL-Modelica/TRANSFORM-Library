@@ -4,7 +4,8 @@ model Initial_powerBased_powerHistory
 
 extends TRANSFORM.Icons.Example;
 
-  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_powerBased kinetics(
+  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_powerBased
+                                                           kinetics(
     use_history=true,
     history=data_history.table,
     includeDH=true,
@@ -20,11 +21,11 @@ extends TRANSFORM.Icons.Example;
     x=cat(        1,
                   Cs,
                   Es),
+    n=17,
     x_reference=cat(
-                  1,
-                  kinetics.Cs[1, :],
-                  kinetics.Es[1, :]),
-    n=17)                   annotation (Placement(transformation(
+        1,
+        kinetics.Cs,
+        kinetics.Es))       annotation (Placement(transformation(
           extent={{80,80},{100,100}})));
   Data.DecayHeat.decayHeat_11_TRACEdefault data_dh
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));

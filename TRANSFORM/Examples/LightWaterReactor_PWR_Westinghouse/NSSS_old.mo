@@ -17,7 +17,7 @@ model NSSS_old "Nuclear steam supply system"
   package Medium_PHTS = Modelica.Media.Water.StandardWater
     "Primary heat transport system medium" annotation (Dialog(enable=false));
 
-  TRANSFORM.Nuclear.CoreSubchannels.Regions_3old coreSubchannel(
+  TRANSFORM.Nuclear.CoreSubchannels.Regions_3    coreSubchannel(
     redeclare package Medium = Medium_PHTS,
     redeclare package Material_1 = Media.Solids.UO2,
     redeclare package Material_2 = Media.Solids.Helium,
@@ -338,7 +338,7 @@ model NSSS_old "Nuclear steam supply system"
 
   Blocks.RealExpression CR_reactivity
     annotation (Placement(transformation(extent={{-54,128},{-42,140}})));
-  Modelica.Blocks.Sources.RealExpression Q_total(y=coreSubchannel.reactorKinetics.Q_total)
+  Modelica.Blocks.Sources.RealExpression Q_total(y=coreSubchannel.kinetics.Q_total)
     "total thermal power"
     annotation (Placement(transformation(extent={{-76,118},{-64,130}})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface coldleg(
