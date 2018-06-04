@@ -64,7 +64,6 @@ protected
 
 equation
 
-
   for i in 1:nHT loop
     for j in 1:nSurfaces loop
       alpha_SinglePhase_Liquid_To_TwoPhaseSaturated[i, j] =

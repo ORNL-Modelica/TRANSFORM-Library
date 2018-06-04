@@ -1,7 +1,6 @@
 within TRANSFORM.Blocks;
 model ExponentialDecay "Generate a exponential decay signal"
 
-
   parameter SI.DecayConstant lambda=1 "Decay constant";
   parameter Real offset=0 "Offset of output signal";
   parameter Real frac = 0 "Fraction of offset for y(inf)";

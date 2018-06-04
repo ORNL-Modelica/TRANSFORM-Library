@@ -171,7 +171,6 @@ model FissionProducts_externalBalance_withTritium_new
 
 equation
 
-
   for i in 1:nV loop
     phi[i] = Qs_fission*SF_Qs_fission[i]/(w_f*SigmaF)/Vs[i];
     for j in 1:nC loop

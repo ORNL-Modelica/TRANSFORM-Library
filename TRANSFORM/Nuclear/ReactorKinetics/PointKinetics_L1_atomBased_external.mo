@@ -20,7 +20,6 @@ model PointKinetics_L1_atomBased_external
 
    Data data;
 
-
   // Inputs
   input SI.Power Qs_fission_input=Q_nominal
     "Fission power (if specifyPower=true)"
