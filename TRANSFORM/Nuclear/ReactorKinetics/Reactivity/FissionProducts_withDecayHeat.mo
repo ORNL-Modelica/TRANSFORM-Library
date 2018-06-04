@@ -1,7 +1,7 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Reactivity;
-model FissionProducts_externalBalance_withTritium_withDecayHeat_new
+model FissionProducts_withDecayHeat
 
-  extends FissionProducts_externalBalance_withTritium_new;
+  extends FissionProducts;
 
   parameter SI.Energy w_near_decay_start[nC]=data.w_near_decay
     "Energy released per decay of each fission product [J/decay] (near field - e.g., beta)"
@@ -22,13 +22,13 @@ model FissionProducts_externalBalance_withTritium_withDecayHeat_new
   SI.Energy w_far_decay[nC]=w_far_decay_start+dw_far_decay
     "Energy released per decay of each fission product [J/decay] (far field - e.g., gamma)";
 
-  output SI.Power Qs_near[nV]
+  output SI.Power Qs_near
     "Near field (e.g, beta) power released from fission product decay"
     annotation (Dialog(
       tab="Outputs",
       group="Decay-Heat",
       enable=false));
-  output SI.Power Qs_far[nV]
+  output SI.Power Qs_far
     "Far field (e.g., gamma) power released from fission product decay"
     annotation (Dialog(
       tab="Outputs",
@@ -36,22 +36,21 @@ model FissionProducts_externalBalance_withTritium_withDecayHeat_new
       enable=false));
 
 protected
-  SI.Power Qs_near_i[nV,nC]
+  SI.Power Qs_near_i[nC]
     "Near field (e.g, beta) power released from fission product decay (per species per volume)";
-  SI.Power Qs_far_i[nV,nC]
+  SI.Power Qs_far_i[nC]
     "Far field (e.g., gamma) power released from fission product decay (per species per volume)";
 
 equation
 
   // Decay power from fission product decay
-  Qs_near_i ={{w_near_decay[j]*lambdas[j]*mCs[i, j] for j in 1:nC} for i in 1:
-    nV};
-  Qs_far_i ={{w_far_decay[j]*lambdas[j]*mCs[i, j] for j in 1:nC} for i in 1:nV};
+  Qs_near_i ={w_near_decay[j]*lambdas[j]*mCs[j] for j in 1:nC};
+  Qs_far_i ={w_far_decay[j]*lambdas[j]*mCs[j] for j in 1:nC};
 
-  Qs_near = {sum(Qs_near_i[i, :]) for i in 1:nV};
-  Qs_far = {sum(Qs_far_i[i, :]) for i in 1:nV};
+  Qs_near = sum(Qs_near_i[:]);
+  Qs_far = sum(Qs_far_i[:]);
 
   annotation (defaultComponentName="fissionProducts",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})));
-end FissionProducts_externalBalance_withTritium_withDecayHeat_new;
+end FissionProducts_withDecayHeat;

@@ -126,8 +126,8 @@ model PointKinetics_L1_atomBased_external
   SIadd.NonDim eta=Q_decay_total/max(1,Q_fission_total)
     "Ratio of decay heat to fisson power";
 
-  TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_externalBalance_withTritium_withDecayHeat_new
-                             fissionProducts(
+  TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_externalBalance_withTritium_withDecayHeat
+    fissionProducts(
     nV=nV,
     Qs_fission=Qs_fission,
     Vs=Vs,

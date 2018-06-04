@@ -184,8 +184,7 @@ model PointKinetics_L1_powerBased
             1:nDH} else Es_start)
     "Energy of the decay-heat precursor group";
 
-  TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_point
-    fissionProducts(
+  TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts fissionProducts(
     nC_add=nC_add,
     Qs_fission=Qs_fission,
     Vs=Vs,
