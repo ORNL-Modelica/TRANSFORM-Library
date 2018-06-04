@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Kinetics_Test",stopTime=10,numberOfIntervals=1000,resultFile="Kinetics_Test");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

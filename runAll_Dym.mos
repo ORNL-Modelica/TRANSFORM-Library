@@ -138,14 +138,6 @@ simulateModel("TRANSFORM.Media.Fluids.Examples.LinearWaterHot_pT",resultFile="Li
 simulateModel("TRANSFORM.Nuclear.CoreSubchannels.Examples.Regions_3_Test",stopTime=1000,numberOfIntervals=1000,resultFile="Regions_3_Test");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Functions.Initial_powerBased_powerHistory",resultFile="Initial_powerBased_powerHistory");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Reactivity.FissionProducts_Test",resultFile="FissionProducts_Test");
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Kinetics_Drift_Test_feedback",stopTime=100000000,numberOfIntervals=10000,resultFile="Kinetics_Drift_Test_feedback");
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Kinetics_Drift_Test_feedback_Xenon",stopTime=741600,numberOfIntervals=74160,resultFile="Kinetics_Drift_Test_feedback_Xenon");
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Kinetics_Drift_Test_flat",stopTime=100000000,numberOfIntervals=10000,resultFile="Kinetics_Drift_Test_flat");
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Kinetics_Drift_Test_flat_Xenon",stopTime=741600,numberOfIntervals=74160,resultFile="Kinetics_Drift_Test_flat_Xenon");
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Kinetics_Drift_Test_sine",stopTime=100000000,numberOfIntervals=10000,resultFile="Kinetics_Drift_Test_sine");
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Kinetics_Test",stopTime=10,numberOfIntervals=1000,resultFile="Kinetics_Test");
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Kinetics_vs_ApproximateOneGroup",stopTime=1.1,numberOfIntervals=100,resultFile="Kinetics_vs_ApproximateOneGroup");
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_feedback",stopTime=100000000,numberOfIntervals=10000,resultFile="PointKinetics_Drift_Test_feedback");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_feedback_Xenon",stopTime=741600,numberOfIntervals=74160,resultFile="PointKinetics_Drift_Test_feedback_Xenon");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_flat",stopTime=100000000,numberOfIntervals=10000,resultFile="PointKinetics_Drift_Test_flat");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_flat_Xenon",stopTime=741600,numberOfIntervals=74160,resultFile="PointKinetics_Drift_Test_flat_Xenon");
