@@ -573,40 +573,6 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     val_max=data_PHX.T_inlet_tube,
     val_min=data_PHX.T_inlet_shell)
     annotation (Placement(transformation(extent={{200,120},{220,140}})));
-  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_Drift kinetics(
-    nV=fuelCell.nV,
-    Q_nominal=data_RCTR.Q_nominal,
-    lambda_i=data_traceSubstances.precursorGroups.lambdas,
-    nC=data_traceSubstances.fissionProducts.nC,
-    mCs=fuelCell.mCs[:, data_traceSubstances.iPG[1]:data_traceSubstances.iPG[2]]
-        *fuelCell.nParallel,
-    lambda_FP=data_traceSubstances.fissionProducts.lambdas,
-    w_FP_decay=data_traceSubstances.fissionProducts.w_decay,
-    mCs_FP=fuelCell.mCs[:, data_traceSubstances.iFP[1]:data_traceSubstances.iFP[
-        2]]*fuelCell.nParallel,
-    parents=data_traceSubstances.fissionProducts.parents,
-    sigmaA_FP=data_traceSubstances.fissionProducts.sigmaA_thermal,
-    fissionYield=data_traceSubstances.fissionProducts.fissionYield[:, :, 1],
-    vals_feedback=matrix(fuelCell.mediums.T),
-    vals_feedback_reference=matrix(linspace(
-        data_RCTR.T_inlet_core,
-        data_RCTR.T_outlet_core,
-        fuelCell.nV)),
-    nTR=data_traceSubstances.tritium.nC,
-    iH3=data_traceSubstances.iH3,
-    parents_TR=data_traceSubstances.tritium.parents,
-    sigmaA_TR=data_traceSubstances.tritium.sigmaA,
-    sigmaT_TR=data_traceSubstances.tritium.sigmaT,
-    lambda_TR=data_traceSubstances.tritium.lambdas,
-    mCs_TR=fuelCell.mCs[:, data_traceSubstances.iTR[1]:data_traceSubstances.iTR[
-        2]]*fuelCell.nParallel,
-    Vs=fuelCell.Vs*fuelCell.nParallel,
-    SigmaF=26,
-    specifyPower=false,
-    wG_FP_decay=data_traceSubstances.fissionProducts.wG_decay,
-    nFS=data_traceSubstances.fissionProducts.nFS,
-    fissionSource={1.0})
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
                                                pipeFromPHX_PCL(
     nParallel=3,

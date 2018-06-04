@@ -1,9 +1,6 @@
 Examples
-Kinetics_L1_powerBased
-Kinetics_L1_atomBased_external
-PointKinetics
-PointKinetics_Drift
+PointKinetics_L1_powerBased
+PointKinetics_L1_atomBased_external
 Reactivity
-Sources
 Data
 Functions

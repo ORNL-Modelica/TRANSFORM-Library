@@ -49,7 +49,7 @@ equation
   // Port Definitions
   port.T = T;
 
-  annotation (
+  annotation (defaultComponentName="volume",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
           points={{0,77},{-20,73},{-40,67},{-52,53},{-58,45},{-68,35},{-72,23},

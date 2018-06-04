@@ -79,7 +79,7 @@ model GenericHX
   input SI.Length drs[nR,nV](min=0) = fillArray_1D(ths_wall/nR, nR) "Tube unit volume lengths of r-dimension"
     annotation (Dialog(tab="Tube Side", group="Inputs: Tube Wall"));
   SI.Length dimensions_tube_outer[nV] = {dimensions_tube[i] + 2*sum(drs[:,i]) for i in 1:nV} "Tube outer diameter";
-  SI.Length D_o_tube = sum(dimensions_tube_outer)/nV "Tube outer diameter";
+  SI.Length D_o_tube = sum(dimensions_tube_outer)/nV "Tube outer average diameter";
 
 equation
   for i in 1:nV loop

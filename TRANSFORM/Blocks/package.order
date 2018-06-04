@@ -7,3 +7,5 @@ OffTimer
 IntegratorWithReset
 Noise
 ShapeFactor
+SmoothTransition
+ExponentialDecay

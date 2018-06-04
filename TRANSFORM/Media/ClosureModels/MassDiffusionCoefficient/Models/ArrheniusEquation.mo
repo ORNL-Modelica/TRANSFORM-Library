@@ -1,5 +1,5 @@
 within TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models;
-model ArrheniusEquation "Arrhenius equation y = A*exp(-(Ea/RT)^b)"
+model ArrheniusEquation "Arrhenius equation y = u*A*exp(-(Ea/RT)^b)"
   extends PartialMassDiffusionCoefficient;
 
   parameter Boolean use_RecordData=true "=true then use predefined data";
@@ -24,12 +24,13 @@ model ArrheniusEquation "Arrhenius equation y = A*exp(-(Ea/RT)^b)"
   parameter Real beta=1.0 "Correction factor";
   parameter Real betas[nC]=fill(beta, nC) "if non-uniform then set";
 
-  TRANSFORM.Blocks.DataTable data(table=[9.3e-07,42000; 8.25e-07,49700; 6.32e-07,
-        47800; 1.7e-07,37600; 1.36e-07,37700; 4.62e-08,36800; 1.11e-07,37200; 1.43e-07,
-        34400; 2.26e-07,29300; 7.43e-07,44100; 6.63e-07,44900; 9e-05,270000; 2e-08,
-        16000; 3e-08,4300; 1e-07,13200; 2e-07,49300; 7e-07,39500; 1e-06,38500; 8e-07,
-        45300; 4e-08,22300; 9e-07,30100; 0.0006,103000; 6e-07,24700; 5.6e-08,23600;
-        3e-11,18300]) "Col 1 = D_ab0; Col 2 = Ea"
+  TRANSFORM.Blocks.DataTable data(table=[9.3e-07,42000; 8.25e-07,49700;
+        6.32e-07,47800; 1.7e-07,37600; 1.36e-07,37700; 4.62e-08,36800; 1.11e-07,
+        37200; 1.43e-07,34400; 2.26e-07,29300; 7.43e-07,44100; 6.63e-07,44900;
+        9e-05,270000; 2e-08,16000; 3e-08,4300; 1e-07,13200; 2e-07,49300; 7e-07,
+        39500; 1e-06,38500; 8e-07,45300; 4e-08,22300; 9e-07,30100; 0.0006,
+        103000; 6e-07,24700; 5.6e-08,23600; 3e-11,18300; 1e-15,0; 1e15,0])
+                      "Col 1 = D_ab0; Col 2 = Ea"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
@@ -235,6 +236,20 @@ equation
 <td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">3.00E-11</span></p></td>
 <td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">1.83E+04</span></p></td>
 <td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">3</span></p></td>
+</tr>
+<tr>
+<td><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">26</span></p></td>
+<td><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Very Slow</span></p></td>
+<td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">1e-15</span></p></td>
+<td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">0</span></p></td>
+<td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">-</span></p></td>
+</tr>
+<tr>
+<td><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">27</span></p></td>
+<td><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Very Fast</span></p></td>
+<td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">1e15</span></p></td>
+<td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">0</span></p></td>
+<td><p align=\"center\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">-</span></p></td>
 </tr>
 </table>
 <p><br><br><br><br><br><br><br><br>Source:</p>

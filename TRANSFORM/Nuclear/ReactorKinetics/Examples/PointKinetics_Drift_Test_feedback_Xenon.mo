@@ -104,16 +104,11 @@ model PointKinetics_Drift_Test_feedback_Xenon
       package Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
 
-  TRANSFORM.Nuclear.ReactorKinetics.Kinetics_L1_atomBased_external
+  TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external
     core_kinetics(
     nV=core.nV,
     Q_nominal=0,
     specifyPower=false,
-    vals_feedback_reference=matrix({TRANSFORM.Math.Sigmoid(
-        core.summary.xpos_norm[i],
-        0.5,
-        10)*200 + 573.15 for i in 1:core.nV}),
-    vals_feedback=matrix(core.mediums.T),
     Vs=core.Vs*core.nParallel,
     SigmaF_start=26,
     mCs=core.mCs[:, core_kinetics.summary_data.iPG[1]:core_kinetics.summary_data.iPG[
@@ -121,16 +116,17 @@ model PointKinetics_Drift_Test_feedback_Xenon
     mCs_FP=core.mCs[:, core_kinetics.summary_data.iFP[1]:core_kinetics.summary_data.iFP[
         2]]*core.nParallel,
     nFeedback=1,
-    alphas_feedback=fill(
-        -1e-4,
-        core_kinetics.nV,
-        core_kinetics.nFeedback),
     redeclare record Data_FP =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
-    rhos_input=fill(Reactivity.y/core.nV, core.nV),
-    Ns_external=fill(1, core.nV),
     redeclare record Data =
-        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt)
+        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
+    SF_Qs_fission=sin(Modelica.Constants.pi/H*core.summary.xpos)/sum(sin(
+        Modelica.Constants.pi/H*core.summary.xpos)),
+    rhos_input=Reactivity.y,
+    alphas_feedback={-1e-4},
+    vals_feedback={core.summary.T_effective},
+    vals_feedback_reference={400 + 273.15},
+    Ns_external=1)
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[
@@ -140,10 +136,10 @@ model PointKinetics_Drift_Test_feedback_Xenon
   Modelica.Blocks.Sources.Pulse Reactivity(
     nperiod=1,
     startTime=6*60*60,
-    amplitude=1,
     offset=-1,
     width=90,
-    period=100*60*60/0.9)
+    period=100*60*60/0.9,
+    amplitude=1)
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
 
 equation

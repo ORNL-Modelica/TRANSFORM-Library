@@ -6,7 +6,7 @@ model Shs "Specify Sherwood Number (Sh)"
   extends PartialSinglePhase;
 
   input Units.SherwoodNumber Sh0[nC]=fill(7.54, nC)
-    "Nusselt number" annotation (Dialog(group="Inputs"));
+    "Sherwood number" annotation (Dialog(group="Inputs"));
   input Units.SherwoodNumber Shs0[nMT,nSurfaces,nC]=fillArray_1D_2ns(
       Sh0,
       nMT,

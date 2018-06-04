@@ -6,8 +6,15 @@ partial model PartialTwoPhase
         Modelica.Media.Water.StandardWater
       constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium);
 
-  TRANSFORM.Media.BaseProperties2Phase[nFM + 1] mediaProps(redeclare package
-      Medium = Medium, state=states) "Bulk fluid properties"
+  replaceable model VoidFraction =
+      TRANSFORM.Fluid.ClosureRelations.VoidFraction.Homogeneous_wSlipVelocity constrainedby
+    TRANSFORM.Fluid.ClosureRelations.VoidFraction.PartialVoidFraction
+    annotation (choicesAllMatching=true);
+
+  TRANSFORM.Media.BaseProperties2Phase mediaProps[nFM + 1](redeclare package
+      Medium = Medium, state=states,
+    redeclare model VoidFraction = VoidFraction)
+                                     "Bulk fluid properties"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
 //   TRANSFORM.Media.BaseProperties2Phase[nFM+1] mediums_film(redeclare package

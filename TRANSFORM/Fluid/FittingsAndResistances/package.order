@@ -6,6 +6,6 @@ MassTranportCoefficient
 GasKineticTheory
 SharpEdgedAdaptor
 PipeLoss
-Bend
+MultiPort
 TeeJunctionVolume
 BaseClasses

@@ -3,8 +3,13 @@ simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",sto
 simulateModel("TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples.NSSS_Test",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NSSS_Test");
 simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
 simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
+simulateModel("TRANSFORM.Blocks.Examples.ExponentialDecay_Test",resultFile="ExponentialDecay_Test");
 simulateModel("TRANSFORM.Blocks.Examples.IntegratorWithReset",stopTime=1.0,tolerance=1e-6,resultFile="IntegratorWithReset");
+simulateModel("TRANSFORM.Blocks.Examples.MFBS_old_Test",stopTime=10,resultFile="MFBS_old_Test");
+simulateModel("TRANSFORM.Blocks.Examples.MFBS_Test",stopTime=10,resultFile="MFBS_Test");
 simulateModel("TRANSFORM.Blocks.Examples.OffTimer",stopTime=1,tolerance=1e-6,resultFile="OffTimer");
+simulateModel("TRANSFORM.Blocks.Examples.PRBS_Test",stopTime=10,resultFile="PRBS_Test");
+simulateModel("TRANSFORM.Blocks.Examples.PRTS_Test",stopTime=10,resultFile="PRTS_Test");
 simulateModel("TRANSFORM.Controls.Examples.FeedForward.getOpening_ValveIncompressible_Test",stopTime=10,resultFile="getOpening_ValveIncompressible_Test");
 simulateModel("TRANSFORM.Controls.Examples.FeedForward.getRPM_centrifugalPump_Test",resultFile="getRPM_centrifugalPump_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_HysteresisTimer_Test",stopTime=86400,tolerance=1e-6,resultFile="LimPID_HysteresisTimer_Test");
@@ -111,6 +116,7 @@ simulateModel("TRANSFORM.HeatExchangers.Examples.OilWater_PTHX",stopTime=1000,nu
 simulateModel("TRANSFORM.HeatExchangers.Examples.SteamWater_HCSG",stopTime=1000,numberOfIntervals=1000,resultFile="SteamWater_HCSG");
 simulateModel("TRANSFORM.HeatExchangers.Examples.UAdT_lm_Example_11_1",resultFile="UAdT_lm_Example_11_1");
 simulateModel("TRANSFORM.HeatExchangers.Examples.WaterWater_STHX",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="WaterWater_STHX");
+simulateModel("TRANSFORM.HeatExchangers.Examples.WaterWater_STHX_wallR",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="WaterWater_STHX_wallR");
 simulateModel("TRANSFORM.HeatExchangers.Examples.WaterWater_STHX_withMass",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="WaterWater_STHX_withMass");
 simulateModel("TRANSFORM.Math.Examples.BesselJ",stopTime=10,resultFile="BesselJ");
 simulateModel("TRANSFORM.Math.Examples.CubicHermiteSpline",stopTime=1.0,resultFile="CubicHermiteSpline");
@@ -132,7 +138,6 @@ simulateModel("TRANSFORM.Media.Fluids.Examples.LinearWaterHot_pT",resultFile="Li
 simulateModel("TRANSFORM.Nuclear.CoreSubchannels.Examples.Regions_3_Test",stopTime=1000,numberOfIntervals=1000,resultFile="Regions_3_Test");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Functions.Initial_powerBased_powerHistory",resultFile="Initial_powerBased_powerHistory");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Reactivity.FissionProducts_Test",resultFile="FissionProducts_Test");
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_feedback",stopTime=100000000,numberOfIntervals=10000,resultFile="PointKinetics_Drift_Test_feedback");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_feedback_Xenon",stopTime=741600,numberOfIntervals=74160,resultFile="PointKinetics_Drift_Test_feedback_Xenon");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_flat",stopTime=100000000,numberOfIntervals=10000,resultFile="PointKinetics_Drift_Test_flat");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_flat_Xenon",stopTime=741600,numberOfIntervals=74160,resultFile="PointKinetics_Drift_Test_flat_Xenon");

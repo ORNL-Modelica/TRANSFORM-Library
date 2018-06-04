@@ -97,9 +97,10 @@ model FissionProducts_externalBalance_withTritium
   Units.InverseTime lambdas[nC]=lambdas_start + dlambdas
     "Decay constants for each fission product";
 
-  input SI.Power Qs_fission[nV]=fill(1e6/nV, nV)
+  input SI.Power Qs_fission=1e6
     "Power determined from kinetics. Does not include fission product decay heat"
     annotation (Dialog(group="Inputs"));
+  input SIadd.NonDim SF_Qs_fission[nV] = fill(1/nV,nV) "Shape factor for Qs_fission, sum() = 1" annotation(Dialog(group="Shape Factors"));
   input SI.Volume[nV] Vs=fill(0.1, nV)
     "Volume for fisson product concentration basis"
     annotation (Dialog(group="Inputs"));
@@ -171,13 +172,13 @@ model FissionProducts_externalBalance_withTritium
 equation
 
   for i in 1:nV loop
-    phi[i] = Qs_fission[i]/(w_f*SigmaF)/Vs[i];
+    phi[i] = Qs_fission*SF_Qs_fission[i]/(w_f*SigmaF)/Vs[i];
     for j in 1:nC loop
-      mC_gens[i, j] = Qs_fission[i]/w_f*sum({fissionSources[k]*sum({
+      mC_gens[i, j] = Qs_fission*SF_Qs_fission[i]/w_f*sum({fissionSources[k]*sum({
         fissionTypes[k, m]*fissionYields[j, k, m] for m in 1:nT}) for k in 1:
         nFS}) - lambdas[j]*mCs[i, j] + sum(lambdas .* mCs[i, :] .* parents[j, :])
-         - sigmasA[j]*mCs[i, j]*Qs_fission[i]/(w_f*SigmaF)/Vs[i] + (if j == iH3 then sum(mC_gens_H3[i, :]) else 0);
-      rhos[i, j] = -sigmasA[j]*mCs[i, j]/(nu_bar*SigmaF)/Vs[i];
+         - sigmasA[j]*mCs[i, j]*Qs_fission*SF_Qs_fission[i]/(w_f*SigmaF)/Vs[i] + (if j == iH3 then sum(mC_gens_H3[i, :]) else 0);
+      rhos[i, j] = -sigmasA[j]*mCs[i, j]/(nu_bar*SigmaF)/Vs[i]*SF_Qs_fission[i];
     end for;
   end for;
 
@@ -186,13 +187,13 @@ equation
     for j in 1:nTR loop
        mC_gens_TR[i, j] =-lambdas_TR[j]*mCs_TR[i, j] + sum(lambdas_TR .* mCs_TR[
         i, :] .* parents_TR[j, :]) - (sigmasA_TR[j] + sigmasT_TR[j])*mCs_TR[i,
-        j]*Qs_fission[i]/(w_f*SigmaF)/Vs[i];
+        j]*Qs_fission*SF_Qs_fission[i]/(w_f*SigmaF)/Vs[i];
       rhos_TR[i,j] =-(sigmasA_TR[j] + sigmasT_TR[j])*mCs_TR[i, j]/(nu_bar*
-        SigmaF)/Vs[i];
+        SigmaF)/Vs[i]*SF_Qs_fission[i];
         end for;
   end for;
 
-  mC_gens_H3 ={{sigmasT_TR[j]*mCs_TR[i, j]*Qs_fission[i]/(w_f*SigmaF)/Vs[i]
+  mC_gens_H3 ={{sigmasT_TR[j]*mCs_TR[i, j]*Qs_fission*SF_Qs_fission[i]/(w_f*SigmaF)/Vs[i]
     for j in 1:nTR} for i in 1:nV};
 
   annotation (defaultComponentName="fissionProducts",

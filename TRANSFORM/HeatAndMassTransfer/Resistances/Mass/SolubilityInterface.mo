@@ -18,6 +18,8 @@ model SolubilityInterface
           extent={{60,-10},{80,10}}), iconTransformation(extent={{60,-10},{80,
             10}})));
 
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+
 equation
 
   port_a.n_flow + port_b.n_flow = zeros(nC);
@@ -40,6 +42,7 @@ equation
         Text(
           extent={{-150,92},{150,52}},
           textString="%name",
+          visible=showName,
           lineColor={0,0,255})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end SolubilityInterface;

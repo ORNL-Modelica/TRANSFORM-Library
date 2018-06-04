@@ -51,6 +51,7 @@ equation
   // Port Definitions
   portM.C = C;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="volume",
+Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end UnitVolume_wTraceMass;
