@@ -17,7 +17,6 @@ model Regions_2_Test
     energyDynamics_fuel=system.energyDynamics,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     rho_input=ControlRod_Reactivity.y + Other_Reactivity.y,
     redeclare model Geometry =
         ClosureRelations.Geometry.Models.CoreSubchannels.Generic (

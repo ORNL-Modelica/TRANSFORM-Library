@@ -27,7 +27,6 @@ model Regions_1_Test
     energyDynamics_fuel=system.energyDynamics,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     redeclare model Geometry =
         ClosureRelations.Geometry.Models.CoreSubchannels.Generic (
         crossArea=2.726627/23496,
