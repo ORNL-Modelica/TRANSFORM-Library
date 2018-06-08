@@ -8,7 +8,7 @@ model HeatedPipe_Transients
 
   package Medium = Modelica.Media.Water.StandardWater;
 
-  parameter Integer iTest = 4 "Set test number to change test run";
+  parameter Integer iTest = 1 "Set test number to change test run" annotation(Evaluate=false);
   parameter String test_type[4] = {"lowQuality_10","highQuality_10","lowQuality_100","highQuality_100"};
   parameter SIadd.MassFlux Gs[4] = {10,10,100,100};
   parameter SI.HeatFlux Qs_pp[4] = {5e2,4e3,5e3,4e4};
@@ -35,12 +35,18 @@ model HeatedPipe_Transients
   parameter SI.Area surfaceArea = Modelica.Constants.pi*D_hyd*length;
   parameter SI.Power Q_gen = Q_pp*surfaceArea/(nV*nR);
 
+  parameter Real alpha_Q_gen = 0;
+  parameter Real alpha_pressure = 0;
+  parameter Real alpha_m_flow = 0;
+  parameter Real alpha_T = 0;
+
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T source(
     nPorts=1,
     redeclare package Medium = Medium,
     m_flow=m_flow_source,
     T(displayUnit="K") = T_source,
-    use_m_flow_in=true)           annotation (Placement(transformation(
+    use_m_flow_in=true,
+    use_T_in=true)                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-50})));
@@ -48,7 +54,8 @@ model HeatedPipe_Transients
     nPorts=1,
     redeclare package Medium = Medium,
     p(displayUnit="MPa") = p_sink,
-    h=h_sink)
+    h=h_sink,
+    use_p_in=true)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,70})));
@@ -100,7 +107,7 @@ model HeatedPipe_Transients
         length_z=length),
     redeclare model InternalHeatModel =
         TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-        (Q_gen=ramp.y))
+        (Q_gen=power.y))
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
@@ -120,16 +127,26 @@ model HeatedPipe_Transients
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,0})));
-  Modelica.Blocks.Sources.Ramp ramp(
-    duration=10,
-    startTime=10,
-    height=Q_gen)
+  Modelica.Blocks.Sources.Step power(
+    offset=Q_gen,
+    startTime=2000,
+    height=alpha_Q_gen*Q_gen)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-  Modelica.Blocks.Sources.Step step(
-    height=m_flow_source*0.5,
+  Modelica.Blocks.Sources.Step inlet_flow(
     offset=m_flow_source,
-    startTime=2000)
+    startTime=2000,
+    height=alpha_m_flow*m_flow_source)
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  Modelica.Blocks.Sources.Step outlet_pressure(
+    offset=p_sink,
+    startTime=2000,
+    height=alpha_pressure*p_sink)
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+  Modelica.Blocks.Sources.Step inlet_temperature(
+    startTime=2000,
+    offset=T_source,
+    height=alpha_T*T_source)
+              annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
 equation
   connect(resistance.port_a, pipe.port_b)
     annotation (Line(points={{-4.44089e-16,23},{-4.44089e-16,10},{0,10}},
@@ -148,13 +165,17 @@ equation
     annotation (Line(points={{-30,10},{-30,32}}, color={191,0,0}));
   connect(resistance.port_b, sink.ports[1])
     annotation (Line(points={{0,37},{0,60}}, color={0,127,255}));
-  connect(step.y, source.m_flow_in)
+  connect(inlet_flow.y, source.m_flow_in)
     annotation (Line(points={{-19,-70},{-8,-70},{-8,-60}}, color={0,0,127}));
+  connect(inlet_temperature.y, source.T_in)
+    annotation (Line(points={{19,-70},{-4,-70},{-4,-62}}, color={0,0,127}));
+  connect(outlet_pressure.y, sink.p_in)
+    annotation (Line(points={{-19,90},{-8,90},{-8,82}}, color={0,0,127}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=100000,
-      __Dymola_NumberOfIntervals=1000,
+      StopTime=2100,
+      __Dymola_NumberOfIntervals=2100,
       __Dymola_Algorithm="Esdirk45a"));
 end HeatedPipe_Transients;
