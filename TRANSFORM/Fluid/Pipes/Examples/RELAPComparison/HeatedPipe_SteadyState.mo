@@ -25,7 +25,7 @@ model HeatedPipe_SteadyState
   parameter SI.Angle angle = Modelica.Constants.pi/2;
 
   parameter SI.Length roughness = 5e-5;
-  parameter SI.Length r_outer = 7.5e-3;
+  parameter SI.Length r_outer = 0.5*D_hyd;
 
   parameter SI.MassFlowRate m_flow_source = G*area;
   parameter SI.Temperature T_source = 450;
