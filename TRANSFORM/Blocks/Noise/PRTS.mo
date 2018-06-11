@@ -9,8 +9,9 @@ model PRTS
 
   parameter Integer seed[:]={0,1,2};
   parameter Integer generator[size(seed, 1)]={1,2,2};
+  parameter Integer bias = -1 "Bias for middle value of PRTS signal";
   final parameter Integer mls[integer(3^(size(seed, 1)) - 1)]=
-      TRANSFORM.Math.max_len_seq_ternary(seed, generator);
+      TRANSFORM.Math.max_len_seq_ternary(seed, generator,bias);
 protected
   Real dy;
   Real i(start=1);
