@@ -7,8 +7,9 @@ model MFBS
   parameter SI.Time startTime=0 "Output = offset for time < startTime";
   extends Modelica.Blocks.Interfaces.SO;
 
-  parameter Integer weights[:]={1,1,1,1,1,1,1};
-  parameter Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64};
+  parameter Integer pairing = 1 "Select pairing choice or manually overide weights and harmonics" annotation (Dialog(group="Pairing"),choices(choice=1,choice=2,choice=3));
+  parameter Real weights[:]=if pairing == 1 then {1,1,1,1,1,1,1} elseif pairing == 2 then {1,-1,1,-1,1,-1,1} elseif pairing == 3 then {0.5,1,1,1.2,1.8,1.8,2} else fill(0,1) "Sequence weighting" annotation (Dialog(group="Pairing"));
+  parameter Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64} "Sequence harmonics. size(harmonics) = size(weights)" annotation (Dialog(group="Pairing"));
 
   final parameter SI.Time mls_t[:]= TRANSFORM.Math.max_len_seq__sine_time(weights, harmonics);
   final parameter Real mls0 = mls_t[end];
@@ -34,6 +35,9 @@ algorithm
   end when;
 
 equation
+
+  assert(sum(weights) > 0 and sum(harmonics) > 0, "Unsupported pairing, weights, and/or harmonics sequence specified");
+
   if time < startTime then
     tseq = 0;
   else

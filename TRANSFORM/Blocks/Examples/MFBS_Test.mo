@@ -5,7 +5,9 @@ model MFBS_Test
   Noise.MFBS sequencer(
     startTime=0.5,
     offset=1,
-    period=5) annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
+    period=5,
+    pairing=3)
+              annotation (Placement(transformation(extent={{-10,-12},{10,8}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x={sequencer.y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

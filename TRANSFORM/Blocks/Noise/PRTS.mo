@@ -7,10 +7,30 @@ model PRTS
   parameter SI.Time startTime=0 "Output = offset for time < startTime";
   extends Modelica.Blocks.Interfaces.SO;
 
-  parameter Integer seed[:]={0,1,2};
-  parameter Integer generator[size(seed, 1)]={1,2,2};
-  parameter Integer bias = -1 "Bias for middle value of PRTS signal";
-  final parameter Integer mls[integer(3^(size(seed, 1)) - 1)]=
+  parameter Integer nBits = 3 "Sequence bit length"
+    annotation(Dialog(group="Bit Pairing"),
+      choices(
+        choice=3,
+        choice=4,
+        choice=5,
+        choice=6,
+        choice=7,
+        choice=8));
+  parameter Integer seed[nBits]=cat(1,{-1},fill(1,nBits-2),{0})
+    "Seed sequence array of -1, 1, and 0, size(seed) = nBits"
+    annotation (Dialog(group="Bit Pairing"));
+  parameter Integer generator[nBits]=
+    if nBits == 3 then {1,2,2}
+    elseif nBits == 4 then {2,1,1,1}
+    elseif nBits == 5 then {0,2,1,1,2}
+    elseif nBits == 6 then {1,1,1,0,1,1}
+    elseif nBits == 7 then {2,1,1,1,1,1,2}
+    elseif nBits == 8 then {2,1,2,1,2,1,1,1}
+    else fill(0,nBits) "Generator for sequence. size(generator) = nBits" annotation (Dialog(group="Bit Pairing"));
+
+  parameter Integer bias = 0 "Bias for middle value of PRTS signal";
+
+  final parameter Integer mls[integer(3^nBits - 1)]=
       TRANSFORM.Math.max_len_seq_ternary(seed, generator,bias);
 protected
   Real dy;
@@ -19,10 +39,13 @@ protected
 algorithm
   when sample(startTime, 1/freqHz) then
     dy := amplitude*mls[integer(i)];
-    i := if i + 1 > integer(3^(size(seed, 1)) - 1) then 1 else i + 1;
+    i := if i + 1 > integer(3^nBits - 1) then 1 else i + 1;
   end when;
 
 equation
+
+  assert(sum(generator) > 0, "Unsupported nBits and/or generator sequence specified");
+
   y = offset + (if time < startTime then 0 else dy);
 
   annotation (defaultComponentName="sequencer",

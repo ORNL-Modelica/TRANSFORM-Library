@@ -58,6 +58,9 @@ algorithm
   end when;
 
 equation
+
+  assert(sum(generator) > 0, "Unsupported nBits and/or generator sequence specified");
+
   y = offset + (if time < startTime then 0 else dy);
 
   annotation (
