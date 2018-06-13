@@ -18,8 +18,8 @@ protected
 
 algorithm
   when sample(startTime, 1/freqHz) then
-    i := if i + 1 > integer(3^(size(seed, 1)) - 1) then 1 else i + 1;
     dy := amplitude*mls[integer(i)];
+    i := if i + 1 > integer(3^(size(seed, 1)) - 1) then 1 else i + 1;
   end when;
 
 equation

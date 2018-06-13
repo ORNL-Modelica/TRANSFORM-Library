@@ -12,7 +12,7 @@ protected
 
 algorithm
 
-  assert(sum(seed) > 0, "seed must contain at least one 1");
+  assert(sum(abs(seed)) > 0, "seed must contain at least one 1");
 
   for i in 1:nVal loop
     y[i] :=seed_int[end];
