@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function max_len_seq_sine
 
-  input Integer weights[:]={1,1,1,1,1,1,1};
+  input Real weights[:]={1,1,1,1,1,1,1};
   input Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64};
 
   output Integer y[integer(max(harmonics)^2)];

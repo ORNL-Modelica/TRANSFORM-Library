@@ -8,7 +8,7 @@ model HeatedPipe_Transients
 
   package Medium = Modelica.Media.Water.StandardWater;
 
-  parameter Integer iTest = 1 "Set test number to change test run" annotation(Evaluate=false);
+  parameter Integer iTest = 3 "Set test number to change test run" annotation(Evaluate=false);
   parameter String test_type[4] = {"lowQuality_10","highQuality_10","lowQuality_100","highQuality_100"};
   parameter SIadd.MassFlux Gs[4] = {10,10,100,100};
   parameter SI.HeatFlux Qs_pp[4] = {5e2,4e3,5e3,4e4};
@@ -25,7 +25,7 @@ model HeatedPipe_Transients
   parameter SI.Angle angle = Modelica.Constants.pi/2;
 
   parameter SI.Length roughness = 5e-5;
-  parameter SI.Length r_outer = 7.5e-3;
+  parameter SI.Length r_outer = 0.5*D_hyd;
 
   parameter SI.MassFlowRate m_flow_source = G*area;
   parameter SI.Temperature T_source = 450;
@@ -37,7 +37,7 @@ model HeatedPipe_Transients
 
   parameter Real alpha_Q_gen = 0;
   parameter Real alpha_pressure = 0;
-  parameter Real alpha_m_flow = 0;
+  parameter Real alpha_m_flow = -0.1;
   parameter Real alpha_T = 0;
 
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T source(

@@ -2,7 +2,7 @@ within TRANSFORM.Math;
 function max_len_seq__sine_time
   "Return time sequence interval and initial mls value as the last index"
 
-  input Integer weights[:]={1,1,1,1,1,1,1};
+  input Real weights[:]={1,1,1,1,1,1,1};
   input Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64};
   input Boolean integralTime=true
     "=false for sum(mls_t) = 1 else mls_t[end] = 1";
