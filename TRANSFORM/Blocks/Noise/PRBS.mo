@@ -7,8 +7,9 @@ model PRBS
   parameter SI.Time startTime=0 "Output = offset for time < startTime";
   extends Modelica.Blocks.Interfaces.SO;
 
+  parameter Real bias = 0 "Bias from nominal middle value of signal" annotation (Dialog(group="Sequence"));
   parameter Integer nBits = 3 "Sequence bit length"
-    annotation(Dialog(group="Bit Pairing"),
+    annotation(Dialog(group="Sequence"),
       choices(
         choice=2,
         choice=3,
@@ -26,7 +27,7 @@ model PRBS
         choice=15));
   parameter Integer seed[nBits]=cat(1,{1},fill(0,nBits-2),{1})
     "Seed sequence array of 1 and 0, size(seed) = nBits"
-    annotation (Dialog(group="Bit Pairing"));
+    annotation (Dialog(group="Sequence"));
   parameter Integer generator[nBits+1]=
     if nBits == 2 then {1,1,1}
     elseif nBits == 3 then {1,1,0,1}
@@ -42,10 +43,10 @@ model PRBS
     elseif nBits == 13 then {1,1,1,0,0,1,0,0,0,0,0,0,0,1}
     elseif nBits == 14 then {1,1,1,0,0,0,0,0,0,0,0,0,1,0,1}
     elseif nBits == 15 then {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1}
-    else fill(0,nBits+1) "Generator for sequence. size(generator) = nBits+1" annotation (Dialog(group="Bit Pairing"));
+    else fill(0,nBits+1) "Generator for sequence. size(generator) = nBits+1" annotation (Dialog(group="Sequence"));
 
-  final parameter Integer mls[integer(2^nBits - 1)]=
-      TRANSFORM.Math.max_len_seq(seed,generator);
+  final parameter Real mls[integer(2^nBits - 1)]=
+      TRANSFORM.Math.max_len_seq(seed,generator, bias);
 
 protected
   Real dy;

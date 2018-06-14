@@ -7,8 +7,9 @@ model PRTS
   parameter SI.Time startTime=0 "Output = offset for time < startTime";
   extends Modelica.Blocks.Interfaces.SO;
 
+  parameter Real bias = 0 "Bias from nominal middle value of signal" annotation (Dialog(group="Sequence"));
   parameter Integer nBits = 3 "Sequence bit length"
-    annotation(Dialog(group="Bit Pairing"),
+    annotation(Dialog(group="Sequence"),
       choices(
         choice=3,
         choice=4,
@@ -18,7 +19,7 @@ model PRTS
         choice=8));
   parameter Integer seed[nBits]=cat(1,{-1},fill(1,nBits-2),{0})
     "Seed sequence array of -1, 1, and 0, size(seed) = nBits"
-    annotation (Dialog(group="Bit Pairing"));
+    annotation (Dialog(group="Sequence"));
   parameter Integer generator[nBits]=
     if nBits == 3 then {1,2,2}
     elseif nBits == 4 then {2,1,1,1}
@@ -26,12 +27,10 @@ model PRTS
     elseif nBits == 6 then {1,1,1,0,1,1}
     elseif nBits == 7 then {2,1,1,1,1,1,2}
     elseif nBits == 8 then {2,1,2,1,2,1,1,1}
-    else fill(0,nBits) "Generator for sequence. size(generator) = nBits" annotation (Dialog(group="Bit Pairing"));
+    else fill(0,nBits) "Generator for sequence. size(generator) = nBits" annotation (Dialog(group="Sequence"));
 
-  parameter Integer bias = 0 "Bias for middle value of PRTS signal";
-
-  final parameter Integer mls[integer(3^nBits - 1)]=
-      TRANSFORM.Math.max_len_seq_ternary(seed, generator,bias);
+  final parameter Real mls[integer(3^nBits - 1)]=
+      TRANSFORM.Math.max_len_seq_ternary(seed, generator, bias);
 protected
   Real dy;
   Real i(start=1);

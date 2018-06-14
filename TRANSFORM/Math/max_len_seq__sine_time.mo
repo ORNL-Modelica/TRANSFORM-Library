@@ -4,6 +4,7 @@ function max_len_seq__sine_time
 
   input Real weights[:]={1,1,1,1,1,1,1};
   input Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64};
+  input Real bias = 0 "Bias to control middle value";
   input Boolean integralTime=true
     "=false for sum(mls_t) = 1 else mls_t[end] = 1";
 
@@ -11,7 +12,7 @@ function max_len_seq__sine_time
 
 protected
   Integer nT=integer(max(harmonics)^2);
-  Integer mls[nT]=TRANSFORM.Math.max_len_seq_sine(weights, harmonics);
+  Real mls[nT]=TRANSFORM.Math.max_len_seq_sine(weights, harmonics, bias);
   Integer nSeq=integer(sum(abs(diff(mls)))) + 1;
 
   Real dt=1/nT;
