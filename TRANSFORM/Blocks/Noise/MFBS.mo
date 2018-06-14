@@ -7,11 +7,12 @@ model MFBS
   parameter SI.Time startTime=0 "Output = offset for time < startTime";
   extends Modelica.Blocks.Interfaces.SO;
 
-  parameter Integer use_SetWeight = 1 "Select predefined weight or set weights manually" annotation (Dialog(group="Signal Settings"),choices(choice=1 "x_a: for low frequency systems", choice=2 "x_b: most efficient/uniform amplitudes",choice=3 "x_c: for high frequency systems"));
-  parameter Real weights[:]=if use_SetWeight == 1 then {1,1,1,1,1,1,1} elseif use_SetWeight == 2 then {1,-1,1,-1,1,-1,1} elseif use_SetWeight == 3 then {0.5,1,1,1.2,1.8,1.8,2} else fill(0,1) "Sequence weighting" annotation (Dialog(group="Signal Settings"));
-  parameter Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64} "Sequence harmonics. size(harmonics) = size(weights)" annotation (Dialog(group="Signal Settings"));
+  parameter Real bias = 0 "Bias from nominal middle value of signal" annotation (Dialog(group="Sequence"));
+  parameter Integer use_SetWeight = 1 "Select predefined weight or set weights manually" annotation (Dialog(group="Sequence"),choices(choice=1 "x_a: for low frequency systems", choice=2 "x_b: most efficient/uniform amplitudes",choice=3 "x_c: for high frequency systems"));
+  parameter Real weights[:]=if use_SetWeight == 1 then {1,1,1,1,1,1,1} elseif use_SetWeight == 2 then {1,-1,1,-1,1,-1,1} elseif use_SetWeight == 3 then {0.5,1,1,1.2,1.8,1.8,2} else fill(0,1) "Sequence weighting" annotation (Dialog(group="Sequence"));
+  parameter Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64} "Sequence harmonics. size(harmonics) = size(weights)" annotation (Dialog(group="Sequence"));
 
-  final parameter SI.Time mls_t[:]= TRANSFORM.Math.max_len_seq__sine_time(weights, harmonics);
+  final parameter SI.Time mls_t[:]= TRANSFORM.Math.max_len_seq__sine_time(weights, harmonics, bias);
   final parameter Real mls0 = mls_t[end];
 
 protected
@@ -31,12 +32,12 @@ algorithm
 
   when tseq/period >= mls_t[i+1] then
     i := i + 1;
-    dy := amplitude*(mls0 + (if mod(i, 2) == 0 then 0 else -mls0));
+    dy := amplitude*(mls0 + (if mod(i, 2) == 0 then 0 else bias-mls0));
   end when;
 
 equation
 
-  assert(sum(weights) > 0 and sum(harmonics) > 0, "Unsupported weights, and/or harmonics sequence specified");
+  assert(sum(weights) > 0 and sum(harmonics) > 0, "Unsupported weights and/or harmonics sequences specified");
 
   if time < startTime then
     tseq = 0;

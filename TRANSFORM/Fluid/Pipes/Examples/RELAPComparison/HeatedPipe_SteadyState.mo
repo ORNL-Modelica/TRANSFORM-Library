@@ -100,31 +100,26 @@ model HeatedPipe_SteadyState
         length_z=length),
     redeclare model InternalHeatModel =
         TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-        (Q_gen=ramp.y))
+        (Q_gen=Q_gen))
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
         origin={-30,0})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi
-    adiabatic(nPorts=wall.geometry.nR)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi adiabatic_bottom(nPorts=
+        wall.geometry.nR) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,-30})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi
-    adiabatic1(nPorts=wall.geometry.nR)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi adiabatic_top(nPorts=
+        wall.geometry.nR) annotation (Placement(transformation(
+        extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-30,42})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi
-    adiabatic2(nPorts=wall.geometry.nZ) annotation (Placement(transformation(
+        origin={-30,30})));
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi adiabatic_centerline(nPorts=
+        wall.geometry.nZ) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,0})));
-  Modelica.Blocks.Sources.Ramp ramp(
-    duration=10,
-    startTime=10,
-    height=Q_gen)
-    annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
 equation
   connect(resistance.port_a, pipe.port_b)
     annotation (Line(points={{-4.44089e-16,23},{-4.44089e-16,10},{0,10}},
@@ -132,15 +127,14 @@ equation
   connect(pipe.port_a, source.ports[1])
     annotation (Line(points={{0,-10},{4.44089e-16,-10},{4.44089e-16,-40}},
                                                        color={0,127,255}));
-  connect(adiabatic.port, wall.port_a2)
-    annotation (Line(points={{-30,-20},{-30,-10}},        color={191,0,0}));
-  connect(adiabatic2.port, wall.port_a1)
-    annotation (Line(points={{-50,0},{-40,0},{-40,1.33227e-15}},
-                                                    color={191,0,0}));
+  connect(adiabatic_bottom.port, wall.port_a2)
+    annotation (Line(points={{-30,-20},{-30,-10}}, color={191,0,0}));
+  connect(adiabatic_centerline.port, wall.port_a1) annotation (Line(points={{-50,
+          0},{-40,0},{-40,1.33227e-15}}, color={191,0,0}));
   connect(wall.port_b1, pipe.heatPorts[:, 1])
     annotation (Line(points={{-20,0},{-5,0}}, color={191,0,0}));
-  connect(wall.port_b2, adiabatic1.port)
-    annotation (Line(points={{-30,10},{-30,32}}, color={191,0,0}));
+  connect(wall.port_b2, adiabatic_top.port)
+    annotation (Line(points={{-30,10},{-30,20}}, color={191,0,0}));
   connect(resistance.port_b, sink.ports[1])
     annotation (Line(points={{0,37},{0,60}}, color={0,127,255}));
   annotation (

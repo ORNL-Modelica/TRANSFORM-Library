@@ -121,7 +121,7 @@ model HeatedPipe_Transients
     adiabatic1(nPorts=wall.geometry.nR)
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-30,42})));
+        origin={-30,30})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic_multi
     adiabatic2(nPorts=wall.geometry.nZ) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -162,7 +162,7 @@ equation
   connect(wall.port_b1, pipe.heatPorts[:, 1])
     annotation (Line(points={{-20,0},{-5,0}}, color={191,0,0}));
   connect(wall.port_b2, adiabatic1.port)
-    annotation (Line(points={{-30,10},{-30,32}}, color={191,0,0}));
+    annotation (Line(points={{-30,10},{-30,20}}, color={191,0,0}));
   connect(resistance.port_b, sink.ports[1])
     annotation (Line(points={{0,37},{0,60}}, color={0,127,255}));
   connect(inlet_flow.y, source.m_flow_in)
