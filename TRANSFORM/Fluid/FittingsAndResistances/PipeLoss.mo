@@ -1,6 +1,8 @@
 within TRANSFORM.Fluid.FittingsAndResistances;
 model PipeLoss
 
+  extends TRANSFORM.Icons.UnderConstruction;
+
   extends
     TRANSFORM.Fluid.FittingsAndResistances.BaseClasses.PartialResistancenew;
 
@@ -55,13 +57,15 @@ model PipeLoss
   SI.PressureDifference dp_K;
   SI.PressureDifference dp_f;
   SI.PressureDifference dp_g;
-
+  SI.Density db=Medium.density(state_b);
+  SI.Density da=Medium.density(state_a);
 equation
 
   Re = 4.0*abs(m_flow)/(Modelica.Constants.pi*geometry.dimension*
     Medium.dynamicViscosity(state));
   K = smooth(0, noEvent(if m_flow >= 0 then K_ab else -K_ba));
-  dp = dp_f + dp_K + dp_g;
+
+  dp = dp_f + dp_K - dp_g;
 
   dp_K = K*m_flow^2/(2*Medium.density(state)*geometry.crossArea)^2;
 
@@ -82,9 +86,9 @@ equation
     Re_width);
 
   dp_f = 0.5*fRe2*geometry.dlength*Medium.dynamicViscosity(state)^2/(geometry.dimension*
-    geometry.dimension*geometry.dimension*Medium.density(state))*noEvent(if m_flow >= 0 then +1
-     else -1);
-  dp_g = g_n*geometry.dheight*Medium.density(state);
+    geometry.dimension*geometry.dimension*Medium.density(state))*noEvent(if m_flow >= 0 then +1 else -1);
+
+  dp_g = g_n*geometry.dheight*(Medium.density(state_b)-Medium.density(state_a));
 
   v_a = abs(m_flow)/(Medium.density(state)*0.25*Modelica.Constants.pi*
     geometry.dimension^2);
