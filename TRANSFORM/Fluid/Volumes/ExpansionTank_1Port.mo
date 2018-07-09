@@ -191,7 +191,6 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
-        Text(extent={{-100,-105},{100,-120}}, textString="%name"),
         Ellipse(
           extent={{-85,85},{85,-85}},
           fillColor={0,128,255},
