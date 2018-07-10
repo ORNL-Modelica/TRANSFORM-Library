@@ -52,8 +52,8 @@ model PointKinetics_L1_powerBased
   // Neutron Kinetics
   final parameter Integer nC=data.nC "# of delayed-neutron precursors groups";
   input Units.InverseTime dlambdas[nC]=fill(0, nC)
-    "Change in decay constants for each precursor group" annotation (Dialog(tab
-        ="Parameter Change", group="Inputs: Neutron Kinetics"));
+    "Change in decay constants for each precursor group" annotation (Dialog(tab=
+         "Parameter Change", group="Inputs: Neutron Kinetics"));
   input Units.NonDim dalphas[nC]=fill(0, nC)
     "Change in normalized precursor fractions [betas = alphas*Beta]"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Neutron Kinetics"));
@@ -266,8 +266,8 @@ model PointKinetics_L1_powerBased
     "Change in # fission product atoms yielded per fission per fissile source [#/fission]"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Fission Products"));
   input Units.InverseTime dlambdas_FP[nFP]=fill(0, nFP)
-    "Change in decay constants for each fission product" annotation (Dialog(tab
-        ="Parameter Change", group="Inputs: Fission Products"));
+    "Change in decay constants for each fission product" annotation (Dialog(tab=
+         "Parameter Change", group="Inputs: Fission Products"));
 
   parameter SI.Volume Vs_start(fixed=false)
     "Volume for fisson product concentration basis"

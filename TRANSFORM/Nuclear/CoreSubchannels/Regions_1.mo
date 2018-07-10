@@ -12,8 +12,7 @@ model Regions_1
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium
-      =                                                                          Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
 
@@ -98,7 +97,6 @@ model Regions_1
   parameter SI.Energy Es_start[kinetics.nDH]={Q_fission_start*kinetics.efs_dh_start[
       j]/kinetics.lambda_dh_start[j] for j in 1:kinetics.nDH}
     "Initial decay heat group energy" annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
-
 
   parameter Units.ExtraPropertyExtrinsic mCs_fp_start[kinetics.nFP]=
 TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_FissionProducts(
