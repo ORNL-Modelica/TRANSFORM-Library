@@ -12,7 +12,8 @@ model Regions_1
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium
+      =                                                                          Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
 
@@ -97,9 +98,28 @@ model Regions_1
   parameter SI.Energy Es_start[kinetics.nDH]={Q_fission_start*kinetics.efs_dh_start[
       j]/kinetics.lambda_dh_start[j] for j in 1:kinetics.nDH}
     "Initial decay heat group energy" annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
-  parameter Units.ExtraPropertyExtrinsic mCs_fp_start[kinetics.nFP]=fill(
-      0,
-      kinetics.nFP) "Number of fission product atoms per group" annotation (Dialog(tab="Kinetics",group="Fission Products"));
+
+
+  parameter Units.ExtraPropertyExtrinsic mCs_fp_start[kinetics.nFP]=
+TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_FissionProducts(
+      kinetics.fissionProducts.nC,
+      kinetics.fissionProducts.nFS,
+      kinetics.fissionProducts.nT,
+      kinetics.fissionProducts.parents,
+      kinetics.fissionSources_start,
+      kinetics.fissionProducts.fissionTypes_start,
+      kinetics.fissionProducts.w_f_start,
+      kinetics.fissionProducts.SigmaF_start,
+      kinetics.fissionProducts.sigmasA_start,
+      kinetics.fissionProducts.fissionYields_start,
+      kinetics.fissionProducts.lambdas_start,
+      fill(1e10, kinetics.fissionProducts.nC),
+      kinetics.fissionProducts.Qs_fission_start,
+      kinetics.fissionProducts.Vs_start) "Number of fission product atoms per group" annotation (Dialog(tab="Kinetics",group="Fission Products"));
+
+//   parameter Units.ExtraPropertyExtrinsic mCs_fp_start[kinetics.nFP]=fill(
+//       0,
+//       kinetics.nFP) "Number of fission product atoms per group" annotation (Dialog(tab="Kinetics",group="Fission Products"));
   input Units.InverseTime dlambdas[kinetics.nC]=fill(0, kinetics.nC)
     "Change in decay constants for each precursor group" annotation(Dialog(tab="Parameter Change",group="Input: Neutron Kinetics"));
   input Units.NonDim dalphas[kinetics.nC]=fill(0, kinetics.nC)
@@ -374,7 +394,8 @@ model Regions_1
     mCs_start=mCs_fp_start,
     mCs_add={sum(coolantSubchannel.mCs[:, j])*coolantSubchannel.nParallel for j in
             1:Medium.nC},
-    Vs_add=coolantSubchannel.geometry.V_total*coolantSubchannel.nParallel)
+    Vs_add=coolantSubchannel.geometry.V_total*coolantSubchannel.nParallel,
+    toggle_ReactivityFP=toggle_ReactivityFP)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
 
   Fluid.Pipes.GenericPipe_MultiTransferSurface
@@ -456,6 +477,9 @@ model Regions_1
 
   Blocks.ShapeFactor shapeFactor(n=geometry.nV, SF_start=SF_start_power)
     annotation (Placement(transformation(extent={{24,26},{14,36}})));
+  parameter Boolean toggle_ReactivityFP=true
+    "=true to include fission product reacitivity feedback"
+    annotation (Dialog(tab="Kinetics", group="Fission Products"));
 equation
 
   connect(port_a, coolantSubchannel.port_a) annotation (Line(points={{-100,0},{-70,

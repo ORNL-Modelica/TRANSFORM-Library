@@ -96,16 +96,34 @@ model FissionProducts
   Units.InverseTime lambdas[nC]=lambdas_start + dlambdas
     "Decay constants for each fission product";
 
-  input SI.Power Qs_fission=1e6
+  parameter SI.Power Qs_fission_start=1e6
+    "Power determined from kinetics. Does not include fission product decay heat"
+    annotation (Dialog(tab="Initialization"));
+  input SI.Power Qs_fission=Qs_fission_start
     "Power determined from kinetics. Does not include fission product decay heat"
     annotation (Dialog(group="Inputs"));
-  input SI.Volume Vs=0.1
-    "Volume for fisson product concentration basis"
+  input SI.Volume Vs=Vs_start "Volume for fisson product concentration basis"
     annotation (Dialog(group="Inputs"));
+  parameter SI.Volume Vs_start=0.1
+    "Volume for fisson product concentration basis"
+    annotation (Dialog(tab="Initialization"));
 
-  parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=fill(
-      0,
-      nC) "Number of fission product atoms per group per volume" annotation (Dialog(tab="Initialization"));
+  parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=
+      Functions.Initial_FissionProducts(
+      nC,
+      nFS,
+      nT,
+      parents,
+      fissionSources_start,
+      fissionTypes_start,
+      w_f_start,
+      SigmaF_start,
+      sigmasA_start,
+      fissionYields_start,
+      lambdas_start,
+      fill(1e10, nC),
+      Qs_fission_start,
+      Vs_start) "Number of fission product atoms per group per volume" annotation (Dialog(tab="Initialization"));
 
   parameter Dynamics traceDynamics=Dynamics.DynamicFreeInitial
     "Formulation of trace substance balances"
@@ -122,12 +140,9 @@ model FissionProducts
   SIadd.ExtraPropertyExtrinsic[nC] mCs_scaled
     "Scaled number of fission product atoms for improved numerical stability";
 
-  input SIadd.ExtraPropertyExtrinsic mCs_add[nC_add]=fill(
-      0,
-      nC_add) "Number of atoms"
-    annotation (Dialog(group="Inputs: Additional Reactivity"));
-  input SI.Volume Vs_add=0.1
-    "Volume for fisson product concentration basis"
+  input SIadd.ExtraPropertyExtrinsic mCs_add[nC_add]=fill(0, nC_add)
+    "Number of atoms" annotation (Dialog(group="Inputs: Additional Reactivity"));
+  input SI.Volume Vs_add=0.1 "Volume for fisson product concentration basis"
     annotation (Dialog(group="Inputs: Additional Reactivity"));
   parameter SI.Area sigmasA_add_start[nC_add]=fill(0, nC_add)
     "Microscopic absorption cross-section for reactivity feedback"
@@ -137,6 +152,11 @@ model FissionProducts
     annotation (Dialog(group="Inputs: Additional Reactivity", tab="Parameter Change"));
   SI.Area sigmasA_add[nC_add]=sigmasA_add_start + dsigmasA_add
     "Microscopic absorption cross-section for reactivity feedback";
+
+  parameter SIadd.NonDim rhos_start[nC]={-sigmasA_start[j]*mCs_start[j]/(
+      nu_bar_start*SigmaF_start)/Vs_start for j in 1:nC}
+    "Initial fission product reactivity feedback"
+    annotation (Dialog(tab="Outputs", enable=false));
 
   output SIadd.NonDim rhos[nC] "Fission product reactivity feedback"
     annotation (Dialog(tab="Outputs", enable=false));
@@ -164,31 +184,30 @@ initial equation
 equation
 
   if traceDynamics == Dynamics.SteadyState then
-      zeros(nC) = mC_gens[:];
+    zeros(nC) = mC_gens[:];
   else
-      der(mCs_scaled[:]) = mC_gens[:] ./ mC_nominal;
-      mCs[:] = mCs_scaled[:] .* mC_nominal;
+    der(mCs_scaled[:]) = mC_gens[:] ./ mC_nominal;
+    mCs[:] = mCs_scaled[:] .* mC_nominal;
   end if;
 
-    phi = Qs_fission/(w_f*SigmaF)/Vs;
-    for j in 1:nC loop
-      mC_gens[j] = Qs_fission/w_f*sum({fissionSources[k]*sum({
-        fissionTypes[k, m]*fissionYields[j, k, m] for m in 1:nT}) for k in 1:
-        nFS}) - lambdas[j]*mCs[j] + sum(lambdas .* mCs[:] .* parents[j, :])
-         - sigmasA[j]*mCs[j]*Qs_fission/(w_f*SigmaF)/Vs;
-      rhos[j] = -sigmasA[j]*mCs[j]/(nu_bar*SigmaF)/Vs;
-    end for;
+  phi = Qs_fission/(w_f*SigmaF)/Vs;
+  for j in 1:nC loop
+    mC_gens[j] = Qs_fission/w_f*sum({fissionSources[k]*sum({fissionTypes[k, m]*
+      fissionYields[j, k, m] for m in 1:nT}) for k in 1:nFS}) - lambdas[j]*mCs[
+      j] + sum(lambdas .* mCs[:] .* parents[j, :]) - sigmasA[j]*mCs[j]*
+      Qs_fission/(w_f*SigmaF)/Vs;
+    rhos[j] = -sigmasA[j]*mCs[j]/(nu_bar*SigmaF)/Vs;
+  end for;
 
   // Additional substances from another source
-    for j in 1:nC_add loop
-      mC_gens_add[j] = -sigmasA_add[j]*mCs_add[j]*Qs_fission/(w_f*
-        SigmaF)/Vs_add;
-      rhos_add[j] = -sigmasA_add[j]*mCs_add[j]/(nu_bar*SigmaF)/Vs_add;
-    end for;
+  for j in 1:nC_add loop
+    mC_gens_add[j] = -sigmasA_add[j]*mCs_add[j]*Qs_fission/(w_f*SigmaF)/Vs_add;
+    rhos_add[j] = -sigmasA_add[j]*mCs_add[j]/(nu_bar*SigmaF)/Vs_add;
+  end for;
 
-  annotation (defaultComponentName="fissionProducts",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics={Rectangle(
+  annotation (defaultComponentName="fissionProducts", Icon(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
+          Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={28,108,200},
           fillColor={255,255,255},
