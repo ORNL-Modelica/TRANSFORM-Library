@@ -52,11 +52,19 @@ Contributions in the form of [Pull Requests](https://github.com/ORNL-Modelica/TR
 Prior to issuing a pull request, make sure your code follows the [style guide and coding conventions]()
 
 ## Acknowledgments
-This application uses Open Source components. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
+This application uses or was inspires by open source libraries/components. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
 
-Project: Modelica Standard Library https://github.com/modelica/Modelica
 
-3-Clause BSD License https://github.com/modelica/ModelicaStandardLibrary/blob/master/LICENSE
+- [Modelica Standard Library](https://github.com/modelica/Modelica) - [3-Clause BSD License](https://github.com/modelica/ModelicaStandardLibrary/blob/master/LICENSE)
+- [ThermoPower](https://github.com/casella/ThermoPower) - [Modelica License 2](https://www.modelica.org/licenses/ModelicaLicense2)
+- [ExternalMedia](https://github.com/modelica/ExternalMedia) -  [Modelica License 2](https://www.modelica.org/licenses/ModelicaLicense2)
+
+We would also like to give a special thanks to:
+ - John Batteh from Modelon for providing training and helping jump-start the Modelica experience
+ - Chris Jones and Dag Bruck from Dassault Systemes for their willingness to answer questions and investigate Dymola "features"
+ - Mike Tiller and his collaborators for [Modelica by Example](http://book.xogeny.com/)
+ - Contributors to [StackOverflow's Modelica tag](https://stackoverflow.com/questions/tagged/modelica). Extremely helpful, especially in the early learning stages of learning Modelica
+ 
 
 ## Citation
 Greenwood, M. S.: TRANSFORM - TRANsient Simulation Framework of Reconfigurable Models. Computer Software. https://github.com/ORNL-Modelica/TRANSFORM-Library. 07 Nov. 2017. Web. Oak Ridge National Laboratory. doi:10.11578/dc.20171109.1.
