@@ -10,7 +10,7 @@ model MFBS_old
 
   parameter Integer weights[:]={1,1,1,1,1,1,1};
   parameter Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64};
-  final parameter Integer mls[integer(max(harmonics)^2)]=
+  final parameter Real mls[integer(max(harmonics)^2)]=
       TRANSFORM.Math.max_len_seq_sine(weights, harmonics);
 protected
   Real dy;

@@ -33,7 +33,8 @@ model RoomCO2WithControls
     use_portsData=false,
     nPorts=4) annotation (Placement(transformation(extent={{0,-20},{20,0}})));
 
-  Pipes.GenericPipe ductOut(
+  Pipes.GenericPipe_MultiTransferSurface
+                    ductOut(
     redeclare package Medium = Medium,
     redeclare model Geometry =
         ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
@@ -82,7 +83,8 @@ model RoomCO2WithControls
     Ti=10,
     k=10)   annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 
-  Pipes.GenericPipe ductIn(
+  Pipes.GenericPipe_MultiTransferSurface
+                    ductIn(
     redeclare package Medium = Medium,
     energyDynamics=system.energyDynamics,
     p_a_start=system.p_start,

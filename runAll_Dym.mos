@@ -5,7 +5,6 @@ simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_De
 simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
 simulateModel("TRANSFORM.Blocks.Examples.ExponentialDecay_Test",resultFile="ExponentialDecay_Test");
 simulateModel("TRANSFORM.Blocks.Examples.IntegratorWithReset",stopTime=1.0,tolerance=1e-6,resultFile="IntegratorWithReset");
-simulateModel("TRANSFORM.Blocks.Examples.MFBS_old_Test",stopTime=10,resultFile="MFBS_old_Test");
 simulateModel("TRANSFORM.Blocks.Examples.MFBS_Test",stopTime=10,resultFile="MFBS_Test");
 simulateModel("TRANSFORM.Blocks.Examples.OffTimer",stopTime=1,tolerance=1e-6,resultFile="OffTimer");
 simulateModel("TRANSFORM.Blocks.Examples.PRBS_Test",stopTime=10,resultFile="PRBS_Test");
@@ -135,6 +134,8 @@ simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_pT",resultFile="Linea
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearKClMGCl2_67_33_pT",resultFile="LinearKClMGCl2_67_33_pT");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearNaK_22_78",resultFile="LinearNaK_22_78");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearWaterHot_pT",resultFile="LinearWaterHot_pT");
+simulateModel("TRANSFORM.Media.Solids.Examples.UC",resultFile="UC");
+simulateModel("TRANSFORM.Media.Solids.Examples.UO2",resultFile="UO2");
 simulateModel("TRANSFORM.Nuclear.CoreSubchannels.Examples.Regions_3_Test",stopTime=1000,numberOfIntervals=1000,resultFile="Regions_3_Test");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Functions.Initial_powerBased_powerHistory",resultFile="Initial_powerBased_powerHistory");
 simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.Reactivity.FissionProducts_Test",resultFile="FissionProducts_Test");

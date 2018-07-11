@@ -21,3 +21,4 @@ ExtraPropertyFlowRate
 ExtraPropertyConcentration
 ExtraPropertyExtrinsic
 NeutronFlux
+IsobaricExpansionCoefficient

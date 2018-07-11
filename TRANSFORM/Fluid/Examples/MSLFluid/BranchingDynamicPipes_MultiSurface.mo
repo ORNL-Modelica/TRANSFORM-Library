@@ -15,7 +15,7 @@ extends TRANSFORM.Icons.Example;
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-80})));
-Pipes.GenericPipe pipe1(
+Pipes.GenericPipe_MultiTransferSurface pipe1(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     T_a_start=system.T_start,
@@ -65,7 +65,7 @@ Pipes.GenericPipe pipe1(
         rotation=90,
         origin={-20,-10})));
 
-Pipes.GenericPipe pipe3(
+Pipes.GenericPipe_MultiTransferSurface pipe3(
     redeclare package Medium = Medium,
     m_flow_a_start=0.01,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
@@ -86,7 +86,7 @@ Pipes.GenericPipe pipe3(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-10})));
-Pipes.GenericPipe pipe4(
+Pipes.GenericPipe_MultiTransferSurface pipe4(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     T_a_start=system.T_start,
