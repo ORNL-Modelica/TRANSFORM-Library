@@ -15,7 +15,7 @@ extends TRANSFORM.Icons.Example;
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-80})));
-Pipes.GenericPipe pipe1(
+Pipes.GenericPipe_MultiTransferSurface pipe1(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     T_a_start=system.T_start,
@@ -36,7 +36,7 @@ Pipes.GenericPipe pipe1(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-50})));
-Pipes.GenericPipe pipe2(
+Pipes.GenericPipe_MultiTransferSurface pipe2(
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     m_flow_a_start=0.01,
@@ -56,13 +56,13 @@ Pipes.GenericPipe pipe2(
     p_a_start=130000,
     p_b_start=120000,
     redeclare model HeatTransfer =
-        ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region)
+        ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,-10})));
 
-Pipes.GenericPipe pipe3(
+Pipes.GenericPipe_MultiTransferSurface pipe3(
     redeclare package Medium = Medium,
     m_flow_a_start=0.01,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
@@ -83,7 +83,7 @@ Pipes.GenericPipe pipe3(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-10})));
-Pipes.GenericPipe pipe4(
+Pipes.GenericPipe_MultiTransferSurface pipe4(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     T_a_start=system.T_start,
@@ -754,7 +754,7 @@ equation
       points={{0,20},{0,20},{0,10},{-20,10},{-20,0}},
       color={0,127,255},
       thickness=0.5));
-  connect(heat2.port, pipe2.heatPorts)
+  connect(heat2.port, pipe2.heatPorts[:, 1])
     annotation (Line(points={{-36,-10},{-25,-10}}, color={191,0,0}));
     annotation (
     Documentation(info="<html>

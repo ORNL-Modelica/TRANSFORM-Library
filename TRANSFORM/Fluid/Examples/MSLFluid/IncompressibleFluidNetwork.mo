@@ -23,7 +23,7 @@ model IncompressibleFluidNetwork
     redeclare package Medium = Medium,
     p=5.0e5,
     T=300) annotation (Placement(transformation(extent={{-98,-6},{-86,6}})));
-  Pipes.GenericPipe                pipe1(
+  Pipes.GenericPipe_MultiTransferSurface                pipe1(
     redeclare package Medium = Medium,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -39,7 +39,7 @@ model IncompressibleFluidNetwork
     exposeState_b=true)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
-  Pipes.GenericPipe                pipe2(
+  Pipes.GenericPipe_MultiTransferSurface                pipe2(
     redeclare package Medium = Medium,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -58,7 +58,7 @@ model IncompressibleFluidNetwork
         extent={{-10,-10},{10,10}},
         rotation=90)));
 
-  Pipes.GenericPipe                pipe3(
+  Pipes.GenericPipe_MultiTransferSurface                pipe3(
     redeclare package Medium = Medium, redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (
@@ -76,7 +76,7 @@ model IncompressibleFluidNetwork
         extent={{-10,-10},{10,10}},
         rotation=270)));
 
-  Pipes.GenericPipe                pipe4(
+  Pipes.GenericPipe_MultiTransferSurface                pipe4(
     redeclare package Medium = Medium,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -92,7 +92,7 @@ model IncompressibleFluidNetwork
     exposeState_b=true)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
 
-  Pipes.GenericPipe pipe6(
+  Pipes.GenericPipe_MultiTransferSurface pipe6(
     redeclare package Medium = Medium,
         redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -124,7 +124,7 @@ model IncompressibleFluidNetwork
     Av=2.5e-2^2/4*Modelica.Constants.pi,
     dp_nominal=30000)
     annotation (Placement(transformation(extent={{-46,-30},{-26,-50}})));
-  Pipes.GenericPipe pipe7(
+  Pipes.GenericPipe_MultiTransferSurface pipe7(
     redeclare package Medium = Medium,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -171,7 +171,7 @@ model IncompressibleFluidNetwork
     offset=1,
     startTime=150,
     height=-0.5) annotation (Placement(transformation(extent={{60,80},{80,60}})));
-  Pipes.GenericPipe pipe8(
+  Pipes.GenericPipe_MultiTransferSurface pipe8(
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     redeclare model Geometry =
@@ -191,7 +191,7 @@ model IncompressibleFluidNetwork
         extent={{-10,10},{10,-10}},
         rotation=270)));
 
-  Pipes.GenericPipe pipe9(
+  Pipes.GenericPipe_MultiTransferSurface pipe9(
     redeclare package Medium = Medium,
     redeclare model Geometry =
      TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -207,7 +207,7 @@ model IncompressibleFluidNetwork
     exposeState_b=true)
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
 
-  Pipes.GenericPipe pipe10(
+  Pipes.GenericPipe_MultiTransferSurface pipe10(
     redeclare package Medium = Medium,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -223,7 +223,7 @@ model IncompressibleFluidNetwork
     exposeState_b=true)
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
 
-  Pipes.GenericPipe pipe5(
+  Pipes.GenericPipe_MultiTransferSurface pipe5(
     redeclare package Medium = Medium,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -242,7 +242,7 @@ model IncompressibleFluidNetwork
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow heat8[pipe8.geometry.nV](
      each use_port=true)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Pipes.GenericPipe pipe11(
+  Pipes.GenericPipe_MultiTransferSurface pipe11(
     redeclare package Medium = Medium,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -324,10 +324,10 @@ equation
   connect(pipe10.port_b, pipe11.port_a) annotation (Line(
       points={{40,-20},{50,-20},{50,10},{54,10}},
       color={0,127,255}));
-  connect(heat8.port, pipe8.heatPorts)
-    annotation (Line(points={{0,10},{5,10}}, color={191,0,0}));
   connect(realExpression.y, heat8.Q_flow_ext)
     annotation (Line(points={{-19.3,10},{-14,10}}, color={0,0,127}));
+  connect(heat8.port, pipe8.heatPorts[:, 1])
+    annotation (Line(points={{0,10},{5,10}}, color={191,0,0}));
   annotation (         Documentation(info="<html>
 <p>
 This example demonstrates two aspects: the treatment of multi-way connections

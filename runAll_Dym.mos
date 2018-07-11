@@ -5,7 +5,6 @@ simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_De
 simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
 simulateModel("TRANSFORM.Blocks.Examples.ExponentialDecay_Test",resultFile="ExponentialDecay_Test");
 simulateModel("TRANSFORM.Blocks.Examples.IntegratorWithReset",stopTime=1.0,tolerance=1e-6,resultFile="IntegratorWithReset");
-simulateModel("TRANSFORM.Blocks.Examples.MFBS_old_Test",stopTime=10,resultFile="MFBS_old_Test");
 simulateModel("TRANSFORM.Blocks.Examples.MFBS_Test",stopTime=10,resultFile="MFBS_Test");
 simulateModel("TRANSFORM.Blocks.Examples.OffTimer",stopTime=1,tolerance=1e-6,resultFile="OffTimer");
 simulateModel("TRANSFORM.Blocks.Examples.PRBS_Test",stopTime=10,resultFile="PRBS_Test");

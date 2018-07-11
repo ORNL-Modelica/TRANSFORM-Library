@@ -3,7 +3,7 @@ model NaturalCirculation2
 
   extends TRANSFORM.Icons.Example;
 
-  Pipes.GenericPipe riser(
+  Pipes.GenericPipe_MultiTransferSurface riser(
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (
@@ -16,12 +16,12 @@ model NaturalCirculation2
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     p_b_start=100000,
     redeclare model HeatTransfer =
-        ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region)
+        ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,0})));
-  Pipes.GenericPipe downcomer(
+  Pipes.GenericPipe_MultiTransferSurface downcomer(
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (
@@ -36,7 +36,7 @@ model NaturalCirculation2
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     p_a_start=100000,
     redeclare model HeatTransfer =
-        ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region)
+        ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region)
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -124,10 +124,6 @@ model NaturalCirculation2
     min=0,
     max=0.4) annotation (Placement(transformation(extent={{10,40},{30,60}})));
 equation
-  connect(boundary1.port, downcomer.heatPorts)
-    annotation (Line(points={{40,0},{25,0}}, color={191,0,0}));
-  connect(boundary.port, riser.heatPorts)
-    annotation (Line(points={{-40,0},{-25,0}}, color={191,0,0}));
   connect(downcomer.port_b, resistance2.port_a)
     annotation (Line(points={{20,-10},{20,-20},{7,-20}}, color={0,127,255}));
   connect(resistance2.port_b, riser.port_a) annotation (Line(points={{-7,-20},{-20,
@@ -148,6 +144,10 @@ equation
     annotation (Line(points={{-20,19.6},{-20,10}}, color={0,127,255}));
   connect(expansionTank_downcomer.port, downcomer.port_a)
     annotation (Line(points={{20,19.6},{20,10}}, color={0,127,255}));
+  connect(boundary.port, riser.heatPorts[:, 1])
+    annotation (Line(points={{-40,0},{-25,0}}, color={191,0,0}));
+  connect(downcomer.heatPorts[:, 1], boundary1.port)
+    annotation (Line(points={{25,0},{40,0}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

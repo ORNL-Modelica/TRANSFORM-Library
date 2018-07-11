@@ -53,7 +53,8 @@ public
       m_flow_small=1e-4, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
                         annotation (Placement(transformation(extent={{-90,70},{
             -70,90}})));
-Pipes.GenericPipe heater(
+Pipes.GenericPipe_MultiTransferSurface
+                  heater(
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     energyDynamics=system.energyDynamics,
@@ -62,15 +63,16 @@ Pipes.GenericPipe heater(
         ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
                                                           dimension=0.01,
           length=2),
-    redeclare model HeatTransfer =
-        ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal,
     exposeState_a=false,
     momentumDynamics=system.momentumDynamics,
     p_a_start=130000,
-    T_a_start=353.15)
+    T_a_start=353.15,
+    redeclare model HeatTransfer =
+        ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal)
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
 
-Pipes.GenericPipe radiator(
+Pipes.GenericPipe_MultiTransferSurface
+                  radiator(
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     energyDynamics=system.energyDynamics,
@@ -79,12 +81,12 @@ Pipes.GenericPipe radiator(
         ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
                                                           dimension=0.01,
           length=10),
-    redeclare model HeatTransfer =
-        ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal,
     momentumDynamics=system.momentumDynamics,
+    exposeState_a=false,
     p_a_start=110000,
     T_a_start=313.15,
-    exposeState_a=false)
+    redeclare model HeatTransfer =
+        ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal)
     annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
 
 protected
@@ -108,7 +110,8 @@ public
     startTime=2000,
     height=0.9,
     offset=0.1)   annotation (Placement(transformation(extent={{26,-27},{40,-13}})));
-Pipes.GenericPipe pipe(
+Pipes.GenericPipe_MultiTransferSurface
+                  pipe(
     redeclare package Medium = Medium,
     energyDynamics=system.energyDynamics,
     m_flow_a_start=system.m_flow_start,
@@ -420,9 +423,6 @@ tankLevel = tank.level;
   connect(sensor_T_return.T, T_return)        annotation (Line(
       points={{-41,-50},{-52,-50}},
       color={0,0,127}));
-  connect(wall.port_b, radiator.heatPorts[1])              annotation (Line(
-      points={{10,-56},{10,-65}},
-      color={191,0,0}));
   connect(sensor_T_forward.port, heater.port_b)
                                               annotation (Line(
       points={{60,30},{60,20},{50,20}},
@@ -436,14 +436,14 @@ tankLevel = tank.level;
   connect(radiator.port_b, tank.ports[1]) annotation (Line(
       points={{0,-70},{-72,-70},{-72,30}},
       color={0,127,255}));
-  connect(heater.heatPorts[1], burner.port) annotation (Line(
-      points={{40,25},{40,40},{36,40}},
-      color={191,0,0},
-      thickness=0.5));
   connect(pump.port_a, tank.ports[2]) annotation (Line(points={{-50,20},{-68,20},
           {-68,30}}, color={0,127,255}));
   connect(pump.port_b, sensor_m_flow.port_a) annotation (Line(points={{-30,20},
           {-25,20},{-20,20}}, color={0,127,255}));
+  connect(burner.port, heater.heatPorts[1, 1])
+    annotation (Line(points={{36,40},{40,40},{40,25}}, color={191,0,0}));
+  connect(radiator.heatPorts[1, 1], wall.port_b)
+    annotation (Line(points={{10,-65},{10,-56}}, color={191,0,0}));
   annotation (                             Documentation(info="<html>
 <p>
 Simple heating system with a closed flow cycle.
