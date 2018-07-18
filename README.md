@@ -61,9 +61,9 @@ This application uses or was inspires by open source libraries/components. You c
 
 We would also like to give a special thanks to:
  - John Batteh from Modelon for providing training and helping jump-start the Modelica experience
- - Chris Jones and Dag Bruck from Dassault Systemes for their willingness to answer questions and investigate Dymola "features"
+ - Chris Jones and Dag Bruck from Dassault Systemes for Dymola related inquiries
  - Mike Tiller and his collaborators for [Modelica by Example](http://book.xogeny.com/)
- - Contributors to [StackOverflow's Modelica tag](https://stackoverflow.com/questions/tagged/modelica). Extremely helpful, especially in the early learning stages of learning Modelica
+ - Contributors to [StackOverflow's Modelica tag](https://stackoverflow.com/questions/tagged/modelica). Extremely helpful, especially in the early learning stages
  
 
 ## Citation
