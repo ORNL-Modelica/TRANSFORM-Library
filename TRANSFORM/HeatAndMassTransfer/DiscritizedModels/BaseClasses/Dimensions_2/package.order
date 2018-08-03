@@ -4,6 +4,7 @@ ForwardDifference_1O
 Summary
 PartialInternalHeatGeneration
 GenericHeatGeneration
+TotalHeatGeneration
 VolumetricHeatGeneration
 OhmicHeatGeneration
 PartialDistributedMassFlow

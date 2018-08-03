@@ -8,7 +8,7 @@ package UC "Uranium Carbide"
     T_min=Modelica.SIunits.Conversions.from_degC(0),
     T_max=Modelica.SIunits.Conversions.from_degC(3000));
 
-    constant Real porosity = 0 "Porosity of solid";
+    constant Real porosity = 0 "Porosity of solid (i.e., 0 = completely solid)";
 
   redeclare function extends specificEnthalpy
     "Specific enthalpy"
@@ -20,11 +20,18 @@ package UC "Uranium Carbide"
   redeclare function extends density
     "Density"
 
-protected
-  Real T_degC = state.T - 273.15;
-
   algorithm
-  d := 13630*(1-3.117e-5*T_degC - 3.51e-9*T_degC^2);
+  d := 13500*(1-2.13e-5*state.T - 2.04e-8*state.T^2);
+
+  // There is confusion in literature about units and best equation. See options below. Default is d2 as it is most conservative from a safety point of view.
+  //   d1 = Eq. 2.79 (pg. 54)
+  //   d1 := 13630*(1-3.117e-5*T - 3.51e-9*T^2);
+  //   d1_degC := 13630*(1-3.117e-5*T_degC - 3.51e-9*T_degC^2);
+  //
+  //   d1 = Eq. 2.80 (pg. 54)
+  //   d2 := 13500*(1-2.13e-5*T - 2.04e-8*T^2);
+  //   d2_degC := 13500*(1-2.13e-5*T_degC - 2.04e-8*T_degC^2);
+
   end density;
 
   redeclare function extends thermalConductivity

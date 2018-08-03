@@ -258,8 +258,6 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     annotation (Placement(transformation(extent={{260,80},{280,100}})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface fuelCell(
     nParallel=data_RCTR.nFcells,
-    redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     T_a_start=data_PHX.T_outlet_tube,
     T_b_start=data_PHX.T_inlet_tube,
     exposeState_b=true,
@@ -293,7 +291,10 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         redeclare model DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
             (iTable={1}),
-        iC={kinetics.summary_data.iH3}))
+        iC={kinetics.summary_data.iH3}),
+    redeclare model HeatTransfer =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region
+        (CF=1*(1 + alpha_coefHT)))
     "frac*data_RCTR.Q_nominal/fuelCell.nV; mC_gens_fuelCell"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -306,8 +307,6 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     T_a_start=data_PHX.T_inlet_tube,
     redeclare package Medium = Medium_PFL,
     use_HeatTransfer=true,
-    redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     showName=systemTF.showName,
     redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
@@ -336,7 +335,10 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
             (iTable={1}),
         MMs={6.022e23},
-        iC={kinetics.summary_data.iH3}))
+        iC={kinetics.summary_data.iH3}),
+    redeclare model HeatTransfer =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region
+        (CF=1*(1 + alpha_coefHT)))
                annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -368,8 +370,6 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     exposeState_b=true,
     redeclare package Medium = Medium_PFL,
     use_HeatTransfer=true,
-    redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     showName=systemTF.showName,
     redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
@@ -398,7 +398,10 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         redeclare model DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
             (iTable={1}),
-        iC={kinetics.summary_data.iH3}))
+        iC={kinetics.summary_data.iH3}),
+    redeclare model HeatTransfer =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region
+        (CF=1*(1 + alpha_coefHT)))
                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -640,8 +643,6 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     redeclare model InternalHeatGen_tube =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=Qs_gen_PHX_tube),
-    redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare model HeatTransfer_shell =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
         (
@@ -694,7 +695,10 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         redeclare model DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
             (iTable={1}),
-        iC={kinetics.summary_data.iH3}))
+        iC={kinetics.summary_data.iH3}),
+    redeclare model HeatTransfer_tube =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region
+        (CF=1*(1 + alpha_coefHT)))
                         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -780,10 +784,18 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     vals_feedback={fuelCell.summary.T_effective,fuelCellG.summary.T_effective},
     Qs_fission_input=data_RCTR.Q_nominal*(1 - 0.12),
     vals_feedback_reference={649.114 + 273.15,649.385 + 273.15},
-    alphas_feedback={-3.22e-5,2.35e-5},
     rhos_input=0.00337,
     dBeta=alpha_Beta*kinetics.data.Beta,
-    dLambda=alpha_Lambda*kinetics.Lambda_start)
+    dLambda=alpha_Lambda*kinetics.Lambda_start,
+    dlambdas=alpha_lambdas .* kinetics.data.lambdas,
+    alphas_feedback={-3.22e-5*(1 + alpha_feedback_T_fuel),2.35e-5*(1 +
+        alpha_feedback_T_graphite)},
+    dsigmasA=cat(
+        1,
+        fill(0, 2),
+        {alpha_sigmasA*kinetics.fissionProducts.data.sigmasA[3]},
+        fill(0, kinetics.nFP - 3)),
+    dalphas=alpha_betas .* kinetics.data.alphas)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
@@ -1049,7 +1061,9 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     redeclare package Medium = Medium_PFL,
     redeclare package Medium_carrier = Medium_OffGas,
     showName=systemTF.showName,
-    iCar=iOG)                        annotation (Placement(transformation(
+    iCar=iOG,
+    eta={eta_sep for i in 1:traceSeparator.nSep})
+                                     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-270,90})));
@@ -1065,8 +1079,6 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
   Modelica.Blocks.Sources.Constant x_bypass(k=0.1)
     annotation (Placement(transformation(extent={{200,90},{220,110}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface reflR(
-    redeclare model HeatTransfer =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     T_a_start=data_PHX.T_outlet_tube,
     exposeState_b=true,
     p_a_start=data_PHX.p_inlet_tube + 100,
@@ -1100,7 +1112,10 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         redeclare model DiffusionCoeff =
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
             (iTable={1}),
-        iC={kinetics.summary_data.iH3}))  annotation (Placement(transformation(
+        iC={kinetics.summary_data.iH3}),
+    redeclare model HeatTransfer =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region
+        (CF=1*(1 + alpha_coefHT)))        annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={20,0})));
@@ -1284,7 +1299,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
     alphas_drainTank={5000,1000})
     annotation (Placement(transformation(extent={{-354,-96},{-284,-16}})));
   Modelica.Blocks.Sources.RealExpression m_flow_pump_PFL(y=2*3*data_PHX.m_flow_tube
-        /(1 - x_bypass.y))
+        /(1 - x_bypass.y)*(1 + alpha_massflowrate))
     annotation (Placement(transformation(extent={{76,132},{56,152}})));
 protected
   Modelica.Blocks.Sources.RealExpression boundary_OffGas_T1(y=drainTank_liquid.port_a.m_flow)
@@ -1465,6 +1480,28 @@ public
     annotation (Placement(transformation(extent={{-8,-78},{-16,-70}})));
   parameter Real alpha_Beta=0 "fraction deviation from initial value +/-";
   parameter Real alpha_Lambda=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_lambdas1=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_lambdas2=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_lambdas3=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_lambdas4=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_lambdas5=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_lambdas6=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_betas1=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_betas2=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_betas3=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_betas4=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_betas5=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_betas6=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_sigmasA=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_feedback_T_fuel=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_feedback_T_graphite=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_coefHT=0 "fraction deviation from initial value +/-";
+  parameter Real alpha_massflowrate=0 "fraction deviation from initial value +/-";
+  parameter Real eta_sep=1 "seperation efficiency";
+
+  final parameter Real alpha_lambdas[6]={alpha_lambdas1,alpha_lambdas2,alpha_lambdas3,alpha_lambdas4,alpha_lambdas5,alpha_lambdas6} "fraction deviation from initial value +/-";
+  final parameter Real alpha_betas[6]={alpha_betas1,alpha_betas2,alpha_betas3,alpha_betas4,alpha_betas5,alpha_betas6} "fraction deviation from initial value +/-";
+
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},
