@@ -104,11 +104,11 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(100,p
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder wall[pipe.geometry.nV](
     length=pipe.geometry.dlengths,
     r_inner=0.5*pipe.geometry.dimensions,
-    r_outer=ths_wall,
     each exposeState_a=true,
     redeclare package Material = Material_wall,
     each energyDynamics=energyDynamics_wall,
-    each T_start=T_wall_start)
+    each T_start=T_wall_start,
+    r_outer=ths_wall + 0.5*pipe.geometry.dimensions)
                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -116,12 +116,12 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(100,p
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder insulation[pipe.geometry.nV](
     length=pipe.geometry.dlengths,
     r_inner=wall.r_outer,
-    r_outer=ths_insulation,
     each exposeState_a=true,
     each exposeState_b=true,
     redeclare package Material = Material_insulation,
     each energyDynamics=energyDynamics_insulation,
-    each T_start=T_insulation_start)
+    each T_start=T_insulation_start,
+    r_outer=ths_insulation + wall.r_outer)
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

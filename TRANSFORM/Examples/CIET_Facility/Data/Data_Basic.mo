@@ -41,6 +41,10 @@ model Data_Basic
 
   parameter SI.Area tank1_crossArea = 0.25*Modelica.Constants.pi*TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch(12.39)^2;
   parameter SI.Area tank1_length = TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch(11.75);
+
+  parameter SI.Temperature T_ambient = 298.15;
+  parameter SI.Temperature T_ctah = 353.1;
+
   Blocks.DataTable pipes(table=[12,1.2732,0,0.0279,0.000611,23.78,145000,140000,
         325,325,0.002768,0.0508; 6,0.6687,90,0.0279,0.000611,2.4,140000,135000,325,
         325,0.002768,0.0508; 1,0.36,90,0.0279,0.000611,99999,135000,135000,325,325,
