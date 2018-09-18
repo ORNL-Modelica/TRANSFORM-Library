@@ -6,3 +6,4 @@ GenericPipe_wWall_wTraceMass
 TransportDelayPipe
 parallelFlow
 BaseClasses
+GenericPipe_withWallAndInsulation
