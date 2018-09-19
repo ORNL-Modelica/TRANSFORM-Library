@@ -17,16 +17,15 @@ model PressureTemperature "Ideal pressure and temperature sensor"
     final unit="Pa",
     displayUnit="bar",
     min=0) "Pressure at port"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
-        iconTransformation(extent={{52,14},{72,34}})));
+    annotation (Placement(transformation(extent={{100,10},{120,30}}),
+        iconTransformation(extent={{50,14},{70,34}})));
 
   Modelica.Blocks.Interfaces.RealOutput T(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC",
     min=0) "Temperature in port medium" annotation (Placement(transformation(
-          extent={{-100,-10},{-120,10}}),
-                                        iconTransformation(extent={{52,-32},{72,
+          extent={{100,-30},{120,-10}}),iconTransformation(extent={{50,-32},{70,
             -12}})));
 
 equation

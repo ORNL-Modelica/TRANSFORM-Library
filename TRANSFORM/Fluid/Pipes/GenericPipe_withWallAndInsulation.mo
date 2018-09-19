@@ -9,7 +9,7 @@ model GenericPipe_withWallAndInsulation
 input SI.Length ths_wall[pipe.geometry.nV] annotation(Dialog(group="Inputs"));
 input SI.Length ths_insulation[pipe.geometry.nV] annotation(Dialog(group="Inputs"));
 input SI.Temperature Ts_ambient[pipe.geometry.nV]=fill(293.15,pipe.geometry.nV) "Ambient temperature" annotation(Dialog(group="Inputs"));
-input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(100,pipe.geometry.nV) annotation(Dialog(group="Inputs"));
+input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pipe.geometry.nV) annotation(Dialog(group="Inputs"));
 
   // Geometry Model
   replaceable model Geometry =
@@ -104,11 +104,11 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(100,p
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder wall[pipe.geometry.nV](
     length=pipe.geometry.dlengths,
     r_inner=0.5*pipe.geometry.dimensions,
-    each exposeState_a=true,
     redeclare package Material = Material_wall,
     each energyDynamics=energyDynamics_wall,
     each T_start=T_wall_start,
-    r_outer=ths_wall + 0.5*pipe.geometry.dimensions)
+    r_outer=ths_wall + 0.5*pipe.geometry.dimensions,
+    each exposeState_a=true)
                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -117,7 +117,6 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(100,p
     length=pipe.geometry.dlengths,
     r_inner=wall.r_outer,
     each exposeState_a=true,
-    each exposeState_b=true,
     redeclare package Material = Material_insulation,
     each energyDynamics=energyDynamics_insulation,
     each T_start=T_insulation_start,
@@ -154,14 +153,14 @@ equation
       thickness=0.5));
   connect(wall.port_a, pipe.heatPorts[:, 1])
     annotation (Line(points={{0,-60},{0,-75}}, color={191,0,0}));
-  connect(insulation.port_a, wall.port_b)
-    annotation (Line(points={{0,-30},{0,-40}}, color={191,0,0}));
   connect(boundary.port, convection.port_a)
     annotation (Line(points={{0,22},{0,17}}, color={191,0,0}));
-  connect(convection.port_b, insulation.port_b)
-    annotation (Line(points={{0,3},{0,-10}}, color={191,0,0}));
   connect(boundaryT.y, boundary.T_ext)
     annotation (Line(points={{0,49},{0,36}}, color={0,0,127}));
+  connect(wall.port_b, insulation.port_a)
+    annotation (Line(points={{0,-40},{0,-30}}, color={191,0,0}));
+  connect(insulation.port_b, convection.port_b) annotation (Line(points={{4.44089e-16,
+          -10},{0,-10},{0,3}}, color={191,0,0}));
   annotation (defaultComponentName="pipe",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
@@ -199,21 +198,13 @@ equation
         Rectangle(
           extent={{-90,40},{90,32}},
           lineColor={0,0,0},
-          fillColor={95,95,95},
+          fillColor={255,255,170},
           fillPattern=FillPattern.Backward),
         Rectangle(
           extent={{-90,-32},{90,-40}},
           lineColor={0,0,0},
-          fillColor={95,95,95},
+          fillColor={255,255,170},
           fillPattern=FillPattern.Backward),
-        Line(
-          points={{-30,40},{-30,-40}},
-          color={0,0,0},
-          pattern=LinePattern.Dash),
-        Line(
-          points={{30,40},{30,-40}},
-          color={0,0,0},
-          pattern=LinePattern.Dash),
         Text(
           extent={{-149,-68},{151,-108}},
           lineColor={0,0,255},
@@ -237,6 +228,24 @@ equation
           points={{55,-60},{-60,-60}},
           color={0,128,255},
           smooth=Smooth.None,
-          visible=DynamicSelect(true,showDesignFlowDirection))}),Diagram(
+          visible=DynamicSelect(true,showDesignFlowDirection)),
+        Rectangle(
+          extent={{-90,-24},{90,-32}},
+          lineColor={0,0,0},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Backward),
+        Rectangle(
+          extent={{-90,32},{90,24}},
+          lineColor={0,0,0},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Backward),
+        Line(
+          points={{-30,40},{-30,-40}},
+          color={0,0,0},
+          pattern=LinePattern.Dash),
+        Line(
+          points={{30,40},{30,-40}},
+          color={0,0,0},
+          pattern=LinePattern.Dash)}),                           Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end GenericPipe_withWallAndInsulation;
