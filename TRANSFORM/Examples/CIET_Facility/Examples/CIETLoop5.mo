@@ -323,7 +323,7 @@ sum(_18.boundary.port.Q_flow);
         th_wall=data.pipes.table[data.index_7a, 11],
         nR=2),
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal)
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal)
               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -351,7 +351,7 @@ sum(_18.boundary.port.Q_flow);
         nR=2),
     redeclare package Material = Media.Solids.Copper.OFHC_RRR200,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal)
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal)
               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,

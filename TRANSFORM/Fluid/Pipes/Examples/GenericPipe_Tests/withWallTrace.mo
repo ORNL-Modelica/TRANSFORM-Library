@@ -9,15 +9,8 @@ extends TRANSFORM.Icons.Example;
     redeclare package Material = TRANSFORM.Media.Solids.SS316,
     redeclare package Medium = Medium,
     m_flow_a_start=0.1,
-    redeclare model HeatTransfer =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
     use_HeatTransferOuter=true,
     use_TraceMassTransferOuter=true,
-    redeclare model TraceMassTransfer =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.Ideal
-        ( redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PowerLawTemperature
-            (D_ab0=6.4854e-26, n=5.7227)),
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
         (
@@ -25,9 +18,17 @@ extends TRANSFORM.Icons.Example;
         nR=1,
         nV=10),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics_wall=Modelica.Fluid.Types.Dynamics.FixedInitial,
     p_a_start=100000,
     T_a_start=323.15,
-    energyDynamics_wall=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    redeclare model HeatTransfer =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
+    redeclare model TraceMassTransfer =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
+        (redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PowerLawTemperature
+            (D_ab0=6.4854e-26, n=5.7227)))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT Sink(
@@ -76,11 +77,11 @@ equation
   connect(boundary1.port, pipe.heatPorts) annotation (Line(
       points={{8,22},{0,22},{0,5}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(boundary.port, pipe.massPorts) annotation (Line(
       points={{-18,22},{-4,22},{-4,5}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=100, __Dymola_Algorithm="Esdirk45a"));

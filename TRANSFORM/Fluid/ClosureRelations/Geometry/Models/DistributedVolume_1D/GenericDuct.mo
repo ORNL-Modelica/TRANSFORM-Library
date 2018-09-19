@@ -20,7 +20,7 @@ model GenericDuct
         heights_inner,
     final perimeters=2*widths_outer + 2*heights_outer + 2*widths_inner + 2*
         heights_inner,
-    surfaceAreas={2*widths_inner .* dlengths + 2*heights_inner .* dlengths + 2*widths_outer .* dlengths + 2*heights_outer .* dlengths});
+    surfaceAreas={{if j ==1 then 2*widths_inner[i]*dlengths[i] + 2*heights_inner[i]*dlengths[i] + 2*widths_outer[i]* dlengths[i] + 2*heights_outer[i]* dlengths[i] else 0 for j in 1:nSurfaces} for i in 1:nV});
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

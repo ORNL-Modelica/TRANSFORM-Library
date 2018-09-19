@@ -23,7 +23,7 @@ model GenericPipe
   input SI.Height[nV] roughnesses=fill(2.5e-5, nV)
     "Average heights of surface asperities"
     annotation (Dialog(group="Inputs"));
-  input SI.Area surfaceAreas[nV,nSurfaces]=[perimeters .* dlengths]
+  input SI.Area surfaceAreas[nV,nSurfaces]={{if j == 1 then perimeters[i]*dlengths[i] else 0 for j in 1:nSurfaces} for i in 1:nV}
     "Discretized area per transfer surface"
     annotation (Dialog(group="Inputs"));
 

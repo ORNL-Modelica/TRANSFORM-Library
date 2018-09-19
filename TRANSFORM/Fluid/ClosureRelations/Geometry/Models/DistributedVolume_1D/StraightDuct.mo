@@ -18,7 +18,7 @@ model StraightDuct
     annotation (Dialog(group="Inputs"));
 
   // Surface Area
-  input SI.Area surfaceArea[nSurfaces] = {2*width_inner*length + 2*height_inner*length + 2*width_outer*length + 2*height_outer*length} "Area per transfer surface"
+  input SI.Area surfaceArea[nSurfaces] = {if i == 1 then 2*width_inner*length + 2*height_inner*length + 2*width_outer*length + 2*height_outer*length else 0 for i in 1:nSurfaces} "Area per transfer surface"
    annotation (Dialog(group="Inputs"));
 
   // Static head

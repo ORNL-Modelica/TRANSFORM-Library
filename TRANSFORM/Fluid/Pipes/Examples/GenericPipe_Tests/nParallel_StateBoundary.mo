@@ -192,39 +192,37 @@ model nParallel_StateBoundary
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(pipe_single.port_a, boundaryM.ports[1]) annotation (Line(
-      points={{-10,20},{-15,20},{-20,20}},
+      points={{-10,20},{-20,20}},
       color={0,127,255},
-      thickness=0.5));
+      thickness));
   connect(pipe_single.port_b, boundaryP.ports[1]) annotation (Line(
       points={{10,20},{20,20}},
       color={0,127,255},
-      thickness=0.5));
+      thickness));
   connect(boundaryTM_external.port, pipe_single.massPorts[4,1]) annotation (Line(
       points={{-8,40},{-4,40},{-4,25}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(boundaryQ_external.port, pipe_single.heatPorts[4,1]) annotation (Line(
-      points={{10,40},{6,40},{0,40},{0,25}},
+      points={{10,40},{0,40},{0,25}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(pipe_nParallel.port_a, boundaryM1.ports[1]) annotation (Line(
-      points={{-8,-80},{-13,-80},{-18,-80}},
+      points={{-8,-80},{-18,-80}},
       color={0,127,255},
-      thickness=0.5));
+      thickness));
   connect(pipe_nParallel.port_b, boundaryP1.ports[1]) annotation (Line(
       points={{12,-80},{22,-80}},
       color={0,127,255},
-      thickness=0.5));
-  connect(boundaryTM_external1.port, pipe_nParallel.massPorts[4,1]) annotation (
-      Line(
+      thickness));
+  connect(boundaryTM_external1.port, pipe_nParallel.massPorts[4,1]) annotation (Line(
       points={{-6,-60},{-2,-60},{-2,-75}},
       color={0,140,72},
-      thickness=0.5));
-  connect(boundaryQ_external1.port, pipe_nParallel.heatPorts[4,1]) annotation (
-      Line(
-      points={{12,-60},{8,-60},{2,-60},{2,-75}},
+      thickness));
+  connect(boundaryQ_external1.port, pipe_nParallel.heatPorts[4,1]) annotation (Line(
+      points={{12,-60},{2,-60},{2,-75}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={
         Line(

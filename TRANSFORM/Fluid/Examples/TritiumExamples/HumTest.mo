@@ -47,14 +47,14 @@ model HumTest
         nR=7,
         th_wall=0.00025),
     redeclare package Material = Media.Solids.AlloyN,
-    redeclare model TraceMassTransfer =
-        ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.Shs_SinglePhase_Overall
-        (MMs=fill(0.006032, permeator.nC), redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1})),
     p_a_start=100000,
     T_a_start=973.15,
-    T_b_start=973.15)
+    T_b_start=973.15,
+    redeclare model TraceMassTransfer =
+        ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
+        (MMs=fill(0.006032, permeator.nC), redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
+            (iTable={1})))
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
 
   Modelica.Fluid.Sources.Boundary_pT sink(
@@ -118,9 +118,9 @@ equation
   connect(permeatorIn.port_b, permeator.port_a)
     annotation (Line(points={{-20,0},{-15,0},{-10,0}}, color={0,127,255}));
   connect(permeator.port_b, permeatorOut.port_a) annotation (Line(
-      points={{10,0},{15,0},{20,0}},
+      points={{10,0},{20,0}},
       color={0,127,255},
-      thickness=0.5));
+      thickness));
   connect(permeatorOut.port_b, sink.ports[1])
     annotation (Line(points={{40,0},{70,0}}, color={0,127,255}));
   connect(permeatorIn.C, CBdivC0.u2) annotation (Line(points={{-30,11},{-30,20},
@@ -134,11 +134,11 @@ equation
   connect(vacuum.port, permeator.massPorts) annotation (Line(
       points={{-10,-20},{-10,-12},{-4,-12},{-4,-5}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(permeator.heatPorts, adiabatic.port) annotation (Line(
       points={{0,-5},{0,-12},{10,-12},{10,-20}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=100));

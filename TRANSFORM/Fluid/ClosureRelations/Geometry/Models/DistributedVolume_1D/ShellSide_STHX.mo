@@ -22,7 +22,7 @@ model ShellSide_STHX
       final dimension = 4*crossAreaEmpty_shell/perimeterEmpty_shell,
       final crossArea = crossArea_shell,
       final perimeter = perimeter_shell,
-      final surfaceArea = {surfaceArea_shell + 0});
+      final surfaceArea = {if i == 1 then surfaceArea_shell + 0 else 0 for i in 1:nSurfaces});
 
   input SI.Length length_tube "Overall tube side length"
     annotation (Dialog(group="Inputs: Tube"));

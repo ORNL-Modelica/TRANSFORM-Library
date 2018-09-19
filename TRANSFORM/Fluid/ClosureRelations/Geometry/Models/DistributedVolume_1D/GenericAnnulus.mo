@@ -14,7 +14,7 @@ model GenericAnnulus
     final dimensions=4*crossAreas ./ perimeters,
     final crossAreas=pi*(rs_outer .^ 2 - rs_inner .^ 2),
     final perimeters=2*pi*(rs_outer + rs_inner),
-    surfaceAreas={2*pi*rs_inner .* dlengths + 2*pi*rs_outer .* dlengths});
+    surfaceAreas={{if j == 1 then 2*pi*rs_inner[i]*dlengths[i] + 2*pi*rs_outer[i]*dlengths[i] else 0 for j in 1:nSurfaces} for i in 1:nV});
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

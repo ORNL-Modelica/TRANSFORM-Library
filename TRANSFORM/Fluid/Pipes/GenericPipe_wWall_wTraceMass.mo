@@ -18,7 +18,7 @@ model GenericPipe_wWall_wTraceMass
   Geometry geometry
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
 
-  extends BaseClasses.GenericPipe_wTraceMass_Record(
+  extends BaseClasses.GenericPipe_wTraceMass_Record_multiSurface(
     final nV=pipe.geometry.nV,
     use_HeatTransfer=true,
     use_TraceMassTransfer=true);
@@ -134,7 +134,8 @@ model GenericPipe_wWall_wTraceMass
       nC) "Wall side solubility coefficient (i.e., Henry/Sievert)"
     annotation (Dialog(group="Trace Mass Transfer"));
 
-  GenericPipe pipe(
+  GenericPipe_MultiTransferSurface
+              pipe(
     nParallel=nParallel,
     redeclare package Medium = Medium,
     redeclare model FlowModel = FlowModel,
@@ -287,67 +288,67 @@ equation
   connect(port_b, pipe.port_b) annotation (Line(
       points={{100,0},{100,-14},{60,-14},{60,-80},{10,-80}},
       color={0,127,255},
-      thickness=0.5));
-  connect(wall.port_a1, pipe.heatPorts) annotation (Line(
-      points={{0,-30},{0,-46},{0,-75}},
+      thickness));
+  connect(wall.port_a1, pipe.heatPorts[:,1]) annotation (Line(
+      points={{0,-30},{0,-75}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(wall.portM_a2, adiabaticM_a.port) annotation (Line(
       points={{-9.8,-16},{-40,-16}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(wall.port_a2, adiabatic_a.port) annotation (Line(
       points={{-10,-20},{-20,-20},{-20,-34},{-40,-34}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(adiabaticM_b.port, wall.portM_b2) annotation (Line(
       points={{40,-16},{10,-16}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(adiabatic_b.port, wall.port_b2) annotation (Line(
-      points={{40,-34},{30,-34},{20,-34},{20,-20},{10,-20}},
+      points={{40,-34},{20,-34},{20,-20},{10,-20}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(adiabaticM_outer.port, wall.portM_b1) annotation (Line(
-      points={{-40,2},{-24,2},{-4,2},{-4,-10}},
+      points={{-40,2},{-4,2},{-4,-10}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(adiabatic_outer.port, wall.port_b1) annotation (Line(
       points={{40,2},{0,2},{0,-10}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(counterFlowM.port_a, wall.portM_b1) annotation (Line(
       points={{-20,8},{-20,2},{-4,2},{-4,-10}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(counterFlow.port_a, wall.port_b1) annotation (Line(
-      points={{0,8},{0,0},{0,-10}},
+      points={{0,8},{0,-10}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(counterFlowM.port_b, massPorts) annotation (Line(
-      points={{-20,28},{-20,28},{-20,32},{-40,32},{-40,44}},
+      points={{-20,28},{-20,32},{-40,32},{-40,44}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(counterFlow.port_b, heatPorts) annotation (Line(
-      points={{0,28},{0,36},{0,44}},
+      points={{0,28},{0,44}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(adiabatic_inner.port, wall.port_a1) annotation (Line(
-      points={{40,-52},{26,-52},{0,-52},{0,-30}},
+      points={{40,-52},{0,-52},{0,-30}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(adiabaticM_inner.port, wall.portM_a1) annotation (Line(
       points={{-40,-52},{-4,-52},{-4,-30}},
       color={0,140,72},
-      thickness=0.5));
-  connect(pipe.massPorts, interface.port_a) annotation (Line(
+      thickness));
+  connect(pipe.massPorts[:,1], interface.port_a) annotation (Line(
       points={{-4,-75},{-4,-69}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(interface.port_b, wall.portM_a1) annotation (Line(
-      points={{-4,-55},{-4,-55},{-4,-30}},
+      points={{-4,-55},{-4,-30}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   annotation (defaultComponentName="pipe",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(

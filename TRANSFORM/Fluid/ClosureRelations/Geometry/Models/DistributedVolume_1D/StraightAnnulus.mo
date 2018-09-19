@@ -13,7 +13,7 @@ model StraightAnnulus
   input SI.Height roughness = 2.5e-5 "Average heights of surface asperities"
     annotation (Dialog(group="Inputs"));
 
-  input SI.Area surfaceArea[nSurfaces] = {2*pi*r_inner*length + 2*pi*r_outer*length} "Area per transfer surface"
+  input SI.Area surfaceArea[nSurfaces] = {if i == 1 then 2*pi*r_inner*length + 2*pi*r_outer*length else 0 for i in 1:nSurfaces} "Area per transfer surface"
    annotation (Dialog(group="Inputs"));
 
   // Static head

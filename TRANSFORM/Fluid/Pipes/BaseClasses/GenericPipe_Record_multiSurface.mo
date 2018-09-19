@@ -170,6 +170,7 @@ record GenericPipe_Record_multiSurface
   parameter LumpedLocation lumpPressureAt=LumpedLocation.port_a
     "Location of pressure for flow calculations"
     annotation (Dialog(tab="Advanced",group="Parameters",enable=useLumpedPressure), Evaluate=true);
+  parameter Boolean calc_Wb = true "= false to not calculate p*der(V) [Wb_flows] for energy equation" annotation(Dialog(tab="Advanced"));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

@@ -8,19 +8,20 @@ extends TRANSFORM.Icons.Example;
     redeclare package Material = TRANSFORM.Media.Solids.SS316,
     redeclare package Medium = Medium,
     m_flow_a_start=0.1,
+    use_HeatTransferOuter=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics_wall=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model HeatTransfer =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
         (
         dimension=0.1,
         nV=1,
         nR=1),
-    use_HeatTransferOuter=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     p_a_start=100000,
-    T_a_start=323.15,
-    energyDynamics_wall=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    T_a_start=323.15)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT Sink(
@@ -50,7 +51,7 @@ equation
   connect(boundary1.port, pipe.heatPorts) annotation (Line(
       points={{8,22},{0,22},{0,5}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=100));
