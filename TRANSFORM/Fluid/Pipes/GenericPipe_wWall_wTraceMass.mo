@@ -280,6 +280,14 @@ model GenericPipe_wWall_wTraceMass
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=pipe.summary.T_effective);
 
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_add[geometry.nZ,
+    geometry.nSurfaces - 1] if geometry.nSurfaces > 1
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}}),
+        iconTransformation(extent={{20,-10},{40,10}})));
+  HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts_add[geometry.nZ,
+    geometry.nSurfaces - 1](each nC=nC) if  geometry.nSurfaces > 1 annotation (Placement(transformation(
+          extent={{-40,-80},{-20,-60}}), iconTransformation(extent={{-40,-10},{
+            -20,10}})));
 equation
   connect(port_a, pipe.port_a) annotation (Line(
       points={{-100,0},{-60,0},{-60,-80},{-10,-80}},
@@ -349,6 +357,10 @@ equation
       points={{-4,-55},{-4,-30}},
       color={0,140,72},
       thickness));
+  connect(massPorts_add, pipe.massPorts[:,2:geometry.nSurfaces])
+    annotation (Line(points={{-30,-70},{-4,-70},{-4,-75}}, color={0,140,72}));
+  connect(heatPorts_add, pipe.heatPorts[:,2:geometry.nSurfaces])
+    annotation (Line(points={{30,-70},{0,-70},{0,-75}}, color={191,0,0}));
   annotation (defaultComponentName="pipe",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(

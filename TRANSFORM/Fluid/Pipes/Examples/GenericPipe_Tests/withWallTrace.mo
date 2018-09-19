@@ -23,7 +23,6 @@ extends TRANSFORM.Icons.Example;
     T_a_start=323.15,
     redeclare model HeatTransfer =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     redeclare model TraceMassTransfer =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
         (redeclare model DiffusionCoeff =

@@ -3,7 +3,7 @@ GenericPipe
 GenericPipe_MultiTransferSurface
 GenericPipe_withWall
 GenericPipe_wWall_wTraceMass
+GenericPipe_withWallAndInsulation
 TransportDelayPipe
 parallelFlow
 BaseClasses
-GenericPipe_withWallAndInsulation

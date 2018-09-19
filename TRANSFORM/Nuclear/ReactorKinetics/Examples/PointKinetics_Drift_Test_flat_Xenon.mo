@@ -140,7 +140,6 @@ Real rhorho = sum(core_kinetics.fissionProducts.rhos);
     period=100*60*60 + 1)
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
 
-
 Real lambda_te = core_kinetics.fissionProducts.data.lambdas[1];
 Real lambda_i = core_kinetics.fissionProducts.data.lambdas[2];
 Real lambda_xe = core_kinetics.fissionProducts.data.lambdas[3];

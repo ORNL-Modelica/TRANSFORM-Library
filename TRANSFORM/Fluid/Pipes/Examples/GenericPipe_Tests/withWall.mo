@@ -13,7 +13,6 @@ extends TRANSFORM.Icons.Example;
     energyDynamics_wall=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model HeatTransfer =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
         (

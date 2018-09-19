@@ -51,8 +51,6 @@ replaceable package Medium =
   Fluid.Pipes.GenericPipe_withWall ADHX_tube(
     nParallel=data.nTubes_ADHX,
     redeclare package Medium = Medium,
-    redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
     redeclare package Material = Media.Solids.SS304,
     use_HeatTransferOuter=true,
     m_flow_a_start=data.m_flow_DRACSsec,
@@ -70,7 +68,10 @@ replaceable package Medium =
         length=data.length_tube_ADHX,
         th_wall=data.th_tubewall_ADHX,
         nR=3),
-    p_a_start=250000) annotation (Placement(transformation(
+    p_a_start=250000,
+    redeclare model HeatTransfer =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region)
+                      annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={50,-10})));
@@ -91,14 +92,9 @@ replaceable package Medium =
     T=293.15,
     redeclare package Medium = Medium_Ambient,
     nPorts=1) annotation (Placement(transformation(extent={{100,10},{80,30}})));
-  Fluid.Pipes.GenericPipe ADHX_shell(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                          ADHX_shell(
     use_HeatTransfer=true,
-    redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
-        (
-        D=data.D_tube_outer_AHX,
-        S_T=data.pitch_tube_AHX,
-        S_L=data.pitch_tube_AHX),
     redeclare package Medium = Medium_Ambient,
     m_flow_a_start=blower.m_flow,
     redeclare model Geometry =
@@ -114,7 +110,14 @@ replaceable package Medium =
         angle=1.5707963267949),
     p_a_start=100000,
     T_a_start=298.15,
-    T_b_start=323.15) annotation (Placement(transformation(
+    T_b_start=323.15,
+    redeclare model HeatTransfer =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
+        (
+        D=data.D_tube_outer_AHX,
+        S_T=data.pitch_tube_AHX,
+        S_L=data.pitch_tube_AHX))
+                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={70,-10})));
@@ -156,12 +159,12 @@ equation
   connect(setpoint.y, PID.u_s) annotation (Line(points={{129,-20},{160,-20},{
           160,-52},{130,-52}},
                            color={0,0,127}));
-  connect(ADHX_tube.heatPorts, ADHX_shell.heatPorts)
-    annotation (Line(points={{55,-10},{65,-10}}, color={191,0,0}));
   connect(ADHX_shell.port_b, atmosphere.ports[1])
     annotation (Line(points={{70,0},{70,20},{80,20}}, color={0,127,255}));
   connect(blower.ports[1], ADHX_shell.port_a)
     annotation (Line(points={{80,-60},{70,-60},{70,-20}}, color={0,127,255}));
+  connect(ADHX_tube.heatPorts, ADHX_shell.heatPorts[:, 1])
+    annotation (Line(points={{55,-10},{65,-10}}, color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),                                        graphics={
         Line(

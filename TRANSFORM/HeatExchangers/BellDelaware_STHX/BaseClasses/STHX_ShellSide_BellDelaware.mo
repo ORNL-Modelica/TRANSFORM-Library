@@ -258,7 +258,7 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
   final parameter SI.Length U_W = pi*D_i*gamma/360+pi*d_o*n_W/2
     "Approximate wetted perimeter for window region";
 
-  TRANSFORM.Fluid.Pipes.GenericPipe entryPipe_a(
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface entryPipe_a(
     nParallel=nParallel,
     length=length_entryPipe_a,
     diameter=d_N_a,
@@ -288,7 +288,7 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         rotation=0,
         origin={-70,50})));
 
-  TRANSFORM.Fluid.Pipes.GenericPipe nozzle_a(
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface nozzle_a(
     redeclare package Medium = Medium,
     redeclare model FlowModel = FlowModels.ShellNozzleFlow (
         d_o=d_o,
@@ -320,7 +320,7 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         rotation=-90,
         origin={-70,20})));
 
-  TRANSFORM.Fluid.Pipes.GenericPipe endCross_a(
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface endCross_a(
     redeclare package Medium = Medium,
     modelStructure=if modelStructure == Modelica.Fluid.Types.ModelStructure.a_v_b
          then Modelica.Fluid.Types.ModelStructure.av_vb elseif
@@ -396,7 +396,7 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         rotation=-90,
         origin={-70,-20})));
 
-  TRANSFORM.Fluid.Pipes.GenericPipe[nb - 1] window(
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface[nb - 1] window(
     redeclare each package Medium = Medium,
     each modelStructure=modelStructure,
     each nParallel=nParallel,
@@ -490,7 +490,7 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         rotation=0,
         origin={-30,-60})));
 
-  TRANSFORM.Fluid.Pipes.GenericPipe[nb - 1] centerCross(
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface[nb - 1] centerCross(
     redeclare each package Medium = Medium,
     each modelStructure=if modelStructure == Modelica.Fluid.Types.ModelStructure.a_v_b
          then Modelica.Fluid.Types.ModelStructure.av_vb elseif
@@ -587,7 +587,7 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         rotation=90,
         origin={0,-20})));
 
-  TRANSFORM.Fluid.Pipes.GenericPipe window_b(
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface window_b(
     redeclare package Medium = Medium,
     modelStructure=modelStructure,
     nParallel=nParallel,
@@ -665,7 +665,7 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         rotation=0,
         origin={50,-60})));
 
-  TRANSFORM.Fluid.Pipes.GenericPipe endCross_b(
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface endCross_b(
     redeclare package Medium = Medium,
     modelStructure=if modelStructure == Modelica.Fluid.Types.ModelStructure.a_v_b
          then Modelica.Fluid.Types.ModelStructure.av_vb elseif
@@ -744,7 +744,7 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         rotation=90,
         origin={70,-20})));
 
-  TRANSFORM.Fluid.Pipes.GenericPipe nozzle_b(
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface nozzle_b(
     redeclare package Medium = Medium,
     redeclare model FlowModel = FlowModels.ShellNozzleFlow (
         d_o=d_o,
@@ -781,7 +781,7 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         rotation=90,
         origin={70,20})));
 
-  TRANSFORM.Fluid.Pipes.GenericPipe entryPipe_b(
+  TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface entryPipe_b(
     nParallel=nParallel,
     length=length_entryPipe_b,
     diameter=d_N_b,

@@ -30,7 +30,6 @@ model Data_Basic
   parameter Integer index_11 = 24 annotation(Dialog(tab="Indices"));
   parameter Integer index_12 = 25 annotation(Dialog(tab="Indices"));
 
-
   parameter SI.Length roughness = 1.5e-5;
 
   parameter SI.Temperature T_cold_primary = 80+273.15;

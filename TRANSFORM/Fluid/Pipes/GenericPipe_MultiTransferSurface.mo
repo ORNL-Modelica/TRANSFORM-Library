@@ -406,8 +406,6 @@ protected
 
   SIadd.ExtraPropertyFlowRate mC_flows_traceMassTransferSum[nV,Medium.nC] = {{sum(traceMassTransfer.mC_flows[i,:,k]) for k in 1:Medium.nC} for i in 1:nV};
 
-
-
 equation
 
   // Source/sink terms for balance equations

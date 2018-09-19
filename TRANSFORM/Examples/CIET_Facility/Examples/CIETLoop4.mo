@@ -5,7 +5,6 @@ model CIETLoop4
 
   package Medium = TRANSFORM.Media.Fluids.DOWTHERM.LinearDOWTHERM_A_95C;
 
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _1(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,

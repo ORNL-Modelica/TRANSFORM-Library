@@ -4,8 +4,6 @@ model GenericPipe_withWallAndInsulation
 
   outer TRANSFORM.Fluid.SystemTF systemTF;
 
-
-
 input SI.Length ths_wall[pipe.geometry.nV] annotation(Dialog(group="Inputs"));
 input SI.Length ths_insulation[pipe.geometry.nV] annotation(Dialog(group="Inputs"));
 input SI.Temperature Ts_ambient[pipe.geometry.nV]=fill(293.15,pipe.geometry.nV) "Ambient temperature" annotation(Dialog(group="Inputs"));
@@ -142,6 +140,10 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,60})));
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_add[geometry.nZ,
+    geometry.nSurfaces - 1] if geometry.nSurfaces > 1
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}}),
+        iconTransformation(extent={{20,-10},{40,10}})));
 equation
   connect(port_a, pipe.port_a) annotation (Line(
       points={{-100,0},{-60,0},{-60,-80},{-10,-80}},
@@ -161,6 +163,8 @@ equation
     annotation (Line(points={{0,-40},{0,-30}}, color={191,0,0}));
   connect(insulation.port_b, convection.port_b) annotation (Line(points={{4.44089e-16,
           -10},{0,-10},{0,3}}, color={191,0,0}));
+  connect(heatPorts_add, pipe.heatPorts[:,2:geometry.nSurfaces])
+    annotation (Line(points={{30,-70},{0,-70},{0,-75}}, color={191,0,0}));
   annotation (defaultComponentName="pipe",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
