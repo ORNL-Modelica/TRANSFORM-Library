@@ -1,11 +1,16 @@
 within TRANSFORM.Fluid.Sensors;
 model TraceSubstances "Ideal one port trace substances sensor"
   extends BaseClasses.PartialAbsoluteSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends BaseClasses.PartialMultiSensor_1values(final var=C,
+      redeclare replaceable function iconUnit =
+        TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
+      constrainedby
+      TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
   parameter String substanceName = "CO2" "Name of trace substance";
 
   Modelica.Blocks.Interfaces.RealOutput C "Trace substance in port medium"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{50,-10},{70,10}})));
 
 protected
   parameter Integer ind(fixed=false)
@@ -30,11 +35,10 @@ annotation (defaultComponentName="traceSubstance",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
-          extent={{140,44},{40,14}},
+          extent={{-20,14},{-120,-16}},
           lineColor={0,0,0},
           textString="C"),
-        Line(points={{70,0},{100,0}}, color={0,0,127}),
-        Line(points={{0,-70},{0,-100}}, color={0,127,255})}),
+        Line(points={{0,-26},{0,-100}}, color={0,127,255})}),
   Documentation(info="<html>
 <p>
 This component monitors the trace substances contained in the fluid passing its port.

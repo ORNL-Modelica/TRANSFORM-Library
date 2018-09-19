@@ -10,6 +10,7 @@ SpecificEntropy
 SpecificEntropyTwoPort
 MassFractions
 MassFractionsTwoPort
+MassFractionsTwoPort_multi
 TraceSubstances
 TraceSubstancesTwoPort
 TraceSubstancesTwoPort_multi
@@ -19,4 +20,3 @@ RelativePressure
 RelativeTemperature
 PressureTemperature
 BaseClasses
-Temperature_new

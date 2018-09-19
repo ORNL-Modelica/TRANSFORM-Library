@@ -1,12 +1,17 @@
 within TRANSFORM.Fluid.Sensors;
 model MassFractions "Ideal one port mass fraction sensor"
   extends TRANSFORM.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
-  extends TRANSFORM.Icons.RotationalSensor;
+  extends BaseClasses.PartialMultiSensor_1values(final var=Xi,
+      redeclare replaceable function iconUnit =
+        TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
+      constrainedby
+      TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
 
   parameter String substanceName = "water" "Name of mass fraction";
 
   Modelica.Blocks.Interfaces.RealOutput Xi "Mass fraction in port medium"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}),
+        iconTransformation(extent={{50,-10},{70,10}})));
 
 protected
   parameter Integer ind(fixed=false)
@@ -30,11 +35,10 @@ annotation (defaultComponentName="massFraction",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
-          extent={{140,44},{40,14}},
+          extent={{-20,14},{-120,-16}},
           lineColor={0,0,0},
           textString="Xi"),
-        Line(points={{70,0},{100,0}}, color={0,0,127}),
-        Line(points={{0,-70},{0,-100}}, color={0,127,255})}),
+        Line(points={{0,-26},{0,-100}}, color={0,127,255})}),
   Documentation(info="<html>
 <p>
 This component monitors the mass fraction contained in the fluid passing its port.

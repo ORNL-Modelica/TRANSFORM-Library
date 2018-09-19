@@ -3,5 +3,5 @@ function to_m "Distance: [m] -> [m]"
   extends BaseClasses.to;
 
 algorithm
-  y := u*100;
+  y := u;
 end to_m;

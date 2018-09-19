@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Sensors;
 model VolumeFlowRate "Ideal sensor for volume flow rate"
   extends BaseClasses.PartialTwoPortSensor;
-  extends BaseClasses.PartialRotationIcon_withValueIndicator(final var=V_flow,
+  extends BaseClasses.PartialMultiSensor_1values(final var=V_flow,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.to_m3_s
       constrainedby
@@ -13,7 +13,10 @@ model VolumeFlowRate "Ideal sensor for volume flow rate"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{10,-10},{-10,10}},
-        rotation=270)));
+        rotation=270), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=270,
+        origin={0,36})));
 
 protected
   Medium.Density rho_a_inflow "Density of inflowing fluid at port_a";
@@ -31,19 +34,19 @@ equation
      rho_b_inflow = d;
   end if;
   V_flow = port_a.m_flow/d;
-annotation (
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+  annotation (
+    defaultComponentName="sensor_V_flow",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
-          extent={{18,104},{-142,74}},
+          extent={{106,58},{10,29}},
           lineColor={0,0,0},
           textString="V_flow"),
-        Line(points={{0,100},{0,70}}, color={0,0,127}),
-        Line(points={{-100,0},{-70,0}}, color={0,128,255}),
-        Line(points={{70,0},{100,0}}, color={0,128,255})}),
-  Documentation(info="<html>
+        Line(points={{-100,0},{-50,0}}, color={0,128,255}),
+        Line(points={{50,0},{100,0}}, color={0,128,255})}),
+    Documentation(info="<html>
 <p>
-This component monitors the volume flow rate flowing from port_a to port_b.
+This component monitors the fluid flowing from port_a to port_b.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 </html>"));

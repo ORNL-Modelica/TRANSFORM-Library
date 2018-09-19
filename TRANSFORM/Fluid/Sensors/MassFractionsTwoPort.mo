@@ -1,14 +1,18 @@
 within TRANSFORM.Fluid.Sensors;
 model MassFractionsTwoPort "Ideal two port sensor for mass fraction"
   extends TRANSFORM.Fluid.Sensors.BaseClasses.PartialTwoPortSensor;
-  extends Modelica.Icons.RotationalSensor;
+  extends BaseClasses.PartialMultiSensor_1values(final var=Xi,
+      redeclare replaceable function iconUnit =
+        TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
+      constrainedby
+      TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput Xi "Mass fraction in port medium"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           rotation=90,
         origin={0,110}), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,110})));
+        origin={0,36})));
   parameter String substanceName = "water" "Name of mass fraction";
 
 protected
@@ -30,24 +34,20 @@ equation
   else
      Xi = port_b.Xi_outflow[ind];
   end if;
-annotation (defaultComponentName="massFraction",
-  Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
+  annotation (
+    defaultComponentName="sensor_Xi",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
-          extent={{10,104},{-72,74}},
+          extent={{80,56},{-16,27}},
           lineColor={0,0,0},
           textString="Xi"),
-        Line(points={{0,100},{0,70}}, color={0,0,127}),
-        Line(points={{-100,0},{-70,0}}, color={0,128,255}),
-        Line(points={{70,0},{100,0}}, color={0,128,255})}),
-  Documentation(info="<html>
+        Line(points={{-100,0},{-50,0}}, color={0,128,255}),
+        Line(points={{50,0},{100,0}}, color={0,128,255})}),
+    Documentation(info="<html>
 <p>
-This component monitors the mass fraction of the passing fluid.
+This component monitors the fluid flowing from port_a to port_b.
 The sensor is ideal, i.e., it does not influence the fluid.
-</p> </html>",
-             revisions="<html>
-<ul>
-<li>2011-12-14: Stefan Wischhusen: Initial Release.</li>
-</ul>
+</p>
 </html>"));
 end MassFractionsTwoPort;
