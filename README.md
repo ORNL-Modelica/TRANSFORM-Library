@@ -33,9 +33,10 @@ This library has been tested with:
 - To test that the library is working, run the `runAll.mos` script. This will simulate all the examples which are included in the regression tests.
 
 
-## Authors
+## Authors & Contributors
 
 * **Scott Greenwood**
+* Jordan Rader
 
 See also the list of [contributors](https://github.com/ORNL-Modelica/TRANSFORM-Library/contributors) who participated in this project.
 
