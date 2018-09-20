@@ -404,7 +404,7 @@ model SCO2Loop
     annotation (Placement(transformation(extent={{-116,10},{-96,30}})));
 equation
   connect(sensor_pT2.T, PID_AuxHeat.u_m) annotation (Line(
-      points={{-73.8,2.2},{-66,2.2},{-66,82.8}},
+      points={{-74,2.2},{-66,2.2},{-66,82.8}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(source_salt.ports[1], PCHX.port_a_shell) annotation (Line(points={{
@@ -462,7 +462,7 @@ equation
   connect(PID_AHX.y, sink_AHX.Q_flow_ext)
     annotation (Line(points={{-121.4,-50},{-114,-50}}, color={0,0,127}));
   connect(sensor_pT3.T, PID_AHX.u_m) annotation (Line(
-      points={{-86.2,-77.8},{-128,-77.8},{-128,-57.2}},
+      points={{-86,-77.8},{-128,-77.8},{-128,-57.2}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(setpoint_T_AHX_outlet.y, PID_AHX.u_s)
@@ -472,7 +472,7 @@ equation
   connect(setpoint_T_WHX_outlet.y, PID_WHX.u_s)
     annotation (Line(points={{-79.4,-106},{-73.2,-106}}, color={0,0,127}));
   connect(sensor_pT4.T, PID_WHX.u_m) annotation (Line(
-      points={{-36.2,-77.8},{-40,-77.8},{-40,-116},{-66,-116},{-66,-113.2}},
+      points={{-36,-77.8},{-40,-77.8},{-40,-116},{-66,-116},{-66,-113.2}},
       color={0,0,127},
       pattern=LinePattern.Dash));
   connect(sensor_pT11.port, RHX_3.port_b_tube)

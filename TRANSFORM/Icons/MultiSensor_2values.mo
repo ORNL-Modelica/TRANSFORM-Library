@@ -1,16 +1,16 @@
 within TRANSFORM.Icons;
 partial class MultiSensor_2values
-  "Icon representing a round measurement device"
+  "Icon representing a measurement device"
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
-          extent={{-48,50},{52,0}},
+          extent={{-50,50},{50,0}},
           lineColor={0,0,0},
           fillColor={245,245,245},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-48,0},{52,-50}},
+          extent={{-50,0},{50,-50}},
           lineColor={0,0,0},
           fillColor={245,245,245},
           fillPattern=FillPattern.Solid)}),

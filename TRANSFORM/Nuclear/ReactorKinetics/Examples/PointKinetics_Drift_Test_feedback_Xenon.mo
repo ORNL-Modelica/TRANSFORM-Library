@@ -136,13 +136,40 @@ model PointKinetics_Drift_Test_feedback_Xenon
   Modelica.Blocks.Sources.Pulse Reactivity(
     nperiod=1,
     startTime=6*60*60,
-    offset=-1,
     width=90,
     period=100*60*60/0.9,
-    amplitude=1)
+    amplitude=0.01,
+    offset=-0.01)
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
 
+    Real rhorho = sum(core_kinetics.fissionProducts.rhos);
+Real lambda_te = core_kinetics.fissionProducts.data.lambdas[1];
+Real lambda_i = core_kinetics.fissionProducts.data.lambdas[2];
+Real lambda_xe = core_kinetics.fissionProducts.data.lambdas[3];
+
+Real gamma_te = 0.061;
+Real gamma_i = 0;
+Real gamma_xe = 0.003;
+Real wf = core_kinetics.fissionProducts.w_f;
+Real C_te(start=0);
+Real C_i(start=0);
+Real C_xe(start=0);
+Real C_te_core = sum(core.mCs[:,7]);
+Real C_i_core = sum(core.mCs[:,8]);
+Real C_xe_core = sum(core.mCs[:,9]);
+
+Real C_te_coreloop = sum(core.mCs[:,7]) + sum(loop_.mCs[:,7]);
+Real C_i_coreloop = sum(core.mCs[:,8]) + sum(loop_.mCs[:,8]);
+Real C_xe_coreloop = sum(core.mCs[:,9]) + sum(loop_.mCs[:,9]);
+
+Real P = max(0,core_kinetics.Q_fission_total);
+Real sigma_xe=core_kinetics.fissionProducts.data.sigmasA[3];
+Real Sigmaf=26;
 equation
+
+  der(C_te) = P/wf*gamma_te - lambda_te*C_te;
+  der(C_i) = P/wf*gamma_i - lambda_i*C_i + lambda_te*C_te;
+  der(C_xe) = P/wf*gamma_xe - lambda_xe*C_xe + lambda_i*C_i - sigma_xe*P/Sigmaf/wf*C_xe*H/(H+L)/core.geometry.V_total;
 
   connect(core_inlet.ports[1], core.port_a)
     annotation (Line(points={{-36,0},{-26,0}}, color={0,127,255}));

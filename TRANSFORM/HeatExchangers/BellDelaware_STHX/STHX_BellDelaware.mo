@@ -173,9 +173,9 @@ annotation (Dialog(group="Tube Parameters"));
     "Tube flow model"
     annotation (choicesAllMatching=true,Dialog(group="Tube Parameters"));
   replaceable model HeatTransfer_tube =
-      TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal
+      TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal
     constrainedby
-    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.PartialHeatTransfer_setT
+    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.PartialHeatTransfer_setT
     "Tube side heat transfer coefficient model"
     annotation (choicesAllMatching=true,Dialog(group="Tube Parameters"));
 
@@ -368,7 +368,8 @@ annotation (Dialog(group="Tube Parameters"));
   final parameter Integer nNodes_Total = nNodes_entryPipe_a +  nNodes_nozzle + nNodes_intTotal +  nNodes_nozzle + nNodes_entryPipe_b
     "Total number of nodes in the shell-side (i.e., including nozzles and entry pipes)";
 
-  Fluid.Pipes.GenericPipe              tube(
+  Fluid.Pipes.GenericPipe_MultiTransferSurface
+                                       tube(
     use_HeatTransfer=true,
     redeclare package Medium = Medium_tube,
     nParallel=nParallel*shell.n_tubes,
@@ -582,9 +583,6 @@ equation
           {-60,-100}}, color={0,127,255}));
   connect(scalePower_WallToTube.heatPorts_a, tubewall.heatPorts_inner)
     annotation (Line(points={{-20,0},{-12.98,0}}, color={127,0,0}));
-  connect(scalePower_WallToTube.heatPorts_b, tube.heatPorts) annotation (Line(
-        points={{-40,0},{-49,0},{-49,-6.66134e-016}},
-                                                   color={127,0,0}));
 
   connect(tubewall.heatPorts_outer, scalePower_WallToShell.heatPorts_a)
     annotation (Line(points={{12.98,0},{19.49,0},{26,0}}, color={127,0,0}));
@@ -594,6 +592,8 @@ equation
           -100},{60,-44},{60,-32}},             color={0,127,255}));
   connect(port_a_shell, shell.port_a) annotation (Line(points={{60,100},{60,30}},
                             color={0,127,255}));
+  connect(tube.heatPorts[:, 1], scalePower_WallToTube.heatPorts_b)
+    annotation (Line(points={{-49,0},{-40,0}}, color={191,0,0}));
   annotation (defaultComponentName="STHX",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,

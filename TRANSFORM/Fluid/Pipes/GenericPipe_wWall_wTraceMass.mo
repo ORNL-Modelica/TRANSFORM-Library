@@ -18,7 +18,7 @@ model GenericPipe_wWall_wTraceMass
   Geometry geometry
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
 
-  extends BaseClasses.GenericPipe_wTraceMass_Record(
+  extends BaseClasses.GenericPipe_wTraceMass_Record_multiSurface(
     final nV=pipe.geometry.nV,
     use_HeatTransfer=true,
     use_TraceMassTransfer=true);
@@ -134,7 +134,8 @@ model GenericPipe_wWall_wTraceMass
       nC) "Wall side solubility coefficient (i.e., Henry/Sievert)"
     annotation (Dialog(group="Trace Mass Transfer"));
 
-  GenericPipe pipe(
+  GenericPipe_MultiTransferSurface
+              pipe(
     nParallel=nParallel,
     redeclare package Medium = Medium,
     redeclare model FlowModel = FlowModel,
@@ -279,6 +280,14 @@ model GenericPipe_wWall_wTraceMass
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=pipe.summary.T_effective);
 
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_add[geometry.nZ,
+    geometry.nSurfaces - 1] if geometry.nSurfaces > 1
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}}),
+        iconTransformation(extent={{20,-10},{40,10}})));
+  HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts_add[geometry.nZ,
+    geometry.nSurfaces - 1](each nC=nC) if  geometry.nSurfaces > 1 annotation (Placement(transformation(
+          extent={{-40,-80},{-20,-60}}), iconTransformation(extent={{-40,-10},{
+            -20,10}})));
 equation
   connect(port_a, pipe.port_a) annotation (Line(
       points={{-100,0},{-60,0},{-60,-80},{-10,-80}},
@@ -287,67 +296,71 @@ equation
   connect(port_b, pipe.port_b) annotation (Line(
       points={{100,0},{100,-14},{60,-14},{60,-80},{10,-80}},
       color={0,127,255},
-      thickness=0.5));
-  connect(wall.port_a1, pipe.heatPorts) annotation (Line(
-      points={{0,-30},{0,-46},{0,-75}},
+      thickness));
+  connect(wall.port_a1, pipe.heatPorts[:,1]) annotation (Line(
+      points={{0,-30},{0,-75}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(wall.portM_a2, adiabaticM_a.port) annotation (Line(
       points={{-9.8,-16},{-40,-16}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(wall.port_a2, adiabatic_a.port) annotation (Line(
       points={{-10,-20},{-20,-20},{-20,-34},{-40,-34}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(adiabaticM_b.port, wall.portM_b2) annotation (Line(
       points={{40,-16},{10,-16}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(adiabatic_b.port, wall.port_b2) annotation (Line(
-      points={{40,-34},{30,-34},{20,-34},{20,-20},{10,-20}},
+      points={{40,-34},{20,-34},{20,-20},{10,-20}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(adiabaticM_outer.port, wall.portM_b1) annotation (Line(
-      points={{-40,2},{-24,2},{-4,2},{-4,-10}},
+      points={{-40,2},{-4,2},{-4,-10}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(adiabatic_outer.port, wall.port_b1) annotation (Line(
       points={{40,2},{0,2},{0,-10}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(counterFlowM.port_a, wall.portM_b1) annotation (Line(
       points={{-20,8},{-20,2},{-4,2},{-4,-10}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(counterFlow.port_a, wall.port_b1) annotation (Line(
-      points={{0,8},{0,0},{0,-10}},
+      points={{0,8},{0,-10}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(counterFlowM.port_b, massPorts) annotation (Line(
-      points={{-20,28},{-20,28},{-20,32},{-40,32},{-40,44}},
+      points={{-20,28},{-20,32},{-40,32},{-40,44}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(counterFlow.port_b, heatPorts) annotation (Line(
-      points={{0,28},{0,36},{0,44}},
+      points={{0,28},{0,44}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(adiabatic_inner.port, wall.port_a1) annotation (Line(
-      points={{40,-52},{26,-52},{0,-52},{0,-30}},
+      points={{40,-52},{0,-52},{0,-30}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(adiabaticM_inner.port, wall.portM_a1) annotation (Line(
       points={{-40,-52},{-4,-52},{-4,-30}},
       color={0,140,72},
-      thickness=0.5));
-  connect(pipe.massPorts, interface.port_a) annotation (Line(
+      thickness));
+  connect(pipe.massPorts[:,1], interface.port_a) annotation (Line(
       points={{-4,-75},{-4,-69}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(interface.port_b, wall.portM_a1) annotation (Line(
-      points={{-4,-55},{-4,-55},{-4,-30}},
+      points={{-4,-55},{-4,-30}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
+  connect(massPorts_add, pipe.massPorts[:,2:geometry.nSurfaces])
+    annotation (Line(points={{-30,-70},{-4,-70},{-4,-75}}, color={0,140,72}));
+  connect(heatPorts_add, pipe.heatPorts[:,2:geometry.nSurfaces])
+    annotation (Line(points={{30,-70},{0,-70},{0,-75}}, color={191,0,0}));
   annotation (defaultComponentName="pipe",
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(

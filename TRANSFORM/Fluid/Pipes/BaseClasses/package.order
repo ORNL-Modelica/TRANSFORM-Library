@@ -6,3 +6,5 @@ PartialTwoPortPipe
 PipeIcons
 PipeWithWallIcons
 PartialDistributedVolumeold
+GenericPipe_Record_multiSurface
+GenericPipe_wTraceMass_Record_multiSurface

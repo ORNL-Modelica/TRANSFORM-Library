@@ -25,7 +25,8 @@ model UseOfGeometryModel
     m_flow=-0.1,
     T=293.15) annotation (Placement(transformation(origin={40,-40}, extent={{10,
             -10},{-10,10}})));
-GenericPipe circular_pipe(
+TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
+            circular_pipe(
   redeclare package Medium = Medium,
   energyDynamics=system.energyDynamics,
   m_flow_a_start=system.m_flow_start,
@@ -40,7 +41,8 @@ GenericPipe circular_pipe(
         (
         dimension=0.01, length=100)) annotation (Placement(transformation(
         origin={-20,40}, extent={{-10,-10},{10,10}})));
-GenericPipe annulus_pipe(
+TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
+            annulus_pipe(
   redeclare package Medium = Medium,
   exposeState_a=false,
   exposeState_b=true,

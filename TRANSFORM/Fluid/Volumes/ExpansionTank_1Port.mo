@@ -89,14 +89,14 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
 
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=Medium.temperature(state_liquid), Q_flow=
         Q_flow_internal) if                                                                      use_HeatPort
-    annotation (Placement(transformation(extent={{-10,-94},{10,-74}}),
-        iconTransformation(extent={{-10,-94},{10,-74}})));
+    annotation (Placement(transformation(extent={{74,-10},{94,10}}),
+        iconTransformation(extent={{74,-10},{94,10}})));
   HeatAndMassTransfer.Interfaces.MolePort_State traceMassPort(
     nC=Medium.nC,
     C=C .* Medium.density(state_liquid) ./ MMs,
     n_flow=mC_flow_internal ./ MMs) if                                                                                            use_TraceMassPort
-    annotation (Placement(transformation(extent={{30,-86},{50,-66}}),
-        iconTransformation(extent={{30,-86},{50,-66}})));
+    annotation (Placement(transformation(extent={{50,-70},{70,-50}}),
+        iconTransformation(extent={{50,-68},{70,-48}})));
 
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));

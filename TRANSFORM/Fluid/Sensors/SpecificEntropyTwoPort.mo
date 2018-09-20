@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Sensors;
 model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
   extends BaseClasses.PartialTwoPortSensor;
-  extends BaseClasses.PartialRotationIcon_withValueIndicator(final var=s,
+  extends BaseClasses.PartialMultiSensor_1values(final var=s,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.SpecificEntropy_J_kgK.to_J_kgK
       constrainedby
@@ -13,7 +13,10 @@ model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{10,-10},{-10,10}},
-        rotation=270)));
+        rotation=270), iconTransformation(
+        extent={{10,-10},{-10,10}},
+        rotation=270,
+        origin={0,36})));
 
 protected
   Medium.SpecificEntropy s_a_inflow
@@ -30,19 +33,19 @@ equation
      s_a_inflow = s;
      s_b_inflow = s;
   end if;
-annotation (defaultComponentName="specificEntropy",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+  annotation (
+    defaultComponentName="sensor_s",
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
-          extent={{30,106},{-90,76}},
+          extent={{78,56},{-18,27}},
           lineColor={0,0,0},
           textString="s"),
-        Line(points={{0,100},{0,70}}, color={0,0,127}),
-        Line(points={{-100,0},{-70,0}}, color={0,128,255}),
-        Line(points={{70,0},{100,0}}, color={0,128,255})}),
-  Documentation(info="<html>
+        Line(points={{50,0},{100,0}}, color={0,128,255}),
+        Line(points={{-100,0},{-50,0}}, color={0,128,255})}),
+    Documentation(info="<html>
 <p>
-This component monitors the specific entropy of the passing fluid.
+This component monitors the fluid flowing from port_a to port_b.
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 </html>"));

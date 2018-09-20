@@ -10,8 +10,8 @@ model ConcentricTubeHX
 
   extends StraightPipeHX(
   final nTubes=1,
-  surfaceArea_tube={perimeter_tube*length_tube},
-  surfaceArea_shell={pi*D_o_tube*length_tube},
+  surfaceArea_tube={if i ==1 then perimeter_tube*length_tube else 0 for i in 1:nSurfaces_tube},
+  surfaceArea_shell={if i == 1 then pi*D_o_tube*length_tube else 0 for i in 1:nSurfaces_shell},
   final dimension_shell = 4*crossAreaNew_shell/perimeterNew_shell,
   final crossArea_shell=crossAreaNew_shell,
   final perimeter_shell=perimeterNew_shell,

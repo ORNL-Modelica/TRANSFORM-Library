@@ -21,7 +21,7 @@ model GenericHX
   input SI.Height[nV] roughnesses_shell=fill(2.5e-5, nV)
     "Average heights of surface asperities"
     annotation (Dialog(tab="Shell Side",group="Inputs"));
-  input SI.Area surfaceAreas_shell[nV,nSurfaces_shell]=[pi*dimensions_tube_outer.*dlengths_tube*nTubes]
+  input SI.Area surfaceAreas_shell[nV,nSurfaces_shell]={{if j == 1 then pi*dimensions_tube_outer[i]*dlengths_tube[i]*nTubes else 0 for j in 1:nSurfaces_shell} for i in 1:nV}
     "Discretized area per transfer surface"
     annotation (Dialog(tab="Shell Side",group="Inputs"));
 
@@ -56,7 +56,7 @@ model GenericHX
   input SI.Height[nV] roughnesses_tube=fill(2.5e-5, nV)
     "Average heights of surface asperities"
     annotation (Dialog(tab="Tube Side",group="Inputs"));
-  input SI.Area surfaceAreas_tube[nV,nSurfaces_tube]=[perimeters_tube .* dlengths_tube]
+  input SI.Area surfaceAreas_tube[nV,nSurfaces_tube]={{if j ==1 then perimeters_tube[i]* dlengths_tube[i] else 0 for j in 1:nSurfaces_tube} for i in 1:nV}
     "Discretized area per transfer surface"
     annotation (Dialog(tab="Tube Side",group="Inputs"));
 

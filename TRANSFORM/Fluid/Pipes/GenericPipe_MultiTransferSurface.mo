@@ -387,6 +387,7 @@ model GenericPipe_MultiTransferSurface
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
 
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=summary.T_effective);
+  parameter Boolean calc_Wb = true "= false to not calculate p*der(V) [Wb_flows] for energy equation" annotation(Dialog(tab="Advanced"));
 
 protected
   HeatAndMassTransfer.Interfaces.HeatPort_State[nV,geometry.nSurfaces] heatPorts_int;
@@ -510,6 +511,7 @@ equation
 
   // Wb_flow = v*A*dpdx + v*F_fric
   //         = v*A*dpdx + v*A*flowModel.dp_fg - v*A*dp_grav
+  if calc_Wb then
    if nV == 1 or useLumpedPressure then
      Wb_flows = geometry.dxs*((vs*geometry.dxs)*(geometry.crossAreas*geometry.dxs)*((port_b.p - port_a.p) + sum(flowModel.dps_fg) - g_n*(geometry.dheights*mediums.d)));
    else
@@ -534,6 +536,9 @@ equation
        assert(false, "Unknown model structure");
      end if;
    end if;
+  else
+    Wb_flows = zeros(nV);
+  end if;
 
   /*##########################################################################*/
   /*                    Dimension-1 Flow Model Definitions                    */

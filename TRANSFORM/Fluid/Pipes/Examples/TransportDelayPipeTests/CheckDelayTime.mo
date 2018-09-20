@@ -38,9 +38,9 @@ equation
   connect(boundary1.ports[1], transportDelayPipe.port_a)
     annotation (Line(points={{-18,0},{-18,0},{-8,0}},  color={0,127,255}));
   connect(transportDelayPipe.port_b, boundary.ports[1]) annotation (Line(
-      points={{12,0},{12,0},{50,0}},
+      points={{12,0},{50,0}},
       color={0,127,255},
-      thickness=0.5));
+      thickness));
 
   connect(step2.y, boundary1.T_in) annotation (Line(points={{-59,10},{-50,10},{
           -50,4},{-40,4}}, color={0,0,127}));

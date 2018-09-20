@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Sensors;
 model RelativePressure "Ideal relative pressure sensor"
   extends BaseClasses.PartialRelativeSensor;
-  extends BaseClasses.PartialRelativeIcon_withValueIndicator(final var=p_rel,
+  extends BaseClasses.PartialMultiSensor_1values(final var=p_rel,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_Pa
       constrainedby
@@ -11,27 +11,32 @@ model RelativePressure "Ideal relative pressure sensor"
                                               final unit="Pa",
                                               displayUnit="bar")
     "Relative pressure signal" annotation (Placement(transformation(
-        origin={0,-90},
-        extent={{10,-10},{-10,10}},
+        origin={0,110},
+        extent={{-10,-10},{10,10}},
         rotation=90), iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={0,50})));
+        origin={0,36})));
 equation
 
   // Relative pressure
   p_rel = port_a.p - port_b.p;
   annotation (
     Icon(graphics={
-        Line(points={{0,40},{0,28}},   color={0,0,127}),
         Text(
-          extent={{-6,66},{-132,36}},
+          extent={{114,62},{-12,32}},
           lineColor={0,0,0},
           textString="p_rel"),
-          Text(extent={{-60,-50},{60,-22}}, textString=DynamicSelect("0.0",
-              String(y, format="1." + String(precision) + "f"))),
-        Line(points={{-100,0},{-70,0}}, color={0,128,255}),
-        Line(points={{70,0},{100,0}}, color={0,128,255})}),
+        Line(points={{-100,0},{-50,0}}, color={0,128,255}),
+        Line(points={{50,0},{100,0}}, color={0,128,255}),
+        Polygon(
+          points={{4,0},{-4,-4},{-4,4},{4,0}},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None,
+          origin={-36,18},
+          rotation=360),
+        Line(points={{-70,18},{-40,18}})}),
     Documentation(info="<html>
 <p>
 The relative pressure \"port_a.p - port_b.p\" is determined between

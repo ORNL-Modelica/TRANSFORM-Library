@@ -38,7 +38,7 @@ model StraightPipeHX
   input SI.Height roughness_shell=2.5e-5
     "Average heights of surface asperities"
     annotation (Dialog(tab="Shell Side", group="Inputs"));
-  input SI.Area surfaceArea_shell[nSurfaces_shell]={pi*D_o_tube*length_tube*nTubes} "Outer surface area"
+  input SI.Area surfaceArea_shell[nSurfaces_shell]={if i == 1 then pi*D_o_tube*length_tube*nTubes else 0 for i in 1:nSurfaces_shell} "Outer surface area"
     annotation (Dialog(tab="Shell Side", group="Inputs"));
 
   // Static head
@@ -62,8 +62,7 @@ model StraightPipeHX
     annotation (Dialog(tab="Tube Side", group="Inputs"));
   input SI.Height roughness_tube=2.5e-5 "Average heights of surface asperities"
     annotation (Dialog(tab="Tube Side", group="Inputs"));
-  input SI.Area surfaceArea_tube[nSurfaces_tube]={perimeter_tube*
-      length_tube} "Inner surface area"
+  input SI.Area surfaceArea_tube[nSurfaces_tube]={if i ==1 then perimeter_tube*length_tube else 0 for i in 1:nSurfaces_tube} "Inner surface area"
     annotation (Dialog(tab="Tube Side", group="Inputs"));
 
   // Static head

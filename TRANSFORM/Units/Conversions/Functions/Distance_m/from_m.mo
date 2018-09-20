@@ -3,5 +3,5 @@ function from_m "Distance: [m] -> [m]"
   extends BaseClasses.from;
 
 algorithm
-  y := u*100;
+  y := u;
 end from_m;

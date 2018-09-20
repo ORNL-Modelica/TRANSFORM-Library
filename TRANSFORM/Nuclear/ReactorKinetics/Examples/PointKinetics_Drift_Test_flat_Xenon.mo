@@ -41,6 +41,7 @@ model PointKinetics_Drift_Test_flat_Xenon
   SI.Power Power_DH = Power_beta + Power_gamma;
   SI.Power Power_total = Power_DH + Power;
 
+Real rhorho = sum(core_kinetics.fissionProducts.rhos);
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT back_to_core(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -117,14 +118,14 @@ model PointKinetics_Drift_Test_flat_Xenon
     mCs_FP=core.mCs[:, core_kinetics.summary_data.iFP[1]:core_kinetics.summary_data.iFP[
         2]]*core.nParallel,
     nFeedback=1,
-    redeclare record Data_FP =
-        TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
     Qs_fission_input=PowerInput.y,
     alphas_feedback={-1e-4},
     vals_feedback={core.summary.T_effective},
-    vals_feedback_reference={400 + 273.15})
+    vals_feedback_reference={400 + 273.15},
+    redeclare record Data_FP =
+        TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235)
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[
@@ -139,7 +140,33 @@ model PointKinetics_Drift_Test_flat_Xenon
     period=100*60*60 + 1)
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
 
+Real lambda_te = core_kinetics.fissionProducts.data.lambdas[1];
+Real lambda_i = core_kinetics.fissionProducts.data.lambdas[2];
+Real lambda_xe = core_kinetics.fissionProducts.data.lambdas[3];
+
+Real gamma_te = 0.061;
+Real gamma_i = 0;
+Real gamma_xe = 0.003;
+Real wf = core_kinetics.fissionProducts.w_f;
+Real C_te(start=0);
+Real C_i(start=0);
+Real C_xe(start=0);
+Real C_te_core = sum(core.mCs[:,7]);
+Real C_i_core = sum(core.mCs[:,8]);
+Real C_xe_core = sum(core.mCs[:,9]);
+
+Real C_te_coreloop = sum(core.mCs[:,7]) + sum(loop_.mCs[:,7]);
+Real C_i_coreloop = sum(core.mCs[:,8]) + sum(loop_.mCs[:,8]);
+Real C_xe_coreloop = sum(core.mCs[:,9]) + sum(loop_.mCs[:,9]);
+
+Real P = max(0,core_kinetics.Q_fission_total);
+Real sigma_xe=core_kinetics.fissionProducts.data.sigmasA[3];
+Real Sigmaf=26;
 equation
+
+  der(C_te) = P/wf*gamma_te - lambda_te*C_te;
+  der(C_i) = P/wf*gamma_i - lambda_i*C_i + lambda_te*C_te;
+  der(C_xe) = P/wf*gamma_xe - lambda_xe*C_xe + lambda_i*C_i - sigma_xe*P/Sigmaf/wf*C_xe*H/(H+L)/core.geometry.V_total;
 
   connect(core_inlet.ports[1], core.port_a)
     annotation (Line(points={{-36,0},{-26,0}}, color={0,127,255}));

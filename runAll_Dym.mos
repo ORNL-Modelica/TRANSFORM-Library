@@ -128,6 +128,7 @@ simulateModel("TRANSFORM.Math.Examples.QuadraticCurve_Test",stopTime=10,resultFi
 simulateModel("TRANSFORM.Math.Examples.smoothMax",stopTime=10,resultFile="smoothMax");
 simulateModel("TRANSFORM.Math.Examples.spliceSigmoid",stopTime=10,resultFile="spliceSigmoid");
 simulateModel("TRANSFORM.Math.Examples.spliceTanh",stopTime=10,resultFile="spliceTanh");
+simulateModel("TRANSFORM.Media.Fluids.Examples.LinearDOWTHERM_A_95C_pT",resultFile="LinearDOWTHERM_A_95C_pT");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_12Th_05U_pT",resultFile="LinearFLiBe_12Th_05U_pT");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_9999Li7",resultFile="LinearFLiBe_9999Li7");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_pT",resultFile="LinearFLiBe_pT");

@@ -11,22 +11,21 @@ model nParallel_withWall_StateBoundary
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     use_TraceMassTransfer=true,
-    redeclare model HeatTransfer =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Alphas
-        ( alpha0=1000),
-    redeclare model TraceMassTransfer =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.AlphasM
-        (                                               redeclare model
-          DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-            (D_ab0=1), alphaM0=fill(1, Medium.nC)),
     use_HeatTransferOuter=true,
     use_TraceMassTransferOuter=true,
     energyDynamics_wall=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
         (                                                     dimension=0.01,
-          nV=10))
+          nV=10),
+    redeclare model HeatTransfer =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas
+        (alpha0=1000),
+    redeclare model TraceMassTransfer =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM
+        (redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+            (D_ab0=1), alphaM0=fill(1, Medium.nC)))
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Utilities.Visualizers.displayReal boundaryQ_p(val=pipe_single.port_a.p)
     annotation (Placement(transformation(extent={{-52,84},{-32,104}})));
@@ -85,22 +84,21 @@ model nParallel_withWall_StateBoundary
     use_HeatTransfer=true,
     use_TraceMassTransfer=true,
     nParallel=10,
-    redeclare model HeatTransfer =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Alphas
-        ( alpha0=1000),
-    redeclare model TraceMassTransfer =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.AlphasM
-        (                                               redeclare model
-          DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-            (D_ab0=1), alphaM0=fill(1, Medium.nC)),
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
         (                                                     dimension=0.01,
           nV=10),
     use_HeatTransferOuter=true,
     use_TraceMassTransferOuter=true,
-    energyDynamics_wall=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
+    energyDynamics_wall=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    redeclare model HeatTransfer =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas
+        (alpha0=1000),
+    redeclare model TraceMassTransfer =
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM
+        (redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+            (D_ab0=1), alphaM0=fill(1, Medium.nC)))
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
   Utilities.Visualizers.displayReal boundaryQ_p1(val=pipe_nParallel.port_a.p)
     annotation (Placement(transformation(extent={{-50,-16},{-30,4}})));
@@ -152,25 +150,25 @@ model nParallel_withWall_StateBoundary
     boundaryTM_external1(C=fill(2.09116e13, Medium.nC))
     annotation (Placement(transformation(extent={{-26,-70},{-6,-50}})));
   Utilities.Visualizers.displayReal boundaryM_m_flow2(precision=2, val=
-        pipe_single.pipe.massPorts[4].n_flow[1])
+        pipe_single.pipe.massPorts[4,1].n_flow[1])
     annotation (Placement(transformation(extent={{50,6},{70,26}})));
-  Utilities.Visualizers.displayReal boundaryM_C2(val=pipe_single.pipe.massPorts[4].C[
+  Utilities.Visualizers.displayReal boundaryM_C2(val=pipe_single.pipe.massPorts[4,1].C[
         1]) annotation (Placement(transformation(extent={{50,18},{70,38}})));
-  Utilities.Visualizers.displayReal conduction_2_C2(val=pipe_single.pipe.heatPorts[4].T)
+  Utilities.Visualizers.displayReal conduction_2_C2(val=pipe_single.pipe.heatPorts[4,1].T)
     annotation (Placement(transformation(extent={{76,18},{96,38}})));
   Utilities.Visualizers.displayReal conduction_2_m_flow2(val=pipe_single.pipe.heatPorts[
-        4].Q_flow)
+        4,1].Q_flow)
             annotation (Placement(transformation(extent={{76,6},{96,26}})));
   Utilities.Visualizers.displayReal boundaryM_m_flow3(precision=2, val=
-        pipe_nParallel.pipe.massPorts[4].n_flow[1])
+        pipe_nParallel.pipe.massPorts[4,1].n_flow[1])
     annotation (Placement(transformation(extent={{50,-94},{70,-74}})));
-  Utilities.Visualizers.displayReal boundaryM_C3(val=pipe_nParallel.pipe.massPorts[4].C[
+  Utilities.Visualizers.displayReal boundaryM_C3(val=pipe_nParallel.pipe.massPorts[4,1].C[
         1]) annotation (Placement(transformation(extent={{50,-82},{70,-62}})));
   Utilities.Visualizers.displayReal conduction_2_C3(val=pipe_nParallel.pipe.heatPorts[
-        4].T)
+        4,1].T)
     annotation (Placement(transformation(extent={{76,-82},{96,-62}})));
   Utilities.Visualizers.displayReal conduction_2_m_flow3(val=pipe_nParallel.pipe.heatPorts[
-        4].Q_flow)
+        4,1].Q_flow)
             annotation (Placement(transformation(extent={{76,-94},{96,-74}})));
   Utilities.Visualizers.displayReal conduction_2_C(precision=2, val=pipe_single.pipe.mC_flows[
         2, 1])
@@ -200,39 +198,37 @@ model nParallel_withWall_StateBoundary
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(pipe_single.port_a, boundaryM.ports[1]) annotation (Line(
-      points={{-10,20},{-15,20},{-20,20}},
+      points={{-10,20},{-20,20}},
       color={0,127,255},
-      thickness=0.5));
+      thickness));
   connect(pipe_single.port_b, boundaryP.ports[1]) annotation (Line(
       points={{10,20},{20,20}},
       color={0,127,255},
-      thickness=0.5));
+      thickness));
   connect(boundaryTM_external.port, pipe_single.massPorts[4]) annotation (Line(
       points={{-8,40},{-4,40},{-4,25}},
       color={0,140,72},
-      thickness=0.5));
+      thickness));
   connect(boundaryQ_external.port, pipe_single.heatPorts[4]) annotation (Line(
-      points={{10,40},{6,40},{0,40},{0,25}},
+      points={{10,40},{0,40},{0,25}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   connect(pipe_nParallel.port_a, boundaryM1.ports[1]) annotation (Line(
-      points={{-8,-80},{-13,-80},{-18,-80}},
+      points={{-8,-80},{-18,-80}},
       color={0,127,255},
-      thickness=0.5));
+      thickness));
   connect(pipe_nParallel.port_b, boundaryP1.ports[1]) annotation (Line(
       points={{12,-80},{22,-80}},
       color={0,127,255},
-      thickness=0.5));
-  connect(boundaryTM_external1.port, pipe_nParallel.massPorts[4]) annotation (
-      Line(
+      thickness));
+  connect(boundaryTM_external1.port, pipe_nParallel.massPorts[4]) annotation (Line(
       points={{-6,-60},{-2,-60},{-2,-75}},
       color={0,140,72},
-      thickness=0.5));
-  connect(boundaryQ_external1.port, pipe_nParallel.heatPorts[4]) annotation (
-      Line(
-      points={{12,-60},{8,-60},{2,-60},{2,-75}},
+      thickness));
+  connect(boundaryQ_external1.port, pipe_nParallel.heatPorts[4]) annotation (Line(
+      points={{12,-60},{2,-60},{2,-75}},
       color={191,0,0},
-      thickness=0.5));
+      thickness));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={
         Line(
