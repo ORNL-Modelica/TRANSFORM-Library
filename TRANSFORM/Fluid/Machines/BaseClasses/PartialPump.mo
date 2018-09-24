@@ -208,13 +208,13 @@ equation
     //     port_b.p = medium.p;
   elseif exposeState_a and not exposeState_b then
     port_a.p = medium.p;
-    port_b.m_flow = -m_flow;
+    port_b.m_flow/nParallel = -m_flow;
   elseif not exposeState_a and exposeState_b then
-    port_a.m_flow = m_flow;
+    port_a.m_flow/nParallel = m_flow;
     port_b.p = medium.p;
   else
-    port_a.m_flow = m_flow;
-    port_b.m_flow = -m_flow;
+    port_a.m_flow/nParallel = m_flow;
+    port_b.m_flow/nParallel = -m_flow;
   end if;
 
   // Boundary Conditions
