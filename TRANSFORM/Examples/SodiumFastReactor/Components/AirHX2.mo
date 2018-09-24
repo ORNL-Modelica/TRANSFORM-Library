@@ -20,10 +20,8 @@ replaceable package Medium =
         iconTransformation(extent={{-110,-70},{-90,-50}})));
   Data.SFR_PHS data
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  HeatExchangers.GenericDistributed_HXold AHX(
+  HeatExchangers.GenericDistributed_HX    AHX(
     redeclare package Material_tubeWall = Media.Solids.SS304,
-    redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
     redeclare package Medium_tube = Medium,
     m_flow_a_start_tube=data.m_flow_IHX_IHTS/data.nAirHXs,
     T_a_start_tube=data.T_IHX_outletIHTS,
@@ -44,11 +42,14 @@ replaceable package Medium =
         surfaceArea_shell={data.surfaceArea_finnedTube},
         angle_shell=1.5707963267949),
     redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
         (
         D=data.D_tube_outer_AHX,
         S_T=data.pitch_tube_AHX,
         S_L=data.pitch_tube_AHX),
+    redeclare model HeatTransfer_tube =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
     p_a_start_shell=400000,
     p_b_start_shell=100000,
     T_a_start_shell=298.15,

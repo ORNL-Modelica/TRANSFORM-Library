@@ -20,22 +20,14 @@ replaceable package Medium =
         iconTransformation(extent={{-110,-70},{-90,-50}})));
   Data.SFR_PHS data
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
-  HeatExchangers.GenericDistributed_HXold AHX(
+  HeatExchangers.GenericDistributed_HX    AHX(
     redeclare package Material_tubeWall = Media.Solids.SS304,
-    redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
     redeclare package Medium_tube = Medium,
     m_flow_a_start_tube=data.m_flow_IHX_IHTS/data.nAirHXs,
     T_a_start_tube=data.T_IHX_outletIHTS,
     T_b_start_tube=data.T_IHX_inletIHTS,
     m_flow_a_start_shell=blower.m_flow,
     redeclare package Medium_shell = Medium_Ambient,
-    redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
-        (
-        D=data.D_tube_outer_AHX,
-        S_T=data.pitch_tube_AHX,
-        S_L=data.pitch_tube_AHX),
     useLumpedPressure_shell=true,
     useLumpedPressure_tube=true,
     redeclare model Geometry =
@@ -51,6 +43,15 @@ replaceable package Medium =
         surfaceArea_shell={data.surfaceArea_finnedTube},
         nV=2,
         angle_shell=1.5707963267949),
+    redeclare model HeatTransfer_shell =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
+        (
+        D=data.D_tube_outer_AHX,
+        S_T=data.pitch_tube_AHX,
+        S_L=data.pitch_tube_AHX),
+    redeclare model HeatTransfer_tube =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+
     p_a_start_shell=400000,
     p_b_start_shell=100000,
     T_a_start_shell=298.15,
@@ -113,7 +114,7 @@ equation
   connect(setpoint.y, PID.u_s) annotation (Line(points={{91,-20},{100,-20},{100,
           -52},{92,-52}}, color={0,0,127}));
   connect(T_outlet_AHX_tube.T, PID.u_m)
-    annotation (Line(points={{31,-80},{80,-80},{80,-64}}, color={0,0,127}));
+    annotation (Line(points={{26,-80},{80,-80},{80,-64}}, color={0,0,127}));
   connect(PID.y, blower.m_flow_in)
     annotation (Line(points={{69,-52},{60,-52}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={

@@ -422,12 +422,12 @@ model SFR
         rotation=90,
         origin={30,-98})));
 
-  Fluid.Machines.Pump pump[3](
+  Fluid.Machines.Pump_SimpleMassFlow
+                      pump_SimpleMassFlow
+                          [3](
     redeclare package Medium = Medium_PHTS,
-    m_flow_nominal=data.m_flow_PHTS/3,
-    controlType="m_flow",
-    T_start=data.T_start_cold,
-    dp_nominal=400000) annotation (Placement(transformation(
+    m_flow_nominal=data.m_flow_PHTS/3)
+                       annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={30,-18})));
@@ -556,8 +556,8 @@ equation
   connect(resistance_toExpTank.port_a, upperPlenum.port_b[1]) annotation (Line(
         points={{-20,33},{-20,24},{-19.1429,24}},
                                                color={0,127,255}));
-  connect(downcomer.port_a, pump.port_b)
-    annotation (Line(points={{30,-88},{30,-28}},    color={0,127,255}));
+  connect(downcomer.port_a, pump_SimpleMassFlow.port_b)
+    annotation (Line(points={{30,-88},{30,-28}}, color={0,127,255}));
   connect(lowerPlenum.port_a[1:3], downcomer.port_b) annotation (Line(points={{
           -19.3333,-134},{-19.3333,-140},{-12,-140},{30,-140},{30,-140},{30,
           -140},{30,-108}},             color={0,127,255}));
@@ -575,8 +575,9 @@ equation
   connect(resistance_toExpTank.port_b, expansionTank.port_a)
     annotation (Line(points={{-20,47},{-20,52},{-20,58},{-21,58}},
                                                  color={0,127,255}));
-  connect(lowerPlenum_outer.port_b[1:3], pump.port_a) annotation (Line(points={{44,
-          -67.3333},{40,-67.3333},{40,0},{30,0},{30,-8}},        color={0,127,255}));
+  connect(lowerPlenum_outer.port_b[1:3], pump_SimpleMassFlow.port_a)
+    annotation (Line(points={{44,-67.3333},{40,-67.3333},{40,0},{30,0},{30,-8}},
+        color={0,127,255}));
   connect(convection.port_b, vessel.port_a1)
     annotation (Line(points={{99,-108},{112,-108}},color={191,0,0}));
   connect(vessel.port_b1, boundary.port)
