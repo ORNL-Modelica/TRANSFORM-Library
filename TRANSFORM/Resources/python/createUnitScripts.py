@@ -3,6 +3,15 @@
 Created on Tue Oct 24 14:57:15 2017
 
 @author: vmg
+
+Creates .mos files for regression testing.
+
+1. Place this file in LIBRARYPATH\Resources\python
+2. Update 'folderPath' and 'folderName'
+3. Run
+	- This will generate scripts at locatin: LIBRARYPATH\Resources\Scripts
+4. To generate referece results run the buildingspy regression test (generates reference results in LIBRARYPATH\Resources\ReferenceResults
+
 """
 
 import os
