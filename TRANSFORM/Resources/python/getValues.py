@@ -15,17 +15,63 @@ import numpy as np
 from buildingspy.io.outputfile import Reader
 
 def writeValues(components,results,fileName='returnValues.txt'):
+    '''
+Create a file with minimal/zero formatting
+    '''
     with open(fileName,'w') as fil:
         for c in components:
             fil.write('{}\n'.format(c))
             for key, value in results[c].items():
+                
+                # Condense values, arrays, etc. into single line
                 line = ','.join(str(value).split()).replace('[','{').replace(']','}')
+                
+                # Remove extraneous ','
                 line = line.replace(',}','}')
                 line = line.replace('{,','{')
+                
+                # Write the file
                 fil.write('{} = {}\n'.format(key,line))
        
-         
-def GenericPipe(r,components = ['pipe'],keyword='mediums',variables = ['p','T','h','d'],iGet=-1,fileName='returnValues.txt',writeToFile = True):
+        
+def writeValues_MOFormatted(components,results,fileName='returnValues.txt',unitMap={'p':'SI.Pressure','T':'SI.Temperature','h':'SI.SpecificEnthalpy','d':'SI.Density'},fullName=False):
+    '''
+Create a file with formatting for Modelica files
+    '''
+    with open(fileName,'w') as fil:
+        for c in components:
+            fil.write('//{}\n'.format(c))
+            for key, value in results[c].items():
+                
+                # Condense values, arrays, etc. into single line
+                line = ','.join(str(value).split()).replace('[','{').replace(']','}')
+                
+                #Remove extraneous ','
+                line = line.replace(',}','}')
+                line = line.replace('{,','{')
+                
+                # Create new key with formating
+                if not fullName:
+                    c = c.split('.')[0]
+                newKey = key + '_start_{}'.format(c).replace('.','_')
+                
+                # Assign units if foundin the mapped unit dictionary
+                unit = ''
+                if key in unitMap:
+                    unit = unitMap[key]
+                else:
+                    unit = 'Real'
+                    
+                # Add notation for array variable
+                suffix = ''
+                if '{' in line:
+                    suffix = '[:]'
+                    
+                # Write the file
+                fil.write('parameter {} {}{} = {} annotation(Dialog(tab="Initialization"));\n'.format(unit,newKey,suffix,line))
+   
+             
+def GenericPipe(r,components = ['pipe'],keyword='mediums',variables = ['p','T','h','d'],iGet=-1,fileName='returnValues.txt',writeToFile = False):
     resultsFull = {}
     results = {}   
     
@@ -59,7 +105,7 @@ def GenericPipe(r,components = ['pipe'],keyword='mediums',variables = ['p','T','
     return results
 
 
-def SimpleVolume(r,components = ['pipe'],keyword='medium',variables = ['p','T','h','d'],iGet=-1,fileName='returnValues.txt',writeToFile = True):
+def SimpleVolume(r,components = ['pipe'],keyword='medium',variables = ['p','T','h','d'],iGet=-1,fileName='returnValues.txt',writeToFile = False):
     resultsFull = {}
     results = {}
     
@@ -122,10 +168,15 @@ def Cylinder_FD(r,components = ['cylinder'],keyword='solutionMethod', variables 
 
 
 if __name__ == "__main__":
-    r = Reader('Winding.mat','dymola')
-    components = ['Winding']
-    Cylinder_FD(r,components,fileName='returnValues_1.txt')
-    
     r = Reader('GenericModule2.mat','dymola')
-    components = ['inletPlenum','core.coolantSubchannel','hotLeg']
-    GenericPipe(r,components,fileName='returnValues_2.txt')
+    
+    components_GenericPipe = ['core.coolantSubchannel','hotLeg','coldLeg']
+    components_SimpleVolume = ['inletPlenum','outletPlenum']
+    components = components_GenericPipe + components_SimpleVolume
+    
+    results = {}
+    results.update(GenericPipe(r,components_GenericPipe))
+    results.update( SimpleVolume(r,components_SimpleVolume))
+    
+    writeValues(components,results)
+    writeValues_MOFormatted(components,results)
