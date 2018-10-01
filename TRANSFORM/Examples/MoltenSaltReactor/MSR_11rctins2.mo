@@ -508,7 +508,6 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         CF=fill(0.44, PHX.shell.heatTransfer.nHT)),
     redeclare model HeatTransfer_tube =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     redeclare model InternalHeatGen_tube =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=Qs_gen_PHX_tube)) annotation (Placement(transformation(

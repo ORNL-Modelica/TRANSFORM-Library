@@ -51,7 +51,6 @@ replaceable package Medium =
         S_L=data.pitch_tube_AHX),
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
-
     p_a_start_shell=400000,
     p_b_start_shell=100000,
     T_a_start_shell=298.15,
