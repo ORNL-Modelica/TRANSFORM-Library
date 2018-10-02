@@ -174,7 +174,7 @@ equation
         Line(points={{-42,68},{-42,34}}),
         Line(points={{12,68},{12,34}}),
         Line(points={{-60,34},{12,34}})}),
-defaultComponentName="conPID",
+defaultComponentName="PID",
 Documentation(info="<html>
 <p>
 Block of a controller for set point tracking with a hysteresis element that switches the
