@@ -101,6 +101,7 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 
+  parameter SI.Length dheight = 0 "Elevation change in addition to liquid level (e.g., pipe connected to port)";
 protected
   SI.HeatFlowRate Q_flow_internal;
   SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
@@ -179,7 +180,7 @@ equation
   end for;
 
   port.h_outflow = h;
-  port.p = p;
+  port.p = p + Medium.density(state_liquid)*g_n*dheight;
 
   for i in 1:Medium.nXi loop
     port.Xi_outflow[i] = Xi[i];
