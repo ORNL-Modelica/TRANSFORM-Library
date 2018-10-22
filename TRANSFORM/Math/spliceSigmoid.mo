@@ -5,7 +5,7 @@ function spliceSigmoid "Smoothing algorithm using the sigmoid function"
   input Real above "Result above transition point";
   input Real x "Value of interest";
   input Real x0 "Transition or center value";
-  input Real k=100 "Transition region factor (larger #s increas slope steepness";
+  input Real k=100 "Transition region factor (larger #s increase slope steepness";
 
   output Real smoothResult "Smoothed result";
 

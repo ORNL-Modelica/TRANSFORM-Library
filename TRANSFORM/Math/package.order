@@ -6,6 +6,8 @@ spliceSigmoid
 Sigmoid
 spliceTanh
 spliceTanh_der
+spliceCosN
+smoothing_cosN
 smoothMax
 smoothMax_der
 logspace
