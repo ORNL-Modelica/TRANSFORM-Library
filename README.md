@@ -4,17 +4,12 @@ __TRANsient Simulation Framework of Reconfigurable Models__
 
 A Modelica based library for modeling thermal hydraulic energy systems and other multi-physics systems
 
-
-
-This is the development site for the Modelica _TRANSFORM_ library and its user guide.
+- This is the development site for the Modelica _TRANSFORM_ library and its user guide.
 
 Instructions for developers are available on the [wiki](https://github.com/ORNL-Modelica/TRANSFORM-Library/wiki).
 
-## Versioning/Releases
+## Version - BETA
 
-A form of [SemVer](http://semver.org/) is used for versioning.
-
-Version: 0.0.0b
 
 As library is in its beta stage, library may change often with compatability breaking changes. Thought you should know!
 
@@ -26,19 +21,15 @@ As library is in its beta stage, library may change often with compatability bre
 
 This library has been tested with:
 
-- Dymola 2018FD01
+- Dymola 2018FD01, 2019
 
 ### Check that the Library is working
 
 - To test that the library is working, run the `runAll.mos` script. This will simulate all the examples which are included in the regression tests.
 
-
-## Authors & Contributors
+## Contact
 
 * **Scott Greenwood**
-* Jordan Rader
-
-See also the list of [contributors](https://github.com/ORNL-Modelica/TRANSFORM-Library/contributors) who participated in this project.
 
 ## License
 
@@ -50,26 +41,7 @@ Copyright 2017, UT-Battelle, LLC
 You may report any issues with using the [Issues](https://github.com/ORNL-Modelica/TRANSFORM-Library/issues) button.
 
 Contributions in the form of [Pull Requests](https://github.com/ORNL-Modelica/TRANSFORM-Library/pulls) are always welcome.
-Prior to issuing a pull request, make sure your code follows the [style guide and coding conventions]()
-
-## Acknowledgments
-This application uses or was inspires by open source libraries/components. You can find the source code of their open source projects along with license information below. We acknowledge and are grateful to these developers for their contributions to open source.
-
-
-- [Modelica Standard Library](https://github.com/modelica/Modelica) - [3-Clause BSD License](https://github.com/modelica/ModelicaStandardLibrary/blob/master/LICENSE)
-- [ThermoPower](https://github.com/casella/ThermoPower) - [Modelica License 2](https://www.modelica.org/licenses/ModelicaLicense2)
-- [ExternalMedia](https://github.com/modelica/ExternalMedia) -  [Modelica License 2](https://www.modelica.org/licenses/ModelicaLicense2)
-
-We would also like to give a special thanks to:
- - John Batteh from Modelon for providing training and helping jump-start the Modelica experience
- - Chris Jones and Dag Bruck from Dassault Systemes for Dymola related inquiries
- - Mike Tiller and his collaborators for [Modelica by Example](http://book.xogeny.com/)
- - Contributors to [StackOverflow's Modelica tag](https://stackoverflow.com/questions/tagged/modelica). Extremely helpful, especially in the early learning stages
- 
+Prior to issuing a pull request, make sure your code follows the [style guide and coding conventions]().
 
 ## Citation
 Greenwood, M. S.: TRANSFORM - TRANsient Simulation Framework of Reconfigurable Models. Computer Software. https://github.com/ORNL-Modelica/TRANSFORM-Library. 07 Nov. 2017. Web. Oak Ridge National Laboratory. doi:10.11578/dc.20171109.1.
-
-## Extended Description
-
-Existing development tools for early stage design and scoping of energy systems are often time consuming to use, proprietary, and do not contain the necessary function to model complete systems (i.e., controls, primary, and secondary systems) in a common platform. The Modelica programming language based TRANSFORM tool (1) provides a standardized, common simulation environment for early design of energy systems (i.e., power plants), (2) provides a library of baseline component modules to be assembled into full plant models using available geometry, design, and thermal-hydraulic data, (3) defines modeling conventions for interconnecting component models, and (4) establishes user interfaces and support tools to facilitate simulation development (i.e., configuration and parameterization), execution, and results display and capture.
