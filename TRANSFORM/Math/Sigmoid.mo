@@ -1,5 +1,5 @@
 within TRANSFORM.Math;
-function Sigmoid
+function sigmoid
 
   input Real x "Value of interest";
   input Real x0 "Transition or center value";
@@ -10,4 +10,4 @@ function Sigmoid
 algorithm
   sigmoid :=1/(1 + exp(-k*(x - x0)));
 
-end Sigmoid;
+end sigmoid;

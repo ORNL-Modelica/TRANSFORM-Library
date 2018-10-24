@@ -71,10 +71,10 @@ model BesselJ
 equation
 
   for i in 1:n loop
-    J0[i] = TRANSFORM.Math.BesselJ(
+    J0[i] = TRANSFORM.Math.besselJ(
                 k=k[1],
                 x=x[i]);
-    J1[i] = TRANSFORM.Math.BesselJ(
+    J1[i] = TRANSFORM.Math.besselJ(
                 k=k[2],
                 x=x[i]);
   end for;
