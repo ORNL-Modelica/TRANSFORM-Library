@@ -28,8 +28,7 @@ annotation (
     Modelica(version="3.2.2"),
     Complex(version="3.2.2"),
     UserInteraction(version="0.64"),
-    SDF(version="0.4.0"),
-    NHES(version="1")),
+    SDF(version="0.4.0")),
     version="1",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
