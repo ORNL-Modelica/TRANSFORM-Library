@@ -34,8 +34,8 @@ protected
   Modelica.Blocks.Interfaces.RealOutput m_flow
     annotation (Placement(transformation(extent={{-6,34},{6,46}})));
 public
-  TRANSFORM.Fluid.Sensors.MassFlowRate sensor_m_flow(redeclare package Medium
-      = Medium)
+  TRANSFORM.Fluid.Sensors.MassFlowRate sensor_m_flow(redeclare package Medium =
+        Medium)
     annotation (Placement(transformation(extent={{-20,10},{0,30}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_ambient(T=system.T_ambient)
     annotation (Placement(transformation(extent={{-14,-27},{0,-13}})));
@@ -95,11 +95,11 @@ protected
   Modelica.Blocks.Interfaces.RealOutput T_return
     annotation (Placement(transformation(extent={{-46,-56},{-58,-44}})));
 public
-  TRANSFORM.Fluid.Sensors.Temperature sensor_T_forward(redeclare package Medium
-      = Medium)
+  TRANSFORM.Fluid.Sensors.Temperature sensor_T_forward(redeclare package Medium =
+        Medium)
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
-  TRANSFORM.Fluid.Sensors.Temperature sensor_T_return(redeclare package Medium
-      = Medium)
+  TRANSFORM.Fluid.Sensors.Temperature sensor_T_return(redeclare package Medium =
+        Medium)
     annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
 protected
   Modelica.Blocks.Interfaces.RealOutput tankLevel
