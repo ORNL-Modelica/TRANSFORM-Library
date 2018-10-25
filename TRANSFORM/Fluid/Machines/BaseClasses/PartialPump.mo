@@ -30,7 +30,6 @@ partial model PartialPump "Base model for centrifugal pumps"
     mCb=port_a.m_flow*actualStream(port_a.C_outflow) + port_b.m_flow*
         actualStream(port_b.C_outflow) + mC_flow_internal);
 
-
   parameter Real nParallel = 1 "# of parallel components";
 
   input SI.Length diameter=diameter_nominal "Impeller diameter"
@@ -199,7 +198,6 @@ equation
   W = W_ideal/eta;
   head = flowChar.head;
   dp = medium.d*g_n*head;
-
 
   if exposeState_a and exposeState_b then
     assert(false,

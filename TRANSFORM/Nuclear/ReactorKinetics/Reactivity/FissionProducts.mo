@@ -206,7 +206,7 @@ equation
   end for;
 
   annotation (defaultComponentName="fissionProducts", Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
-        ={Bitmap(extent={{-100,-100},{100,100}}, fileName=
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics=
+         {Bitmap(extent={{-100,-100},{100,100}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/BatemanEquations.jpg")}));
 end FissionProducts;

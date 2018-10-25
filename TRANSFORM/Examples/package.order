@@ -3,6 +3,7 @@ Templates
 SystemOfSubSystems
 LightWaterSmallModularReactor
 LightWaterReactor_PWR_Westinghouse
+GenericModular_PWR
 SodiumFastReactor
 MoltenSaltReactor
 SupercriticalCO2

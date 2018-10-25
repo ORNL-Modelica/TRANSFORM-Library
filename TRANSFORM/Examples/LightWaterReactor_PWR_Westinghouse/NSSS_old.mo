@@ -437,12 +437,12 @@ equation
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(sensorBus.T_Core_Inlet, T_Core_Inlet.T) annotation (Line(
-      points={{-29.9,100.1},{-98,100.1},{-98,-44},{-76.4,-44}},
+      points={{-29.9,100.1},{-98,100.1},{-98,-44},{-74.4,-44}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(sensorBus.T_Core_Outlet, T_Core_Outlet.T) annotation (Line(
-      points={{-29.9,100.1},{-98,100.1},{-98,-16},{-76.4,-16}},
+      points={{-29.9,100.1},{-98,100.1},{-98,-16},{-74.4,-16}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
