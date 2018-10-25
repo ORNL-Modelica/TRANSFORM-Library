@@ -10,4 +10,7 @@ package Units "Additional models, functions, types, etc. for units"
 
   type DoseRate =Real (final unit="J/(s.kg)", final quantity= "DoseRate")
     "Dose rate [J/(kg.s)]";
+
+  type StoppingPowerParticle =Real (final unit="J/m", final quantity= "StoppingPowerParticle")
+    "Stopping power for particles [J/m]";
 end Units;

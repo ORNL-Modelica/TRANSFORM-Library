@@ -2,8 +2,8 @@ within TRANSFORM.Nuclear.DoseCalculations;
 model Dose_AlphaBetaTissue
   "Dose from alpha and low-energy beta emitters distributed in tissue"
 
-  input SIadd.SpecificActivity A = 1 "Average emitter specific activity [Bq/kg]";
-  input SI.Energy E_bar = 1 "Average particle energy";
+  input SIadd.SpecificActivity A "Average emitter specific activity [Bq/kg]" annotation(Dialog(group="Inputs"));
+  input SI.Energy E_bar "Average particle energy" annotation(Dialog(group="Inputs"));
 
   parameter SIadd.Dose D_start = 0 "Initial dose" annotation(Dialog(tab="Initialization"));
 
