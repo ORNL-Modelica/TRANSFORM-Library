@@ -10,7 +10,7 @@ model BatemanEquations_Test
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(
     printResult=false,
-    n=batemanEquations.n,
+    n=4,
     x=batemanEquations.Ns)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
