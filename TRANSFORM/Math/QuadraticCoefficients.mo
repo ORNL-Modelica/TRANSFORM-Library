@@ -1,5 +1,5 @@
 within TRANSFORM.Math;
-function QuadraticCoefficients
+function quadraticCoefficients
   "Returns the coefficients of a quadritic equation a*x + b*x^2 + c*x^3 from three number pairs (x,y)"
 
   input Real[3] x "Abscissa points";
@@ -22,4 +22,4 @@ algorithm
   c :=Modelica.Math.Matrices.solve([ones(3),x,x2], y)
       "Coefficients of quadratic power consumption curve";
 
-end QuadraticCoefficients;
+end quadraticCoefficients;

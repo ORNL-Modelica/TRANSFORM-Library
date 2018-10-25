@@ -9,12 +9,10 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
 
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
 
-  HeatExchangers.GenericDistributed_HXold SHX(
+  HeatExchangers.GenericDistributed_HX    SHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
     nParallel=2*3,
-    redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
         (
@@ -26,13 +24,6 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
         dimension_tube=data_SHX.D_tube_inner,
         length_tube=data_SHX.length_tube,
         th_wall=data_SHX.th_tube),
-    redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
-        (
-        CF=fill(0.44, SHX.shell.heatTransfer.nHT),
-        D=data_SHX.D_tube_outer,
-        S_T=data_SHX.pitch_tube,
-        S_L=data_SHX.pitch_tube),
     p_a_start_shell=data_SHX.p_inlet_shell,
     T_a_start_shell=data_SHX.T_inlet_shell,
     T_b_start_shell=data_SHX.T_outlet_shell,
@@ -41,7 +32,16 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
     T_a_start_tube=data_SHX.T_inlet_tube,
     T_b_start_tube=data_SHX.T_outlet_tube,
     m_flow_a_start_tube=2*3*data_SHX.m_flow_tube,
-    redeclare package Medium_tube = Medium_BOP) annotation (Placement(
+    redeclare package Medium_tube = Medium_BOP,
+    redeclare model HeatTransfer_tube =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
+    redeclare model HeatTransfer_shell =
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
+        (
+        D=data_SHX.D_tube_outer,
+        S_T=data_SHX.pitch_tube,
+        S_L=data_SHX.pitch_tube,
+        CF=0.44))                               annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

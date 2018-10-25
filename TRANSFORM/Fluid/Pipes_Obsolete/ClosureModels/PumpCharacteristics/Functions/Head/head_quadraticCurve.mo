@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PumpCharacteristics.Function
 function head_quadraticCurve
   "Quadratic flow characteristic curve, including linear extrapolation"
   extends Icons.Function;
-  import getCoeffs = TRANSFORM.Math.QuadraticCoefficients;
+  import getCoeffs = TRANSFORM.Math.quadraticCoefficients;
 
   input SI.VolumeFlowRate V_flow "Volumetric flow rate";
   input SI.VolumeFlowRate[3] V_flow_curve "Volume flow rate for three operating points (single pump)";

@@ -155,7 +155,7 @@ equation
   connect(blower.m_flow_in, PID.y)
     annotation (Line(points={{100,-52},{107,-52}}, color={0,0,127}));
   connect(T_outlet_ADHX_tube.T, PID.u_m)
-    annotation (Line(points={{81,-80},{118,-80},{118,-64}}, color={0,0,127}));
+    annotation (Line(points={{76,-80},{118,-80},{118,-64}}, color={0,0,127}));
   connect(setpoint.y, PID.u_s) annotation (Line(points={{129,-20},{160,-20},{
           160,-52},{130,-52}},
                            color={0,0,127}));

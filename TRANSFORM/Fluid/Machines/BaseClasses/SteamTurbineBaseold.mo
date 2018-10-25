@@ -216,7 +216,6 @@ equation
           lineColor={0,0,0},
           fillColor={0,114,208},
           fillPattern=FillPattern.Solid),
-        Text(extent={{-126,114},{132,74}},   textString="%name"),
         Polygon(
           points={{-104,38},{-104,38}},
           lineColor={0,0,0},
@@ -227,7 +226,12 @@ equation
           lineColor={0,0,0},
           lineThickness=0.5,
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255})}),
+          fillColor={0,127,255}),
+        Text(
+          extent={{-147,112},{153,72}},
+          lineColor={0,0,255},
+          textString="%name",
+          visible=DynamicSelect(true,showName))}),
     Documentation(info="<html>
 <p>This base model contains the basic interface, parameters and definitions for steam turbine models. It lacks the actual performance characteristics, i.e. two more equations to determine the flow rate and the efficiency.
 <p>This model does not include any shaft inertia by itself; if that is needed, connect a <tt>Modelica.Mechanics.Rotational.Inertia</tt> model to one of the shaft connectors.

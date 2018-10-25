@@ -193,7 +193,7 @@ equation
     port_b.C_outflow[i] = C[i];
   end for;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+  annotation (defaultComponentName="tank",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Ellipse(
           extent={{-85,85},{85,-85}},

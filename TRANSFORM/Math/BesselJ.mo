@@ -1,5 +1,5 @@
 within TRANSFORM.Math;
-function BesselJ
+function besselJ
   extends Modelica.Icons.Function;
 
   import gamma = TRANSFORM.Math.gamma_Lanczos;
@@ -41,4 +41,4 @@ algorithm
     Jk :=(0.5*x)^nu*sum_new;
   end if;
 
-end BesselJ;
+end besselJ;

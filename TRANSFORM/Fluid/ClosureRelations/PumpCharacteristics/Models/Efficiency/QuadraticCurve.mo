@@ -13,7 +13,7 @@ equation
 
     //eta = homotopy(affinityLaw*TRANSFORM.Math.QuadraticCurve(V_flow, V_flow_curve, eta_curve),
     //dp_start/(rho_start*Modelica.Constants.g_n));
-    eta = TRANSFORM.Math.QuadraticCurve(V_flow, V_flow_curve, eta_curve);
+    eta = TRANSFORM.Math.quadraticCurve(V_flow, V_flow_curve, eta_curve);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

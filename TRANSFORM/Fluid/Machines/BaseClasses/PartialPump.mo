@@ -30,18 +30,20 @@ partial model PartialPump "Base model for centrifugal pumps"
     mCb=port_a.m_flow*actualStream(port_a.C_outflow) + port_b.m_flow*
         actualStream(port_b.C_outflow) + mC_flow_internal);
 
+  parameter Real nParallel = 1 "# of parallel components";
+
   input SI.Length diameter=diameter_nominal "Impeller diameter"
     annotation (Dialog(group="Inputs"));
 
   // Initialization
-  parameter Medium.MassFlowRate m_flow_start=0 "Mass flow rate through pump"
+  parameter Medium.MassFlowRate m_flow_start=0 "Mass flow rate through all pumps"
     annotation (Dialog(tab="Initialization", group=
           "Start Value: Mass Flow Rate"));
   final parameter SI.Density d_start=Medium.density_pTX(
       p_b_start,
       T_start,
       X_start);
-  final parameter SI.VolumeFlowRate V_flow_start=m_flow_start/d_start;
+  final parameter SI.VolumeFlowRate V_flow_start=max(abs(m_flow_start/nParallel)/d_start,1e-5);
 
   // Advanced
   parameter Boolean exposeState_a=true
@@ -58,8 +60,7 @@ partial model PartialPump "Base model for centrifugal pumps"
     "Gravitational accelaration" annotation (Dialog(tab="Advanced"));
 
   SI.PressureDifference dp=port_b.p - port_a.p "Pressure increase";
-  // SI.MassFlowRate m_flow(start=m_flow_start) = port_a.m_flow "Mass flow rate";
-  SI.MassFlowRate m_flow(start=m_flow_start) "Mass flow rate";
+  SI.MassFlowRate m_flow(start=m_flow_start/nParallel) "Mass flow rate";
   NonSI.AngularVelocity_rpm N(start=N_nominal) "Shaft rotational speed";
 
   // Variables defined by closure models
@@ -198,8 +199,6 @@ equation
   head = flowChar.head;
   dp = medium.d*g_n*head;
 
-  //heatPort.T = medium.T;
-
   if exposeState_a and exposeState_b then
     assert(false,
       "Single volume components cannot expose state at both ports a and b");
@@ -207,13 +206,13 @@ equation
     //     port_b.p = medium.p;
   elseif exposeState_a and not exposeState_b then
     port_a.p = medium.p;
-    port_b.m_flow = -m_flow;
+    port_b.m_flow/nParallel = -m_flow;
   elseif not exposeState_a and exposeState_b then
-    port_a.m_flow = m_flow;
+    port_a.m_flow/nParallel = m_flow;
     port_b.p = medium.p;
   else
-    port_a.m_flow = m_flow;
-    port_b.m_flow = -m_flow;
+    port_a.m_flow/nParallel = m_flow;
+    port_b.m_flow/nParallel = -m_flow;
   end if;
 
   // Boundary Conditions

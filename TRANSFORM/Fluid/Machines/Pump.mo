@@ -2,27 +2,25 @@ within TRANSFORM.Fluid.Machines;
 model Pump "Centrifugal pump with ideally controlled speed"
   extends TRANSFORM.Fluid.Machines.BaseClasses.PartialPump;
 
-  parameter String controlType="RPM" annotation (Dialog(group=
-          "Inputs Control Setting"), choices(
+  parameter String controlType="RPM" annotation (Dialog(group="Inputs Control Setting"), choices(
       choice="RPM",
       choice="m_flow",
-      choice="pressure"));
+      choice="pressure",
+      choice="dp"));
   parameter Boolean use_port=false "=true to toggle port for control signal"
     annotation (Dialog(group="Inputs Control Setting"));
 
-  input SI.Conversions.NonSIunits.AngularVelocity_rpm N_input=N_nominal
-    "Set rotational speed" annotation (Dialog(group=
-          "Inputs Control Setting", enable=if controlType == "RPM"
-           and use_port == false then true else false));
-  input SI.MassFlowRate m_flow_input=m_flow_nominal "Set mass flow rate"
-    annotation (Dialog(group="Inputs Control Setting", enable=if
-          controlType == "m_flow" and use_port == false then true else false));
-  input SI.Pressure p_input=p_a_start + dp_nominal "Set pressure" annotation (
-      Dialog(group="Inputs Control Setting", enable=if controlType
-           == "pressure" and use_port == false then true else false));
+  input SI.Conversions.NonSIunits.AngularVelocity_rpm N_input=N_nominal "Set rotational speed"
+    annotation (Dialog(group="Inputs Control Setting", enable=if controlType == "RPM" and use_port == false
+           then true else false));
+  input SI.MassFlowRate m_flow_input=m_flow_nominal "Set per pump mass flow rate" annotation (Dialog(group="Inputs Control Setting",
+        enable=if controlType == "m_flow" and use_port == false then true else false));
+  input SI.Pressure p_input=p_start + 0.5*dp_nominal "Set pressure" annotation (Dialog(group="Inputs Control Setting",
+        enable=if controlType == "pressure" and use_port == false then true else false));
+  input SI.PressureDifference dp_input=dp_nominal "Set pressure rise" annotation (Dialog(group="Inputs Control Setting",
+        enable=if controlType == "dp" and use_port == false then true else false));
 
-  Modelica.Blocks.Interfaces.RealInput inputSignal if  use_port annotation (
-      Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput inputSignal if  use_port annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,80}), iconTransformation(
@@ -54,6 +52,8 @@ equation
         assert(false,
           "Pressure control requires either exposeState_a or exposeState_b to be true but not both.");
       end if;
+    elseif controlType == "dp" then
+      dp = inputSignal_int;
     end if;
   else
     if controlType == "RPM" then
@@ -69,8 +69,10 @@ equation
         assert(false,
           "Pressure control requires either exposeState_a or exposeState_b to be true but not both.");
       end if;
+    elseif controlType == "dp" then
+      dp = dp_input;
     end if;
   end if;
-  annotation (defaultComponentName="pump", Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
+  annotation (defaultComponentName="pump", Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+            {100,100}})));
 end Pump;

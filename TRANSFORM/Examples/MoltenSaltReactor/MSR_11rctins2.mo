@@ -471,7 +471,7 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={160,-70})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HXold PHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HX    PHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Medium_tube = Medium_PFL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
@@ -495,19 +495,19 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     nParallel=2*3,
     m_flow_a_start_shell=2*3*data_PHX.m_flow_shell,
     m_flow_a_start_tube=2*3*data_PHX.m_flow_tube,
-    redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
+    redeclare model InternalTraceGen_tube =
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
+        (mC_gens=mC_gens_PHX_tube),
+    Cs_start_tube=Cs_start_PHX_tube,
     redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
         (
         D=data_PHX.D_tube_outer,
         S_T=data_PHX.pitch_tube,
         S_L=data_PHX.pitch_tube,
         CF=fill(0.44, PHX.shell.heatTransfer.nHT)),
-    redeclare model InternalTraceGen_tube =
-        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens_PHX_tube),
-    Cs_start_tube=Cs_start_PHX_tube,
+    redeclare model HeatTransfer_tube =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare model InternalHeatGen_tube =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=Qs_gen_PHX_tube)) annotation (Placement(transformation(
@@ -651,12 +651,10 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={330,-40})));
-  TRANSFORM.HeatExchangers.GenericDistributed_HXold SHX(
+  TRANSFORM.HeatExchangers.GenericDistributed_HX    SHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Material_tubeWall = TRANSFORM.Media.Solids.AlloyN,
     nParallel=2*3,
-    redeclare model HeatTransfer_tube =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Nus_SinglePhase_2Region,
     redeclare package Medium_tube = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
@@ -678,12 +676,15 @@ parameter SIadd.ExtraProperty[reflA_lower.nV,data_traceSubstances.nC] Cs_start_r
     T_b_start_tube=data_SHX.T_outlet_tube,
     m_flow_a_start_tube=2*3*data_SHX.m_flow_tube,
     redeclare model HeatTransfer_shell =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.FlowAcrossTubeBundles_Grimison
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
         (
         D=data_SHX.D_tube_outer,
         S_T=data_SHX.pitch_tube,
         S_L=data_SHX.pitch_tube,
-        CF=fill(0.44, SHX.shell.heatTransfer.nHT))) annotation (Placement(
+        CF=0.44),
+    redeclare model HeatTransfer_tube =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region)
+                                                    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
