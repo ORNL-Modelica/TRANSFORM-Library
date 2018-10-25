@@ -206,15 +206,7 @@ equation
   end for;
 
   annotation (defaultComponentName="fissionProducts", Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Text(
-          extent={{-38,28},{44,-28}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="FP")}));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
+        ={Bitmap(extent={{-100,-100},{100,100}}, fileName=
+              "modelica://TRANSFORM/Resources/Images/Icons/BatemanEquations.jpg")}));
 end FissionProducts;
