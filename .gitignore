@@ -40,3 +40,4 @@ statistics.json
 *.pyc
 dymola.log
 .ipynb_checkpoints/
+TRANSFORM/Resources/Images/~$Information.pptm
