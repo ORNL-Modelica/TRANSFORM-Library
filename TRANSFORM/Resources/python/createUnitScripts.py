@@ -10,7 +10,7 @@ import re
 import errno
 import sys
 
-folderPath = r'C:\Users\vmg\Documents\Modelica\TRANSFORM-Library'
+folderPath = r'C:\Users\vmg\Documents\Modelica\External\TRANSFORM-Library'
 folderName = r'TRANSFORM'
 
 #useVarNames=true to use variables names (i.e., x={varnames})

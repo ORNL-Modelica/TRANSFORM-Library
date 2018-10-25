@@ -1,8 +1,5 @@
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
-simulateModel("TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples.NSSS_Test",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NSSS_Test");
-simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
-simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
 simulateModel("TRANSFORM.Blocks.Examples.ExponentialDecay_Test",resultFile="ExponentialDecay_Test");
 simulateModel("TRANSFORM.Blocks.Examples.IntegratorWithReset",stopTime=1.0,tolerance=1e-6,resultFile="IntegratorWithReset");
 simulateModel("TRANSFORM.Blocks.Examples.MFBS_Test",stopTime=10,resultFile="MFBS_Test");
@@ -17,9 +14,6 @@ simulateModel("TRANSFORM.Controls.Examples.LimPID_Test",stopTime=1.0,tolerance=1
 simulateModel("TRANSFORM.Controls.Examples.LimPID_withReset_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_withReset_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
-simulateModel("TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples.NSSS_Test",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NSSS_Test");
-simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
-simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.BranchingDynamicPipes",stopTime=10,resultFile="BranchingDynamicPipes");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.BranchingDynamicPipes_MultiSurface",stopTime=10,resultFile="BranchingDynamicPipes_MultiSurface");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.HeatingSystem",stopTime=6000,resultFile="HeatingSystem");
@@ -27,7 +21,6 @@ simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.IncompressibleFluidNetwork",sto
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.InverseParameterization",outputInterval=0.001,stopTime=10,resultFile="InverseParameterization");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.PumpingSystem",outputInterval=0.4,stopTime=2000,tolerance=1e-006,resultFile="PumpingSystem");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.RoomCO2WithControls",stopTime=86400,tolerance=1e-006,method="Esdirk45a",resultFile="RoomCO2WithControls");
-simulateModel("TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.SystemVariableHeatLoad",stopTime=25000,tolerance=1e-005,resultFile="SystemVariableHeatLoad");
 simulateModel("TRANSFORM.Fluid.Examples.TritiumExamples.HumTest",stopTime=100,resultFile="HumTest");
 simulateModel("TRANSFORM.Fluid.Examples.TritiumExamples.PbLiTest2",stopTime=100,resultFile="PbLiTest2");
 simulateModel("TRANSFORM.Fluid.Examples.NaturalCirculation",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NaturalCirculation");
