@@ -99,6 +99,8 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=pipe.summary.T_effective);
 
+  parameter Boolean use_heatPort_addWall = false "=true for additional source/sink for heat between wall and insulation" annotation(Dialog(group="Heat Transfer"));
+
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder wall[pipe.geometry.nV](
     length=pipe.geometry.dlengths,
     r_inner=0.5*pipe.geometry.dimensions,
@@ -106,8 +108,8 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
     each energyDynamics=energyDynamics_wall,
     each T_start=T_wall_start,
     r_outer=ths_wall + 0.5*pipe.geometry.dimensions,
-    each exposeState_a=true)
-                     annotation (Placement(transformation(
+    each exposeState_a=true,
+    Q_gen=Q_gen)     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-50})));
@@ -140,10 +142,15 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,60})));
-  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_add[geometry.nZ,
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_add[geometry.nV,
     geometry.nSurfaces - 1] if geometry.nSurfaces > 1
     annotation (Placement(transformation(extent={{20,-80},{40,-60}}),
         iconTransformation(extent={{20,-10},{40,10}})));
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_addWall[geometry.nV] if use_heatPort_addWall "Additional heat source/sink between wall and insulation" annotation (Placement(
+        transformation(extent={{20,-46},{40,-26}}), iconTransformation(extent={{
+            20,22},{40,42}})));
+  input SI.HeatFlowRate Q_gen[geometry.nV]=zeros(geometry.nV) "Wall internal heat generation" annotation(Dialog(group="Inputs"));
+
 equation
   connect(port_a, pipe.port_a) annotation (Line(
       points={{-100,0},{-60,0},{-60,-80},{-10,-80}},
@@ -165,6 +172,8 @@ equation
           -10},{0,-10},{0,3}}, color={191,0,0}));
   connect(heatPorts_add, pipe.heatPorts[:,2:geometry.nSurfaces])
     annotation (Line(points={{30,-70},{0,-70},{0,-75}}, color={191,0,0}));
+  connect(heatPorts_addWall, wall.port_b)
+    annotation (Line(points={{30,-36},{0,-36},{0,-40}}, color={191,0,0}));
   annotation (defaultComponentName="pipe",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
