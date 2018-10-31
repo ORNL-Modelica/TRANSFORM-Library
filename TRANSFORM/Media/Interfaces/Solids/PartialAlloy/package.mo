@@ -35,7 +35,7 @@ partial package PartialAlloy "Partial material properties (base package of all m
     SpecificEnthalpy h "Specific enthalpy of medium";
     Density d "Density of medium";
     SpecificInternalEnergy u "Specific internal energy of medium";
-    MolarMass MM "Molar mass (of mixture or single fluid)";
+    SI.MolarMass MM "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "Thermodynamic state record for optional functions";
 
