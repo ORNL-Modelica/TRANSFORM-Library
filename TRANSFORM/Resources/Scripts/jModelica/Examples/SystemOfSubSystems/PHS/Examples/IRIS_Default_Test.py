@@ -7,4 +7,7 @@ modelName = 'TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Tes
 fmu = compile_fmu(modelName,libPath,target='cs')
 model = load_fmu(fmu)
 
-result = model.simulate()
+opts = model.simulate_options()
+opts['time_limit'] = 60
+
+results=model.simulate(options=opts)

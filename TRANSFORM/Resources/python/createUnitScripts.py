@@ -286,12 +286,14 @@ for item in test_list:
             with open(os.path.join(mosPath_jMod, modelName + '.py'), 'w') as mosfil:
                 # Write simulation instruction
                 mosfil.write('from pymodelica import compile_fmu\n')
-                mosfil.write('from pyfmi import load_fmu\n\n')
-                mosfil.write("libPath = r'{}/{}'\n".format(folderPath,folderName))
-                mosfil.write("modelName = '{}'\n\n".format(plotSimPath))
-                mosfil.write("fmu = compile_fmu(modelName,libPath,target='cs')\n")
+                mosfil.write('from pyfmi import load_fmu\n')
+                mosfil.write("\nlibPath = r'{}/{}'\n".format(folderPath,folderName))
+                mosfil.write("modelName = '{}'\n".format(plotSimPath))
+                mosfil.write("\nfmu = compile_fmu(modelName,libPath,target='cs')\n")
                 mosfil.write("model = load_fmu(fmu)\n\n")
-                
+                mosfil.write("opts = model.simulate_options()\n")
+                mosfil.write("opts['time_limit'] = 60\n")
+                mosfil.write("\nresults=model.simulate(options=opts)\n")
 #                if 'StartTime' in exp_list:
 #                    temp = exp_list['StartTime']
 #                else:
@@ -307,7 +309,7 @@ for item in test_list:
 #                mosfil.write('\n')
 #                mosfil.write("result = model.simulate(start_time=start_time,final_time=final_time)\n")
                  
-                mosfil.write("result = model.simulate()\n")
+#                mosfil.write("result = model.simulate()\n")
                 
             with open(os.path.join(folderPath,'runAll_Dym.mos'), 'a') as mosDym:
                 mosDym.write('simulateModel("{}",'.format(plotSimPath))
