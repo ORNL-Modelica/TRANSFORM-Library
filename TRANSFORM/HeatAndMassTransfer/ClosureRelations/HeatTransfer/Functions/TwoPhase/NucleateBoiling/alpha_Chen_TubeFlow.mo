@@ -81,10 +81,9 @@ algorithm
   Pr_fsat :=cp_fsat*mu_fsat/lambda_fsat;
 
   x_limit :=TRANSFORM.Math.spliceSigmoid(
-     x,
      0.98,
      x,
-     0.96);
+     x-0.96);
 
   // Source 1: Figure 6
   X_tt_inv :=(x_limit/(1 - x_limit))^(0.9)*(rho_fsat/rho_gsat)^(0.5)*(mu_gsat/mu_fsat)^(0.1);

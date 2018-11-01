@@ -7,4 +7,7 @@ modelName = 'TRANSFORM.Math.Examples.gamma_Lanczos'
 fmu = compile_fmu(modelName,libPath,target='cs')
 model = load_fmu(fmu)
 
-result = model.simulate()
+opts = model.simulate_options()
+opts['time_limit'] = 60
+
+results=model.simulate(options=opts)
