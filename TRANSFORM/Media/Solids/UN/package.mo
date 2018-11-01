@@ -9,7 +9,7 @@ package UN "UN: Uranium Mononitride"
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="UN",
     T_min=Modelica.SIunits.Conversions.from_degC(-273),
-    T_max=Modelica.SIunits.Conversions.from_degC(3000),
+    T_max=3170,
     MM_const=0.252);
 
     constant Real theta(unit="K") = 365.7;

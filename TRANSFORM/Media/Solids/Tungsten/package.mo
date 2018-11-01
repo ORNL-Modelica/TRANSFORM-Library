@@ -25,8 +25,13 @@ package Tungsten "Pure natural Tungsten"
 
   redeclare function extends specificEnthalpy
     "Specific enthalpy"
+protected
+            Real t = state.T/1000;
+            SI.SpecificEnthalpy h_lo, h_hi;
   algorithm
-    h := h_reference + 500*(state.T - T_reference);
+    h_lo := A[1]*t+B[1]/2*t^2+C[1]/3*t^3+D[1]/4*t^4-E[1]/t+F[1]-H[1];
+    h_hi := A[2]*t+B[2]/2*t^2+C[2]/3*t^3+D[2]/4*t^4-E[2]/t+F[2]-H[2];
+    h := h_reference + TRANSFORM.Math.spliceTanh(h_hi,h_lo,state.T-trans,100)/MM_const;
   end specificEnthalpy;
 
   redeclare function extends density
@@ -43,7 +48,12 @@ package Tungsten "Pure natural Tungsten"
 
   redeclare function extends specificHeatCapacityCp
     "Specific heat capacity"
+protected
+            Real t = state.T/1000;
+            SI.SpecificHeatCapacity cp_lo, cp_hi;
   algorithm
-    cp := A[i]*t;
+    cp_lo :=A[1] + B[1]*t + C[1]*t^2 + D[1]*t^3 + E[1]/t^2;
+    cp_hi :=A[2] + B[2]*t + C[2]*t^2 + D[2]*t^3 + E[2]/t^2;
+    cp := TRANSFORM.Math.spliceTanh(cp_hi,cp_lo,state.T-trans,100)/MM_const;
   end specificHeatCapacityCp;
 end Tungsten;
