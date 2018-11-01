@@ -13,15 +13,15 @@ partial model SteamTurbineBase "Steam turbine"
       redeclare package Medium = Medium,
       m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
       h_outflow(start=h_a_start)) "high pressure port"
-    annotation (Placement(transformation(extent={{-100,60},{-60,100}}, rotation=
+    annotation (Placement(transformation(extent={{-120,40},{-80,80}},  rotation=
            0), iconTransformation(extent={{-110,50},{-90,70}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow portLP(
       redeclare package Medium = Medium,
       m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
       p(start=p_b_start)) "low pressure port"
-                          annotation (Placement(transformation(extent={{50,-120},
-            {90,-80}},
-          rotation=0), iconTransformation(extent={{60,-110},{80,-90}})));
+                          annotation (Placement(transformation(extent={{80,40},
+            {120,80}},
+          rotation=0), iconTransformation(extent={{90,50},{110,70}})));
 
   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft_a annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}},rotation=0),
@@ -226,15 +226,7 @@ equation
   annotation (
     Icon(graphics={
         Rectangle(
-          extent={{-6,15.5},{6,-15.5}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillPattern=FillPattern.VerticalCylinder,
-          fillColor={0,127,255},
-          origin={70,-83.5},
-          rotation=180),
-        Rectangle(
-          extent={{40,-68},{64,-80}},
+          extent={{40,66},{92,54}},
           lineColor={0,0,0},
           lineThickness=0.5,
           fillPattern=FillPattern.HorizontalCylinder,
@@ -257,7 +249,6 @@ equation
           lineColor={0,0,0},
           fillColor={0,114,208},
           fillPattern=FillPattern.Solid),
-        Text(extent={{-126,114},{132,74}},   textString="%name"),
         Polygon(
           points={{-104,38},{-104,38}},
           lineColor={0,0,0},
@@ -268,7 +259,12 @@ equation
           lineColor={0,0,0},
           lineThickness=0.5,
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255})}),
+          fillColor={0,127,255}),
+        Text(
+          extent={{-149,-68},{151,-108}},
+          lineColor={0,0,255},
+          textString="%name",
+          visible=DynamicSelect(true,showName))}),
     Documentation(info="<html>
 <p>This base model contains the basic interface, parameters and definitions for steam turbine models. It lacks the actual performance characteristics, i.e. two more equations to determine the flow rate and the efficiency.
 <p>This model does not include any shaft inertia by itself; if that is needed, connect a <tt>Modelica.Mechanics.Rotational.Inertia</tt> model to one of the shaft connectors.

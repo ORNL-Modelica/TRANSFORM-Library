@@ -77,7 +77,11 @@ equation
               lineColor={0,0,0},
               fillColor={255,255,255},
               fillPattern=FillPattern.Solid,
-              textString="G")}),
+              textString="G"),
+        Text(
+          extent={{-149,-68},{151,-108}},
+          lineColor={238,46,47},
+          textString="%name")}),
     Documentation(info="<html>
 <p>This model describes the conversion between mechanical power and electrical power in an ideal synchronous generator. 
 The frequency in the electrical connector is the e.m.f. of generator.

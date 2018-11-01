@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
-function QuadraticCurve
-   "Quadratic curve, including linear extrapolation beyond defined curve limits"
+function quadraticCurve
+  "Quadratic curve, including linear extrapolation beyond defined curve limits"
   extends Icons.Function;
 
   input Real x "abscissa value of interest";
@@ -10,7 +10,7 @@ function QuadraticCurve
   output Real y "Ordinate output at x";
 
 protected
-  Real[3] c=QuadraticCoefficients(x_curve, y_curve)
+  Real[3] c=quadraticCoefficients(x_curve, y_curve)
     "Coefficients of quadratic power consumption curve";
   Real x_min=min(x_curve);
   Real x_max=max(x_curve);
@@ -38,4 +38,4 @@ algorithm
     end if;
   end if;
 
-end QuadraticCurve;
+end quadraticCurve;

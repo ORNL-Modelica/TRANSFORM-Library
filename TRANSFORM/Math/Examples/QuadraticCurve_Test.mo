@@ -217,7 +217,7 @@ model QuadraticCurve_Test
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 
-  y = QuadraticCurve(x_input.y[1], {0,0.001,0.0015}, {60,30,0});
+  y = quadraticCurve(x_input.y[1], {0,0.001,0.0015}, {60,30,0});
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

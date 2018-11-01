@@ -1,6 +1,6 @@
 within TRANSFORM.Units.Conversions.Functions.TemperatureDifference_dK;
 function from_degF_diff
-  "Temperature Difference: [degF] -> [K]"
+  "Temperature Difference: [degF/degK] -> [K]"
   extends BaseClasses.from;
 
 algorithm

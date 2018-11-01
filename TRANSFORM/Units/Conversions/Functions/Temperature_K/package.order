@@ -4,3 +4,5 @@ from_degF
 to_degC
 to_degF
 to_degR
+to_K
+from_K

@@ -62,7 +62,7 @@ of the modeller.
   port_2.p = medium.p;
   port_3.p = medium.p;
 
-  annotation (Documentation(info="<html>
+  annotation (defaultComponentName="tee",Documentation(info="<html>
   This model introduces a mixing volume into a junction.
   This might be useful to examine the non-ideal mixing taking place in a real junction.</html>"),
 Icon(coordinateSystem(

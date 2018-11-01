@@ -1,5 +1,9 @@
+simulateModel("TRANSFORM.Examples.Demonstrations.Examples.BatemanEquations_Test",stopTime=1000,numberOfIntervals=1000,resultFile="BatemanEquations_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
+simulateModel("TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples.NSSS_Test",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NSSS_Test");
+simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
+simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
 simulateModel("TRANSFORM.Blocks.Examples.ExponentialDecay_Test",resultFile="ExponentialDecay_Test");
 simulateModel("TRANSFORM.Blocks.Examples.IntegratorWithReset",stopTime=1.0,tolerance=1e-6,resultFile="IntegratorWithReset");
 simulateModel("TRANSFORM.Blocks.Examples.MFBS_Test",stopTime=10,resultFile="MFBS_Test");
@@ -12,8 +16,12 @@ simulateModel("TRANSFORM.Controls.Examples.LimPID_HysteresisTimer_Test",stopTime
 simulateModel("TRANSFORM.Controls.Examples.LimPID_Hysteresis_Test",stopTime=86400,tolerance=1e-6,resultFile="LimPID_Hysteresis_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_withReset_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_withReset_Test");
+simulateModel("TRANSFORM.Examples.Demonstrations.Examples.BatemanEquations_Test",stopTime=1000,numberOfIntervals=1000,resultFile="BatemanEquations_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
+simulateModel("TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples.NSSS_Test",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NSSS_Test");
+simulateModel("TRANSFORM.Examples.LightWaterSmallModularReactor.Examples.IRIS_Default_Teststandalone",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Teststandalone");
+simulateModel("TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples.IRIS_Default_Test",stopTime=100,method="Esdirk45a",numberOfIntervals=100,resultFile="IRIS_Default_Test");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.BranchingDynamicPipes",stopTime=10,resultFile="BranchingDynamicPipes");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.BranchingDynamicPipes_MultiSurface",stopTime=10,resultFile="BranchingDynamicPipes_MultiSurface");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.HeatingSystem",stopTime=6000,resultFile="HeatingSystem");
@@ -119,6 +127,7 @@ simulateModel("TRANSFORM.Math.Examples.logspace",numberOfIntervals=100,resultFil
 simulateModel("TRANSFORM.Math.Examples.meanFactor",stopTime=10,resultFile="meanFactor");
 simulateModel("TRANSFORM.Math.Examples.QuadraticCurve_Test",stopTime=10,resultFile="QuadraticCurve_Test");
 simulateModel("TRANSFORM.Math.Examples.smoothMax",stopTime=10,resultFile="smoothMax");
+simulateModel("TRANSFORM.Math.Examples.spliceCosN",stopTime=10,resultFile="spliceCosN");
 simulateModel("TRANSFORM.Math.Examples.spliceSigmoid",stopTime=10,resultFile="spliceSigmoid");
 simulateModel("TRANSFORM.Math.Examples.spliceTanh",stopTime=10,resultFile="spliceTanh");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearDOWTHERM_A_95C_pT",resultFile="LinearDOWTHERM_A_95C_pT");

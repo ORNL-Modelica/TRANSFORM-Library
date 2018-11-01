@@ -37,7 +37,6 @@ model Pump_Test
   TRANSFORM.Fluid.Machines.Pump pump(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     V=0.01,
-    m_flow_start=0,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     N_nominal=1500,
     use_powerCharacteristic=true,

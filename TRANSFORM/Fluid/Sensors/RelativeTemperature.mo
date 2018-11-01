@@ -17,10 +17,19 @@ model RelativeTemperature "Ideal relative temperature sensor"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,36})));
+
+  parameter Boolean refPort_a = true "=true for T_rel = port_a.T - port_b.T else T_rel = port_b.T - port_a.T";
+
 equation
   // Relative temperature
-  T_rel = Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow))) -
-          Medium.temperature(Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), inStream(port_b.Xi_outflow)));
+  if refPort_a then
+    T_rel = Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow))) -
+            Medium.temperature(Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), inStream(port_b.Xi_outflow)));
+  else
+    T_rel = Medium.temperature(Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), inStream(port_b.Xi_outflow))) -
+            Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
+  end if;
+
   annotation (
     Icon(graphics={
         Text(
@@ -28,15 +37,7 @@ equation
           lineColor={0,0,0},
           textString="T_rel"),
         Line(points={{-100,0},{-50,0}}, color={0,128,255}),
-        Line(points={{50,0},{100,0}}, color={0,128,255}),
-        Line(points={{-70,18},{-40,18}}),
-        Polygon(
-          points={{4,0},{-4,-4},{-4,4},{4,0}},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None,
-          origin={-36,18},
-          rotation=360)}),
+        Line(points={{50,0},{100,0}}, color={0,128,255})}),
     Documentation(info="<html>
 <p>
 The relative temperature \"T(port_a) - T(port_b)\" is determined between

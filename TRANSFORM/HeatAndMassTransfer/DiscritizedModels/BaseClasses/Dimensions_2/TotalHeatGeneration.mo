@@ -3,7 +3,7 @@ model TotalHeatGeneration
 
   extends PartialInternalHeatGeneration;
 
-  input SI.HeatFlowRate Q_gen=0 "Total heat generation over entire volume "
+  input SI.HeatFlowRate Q_gen=0 "Total heat generation over entire volume"
     annotation (Dialog(group="Inputs"));
   input SI.HeatFlowRate Q_gens[nVs[1],nVs[2]]=fill(
       Q_gen/(nVs[1]*nVs[2]),

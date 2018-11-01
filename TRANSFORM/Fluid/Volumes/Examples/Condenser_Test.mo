@@ -71,7 +71,7 @@ model Condenser_Test
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(massFlowRate.m_flow, neg.u) annotation (Line(
-      points={{-46,14.1},{-46,-25},{-49.4,-25}},
+      points={{-46,20.76},{-46,-25},{-49.4,-25}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(coolingMassFlow.y, coolFlow.m_flow_in) annotation (Line(points={{82.2,

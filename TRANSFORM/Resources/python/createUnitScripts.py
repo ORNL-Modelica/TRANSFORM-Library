@@ -3,6 +3,15 @@
 Created on Tue Oct 24 14:57:15 2017
 
 @author: vmg
+
+Creates .mos files for regression testing.
+
+1. Place this file in LIBRARYPATH\Resources\python
+2. Update 'folderPath' and 'folderName'
+3. Run
+	- This will generate scripts at locatin: LIBRARYPATH\Resources\Scripts
+4. To generate referece results run the buildingspy regression test (generates reference results in LIBRARYPATH\Resources\ReferenceResults
+
 """
 
 import os
@@ -10,7 +19,7 @@ import re
 import errno
 import sys
 
-folderPath = r'C:\Users\vmg\Documents\Modelica\External\TRANSFORM-Library'
+folderPath = r'C:\Users\vmg\Documents\Modelica\TRANSFORM-Library'
 folderName = r'TRANSFORM'
 
 #useVarNames=true to use variables names (i.e., x={varnames})
@@ -228,7 +237,7 @@ for item in test_list:
             equals_notFound.append(item)
             print('Value of interest, x, not found in unitTests for test: {}'.format(item))
 
-    # Create simulation file for from gathered parameters
+    # Create simulation file from gathered parameters
     if found_unitTests and found_equals:
         modelName = os.path.splitext(os.path.basename(item))[0]
         modelSimPath = ''.join(re.findall(r'[^;]+', ''.join(lines[0].rstrip('\n'))))
@@ -242,13 +251,18 @@ for item in test_list:
         # mosPath = C:\FOLDERPATH\FOLDERNAME\Resources\Scripts\SIMENV\Examples
         mosPath = os.path.join(folderPath, folderName, 'Resources', 'Scripts', simEnv, '\\'.join(modelSimPath.split('.')[1:]))
         mkdir_p(mosPath)
-
+        
+        mosPath_jMod = os.path.join(folderPath, folderName, 'Resources', 'Scripts', 'jModelica', '\\'.join(modelSimPath.split('.')[1:]))
+        mkdir_p(mosPath_jMod)
+        
         # Create list of all generated unit tests
         unitTests.append(os.path.join(mosPath,modelName))
         if promptWriteOver:
             # Check if file .mos already exists and prompt user if they wish to replace it.
             if os.path.isfile(os.path.join(mosPath, modelName + '.mos')):
                 writeFile = query_yes_no('File {} already exists. \n Do you wish to replace it?'.format(os.path.join(mosPath, modelName + '.mos')))
+            if os.path.isfile(os.path.join(mosPath_jMod, modelName + '.py')):
+                writeFile = query_yes_no('File {} already exists. \n Do you wish to replace it?'.format(os.path.join(mosPath_jMod, modelName + '.py')))
         else:
             writeFile = True
 
@@ -268,7 +282,35 @@ for item in test_list:
                 else:
                     for i in xrange(n):
                         mosfil.write('createPlot(id={}, y={{"unitTests.x[{}]"}}, grid=true);\n'.format(i+1, i+1))
-             
+                        
+            with open(os.path.join(mosPath_jMod, modelName + '.py'), 'w') as mosfil:
+                # Write simulation instruction
+                mosfil.write('from pymodelica import compile_fmu\n')
+                mosfil.write('from pyfmi import load_fmu\n')
+                mosfil.write("\nlibPath = r'{}/{}'\n".format(folderPath,folderName))
+                mosfil.write("modelName = '{}'\n".format(plotSimPath))
+                mosfil.write("\nfmu = compile_fmu(modelName,libPath,target='cs')\n")
+                mosfil.write("model = load_fmu(fmu)\n\n")
+                mosfil.write("opts = model.simulate_options()\n")
+                mosfil.write("opts['time_limit'] = 60\n")
+                mosfil.write("\nresults=model.simulate(options=opts)\n")
+#                if 'StartTime' in exp_list:
+#                    temp = exp_list['StartTime']
+#                else:
+#                    temp = 0
+#                mosfil.write("start_time = {}\n".format(temp)) 
+#                
+#                if 'StopTime' in exp_list:
+#                    temp = exp_list['StopTime']
+#                else:
+#                    temp = 1
+#                mosfil.write("final_time = {}\n".format(temp))  
+                
+#                mosfil.write('\n')
+#                mosfil.write("result = model.simulate(start_time=start_time,final_time=final_time)\n")
+                 
+#                mosfil.write("result = model.simulate()\n")
+                
             with open(os.path.join(folderPath,'runAll_Dym.mos'), 'a') as mosDym:
                 mosDym.write('simulateModel("{}",'.format(plotSimPath))
                 for key, value in exp_list.items():

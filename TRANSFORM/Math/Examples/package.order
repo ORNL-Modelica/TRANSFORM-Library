@@ -1,5 +1,6 @@
 spliceSigmoid
 spliceTanh
+spliceCosN
 logspace
 QuadraticCurve_Test
 CubicHermiteSpline
