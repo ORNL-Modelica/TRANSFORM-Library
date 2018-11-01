@@ -31,7 +31,7 @@ package ZircHydride "ZrH1.89"
     //Uses function for X>1.6
     //For X<1.6, use d:=1/(0.1541+0.0145*X)
   algorithm
-    d := 1/(0.1706 + 0.0042*X);
+    d := 1/(0.1706 + 0.0042*X)*1000;
   end density;
 
   redeclare function extends thermalConductivity
