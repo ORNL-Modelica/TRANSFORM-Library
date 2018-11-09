@@ -7,3 +7,4 @@ GenericPipe_withWallAndInsulation
 TransportDelayPipe
 parallelFlow
 BaseClasses
+GenericPipe_withWallx2
