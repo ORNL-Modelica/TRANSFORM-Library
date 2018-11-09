@@ -240,11 +240,9 @@ model GenericPipe_withWallx2
         rotation=90,
         origin={0,10})));
 
-  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_a1
-                                                                   [geometry.nR]
+  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_a1[geometry.nR_2]
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_b1
-                                                                   [geometry.nR]
+  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_b1[geometry.nR_2]
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
   HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_addWall[geometry.nV] if use_heatPort_addWall "Additional heat source/sink between wall and insulation" annotation (Placement(
         transformation(extent={{20,-26},{40,-6}}),  iconTransformation(extent={{
