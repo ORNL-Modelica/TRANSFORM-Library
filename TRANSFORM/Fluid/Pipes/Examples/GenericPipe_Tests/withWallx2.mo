@@ -20,7 +20,8 @@ extends TRANSFORM.Icons.Example;
         (
         dimension=0.1,
         nV=1,
-        nR=5),
+        nR=5,
+        nR_2=3),
     p_a_start=100000,
     T_a_start=323.15)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
