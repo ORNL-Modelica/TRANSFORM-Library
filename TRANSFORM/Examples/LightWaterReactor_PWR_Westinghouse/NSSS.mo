@@ -451,12 +451,12 @@ equation
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(sensorBus.T_Core_Inlet, T_Core_Inlet.T) annotation (Line(
-      points={{-29.9,100.1},{-98,100.1},{-98,-44},{-76.4,-44}},
+      points={{-29.9,100.1},{-98,100.1},{-98,-44},{-74.4,-44}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(sensorBus.T_Core_Outlet, T_Core_Outlet.T) annotation (Line(
-      points={{-29.9,100.1},{-98,100.1},{-98,-16},{-76.4,-16}},
+      points={{-29.9,100.1},{-98,100.1},{-98,-16},{-74.4,-16}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
@@ -547,12 +547,12 @@ equation
   connect(massFlowRate1.port_b, port_b) annotation (Line(points={{86,54},{92,54},
           {92,40},{100,40}}, color={0,127,255}));
   connect(sensorBus.m_flow_boilerDrum, massFlowRate1.m_flow) annotation (Line(
-      points={{-29.9,100.1},{8,100.1},{8,102},{80,102},{80,60.6}},
+      points={{-29.9,100.1},{8,100.1},{8,102},{80,102},{80,56.16}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(sensorBus.m_flow_feedWater, massFlowRate.m_flow) annotation (Line(
-      points={{-29.9,100.1},{8,100.1},{8,102},{98,102},{98,20},{80.6,20}},
+      points={{-29.9,100.1},{8,100.1},{8,102},{98,102},{98,20},{76.16,20}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));

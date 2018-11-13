@@ -8,7 +8,8 @@ model Cylinder_specifyDiameter
 
   SI.Area crossArea = 0.25*pi*dimension^2 "Cross sectional area";
 
-  extends TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume(
+  extends
+    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume(
      final V=crossArea*length, dheight=length*sin(angle));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

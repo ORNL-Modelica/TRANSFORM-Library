@@ -1,5 +1,9 @@
 BaseClasses
 to_s
+to_min
+to_hr
+to_day
+to_yr
 from_s
 from_hr
 from_min

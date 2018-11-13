@@ -22,3 +22,7 @@ ExtraPropertyConcentration
 ExtraPropertyExtrinsic
 NeutronFlux
 IsobaricExpansionCoefficient
+SpecificActivity
+Dose
+DoseRate
+StoppingPowerParticle

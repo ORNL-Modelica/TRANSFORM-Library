@@ -4,6 +4,8 @@ model spliceTanh
   extends TRANSFORM.Icons.Example;
 
   Real y "Function value";
+  Real dy;
+
   Utilities.ErrorAnalysis.UnitTests unitTests(x={y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
@@ -12,5 +14,7 @@ equation
     neg=-1,
     x=time-5,
     deltax=1);
+    dy = der(y);
+
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
 end spliceTanh;

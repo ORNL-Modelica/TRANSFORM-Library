@@ -4,6 +4,10 @@ model LorenzSystem_Test
 
   extends Icons.Example;
 
+  parameter Real sigma=10;
+  parameter Real rho=28;
+  parameter Real beta=8/3;
+
   TRANSFORM.Examples.Demonstrations.Models.LorenzSystem lorenzSystem(
     x_start=0,
     y_start=1,
@@ -19,9 +23,7 @@ model LorenzSystem_Test
     n=3,
     x={lorenzSystem.x,lorenzSystem.y,lorenzSystem.z})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  parameter Real sigma=10;
-  parameter Real rho=28;
-  parameter Real beta=8/3;
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=100, __Dymola_NumberOfIntervals=10000));
