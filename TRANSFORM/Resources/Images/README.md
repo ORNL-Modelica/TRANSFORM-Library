@@ -1,6 +1,6 @@
 ## To create new images using InkScape (i.e., svg)
 1. Open Inkscape
-1. Copy the template from the desired folder (e.g., Icons/templateIcon.svg) and give it a new name (e.g., myImage.svg)
+1. Copy the template from the desired folder (e.g., Icons/template.svg) and give it a new name (e.g., myImage.svg)
 1. open myImage.svg and create image
 1. To generate png, do one of the following into the correct folder
 
