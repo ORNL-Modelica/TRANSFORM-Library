@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.withWallx2",stopTime=1000,resultFile="withWallx2");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

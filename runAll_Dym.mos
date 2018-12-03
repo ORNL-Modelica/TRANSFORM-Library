@@ -48,6 +48,7 @@ simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.nParallel_withWa
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.nParallel_withWall_StateBoundary",numberOfIntervals=100,resultFile="nParallel_withWall_StateBoundary");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.withWall",stopTime=100,resultFile="withWall");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.withWallTrace",stopTime=100,method="Esdirk45a",resultFile="withWallTrace");
+simulateModel("TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests.withWallx2",stopTime=1000,resultFile="withWallx2");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.TransportDelayPipeTests.CheckDelayTime",stopTime=11,resultFile="CheckDelayTime");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.TransportDelayPipeTests.Test1_MultiSpeciesMultiTrace",stopTime=10,resultFile="Test1_MultiSpeciesMultiTrace");
 simulateModel("TRANSFORM.Fluid.Pipes.Examples.TransportDelayPipeTests.Test2_MultiSpeciesMultiTrace",stopTime=20,resultFile="Test2_MultiSpeciesMultiTrace");
@@ -102,6 +103,7 @@ simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels.W
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels.Winding_12D",stopTime=100,numberOfIntervals=100,resultFile="Winding_12D");
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels.Winding_12D_variableArea",stopTime=100,numberOfIntervals=100,resultFile="Winding_12D_variableArea");
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels.Winding_12D_withMass",stopTime=100,numberOfIntervals=100,resultFile="Winding_12D_withMass");
+simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ClosedGeometry_Test",stopTime=100,resultFile="ClosedGeometry_Test");
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.nParallel_Test",numberOfIntervals=100,resultFile="nParallel_Test");
 simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ResistanceCheck",numberOfIntervals=100,resultFile="ResistanceCheck");
 simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.NucleateBoiling.alpha_Chen_FvsInvXtt",method="Dassl",numberOfIntervals=1000,resultFile="alpha_Chen_FvsInvXtt");
