@@ -10,6 +10,8 @@ partial model PartialGeometry_1D
 
   final parameter Integer n_total=ns[1] "Total number of nodes";
 
+  parameter Boolean closedDim_1(fixed=false) "=true if the conduction path is closed on itself for specified dimension";
+
   output SI.Volume Vs[ns[1]] "Unit volumes" annotation (Dialog(
       tab="Internal Interface",
       group="Outputs",
@@ -42,6 +44,7 @@ partial model PartialGeometry_1D
   SI.Area surfaceArea_total=sum(surfaceAreas_23) "Total surface area";
 
   SI.Length cs_1[ns[1]] "Unit cell centers dimension-1 cartesian coordinate";
+
 
   annotation (
     defaultComponentName="geometry",
