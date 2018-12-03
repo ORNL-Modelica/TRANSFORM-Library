@@ -41,8 +41,18 @@ model Cylinder_2D_r_theta
   SI.Angle thetas[nR,nTheta] "Position in theta-dimension";
   SI.Length zs[nR,nTheta] "Position in z-dimension";
 
-algorithm
+initial equation
+  closedDim_1 = fill(false,nTheta);
 
+  for i in 1:nR loop
+    if abs(sum(dthetas[i, :]) - 2*Modelica.Constants.pi) < Modelica.Constants.eps then
+      closedDim_2[i] = true;
+    else
+      closedDim_2[i] = false;
+    end if;
+  end for;
+
+algorithm
   for j in 1:nTheta loop
     rs[1, j] := r_inner + 0.5*drs[1, j];
     for i in 2:nR loop

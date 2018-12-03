@@ -1,7 +1,7 @@
 from pymodelica import compile_fmu
 from pyfmi import load_fmu
 
-libPath = r'C:\Users\vmg\Documents\Modelica\External\TRANSFORM-Library/TRANSFORM'
+libPath = r'C:\Users\vmg\Documents\Modelica\TRANSFORM-Library/TRANSFORM'
 modelName = 'TRANSFORM.Blocks.Examples.PRTS_Test'
 
 fmu = compile_fmu(modelName,libPath,target='cs')

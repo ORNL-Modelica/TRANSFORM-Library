@@ -150,6 +150,9 @@ model Conduction_2D "2-D Conduction Models"
     "state defined by volume outside port_b2";
 
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+
+//   parameter Boolean connectDim_1 = true "=false to remove automatic connection based on closed geometry" annotation(Dialog(tab="Advanced"));
+//   parameter Boolean connectDim_2 = true "=false to remove automatic connection based on closed geometry" annotation(Dialog(tab="Advanced"));
 protected
   Material.ThermodynamicState statesFM_1[nFM_1 + 1,nVs[2]];
   Material.ThermodynamicState statesFM_2[nVs[1],nFM_2 + 1];
@@ -184,6 +187,21 @@ equation
 
   state_a2 = Material.setState_T(port_a2.T);
   state_b2 = Material.setState_T(port_b2.T);
+
+// Auto-connection requires a change of geometry from inputs to parameters... e.g. x = alpha*x_start
+//   for j in 1:nVs[2] loop
+//     if geometry.closedDim_1[j] and connectDim_1 then
+//       connect(port_b1[j], port_a1[j]) annotation (Line(points={{100,0},{40,0},{40,
+//               0},{-100,0}}, color={191,0,0}));
+//     end if;
+//   end for;
+//
+//   for i in 1:nVs[1] loop
+//     if geometry.closedDim_2[i] and connectDim_2 then
+//       connect(port_b2[i], port_a2[i]) annotation (Line(points={{0,100},{40,100},
+//               {40,-100},{0,-100}}, color={191,0,0}));
+//     end if;
+//   end for;
 
   /*##########################################################################*/
   /*                    Dimension-1 Flow Model Definitions                    */
@@ -260,6 +278,17 @@ equation
         crossAreas_1FM[i, j] = geometry.crossAreas_1[i + 1, j];
       end for;
 
+     if geometry.closedDim_1[j] then
+      if nFM_1 == 1 then
+        lengths_1FM[1, j] = geometry.dlengths_1[1, j];
+      else
+        for i in 1:nFM_1 - 1 loop
+          lengths_1FM[i, j] = 0.5*(geometry.dlengths_1[i, j] + geometry.dlengths_1
+            [i + 1, j]);
+        end for;
+        lengths_1FM[nFM_1, j] = geometry.dlengths_1[nFM_1, j];
+      end if;
+     else
       if nFM_1 == 1 then
         lengths_1FM[1, j] = geometry.dlengths_1[1, j];
       else
@@ -271,6 +300,7 @@ equation
         end for;
         lengths_1FM[nFM_1, j] = 0.5*geometry.dlengths_1[nFM_1, j];
       end if;
+     end if;
 
     elseif not exposeState_a1 and exposeState_b1 then
       /************************************************************************/
@@ -298,6 +328,17 @@ equation
         crossAreas_1FM[i, j] = geometry.crossAreas_1[i, j];
       end for;
 
+     if geometry.closedDim_1[j] then
+      if nFM_1 == 1 then
+        lengths_1FM[1, j] = geometry.dlengths_1[1, j];
+      else
+        lengths_1FM[1, j] = 0.5*geometry.dlengths_1[1, j];
+        for i in 2:nFM_1 loop
+          lengths_1FM[i, j] = 0.5*(geometry.dlengths_1[i - 1, j] + geometry.dlengths_1
+            [i, j]);
+        end for;
+      end if;
+     else
       if nFM_1 == 1 then
         lengths_1FM[1, j] = geometry.dlengths_1[1, j];
       else
@@ -309,6 +350,7 @@ equation
         lengths_1FM[nFM_1, j] = 0.5*geometry.dlengths_1[nFM_1 - 1, j] +
           geometry.dlengths_1[nFM_1, j];
       end if;
+     end if;
 
     elseif not exposeState_a1 and not exposeState_b1 then
       /************************************************************************/
@@ -424,6 +466,17 @@ equation
         crossAreas_2FM[i, j] = geometry.crossAreas_2[i, j + 1];
       end for;
 
+     if geometry.closedDim_2[i] then
+      if nFM_2 == 1 then
+        lengths_2FM[i, 1] = geometry.dlengths_2[i, 1];
+      else
+        for j in 1:nFM_2 - 1 loop
+          lengths_2FM[i, j] = 0.5*(geometry.dlengths_2[i, j] + geometry.dlengths_2
+            [i, j + 1]);
+        end for;
+        lengths_2FM[i, nFM_2] = geometry.dlengths_2[i, nFM_2];
+      end if;
+     else
       if nFM_2 == 1 then
         lengths_2FM[i, 1] = geometry.dlengths_2[i, 1];
       else
@@ -435,6 +488,7 @@ equation
         end for;
         lengths_2FM[i, nFM_2] = 0.5*geometry.dlengths_2[i, nFM_2];
       end if;
+     end if;
 
     elseif not exposeState_a2 and exposeState_b2 then
       /************************************************************************/
@@ -462,6 +516,17 @@ equation
         crossAreas_2FM[i, j] = geometry.crossAreas_2[i, j];
       end for;
 
+     if geometry.closedDim_2[i] then
+      if nFM_2 == 1 then
+        lengths_2FM[i, 1] = geometry.dlengths_2[i, 1];
+      else
+        lengths_2FM[i, 1] = geometry.dlengths_2[i, 1];
+        for j in 2:nFM_2 loop
+          lengths_2FM[i, j] = 0.5*(geometry.dlengths_2[i, j - 1] + geometry.dlengths_2
+            [i, j]);
+        end for;
+      end if;
+     else
       if nFM_2 == 1 then
         lengths_2FM[i, 1] = geometry.dlengths_2[i, 1];
       else
@@ -473,6 +538,7 @@ equation
         lengths_2FM[i, nFM_2] = 0.5*geometry.dlengths_2[i, nFM_2 - 1] +
           geometry.dlengths_2[i, nFM_2];
       end if;
+     end if;
 
     elseif not exposeState_a2 and not exposeState_b2 then
       /************************************************************************/

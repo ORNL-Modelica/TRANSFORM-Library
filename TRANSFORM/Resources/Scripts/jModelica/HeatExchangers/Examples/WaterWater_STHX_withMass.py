@@ -1,7 +1,7 @@
 from pymodelica import compile_fmu
 from pyfmi import load_fmu
 
-libPath = r'C:\Users\vmg\Documents\Modelica\External\TRANSFORM-Library/TRANSFORM'
+libPath = r'C:\Users\vmg\Documents\Modelica\TRANSFORM-Library/TRANSFORM'
 modelName = 'TRANSFORM.HeatExchangers.Examples.WaterWater_STHX_withMass'
 
 fmu = compile_fmu(modelName,libPath,target='cs')
