@@ -5,7 +5,7 @@ model ArrheniusMassDiffusionCoefficient
 
   extends PartialMassDiffusionCoefficient;
 
-  input SI.Temperature T[nVs[1]] = states.T "Temperature" annotation(Dialog(group="Inputs"));
+  input SI.Temperature T[nVs[1]] = Material.temperature(states) "Temperature" annotation(Dialog(group="Inputs"));
   input SI.MolarEnergy Ea[nVs[1],nC] "Activation energy" annotation(Dialog(group="Inputs"));
   input Real A[nVs[1],nC] "Pre-exponential factor" annotation(Dialog(group="Inputs"));
   input Real beta[nVs[1],nC] = fill(1.0,nVs[1],nC) "Correction factor" annotation(Dialog(group="Inputs"));

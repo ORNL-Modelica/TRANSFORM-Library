@@ -5,7 +5,8 @@ model CIETLoop5 "add heat structures"
 
   package Medium = TRANSFORM.Media.Fluids.DOWTHERM.LinearDOWTHERM_A_95C;
   package Material_wall = TRANSFORM.Media.Solids.SS304_TRACE;
-  package Material_insulation = TRANSFORM.Media.Solids.FiberGlassGeneric;
+  package Material_insulation =
+      TRANSFORM.Media.Solids.FiberGlassGeneric;
 
   SI.Power Q_heater_fluid = -sum(wall_1.port_a.Q_flow);
   SI.Power Q_heater_ambient = -sum(wall_1.port_b.Q_flow);

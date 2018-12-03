@@ -28,8 +28,10 @@ model Plane_1D
   SI.Length ys[nX] "Position in y-dimension";
   SI.Length zs[nX] "Position in z-dimension";
 
-algorithm
+initial equation
+  closedDim_1 = false;
 
+algorithm
   xs[1] := 0.5*dxs[1];
   for i in 2:nX loop
     xs[i] := sum(dxs[1:i - 1]) + 0.5*dxs[i];

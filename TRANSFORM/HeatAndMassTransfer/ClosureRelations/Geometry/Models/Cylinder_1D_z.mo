@@ -20,8 +20,12 @@ model Cylinder_1D_z
   SI.Angle thetas[nZ] "Position in theta-dimension";
   SI.Length zs[nZ] "Position in z-dimension";
 
-algorithm
+initial equation
+  closedDim_1 = false;
 
+equation
+
+algorithm
   for k in 1:nZ loop
     rs[k] := r_inner + 0.5*drs[k];
   end for;
