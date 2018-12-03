@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.SystemVariableHeatLoad",stopTime=25000,tolerance=1e-005,resultFile="SystemVariableHeatLoad");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -14,7 +14,7 @@ cp => pg 158 eq. 6.21
 
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="ZrNb_E125",
-    T_min=290,
+    T_min=1,
     T_max=1100);
 
   redeclare function extends specificEnthalpy

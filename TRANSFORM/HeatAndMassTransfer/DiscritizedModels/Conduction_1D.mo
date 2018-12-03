@@ -220,16 +220,27 @@ equation
       crossAreas_1FM[i] = geometry.crossAreas_1[i + 1];
     end for;
 
-    if nFM_1 == 1 then
-      lengths_1FM[1] = geometry.dlengths_1[1];
-    else
-      lengths_1FM[1] = geometry.dlengths_1[1] + 0.5*geometry.dlengths_1[2];
-      for i in 2:nFM_1 - 1 loop
-        lengths_1FM[i] = 0.5*(geometry.dlengths_1[i] + geometry.dlengths_1[i +
-          1]);
-      end for;
-      lengths_1FM[nFM_1] = 0.5*geometry.dlengths_1[nFM_1];
-    end if;
+     if geometry.closedDim_1 then
+       if nFM_1 == 1 then
+         lengths_1FM[1] = geometry.dlengths_1[1];
+       else
+         for i in 1:nFM_1 - 1 loop
+           lengths_1FM[i] = 0.5*(geometry.dlengths_1[i] + geometry.dlengths_1[i + 1]);
+         end for;
+         lengths_1FM[nFM_1] = 0.5*(geometry.dlengths_1[nFM_1] + geometry.dlengths_1[1]);
+       end if;
+     else
+      if nFM_1 == 1 then
+        lengths_1FM[1] = geometry.dlengths_1[1];
+      else
+        lengths_1FM[1] = geometry.dlengths_1[1] + 0.5*geometry.dlengths_1[2];
+        for i in 2:nFM_1 - 1 loop
+          lengths_1FM[i] = 0.5*(geometry.dlengths_1[i] + geometry.dlengths_1[i +
+            1]);
+        end for;
+        lengths_1FM[nFM_1] = 0.5*geometry.dlengths_1[nFM_1];
+      end if;
+     end if;
 
   elseif not exposeState_a1 and exposeState_b1 then
     /************************************************************************/
@@ -257,17 +268,29 @@ equation
       crossAreas_1FM[i] = geometry.crossAreas_1[i];
     end for;
 
-    if nFM_1 == 1 then
-      lengths_1FM[1] = geometry.dlengths_1[1];
-    else
-      lengths_1FM[1] = 0.5*geometry.dlengths_1[1];
-      for i in 2:nFM_1 - 1 loop
-        lengths_1FM[i] = 0.5*(geometry.dlengths_1[i - 1] + geometry.dlengths_1[
-          i]);
-      end for;
-      lengths_1FM[nFM_1] = 0.5*geometry.dlengths_1[nFM_1 - 1] + geometry.dlengths_1
-        [nFM_1];
-    end if;
+     if geometry.closedDim_1 then
+       if nFM_1 == 1 then
+         lengths_1FM[1] = geometry.dlengths_1[1];
+       else
+         lengths_1FM[1] = 0.5*(geometry.dlengths_1[nFM_1] + geometry.dlengths_1[1]);
+         for i in 2:nFM_1 loop
+           lengths_1FM[i] = 0.5*(geometry.dlengths_1[i - 1] + geometry.dlengths_1[
+             i]);
+         end for;
+       end if;
+     else
+      if nFM_1 == 1 then
+        lengths_1FM[1] = geometry.dlengths_1[1];
+      else
+        lengths_1FM[1] = 0.5*geometry.dlengths_1[1];
+        for i in 2:nFM_1 - 1 loop
+          lengths_1FM[i] = 0.5*(geometry.dlengths_1[i - 1] + geometry.dlengths_1[
+            i]);
+        end for;
+        lengths_1FM[nFM_1] = 0.5*geometry.dlengths_1[nFM_1 - 1] + geometry.dlengths_1
+          [nFM_1];
+      end if;
+     end if;
 
   elseif not exposeState_a1 and not exposeState_b1 then
     /************************************************************************/

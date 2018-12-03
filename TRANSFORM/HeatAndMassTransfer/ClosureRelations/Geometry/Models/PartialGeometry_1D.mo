@@ -10,6 +10,8 @@ partial model PartialGeometry_1D
 
   final parameter Integer n_total=ns[1] "Total number of nodes";
 
+  parameter Boolean closedDim_1(fixed=false) "=true if the conduction path is closed on itself for specified dimension";
+
   output SI.Volume Vs[ns[1]] "Unit volumes" annotation (Dialog(
       tab="Internal Interface",
       group="Outputs",

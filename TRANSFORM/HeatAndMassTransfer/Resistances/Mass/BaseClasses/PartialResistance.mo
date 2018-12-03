@@ -21,7 +21,7 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                Bitmap(extent={{-70,-70},{70,70}}, fileName=
-              "modelica://TRANSFORM/Resources/Images/Icons/Resistance_Mass.jpg"),
+              "modelica://TRANSFORM/Resources/Images/Icons/resistanceMass.png"),
         Text(
           extent={{-150,92},{150,52}},
           textString="%name",
