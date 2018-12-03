@@ -36,7 +36,6 @@ equation
     end for;
   end if;
 
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ForwardDifference_1O;

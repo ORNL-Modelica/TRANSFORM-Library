@@ -110,7 +110,6 @@ model Conduction_1D "1-D Conduction Models"
 
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 
-
 protected
   Material.ThermodynamicState statesFM_1[nFM_1 + 1];
 

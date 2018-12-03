@@ -45,7 +45,6 @@ partial model PartialGeometry_1D
 
   SI.Length cs_1[ns[1]] "Unit cell centers dimension-1 cartesian coordinate";
 
-
   annotation (
     defaultComponentName="geometry",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{
