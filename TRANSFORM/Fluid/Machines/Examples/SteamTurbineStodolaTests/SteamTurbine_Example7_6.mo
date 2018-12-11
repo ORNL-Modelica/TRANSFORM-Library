@@ -55,8 +55,8 @@ equation
     annotation (Line(points={{10,0},{20,0}},           color={0,0,0}));
   connect(source.ports[1],steamTurbine.portHP)  annotation (Line(points={{-30,20},
           {-20,20},{-20,6},{-10,6}},          color={0,127,255}));
-  connect(steamTurbine.portLP, sink.ports[1]) annotation (Line(points={{7,-10},
-          {7,-40},{10,-40}},       color={0,127,255}));
+  connect(steamTurbine.portLP, sink.ports[1]) annotation (Line(points={{10,6},{
+          10,-40},{10,-40}},       color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(__Dymola_NumberOfIntervals=100),

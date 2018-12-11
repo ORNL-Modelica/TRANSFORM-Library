@@ -58,8 +58,8 @@ model MechanicalPump
           rotation=0)));
   inner System             system
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  FittingsAndResistances.SpecifiedResistance ValveLin1(redeclare package Medium =
-               Modelica.Media.Water.StandardWater, R=1/(1e-5*Ramp1.y))
+  FittingsAndResistances.SpecifiedResistance ValveLin1(redeclare package Medium
+      =        Modelica.Media.Water.StandardWater, R=1/(1e-5*Ramp1.y))
     annotation (Placement(transformation(extent={{20,-10},{40,10}},
           rotation=0)));
 equation

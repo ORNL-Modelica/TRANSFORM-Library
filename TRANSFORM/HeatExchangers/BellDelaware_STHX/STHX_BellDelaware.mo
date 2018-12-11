@@ -47,12 +47,12 @@ model STHX_BellDelaware
     annotation (Placement(transformation(extent={{-70,90},{-50,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
 
-  Modelica.Fluid.Interfaces.FluidPort_a port_a_shell(redeclare package Medium =
-        Medium_shell)
+  Modelica.Fluid.Interfaces.FluidPort_a port_a_shell(redeclare package Medium
+      = Medium_shell)
     annotation (Placement(transformation(extent={{50,90},{70,110}}),
         iconTransformation(extent={{45,90},{65,110}})));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b_shell(redeclare package Medium =
-        Medium_shell)
+  Modelica.Fluid.Interfaces.FluidPort_b port_b_shell(redeclare package Medium
+      = Medium_shell)
     annotation (Placement(transformation(extent={{50,-110},{70,-90}}),
         iconTransformation(extent={{45,-110},{65,-90}})));
 

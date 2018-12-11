@@ -27,12 +27,12 @@ model PointKinetics_Test
         lambdas={0.08},
         alphas={1},
         Beta=0.0075),
-    rhos_input=ControlRod_Reactivity.y,
+    rho_input=ControlRod_Reactivity.y,
     alphas_feedback={-2.5e-5,-20e-5},
     vals_feedback={Teff_Fuel.y,Teff_Coolant.y},
     vals_feedback_reference={Teff_Fuel.offset,Teff_Coolant.offset})
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
-  Utilities.ErrorAnalysis.UnitTests unitTests(x={kinetics.Q_fission_total})
+  Utilities.ErrorAnalysis.UnitTests unitTests(x={kinetics.Q_fission})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
