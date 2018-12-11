@@ -34,13 +34,15 @@ h => pg 18 eq 4.1
   end specificEnthalpy;
 
   redeclare function extends density "Density"
+protected
+    Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
     d := TRANSFORM.Math.spliceTanh(
-        (1-porosity)*d_273*(9.9672e-1 + 1.179e-5*state.T - 2.429e-9*state.T^2 + 1.219e-12
-        *state.T^3)^(-3),
-        (1-porosity)*d_273*(9.9734e-1 + 9.802e-6*state.T - 2.705e-10*state.T^2 + 4.391e-13
-        *state.T^3)^(-3),
-        state.T - 923,
+        (1-porosity)*d_273*(9.9672e-1 + 1.179e-5*T - 2.429e-9*T^2 + 1.219e-12
+        *T^3)^(-3),
+        (1-porosity)*d_273*(9.9734e-1 + 9.802e-6*T - 2.705e-10*T^2 + 4.391e-13
+        *T^3)^(-3),
+        T - 923,
         1);
         annotation(smoothOrder=1);
   end density;

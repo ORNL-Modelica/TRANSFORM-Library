@@ -10,7 +10,9 @@ package UN "UN: Uranium Mononitride"
     mediumName="UN",
     T_min=Modelica.SIunits.Conversions.from_degC(-273),
     T_max=3170,
-    MM_const=0.252);
+    MM_const=0.252,
+    use_constantDensity=true,
+    T_density=1000);
 
     constant Real theta(unit="K") = 365.7;
     constant Real porosity = 0;
@@ -24,9 +26,11 @@ package UN "UN: Uranium Mononitride"
 
   redeclare function extends density
     "Density"
+protected
+    Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
-    d := 14090;//density at 1000 K from below equation
-    // d:= (14.42-2.779e-4*state.T-4.897e-8*state.T^2)*1000
+    //d := 14090;//density at 1000 K from below equation
+    d:= (14.42-2.779e-4*T-4.897e-8*T^2)*1000;
   end density;
 
   redeclare function extends thermalConductivity
@@ -40,9 +44,4 @@ package UN "UN: Uranium Mononitride"
   algorithm
     cp := (51.14*(theta/state.T)^2*exp(theta/state.T)/(exp(theta/state.T)-1)^2+9.491e-3*state.T+2.6415e11/state.T^2*exp(-18081/state.T))/MM_const;
   end specificHeatCapacityCp;
-
-  redeclare function extends molarMass "Molar mass"
-  algorithm
-    MM := MM_const;
-  end molarMass;
 end UN;

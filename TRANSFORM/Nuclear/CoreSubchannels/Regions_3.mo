@@ -12,8 +12,7 @@ model Regions_3
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium
-      =                                                                          Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
 
@@ -409,8 +408,8 @@ model Regions_3
     Es_start=Es_start,
     V=fuelModel.region_1.solutionMethod.V_total*fuelModel.nParallel,
     mCs_start=mCs_fp_start,
-    mCs_add={sum(coolantSubchannel.mCs[:, j])*coolantSubchannel.nParallel for j
-         in 1:Medium.nC},
+    mCs_add={sum(coolantSubchannel.mCs[:, j])*coolantSubchannel.nParallel for j in
+            1:Medium.nC},
     Vs_add=coolantSubchannel.geometry.V_total*coolantSubchannel.nParallel,
     toggle_ReactivityFP=toggle_ReactivityFP)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));

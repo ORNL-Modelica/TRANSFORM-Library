@@ -19,6 +19,9 @@ partial package PartialAlloy "Partial material properties (base package of all m
   constant SpecificEnthalpy h_default=specificEnthalpy_T(T_default)
     "Default value for specific enthalpy of medium (for initialization)";
 
+  constant Boolean use_constantDensity = false "=true to have density constant at T_density if a temperature dependent function for density exists";
+  constant Temperature T_density = T_reference "Reference temperature for constant density calculations";
+
   replaceable record ThermodynamicState
     "Minimal variable set that is available as input argument to every medium function"
     extends Modelica.Icons.Record;

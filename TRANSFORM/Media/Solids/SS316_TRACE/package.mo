@@ -16,8 +16,10 @@ package SS316_TRACE "SS316: Stainless steel 316 from TRACE"
 
   redeclare function extends density
     "Density"
+protected
+    Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
-    d := 8084 - 4.209e-1*state.T - 3.894e-5*state.T^2;
+    d := 8084 - 4.209e-1*T - 3.894e-5*T^2;
   end density;
 
   redeclare function extends thermalConductivity

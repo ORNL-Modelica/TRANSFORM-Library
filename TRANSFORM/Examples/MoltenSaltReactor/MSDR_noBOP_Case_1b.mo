@@ -856,15 +856,12 @@ public
     SigmaF_start=26,
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
-
     redeclare record Data_FP =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_cut6_U235_Pu239,
-
     redeclare record Data_TR =
         TRANSFORM.Nuclear.ReactorKinetics.Data.Tritium.FLiBe,
     nFeedback=2,
     vals_feedback={fuelCell.summary.T_effective,fuelCellG.summary.T_effective},
-
     Q_fission_input=data_RCTR.Q_nominal*(1 - 0.12),
     vals_feedback_reference={649.114 + 273.15,649.385 + 273.15},
     alphas_feedback={-3.22e-5,2.35e-5},

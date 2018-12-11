@@ -19,9 +19,10 @@ package UC "Uranium Carbide"
 
   redeclare function extends density
     "Density"
-
+protected
+    Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
-  d := 13500*(1-2.13e-5*state.T - 2.04e-8*state.T^2);
+  d := 13500*(1-2.13e-5*T - 2.04e-8*T^2);
 
   // There is confusion in literature about units and best equation. See options below. Default is d2 as it is most conservative from a safety point of view.
   //   d1 = Eq. 2.79 (pg. 54)
