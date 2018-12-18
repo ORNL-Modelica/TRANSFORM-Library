@@ -1,3 +1,6 @@
+Examples
 BaseClasses
 to_W_m2K
-from_btuhrft2f
+from_W_m2K
+to_btu_hrft2degF
+from_btu_hrft2degF

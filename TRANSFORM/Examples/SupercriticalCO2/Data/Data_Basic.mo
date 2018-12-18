@@ -3,7 +3,8 @@ record Data_Basic
 
   extends TRANSFORM.Icons.Record;
 
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
+  import from_inch =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_in;
   parameter String Medium_salt="KCl-MgCl2 (67-33mol%)";
   parameter String Medium_co2="Co2-CoolProp";
 

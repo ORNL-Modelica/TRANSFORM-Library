@@ -1,3 +1,6 @@
+Examples
 BaseClasses
 to_m_s
-from_feet_s
+from_m_s
+to_ft_s
+from_ft_s

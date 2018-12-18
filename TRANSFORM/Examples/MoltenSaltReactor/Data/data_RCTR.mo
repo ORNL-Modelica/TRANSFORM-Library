@@ -16,9 +16,12 @@ model data_RCTR
     - diameter_orifice = 0.5 in;
   */
 
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
-  import TRANSFORM.Units.Conversions.Functions.Area_m2.from_inch2;
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_feet;
+  import from_inch =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_in;
+  import from_inch2 =
+         TRANSFORM.Units.Conversions.Functions.Area_m2.from_in2;
+  import from_feet =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_ft;
   import TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr;
   import TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degF;
   import Modelica.Constants.pi;
@@ -30,8 +33,12 @@ model data_RCTR
   parameter SI.SpecificHeatCapacity cp = TRANSFORM.Media.Fluids.FLiBe.Utilities_12Th_05U.cp_T(0.5*(T_inlet_core+T_outlet_core)) "Heat capacity of PFL fluid";
   parameter SI.TemperatureDifference dT_core = Q_nominal/(m_flow*cp) "Expected temperature difference across core";
 
-  parameter SI.Velocity vs_reflA_core = TRANSFORM.Units.Conversions.Functions.Velocity_m_s.from_feet_s(7) "Velocity of fueled and control rod cells region in top axial reflector";
-  parameter SI.Velocity vs_reflA_reflR = TRANSFORM.Units.Conversions.Functions.Velocity_m_s.from_feet_s(1) "Velocity of radial reflector region in top axial reflector";
+  parameter SI.Velocity vs_reflA_core=
+      TRANSFORM.Units.Conversions.Functions.Velocity_m_s.from_ft_s(7)
+    "Velocity of fueled and control rod cells region in top axial reflector";
+  parameter SI.Velocity vs_reflA_reflR=
+      TRANSFORM.Units.Conversions.Functions.Velocity_m_s.from_ft_s(1)
+    "Velocity of radial reflector region in top axial reflector";
 
   parameter SI.MassFlowRate m_flow = from_lbm_hr(6*6.6e6) "Total mass flow rate through reactor";
 

@@ -5,7 +5,7 @@ model Conversion "Base model for conversion models"
     annotation (Evaluate=true, choices(checkBox=true));
 
   input Real val=0.0 "Value to be converted"
-    annotation (Dialog(group="Inputs", enable=not use_Port));
+    annotation (Dialog(group="Inputs", enable=not use_port));
 
   replaceable function convert =
       TRANSFORM.Units.Conversions.Functions.BaseClasses.PartialConversion
@@ -18,6 +18,8 @@ model Conversion "Base model for conversion models"
   Modelica.Blocks.Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
 
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+
 protected
   Modelica.Blocks.Interfaces.RealInput u_int;
 
@@ -29,10 +31,10 @@ equation
 
   y = convert(u_int);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (defaultComponentName="conversion",Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
-          extent={{-100,100},{100,-100}},
+          extent={{-98,40},{100,-40}},
           lineColor={191,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -41,5 +43,10 @@ equation
           points={{90,0},{30,20},{30,-20},{90,0}},
           lineColor={191,0,0},
           fillColor={191,0,0},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-149,82},{151,42}},
+          lineColor={0,0,0},
+          textString="%name",
+          visible=showName)}));
 end Conversion;

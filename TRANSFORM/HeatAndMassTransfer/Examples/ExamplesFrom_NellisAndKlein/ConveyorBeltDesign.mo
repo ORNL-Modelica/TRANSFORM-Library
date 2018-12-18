@@ -3,7 +3,7 @@ model ConveyorBeltDesign "Example 3.1-1 Design of a conveyor belt pp. 307-309"
   extends Icons.Example;
 
   Modelica.Blocks.Sources.Constant L(each k=
-        Units.Conversions.Functions.Distance_m.from_feet(15)) "conveyor length"
+        Units.Conversions.Functions.Distance_m.from_ft(15)) "conveyor length"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.Constant D(each k=0.1) "diameter"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
