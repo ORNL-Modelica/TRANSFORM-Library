@@ -1,4 +1,4 @@
-within TRANSFORM.Units.Conversions.Functions.SpecificHeatCapacity_J_kgK;
+within TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK;
 function from_btu_lbdegF
   "Specific Heat Capacity: [btu(IT)/(lb*degF)] -> [J/(kg*K)]"
   extends BaseClasses.from;

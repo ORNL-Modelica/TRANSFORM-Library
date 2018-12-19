@@ -1,4 +1,4 @@
-within TRANSFORM.Units.Conversions.Functions.SpecificHeatCapacity_J_kgK.Examples;
+within TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.Examples;
 model check_btu_lbdegF
 
   extends TRANSFORM.Icons.Example;

@@ -1,4 +1,4 @@
-within TRANSFORM.Units.Conversions.Functions.SpecificHeatCapacity_J_kgK.BaseClasses;
+within TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.BaseClasses;
 partial function to
   import TRANSFORM;
   extends TRANSFORM.Units.Conversions.Functions.BaseClasses.PartialConversion;

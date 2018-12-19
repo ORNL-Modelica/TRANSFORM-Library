@@ -2,7 +2,7 @@ from pymodelica import compile_fmu
 from pyfmi import load_fmu
 
 libPath = r'C:\Users\vmg\Documents\Modelica\TRANSFORM-Library/TRANSFORM'
-modelName = 'TRANSFORM.Units.Conversions.Functions.SpecificHeatCapacity_J_kgK.Examples.check_btu_lbdegF'
+modelName = 'TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.Examples.check_J_kgK'
 
 fmu = compile_fmu(modelName,libPath,target='cs')
 model = load_fmu(fmu)

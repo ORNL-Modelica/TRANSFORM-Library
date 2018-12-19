@@ -13,7 +13,7 @@ model data_OFFGAS
   import from_lb_feet3 =
          TRANSFORM.Units.Conversions.Functions.Density_kg_m3.from_lb_ft3;
   import
-    TRANSFORM.Units.Conversions.Functions.SpecificHeatCapacity_J_kgK.from_btu_lbdegF;
+    TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.from_btu_lbdegF;
   import from_feet =
          TRANSFORM.Units.Conversions.Functions.Distance_m.from_ft;
   import from_feet2 =

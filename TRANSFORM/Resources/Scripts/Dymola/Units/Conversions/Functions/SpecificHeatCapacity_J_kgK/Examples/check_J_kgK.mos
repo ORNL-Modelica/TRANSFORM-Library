@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.SpecificHeatCapacity_J_kgK.Examples.check_J_kgK",resultFile="check_J_kgK");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

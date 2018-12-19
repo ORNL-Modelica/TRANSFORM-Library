@@ -1,4 +1,4 @@
-within TRANSFORM.Units.Conversions.Functions.SpecificEntropy_J_kgK.Examples;
+within TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.Examples;
 model check_J_kgK
 
   extends TRANSFORM.Icons.Example;

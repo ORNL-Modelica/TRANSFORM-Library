@@ -1,4 +1,4 @@
-within TRANSFORM.Units.Conversions.Functions.SpecificHeatCapacity_J_kgK;
+within TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK;
 package Examples
   extends TRANSFORM.Icons.ExamplesPackage;
 
