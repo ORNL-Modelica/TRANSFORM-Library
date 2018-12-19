@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Units.Conversions.Functions.Distance_m.Examples.check_mm",resultFile="check_mm");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

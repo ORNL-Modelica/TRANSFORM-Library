@@ -33,7 +33,6 @@ model GenericPipe_withWallx2
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
 
-
   parameter Boolean counterCurrent=false "Swap wall vector order";
 
   parameter Boolean use_HeatTransferOuter=false "= true to use outer wall heat port" annotation (Dialog(group="Heat Transfer"));
@@ -107,7 +106,6 @@ model GenericPipe_withWallx2
     TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
     "Internal heat generation" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
-
 
   GenericPipe_MultiTransferSurface
               pipe(

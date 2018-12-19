@@ -1,7 +1,6 @@
 within TRANSFORM.Nuclear.DoseCalculations.Examples;
 model AverageSoftTissueDose_C14
 
-
   Dose_AlphaBetaTissue dose(A=1.2e5/0.05, E_bar=
         SIadd.Conversions.Functions.Energy_J.from_MeV(0.0495))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

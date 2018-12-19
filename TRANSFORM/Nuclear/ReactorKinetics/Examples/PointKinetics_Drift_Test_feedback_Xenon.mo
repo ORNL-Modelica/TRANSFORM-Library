@@ -120,13 +120,13 @@ model PointKinetics_Drift_Test_feedback_Xenon
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
-    SF_Qs_fission=sin(Modelica.Constants.pi/H*core.summary.xpos)/sum(sin(
+    SF_Q_fission=sin(Modelica.Constants.pi/H*core.summary.xpos)/sum(sin(
         Modelica.Constants.pi/H*core.summary.xpos)),
-    rhos_input=Reactivity.y,
+    rho_input=Reactivity.y,
     alphas_feedback={-1e-4},
     vals_feedback={core.summary.T_effective},
     vals_feedback_reference={400 + 273.15},
-    Ns_external=1)
+    N_external=1)
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[
@@ -162,7 +162,7 @@ Real C_te_coreloop = sum(core.mCs[:,7]) + sum(loop_.mCs[:,7]);
 Real C_i_coreloop = sum(core.mCs[:,8]) + sum(loop_.mCs[:,8]);
 Real C_xe_coreloop = sum(core.mCs[:,9]) + sum(loop_.mCs[:,9]);
 
-Real P = max(0,core_kinetics.Q_fission_total);
+Real P = max(0,core_kinetics.Q_fission);
 Real sigma_xe=core_kinetics.fissionProducts.data.sigmasA[3];
 Real Sigmaf=26;
 equation
@@ -181,8 +181,8 @@ equation
     annotation (Line(points={{26,0},{36,0}}, color={0,127,255}));
   connect(Concentration_Measure.port_b, back_to_core.ports[1])
     annotation (Line(points={{56,0},{66,0}}, color={0,127,255}));
-  connect(Concentration_Measure.C, core_inlet.C_in) annotation (Line(points={{
-          46,-11},{46,-20},{-60,-20},{-60,-8},{-56,-8}}, color={0,0,127}));
+  connect(Concentration_Measure.C, core_inlet.C_in) annotation (Line(points={{46,-3.6},
+          {46,-20},{-60,-20},{-60,-8},{-56,-8}},         color={0,0,127}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

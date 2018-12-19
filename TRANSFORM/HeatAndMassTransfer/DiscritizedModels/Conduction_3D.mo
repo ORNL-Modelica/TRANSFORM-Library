@@ -299,17 +299,29 @@ equation
           crossAreas_1FM[i, j, k] = geometry.crossAreas_1[i + 1, j, k];
         end for;
 
-        if nFM_1 == 1 then
-          lengths_1FM[1, j, k] = geometry.dlengths_1[1, j, k];
-        else
-          lengths_1FM[1, j, k] = geometry.dlengths_1[1, j, k] + 0.5*geometry.dlengths_1
-            [2, j, k];
-          for i in 2:nFM_1 - 1 loop
-            lengths_1FM[i, j, k] = 0.5*(geometry.dlengths_1[i, j, k] + geometry.dlengths_1
-              [i + 1, j, k]);
-          end for;
-          lengths_1FM[nFM_1, j, k] = 0.5*geometry.dlengths_1[nFM_1, j, k];
-        end if;
+       if geometry.closedDim_1[j,k] then
+          if nFM_1 == 1 then
+            lengths_1FM[1, j, k] = geometry.dlengths_1[1, j, k];
+          else
+            for i in 1:nFM_1 - 1 loop
+              lengths_1FM[i, j, k] = 0.5*(geometry.dlengths_1[i, j, k] + geometry.dlengths_1
+                [i + 1, j, k]);
+            end for;
+            lengths_1FM[nFM_1, j, k] = geometry.dlengths_1[nFM_1, j, k];
+          end if;
+       else
+          if nFM_1 == 1 then
+            lengths_1FM[1, j, k] = geometry.dlengths_1[1, j, k];
+          else
+            lengths_1FM[1, j, k] = geometry.dlengths_1[1, j, k] + 0.5*geometry.dlengths_1
+              [2, j, k];
+            for i in 2:nFM_1 - 1 loop
+              lengths_1FM[i, j, k] = 0.5*(geometry.dlengths_1[i, j, k] + geometry.dlengths_1
+                [i + 1, j, k]);
+            end for;
+            lengths_1FM[nFM_1, j, k] = 0.5*geometry.dlengths_1[nFM_1, j, k];
+          end if;
+       end if;
 
       elseif not exposeState_a1 and exposeState_b1 then
         /**********************************************************************/
@@ -337,6 +349,17 @@ equation
           crossAreas_1FM[i, j, k] = geometry.crossAreas_1[i, j, k];
         end for;
 
+       if geometry.closedDim_1[j,k] then
+        if nFM_1 == 1 then
+          lengths_1FM[1, j, k] = geometry.dlengths_1[1, j, k];
+        else
+          lengths_1FM[1, j, k] = geometry.dlengths_1[1, j, k];
+          for i in 2:nFM_1 loop
+            lengths_1FM[i, j, k] = 0.5*(geometry.dlengths_1[i - 1, j, k] +
+              geometry.dlengths_1[i, j, k]);
+          end for;
+        end if;
+       else
         if nFM_1 == 1 then
           lengths_1FM[1, j, k] = geometry.dlengths_1[1, j, k];
         else
@@ -348,6 +371,7 @@ equation
           lengths_1FM[nFM_1, j, k] = 0.5*geometry.dlengths_1[nFM_1 - 1, j, k]
              + geometry.dlengths_1[nFM_1, j, k];
         end if;
+       end if;
 
       elseif not exposeState_a1 and not exposeState_b1 then
         /**********************************************************************/
@@ -467,6 +491,17 @@ equation
           crossAreas_2FM[i, j, k] = geometry.crossAreas_2[i, j + 1, k];
         end for;
 
+       if geometry.closedDim_2[i,k] then
+        if nFM_2 == 1 then
+          lengths_2FM[i, 1, k] = geometry.dlengths_2[i, 1, k];
+        else
+          for j in 1:nFM_2 - 1 loop
+            lengths_2FM[i, j, k] = 0.5*(geometry.dlengths_2[i, j, k] + geometry.dlengths_2
+              [i, j + 1, k]);
+          end for;
+          lengths_2FM[i, nFM_2, k] = geometry.dlengths_2[i, nFM_2, k];
+        end if;
+       else
         if nFM_2 == 1 then
           lengths_2FM[i, 1, k] = geometry.dlengths_2[i, 1, k];
         else
@@ -478,6 +513,7 @@ equation
           end for;
           lengths_2FM[i, nFM_2, k] = 0.5*geometry.dlengths_2[i, nFM_2, k];
         end if;
+       end if;
 
       elseif not exposeState_a2 and exposeState_b2 then
         /**********************************************************************/
@@ -505,6 +541,17 @@ equation
           crossAreas_2FM[i, j, k] = geometry.crossAreas_2[i, j, k];
         end for;
 
+       if geometry.closedDim_2[i,k] then
+        if nFM_2 == 1 then
+          lengths_2FM[i, 1, k] = geometry.dlengths_2[i, 1, k];
+        else
+          lengths_2FM[i, 1, k] = geometry.dlengths_2[i, 1, k];
+          for j in 2:nFM_2 loop
+            lengths_2FM[i, j, k] = 0.5*(geometry.dlengths_2[i, j - 1, k] +
+              geometry.dlengths_2[i, j, k]);
+          end for;
+        end if;
+       else
         if nFM_2 == 1 then
           lengths_2FM[i, 1, k] = geometry.dlengths_2[i, 1, k];
         else
@@ -516,6 +563,7 @@ equation
           lengths_2FM[i, nFM_2, k] = 0.5*geometry.dlengths_2[i, nFM_2 - 1, k]
              + geometry.dlengths_2[i, nFM_2, k];
         end if;
+       end if;
 
       elseif not exposeState_a2 and not exposeState_b2 then
         /**********************************************************************/
@@ -634,6 +682,17 @@ equation
           crossAreas_3FM[i, j, k] = geometry.crossAreas_3[i, j, k + 1];
         end for;
 
+       if geometry.closedDim_3[i,j] then
+        if nFM_3 == 1 then
+          lengths_3FM[i, j, 1] = geometry.dlengths_3[i, j, 1];
+        else
+          for k in 1:nFM_3 - 1 loop
+            lengths_3FM[i, j, k] = 0.5*(geometry.dlengths_3[i, j, k] + geometry.dlengths_3
+              [i, j, k + 1]);
+          end for;
+          lengths_3FM[i, j, nFM_3] = geometry.dlengths_3[i, j, nFM_3];
+        end if;
+       else
         if nFM_3 == 1 then
           lengths_3FM[i, j, 1] = geometry.dlengths_3[i, j, 1];
         else
@@ -645,6 +704,7 @@ equation
           end for;
           lengths_3FM[i, j, nFM_3] = 0.5*geometry.dlengths_3[i, j, nFM_3];
         end if;
+       end if;
 
       elseif not exposeState_a3 and exposeState_b3 then
         /**********************************************************************/
@@ -672,6 +732,17 @@ equation
           crossAreas_3FM[i, j, k] = geometry.crossAreas_3[i, j, k];
         end for;
 
+       if geometry.closedDim_3[i,j] then
+        if nFM_3 == 1 then
+          lengths_3FM[i, j, 1] = geometry.dlengths_3[i, j, 1];
+        else
+          lengths_3FM[i, j, 1] = geometry.dlengths_3[i, j, 1];
+          for k in 2:nFM_3 loop
+            lengths_3FM[i, j, k] = 0.5*(geometry.dlengths_3[i, j, k - 1] +
+              geometry.dlengths_3[i, j, k]);
+          end for;
+        end if;
+       else
         if nFM_3 == 1 then
           lengths_3FM[i, j, 1] = geometry.dlengths_3[i, j, 1];
         else
@@ -683,6 +754,7 @@ equation
           lengths_3FM[i, j, nFM_3] = 0.5*geometry.dlengths_3[i, j, nFM_3 - 1]
              + geometry.dlengths_3[i, j, nFM_3];
         end if;
+       end if;
 
       elseif not exposeState_a3 and not exposeState_b3 then
         /**********************************************************************/

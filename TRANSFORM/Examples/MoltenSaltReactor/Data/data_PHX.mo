@@ -5,7 +5,8 @@ model data_PHX "Primary heat exchanger: Tube - Primary Fuel Salt, Shell - Primar
 import TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degF;
 import TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr;
 import TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_psi;
-import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
+import from_inch =
+       TRANSFORM.Units.Conversions.Functions.Distance_m.from_in;
 
 parameter Real nHX_total = 6 "Total # of HXs";
 parameter Real nParallel = 3 "# of parallel HX loops";
@@ -42,7 +43,9 @@ parameter SI.Length pitch_tube = from_inch(0.672) "Tube pitch";
 parameter SI.Length length_tube = from_inch(30*12) "Tubesheet to tubesheet distance";
 
 parameter SI.Area surfaceArea_tubeouter = D_tube_outer*pi*length_tube*nTubes "Surface area outer tube basis";//TRANSFORM.Units.Conversions.Functions.Area_m2.from_feet2(4024);
-parameter SI.CoefficientOfHeatTransfer U = TRANSFORM.Units.Conversions.Functions.CoefficientOfHeatTransfer_W_m2K.from_btuhrft2f(700);
+  parameter SI.CoefficientOfHeatTransfer U=
+      TRANSFORM.Units.Conversions.Functions.CoefficientOfHeatTransfer_W_m2K.from_btu_hrft2degF(
+      700);
 
 parameter Real nBaffles = 47 "# of baffles";
 parameter String baffleType="Disk and Dougnut" "Baffle type";

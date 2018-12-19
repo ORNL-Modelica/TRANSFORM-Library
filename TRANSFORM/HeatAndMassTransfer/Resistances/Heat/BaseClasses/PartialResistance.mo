@@ -17,8 +17,8 @@ equation
   port_a.Q_flow + port_b.Q_flow = 0;
   port_a.Q_flow = (port_a.T - port_b.T)/R;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-                               Bitmap(extent={{-70,-70},{70,70}}, fileName=
-              "modelica://TRANSFORM/Resources/Images/Icons/Resistance_Heat.jpg"),
+                               Bitmap(extent={{-70,-70},{70,70}},
+            fileName="modelica://TRANSFORM/Resources/Images/Icons/resistanceHeat.png"),
         Text(
           extent={{-140,82},{140,42}},
           textString="%name",

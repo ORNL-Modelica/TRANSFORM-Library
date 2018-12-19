@@ -48,7 +48,7 @@ model MSDR_noBOP_Case_3
 
   SI.Power Q_total = kinetics.Q_total;
   SI.Power Q_fission = kinetics.Q_fission_total;
-  SI.Power Q_decay_near = kinetics.Q_decay_total;
+  SI.Power Q_decay_near=kinetics.Q_decay;
   SI.Power Q_decay_far = sum(kinetics.fissionProducts.Qs_far);
 
   SI.Mass ms_PFL[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1+1+reflR.nV] = cat(1,{plenum_lower.m},reflA_lower.ms*reflA_lower.nParallel,fuelCell.ms*fuelCell.nParallel,reflA_upper.ms*reflA_upper.nParallel,
@@ -840,8 +840,8 @@ public
     kinetics(
     nV=fuelCell.nV,
     Q_nominal=data_RCTR.Q_nominal,
-    mCs=fuelCell.mCs[:, kinetics.summary_data.iPG[1]:kinetics.summary_data.iPG[2]]
-        *fuelCell.nParallel,
+    mCs=fuelCell.mCs[:, kinetics.summary_data.iPG[1]:kinetics.summary_data.iPG[
+        2]]*fuelCell.nParallel,
     mCs_FP=fuelCell.mCs[:, kinetics.summary_data.iFP[1]:kinetics.summary_data.iFP[
         2]]*fuelCell.nParallel,
     mCs_TR=fuelCell.mCs[:, kinetics.summary_data.iTR[1]:kinetics.summary_data.iTR[
@@ -856,10 +856,10 @@ public
         TRANSFORM.Nuclear.ReactorKinetics.Data.Tritium.FLiBe,
     nFeedback=2,
     vals_feedback={fuelCell.summary.T_effective,fuelCellG.summary.T_effective},
-    Qs_fission_input=data_RCTR.Q_nominal*(1 - 0.12),
+    Q_fission_input=data_RCTR.Q_nominal*(1 - 0.12),
     vals_feedback_reference={649.114 + 273.15,649.385 + 273.15},
     alphas_feedback={-3.22e-5,2.35e-5},
-    rhos_input=0.00337,
+    rho_input=0.00337,
     dBeta=ramp.y)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 

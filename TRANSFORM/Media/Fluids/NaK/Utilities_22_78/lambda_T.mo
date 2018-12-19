@@ -1,8 +1,8 @@
 within TRANSFORM.Media.Fluids.NaK.Utilities_22_78;
 function lambda_T
 
-  import
-    TRANSFORM.Units.Conversions.Functions.ThermalConductivity_W_mK.from_btu_hrfeetF;
+  import from_btu_hrfeetF =
+    TRANSFORM.Units.Conversions.Functions.ThermalConductivity_W_mK.from_btu_hrftdegF;
 
   input SI.Temperature T;
   output SI.ThermalConductivity lambda;

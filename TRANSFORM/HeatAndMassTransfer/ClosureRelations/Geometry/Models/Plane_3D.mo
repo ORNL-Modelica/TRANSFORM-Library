@@ -21,8 +21,12 @@ model Plane_3D
   SI.Length ys[nX,nY,nZ] "Position in y-dimension";
   SI.Length zs[nX,nY,nZ] "Position in z-dimension";
 
-algorithm
+initial equation
+  closedDim_1 = fill(false,nY,nZ);
+  closedDim_2 = fill(false,nX,nZ);
+  closedDim_3 = fill(false,nX,nY);
 
+algorithm
   for j in 1:nY loop
     for k in 1:nZ loop
       xs[1,j,k] :=0.5*dxs[1, j, k];

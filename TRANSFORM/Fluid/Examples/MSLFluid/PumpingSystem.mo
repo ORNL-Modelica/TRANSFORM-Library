@@ -115,8 +115,9 @@ equation
           -79,70},{-60,70},{-60,76},{-42,76}}, color={0,0,127}));
   connect(controller.y, PumpRPMGenerator.u)
     annotation (Line(points={{-19,70},{-2,70}}, color={255,0,255}));
-  connect(reservoirPressure.p_rel, controller.u) annotation (Line(points={{20,-27},
-          {20,50},{-52,50},{-52,64},{-42,64}},      color={0,0,127}));
+  connect(reservoirPressure.p_rel, controller.u) annotation (Line(points={{20,
+          -25.6},{20,50},{-52,50},{-52,64},{-42,64}},
+                                                    color={0,0,127}));
   connect(reservoirPressure.port_b, sink.ports[2])    annotation (Line(
       points={{30,-22},{44,-22},{44,-48},{80,-48},{80,-32}},
       color={0,127,255},

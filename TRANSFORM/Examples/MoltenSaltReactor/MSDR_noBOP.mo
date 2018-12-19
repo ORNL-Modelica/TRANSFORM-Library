@@ -774,10 +774,10 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
         TRANSFORM.Nuclear.ReactorKinetics.Data.Tritium.FLiBe,
     nFeedback=2,
     vals_feedback={fuelCell.summary.T_effective,fuelCellG.summary.T_effective},
-    Qs_fission_input=data_RCTR.Q_nominal*(1 - 0.12),
+    Q_fission_input=data_RCTR.Q_nominal*(1 - 0.12),
     vals_feedback_reference={649.114 + 273.15,649.385 + 273.15},
     alphas_feedback={-3.22e-5,2.35e-5},
-    rhos_input=0.00337)
+    rho_input=0.00337)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
 
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface

@@ -22,8 +22,22 @@ model Cylinder_3D
   SI.Angle thetas[nR,nTheta,nZ] "Position in theta-dimension";
   SI.Length zs[nR,nTheta,nZ] "Position in z-dimension";
 
-algorithm
+initial equation
+  closedDim_1 = fill(false,nTheta,nZ);
 
+  for i in 1:nR loop
+    for j in 1:nZ loop
+      if abs(sum(dthetas[i, :, j]) - 2*Modelica.Constants.pi) < Modelica.Constants.eps then
+        closedDim_2[i,j] = true;
+      else
+        closedDim_2[i,j] = false;
+      end if;
+    end for;
+  end for;
+
+  closedDim_3 = fill(false,nR,nTheta);
+
+algorithm
   for j in 1:nTheta loop
     for k in 1:nZ loop
       rs[1,j,k] :=r_inner + 0.5*drs[1, j, k];

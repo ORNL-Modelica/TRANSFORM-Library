@@ -6,20 +6,20 @@ model PartiallyFullInsurge
   // Experiment Parameters
   package Medium = Modelica.Media.Water.StandardWater "Medium in component";
   constant SI.Length mainTank_d_inner=
-      Units.Conversions.Functions.Distance_m.from_inch(7.625)
+      Units.Conversions.Functions.Distance_m.from_in(7.625)
     "Inner diameter of the main (primary) tank";
   constant SI.Length mainTank_d_outer=
-      Units.Conversions.Functions.Distance_m.from_inch(8.625)
+      Units.Conversions.Functions.Distance_m.from_in(8.625)
     "Outer diameter of the main (primary) tank";
   constant SI.Length mainTank_th = 0.5*(mainTank_d_outer - mainTank_d_inner) "Wall thickness of thee main (primary) tank";
   constant SI.Length mainTank_height=
-      Units.Conversions.Functions.Distance_m.from_inch(45)
+      Units.Conversions.Functions.Distance_m.from_in(45)
     "Internal height of the main (primary) tank";
   constant SI.Volume mainTank_V = mainTank_height*0.25*pi*mainTank_d_inner^2 "Empty volume of the main (primary) tank (excludes ~negligible port/level indicator volumes)";
   constant SI.Volume wall_V = 0.25*pi*(mainTank_d_outer^2 - mainTank_d_inner^2)*mainTank_height "Wall volume";
   // Experiment Initial Conditions
   constant SI.Height mainTank_level_start=
-      Units.Conversions.Functions.Distance_m.from_inch(13.9)
+      Units.Conversions.Functions.Distance_m.from_in(13.9)
     "Initial liquid level (empty = 0)";
   constant SI.Pressure mainTank_p_start=
       Units.Conversions.Functions.Pressure_Pa.from_psi(101)
@@ -36,7 +36,7 @@ model PartiallyFullInsurge
 
   // Experiment Final Conditions
   constant SI.Height mainTank_level_final=
-      Units.Conversions.Functions.Distance_m.from_inch(34.0)
+      Units.Conversions.Functions.Distance_m.from_in(34.0)
     "Final liquid level (empty = 0)";
 
   Modelica.Blocks.Sources.TimeTable data_m_flow(table=[0,0; 10,0; 22.28437644,0;

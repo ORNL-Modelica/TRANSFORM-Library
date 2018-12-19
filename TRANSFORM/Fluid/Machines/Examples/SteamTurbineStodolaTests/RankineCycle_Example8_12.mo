@@ -115,8 +115,8 @@ equation
     annotation (Line(points={{10,32},{20,32}}, color={0,0,0}));
   connect(specificEnthalpy_in.port, massFlowRate.port_a) annotation (Line(
         points={{-80,-75},{-80,-80},{-40,-80},{-40,-68}}, color={0,127,255}));
-  connect(steamTurbine.portLP, condenser.port_a) annotation (Line(points={{7,22},{
-          7,22},{7,12},{27,12},{27,-3}},       color={0,127,255}));
+  connect(steamTurbine.portLP, condenser.port_a) annotation (Line(points={{10,38},
+          {10,38},{10,12},{27,12},{27,-3}},    color={0,127,255}));
   connect(pump.port_a, condenser.port_b)
     annotation (Line(points={{10,-80},{34,-80},{34,-18}}, color={0,127,255}));
   connect(pump.port_b, massFlowRate.port_a) annotation (Line(points={{-10,-80},{

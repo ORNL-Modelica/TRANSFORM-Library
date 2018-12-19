@@ -1,5 +1,5 @@
 within ;
-package TRANSFORM "TRANSFORM - TRANsient Simulation Framework Of Reconfigurable Models - version 0.1beta"
+package TRANSFORM "TRANSFORM - TRANsient Simulation Framework Of Reconfigurable Models"
 
   extends TRANSFORM.Icons.TRANSFORMPackage;
 

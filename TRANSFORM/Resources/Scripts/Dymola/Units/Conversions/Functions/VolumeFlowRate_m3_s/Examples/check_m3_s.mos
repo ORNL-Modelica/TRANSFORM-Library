@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.Examples.check_m3_s",resultFile="check_m3_s");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

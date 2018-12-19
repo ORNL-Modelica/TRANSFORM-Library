@@ -108,8 +108,8 @@ equation
           -80,32},{-50,32},{-50,-4.44089e-016}}, color={0,127,255}));
   connect(steamTurbine.portHP, boiler.ports[3]) annotation (Line(points={{-10,38},
           {-42,38},{-42,2.66667},{-50,2.66667}}, color={0,127,255}));
-  connect(steamTurbine.portLP, condenser.port_a) annotation (Line(points={{7,22},{
-          6,22},{6,-4},{6,-6},{29,-6},{29,-15}},  color={0,127,255}));
+  connect(steamTurbine.portLP, condenser.port_a) annotation (Line(points={{10,38},
+          {6,38},{6,-4},{6,-6},{29,-6},{29,-15}}, color={0,127,255}));
   connect(generator.port, boundary.port)
     annotation (Line(points={{40,32},{40,32},{60,32}}, color={255,0,0}));
   connect(steamTurbine.shaft_b, generator.shaft)

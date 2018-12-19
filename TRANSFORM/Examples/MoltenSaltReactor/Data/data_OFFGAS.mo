@@ -8,12 +8,16 @@ model data_OFFGAS
   import TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degF;
   import TRANSFORM.Units.Conversions.Functions.Time_s.from_hr;
   import TRANSFORM.Units.Conversions.Functions.Time_s.from_day;
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
-  import TRANSFORM.Units.Conversions.Functions.Density_kg_m3.from_lb_feet3;
+  import from_inch =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_in;
+  import from_lb_feet3 =
+         TRANSFORM.Units.Conversions.Functions.Density_kg_m3.from_lb_ft3;
   import
-    TRANSFORM.Units.Conversions.Functions.SpecificHeatCapacity_J_kgK.from_btu_lbdegF;
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_feet;
-  import TRANSFORM.Units.Conversions.Functions.Area_m2.from_feet2;
+    TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.from_btu_lbdegF;
+  import from_feet =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_ft;
+  import from_feet2 =
+         TRANSFORM.Units.Conversions.Functions.Area_m2.from_ft2;
 
   package Medium_OffGas = Modelica.Media.IdealGases.SingleGases.He;
   package Medium_DRACS = TRANSFORM.Media.Fluids.NaK.LinearNaK_22_78_pT;

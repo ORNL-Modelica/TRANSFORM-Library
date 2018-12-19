@@ -44,8 +44,20 @@ model Sphere_2D_r_phi
   SI.Angle thetas[nR,nPhi] "Position in theta-dimension";
   SI.Angle phis[nR,nPhi] "Position in phi-dimension";
 
-algorithm
+initial equation
+  closedDim_1 = fill(false,nPhi);
 
+  for i in 1:nR loop
+    if abs(sum(dphis[i, :]) - Modelica.Constants.pi) < Modelica.Constants.eps then
+      closedDim_2[i] = true;
+    else
+      closedDim_2[i] = false;
+    end if;
+  end for;
+
+equation
+
+algorithm
   for k in 1:nPhi loop
     rs[1, k] := r_inner + 0.5*drs[1, k];
     for i in 2:nR loop

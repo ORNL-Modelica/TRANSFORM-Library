@@ -1,5 +1,6 @@
+Examples
 BaseClasses
-from_degC_diff
-from_degF_diff
-to_degC_diff
-to_degF_diff
+to_degCorK_diff
+from_degCorK_diff
+to_degForR_diff
+from_degForR_diff

@@ -122,7 +122,7 @@ model PointKinetics_Drift_Test_sine
     alphas_feedback={-1e-4},
     vals_feedback={core.summary.T_effective},
     vals_feedback_reference={400 + 273.15},
-    SF_Qs_fission=sin(Modelica.Constants.pi/H*core.summary.xpos)/sum(sin(
+    SF_Q_fission=sin(Modelica.Constants.pi/H*core.summary.xpos)/sum(sin(
         Modelica.Constants.pi/H*core.summary.xpos)))
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
@@ -142,8 +142,8 @@ equation
     annotation (Line(points={{26,0},{36,0}}, color={0,127,255}));
   connect(Concentration_Measure.port_b, back_to_core.ports[1])
     annotation (Line(points={{56,0},{66,0}}, color={0,127,255}));
-  connect(Concentration_Measure.C, core_inlet.C_in) annotation (Line(points={{
-          46,-11},{46,-20},{-60,-20},{-60,-8},{-56,-8}}, color={0,0,127}));
+  connect(Concentration_Measure.C, core_inlet.C_in) annotation (Line(points={{46,-3.6},
+          {46,-20},{-60,-20},{-60,-8},{-56,-8}},         color={0,0,127}));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

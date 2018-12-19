@@ -37,9 +37,9 @@ model FissionProducts_withDecayHeat
 
 protected
   SI.Power Qs_near_i[nC]
-    "Near field (e.g, beta) power released from fission product decay (per species per volume)";
+    "Near field (e.g, beta) power released from fission product decay (per species)";
   SI.Power Qs_far_i[nC]
-    "Far field (e.g., gamma) power released from fission product decay (per species per volume)";
+    "Far field (e.g., gamma) power released from fission product decay (per species)";
 
 equation
 
