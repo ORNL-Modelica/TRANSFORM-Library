@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.Examples.check_yotta",resultFile="check_yotta");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

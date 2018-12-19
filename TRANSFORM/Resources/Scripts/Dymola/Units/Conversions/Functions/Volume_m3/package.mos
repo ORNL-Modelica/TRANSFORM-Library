@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Units.Conversions.Functions.Volume_m3.package",resultFile="package");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
