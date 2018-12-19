@@ -36,8 +36,10 @@ partial package PartialSimpleAlloy_TableBased "Material properties based on tabl
 
   redeclare function extends density
     "Return density as a function of the thermodynamic state record"
+protected
+    Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
-    d := Poly.evaluate(poly_d, state.T);
+    d := Poly.evaluate(poly_d, T);
     annotation (Inline=true, smoothOrder=2);
   end density;
 

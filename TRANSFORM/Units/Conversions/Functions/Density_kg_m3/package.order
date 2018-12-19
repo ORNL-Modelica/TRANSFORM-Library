@@ -1,4 +1,8 @@
+Examples
 BaseClasses
 to_kg_m3
+from_kg_m3
+to_g_cm3
 from_g_cm3
-from_lb_feet3
+to_lb_ft3
+from_lb_ft3

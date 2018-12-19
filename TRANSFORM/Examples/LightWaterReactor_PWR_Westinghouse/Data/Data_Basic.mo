@@ -20,10 +20,13 @@ record Data_Basic
   // Data from Source 2 (d*s2):
   // (d1s2) = slide 30: Typical design data for steam generators
 
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_feet;
+  import from_inch =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_in;
+  import from_feet =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_ft;
   import TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degF;
-  import TRANSFORM.Units.Conversions.Functions.Volume_m3.from_feet3;
+  import from_feet3 =
+         TRANSFORM.Units.Conversions.Functions.Volume_m3.from_ft3;
   import TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_psi;
   import TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr;
 

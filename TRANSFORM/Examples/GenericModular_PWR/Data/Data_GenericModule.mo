@@ -3,7 +3,8 @@ model Data_GenericModule
 
   extends BaseClasses.Record_Data;
 
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
+  import from_inch =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_in;
 
   // Source 1 (s1):
   // Systems Summary of a Westinghouse Pressurized Water Reactor Nuclear Power Plant

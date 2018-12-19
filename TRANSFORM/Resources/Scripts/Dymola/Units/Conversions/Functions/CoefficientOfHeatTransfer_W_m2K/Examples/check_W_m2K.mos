@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Units.Conversions.Functions.CoefficientOfHeatTransfer_W_m2K.Examples.check_W_m2K",resultFile="check_W_m2K");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

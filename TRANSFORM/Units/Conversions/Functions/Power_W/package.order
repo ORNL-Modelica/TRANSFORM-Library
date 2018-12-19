@@ -1,4 +1,8 @@
+Examples
 BaseClasses
 to_W
+from_W
+to_hp
 from_hp
-from_btuhr
+to_btu_hr
+from_btu_hr

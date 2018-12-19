@@ -140,8 +140,8 @@ equation
     annotation (Line(points={{26,0},{36,0}}, color={0,127,255}));
   connect(Concentration_Measure.port_b, back_to_core.ports[1])
     annotation (Line(points={{56,0},{66,0}}, color={0,127,255}));
-  connect(Concentration_Measure.C, core_inlet.C_in) annotation (Line(points={{
-          46,-11},{46,-20},{-60,-20},{-60,-8},{-56,-8}}, color={0,0,127}));
+  connect(Concentration_Measure.C, core_inlet.C_in) annotation (Line(points={{46,-3.6},
+          {46,-20},{-60,-20},{-60,-8},{-56,-8}},         color={0,0,127}));
 
   annotation (
       experiment(StopTime=100000000, __Dymola_NumberOfIntervals=10000));

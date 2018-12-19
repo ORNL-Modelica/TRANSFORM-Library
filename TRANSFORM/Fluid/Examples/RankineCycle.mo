@@ -93,7 +93,7 @@ equation
   connect(steamTurbine.shaft_b, powerSensor.flange_a)
     annotation (Line(points={{20,40},{20,40},{24,40}}, color={0,0,0}));
   connect(steamTurbine.portLP, condenser.port_a)
-    annotation (Line(points={{17,30},{17,-11},{53,-11}},
+    annotation (Line(points={{20,46},{20,-11},{53,-11}},
                                                        color={0,127,255}));
   connect(Thot_setPoint.port, boiler.heatPort)
     annotation (Line(points={{-60,-8},{-60,-2}}, color={191,0,0}));

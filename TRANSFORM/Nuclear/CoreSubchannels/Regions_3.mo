@@ -98,10 +98,11 @@ model Regions_3
       j]*Lambda_start)*Q_fission_start for j in 1:kinetics.nC}
     "Power of the initial delayed-neutron precursor concentrations" annotation (Dialog(tab="Kinetics",group="Neutron Kinetics"));
   parameter SI.Energy Es_start[kinetics.nDH]={Q_fission_start*kinetics.efs_dh_start[
-      j]/kinetics.lambda_dh_start[j] for j in 1:kinetics.nDH}
-    "Initial decay heat group energy" annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
+      j]/kinetics.lambdas_dh_start[j] for j in 1:kinetics.nDH}
+    "Initial decay heat group energy"
+    annotation (Dialog(tab="Kinetics", group="Decay-Heat"));
   parameter Units.ExtraPropertyExtrinsic mCs_fp_start[kinetics.nFP]=
-TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_FissionProducts(
+      TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_FissionProducts(
       kinetics.fissionProducts.nC,
       kinetics.fissionProducts.nFS,
       kinetics.fissionProducts.nT,
@@ -114,8 +115,10 @@ TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_FissionProducts(
       kinetics.fissionProducts.fissionYields_start,
       kinetics.fissionProducts.lambdas_start,
       fill(1e10, kinetics.fissionProducts.nC),
-      kinetics.fissionProducts.Qs_fission_start,
-      kinetics.fissionProducts.Vs_start) "Number of fission product atoms per group" annotation (Dialog(tab="Kinetics",group="Fission Products"));
+      kinetics.fissionProducts.Q_fission_start,
+      kinetics.fissionProducts.V_start)
+    "Number of fission product atoms per group"
+    annotation (Dialog(tab="Kinetics", group="Fission Products"));
   input Units.InverseTime dlambdas[kinetics.nC]=fill(0, kinetics.nC)
     "Change in decay constants for each precursor group" annotation(Dialog(tab="Parameter Change",group="Input: Neutron Kinetics"));
   input Units.NonDim dalphas[kinetics.nC]=fill(0, kinetics.nC)
@@ -393,17 +396,17 @@ TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_FissionProducts(
     traceDynamics=precursorDynamics,
     decayheatDynamics=decayheatDynamics,
     fissionProductDynamics=fissionProductDynamics,
-    Qs_fission_input=Q_fission_input,
-    Qs_external=Q_external,
-    rhos_input=rho_input,
+    Q_fission_input=Q_fission_input,
+    Q_external=Q_external,
+    rho_input=rho_input,
     alphas_feedback={alpha_fuel,alpha_coolant},
     vals_feedback={fuelModel.region_1.solutionMethod.T_effective,
         coolantSubchannel.summary.T_effective},
     vals_feedback_reference={Teffref_fuel,Teffref_coolant},
-    Qs_fission_start=Q_fission_start,
+    Q_fission_start=Q_fission_start,
     Cs_start=Cs_pg_start,
     Es_start=Es_start,
-    Vs=fuelModel.region_1.solutionMethod.V_total*fuelModel.nParallel,
+    V=fuelModel.region_1.solutionMethod.V_total*fuelModel.nParallel,
     mCs_start=mCs_fp_start,
     mCs_add={sum(coolantSubchannel.mCs[:, j])*coolantSubchannel.nParallel for j in
             1:Medium.nC},

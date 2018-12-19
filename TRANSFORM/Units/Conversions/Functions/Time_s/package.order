@@ -1,11 +1,12 @@
+Examples
 BaseClasses
 to_s
-to_min
-to_hr
-to_day
-to_yr
 from_s
-from_hr
+to_min
 from_min
+to_hr
+from_hr
+to_day
 from_day
+to_yr
 from_yr

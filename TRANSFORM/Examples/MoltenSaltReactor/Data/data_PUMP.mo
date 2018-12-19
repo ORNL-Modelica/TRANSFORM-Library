@@ -3,8 +3,10 @@ model data_PUMP
   extends Icons.Record;
 
   import TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.from_gpm;
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_feet;
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
+  import from_feet =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_ft;
+  import from_inch =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_in;
 
   parameter SI.VolumeFlowRate capacity_P = from_gpm(8100) "Capacity of primary pump";
   parameter SI.Height head_P = from_feet(150) "Head at capacity of primary pump";

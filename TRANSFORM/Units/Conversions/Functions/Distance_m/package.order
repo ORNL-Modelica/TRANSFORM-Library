@@ -1,3 +1,4 @@
+Examples
 BaseClasses
 to_m
 from_m
@@ -5,9 +6,9 @@ to_cm
 from_cm
 to_mm
 from_mm
-to_inch
-from_inch
-to_feet
-from_feet
+to_in
+from_in
+to_ft
+from_ft
 to_micron
 from_micron

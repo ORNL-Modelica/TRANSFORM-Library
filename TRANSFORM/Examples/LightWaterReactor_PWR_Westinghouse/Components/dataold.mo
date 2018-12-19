@@ -14,7 +14,7 @@ record dataold
   parameter SI.Pressure p_condenser_nominal=
       Units.Conversions.Functions.Pressure_Pa.from_inHg(2.5);                                                     //condenserPressure*inchMercuryAbs_to_Pa;
   parameter SI.HeatFlowRate Q_condenser_nominal=
-      Units.Conversions.Functions.Power_W.from_btuhr(3.1e9);                                                        // condenserHeatRate*btu_per_h_to_Watt/3600;
+      Units.Conversions.Functions.Power_W.from_btu_hr(3.1e9);                                                       // condenserHeatRate*btu_per_h_to_Watt/3600;
   parameter SI.Temperature T_steam_nominal=
       Units.Conversions.Functions.Temperature_K.from_degF(545);
   parameter SI.Temperature T_feedwater_nominal=

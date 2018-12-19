@@ -118,7 +118,7 @@ equation
       points={{-47,-80},{-38,-80}},
       color={0,0,127}));
   connect(traceVolume.C, gainSensor.u)     annotation (Line(
-      points={{41,10},{58,10}},
+      points={{36,10},{58,10}},
       color={0,0,127}));
   connect(CO2Set.y, PID.u_s) annotation (Line(
       points={{-59,50},{-42,50}},

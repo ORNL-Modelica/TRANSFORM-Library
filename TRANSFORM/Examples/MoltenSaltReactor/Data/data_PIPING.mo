@@ -3,8 +3,10 @@ model data_PIPING
   extends Icons.Record;
 
   import TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.from_gpm;
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_feet;
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
+  import from_feet =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_ft;
+  import from_inch =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_in;
 
   // Assume distance for all looops is the same. Assume out of allignmnent is negligble and ignore elbows
   // Pump is at same elevation as PHX

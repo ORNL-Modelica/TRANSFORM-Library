@@ -1,9 +1,9 @@
 within TRANSFORM.HeatAndMassTransfer.Sensors;
 model RelativeTemperature "Ideal relative temperature sensor"
   extends BaseClasses.PartialRelativeSensor;
-  extends BaseClasses.PartialRelativeIcon_withValueIndicator(
-      final var=T_rel, redeclare replaceable function iconUnit =
-        TRANSFORM.Units.Conversions.Functions.TemperatureDifference_dK.to_degC_diff
+  extends BaseClasses.PartialRelativeIcon_withValueIndicator(final var=T_rel,
+      redeclare replaceable function iconUnit =
+        TRANSFORM.Units.Conversions.Functions.TemperatureDifference_dK.to_degCorK_diff
       constrainedby
       TRANSFORM.Units.Conversions.Functions.TemperatureDifference_dK.BaseClasses.to);
 

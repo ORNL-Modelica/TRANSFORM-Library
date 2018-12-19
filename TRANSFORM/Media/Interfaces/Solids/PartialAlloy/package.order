@@ -4,6 +4,8 @@ T_reference
 h_reference
 T_default
 h_default
+use_constantDensity
+T_density
 ThermodynamicState
 BaseProperties
 setState_T
