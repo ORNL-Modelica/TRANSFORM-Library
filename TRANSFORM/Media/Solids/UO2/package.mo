@@ -35,7 +35,7 @@ h => pg 18 eq 4.1
 
   redeclare function extends density "Density"
 protected
-    Temperature T = if use_constantDensity then T_density else state.T;
+     Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
     d := TRANSFORM.Math.spliceTanh(
         (1-porosity)*d_273*(9.9672e-1 + 1.179e-5*T - 2.429e-9*T^2 + 1.219e-12
