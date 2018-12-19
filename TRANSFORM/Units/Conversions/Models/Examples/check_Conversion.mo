@@ -4,7 +4,6 @@ model check_Conversion
 
   parameter Real u = 1;
 
-
   Utilities.ErrorAnalysis.UnitTests unitTests(
     n=2,
     x={conversion.y,conversion1.y},

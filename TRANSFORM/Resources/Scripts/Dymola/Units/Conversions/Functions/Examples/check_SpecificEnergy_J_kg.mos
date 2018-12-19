@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Examples.check_SpecificEnergy_J_kg",resultFile="check_SpecificEnergy_J_kg");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

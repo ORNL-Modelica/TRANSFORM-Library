@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.SpecificEntropy_J_kgK.package",resultFile="package");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.CoefficientOfHeatTransfer_W_m2K.package",resultFile="package");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
