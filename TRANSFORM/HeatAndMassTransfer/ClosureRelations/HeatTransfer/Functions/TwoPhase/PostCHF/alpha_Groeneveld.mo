@@ -40,7 +40,7 @@ algorithm
   Re := D_hyd*abs(m_flow)/(crossArea*mu_vsat);
   epsilon_hom := x_abs/(x_abs + (rho_vsat/rho_lsat)*(1 - x_abs));
   Y := 1 - 0.1*((rho_lsat/rho_vsat - 1)*(1 - x_abs))^0.4;
-  Nu := A*(Re*x_abs/max(epsilon_hom, Modelica.Constants.eps))^B*Pr_vw^C*Y^D;
+  Nu := A*(Re*x_abs/max(epsilon_hom, Modelica.Constants.eps))^B*Pr_vw^C*max(Modelica.Constants.eps,Y)^D;
 
   alpha := Nu*lambda_vsat/D_hyd;
 

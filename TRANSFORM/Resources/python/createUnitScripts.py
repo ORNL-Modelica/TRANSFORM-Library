@@ -18,6 +18,7 @@ import os
 import re
 import errno
 import sys
+import shutil
 
 folderPath = r'C:\Users\vmg\Documents\Modelica\TRANSFORM-Library'
 folderName = r'TRANSFORM'
@@ -108,7 +109,12 @@ def cleanupRefResults(unitTests,folderName,folderNameRefResults,simEnv):
             if ans.lower() == 'y':
                 os.remove(os.path.join(folderNameRefResults, f))       
 
-            
+# Delete Scripts folder if it exists
+scriptsPath = os.path.join(folderPath,folderName,'Resources/Scripts/')
+if os.path.exists(scriptsPath):
+    print('Deleting {}'.format(scriptsPath))
+    shutil.rmtree(os.path.join(folderPath,folderName,'Resources/Scripts/'))
+
 # Get list of all files within Examples folders
 directory_list = list()
 exclude = set(['Resources'])
@@ -133,8 +139,8 @@ for item in directory_list:
                         break
 
 # Delete runAll.mos file if it exists
-if os.path.exists(os.path.join(folderPath,'runAll_Dym.mos')):
-    os.remove(os.path.join(folderPath,'runAll_Dym.mos'))
+if os.path.exists(os.path.join(folderPath,'runAll_Dymola.mos')):
+    os.remove(os.path.join(folderPath,'runAll_Dymola.mos'))
     
 # List of possible simulation parameters
 expParameters = list()
@@ -311,7 +317,7 @@ for item in test_list:
                  
 #                mosfil.write("result = model.simulate()\n")
                 
-            with open(os.path.join(folderPath,'runAll_Dym.mos'), 'a') as mosDym:
+            with open(os.path.join(folderPath,'runAll_Dymola.mos'), 'a') as mosDym:
                 mosDym.write('simulateModel("{}",'.format(plotSimPath))
                 for key, value in exp_list.items():
                     mosDym.write('{}={},'.format(exp_dict[key], value))

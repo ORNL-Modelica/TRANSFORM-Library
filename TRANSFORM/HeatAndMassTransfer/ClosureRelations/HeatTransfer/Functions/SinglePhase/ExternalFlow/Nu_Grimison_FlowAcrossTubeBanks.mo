@@ -102,13 +102,13 @@ algorithm
 <p>The Grimison average Nusselt number correlation for flow across tube bundles.</p>
 <p>Range of validity:</p>
 <ul>
-<li>2000 &LT; Re_Dmax &LT; 40e3</li>
-<li>Pr &GT; 0.7</li>
+<li>2000 &lt; Re_Dmax &lt; 40e3</li>
+<li>Pr &gt; 0.7</li>
 </ul>
 <p><br><img src=\"modelica://TRANSFORM/Resources/Images/Information/Grimison_tubeArrangement.jpg\"/></p>
 <h4>References</h4>
 <ol>
-<li>Incropera &AMP; DeWitt, Fundamentals of HEat and Mass Transfer 6E 2007.</li>
+<li>Incropera &amp; DeWitt, Fundamentals of Heat and Mass Transfer 6E 2007.</li>
 </ol>
 </html>"));
 end Nu_Grimison_FlowAcrossTubeBanks;

@@ -1,0 +1,4 @@
+simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.Examples.SinglePhase.InternalFlow.check_Nu_Turbulent_Local_Developed",resultFile="check_Nu_Turbulent_Local_Developed");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
+createPlot(id=2, y={"unitTests.x[2]"}, grid=true);

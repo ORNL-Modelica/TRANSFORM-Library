@@ -61,6 +61,6 @@ equation
   Nus = Nus0;
   alphas = Nus .* lambdas ./ L_char;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="heatTransfer",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Nus;

@@ -18,6 +18,6 @@ equation
   Pr =mediaProps.mu .* mediaProps.cp ./ mediaProps.lambda;
   //Pr_film =medium_film.mu .* medium_film.cp ./ medium_film.lambda;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="heatTransfer",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialSinglePhase;

@@ -117,6 +117,6 @@ equation
     annotation (Line(points={{-39,0},{-12,0}}, color={0,0,127}));
   connect(G.y, q.u[1]) annotation (Line(points={{-39,-30},{-30,-30},{-30,-1.33333},
           {-12,-1.33333}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="heatTransfer",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Alphas_TwoPhase_3Region_CHFtransition;

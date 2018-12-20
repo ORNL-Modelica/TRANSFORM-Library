@@ -84,6 +84,6 @@ equation
 
   Nus = alphas .* L_char ./ lambda;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="heatTransfer",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Alphas_TwoPhase_3Region;

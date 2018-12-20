@@ -16,6 +16,6 @@ equation
   Pr = mediums.mu .* mediums.cp ./ mediums.lambda;
   //Pr_film = Pr;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="heatTransfer",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialIdeal;

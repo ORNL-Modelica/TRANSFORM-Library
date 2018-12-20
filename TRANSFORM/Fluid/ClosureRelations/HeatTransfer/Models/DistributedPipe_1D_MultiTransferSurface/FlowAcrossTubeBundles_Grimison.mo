@@ -98,6 +98,6 @@ equation
           {-42,-76}}, color={0,0,127}));
   connect(C_1s.u2, m_s.u2) annotation (Line(points={{-42,-50},{-56,-50},{-56,-76},
           {-42,-76}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="heatTransfer",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end FlowAcrossTubeBundles_Grimison;

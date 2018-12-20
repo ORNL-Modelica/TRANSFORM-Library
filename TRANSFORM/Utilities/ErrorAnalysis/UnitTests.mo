@@ -1,5 +1,5 @@
 within TRANSFORM.Utilities.ErrorAnalysis;
-model UnitTests
+block UnitTests
   "Calculation of absolute, relative, and rms errors. Model is looked for in examples to identify variables included in regression unit tests as well."
 
   parameter Integer n=1 "Array size of x and x_reference";
