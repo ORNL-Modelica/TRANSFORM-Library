@@ -40,6 +40,6 @@ equation
 
   alphas = Nus .* lambda ./ L_char;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="heatTransfer",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Nus_DittusBoelter_Simple;
