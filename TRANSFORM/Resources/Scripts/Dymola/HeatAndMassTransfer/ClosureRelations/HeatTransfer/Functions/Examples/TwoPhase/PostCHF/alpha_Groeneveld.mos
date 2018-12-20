@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.Examples.TwoPhase.PostCHF.alpha_Groeneveld",resultFile="alpha_Groeneveld");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
