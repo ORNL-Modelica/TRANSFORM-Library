@@ -2,8 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.Sin
 function Nu_Laminar_Local_Developed_Rectangular
   "Nuselt Number | Single phase | Laminar | Local | Rectangular | Internal | Fully Developed"
 
-  input SI.ReynoldsNumber Re "Reynolds Number";
-  input SI.PrandtlNumber Pr "Prandtl Number";
   input Real AR "Ratio of maximum to minimum duct dimension";
   input Boolean constantTwall=true
     "= true for constant wall temperature correlation else constant heat flux";
