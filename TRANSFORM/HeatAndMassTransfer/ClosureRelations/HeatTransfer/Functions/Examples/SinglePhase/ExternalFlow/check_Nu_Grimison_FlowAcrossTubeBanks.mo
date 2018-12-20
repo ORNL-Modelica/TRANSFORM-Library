@@ -3,7 +3,6 @@ model check_Nu_Grimison_FlowAcrossTubeBanks
 
   extends TRANSFORM.Icons.Example;
 
-
   parameter SI.PrandtlNumber Pr=1.5 "Prandtl Number";
   parameter SI.Length D = 0.4 "Tube diameter";
   parameter SI.Length S_T = 0.6 "Transverse (within same row) tube pitch";
@@ -44,7 +43,6 @@ equation
     S_L,
     nRows,
     not tubesAligned);
-
 
   annotation (experiment(StopTime=2, __Dymola_NumberOfIntervals=80));
 end check_Nu_Grimison_FlowAcrossTubeBanks;

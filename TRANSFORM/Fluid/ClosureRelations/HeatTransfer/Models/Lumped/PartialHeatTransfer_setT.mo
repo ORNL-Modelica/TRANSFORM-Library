@@ -34,7 +34,6 @@ partial model PartialHeatTransfer_setT "Base model"
       nSurfaces) "if non-uniform then set"  annotation(Dialog(tab=
           "Advanced"));
 
-
 //   parameter Boolean use_T_film=false
 //     "=true for T_film = 0.5*(T_wall + T_fluid) else T_fluid"                                         annotation(Dialog(tab=
 //           "Advanced"));

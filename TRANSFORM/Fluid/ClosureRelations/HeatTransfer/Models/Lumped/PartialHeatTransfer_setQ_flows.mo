@@ -36,7 +36,6 @@ equation
          - T_fluid) + Qs_add[i] + Q_flows_radHT[i];
   end for;
 
-
   annotation (defaultComponentName="heatTransfer",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialHeatTransfer_setQ_flows;

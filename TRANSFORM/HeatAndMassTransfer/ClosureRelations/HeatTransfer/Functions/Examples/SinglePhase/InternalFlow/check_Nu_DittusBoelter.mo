@@ -22,6 +22,5 @@ equation
 
  y[1] = TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_DittusBoelter(Re.y, Pr);
 
-
   annotation (experiment(StopTime=2, __Dymola_NumberOfIntervals=80));
 end check_Nu_DittusBoelter;
