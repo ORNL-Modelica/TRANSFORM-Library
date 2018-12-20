@@ -133,8 +133,8 @@ for item in directory_list:
                         break
 
 # Delete runAll.mos file if it exists
-if os.path.exists(os.path.join(folderPath,'runAll_Dym.mos')):
-    os.remove(os.path.join(folderPath,'runAll_Dym.mos'))
+if os.path.exists(os.path.join(folderPath,'runAll_Dymola.mos')):
+    os.remove(os.path.join(folderPath,'runAll_Dymola.mos'))
     
 # List of possible simulation parameters
 expParameters = list()
@@ -311,7 +311,7 @@ for item in test_list:
                  
 #                mosfil.write("result = model.simulate()\n")
                 
-            with open(os.path.join(folderPath,'runAll_Dym.mos'), 'a') as mosDym:
+            with open(os.path.join(folderPath,'runAll_Dymola.mos'), 'a') as mosDym:
                 mosDym.write('simulateModel("{}",'.format(plotSimPath))
                 for key, value in exp_list.items():
                     mosDym.write('{}={},'.format(exp_dict[key], value))

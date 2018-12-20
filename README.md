@@ -21,7 +21,7 @@ This library has been tested with:
 
 ### Check that the Library is working
 
-- To test that the library is working, run the `runAll.mos` script. This will simulate all the examples which are included in the regression tests.
+- To test that the library is working, run the appropriate `runAll_*.mos` script. This will simulate all the examples which are included in the regression tests.
 
 ## Contact
 
