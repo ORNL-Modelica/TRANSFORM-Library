@@ -18,6 +18,7 @@ import os
 import re
 import errno
 import sys
+import shutil
 
 folderPath = r'C:\Users\vmg\Documents\Modelica\TRANSFORM-Library'
 folderName = r'TRANSFORM'
@@ -108,7 +109,12 @@ def cleanupRefResults(unitTests,folderName,folderNameRefResults,simEnv):
             if ans.lower() == 'y':
                 os.remove(os.path.join(folderNameRefResults, f))       
 
-            
+# Delete Scripts folder if it exists
+scriptsPath = os.path.join(folderPath,folderName,'Resources/Scripts/')
+if os.path.exists(scriptsPath):
+    print('Deleting {}'.format(scriptsPath))
+    shutil.rmtree(os.path.join(folderPath,folderName,'Resources/Scripts/'))
+
 # Get list of all files within Examples folders
 directory_list = list()
 exclude = set(['Resources'])
