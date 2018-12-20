@@ -326,9 +326,9 @@ equation
   mbXi_liquid_flow = zeros(Medium.nXi);
   mbXi_liquid_flow = zeros(Medium.nXi);
 
-  connect(heatTransfer_WV.heatPort, heatPort_WV)
+  connect(heatTransfer_WV.heatPorts, heatPort_WV)
     annotation (Line(points={{76,40},{100,40},{100,40}}, color={191,0,0}));
-  connect(heatTransfer_WL.heatPort, heatPort_WL)
+  connect(heatTransfer_WL.heatPorts, heatPort_WL)
     annotation (Line(points={{76,-40},{100,-40},{100,-40}}, color={191,0,0}));
   annotation (
     defaultComponentName="drum2Phase",

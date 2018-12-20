@@ -5,10 +5,12 @@ model Ideal
 
 equation
 
-  T_fluid = T_wall;
-  alpha = Modelica.Constants.inf;
-  Nu = Modelica.Constants.inf;
+  for i in 1:nSurfaces loop
+    Ts_wall[i] = T_fluid;
+    alphas[i] = Modelica.Constants.inf;
+    Nus[i] = Modelica.Constants.inf;
+  end for;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="heatTransfer",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Ideal;
