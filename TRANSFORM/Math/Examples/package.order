@@ -1,10 +1,12 @@
-spliceSigmoid
-spliceTanh
-spliceCosN
+ComplexMath
+check_cubicRoots
+check_spliceSigmoid
+check_spliceTanh
+check_spliceCosN
+check_smoothMax
 logspace
 QuadraticCurve_Test
 CubicHermiteSpline
-smoothMax
 integral_TrapezoidalRule_Test
 gamma_Lanczos
 factorial

@@ -1,12 +1,12 @@
 within TRANSFORM.Math.Examples;
-model spliceCosN
+model check_spliceCosN
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
 
   Real y "Function value";
-  Real dy, dy2, dy3,dy4;
+  Real dy, dy2, dy3,dy4 "Test der";
 
-  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(x={y})
+  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={y,dy})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   y =TRANSFORM.Math.spliceCosN(
@@ -20,4 +20,4 @@ equation
     dy4 = der(dy3);
 
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
-end spliceCosN;
+end check_spliceCosN;

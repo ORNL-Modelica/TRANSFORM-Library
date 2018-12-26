@@ -1,15 +1,21 @@
 within TRANSFORM.Math.Examples;
-model smoothMax
+model check_spliceTanh
 
   extends TRANSFORM.Icons.Example;
 
   Real y "Function value";
-  Utilities.ErrorAnalysis.UnitTests unitTests(x={y})
+  Real dy "Test der";
+
+  Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={y,dy})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-  y =TRANSFORM.Math.smoothMax(
-    x1=0,
-    x2=time,
-    dx=5);
+  y =TRANSFORM.Math.spliceTanh(
+    pos=1,
+    neg=-1,
+    x=time-5,
+    deltax=1);
+
+    dy = der(y);
+
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
-end smoothMax;
+end check_spliceTanh;
