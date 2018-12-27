@@ -1,13 +1,15 @@
 within TRANSFORM.Math;
 function sigmoid
 
-  input Real x "Value of interest";
-  input Real x0 "Transition or center value";
+  input Real x "Value of interest (e.g., x = val-x_t)";
   input Real k "Transition region factor (larger value increases slope steepness)";
 
-  output Real sigmoid "Sigmoid result";
+  output Real y "Sigmoid result";
 
 algorithm
-  sigmoid :=1/(1 + exp(-k*(x - x0)));
+  y :=1/(1 + exp(-k*x));
 
+  annotation (Documentation(info="<html>
+<p><img src=\"modelica://TRANSFORM/Resources/Images/Information/sigmoid.jpg\"/></p>
+</html>"));
 end sigmoid;

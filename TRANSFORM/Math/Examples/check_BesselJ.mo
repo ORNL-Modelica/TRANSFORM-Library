@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Examples;
-model BesselJ
+model check_BesselJ
 
   extends TRANSFORM.Icons.Example;
 
@@ -8,6 +8,11 @@ model BesselJ
   Real[n] J0 "J0 function value";
   Real[n] J1 "J0 function value";
 
+  Utilities.ErrorAnalysis.UnitTests unitTests(
+    n=2,
+    x={J0[10],J1[10]},
+    x_reference={J0_Matlab[10],J1_Matlab[10]})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Real[n] x = linspace(0.0,10,n) "Value in Jk(x)";
   Real[2] k = {0,1} "Order value";
 
@@ -63,11 +68,6 @@ model BesselJ
         0.140426953769791,0.117346773344862,0.0933283364800872,0.0686195550541594,
         0.0434727461688614}
 "Result of BesselJ1 from Matlab built-in function";
-  Utilities.ErrorAnalysis.UnitTests unitTests(
-    x={J0[1],J1[1]},
-    n=2,
-    x_reference={J0_Matlab[1],J1_Matlab[1]})
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 
   for i in 1:n loop
@@ -80,4 +80,4 @@ equation
   end for;
 
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
-end BesselJ;
+end check_BesselJ;

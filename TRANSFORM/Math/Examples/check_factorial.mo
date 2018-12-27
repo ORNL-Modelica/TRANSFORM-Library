@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Examples;
-model factorial
+model check_factorial
 
   extends TRANSFORM.Icons.Example;
 
@@ -16,4 +16,4 @@ equation
   y = TRANSFORM.Math.factorial(n);
 
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
-end factorial;
+end check_factorial;

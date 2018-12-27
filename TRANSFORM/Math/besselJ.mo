@@ -41,4 +41,8 @@ algorithm
     Jk :=(0.5*x)^nu*sum_new;
   end if;
 
+  annotation (Documentation(info="<html>
+<p>Returns the Bessel function of the first kind, J_n(x).</p>
+<p>See <a href=\"http://mathworld.wolfram.com/BesselFunctionoftheFirstKind.html\">http://mathworld.wolfram.com/BesselFunctionoftheFirstKind.html</a> for more details.</p>
+</html>"));
 end besselJ;

@@ -22,6 +22,6 @@ algorithm
      - max(x1, x2))/dx) + exp(4*(x2 - max(x1, x2))/dx))*ddx);
 
   annotation (Documentation(info="<html>
-<p>An implementation of Kreisselmeier Steinhauser smooth maximum</p>
+<p>Derivative of smoothMax. See smoothMax.</p>
 </html>"));
 end smoothMax_der;

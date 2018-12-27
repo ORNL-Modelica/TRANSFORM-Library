@@ -22,7 +22,7 @@ equation
     dy3 = der(dy2);
     dy4 = der(dy3);
 
-  y1 = TRANSFORM.Math.sigmoid(time, 5, 10);
+  y1 = TRANSFORM.Math.sigmoid(time-5, 10);
 
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
 end check_spliceSigmoid;

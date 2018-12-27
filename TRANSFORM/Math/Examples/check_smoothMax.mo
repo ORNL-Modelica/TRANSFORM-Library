@@ -10,11 +10,11 @@ model check_smoothMax
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   y =TRANSFORM.Math.smoothMax(
-    x1=5,
+    x1=10,
     x2=time,
     dx=5);
 
   dy = der(y);
   dy2 = der(dy);
-  annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
+  annotation (experiment(StopTime=20),__Dymola_experimentSetupOutput);
 end check_smoothMax;

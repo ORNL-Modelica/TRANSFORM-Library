@@ -4,12 +4,12 @@ check_spliceSigmoid
 check_spliceTanh
 check_spliceCosN
 check_smoothMax
-logspace
+check_logspace
 QuadraticCurve_Test
 CubicHermiteSpline
 integral_TrapezoidalRule_Test
-gamma_Lanczos
-factorial
-BesselJ
+check_gamma_Lanczos
+check_factorial
+check_BesselJ
 variableFactor
 meanFactor

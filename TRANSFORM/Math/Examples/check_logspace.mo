@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Examples;
-model logspace
+model check_logspace
 
   extends TRANSFORM.Icons.Example;
 
@@ -12,8 +12,8 @@ model logspace
 equation
   (y,dy) =TRANSFORM.Math.logspace(
     start=1,
-    stop=100,
+    stop=10,
     n=n);
   annotation (experiment(__Dymola_NumberOfIntervals=100),
                                       __Dymola_experimentSetupOutput);
-end logspace;
+end check_logspace;

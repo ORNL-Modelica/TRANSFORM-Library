@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Examples;
-model gamma_Lanczos
+model check_gamma_Lanczos
 
   extends TRANSFORM.Icons.Example;
 
@@ -25,4 +25,4 @@ equation
   end for;
 
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
-end gamma_Lanczos;
+end check_gamma_Lanczos;

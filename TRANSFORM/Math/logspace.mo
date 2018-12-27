@@ -33,8 +33,12 @@ algorithm
   end for;
 
   annotation (Documentation(info="<html>
-<p>logspace(start,stop,n) generates a row vector of n logarithmically</p>
-<p>equally spaced points between decades start and stop.</p>
+<p>logspace(start,stop,n) generates a row vector of n logarithmically equally spaced points between decades start and stop and the spacing between values.</p>
 <p>For n = 1, logspace returns stop.</p>
+<p><br>Example:</p>
+<p>n = 10</p>
+<p>logspace(1,10,n)</p>
+<p>x[n] = {1,1.29,1.67,2.15,2.78,3.59,4.64,5.99,7.74,10}</p>
+<p>dx[n-1] = {0.29,0.38,0.49,0.63,0.81,1.05,1.35,1.75,2.26}</p>
 </html>"));
 end logspace;

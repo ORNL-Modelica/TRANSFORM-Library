@@ -31,6 +31,7 @@ algorithm
   end if;
 
   annotation (Documentation(info="<html>
-<p>An implementation of Kreisselmeier Steinhauser smooth maximum</p>
+<p>Implementation of the Gamma function using the Lanczos approximation.</p>
+<p>See https://en.wikipedia.org/wiki/Lanczos_approximation for more details.</p>
 </html>"));
 end gamma_Lanczos;

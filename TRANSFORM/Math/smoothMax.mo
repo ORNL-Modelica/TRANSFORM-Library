@@ -13,6 +13,7 @@ algorithm
     dx)*(x2 - max(x1, x2))));
 
    annotation (smoothOrder=2,derivative=smoothMax_der, Documentation(info="<html>
- <p>An implementation of Kreisselmeier Steinhauser smooth maximum.</p>
- </html>"));
+<p>An implementation of Kreisselmeier Steinhauser smooth maximum. This does not return the exact value of x1 or x2, only an approximation, though the error diminishes as the transition region is exited.</p>
+<p><img src=\"modelica://TRANSFORM/Resources/Images/Information/smoothMax.jpg\"/></p>
+</html>"));
 end smoothMax;
