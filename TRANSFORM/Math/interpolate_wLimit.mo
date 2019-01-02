@@ -20,4 +20,7 @@ algorithm
     yi :=if xi < x[1] then y[1] elseif xi > x[end] then y[end] else yi;
   end if;
 
+  annotation (Documentation(info="<html>
+<p>Extension of the Modelica.Math.Vectors.interpolate to allow a hard limit at the bounds of the input data.</p>
+</html>"));
 end interpolate_wLimit;

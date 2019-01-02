@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Examples;
-model CubicHermiteSpline "Test problem for cubic hermite splines"
+model check_cubicHermiteSpline "Test problem for cubic hermite splines"
   extends TRANSFORM.Icons.Example;
   parameter Real[:] xd={-1,1,5,6} "Support points";
   parameter Real[size(xd, 1)] yd={-1,1,2,10} "Support points";
@@ -74,4 +74,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end CubicHermiteSpline;
+end check_cubicHermiteSpline;

@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Examples;
-model meanFactor
+model check_meanFactor
 
   extends TRANSFORM.Icons.Example;
 
@@ -59,7 +59,9 @@ model meanFactor
   final parameter Boolean dfA_5 = Modelica.Math.Matrices.isEqual(fA_5, fA_5ans,10*Modelica.Constants.eps) "=true then f = f_ans";
   final parameter Boolean dfA_6 = Modelica.Math.Matrices.isEqual(fA_6, fA_6ans,10*Modelica.Constants.eps) "=true then f = f_ans";
 
-  Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x=fA_1[:, 1])
+  Utilities.ErrorAnalysis.UnitTests unitTests(n=6, x={if dfA_1 then 1 else 0,
+        if dfA_2 then 1 else 0,if dfA_3 then 1 else 0,if dfA_4 then 1 else 0,
+        if dfA_5 then 1 else 0,if dfA_6 then 1 else 0})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
-end meanFactor;
+end check_meanFactor;

@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Examples;
-model variableFactor
+model check_variableFactor
 
   extends TRANSFORM.Icons.Example;
 
@@ -59,5 +59,9 @@ model variableFactor
   final parameter Boolean df_5 = Modelica.Math.Matrices.isEqual(f_5, f_5ans,10*Modelica.Constants.eps) "=true then f = f_ans";
   final parameter Boolean df_6 = Modelica.Math.Matrices.isEqual(f_6, f_6ans,10*Modelica.Constants.eps) "=true then f = f_ans";
 
+  Utilities.ErrorAnalysis.UnitTests unitTests(n=6, x={if df_1 then 1 else 0,if
+        df_2 then 1 else 0,if df_3 then 1 else 0,if df_4 then 1 else 0,if df_5
+         then 1 else 0,if df_6 then 1 else 0})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
-end variableFactor;
+end check_variableFactor;

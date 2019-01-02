@@ -1,8 +1,12 @@
 within TRANSFORM.Math.Examples;
-model QuadraticCurve_Test
+model check_quadratic
   extends TRANSFORM.Icons.Example;
 
   Real y;
+  Real[3] c;
+
+  parameter Real x_curve[3] = {0,0.001,0.0015};
+  parameter Real y_curve[3] = {0,0.001,0.0015};
 
   Modelica.Blocks.Sources.CombiTimeTable x_input(table=[0,5.88e-09; 0.02,5.88e-09;
         0.04,5.88e-09; 0.06,5.88e-09; 0.08,5.88e-09; 0.1,5.88e-09; 0.12,5.88e-09;
@@ -217,9 +221,10 @@ model QuadraticCurve_Test
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
 
-  y = quadraticCurve(x_input.y[1], {0,0.001,0.0015}, {60,30,0});
+  c=quadraticCoefficients(x_curve, y_curve);
+  y = quadraticCurve(x_input.y[1], x_curve, y_curve);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=10));
-end QuadraticCurve_Test;
+end check_quadratic;

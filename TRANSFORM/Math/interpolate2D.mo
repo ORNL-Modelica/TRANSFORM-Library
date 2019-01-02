@@ -33,4 +33,7 @@ algorithm
     1,
     useBound);
 
+  annotation (Documentation(info="<html>
+<p>2-D interpolation with option for hard limit on the dimensions.</p>
+</html>"));
 end interpolate2D;

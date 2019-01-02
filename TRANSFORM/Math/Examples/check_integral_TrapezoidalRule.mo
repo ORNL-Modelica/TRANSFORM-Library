@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Examples;
-model integral_TrapezoidalRule_Test
+model check_integral_TrapezoidalRule
 
   extends TRANSFORM.Icons.Example;
 
@@ -13,4 +13,4 @@ Real y = TRANSFORM.Math.integral_TrapezoidalRule(x,z);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(__Dymola_NumberOfIntervals=100));
-end integral_TrapezoidalRule_Test;
+end check_integral_TrapezoidalRule;
