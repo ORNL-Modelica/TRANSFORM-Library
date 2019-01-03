@@ -24,4 +24,22 @@ algorithm
       n3);
   end for;
 
+  annotation (Documentation(info="<html>
+<p>For example:</p>
+<p>For n1=3, n2=2, n3=4, and val={-1,2,3,10}.</p>
+<p>The returned matrix is y[3,2,4,4] where y[1,1,:,:] is:</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p align=\"right\">-1</p></td>
+<td><p align=\"right\">2</p></td>
+<td><p align=\"right\">3</p></td>
+<td><p align=\"right\">10</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-1</p></td>
+<td><p align=\"right\">2</p></td>
+<td><p align=\"right\">3</p></td>
+<td><p align=\"right\">10</p></td>
+</tr>
+</table>
+</html>"));
 end fillArray_3D;

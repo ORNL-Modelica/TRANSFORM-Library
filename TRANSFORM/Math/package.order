@@ -30,7 +30,6 @@ linspace_2Dcorner
 linspace_2Dedge
 linspaceRepeat_2Dedge
 fillArray_1D
-fillArray_1D_2ns
 fillArray_2D
 fillArray_3D
 arrheniusEquation

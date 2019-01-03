@@ -228,5 +228,63 @@ algorithm
 end if;
 
   annotation (smoothOrder=2, Documentation(info="<html>
+<p>For example:</p>
+<p>For x1=0, x2=10, x3=-5, x4 = 5, n1=5, and n2=3.</p>
+<p>The returned matrix is y[5,3]</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p align=\"right\">-2.5</p></td>
+<td><p align=\"right\">0</p></td>
+<td><p align=\"right\">2.5</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-5</p></td>
+<td><p align=\"right\">1.25</p></td>
+<td><p align=\"right\">5</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-5</p></td>
+<td><p align=\"right\">2.5</p></td>
+<td><p align=\"right\">5</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-5</p></td>
+<td><p align=\"right\">3.75</p></td>
+<td><p align=\"right\">5</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">2.5</p></td>
+<td><p align=\"right\">10</p></td>
+<td><p align=\"right\">7.5</p></td>
+</tr>
+</table>
+<p><br><br><br>Notice that the center edge values are consistent with the specified input. The corner vlaues are linear interpolations of the adjacent values.</p>
+<p><br>The exposeState options either hold the edge value (=true) or ignore the edge value (=false) and apply linear interpolation appropriately. This capability was made to assist with initialization of discritized models.</p>
+<p>With the same input as above but with exposeState={true,false,true,false} the result is:</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p align=\"right\">0</p></td>
+<td><p align=\"right\">0</p></td>
+<td><p align=\"right\">2.5</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-1.25</p></td>
+<td><p align=\"right\">1.5625</p></td>
+<td><p align=\"right\">5</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">0</p></td>
+<td><p align=\"right\">2.5</p></td>
+<td><p align=\"right\">5</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">1.25</p></td>
+<td><p align=\"right\">3.4375</p></td>
+<td><p align=\"right\">5</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">2.5</p></td>
+<td><p align=\"right\">5</p></td>
+<td><p align=\"right\">5</p></td>
+</tr>
+</table>
 </html>"));
 end linspace_2Dedge;

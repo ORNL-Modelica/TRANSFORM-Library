@@ -15,3 +15,6 @@ check_variableFactor
 check_meanFactor
 check_interpolate_wLimit
 check_interpolate2D
+check_linspace_1D
+check_linspace_2D
+check_fillArray
