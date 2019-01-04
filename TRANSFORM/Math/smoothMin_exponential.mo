@@ -19,7 +19,6 @@ algorithm
 
   y := min(x1, x2) - log(exp(-k*(x1 - min(x1, x2))) + exp(-k*(x2 - min(x1, x2))))/k;
 
-
   annotation (smoothOrder=4, Documentation(info="<html>
 <p>An implementation of the smooth minimum using an exponential term approach. This does not return the exact value of x1 or x2, only an approximation, though the error diminishes as the transition region is exited.</p>
 <p><br>Adapted to avoid underflow and overflow for large values of x1 and/or x2.</p>

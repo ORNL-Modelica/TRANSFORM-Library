@@ -39,6 +39,5 @@ equation
     dy[i] = der(y[i]);
   end for;
 
-
   annotation (experiment(StopTime=20), __Dymola_experimentSetupOutput);
 end check_smoothMax;

@@ -12,7 +12,6 @@ model check_linspace_2D
   parameter Real x3=-5;
   parameter Real x4=5;
 
-
   Real y[n1,n2];
   Real y1[n1,n2];
   Real y2[n1,n2];
