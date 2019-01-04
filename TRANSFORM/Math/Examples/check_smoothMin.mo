@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Examples;
-model check_smoothMax
+model check_smoothMin
 
   extends TRANSFORM.Icons.Example;
 
@@ -16,22 +16,22 @@ equation
 
   for i in 1:4 loop
     if i == 1 then
-      y[i] = smoothMax_splice(
+      y[i] = smoothMin_splice(
         x1=x1,
         x2=x2,
         dx=dx);
     elseif i == 2 then
-      y[i] = smoothMax_exponential(
+      y[i] = smoothMin_exponential(
         x1=x1,
         x2=x2,
         dx=dx);
     elseif i == 3 then
-      y[i] = smoothMax_cubic(
+      y[i] = smoothMin_cubic(
         x1=x1,
         x2=x2,
         dx=dx);
     elseif i == 4 then
-      y[i] = smoothMax_quadratic(
+      y[i] = smoothMin_quadratic(
         x1=x1,
         x2=x2,
         dx=dx);
@@ -39,6 +39,5 @@ equation
     dy[i] = der(y[i]);
   end for;
 
-
   annotation (experiment(StopTime=20), __Dymola_experimentSetupOutput);
-end check_smoothMax;
+end check_smoothMin;

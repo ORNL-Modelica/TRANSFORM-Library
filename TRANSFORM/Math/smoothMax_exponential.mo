@@ -1,5 +1,5 @@
 within TRANSFORM.Math;
-function smoothMax
+function smoothMax_exponential
   extends Modelica.Icons.Function;
   import Modelica.Math;
 
@@ -8,12 +8,20 @@ function smoothMax
   input Real dx
   "Approximate difference between x1 and x2, below which regularization starts";
   output Real y "Result of smooth max operator";
-algorithm
-  y := max(x1, x2) + 0.25*dx*Math.log(exp((4/dx)*(x1 - max(x1, x2))) + exp((4/
-    dx)*(x2 - max(x1, x2))));
 
-   annotation (smoothOrder=2,derivative=smoothMax_der, Documentation(info="<html>
+protected
+  Real k = 4/dx;
+
+algorithm
+   y := max(x1, x2) + Math.log(exp(k*(x1 - max(x1, x2))) + exp(k*(x2 - max(x1, x2))))/k;
+
+
+   annotation (smoothOrder=2,derivative=smoothMax_exponential_der, Documentation(info="<html>
 <p>An implementation of Kreisselmeier Steinhauser smooth maximum. This does not return the exact value of x1 or x2, only an approximation, though the error diminishes as the transition region is exited.</p>
 <p><img src=\"modelica://TRANSFORM/Resources/Images/Information/smoothMax.jpg\"/></p>
+<p>Sources:</p>
+<ul>
+<li>https://www.johndcook.com/blog/2010/01/20/how-to-compute-the-soft-maximum/</li>
+</ul>
 </html>"));
-end smoothMax;
+end smoothMax_exponential;

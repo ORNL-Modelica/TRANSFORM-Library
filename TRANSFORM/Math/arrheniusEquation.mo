@@ -1,5 +1,5 @@
 within TRANSFORM.Math;
-function arrheniusEquation "Arrehnius equation y = A*exp(-(Ea/RT)^b)"
+function arrheniusEquation "Arrhenius equation y = A*exp(-(Ea/RT)^b)"
   extends Modelica.Icons.Function;
 
   input SI.Temperature T "Temperature";
@@ -13,4 +13,5 @@ algorithm
 
  y :=A .* exp(-(Ea ./ (R .* T)) .^ beta);
 
+ annotation(smoothOrder=4);
 end arrheniusEquation;

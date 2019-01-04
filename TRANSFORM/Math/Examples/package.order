@@ -4,6 +4,7 @@ check_spliceSigmoid
 check_spliceTanh
 check_spliceCosN
 check_smoothMax
+check_smoothMin
 check_logspace
 check_quadratic
 check_cubicHermiteSpline
@@ -18,3 +19,8 @@ check_interpolate2D
 check_linspace_1D
 check_linspace_2D
 check_fillArray
+check_arrheniusEquation
+check_cumulativeSum
+check_mean
+check_isMonotonic
+check_clamp

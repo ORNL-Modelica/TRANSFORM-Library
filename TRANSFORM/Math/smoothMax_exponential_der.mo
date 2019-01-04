@@ -1,5 +1,5 @@
 within TRANSFORM.Math;
-function smoothMax_der
+function smoothMax_exponential_der
   extends Modelica.Icons.Function;
 
   import Modelica.Math.exp;
@@ -22,6 +22,6 @@ algorithm
      - max(x1, x2))/dx) + exp(4*(x2 - max(x1, x2))/dx))*ddx);
 
   annotation (Documentation(info="<html>
-<p>Derivative of smoothMax. See smoothMax.</p>
+<p>Derivative of smoothMax_exponential. See smoothMax_exponential.</p>
 </html>"));
-end smoothMax_der;
+end smoothMax_exponential_der;

@@ -11,8 +11,11 @@ model check_cubicHermiteSpline "Test problem for cubic hermite splines"
   Real x "Independent variable";
   Real y "Dependent variable without monotone interpolation";
   Real yMonotone "Dependent variable with monotone interpolation";
+  Real y_noLinExtrap "Dependent variable without monotone interpolation nor linear extrapolation";
+  Real yMonotone_noLinExtrap "Dependent variable with monotone interpolation nor linear extrapolation";
+
   Integer i "Integer to select data interval";
-  Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={y,yMonotone})
+  Utilities.ErrorAnalysis.UnitTests unitTests(n=4, x={y,yMonotone,y_noLinExtrap,yMonotone_noLinExtrap})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 initial algorithm
   // Get the derivative values at the support points
@@ -33,6 +36,7 @@ algorithm
     end if;
   end for;
   // Extrapolate or interpolate the data
+
   y := cubicHermiteSplineLinearExtrapolation(
     x=x,
     x1=xd[i],
@@ -50,28 +54,32 @@ algorithm
     y2=yd[i + 1],
     y1d=dMonotone[i],
     y2d=dMonotone[i + 1]);
+
+  y_noLinExtrap := cubicHermiteSpline(
+    x=x,
+    x1=xd[i],
+    x2=xd[i + 1],
+    y1=yd[i],
+    y2=yd[i + 1],
+    y1d=d[i],
+    y2d=d[i + 1]);
+
+  yMonotone_noLinExtrap :=
+    cubicHermiteSplineLinearExtrapolation(
+    x=x,
+    x1=xd[i],
+    x2=xd[i + 1],
+    y1=yd[i],
+    y2=yd[i + 1],
+    y1d=dMonotone[i],
+    y2d=dMonotone[i + 1]);
   annotation (
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
         "Simulate and plot"),
     experiment(StopTime=1.0),
     Documentation(info="<html>
-<p>
-This example demonstrates the use of the function for cubic hermite interpolation
-and linear extrapolation.
-The example use interpolation with two different settings: One settings
-produces a monotone cubic hermite, whereas the other setting
-does not enforce monotonicity.
-The resulting plot should look as shown below, where for better visibility, the support points have been marked with black dots.
-Notice that the red curve is monotone increasing.
-</p>
-<p align=\"center\"><img alt=\"image\" src=\"modelica://Buildings/Resources/Images/Utilities/Math/Functions/Examples/cubicHermite.png\"/></p>
-</html>", revisions="<html>
-<ul>
-<li>
-March 8, 2013, by Michael Wetter:<br/>
-First implementation.
-</li>
-</ul>
+<p>This example demonstrates the use of the function for cubic hermite interpolation and linear extrapolation. The example use interpolation with two different settings: One settings produces a monotone cubic hermite, whereas the other setting does not enforce monotonicity.</p>
+<p><br><span style=\"font-family: Courier New;\">Adapted&nbsp;from&nbsp;Buildings&nbsp;Library</span></p>
 </html>"));
 end check_cubicHermiteSpline;
