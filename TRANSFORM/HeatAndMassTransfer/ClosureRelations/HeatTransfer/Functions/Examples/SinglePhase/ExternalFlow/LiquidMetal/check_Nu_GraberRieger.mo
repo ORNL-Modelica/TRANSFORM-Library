@@ -27,5 +27,5 @@ equation
     Pr,
     PDratio);
 
-  annotation (experiment(StopTime=2, __Dymola_NumberOfIntervals=80));
+  annotation (experiment(StopTime=2, __Dymola_NumberOfIntervals=160));
 end check_Nu_GraberRieger;

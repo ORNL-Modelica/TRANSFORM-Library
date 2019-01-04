@@ -9,7 +9,8 @@ model check_Conversion
     x={conversion.y,conversion1.y},
     x_reference={100,100})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Conversion conversion(redeclare function convert = Functions.Distance_m.to_cm)
+  Conversion conversion(redeclare function convert =
+        Functions.Distance_m.to_cm)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Conversion conversion1(
     use_port=false,

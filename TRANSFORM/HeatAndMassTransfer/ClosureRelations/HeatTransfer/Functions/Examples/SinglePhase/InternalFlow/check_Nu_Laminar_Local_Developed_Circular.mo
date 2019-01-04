@@ -27,5 +27,5 @@ equation
  y[1] = TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Laminar_Local_Developed_Circular(Re.y, Pr, x, dimension, constantTwall);
  y[2] = TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow.Nu_Laminar_Local_Developed_Circular(Re.y, Pr, x, dimension, not constantTwall);
 
-  annotation (experiment(StopTime=2, __Dymola_NumberOfIntervals=80));
+  annotation (experiment(StopTime=2, __Dymola_NumberOfIntervals=160));
 end check_Nu_Laminar_Local_Developed_Circular;
