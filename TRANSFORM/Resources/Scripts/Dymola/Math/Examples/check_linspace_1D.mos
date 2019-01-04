@@ -1,0 +1,5 @@
+simulateModel("TRANSFORM.Math.Examples.check_linspace_1D",stopTime=10,resultFile="check_linspace_1D");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
+createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
+createPlot(id=3, y={"unitTests.x[3]"}, grid=true);
