@@ -198,7 +198,7 @@ for item in test_list:
                                     if not val.split('=')[1] == 0:
                                         exp_list['NumberOfIntervals'] = val.split('=')[1]
                                         if val.split('=')[1] < 100:
-                                            print('Buildingspy requires NumberOfIntervals >= 100. Consider revising the simulation conditions for: {}'.format(item))
+                                            print('Buildingspy requires NumberOfIntervals >= 100. Revise simulation conditions for: {}'.format(item))
                                         break
                                 else:
                                     if not val.split('=')[1] == 0:
