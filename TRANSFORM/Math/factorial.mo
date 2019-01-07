@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function factorial "Calculates the factorial of integer n"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Integer n "Integer used to calculate factorial";
   output Real y "Factorial n";

@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function mean
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real x[:];
   output Real y;

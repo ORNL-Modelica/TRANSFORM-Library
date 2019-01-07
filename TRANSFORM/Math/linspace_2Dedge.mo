@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function linspace_2Dedge
   "Create a linearly spaced 2D matrix from the linear interpolation of 4 edge values"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real x1 "Edge value x[1,:]";
   input Real x2 "Edge value x[end,:]";

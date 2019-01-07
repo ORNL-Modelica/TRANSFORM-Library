@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function cumulativeSum
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real u[:];
   output Real y[size(u, 1)];

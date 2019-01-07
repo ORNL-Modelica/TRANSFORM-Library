@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function linspace_2Dcorner
   "Create a linearly spaced 2D matrix from the linear interpolation of 4 corner values"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real x1 "Corner value x[1,1]";
   input Real x2 "Corner value x[1,end]";

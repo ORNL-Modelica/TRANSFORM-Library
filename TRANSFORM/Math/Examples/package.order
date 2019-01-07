@@ -24,3 +24,15 @@ check_cumulativeSum
 check_mean
 check_isMonotonic
 check_clamp
+check_regStep
+check_replaceArrayValues
+check_indexFilter
+check_radialspace
+check_xor
+check_diff
+check_regFun3
+check_regRoot
+check_max_len_seq
+check_max_len_seq_sine_time
+check_max_len_seq_ternary
+check_max_len_seq_sine

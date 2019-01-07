@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function clamp
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
   import Modelica.Math;
 
   input Real x "Value";

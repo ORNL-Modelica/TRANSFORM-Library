@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function spliceCosN "Smoothing algorithm using the cos^N function"
 
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
   input Real pos "Returned value for >x+deltax/2";
   input Real neg "Returned value for <x-deltax/2";
   input Real x "Value of interest (i.e. x - x_t)";

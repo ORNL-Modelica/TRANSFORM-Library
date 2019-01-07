@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function gamma_Lanczos
   "Gamma function using the Lanczos approximation"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real z "Input value for gamma(z)";
   output Real gamma "Gamma function value";

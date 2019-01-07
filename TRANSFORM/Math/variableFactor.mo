@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function variableFactor
   "Calcutes a matrix f from 0 to 1 that relates a ratio of variable to fixed values"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real[:] variable "Array with variable values";
   input Real[:] fixed "Array with fixed values";

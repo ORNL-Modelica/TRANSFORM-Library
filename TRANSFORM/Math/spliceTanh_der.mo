@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function spliceTanh_der "Derivative of spliceTanh"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
   input Real pos;
   input Real neg;
   input Real x;

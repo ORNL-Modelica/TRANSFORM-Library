@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function fillArray_3D
   "create a matrix from an array of values (i.e., fill(val[:],n1,n2,n3)) for 3 dimensions"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real val[:] "Array of values for use in fill";
 

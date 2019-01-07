@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function smoothMin_exponential
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
   import Modelica.Math;
 
   input Real x1 "First argument of smooth operator";

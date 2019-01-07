@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function spliceTanh
   "Spline interpolation of two functions using the hyperbolic tangent"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
   input Real pos "Returned value for x-deltax >= 0";
   input Real neg "Returned value for x+deltax <= 0";
   input Real x "Function argument";

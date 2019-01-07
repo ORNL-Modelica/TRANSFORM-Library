@@ -2,21 +2,31 @@ within TRANSFORM.Math;
 function replaceArrayValues
   "Replace array values with user specified values at specified index"
 
-  input Real[:] array_orig "Original array";
-  input Integer[:] iReplace "Indices of values to be replaced";
-  input Real[size(iReplace,1)] valueR "Replacement values";
+  extends TRANSFORM.Icons.Function;
 
-  output Real[size(array_orig,1)] array_new "Array with replaced values";
+  input Real orig[:] "Original array";
+  input Integer index[:] "Indices of values to be replaced";
+  input Real value[size(index, 1)] "Replacement values";
+
+  output Real new[size(orig, 1)] "Array with replaced values";
 
 protected
-  Integer nR = size(iReplace,1);
+  Integer nR=size(index, 1);
 
 algorithm
 
-  array_new := array_orig;
+  new := orig;
 
   for i in 1:nR loop
-    array_new[iReplace[i]] :=valueR[i];
+    new[index[i]] := value[i];
   end for;
 
+  annotation (Documentation(info="<html>
+<p>For example:</p>
+<p><span style=\"font-family: Courier New;\">array[:]&nbsp;=&nbsp;{1,2,1,2,1,2};</span></p>
+<p><span style=\"font-family: Courier New;\">iReplace[2]&nbsp;=&nbsp;{3,1};</span></p>
+<p><span style=\"font-family: Courier New;\">valueR[<span style=\"color: #ff0000;\">size</span>(iReplace,1)]&nbsp;=&nbsp;{-1,-2};</p>
+<p><br><span style=\"font-family: Courier New;\">Returns:</span></p>
+<p><br><span style=\"font-family: Courier New;\">y = {-2,2,-1,2,1,2};</span></p>
+</html>"));
 end replaceArrayValues;

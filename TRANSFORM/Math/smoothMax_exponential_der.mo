@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function smoothMax_exponential_der
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   import Modelica.Math.exp;
   import Modelica.Math.log;

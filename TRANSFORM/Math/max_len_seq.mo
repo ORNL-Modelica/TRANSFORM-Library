@@ -34,6 +34,7 @@ algorithm
   end for;
 
   annotation (Documentation(info="<html>
+<p>Predefined generator values that give the max length sequence are taken from: https://en.wikipedia.org/wiki/Linear-feedback_shift_register#Some_polynomials_for_maximal_LFSRs</p>
 <p>Create a PRBS or maximum lenqth sequence binary array. </p>
 <p><br>!! Caution: Incorrect generator will cause issues. See scipy.signal.max_len_seq for proper generators based on sequence.</p>
 </html>"));

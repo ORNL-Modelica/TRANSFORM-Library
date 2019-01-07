@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function besselJ
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   import gamma = TRANSFORM.Math.gamma_Lanczos;
   import TRANSFORM.Math.factorial;

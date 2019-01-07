@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function arrheniusEquation "Arrhenius equation y = A*exp(-(Ea/RT)^b)"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input SI.Temperature T "Temperature";
   input Real A "Pre-exponential factor";

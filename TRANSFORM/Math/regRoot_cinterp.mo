@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function regRoot_cinterp "Square root function with cubic interpolation near 0"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
   input Real x "Argument of root";
   input Real deltax=0.01 "Interpolation interval near 0";
   output Real y "Root or regularized root near zero";
