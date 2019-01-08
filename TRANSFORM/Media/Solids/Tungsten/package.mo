@@ -1,59 +1,47 @@
 within TRANSFORM.Media.Solids;
-package Tungsten "Pure natural Tungsten"
+package Tungsten "W: Tungsten"
+  //Properties from The TPRC Data Series 1971
+  // Vol 4 is Specific Heat
+  // Vol 1 is Thermal Conductivity
+  // Cp data located on pages 263-267 (used data from series 8, 13, and 15)
+  // k data is located on pages 416-428 (recommended values on pg 428)
+   extends Interfaces.Solids.PartialSimpleAlloy_TableBased(
+     mediumName="Tungsten",
+     T_min=4,
+     T_max=3100,
+     tableDensity=[0,19300; 4000,19300],
+     tableHeatCapacity=[0.,0.; 11.81,0.394; 11.87,0.392; 12.46,0.446; 12.57,0.458;
+     14.07,0.619; 14.24,0.658; 14.46,0.681; 14.65,0.704; 14.82,0.724; 15.92,0.899;
+     16.51,0.993; 17.05,1.093; 17.62,1.205; 18.03,1.298; 18.38,1.369; 19.06,1.505;
+     19.42,1.624; 20.23,1.847; 20.44,1.892; 20.5,1.938; 22.44,2.68; 25.85,4.375;
+     29.74,7.147; 33.74,10.752; 38.22,15.747; 43,21.847; 48.5,29.584; 53.94,37.275;
+     59.4,44.757; 59.8,45.385; 64.47,51.916; 65.57,52.963; 70.83,59.453; 74.51,63.723;
+     79.97,69.668; 85.29,74.609; 91.31,80.387; 96.69,84.992; 101.99,88.509;
+     107.25,92.319; 113.74,96.003; 119.4,98.934; 125.05,101.949; 130.67,104.084;
+     137.97,107.266; 144.02,110.029; 149.89,111.829; 155.81,113.127; 163.16,115.179;
+     169.36,116.812; 175.38,117.984; 182.89,119.408; 189.29,120.664; 195.41,121.417;
+     198.67,121.878; 201.36,122.757; 202.1,122.255; 204.38,123.134; 207.7,123.469;
+     209.94,124.097; 213.17,124.515; 215.33,124.557; 219.42,125.102; 222.53,125.855;
+     225.11,126.19; 228.57,126.525; 230.61,126.609; 234.27,127.153; 237.34,127.53;
+     243.1,127.949; 248.71,128.995; 254.97,129.581; 260.78,129.875; 268.65,130.293;
+     273.15,130.586; 373.15,135.945; 473.15,137.955; 573.15,139.965; 650,141.556;
+     700,142.77; 750,143.942; 800,145.156; 850,146.371; 900,147.585; 950,148.799;
+     1000,150.013; 1100,152.483; 1200,154.953; 1300,157.466; 1400,159.978;
+     1500,162.532; 1600,165.086; 1700,167.681; 1800,170.277; 1900,172.915;
+     2000,175.553; 2100,178.232; 2200,180.912; 2300,184.052; 2400,186.313;
+     2500,189.076; 2600,191.839; 2700,194.644; 2800,197.449; 2900,200.255;
+     3000,203.102; 3100,205.991],
+     tableConductivity=[0.0,0.0; 1.0,1440.0; 2.0,2870.0; 3.0,4260.0; 4.0,5560.0;
+     5.0,6710.0; 6.0,7620.0; 7.0,8240.0; 8.0,8530.0; 9.0,8510.0; 10.0,8240.0;
+     12.0,7240.0; 14.0,6040.0; 16.0,4930.0; 18.0,4000.0; 20.0,3260.0; 25.0,2040.0;
+     30.0,1310.0; 35.0,890.0; 40.0,650.0; 50.0,417.0; 60.0,318.0; 70.0,276.0;
+     80.0,256.0; 90.0,244.0; 100.0,235.0; 150.0,210.0; 200.0,197.0; 250.0,186.0;
+     273.2,182.0; 300.0,178.0; 350.0,170.0; 400.0,162.0; 500.0,149.0; 600.0,139.0;
+     700.0,133.0; 800.0,128.0; 900.0,124.0; 1000.0,121.0; 1200.0,115.0; 1400.0,111.0;
+     1600.0,107.0; 1800.0,103.0; 2000.0,100.0; 2200.0,97.7; 2400.0,95.7; 2600.0,93.8;
+     2800.0,92.4; 3000.0,91.3; 3500.0,89.8; 3653.0,89.5]);
 
-//cp from Chase, M.W., Jr., NIST-JANAF Themochemical Tables, Fourth Edition, J. Phys. Chem. Ref. Data, Monograph 9, 1998, 1-1951.
-//https://webbook.nist.gov/cgi/cbook.cgi?ID=C7440337&Units=SI&Mask=2#Thermo-Condensed
-
-//lambda from Webb & Charit, 10.1016/j.jnucmat.2012.04.020
-
-  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
-    mediumName="Tungsten",
-    T_min=Modelica.SIunits.Conversions.from_degC(0),
-    T_max=3680,
-    MM_const=0.18384);
-    constant Modelica.SIunits.Temperature trans = 1900;
-    constant Real A[2] = { 23.95930, -22.57640};
-    constant Real B[2] = {  2.639680, 90.27980};
-    constant Real C[2] = {  1.257750,-44.27150};
-    constant Real D[2] = { -0.254642,  7.176630};
-    constant Real E[2] = { -0.048407,-24.09740};
-    constant Real F[2] = { -7.433250, -9.978731};
-    constant Real G[2] = { 60.54290, -14.24470};
-    constant Real H[2] = {  0.000000,  0.000000};
-
-
-
-  redeclare function extends specificEnthalpy
-    "Specific enthalpy"
-protected
-            Real t = state.T/1000;
-            SI.SpecificEnthalpy h_lo, h_hi;
-  algorithm
-    h_lo := A[1]*t+B[1]/2*t^2+C[1]/3*t^3+D[1]/4*t^4-E[1]/t+F[1]-H[1];
-    h_hi := A[2]*t+B[2]/2*t^2+C[2]/3*t^3+D[2]/4*t^4-E[2]/t+F[2]-H[2];
-    h := h_reference + TRANSFORM.Math.spliceTanh(h_hi,h_lo,state.T-trans,100)/MM_const;
-  end specificEnthalpy;
-
-  redeclare function extends density
-    "Density"
-  algorithm
-    d := 19300;
-  end density;
-
-  redeclare function extends thermalConductivity
-    "Thermal conductivity"
-  algorithm
-    lambda := -35.911*log(state.T)+373.062;
-  end thermalConductivity;
-
-  redeclare function extends specificHeatCapacityCp
-    "Specific heat capacity"
-protected
-            Real t = state.T/1000;
-            SI.SpecificHeatCapacity cp_lo, cp_hi;
-  algorithm
-    cp_lo :=A[1] + B[1]*t + C[1]*t^2 + D[1]*t^3 + E[1]/t^2;
-    cp_hi :=A[2] + B[2]*t + C[2]*t^2 + D[2]*t^3 + E[2]/t^2;
-    cp := TRANSFORM.Math.spliceTanh(cp_hi,cp_lo,state.T-trans,100)/MM_const;
-  end specificHeatCapacityCp;
+  annotation (Documentation(info="<html>
+<p>Source: http://www.specialmetals.com/assets/documents/alloys/inconel/inconel-alloy-690.pdf</p>
+</html>"));
 end Tungsten;

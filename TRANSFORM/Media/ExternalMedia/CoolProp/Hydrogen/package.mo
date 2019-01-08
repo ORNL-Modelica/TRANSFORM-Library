@@ -4,7 +4,7 @@ package Hydrogen "Hydrogen | Two Phase | Cool Prop"
 
   extends ExternalMedia.Media.CoolPropMedium(
     mediumName = "Hydrogen",
-    substanceNames = {"hydrogen"},
+    substanceNames = {"hydrogen|enable_BICUBIC=1"},
     ThermoStates = Modelica.Media.Interfaces.Choices.IndependentVariables.ph,
     SpecificEnthalpy(start=2e5));
 
