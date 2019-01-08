@@ -41,4 +41,8 @@ algorithm
     end for;
   end if;
 
+  annotation (Documentation(info="<html>
+<p>Uses ccubicRoots but only returns on the real portion of the roots (i.e., roots[*] = Real). If a root has a imaginary portion greater than machine tolerance than a dummy value is returned for that root.</p>
+<p>nRoots helps to identify the number of expected real roots based on the result from the polynomial discriminant, D.</p>
+</html>"));
 end cubicRoots_Real;

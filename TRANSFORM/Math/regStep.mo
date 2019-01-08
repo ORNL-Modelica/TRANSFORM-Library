@@ -3,19 +3,18 @@ function regStep
   "Approximation of a general step, such that the approximation is continuous and differentiable"
   extends TRANSFORM.Icons.Function;
 
-  input Real y1 "Ordinate value for x > 0";
-  input Real y2 "Ordinate value for x < 0";
+  input Real pos "Ordinate value for x > 0";
+  input Real neg "Ordinate value for x < 0";
   input Real x "Abscissa value";
-  input Real x_small(min=0) = 1e-5
-    "Approximation of step for -x_small <= x <= x_small; x_small >= 0 required";
+  input Real deltax(min=0) = 1e-5
+    "Approximation of step for -deltax <= x <= deltax; deltax >= 0 required";
   output Real y "Ordinate value to approximate y = if x > 0 then y1 else y2";
 algorithm
-  y := smooth(1, if x >  x_small then y1 else
-                 if x < -x_small then y2 else
-                 if x_small > 0 then (x/x_small)*((x/x_small)^2 - 3)*(y2-y1)/4 + (y1+y2)/2 else (y1+y2)/2);
+  y :=smooth(1, if x > deltax then pos else if x < -deltax then neg else if
+    deltax > 0 then (x/deltax)*((x/deltax)^2 - 3)*(neg - pos)/4 + (pos + neg)/2
+     else (pos + neg)/2);
 
-  annotation(Inline=true,
-  Documentation(info="<html>
+  annotation (smoothOrder=4,Inline=true, Documentation(info="<html>
 <p>
 This function is used to approximate the equation
 </p>

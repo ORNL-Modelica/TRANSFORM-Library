@@ -19,5 +19,5 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(__Dymola_NumberOfIntervals=1));
+    experiment(__Dymola_NumberOfIntervals=100));
 end Verification;

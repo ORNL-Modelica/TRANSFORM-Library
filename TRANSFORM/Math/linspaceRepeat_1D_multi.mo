@@ -1,12 +1,12 @@
 within TRANSFORM.Math;
 function linspaceRepeat_1D_multi
-  "Create [m] linearly spaced 1D arrays stored in a [n,m] matrix and the special case when n = 1 the average is returned"
-  extends Modelica.Icons.Function;
+  "Create a 3D matrix of linearly spaced 1D arrays stored in a [n,m] matrix and the special case when n = 1 the average is returned"
+  extends TRANSFORM.Icons.Function;
 
-  input Real x1[:,:] "First array";
-  input Real x2[size(x1,1),size(x1,2)] "Second array";
+  input Real x1[:,:] "First matrix";
+  input Real x2[size(x1,1),size(x1,2)] "Second matrix";
 
-  input Integer n "Array row size";
+  input Integer n "Matrix row size";
 
   output Real y[n,size(x1,1),size(x1,2)] "Array";
 

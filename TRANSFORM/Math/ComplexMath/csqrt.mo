@@ -12,4 +12,7 @@ algorithm
     y :=Complex(sqrt(x), 0);
   end if;
 
+  annotation (Documentation(info="<html>
+<pre>Returns complex record y.re and y.im of sqrt(x).</pre>
+</html>"));
 end csqrt;

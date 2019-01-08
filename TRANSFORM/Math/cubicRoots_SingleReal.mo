@@ -39,4 +39,7 @@ algorithm
 
   u :=reRoots[reIndex];
 
+  annotation (Documentation(info="<html>
+<p>Returns only one real root between the bounds specified by the user.</p>
+</html>"));
 end cubicRoots_SingleReal;

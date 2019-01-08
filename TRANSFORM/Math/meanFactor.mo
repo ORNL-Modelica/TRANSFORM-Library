@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function meanFactor
   "Calcutes a matrix fA and f that returns the calculates a mean value based on a ratio of variable to fixed values using variableFactor"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real[:] variable "Array with variable values";
   input Real[:] fixed "Array with fixed values";

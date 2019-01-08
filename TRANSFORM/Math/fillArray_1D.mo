@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function fillArray_1D
   "create a matrix from an array of values (i.e., fill(val[:],n)) for 1 dimension"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real val[:] "Array of values for use in fill";
 
@@ -18,4 +18,28 @@ algorithm
     y[:, i] := fill(val[i], n);
   end for;
 
+  annotation (Documentation(info="<html>
+<p>For example:</p>
+<p>For n=3, and val={-1,2,3,10}.</p>
+<p>The returned matrix is y[3,4]</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p align=\"right\">-1</p></td>
+<td><p align=\"right\">2</p></td>
+<td><p align=\"right\">3</p></td>
+<td><p align=\"right\">10</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-1</p></td>
+<td><p align=\"right\">2</p></td>
+<td><p align=\"right\">3</p></td>
+<td><p align=\"right\">10</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-1</p></td>
+<td><p align=\"right\">2</p></td>
+<td><p align=\"right\">3</p></td>
+<td><p align=\"right\">10</p></td>
+</tr>
+</table>
+</html>"));
 end fillArray_1D;

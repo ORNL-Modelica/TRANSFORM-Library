@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function integral_TrapezoidalRule "Integral of array y(x) using the trapezoidal rule"
 
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real[:] x "dependent array";
   input Real[size(x,1)] y "independent array";

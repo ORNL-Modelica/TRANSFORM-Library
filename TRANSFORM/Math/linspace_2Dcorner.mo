@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function linspace_2Dcorner
   "Create a linearly spaced 2D matrix from the linear interpolation of 4 corner values"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real x1 "Corner value x[1,1]";
   input Real x2 "Corner value x[1,end]";
@@ -65,5 +65,35 @@ algorithm
   end if;
 
   annotation (smoothOrder=2, Documentation(info="<html>
+<p>For example:</p>
+<p>For x1=0, x2=10, x3=-5, x4 = 5, n1=5, and n2=3.</p>
+<p>The returned matrix is y[5,3]</p>
+<table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p align=\"right\">0</p></td>
+<td><p align=\"right\">5</p></td>
+<td><p align=\"right\">10</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-1.25</p></td>
+<td><p align=\"right\">3.75</p></td>
+<td><p align=\"right\">8.75</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-2.5</p></td>
+<td><p align=\"right\">2.5</p></td>
+<td><p align=\"right\">7.5</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-3.75</p></td>
+<td><p align=\"right\">1.25</p></td>
+<td><p align=\"right\">6.25</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-5</p></td>
+<td><p align=\"right\">0</p></td>
+<td><p align=\"right\">5</p></td>
+</tr>
+</table>
+<p><br>Notice that the corner values are consistent with the specified input.</p>
 </html>"));
 end linspace_2Dcorner;

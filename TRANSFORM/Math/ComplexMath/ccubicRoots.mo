@@ -75,12 +75,7 @@ algorithm
   end for;
 
   annotation (Documentation(info="<html>
-<pre><span style=\"font-family: Courier New,courier;\"> </span>
-<span style=\"font-family: Courier New,courier;\">Analytical solution to the cubic equation a*x^3 + b*x^2 + c*x + d = 0</span>
-<span style=\"font-family: Courier New,courier;\">using complex algebra as derived at:</span>
-<span style=\"font-family: Courier New,courier;\">http://mathforcollege.com/nm/mws/gen/03nle/mws_gen_nle_bck_exactcubic.pdf.</span>
-<span style=\"font-family: Courier New,courier;\"> </span>
-<span style=\"font-family: Courier New,courier;\">nRoots helps to identify the number of expected real roots based on the</span>
-<span style=\"font-family: Courier New,courier;\">result from the polynomial discriminant, D.</span></pre>
+<p><br><span style=\"font-family: Courier New;\">Return roots[3] where each root is complex (i.e., has both roots[*].re and roots[*].im ).</span></p>
+<p><br><span style=\"font-family: Courier New;\">nRoots helps to identify the number of expected real roots based on the result from the polynomial discriminant, D.</span></p>
 </html>"));
 end ccubicRoots;

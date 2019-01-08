@@ -1,13 +1,13 @@
 within TRANSFORM.Math;
 function spliceCosN "Smoothing algorithm using the cos^N function"
 
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
   input Real pos "Returned value for >x+deltax/2";
   input Real neg "Returned value for <x-deltax/2";
   input Real x "Value of interest (i.e. x - x_t)";
   input Real deltax=1 "Transition width";
   input Integer n=2 "(n-1)th order continuous";
-  output Real out;
+  output Real y;
 
 protected
   Real t;
@@ -40,7 +40,7 @@ algorithm
 
   t_lim := max(min(t, 1), 0);
 
-  out := (1 - t_lim)*pos + t_lim*neg;
+  y := (1 - t_lim)*pos + t_lim*neg;
 
   annotation (smoothOrder=4);
 end spliceCosN;

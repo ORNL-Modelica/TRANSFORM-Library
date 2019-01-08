@@ -192,5 +192,5 @@ equation
           -30},{-10,-30}}, color={191,0,0}));
   connect(T_H2.port, wall2.port_a1) annotation (Line(points={{-40,-60},{-25,
           -60},{-10,-60}}, color={191,0,0}));
-  annotation (experiment(__Dymola_NumberOfIntervals=1));
+  annotation (experiment(__Dymola_NumberOfIntervals=100));
 end Figure_1_8_UniformThermalEnergyGeneration_Plane;

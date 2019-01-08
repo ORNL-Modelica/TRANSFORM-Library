@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Math.Examples.check_interpolate_wLimit",stopTime=10,resultFile="check_interpolate_wLimit");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

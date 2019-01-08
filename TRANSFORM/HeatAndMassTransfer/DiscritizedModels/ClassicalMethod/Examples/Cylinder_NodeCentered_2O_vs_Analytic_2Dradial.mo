@@ -67,7 +67,7 @@ equation
         points={{50,-10},{23.6,-10},{23.6,-11}}, color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment(__Dymola_NumberOfIntervals=10),
+    experiment(__Dymola_NumberOfIntervals=100),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
 <p>Comparison of the Cylindrical node centered 2O solution to the exact 1-D radial conduction solution.</p>

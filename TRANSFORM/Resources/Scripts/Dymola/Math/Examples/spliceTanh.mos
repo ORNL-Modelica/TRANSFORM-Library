@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Math.Examples.spliceTanh",stopTime=10,resultFile="spliceTanh");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

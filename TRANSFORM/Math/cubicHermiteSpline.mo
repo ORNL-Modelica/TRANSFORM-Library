@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function cubicHermiteSpline
-    extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
  input Real x "Abscissa value";
   input Real x1 "Lower abscissa value";

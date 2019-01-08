@@ -1,7 +1,7 @@
 within TRANSFORM.Math;
 function gamma_Lanczos
   "Gamma function using the Lanczos approximation"
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
 
   input Real z "Input value for gamma(z)";
   output Real gamma "Gamma function value";
@@ -31,6 +31,7 @@ algorithm
   end if;
 
   annotation (Documentation(info="<html>
-<p>An implementation of Kreisselmeier Steinhauser smooth maximum</p>
+<p>Implementation of the Gamma function using the Lanczos approximation.</p>
+<p>See https://en.wikipedia.org/wiki/Lanczos_approximation for more details.</p>
 </html>"));
 end gamma_Lanczos;
