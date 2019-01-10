@@ -30,7 +30,7 @@ equation
     method = n*NTU_1;
   end if;
 
-  annotation (
+  annotation (defaultComponentName="effectivenessNTU",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

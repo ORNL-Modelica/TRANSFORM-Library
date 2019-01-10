@@ -23,7 +23,7 @@ equation
     end if;
   end if;
 
-  annotation (
+  annotation (defaultComponentName="effectivenessNTU",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
