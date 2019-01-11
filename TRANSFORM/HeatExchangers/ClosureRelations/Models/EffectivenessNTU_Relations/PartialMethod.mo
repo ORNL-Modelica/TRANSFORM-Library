@@ -6,7 +6,8 @@ partial model PartialMethod
   Units.NonDim method "Method for C_r > 0";
 
   parameter Boolean epsilonMethod=true
-    "=true if epsilon=f(NTU), false if NTU=f(epsilon)";
+    "=true to use formulation of epsilon=f(NTU) else NTU=f(epsilon)"
+    annotation (Dialog(tab="Advanced"));
 
 equation
 
@@ -24,7 +25,8 @@ equation
       0.01);
   end if;
 
-  annotation (defaultComponentName="effectivenessNTU",
-  Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (
+    defaultComponentName="effectivenessNTU",
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)));
 end PartialMethod;
