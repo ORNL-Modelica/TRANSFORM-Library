@@ -1,0 +1,3 @@
+within TRANSFORM.HeatExchangers.ClosureRelations.Models;
+package EffectivenessNTU_Relations
+end EffectivenessNTU_Relations;

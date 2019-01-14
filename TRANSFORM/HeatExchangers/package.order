@@ -1,4 +1,6 @@
 Examples
+ClosureRelations
+Sizing
 GenericDistributed_HX
 GenericDistributed_HX_Rwall
 GenericDistributed_HX_withMass
@@ -6,3 +8,4 @@ UAdT_lm
 BellDelaware_STHX
 Utilities
 BaseClasses
+EffectivenessNTU_HX

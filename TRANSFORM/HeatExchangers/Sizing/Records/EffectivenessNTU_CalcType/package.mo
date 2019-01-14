@@ -1,0 +1,3 @@
+within TRANSFORM.HeatExchangers.Sizing.Records;
+package EffectivenessNTU_CalcType
+end EffectivenessNTU_CalcType;
