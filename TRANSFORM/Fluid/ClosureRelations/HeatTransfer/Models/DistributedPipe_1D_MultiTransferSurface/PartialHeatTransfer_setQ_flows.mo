@@ -15,7 +15,7 @@ partial model PartialHeatTransfer_setQ_flows
       nSurfaces) "if non-uniform then set"
     annotation (Dialog(tab="Advanced",group="Inputs", enable=use_RadHT));
 
-  input SI.ThermalResistance R_add = 0 "Additional termal resistance in addition to convection (i.e., U = 1/(R_add+1/hA))" annotation (Dialog(tab="Advanced",group="Inputs"));
+  input SI.ThermalResistance R_add = 0 "Additional thermal resistance in addition to convection (i.e., U = 1/(R_add+1/hA))" annotation (Dialog(tab="Advanced",group="Inputs"));
   input SI.ThermalResistance Rs_add[nHT,nSurfaces] = fill(
       R_add,
       nHT,
