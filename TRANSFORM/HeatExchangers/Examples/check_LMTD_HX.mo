@@ -1,0 +1,40 @@
+within TRANSFORM.HeatExchangers.Examples;
+model check_LMTD_HX
+
+extends TRANSFORM.Icons.Example;
+
+  TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T boundary_a2(
+    redeclare package Medium = Modelica.Media.Air.DryAirNasa,
+    m_flow=2.2,
+    T=298.15,
+    nPorts=1) annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+  TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T boundary_a1(
+    redeclare package Medium = TRANSFORM.Media.ExternalMedia.CoolProp.Helium,
+    m_flow=0.38,
+    T=698.15,
+    nPorts=1)
+    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+  TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_b2(
+    redeclare package Medium = Modelica.Media.Air.DryAirNasa,
+    p=100000,
+    T=523.15,
+    nPorts=1) annotation (Placement(transformation(extent={{60,10},{40,30}})));
+  TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_b1(
+    redeclare package Medium = TRANSFORM.Media.ExternalMedia.CoolProp.Helium,
+    p=6000000,
+    T=573.15,
+    nPorts=1) annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
+  TRANSFORM.HeatExchangers.LMTD_HX lmtd_HX
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+equation
+  connect(boundary_a1.ports[1], lmtd_HX.port_a1) annotation (Line(points={{-40,-20},
+          {-20,-20},{-20,-4},{-10,-4}}, color={0,127,255}));
+  connect(boundary_a2.ports[1], lmtd_HX.port_a2) annotation (Line(points={{-40,20},
+          {-20,20},{-20,4},{-10,4}}, color={0,127,255}));
+  connect(boundary_b2.ports[1], lmtd_HX.port_b2) annotation (Line(points={{40,20},
+          {20,20},{20,4},{10,4}}, color={0,127,255}));
+  connect(boundary_b1.ports[1], lmtd_HX.port_b1) annotation (Line(points={{40,-20},
+          {20,-20},{20,-4},{10,-4}}, color={0,127,255}));
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+        coordinateSystem(preserveAspectRatio=false)));
+end check_LMTD_HX;
