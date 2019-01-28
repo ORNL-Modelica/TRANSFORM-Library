@@ -3,5 +3,5 @@ function cp_T
   input SI.Temperature T;
   output SI.SpecificHeatCapacity cp;
 algorithm
-  cp:=0.24;
+  cp:=TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.from_cal_gK(0.24);
 end cp_T;
