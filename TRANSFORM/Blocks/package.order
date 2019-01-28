@@ -3,6 +3,7 @@ RealExpression
 DataTable
 DataTable_Inputs
 IntegerTable
+StringTable
 TimerTotal
 OffTimer
 IntegratorWithReset
