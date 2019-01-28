@@ -34,8 +34,6 @@ equation
   //R = 1/(surfaceArea*sigma*epsilon*(port_a.T^2+port_b.T^2)*(port_a.T + port_b.T));
   //port_a.Q_flow = (port_a.T - port_b.T)/R;
 
-
-
   if use_RadHT then
     for i in 1:nHT loop
       for j in 1:nSurfaces loop

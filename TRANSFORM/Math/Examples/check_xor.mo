@@ -12,6 +12,5 @@ model check_xor
 equation
    y =xor(u1, u2);
 
-
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
 end check_xor;

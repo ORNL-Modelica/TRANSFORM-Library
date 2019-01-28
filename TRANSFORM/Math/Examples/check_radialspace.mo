@@ -10,6 +10,5 @@ model check_radialspace
 equation
   y =radialspace(0,1,5);
 
-
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
 end check_radialspace;
