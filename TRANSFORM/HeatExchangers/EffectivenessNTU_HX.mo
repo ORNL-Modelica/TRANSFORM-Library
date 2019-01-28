@@ -20,11 +20,9 @@ extends TRANSFORM.Icons.UnderConstruction;
   parameter SIadd.NonDim epsilon "Effectiveness" annotation(Dialog(group="Overall"));
   parameter SIadd.NonDim NTU "Number of transfer units" annotation(Dialog(group="Overall"));
 
-
 equation
 
   Q_flow = epsilon*U*surfaceArea/NTU*(T_1_hot - T_1_cold);
-
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
