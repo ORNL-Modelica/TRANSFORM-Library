@@ -1,6 +1,6 @@
-within TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests;
+within TRANSFORM.Fluid.Machines.Examples;
 model Turbine_SinglePhase_Test
-  "Example 7.6 from Intro to Chemical Engineering"
+
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
 
@@ -14,10 +14,10 @@ model Turbine_SinglePhase_Test
   parameter SI.Temperature T_condenser = SI.Conversions.from_degC(45.8) "Condenser saturated liquid temperature";
   parameter SI.Power Q_capacity = 56.4e6 "Rated steam turbine capacity";
 
-  TRANSFORM.Fluid.BoundaryConditions.Boundary_pT source(
+  TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T
+                                                 source(
+    m_flow=1,
     nPorts=1,
-    use_p_in=false,
-    p(displayUnit="kPa") = p_steam,
     T=T_steam,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));

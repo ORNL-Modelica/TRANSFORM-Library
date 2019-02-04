@@ -3,30 +3,42 @@ partial model PartialTurbine
 
   import TRANSFORM.Types.Dynamics;
 
-
-  replaceable package Medium = Modelica.Media.Water.StandardWater
-    constrainedby Modelica.Media.Interfaces.PartialMedium
-    "Medium in the component" annotation (choicesAllMatching=true);
-
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(
+  Interfaces.FluidPort_State port_a(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=h_a_start)) "high pressure port" annotation (Placement(
         transformation(extent={{-120,40},{-80,80}}, rotation=0),
         iconTransformation(extent={{-110,50},{-90,70}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b(
+  Interfaces.FluidPort_Flow                 port_b(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     p(start=p_b_start)) "low pressure port" annotation (Placement(
         transformation(extent={{80,40},{120,80}}, rotation=0),
         iconTransformation(extent={{90,50},{110,70}})));
 
-  Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft_a annotation (
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_a annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0),
         iconTransformation(extent={{-110,-10},{-90,10}})));
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b annotation (
       Placement(transformation(extent={{90,-10},{110,10}}, rotation=0),
         iconTransformation(extent={{90,-10},{110,10}})));
+
+
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium properties" annotation (choicesAllMatching=true);
+
+  // // Initialization
+  // parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
+  //   "Formulation of energy balances"
+  //   annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
+  // parameter Dynamics massDynamics=energyDynamics "Formulation of mass balances"
+  //   annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
+  // final parameter Dynamics substanceDynamics=massDynamics
+  //   "Formulation of substance balances"
+  //   annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
+  // parameter Dynamics traceDynamics=massDynamics
+  //   "Formulation of trace substance balances"
+  //   annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
 
   parameter Medium.AbsolutePressure p_a_start=Medium.p_default
     "Pressure at port a" annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
@@ -74,63 +86,52 @@ partial model PartialTurbine
       enable=Medium.nC > 0));
   parameter Medium.MassFlowRate m_flow_start=0 "Mass flow rate" annotation (
       Dialog(tab="Initialization", group="Start Value: Mass Flow Rate"));
-  parameter SI.Power Q_turbine_start=m_flow_start*(h_a_start - h_b_start)
-    annotation (Dialog(tab="Initialization", group="Start Value: Turbine Power"));
+
+  //   parameter SI.Power Q_turbine_start=m_flow_start*(h_a_start - h_b_start)
+  //     annotation (Dialog(tab="Initialization", group="Start Value: Turbine Power"));
 
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
-  parameter Dynamics energyDynamics=Dynamics.SteadyState
-    "=true to use turbine dynamics" annotation (Dialog(tab="Advanced"));
 
   Medium.ThermodynamicState state_a;
-  Medium.ThermodynamicState state_b;
+  //   Medium.ThermodynamicState state_b;
 
-  Real p_ratio "p_out/p_in pressure ratio";
+  Real p_ratio "port_b.p/port_a.p pressure ratio";
   SI.Angle phi "Shaft rotation angle";
   SI.Torque tau "Net torque acting on the turbine";
   SI.AngularVelocity omega "Shaft angular velocity";
   SI.MassFlowRate m_flow(start=m_flow_start) "Mass flow rate";
   Medium.SpecificEnthalpy h_in(start=h_a_start) "Inlet enthalpy";
-  Medium.SpecificEnthalpy h_out(start=h_b_start) "Outlet enthalpy";
-  Medium.SpecificEnthalpy h_is(start=h_b_start) "Isentropic outlet enthalpy";
+  Medium.SpecificEnthalpy h_out "Outlet enthalpy";
+  Medium.SpecificEnthalpy h_is "Isentropic outlet enthalpy";
   Medium.SpecificEnthalpy dh_ideal "Ideal enthalpy change";
   Medium.SpecificEnthalpy dh "Actual enthalpy change";
-  Medium.AbsolutePressure p_in(start=p_a_start) "Inlet pressure";
-  Medium.AbsolutePressure p_out(start=p_b_start) "Outlet pressure";
-
-  SI.Power Q_turbine(start=Q_turbine_start) "Mechanical power to turbine";
+  SI.Power Q_turbine "Mechanical power to turbine";
   SI.Power Ub "Energy balance";
-  SI.Energy U "Energy";
+  //    SI.Energy U "Energy";
 
   // Efficiency
   SI.Efficiency eta_mech "Turbine mechanical efficiency";
-  // defined in extending class (e.g., eta_mech = 1.0)
   SI.Efficiency eta_is "Isentropic efficiency";
-  // defined in extending class
 
-initial equation
-  if energyDynamics == Dynamics.FixedInitial then
-    Q_turbine = Q_turbine_start;
-  elseif energyDynamics == Dynamics.SteadyStateInitial then
-    der(Q_turbine) = 0;
-  end if;
+
 
 equation
 
   // Port states
-  state_a = Medium.setState_phX(
+  state_a =Medium.setState_phX(
     port_a.p,
     inStream(port_a.h_outflow),
     inStream(port_a.Xi_outflow));
 
-  state_b = Medium.setState_phX(
-    port_b.p,
-    inStream(port_b.h_outflow),
-    inStream(port_b.Xi_outflow));
+  //   state_b = Medium.setState_phX(
+  //     port_b.p,
+  //     inStream(port_b.h_outflow),
+  //     inStream(port_b.Xi_outflow));
 
   // Pressure relations
-  p_ratio = p_out/p_in;
+  p_ratio =port_b.p/port_a.p;
 
   // Mass balance equations
   port_a.m_flow + port_b.m_flow = 0;
@@ -142,17 +143,16 @@ equation
   dh = h_in - h_out;
 
   // Mechanical shaft power output
-  Q_turbine = eta_mech*m_flow*dh;
-  Q_turbine = -omega*tau;
+  Q_turbine = eta_mech*omega*tau;
 
   // Energy balace
-  Ub = port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*
-    actualStream(port_b.h_outflow) + Q_turbine;
-  if energyDynamics == Dynamics.SteadyState then
-    0 = Ub;
-  else
-    der(U) = Ub;
-  end if;
+  Ub =port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*actualStream(
+     port_b.h_outflow) + Q_turbine;
+  //    if energyDynamics == Dynamics.SteadyState then
+  0 = Ub;
+  //    else
+  //      der(U) = Ub;
+  //    end if;
 
   // Mechanical boundary conditions
   tau = shaft_a.tau + shaft_b.tau;
@@ -161,27 +161,20 @@ equation
   der(phi) = omega;
 
   // Fluid Port Boundary Conditions
-  h_in = inStream(port_a.h_outflow);
-  m_flow = port_a.m_flow;
-
-  port_a.p = p_in;
-  port_b.p = p_out;
+  h_in =inStream(port_a.h_outflow);
+  m_flow =port_a.m_flow;
 
   port_a.h_outflow = inStream(port_b.h_outflow) + dh;
   port_a.Xi_outflow = inStream(port_b.Xi_outflow);
   port_a.C_outflow = inStream(port_b.C_outflow);
 
-  port_b.h_outflow = inStream(port_a.h_outflow) - dh;
-  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-  port_b.C_outflow = inStream(port_a.C_outflow);
+  port_b.h_outflow =inStream(port_a.h_outflow) - dh;
+  port_b.Xi_outflow =inStream(port_a.Xi_outflow);
+  port_b.C_outflow =inStream(port_a.C_outflow);
 
-  //  //############
-  // tau_HP*der(Q_mech_HP) = Q_mech*hpFraction - Q_mech_HP "Power output to HP turbine";
-  // tau_LP*der(Q_mech_LP) = Q_mech*(1 - hpFraction) - Q_mech_LP "Power output to LP turbine";
-  // Q_mech_HP + Q_mech_LP = -tau*omega "Mechanical power balance";
-
-
-  annotation (defaultComponentName="turbine",Icon(graphics={
+  annotation (
+    defaultComponentName="turbine",
+    Icon(graphics={
         Rectangle(
           extent={{40,66},{92,54}},
           lineColor={0,0,0},
@@ -221,7 +214,8 @@ equation
           extent={{-149,-68},{151,-108}},
           lineColor={0,0,255},
           textString="%name",
-          visible=DynamicSelect(true, showName))}), Documentation(info="<html>
+          visible=DynamicSelect(true, showName))}),
+    Documentation(info="<html>
 <p>This base model contains the basic interface, parameters and definitions for steam turbine models. It lacks the actual performance characteristics, i.e. two more equations to determine the flow rate and the efficiency.
 <p>This model does not include any shaft inertia by itself; if that is needed, connect a <tt>Modelica.Mechanics.Rotational.Inertia</tt> model to one of the shaft connectors.
 <p><b>Modelling options</b></p>
