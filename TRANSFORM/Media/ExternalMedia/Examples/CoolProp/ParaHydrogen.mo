@@ -20,7 +20,7 @@ model ParaHydrogen
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   medium.p = p.y;
-  medium.T = T.y;
+  medium.h = Medium.specificEnthalpy(Medium.setState_pT(p.y,T.y));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
