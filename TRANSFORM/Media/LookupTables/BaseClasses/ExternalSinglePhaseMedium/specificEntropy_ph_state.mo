@@ -8,8 +8,8 @@ function specificEntropy_ph_state
   output SpecificEntropy s "Specific Entropy";
 algorithm
   s := specificEntropy(state);
-annotation (
-  Inline=false,
-  LateInline=true,
-  derivative(noDerivative=state)=specificEntropy_ph_der);
+  annotation (
+    Inline=false,
+    LateInline=true,
+    derivative(noDerivative=state) = specificEntropy_ph_der);
 end specificEntropy_ph_state;

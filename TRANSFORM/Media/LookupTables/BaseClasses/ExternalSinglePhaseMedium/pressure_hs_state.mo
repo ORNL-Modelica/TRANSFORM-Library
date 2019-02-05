@@ -7,7 +7,5 @@ function pressure_hs_state "Return pressure for given h and s"
   output AbsolutePressure p "Pressure";
 algorithm
   p := pressure(state);
-annotation (
-  Inline=false,
-  LateInline=true);
+  annotation (Inline=false, LateInline=true);
 end pressure_hs_state;

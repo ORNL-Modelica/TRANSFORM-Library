@@ -7,8 +7,11 @@ function specificEnthalpy_ps_state "Return enthalpy from p and s"
   output SpecificEnthalpy h "Enthalpy";
 algorithm
   h := specificEnthalpy(state);
-annotation (
-  Inline=false,
-  LateInline=true,
-  inverse(s=specificEntropy_ph_state(p=p, h=h, state=state)));
+  annotation (
+    Inline=false,
+    LateInline=true,
+    inverse(s=specificEntropy_ph_state(
+            p=p,
+            h=h,
+            state=state)));
 end specificEnthalpy_ps_state;

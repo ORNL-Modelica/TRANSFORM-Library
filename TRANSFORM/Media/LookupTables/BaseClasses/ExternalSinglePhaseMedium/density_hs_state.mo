@@ -7,7 +7,5 @@ function density_hs_state "Return density for given h and s"
   output Density d "density";
 algorithm
   d := density(state);
-annotation (
-  Inline=false,
-  LateInline=true);
+  annotation (Inline=false, LateInline=true);
 end density_hs_state;

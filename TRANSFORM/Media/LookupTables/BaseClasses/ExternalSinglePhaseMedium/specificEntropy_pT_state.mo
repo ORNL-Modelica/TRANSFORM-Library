@@ -8,7 +8,5 @@ function specificEntropy_pT_state
   output SpecificEntropy s "Specific Entropy";
 algorithm
   s := specificEntropy(state);
-annotation (
-  Inline=false,
-  LateInline=true);
+  annotation (Inline=false, LateInline=true);
 end specificEntropy_pT_state;

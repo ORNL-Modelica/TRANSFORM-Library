@@ -7,8 +7,11 @@ function density_pT_state
   output Density d "Density";
 algorithm
   d := density(state);
-annotation (
-  Inline=false,
-  LateInline=true,
-  inverse(p=pressure_dT_state(d=d, T=T, state=state)));
+  annotation (
+    Inline=false,
+    LateInline=true,
+    inverse(p=pressure_dT_state(
+            d=d,
+            T=T,
+            state=state)));
 end density_pT_state;

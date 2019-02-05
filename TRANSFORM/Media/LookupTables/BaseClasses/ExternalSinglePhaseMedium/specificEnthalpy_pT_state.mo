@@ -8,8 +8,11 @@ function specificEnthalpy_pT_state
   output SpecificEnthalpy h "specific enthalpy";
 algorithm
   h := specificEnthalpy(state);
-annotation (
-  Inline=false,
-  LateInline=true,
-  inverse(T=temperature_ph_state(p=p, h=h, state=state)));
+  annotation (
+    Inline=false,
+    LateInline=true,
+    inverse(T=temperature_ph_state(
+            p=p,
+            h=h,
+            state=state)));
 end specificEnthalpy_pT_state;

@@ -7,8 +7,11 @@ function pressure_dT_state
   output AbsolutePressure p "pressure";
 algorithm
   p := pressure(state);
-annotation (
-  Inline=false,
-  LateInline=true,
-  inverse(d=density_pT_state(p=p, T=T, state=state)));
+  annotation (
+    Inline=false,
+    LateInline=true,
+    inverse(d=density_pT_state(
+            p=p,
+            T=T,
+            state=state)));
 end pressure_dT_state;

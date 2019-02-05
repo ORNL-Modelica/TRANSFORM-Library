@@ -7,8 +7,8 @@ function density_ps_state "Return density from p and s"
   output Density d "Density";
 algorithm
   d := density(state);
-annotation (
-  Inline=false,
-  LateInline=true,
-  derivative(noDerivative=state) = density_ps_der);
+  annotation (
+    Inline=false,
+    LateInline=true,
+    derivative(noDerivative=state) = density_ps_der);
 end density_ps_state;

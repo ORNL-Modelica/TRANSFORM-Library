@@ -7,7 +7,5 @@ function specificEnthalpy_dT_state
   output SpecificEnthalpy h "SpecificEnthalpy";
 algorithm
   h := specificEnthalpy(state);
-annotation (
-  Inline=false,
-  LateInline=true);
+  annotation (Inline=false, LateInline=true);
 end specificEnthalpy_dT_state;

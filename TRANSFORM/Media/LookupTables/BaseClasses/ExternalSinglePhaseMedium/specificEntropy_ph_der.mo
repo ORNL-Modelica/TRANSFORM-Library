@@ -1,5 +1,6 @@
 within TRANSFORM.Media.LookupTables.BaseClasses.ExternalSinglePhaseMedium;
-function specificEntropy_ph_der "time derivative of specificEntropy_ph"
+function specificEntropy_ph_der
+  "time derivative of specificEntropy_ph"
   extends Modelica.Icons.Function;
   input AbsolutePressure p;
   input SpecificEnthalpy h;
@@ -8,7 +9,6 @@ function specificEntropy_ph_der "time derivative of specificEntropy_ph"
   input Real h_der "time derivative of specific enthalpy";
   output Real s_der "time derivative of specific entropy";
 algorithm
-  s_der := p_der*(-1.0/(state.d*state.T))
-         + h_der*( 1.0/state.T);
-annotation (Inline = true);
+  s_der := p_der*(-1.0/(state.d*state.T)) + h_der*(1.0/state.T);
+  annotation (Inline=true);
 end specificEntropy_ph_der;

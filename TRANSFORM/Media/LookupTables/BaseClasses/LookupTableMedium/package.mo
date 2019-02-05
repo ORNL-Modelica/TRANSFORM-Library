@@ -1,9 +1,10 @@
 within TRANSFORM.Media.LookupTables.BaseClasses;
 package LookupTableMedium "Medium package accessing the lookup table solver"
 
-  extends TRANSFORM.Media.LookupTables.BaseClasses.ExternalSinglePhaseMedium(final
-      libraryName="LookupTables", final substanceName=
-        TRANSFORM.Media.LookupTables.BaseClasses.Common.CheckLookupTableOptions(substanceNames[1], debug=false));
+  extends TRANSFORM.Media.LookupTables.BaseClasses.ExternalSinglePhaseMedium(
+      final libraryName="LookupTables", final substanceName=
+        TRANSFORM.Media.LookupTables.BaseClasses.Common.CheckLookupTableOptions(
+         substanceNames[1], debug=false));
 
   redeclare replaceable function extends isentropicEnthalpy
 protected
