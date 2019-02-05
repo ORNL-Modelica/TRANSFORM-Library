@@ -2,4 +2,4 @@ InputChoice
 InputChoiceMixture
 InputChoiceIncompressible
 XtoName
-CheckCoolPropOptions
+CheckLookupTableOptions

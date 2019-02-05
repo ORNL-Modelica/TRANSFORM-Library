@@ -123,6 +123,12 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     u = h - p/d;
   end BaseProperties;
 
+  replaceable function getMolarMass
+    output MolarMass MM "molar mass";
+    external "C" MM = SinglePhaseMedium_getMolarMass_C_impl(mediumName, libraryName, substanceName)
+      annotation(Include="#include \"medialookuptableslib.h\"", Library="MediaLookupTables", IncludeDirectory="modelica://MediaLookupTables/Resources/Include", LibraryDirectory="modelica://MediaLookupTables/Resources/Library");
+  end getMolarMass;
+
   redeclare replaceable function setState_ph
     "Return thermodynamic state record from p and h"
     extends Modelica.Icons.Function;

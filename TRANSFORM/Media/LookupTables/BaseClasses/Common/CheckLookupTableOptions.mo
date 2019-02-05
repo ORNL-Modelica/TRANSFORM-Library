@@ -1,6 +1,6 @@
 within TRANSFORM.Media.LookupTables.BaseClasses.Common;
-function CheckCoolPropOptions
-  "A function to extract and check the options passed to CoolProp"
+function CheckLookupTableOptions
+  "A function to extract and check the options passed to LookupTable"
   extends Modelica.Icons.Function;
   input String substance = "";
   input Boolean debug = false;
@@ -109,4 +109,4 @@ algorithm
   if noEvent(debug) then
     Modelica.Utilities.Streams.print("output = " + result);
   end if;
-end CheckCoolPropOptions;
+end CheckLookupTableOptions;

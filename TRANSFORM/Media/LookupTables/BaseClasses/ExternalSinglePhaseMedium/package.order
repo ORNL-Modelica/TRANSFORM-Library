@@ -5,6 +5,7 @@ externalFluidConstants
 inputChoice
 ThermodynamicState
 BaseProperties
+getMolarMass
 setState_ph
 setState_pT
 setState_dT
