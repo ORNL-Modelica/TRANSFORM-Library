@@ -1,7 +1,7 @@
 within TRANSFORM.Media.Interfaces.Fluids;
 package ExternalSinglePhaseMedium "Generic external single phase medium package"
 
-  import Interfaces.Common.InputChoice;
+  import TRANSFORM.Media.Interfaces.Common.InputChoice;
 
   extends TRANSFORM.Media.Interfaces.Fluids.PartialSinglePhaseMedium(
     singleState=false,
@@ -64,7 +64,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
                        basePropertiesInputChoice == InputChoice.dT then
                          StateSelect.prefer else StateSelect.default))
 
-    import Interfaces.Common.InputChoice;
+    import TRANSFORM.Media.Interfaces.Common.InputChoice;
 
     parameter InputChoice basePropertiesInputChoice=inputChoice
       "Choice of input variables for property computations";
@@ -114,7 +114,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     // end if;
 
     if (basePropertiesInputChoice == InputChoice.pT) then
-      state = setState_pT(p, T, phaseInput);
+      state = setState_pT(p, T);
       d = density(state);
       h = specificEnthalpy(state);
       s = specificEntropy(state);
@@ -122,13 +122,6 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     // Compute the internal energy
     u = h - p/d;
   end BaseProperties;
-
-  redeclare function molarMass "Return the molar mass of the medium"
-      input ThermodynamicState state;
-      output MolarMass MM "Mixture molar mass";
-  algorithm
-    MM := fluidConstants[1].molarMass;
-  end molarMass;
 
   redeclare replaceable function setState_ph
     "Return thermodynamic state record from p and h"
@@ -156,7 +149,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     input Density d "density";
     input Temperature T "temperature";
     output ThermodynamicState state;
-  external "C" SinglePhaseMedium_setState_dT_C_impl(p, T, state, mediumName, libraryName, substanceName)
+  external "C" SinglePhaseMedium_setState_dT_C_impl(d, T, state, mediumName, libraryName, substanceName)
     annotation(Include="#include \"medialookuptableslib.h\"", Library="MediaLookupTables", IncludeDirectory="modelica://MediaLookupTables/Resources/Include", LibraryDirectory="modelica://MediaLookupTables/Resources/Library");
   end setState_dT;
 
@@ -175,8 +168,6 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     extends Modelica.Icons.Function;
     input SpecificEnthalpy h "specific enthalpy";
     input SpecificEntropy s "specific entropy";
-    input FixedPhase phase = 0
-      "2 for two-phase, 1 for one-phase, 0 if not known";
     output ThermodynamicState state;
   external "C" SinglePhaseMedium_setState_hs_C_impl(h, s, state, mediumName, libraryName, substanceName)
     annotation(Include="#include \"medialookuptableslib.h\"", Library="MediaLookupTables", IncludeDirectory="modelica://MediaLookupTables/Resources/Include", LibraryDirectory="modelica://MediaLookupTables/Resources/Library");
@@ -262,7 +253,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     T := temperature_ph_state(p=p, h=h, state=setState_ph(p=p, h=h));
   annotation (
     Inline=true,
-    inverse(h=specificEnthalpy_pT(p=p, T=T, phase=phase)));
+    inverse(h=specificEnthalpy_pT(p=p, T=T)));
   end temperature_ph;
 
   replaceable function specificEntropy_ph
