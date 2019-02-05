@@ -1,7 +1,7 @@
-within TRANSFORM.Media.Interfaces.Fluids;
+within TRANSFORM.Media.LookupTables.BaseClasses;
 package ExternalSinglePhaseMedium "Generic external single phase medium package"
 
-  import TRANSFORM.Media.Interfaces.Common.InputChoice;
+  import TRANSFORM.Media.LookupTables.BaseClasses.Common.InputChoice;
 
   extends TRANSFORM.Media.Interfaces.Fluids.PartialSinglePhaseMedium(
     singleState=false,
@@ -64,7 +64,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
                        basePropertiesInputChoice == InputChoice.dT then
                          StateSelect.prefer else StateSelect.default))
 
-    import TRANSFORM.Media.Interfaces.Common.InputChoice;
+    import TRANSFORM.Media.LookupTables.BaseClasses.Common.InputChoice;
 
     parameter InputChoice basePropertiesInputChoice=inputChoice
       "Choice of input variables for property computations";
