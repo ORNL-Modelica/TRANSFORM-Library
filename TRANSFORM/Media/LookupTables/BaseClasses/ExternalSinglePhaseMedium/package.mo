@@ -612,12 +612,11 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
 */
     annotation(Inline = true);
   end specificEntropy;
-
-  redeclare replaceable function extends isentropicEnthalpy
-  external "C" h_is = SinglePhaseMedium_isentropicEnthalpy_C_impl(p_downstream, refState,
-   mediumName, libraryName, substanceName)
-    annotation(Include="#include \"medialookuptableslib.h\"", Library="MediaLookupTables", IncludeDirectory="modelica://MediaLookupTables/Resources/Include", LibraryDirectory="modelica://MediaLookupTables/Resources/Library");
-  end isentropicEnthalpy;
+//   redeclare replaceable function extends isentropicEnthalpy
+//   external "C" h_is = SinglePhaseMedium_isentropicEnthalpy_C_impl(p_downstream, refState,
+//    mediumName, libraryName, substanceName)
+//     annotation(Include="#include \"medialookuptableslib.h\"", Library="MediaLookupTables", IncludeDirectory="modelica://MediaLookupTables/Resources/Include", LibraryDirectory="modelica://MediaLookupTables/Resources/Library");
+//   end isentropicEnthalpy;
 // 
 //   redeclare replaceable function extends surfaceTension
 //     "Returns surface tension sigma in the two phase region"

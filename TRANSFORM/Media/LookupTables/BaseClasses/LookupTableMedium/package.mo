@@ -5,10 +5,7 @@ package LookupTableMedium "Medium package accessing the lookup table solver"
       libraryName="LookupTables", final substanceName=
         TRANSFORM.Media.LookupTables.BaseClasses.Common.CheckLookupTableOptions(substanceNames[1], debug=false));
 
-  redeclare replaceable function isentropicEnthalpy
-    input AbsolutePressure p_downstream "downstream pressure";
-    input ThermodynamicState refState "reference state for entropy";
-    output SpecificEnthalpy h_is "Isentropic enthalpy";
+  redeclare replaceable function extends isentropicEnthalpy
 protected
     SpecificEntropy s_ideal;
     ThermodynamicState state_ideal;
