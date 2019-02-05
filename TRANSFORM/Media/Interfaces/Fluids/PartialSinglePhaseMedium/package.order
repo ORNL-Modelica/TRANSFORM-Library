@@ -1,10 +1,6 @@
-smoothModel
-onePhase
 fluidConstants
 ThermodynamicState
 BaseProperties
-setDewState
-setBubbleState
 setState_dTX
 setState_phX
 setState_psX

@@ -3,43 +3,19 @@ partial package PartialSinglePhaseMedium "Base class for single phase medium of 
   extends TRANSFORM.Media.Interfaces.Fluids.PartialPureSubstance(redeclare
     record
       FluidConstants = Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants);
-  constant Boolean smoothModel=false
-    "True if the (derived) model should not generate state events";
-  constant Boolean onePhase=false
-    "True if the (derived) model should never be called with two-phase inputs";
 
   constant FluidConstants[nS] fluidConstants "Constant data for the fluid";
 
   redeclare replaceable record extends ThermodynamicState
-    "Thermodynamic state of two phase medium"
-    FixedPhase phase(min=0, max=2)
-      "Phase of the fluid: 1 for 1-phase, 2 for two-phase, 0 for not known, e.g., interactive use";
+    "A selection of variables that uniquely defines the thermodynamic state"
+    AbsolutePressure p "Absolute pressure of medium";
+    Temperature T "Temperature of medium";
   end ThermodynamicState;
 
   redeclare replaceable partial model extends BaseProperties
     "Base properties (p, d, T, h, u, R, MM, sat) of two phase medium"
     SaturationProperties sat "Saturation properties at the medium pressure";
   end BaseProperties;
-
-  replaceable partial function setDewState
-    "Return the thermodynamic state on the dew line"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation point";
-    input FixedPhase phase(
-      min=1,
-      max=2) = 1 "Phase: default is one phase";
-    output ThermodynamicState state "Complete thermodynamic state info";
-  end setDewState;
-
-  replaceable partial function setBubbleState
-    "Return the thermodynamic state on the bubble line"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation point";
-    input FixedPhase phase(
-      min=1,
-      max=2) = 1 "Phase: default is one phase";
-    output ThermodynamicState state "Complete thermodynamic state info";
-  end setBubbleState;
 
   redeclare replaceable partial function extends setState_dTX
     "Return thermodynamic state as function of d, T and composition X or Xi"
