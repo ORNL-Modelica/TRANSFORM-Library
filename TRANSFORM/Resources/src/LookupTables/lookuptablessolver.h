@@ -26,14 +26,10 @@ class CoolPropSolver : public BaseSolver{
 
 protected:
 	class CoolPropStateClassSI *state;
-	bool enable_TTSE, enable_BICUBIC, calc_transport, extend_twophase;
+	bool enable_TTSE, enable_BICUBIC, calc_transport;
 	int debug_level;
 	double twophase_derivsmoothing_xend;
 	double rho_smoothing_xend;
-	double hmin;
-	double hmax;
-	double pmin;
-	double pmax;
 	long fluidType;
 	double _p_eps   ; // relative tolerance margin for subcritical pressure conditions
 	double _delta_h ; // delta_h for one-phase/two-phase discrimination
@@ -48,17 +44,11 @@ public:
 	~CoolPropSolver();
 	virtual void setFluidConstants();
 
-	virtual void setSat_p(double &p, ExternalSaturationProperties *const properties);
-	virtual void setSat_T(double &T, ExternalSaturationProperties *const properties);
-
-	virtual void setBubbleState(ExternalSaturationProperties *const properties, int phase, ExternalThermodynamicState *const bubbleProperties);
-	virtual void setDewState   (ExternalSaturationProperties *const properties, int phase, ExternalThermodynamicState *const bubbleProperties);
-
-	virtual void setState_ph(double &p, double &h, int &phase, ExternalThermodynamicState *const properties);
+	virtual void setState_ph(double &p, double &h, ExternalThermodynamicState *const properties);
 	virtual void setState_pT(double &p, double &T, ExternalThermodynamicState *const properties);
-	virtual void setState_dT(double &d, double &T, int &phase, ExternalThermodynamicState *const properties);
-	virtual void setState_ps(double &p, double &s, int &phase, ExternalThermodynamicState *const properties);
-	virtual void setState_hs(double &h, double &s, int &phase, ExternalThermodynamicState *const properties);
+	virtual void setState_dT(double &d, double &T, ExternalThermodynamicState *const properties);
+	virtual void setState_ps(double &p, double &s, ExternalThermodynamicState *const properties);
+	virtual void setState_hs(double &h, double &s, ExternalThermodynamicState *const properties);
 
 	virtual double partialDeriv_state(const string &of, const string &wrt, const string &cst, ExternalThermodynamicState *const properties);
 
@@ -76,27 +66,8 @@ public:
 	virtual double kappa(ExternalThermodynamicState *const properties);
 	virtual double lambda(ExternalThermodynamicState *const properties);
 	virtual double p(ExternalThermodynamicState *const properties);
-	virtual int phase(ExternalThermodynamicState *const properties);
 	virtual double s(ExternalThermodynamicState *const properties);
 	virtual double d_der(ExternalThermodynamicState *const properties);
-	virtual double isentropicEnthalpy(double &p, ExternalThermodynamicState *const properties);
-
-	virtual double dTp(ExternalSaturationProperties *const properties);
-	virtual double ddldp(ExternalSaturationProperties *const properties);
-	virtual double ddvdp(ExternalSaturationProperties *const properties);
-	virtual double dhldp(ExternalSaturationProperties *const properties);
-	virtual double dhvdp(ExternalSaturationProperties *const properties);
-	virtual double dl(ExternalSaturationProperties *const properties);
-	virtual double dv(ExternalSaturationProperties *const properties);
-	virtual double hl(ExternalSaturationProperties *const properties);
-	virtual double hv(ExternalSaturationProperties *const properties);
-	virtual double sigma(ExternalSaturationProperties *const properties);
-	virtual double sl(ExternalSaturationProperties *const properties);
-	virtual double sv(ExternalSaturationProperties *const properties);
-
-	virtual double psat(ExternalSaturationProperties *const properties);
-	virtual double Tsat(ExternalSaturationProperties *const properties);
-
 };
 
 #endif // COOLPROPSOLVER_H_

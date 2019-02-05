@@ -22,25 +22,15 @@ protected
     "calc_transport",
     "enable_TTSE",
     "enable_BICUBIC",
-    "enable_EXTTP",
     "twophase_derivsmoothing_xend",
     "rho_smoothing_xend",
-    "debug",
-    "hmin",
-    "hmax",
-    "pmin",
-    "pmax"};
+    "debug"};
   String[:] defaultOptions = {
     "1",
     "0",
     "0",
-    "1",
     "0.0",
     "0.0",
-    "0",
-    "0",
-    "0",
-    "0",
     "0"};
   // predefined delimiters
   String delimiter1 = "|";
