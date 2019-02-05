@@ -12,187 +12,11 @@ partial package PartialSinglePhaseMedium "Base class for single phase medium of 
     Temperature T "Temperature of medium";
   end ThermodynamicState;
 
-  redeclare replaceable partial model extends BaseProperties
-    "Base properties (p, d, T, h, u, R, MM, sat) of two phase medium"
-    SaturationProperties sat "Saturation properties at the medium pressure";
-  end BaseProperties;
-
-  redeclare replaceable partial function extends setState_dTX
-    "Return thermodynamic state as function of d, T and composition X or Xi"
-    input FixedPhase phase=0
-      "2 for two-phase, 1 for one-phase, 0 if not known";
-  end setState_dTX;
-
-  redeclare replaceable partial function extends setState_phX
-    "Return thermodynamic state as function of p, h and composition X or Xi"
-    input FixedPhase phase=0
-      "2 for two-phase, 1 for one-phase, 0 if not known";
-  end setState_phX;
-
-  redeclare replaceable partial function extends setState_psX
-    "Return thermodynamic state as function of p, s and composition X or Xi"
-    input FixedPhase phase=0
-      "2 for two-phase, 1 for one-phase, 0 if not known";
-  end setState_psX;
-
-  redeclare replaceable partial function extends setState_pTX
-    "Return thermodynamic state as function of p, T and composition X or Xi"
-    input FixedPhase phase=0
-      "2 for two-phase, 1 for one-phase, 0 if not known";
-  end setState_pTX;
-
-  replaceable function setSat_T
-    "Return saturation property record from temperature"
-    extends Modelica.Icons.Function;
-    input Temperature T "Temperature";
-    output SaturationProperties sat "Saturation property record";
-  algorithm
-    sat.Tsat := T;
-    sat.psat := saturationPressure(T);
-  end setSat_T;
-
-  replaceable function setSat_p
-    "Return saturation property record from pressure"
-    extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    output SaturationProperties sat "Saturation property record";
-  algorithm
-    sat.psat := p;
-    sat.Tsat := saturationTemperature(p);
-  end setSat_p;
-
-  replaceable partial function bubbleEnthalpy
-    "Return bubble point specific enthalpy"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SI.SpecificEnthalpy hl "Boiling curve specific enthalpy";
-  end bubbleEnthalpy;
-
-  replaceable partial function dewEnthalpy
-    "Return dew point specific enthalpy"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SI.SpecificEnthalpy hv "Dew curve specific enthalpy";
-  end dewEnthalpy;
-
-  replaceable partial function bubbleEntropy
-    "Return bubble point specific entropy"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SI.SpecificEntropy sl "Boiling curve specific entropy";
-  end bubbleEntropy;
-
-  replaceable partial function dewEntropy "Return dew point specific entropy"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SI.SpecificEntropy sv "Dew curve specific entropy";
-  end dewEntropy;
-
-  replaceable partial function bubbleDensity "Return bubble point density"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output Density dl "Boiling curve density";
-  end bubbleDensity;
-
-  replaceable partial function dewDensity "Return dew point density"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output Density dv "Dew curve density";
-  end dewDensity;
-
-  replaceable partial function saturationPressure
-    "Return saturation pressure"
-    extends Modelica.Icons.Function;
-    input Temperature T "Temperature";
-    output AbsolutePressure p "Saturation pressure";
-  end saturationPressure;
-
-  replaceable partial function saturationTemperature
-    "Return saturation temperature"
-    extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    output Temperature T "Saturation temperature";
-  end saturationTemperature;
-
-  replaceable function saturationPressure_sat "Return saturation temperature"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output AbsolutePressure p "Saturation pressure";
-  algorithm
-    p := sat.psat;
-  end saturationPressure_sat;
-
-  replaceable function saturationTemperature_sat
-    "Return saturation temperature"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output Temperature T "Saturation temperature";
-  algorithm
-    T := sat.Tsat;
-  end saturationTemperature_sat;
-
-  replaceable partial function saturationTemperature_derp
-    "Return derivative of saturation temperature w.r.t. pressure"
-    extends Modelica.Icons.Function;
-    input AbsolutePressure p "Pressure";
-    output DerTemperatureByPressure dTp
-      "Derivative of saturation temperature w.r.t. pressure";
-  end saturationTemperature_derp;
-
-  replaceable function saturationTemperature_derp_sat
-    "Return derivative of saturation temperature w.r.t. pressure"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output DerTemperatureByPressure dTp
-      "Derivative of saturation temperature w.r.t. pressure";
-  algorithm
-    dTp := saturationTemperature_derp(sat.psat);
-  end saturationTemperature_derp_sat;
-
-  replaceable partial function surfaceTension
-    "Return surface tension sigma in the two phase region"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output SurfaceTension sigma
-      "Surface tension sigma in the two phase region";
-  end surfaceTension;
-
   redeclare replaceable function extends molarMass
     "Return the molar mass of the medium"
   algorithm
     MM := fluidConstants[1].molarMass;
   end molarMass;
-
-  replaceable partial function dBubbleDensity_dPressure
-    "Return bubble point density derivative"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output DerDensityByPressure ddldp "Boiling curve density derivative";
-  end dBubbleDensity_dPressure;
-
-  replaceable partial function dDewDensity_dPressure
-    "Return dew point density derivative"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output DerDensityByPressure ddvdp "Saturated steam density derivative";
-  end dDewDensity_dPressure;
-
-  replaceable partial function dBubbleEnthalpy_dPressure
-    "Return bubble point specific enthalpy derivative"
-    extends Modelica.Icons.Function;
-    input SaturationProperties sat "Saturation property record";
-    output DerEnthalpyByPressure dhldp
-      "Boiling curve specific enthalpy derivative";
-  end dBubbleEnthalpy_dPressure;
-
-  replaceable partial function dDewEnthalpy_dPressure
-    "Return dew point specific enthalpy derivative"
-    extends Modelica.Icons.Function;
-
-    input SaturationProperties sat "Saturation property record";
-    output DerEnthalpyByPressure dhvdp
-      "Saturated steam specific enthalpy derivative";
-  end dDewEnthalpy_dPressure;
 
   redeclare replaceable function specificEnthalpy_pTX
     "Return specific enthalpy from pressure, temperature and mass fraction"
@@ -200,15 +24,12 @@ partial package PartialSinglePhaseMedium "Base class for single phase medium of 
     input AbsolutePressure p "Pressure";
     input Temperature T "Temperature";
     input MassFraction X[:] "Mass fractions";
-    input FixedPhase phase=0
-      "2 for two-phase, 1 for one-phase, 0 if not known";
     output SpecificEnthalpy h "Specific enthalpy at p, T, X";
   algorithm
     h := specificEnthalpy(setState_pTX(
             p,
             T,
-            X,
-            phase));
+            X));
   end specificEnthalpy_pTX;
 
   redeclare replaceable function temperature_phX
@@ -217,15 +38,12 @@ partial package PartialSinglePhaseMedium "Base class for single phase medium of 
     input AbsolutePressure p "Pressure";
     input SpecificEnthalpy h "Specific enthalpy";
     input MassFraction X[:] "Mass fractions";
-    input FixedPhase phase=0
-      "2 for two-phase, 1 for one-phase, 0 if not known";
     output Temperature T "Temperature";
   algorithm
     T := temperature(setState_phX(
             p,
             h,
-            X,
-            phase));
+            X));
   end temperature_phX;
 
   redeclare replaceable function density_phX
@@ -234,15 +52,12 @@ partial package PartialSinglePhaseMedium "Base class for single phase medium of 
     input AbsolutePressure p "Pressure";
     input SpecificEnthalpy h "Specific enthalpy";
     input MassFraction X[:] "Mass fractions";
-    input FixedPhase phase=0
-      "2 for two-phase, 1 for one-phase, 0 if not known";
     output Density d "Density";
   algorithm
     d := density(setState_phX(
             p,
             h,
-            X,
-            phase));
+            X));
   end density_phX;
 
   redeclare replaceable function temperature_psX
@@ -251,15 +66,12 @@ partial package PartialSinglePhaseMedium "Base class for single phase medium of 
     input AbsolutePressure p "Pressure";
     input SpecificEntropy s "Specific entropy";
     input MassFraction X[:] "Mass fractions";
-    input FixedPhase phase=0
-      "2 for two-phase, 1 for one-phase, 0 if not known";
     output Temperature T "Temperature";
   algorithm
     T := temperature(setState_psX(
             p,
             s,
-            X,
-            phase));
+            X));
   end temperature_psX;
 
   redeclare replaceable function density_psX
@@ -268,15 +80,12 @@ partial package PartialSinglePhaseMedium "Base class for single phase medium of 
     input AbsolutePressure p "Pressure";
     input SpecificEntropy s "Specific entropy";
     input MassFraction X[:] "Mass fractions";
-    input FixedPhase phase=0
-      "2 for two-phase, 1 for one-phase, 0 if not known";
     output Density d "Density";
   algorithm
     d := density(setState_psX(
             p,
             s,
-            X,
-            phase));
+            X));
   end density_psX;
 
   redeclare replaceable function specificEnthalpy_psX
