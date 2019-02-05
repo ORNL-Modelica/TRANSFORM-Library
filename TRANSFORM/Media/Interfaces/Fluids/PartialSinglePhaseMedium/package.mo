@@ -2,7 +2,7 @@ within TRANSFORM.Media.Interfaces.Fluids;
 partial package PartialSinglePhaseMedium "Base class for single phase medium of one substance"
   extends TRANSFORM.Media.Interfaces.Fluids.PartialPureSubstance(redeclare
     record
-      FluidConstants = Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants);
+      FluidConstants = Modelica.Media.Interfaces.Types.Basic.FluidConstants);
 
   constant FluidConstants[nS] fluidConstants "Constant data for the fluid";
 
