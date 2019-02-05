@@ -73,7 +73,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
 
     // if (basePropertiesInputChoice == InputChoice.ph) then
     //   // Compute the state record (including the unique ID)
-    //   state = setState_ph(p, h, phaseInput);
+    //   state = setState_ph(p, h);
     //   // Compute the remaining variables.
     //   // It is not possible to use the standard functions like
     //   // d = density(state), because differentiation for index
@@ -81,26 +81,26 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     //   // density_ph(), which has an appropriate derivative annotation,
     //   // is used instead. The implementation of density_ph() uses
     //   // setState with the same inputs, so there's no actual overhead
-    //   d = density_ph(p, h, phaseInput);
-    //   s = specificEntropy_ph(p, h, phaseInput);
+    //   d = density_ph(p, h);
+    //   s = specificEntropy_ph(p, h);
     //   T = temperature_ph(p, h, phaseInput);
     // elseif (basePropertiesInputChoice == InputChoice.dT) then
-    //   state = setState_dT(d, T, phaseInput);
+    //   state = setState_dT(d, T);
     //   h = specificEnthalpy(state);
     //   p = pressure(state);
     //   s = specificEntropy(state);
     // elseif (basePropertiesInputChoice == InputChoice.pT) then
-    //   state = setState_pT(p, T, phaseInput);
+    //   state = setState_pT(p, T);
     //   d = density(state);
     //   h = specificEnthalpy(state);
     //   s = specificEntropy(state);
     // elseif (basePropertiesInputChoice == InputChoice.ps) then
-    //   state = setState_ps(p, s, phaseInput);
+    //   state = setState_ps(p, s);
     //   d = density(state);
     //   h = specificEnthalpy(state);
     //   T = temperature(state);
     // elseif (basePropertiesInputChoice == InputChoice.hs) then
-    //   state = setState_hs(h, s, phaseInput);
+    //   state = setState_hs(h, s);
     //   d = density(state);
     //   p = pressure(state);
     //   T = temperature(state);
