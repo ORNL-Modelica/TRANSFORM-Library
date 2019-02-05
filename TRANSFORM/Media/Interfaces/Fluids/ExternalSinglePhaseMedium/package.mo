@@ -1,9 +1,12 @@
 within TRANSFORM.Media.Interfaces.Fluids;
 package ExternalSinglePhaseMedium "Generic external single phase medium package"
+
+  import Interfaces.Common.InputChoice;
+
   extends TRANSFORM.Media.Interfaces.Fluids.PartialSinglePhaseMedium(
     singleState=false,
     fluidConstants = {externalFluidConstants});
-  import ExternalMedia.Common.InputChoice;
+
   // mediumName is declared here instead of in the extends clause
   // to break a circular dependency in redeclaration that OpenModelica
   // cannot yet handle
@@ -19,7 +22,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     structureFormula = "unknown",
     molarMass = getMolarMass());
 
-  constant InputChoice inputChoice=InputChoice.ph
+  constant InputChoice inputChoice=InputChoice.pT
     "Default choice of input variables for property computations";
 
   redeclare replaceable record ThermodynamicState
@@ -60,7 +63,9 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     d(stateSelect = if preferredMediumStates and
                        basePropertiesInputChoice == InputChoice.dT then
                          StateSelect.prefer else StateSelect.default))
-    import ExternalMedia.Common.InputChoice;
+
+    import Interfaces.Common.InputChoice;
+
     parameter InputChoice basePropertiesInputChoice=inputChoice
       "Choice of input variables for property computations";
     SpecificEntropy s(
@@ -68,6 +73,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
                         basePropertiesInputChoice == InputChoice.ps) then
                        StateSelect.prefer else StateSelect.default)
       "Specific entropy";
+
   equation
     MM = externalFluidConstants.molarMass;
     R = Modelica.Constants.R/MM;
