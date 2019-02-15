@@ -1,11 +1,8 @@
 within TRANSFORM.Media.Solids;
 package Beryllium "Pure natural Beryllium"
-
 //cp from Chase, M.W., Jr., NIST-JANAF Themochemical Tables, Fourth Edition, J. Phys. Chem. Ref. Data, Monograph 9, 1998, 1-1951.
 //https://webbook.nist.gov/cgi/cbook.cgi?ID=C7440417&Units=SI&Mask=2#Thermo-Condensed
-
 //lambda from my imagination
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="Beryllium",
     T_min=Modelica.SIunits.Conversions.from_degC(-273),

@@ -1,10 +1,7 @@
 within TRANSFORM.Examples.CIET_Facility.Examples;
 model CIETLoop
-
   extends TRANSFORM.Icons.Example;
-
   package Medium = TRANSFORM.Media.Fluids.DOWTHERM.LinearDOWTHERM_A_95C;
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _1(
     T_a_start(displayUnit="K") = data.T_cold_primary,
     T_b_start(displayUnit="K") = data.T_hot_primary,
@@ -237,7 +234,6 @@ model CIETLoop
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={76,144})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _8a(
     m_flow_a_start=data.m_flow_primary,
     p_a_start(displayUnit="Pa") = data.p_primary,

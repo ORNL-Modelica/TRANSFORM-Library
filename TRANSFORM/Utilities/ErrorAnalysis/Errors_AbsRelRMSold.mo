@@ -1,32 +1,24 @@
 within TRANSFORM.Utilities.ErrorAnalysis;
 model Errors_AbsRelRMSold "Calculation of absolute, relative, and rms errors"
   extends TRANSFORM.Icons.ObsoleteModel;
-
 parameter Integer n "Length of variable vector";
 parameter Real errorExpected = 1e-6 "if Error_rms < errorExpected then test = Passed";
 parameter Real tolerance = 100 "eps = tolerance*MachineError to avoid division by 0";
-
 input Real[n] x_1 "Values of first variable" annotation(Dialog(group="Inputs"));
 input Real[n] x_2 "Values of second variable" annotation(Dialog(group="Inputs"));
-
 Boolean passedTest "if false then expected and actual values to not match within the expected error";
-
 Real Error_rms "Root Mean Square error sqrt(sum(Error_abs.^2)/n)";
 Real[n] Error_abs "Absolute error (x_1 - x_2)";
 Units.NonDim[n] Error_rel "Relative error (x_1 - x_2)/x_2";
-
 protected
   Real eps = Modelica.Constants.eps*tolerance;
   Real[n] Error_absRaw "Absolute error not filtered by machine tolerance";
   Units.NonDim[n] Error_relRaw "Relative error not filtered by machine tolerance";
-
 equation
-
   for i in 1:n loop
     Error_absRaw[i] = x_1[i] - x_2[i];
     Error_abs[i] = noEvent(if abs(Error_absRaw[i]) <= eps then 0 else
       Error_absRaw[i]);
-
     if abs(x_2[i]) <= eps then
       Error_relRaw[i] = x_1[i];
     else
@@ -35,11 +27,8 @@ equation
       Error_rel[i] = noEvent(if abs(Error_relRaw[i]) <= eps then 0 else
       Error_relRaw[i]);
   end for;
-
   Error_rms = sqrt(sum(Error_abs .^ 2)/n);
-
   passedTest=if Error_rms < errorExpected then true else false;
-
   annotation (defaultComponentName="summary_Error",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(

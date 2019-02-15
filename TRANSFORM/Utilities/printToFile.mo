@@ -4,11 +4,9 @@ model printToFile
   parameter Real dtime "Time interval for printing. Note: Choose proper simulation and output intervals";
   parameter String fileName = "" "file name (e.g. ''myfile.txt'')";
 equation
-
  if rem(time,dtime) == 0 then
     Modelica.Utilities.Streams.print(String(time) + "," + String(x), fileName);
  end if;
-
   annotation (defaultComponentName="print",
   Documentation(info="<html>
 <p>Prints input variable &QUOT;x&QUOT; to a comma delimited file (time,x).</p>

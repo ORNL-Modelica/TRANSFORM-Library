@@ -8,10 +8,8 @@ partial model PumpMonitoringBase "Interface for pump monitoring"
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation(Dialog(tab="Internal Interface",enable=false));
-
   // Inputs
   input Medium.ThermodynamicState state_in
     "Thermodynamic state of inflow";
   input Medium.ThermodynamicState state "Thermodynamic state in the pump";
-
 end PumpMonitoringBase;

@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein;
 model ConveyorBeltDesign "Example 3.1-1 Design of a conveyor belt pp. 307-309"
   extends Icons.Example;
-
   Modelica.Blocks.Sources.Constant L(each k=
         Units.Conversions.Functions.Distance_m.from_ft(15)) "conveyor length"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));

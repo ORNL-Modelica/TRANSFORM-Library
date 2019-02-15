@@ -3,11 +3,9 @@ model Example_1_5_1_ThermalProtectionSystem
   "part a) Determine heat flus to air and the rate the the ablative shield is consumed"
   import TRANSFORM;
   extends Icons.Example;
-
   parameter SI.Length shield_th0 = 0.05 "Initial shield thickness";
   parameter SI.SpecificEnthalpy delta_i_fusion = 200e3 "Heat of fusion";
   parameter SI.Density shield_d = 1200 "Shield density";
-
   DiscritizedModels.Conduction_1D shield(
     exposeState_b1=true,
     redeclare model Geometry =
@@ -55,7 +53,6 @@ model Example_1_5_1_ThermalProtectionSystem
         origin={-74,0})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow hot(use_port=
         true) annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-
     SI.Length shield_th;
     SI.ThermalConductivity lambdas[shield.geometry.nX];
   Utilities.Visualizers.DynamicGraph graph(
@@ -66,7 +63,6 @@ model Example_1_5_1_ThermalProtectionSystem
     y_var=shield.materials[1].T,
     y_name="Steel.port_a.T")
     annotation (Placement(transformation(extent={{-30,-92},{28,-38}})));
-
   Modelica.Blocks.Sources.RealExpression Q_flow(y=100*100^2*shield.geometry.crossAreas_1
         [end]) annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={shield.materials[
@@ -76,7 +72,6 @@ algorithm
   lambdas[i] :=5.853e-9*(shield.materials[i].T)^3 - 8.4969e-6*(shield.materials[i].T)
       ^2 + 4.5479e-3*(shield.materials[i].T) - 6.5339e-1;
   end for;
-
 initial equation
   shield_th = shield_th0;
 equation

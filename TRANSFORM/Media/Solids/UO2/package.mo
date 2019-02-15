@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids;
 package UO2 "UO2: Thermodynamic properties for unirradiated uranium dioxide"
-
   /*
 UO2 Thermal conductivity, density, and heat capacity
 
@@ -16,13 +15,11 @@ h => pg 18 eq 4.1
     mediumName="UO2",
     T_min=273.15,
     T_max=3120);
-
   constant Real c1(unit="J/(kg.K)") = 302.27;
   constant Real c2(unit="J/(kg.K2)") = 8.463e-3;
   constant Real c3(unit="J/kg") = 8.741e7;
   constant Real theta(unit="K") = 548.68;
   constant Real Ea(unit="K") = 18531.7;
-
   constant SI.Density d_273=10970 "Density of 100% UO2";
   constant Units.NonDim porosity = 0.05 "Fuel porosity (d_TD - d)/d_td";
 
@@ -49,7 +46,6 @@ protected
 
   redeclare function extends thermalConductivity
     "Thermal conductivity"
-
     /*
   Units.nonDim B  burnupin at. % (1 at. % = 9.375 MWd/kgU)
   Units.nonDim omega = 1.09/(B^3.265)+0.0643*sqrt(state.T/B);

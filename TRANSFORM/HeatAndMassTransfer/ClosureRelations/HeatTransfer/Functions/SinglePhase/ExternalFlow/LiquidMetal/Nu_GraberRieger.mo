@@ -1,18 +1,14 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal;
 function Nu_GraberRieger
-
   input SI.ReynoldsNumber Re "Reynolds number";
   input SI.PrandtlNumber Pr "Prandtl number";
   input Real PDratio "Tube Pitch to Diameter ratio";
-
   output SI.NusseltNumber Nu "Nusselt number - S1:Eq. 9.34";
-
 protected
   SI.PecletNumber Pe=TRANSFORM.Utilities.CharacteristicNumbers.PecletNumber(Re,
       Pr);
 algorithm
   Nu :=0.25 + 6.2*PDratio + (0.32*PDratio - 0.007)*Pe^(0.8 - 0.024*PDratio);
-
   annotation (Documentation(info="<html>
 <p>The Graber-Rieger is a liquid metal rod bundle heat transfer correlation.</p>
 <p>Range of Validity:</p>

@@ -6,7 +6,6 @@ model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
         TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.to_J_kgK
       constrainedby
       TRANSFORM.Units.Conversions.Functions.SpecificEntropy_J_kgK.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")
     "Specific entropy of the passing fluid"
@@ -17,7 +16,6 @@ model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,36})));
-
 protected
   Medium.SpecificEntropy s_a_inflow
     "Specific entropy of inflowing fluid at port_a";

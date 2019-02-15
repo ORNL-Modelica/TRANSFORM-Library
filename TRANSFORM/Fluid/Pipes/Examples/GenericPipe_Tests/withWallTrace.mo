@@ -29,7 +29,6 @@ extends TRANSFORM.Icons.Example;
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PowerLawTemperature
             (D_ab0=6.4854e-26, n=5.7227)))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT Sink(
     nPorts=1,
     p=100000,
@@ -66,7 +65,6 @@ extends TRANSFORM.Icons.Example;
         5].T,pipe.pipe.Cs[5, 1]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(Source.ports[1], pipe.port_a)
     annotation (Line(points={{-68,0},{-40,0},{-10,0}}, color={0,127,255}));
   connect(Sink.ports[1], pipe.port_b)

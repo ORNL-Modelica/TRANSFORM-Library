@@ -29,5 +29,4 @@ algorithm
     C1 := 0.5/sqrtdeltax - 3.0*C3*deltax2;
     dy := dx*(C1 + 3*C3*x*x);
   end if;
-
 end regRoot_cinterp_der;

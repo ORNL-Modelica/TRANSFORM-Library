@@ -4,12 +4,10 @@ partial model PartialRankine " Rankine cycle model"
   parameter Integer nbr_pumps_HP=3 "Number of high pressure feed-water pumps";
   parameter Real eta_is_HPT=0.84 "Turbine isentropic efficiency";
   parameter Real eta_is_LPT=0.85 "Turbine isentropic efficiency";
-
   parameter Real eta_mech=0.99 "Turbine mechanical efficiency";
   replaceable package Medium =
       Modelica.Media.Water.StandardWater
     annotation (__Dymola_choicesAllMatching=true);
-
   parameter Records.RankineNominalValues nominalData "Nominal data"
     annotation (Dialog(group="Nominal operating data"), Placement(
         transformation(extent={{202,70},{222,90}})));
@@ -37,17 +35,14 @@ partial model PartialRankine " Rankine cycle model"
     p_start_turbine_HP_stage2_drain=nominalData.p_nom_turbine_HP_stage2_drain)
     "Initialization data" annotation (Dialog(group="Initialization"),
       Placement(transformation(extent={{229,70},{249,90}})));
-
   Interfaces.FluidPort_State feed_SG1(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-179,100},{-159,120}}),
         iconTransformation(extent={{-179,100},{-159,120}})));
   Interfaces.FluidPort_Flow drain_to_SG1(redeclare package Medium = Medium)
                        annotation (Placement(transformation(extent={{-179,-40},
             {-159,-20}}), iconTransformation(extent={{-179,-40},{-159,-20}})));
-
   Control.ControlBuses.ControlBus_Rankine controlBus
     annotation (Placement(transformation(extent={{17,-160},{57,-120}})));
-
   Interfaces.FluidPort_Flow drain_to_SG2(redeclare package Medium = Medium)
                        annotation (Placement(transformation(extent={{-179,-90},
             {-159,-70}}), iconTransformation(extent={{-179,-90},{-159,-70}})));
@@ -60,8 +55,6 @@ partial model PartialRankine " Rankine cycle model"
   Interfaces.FluidPort_State feed_SG3(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-180,15},{-160,35}}),
         iconTransformation(extent={{-180,20},{-160,40}})));
-equation
-
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-170,
             -140},{250,100}},
         grid={1,1},

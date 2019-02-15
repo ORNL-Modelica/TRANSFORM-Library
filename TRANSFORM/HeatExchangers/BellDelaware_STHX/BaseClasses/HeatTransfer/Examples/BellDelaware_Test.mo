@@ -1,6 +1,5 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX.BaseClasses.HeatTransfer.Examples;
 model BellDelaware_Test
-
 //     parameter SI.VolumeFlowRate V_flow = 20/60^2;
 //     parameter SI.Density rho_in = Medium.density_pT(p[1],T[1]);
 //
@@ -54,7 +53,6 @@ model BellDelaware_Test
 //   for i in 1:2 loop
 //     states[i]=Medium.setState_pT(p[i],T[i]);
 //   end for;
-
 //
 //   connect(fixedTemperature.port, bellDelaware.heatPorts[1])
 //     annotation (Line(points={{-14,60},{0,60},{0,7}}, color={191,0,0}));

@@ -1,19 +1,14 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum;
 partial model PartialDrum2Phase "partial two phase drum model"
-
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
-
   outer Modelica.Fluid.System system "System properties";
-
   replaceable package Medium = Modelica.Media.Water.StandardWater
     constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium
     "Medium in the component"
      annotation(choicesAllMatching=true);
-
   /* General */
   parameter SI.Volume V_total "Total volume (liquid + vapor)" annotation(Dialog(group="Geometry"));
-
   /* Assumptions */
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal, false restrics to design direction"
@@ -24,7 +19,6 @@ partial model PartialDrum2Phase "partial two phase drum model"
   parameter Types.Dynamics massDynamics=system.massDynamics
     "Formulation of mass balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-
   /* Initialization */
   parameter TRANSFORM.Units.NonDim Vfrac_liquid_start=0.5
     "Initial fraction of volume in the liquid phase"
@@ -37,19 +31,15 @@ partial model PartialDrum2Phase "partial two phase drum model"
   parameter SI.SpecificEnthalpy h_vapor_start=Medium.dewEnthalpy(Medium.setSat_p(p_start))
     "Vapour specific enthalpy start value"
     annotation (Dialog(tab="Initialization"));
-
   SI.Pressure p(start=p_start, stateSelect=StateSelect.prefer)
     "Surface pressure";
-
   SI.Volume V_vapor(start=(1-Vfrac_liquid_start)*V_total)
     "Volume occupied by vapour";
   SI.Volume V_liquid(start=Vfrac_liquid_start*V_total)
     "Volume occupied by liquid";
-
   TRANSFORM.Units.NonDim Vfrac_liquid(start=Vfrac_liquid_start,
       stateSelect=StateSelect.prefer)
     "Fractional of total volume occupied by liquid";
-
   Medium.ThermodynamicState state_liquid = Medium.setState_ph(p,h_liquid)
     "Liquid state";
   SI.Density rho_liquid = Medium.density(state_liquid) "Liquid density";
@@ -57,14 +47,12 @@ partial model PartialDrum2Phase "partial two phase drum model"
     "Liquid specific enthalpy";
   SI.Temperature T_liquid = Medium.temperature(state_liquid)
     "Liquid temperature";
-
   Medium.ThermodynamicState state_vapor = Medium.setState_ph(p,h_vapor)
     "Vapor state";
   SI.Density rho_vapor = Medium.density(state_vapor) "Vapor density";
   SI.SpecificEnthalpy h_vapor(start=h_vapor_start, stateSelect=StateSelect.prefer)
     "Vapor specific enthalpy";
   SI.Temperature T_vapor = Medium.temperature(state_vapor) "Vapor temperature";
-
   Medium.SaturationProperties sat = Medium.setSat_p(p)
     "State vector to compute saturation properties";
   SI.SpecificEnthalpy h_gsat = Medium.dewEnthalpy(sat)
@@ -72,7 +60,6 @@ partial model PartialDrum2Phase "partial two phase drum model"
   SI.SpecificEnthalpy h_fsat = Medium.bubbleEnthalpy(sat)
     "Saturated liquid specific enthalpy";
   SI.Temperature Tsat = sat.Tsat "Saturation temperature";
-
   SI.Energy U_liquid "Internal energy of liquid";
   SI.Mass m_liquid "Mass of liquid";
   SI.MassFlowRate mb_flow_liquid "Mass flows across liquid boundaries";
@@ -81,7 +68,6 @@ partial model PartialDrum2Phase "partial two phase drum model"
   SI.HeatFlowRate Qb_flow_liquid
     "Heat flow across liquid boundaries or energy source/sink";
   SI.Power Wb_flow_liquid "Work flow across liquid boundaries or source term";
-
   SI.Energy U_vapor "Internal energy of vapor";
   SI.Mass m_vapor "Mass of vapor";
   SI.MassFlowRate mb_flow_vapor "Mass flows across vapor boundaries";
@@ -90,9 +76,7 @@ partial model PartialDrum2Phase "partial two phase drum model"
   SI.HeatFlowRate Qb_flow_vapor
     "Heat flow across vapor boundaries or energy source/sink";
   SI.Power Wb_flow_vapor "Work flow across vapor boundaries or source term";
-
 initial equation
-
   if energyDynamics == Dynamics.FixedInitial then
     p = p_start;
     h_liquid = h_liquid_start;
@@ -102,28 +86,22 @@ initial equation
     der(h_liquid) = 0;
     der(h_vapor) = 0;
   end if;
-
   if massDynamics == Dynamics.FixedInitial then
     Vfrac_liquid = Vfrac_liquid_start;
    elseif massDynamics == Dynamics.SteadyStateInitial then
     der(Vfrac_liquid) = 0;
   end if;
-
 equation
-
   /* Total Quantities */
   // === Liquid ===
   m_liquid = V_liquid*rho_liquid;
   U_liquid = m_liquid*Medium.specificInternalEnergy(state_liquid);
-
   // === Vapor ===
   m_vapor = V_vapor*rho_vapor;
   U_vapor = m_vapor*Medium.specificInternalEnergy(state_vapor);
-
   /* Volume Balance Equations */
   V_total = V_liquid + V_vapor;
   Vfrac_liquid = V_liquid/V_total;
-
   /* Mass Conservation Equations */
   // === Liquid ===
   if massDynamics == Dynamics.SteadyState then
@@ -131,14 +109,12 @@ equation
   else
     der(m_liquid) = mb_flow_liquid;
   end if;
-
   // === Vapor ===
   if massDynamics == Dynamics.SteadyState then
     0 = mb_flow_vapor;
   else
     der(m_vapor) = mb_flow_vapor;
   end if;
-
   /* Energy Conservation Equations */
   // === Liquid ===
   if energyDynamics == Dynamics.SteadyState then
@@ -146,14 +122,12 @@ equation
   else
     der(U_liquid) = Hb_flow_liquid + Qb_flow_liquid + Wb_flow_liquid;
   end if;
-
   // === Vapor ===
   if energyDynamics == Dynamics.SteadyState then
     0 = Hb_flow_vapor + Qb_flow_vapor + Wb_flow_vapor;
   else
     der(U_vapor) = Hb_flow_vapor + Qb_flow_vapor + Wb_flow_vapor;
   end if;
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
          graphics={

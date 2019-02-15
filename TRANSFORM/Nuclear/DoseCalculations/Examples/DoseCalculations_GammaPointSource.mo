@@ -1,6 +1,5 @@
 within TRANSFORM.Nuclear.DoseCalculations.Examples;
 model DoseCalculations_GammaPointSource
-
   Dose_GammaPointSource dose(
     r=1.7,
     C=SIadd.Conversions.Functions.Activity_Bq.from_Ci(0.1),

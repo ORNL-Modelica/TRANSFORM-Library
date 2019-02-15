@@ -26,6 +26,5 @@ record MoistureSeparatorReheaterSummary
     annotation (Dialog);
   Modelica.SIunits.Temperature T_hot_out "Temperature of hot outlet flow"
     annotation (Dialog);
-
   annotation ();
 end MoistureSeparatorReheaterSummary;

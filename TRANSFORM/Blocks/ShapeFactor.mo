@@ -1,23 +1,16 @@
 within TRANSFORM.Blocks;
 model ShapeFactor "Return output array by shaping a scaler input"
-
   parameter Integer n=1 "Output array size";
-
   parameter Real SF_start[n] = fill(1/n,n) "Initial shape function, sum(SF) = 1";
   input Real dSF[n] = fill(0,n) "Change in shape function" annotation(Dialog(group="Inputs"));
   Real SF[n] = SF_start + dSF "Shape function";
-
   Modelica.Blocks.Interfaces.RealInput u "Scalar input"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y[n] "Shaped array output"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
 equation
-
   assert(abs(1-sum(SF)) < Modelica.Constants.eps, "sum(SF) is not equal to 1");
-
   y = u*SF;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-100,-100},{100,100}},

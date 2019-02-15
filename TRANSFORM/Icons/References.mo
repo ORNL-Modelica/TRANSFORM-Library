@@ -1,6 +1,5 @@
 within TRANSFORM.Icons;
 partial class References "Icon for external references"
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Polygon(
@@ -23,5 +22,4 @@ partial class References "Icon for external references"
          "<html>
 <p>This icon indicates a documentation class containing references to external documentation and literature.</p>
 </html>"));
-
 end References;

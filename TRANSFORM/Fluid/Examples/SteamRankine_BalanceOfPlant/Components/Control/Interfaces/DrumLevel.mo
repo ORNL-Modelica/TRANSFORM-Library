@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Control.I
 partial block DrumLevel "Drum level interface"
   extends Modelica.Blocks.Interfaces.SO;
   parameter Boolean enable_dpSignal=true "Enable differential pressure connector" annotation(Evaluate=true, HideResult=true, choices(checkBox=true),Dialog(group="Configuration"));
-
   Modelica.Blocks.Interfaces.RealInput u_m_level "Measured level" annotation (
       Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-128,-8},{-100,20}})));

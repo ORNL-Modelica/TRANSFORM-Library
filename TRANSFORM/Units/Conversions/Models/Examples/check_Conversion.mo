@@ -1,9 +1,7 @@
 within TRANSFORM.Units.Conversions.Models.Examples;
 model check_Conversion
   extends TRANSFORM.Icons.Example;
-
   parameter Real u = 1;
-
   Utilities.ErrorAnalysis.UnitTests unitTests(
     n=2,
     x={conversion.y,conversion1.y},

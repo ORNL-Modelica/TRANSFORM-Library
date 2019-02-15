@@ -1,6 +1,5 @@
 within TRANSFORM.Icons;
 partial class RotationalSensor "Icon representing a round measurement device"
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Ellipse(

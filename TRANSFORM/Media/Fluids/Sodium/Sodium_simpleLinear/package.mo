@@ -1,10 +1,8 @@
 within TRANSFORM.Media.Fluids.Sodium;
 package Sodium_simpleLinear "Sodium: Simple, linear properties"
-
   /*
 Properties have been calculated based on a weighted average basis between T_min and T_max
 */
-
   constant Modelica.Media.Interfaces.Types.Basic.FluidConstants[1]
     simpleSodiumConstants(
     each chemicalFormula="Na",

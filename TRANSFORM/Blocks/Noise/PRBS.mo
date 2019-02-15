@@ -1,12 +1,10 @@
 within TRANSFORM.Blocks.Noise;
 model PRBS
-
   parameter Real amplitude=1 "Amplitude of signal";
   parameter SI.Frequency freqHz(start=1) "Frequency of signal";
   parameter Real offset=0 "Offset of output signal";
   parameter SI.Time startTime=0 "Output = offset for time < startTime";
   extends Modelica.Blocks.Interfaces.SO;
-
   parameter Real bias = 0 "Bias from nominal middle value of signal" annotation (Dialog(group="Sequence"));
   parameter Integer nBits = 3 "Sequence bit length"
     annotation(Dialog(group="Sequence"),
@@ -44,26 +42,19 @@ model PRBS
     elseif nBits == 14 then {1,1,1,0,0,0,0,0,0,0,0,0,1,0,1}
     elseif nBits == 15 then {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1}
     else fill(0,nBits+1) "Generator for sequence. size(generator) = nBits+1" annotation (Dialog(group="Sequence"));
-
   final parameter Real mls[integer(2^nBits - 1)]=
       TRANSFORM.Math.max_len_seq(seed,generator, bias);
-
 protected
   Real dy;
   Real i(start=1);
-
 algorithm
   when sample(startTime, 1/freqHz) then
     dy := amplitude*mls[integer(i)];
     i := if i + 1 > integer(2^nBits - 1) then 1 else i + 1;
   end when;
-
 equation
-
   assert(sum(generator) > 0, "Unsupported nBits and/or generator sequence specified");
-
   y = offset + (if time < startTime then 0 else dy);
-
   annotation (
     defaultComponentName="sequencer",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

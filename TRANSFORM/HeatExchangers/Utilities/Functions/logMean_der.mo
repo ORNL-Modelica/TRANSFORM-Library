@@ -1,6 +1,5 @@
 within TRANSFORM.HeatExchangers.Utilities.Functions;
 function logMean_der
-
 //   For small differences a numerically safe approximation is used.
   input Real dTx "Temperature difference 1";
   input Real dTy "Temperature difference 2";
@@ -59,5 +58,4 @@ algorithm
       dlmTd := 0.5*(dx + dy);
     end if;
   end if;
-
 end logMean_der;

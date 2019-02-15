@@ -10,7 +10,6 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
   Real drum_level_percentage=drum.geometry.level_meas_percentage "Drum level percentage";
 //drum.geometry.level_percentage "Drum level percentage";
 //100*(drum.geometry.level_meas - drum.geometry.level_min)/(drum.geometry.level_max - drum.geometry.level_min) "Drum level percentage";
-
   Volumes.BoilerDrum drum(
     h_liquid_start=Medium.bubbleEnthalpy(Medium.setSat_p(initData.p_start_boiler)),
     h_vapor_start=Medium.dewEnthalpy(Medium.setSat_p(initData.p_start_boiler)),
@@ -29,7 +28,6 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
     alpha_external=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(extent={{-20,-18},{20,22}}, rotation=0)));
-
   Valves.ValveCompressible                MSIValve(
     m_flow_nominal=nominalData.m_flow_nom_feedWater,
     p_nominal=nominalData.p_nom_boiler,
@@ -42,7 +40,6 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
     dp_nominal=10000)
                    "Main Steam Isolation Valve"
     annotation (Placement(transformation(extent={{0,42},{20,62}}, rotation=0)));
-
   Interfaces.FluidPort_State port_feedWater(redeclare package Medium =
         Modelica.Media.Water.StandardWater) annotation (Placement(
         transformation(extent={{90,-90},{110,-70}}), iconTransformation(extent=
@@ -66,7 +63,6 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
         *circulationPump.Medium.bubbleDensity(circulationPump.Medium.setSat_p(
         initData.p_start_boiler)))
     annotation (Placement(transformation(extent={{10,-98},{-10,-78}})));
-
   FittingsAndResistances.ElevationChange heightDiff(redeclare package Medium =
         Modelica.Media.Water.StandardWater, dheight=-60*conversion_feet_to_m)
     annotation (Placement(transformation(
@@ -110,7 +106,6 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
     redeclare model Geometry =
         ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (       V=20))
     annotation (Placement(transformation(extent={{23,43},{42,62}})));
-
   Valves.ValveCompressible                SGBlockValve(
     m_flow_nominal=nominalData.m_flow_nom_feedWater,
     rho_nominal=SGBlockValve.Medium.density_pTX(
@@ -123,7 +118,6 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
     dp_nominal=10000)
                    "Steam Generator Block Valve" annotation (Placement(
         transformation(extent={{44,42},{64,62}}, rotation=0)));
-
   Modelica.Blocks.Sources.RealExpression sensor_feedWaterFlow(y=
         sensorFeedWaterFlow.m_flow)
     annotation (Placement(transformation(extent={{34,-106},{20,-94}})));
@@ -141,7 +135,6 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
     redeclare model Geometry =
         ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1))
     annotation (Placement(transformation(extent={{14,-58},{34,-38}})));
-
   Valves.ValveIncompressible                          orificeLiquid(
     m_flow_nominal=nominalData.m_flow_nom_feedWater,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
@@ -151,7 +144,6 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
         extent={{-7,-7},{7,7}},
         rotation=270,
         origin={17,-29})));
-
   Sensors.Pressure pSteam(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-54,24},{-44,32}})));
@@ -175,13 +167,11 @@ partial model PartialSteamGenerator "Drum boiler with natural circulation"
         circulationPump.V_flow_nominal*circulationPump.d))
     annotation (Placement(transformation(extent={{58,-79},{44,-67}})));
 equation
-
   connect(level_percentage.y, controlBus.y_drum_level) annotation (Line(points={{-21.3,
           -112},{-21.3,-112},{0,-112},{0,-116},{0,-119.9},{0.1,-119.9}},
         color={0,0,127}));
   connect(drum_pressure.y, controlBus.y_drum_pressure) annotation (Line(points={{-21.3,
           -100},{-21.3,-100},{0.1,-100},{0.1,-119.9}},     color={0,0,127}));
-
   connect(sensor_feedWaterFlow.y, controlBus.y_drum_FeedWaterFlow) annotation (
       Line(points={{19.3,-100},{0.1,-100},{0.1,-119.9}},
                                                        color={0,0,127}));

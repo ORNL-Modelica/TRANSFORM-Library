@@ -1,20 +1,15 @@
 within TRANSFORM.HeatExchangers.ClosureRelations.Models.EffectivenessNTU_Relations;
 model Crossflow "Cross-flow (single pass)"
-
   extends PartialMethod;
-
   parameter Boolean C_max_mixed=false "=true if stream is mixed";
   parameter Boolean C_min_mixed=false "=true if stream is mixed";
-
   // Internal calculation for manual checking if actual and specified C_min/max are as expected
 protected
   Integer C_min_stream=if abs(C_min - C_1) <= 100*Modelica.Constants.eps then 1
        else 2;
   Integer C_max_stream=if abs(C_max - C_1) <= 100*Modelica.Constants.eps then 1
        else 2;
-
 equation
-
   if epsilonMethod then
     if not C_max_mixed and not C_min_mixed then
       method = 1 - exp(1/C_r*NTU^0.22*(exp(-C_r*NTU^0.78) - 1));
@@ -36,7 +31,6 @@ equation
       method = 0;
     end if;
   end if;
-
   annotation (defaultComponentName="effectivenessNTU",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

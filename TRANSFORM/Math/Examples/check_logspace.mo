@@ -1,10 +1,7 @@
 within TRANSFORM.Math.Examples;
 model check_logspace
-
   extends TRANSFORM.Icons.Example;
-
   parameter Integer n=10;
-
   Real[n] y "Function value";
   Real[n-1] dy "Difference betwee y values";
   Utilities.ErrorAnalysis.UnitTests unitTests(x=y, n=10)

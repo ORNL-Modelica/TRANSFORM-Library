@@ -6,7 +6,6 @@ model DensityTwoPort "Ideal two port density sensor"
         TRANSFORM.Units.Conversions.Functions.Density_kg_m3.to_kg_m3
       constrainedby
       TRANSFORM.Units.Conversions.Functions.Density_kg_m3.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput d(
     final quantity="Density",
     final unit="kg/m3",
@@ -17,12 +16,10 @@ model DensityTwoPort "Ideal two port density sensor"
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,36})));
-
 protected
   Medium.Density rho_a_inflow "Density of inflowing fluid at port_a";
   Medium.Density rho_b_inflow
     "Density of inflowing fluid at port_b or rho_a_inflow, if uni-directional flow";
-
 equation
   if allowFlowReversal then
     rho_a_inflow = Medium.density(Medium.setState_phX(

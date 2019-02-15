@@ -1,16 +1,11 @@
 within TRANSFORM.HeatExchangers.ClosureRelations.Models.EffectivenessNTU_Relations;
 partial model PartialMethod
-
   extends PartialEffectivenessNTU;
-
   Units.NonDim method "Method for C_r > 0";
-
   parameter Boolean epsilonMethod=true
     "=true to use formulation of epsilon=f(NTU) else NTU=f(epsilon)"
     annotation (Dialog(tab="Advanced"));
-
 equation
-
   if epsilonMethod then
     epsilon = Math.spliceTanh(
       method,
@@ -24,7 +19,6 @@ equation
       C_r,
       0.01);
   end if;
-
   annotation (
     defaultComponentName="effectivenessNTU",
     Icon(coordinateSystem(preserveAspectRatio=false)),

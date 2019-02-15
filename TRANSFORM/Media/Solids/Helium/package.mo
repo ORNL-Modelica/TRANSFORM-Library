@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids;
 package Helium "Helium: pseudo-Helium gas/solid"
-
   /*
 Helium Thermal capacity, density, and specific heat.
 
@@ -14,7 +13,6 @@ k => regression from pg 57 table (units in table are wrong, off by 1000)
 rho => regression from pg 57 table
 cp => pg 56
 */
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="He",
     T_min=Modelica.SIunits.Conversions.from_degC(0),

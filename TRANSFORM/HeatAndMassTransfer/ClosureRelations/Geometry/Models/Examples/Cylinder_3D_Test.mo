@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Examples;
 model Cylinder_3D_Test
   extends Icons.Example;
-
   Cylinder_3D
            geometry(
     r_inner=0.01,

@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.EndCross;
 function dp_DP_staticHead "calculate pressure loss  with static head"
   extends Modelica.Icons.Function;
-
   //input records
   input
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.EndCross.dp_IN_con
@@ -17,34 +16,27 @@ function dp_DP_staticHead "calculate pressure loss  with static head"
     "Regularization of zero flow if |m_flow| < m_flow_small (dummy if use_m_flow_small = false)";
   input Real g_times_height_ab
     "Gravity times (Height(port_b) - Height(port_a))";
-
   //Outputs
   output SI.Pressure DP "Output for function dp_overall_DP";
-
 protected
   SI.MassFlowRate m_flow_a
     "Upper end of regularization domain of the dp(m_flow) relation";
   SI.MassFlowRate m_flow_b
     "Lower end of regularization domain of the dp(m_flow) relation";
-
   SI.Pressure dp_a "Value at upper end of regularization domain";
   SI.Pressure dp_b "Value at lower end of regularization domain";
-
   SI.Pressure dp_grav_a=g_times_height_ab*IN_var.rho_a
     "Static head if mass flows in design direction (a to b)";
   SI.Pressure dp_grav_b=g_times_height_ab*IN_var.rho_b
     "Static head if mass flows against design direction (b to a)";
-
   Real ddp_dm_flow_a
     "Derivative of pressure drop with mass flow rate at m_flow_a";
   Real ddp_dm_flow_b
     "Derivative of pressure drop with mass flow rate at m_flow_b";
-
   // Properly define zero mass flow conditions
   SI.MassFlowRate m_flow_zero=0;
   SI.Pressure dp_zero=(dp_grav_a + dp_grav_b)/2;
   Real ddp_dm_flow_zero;
-
 algorithm
   m_flow_a := if dp_grav_a<dp_grav_b then
     Internal.m_flow_of_dp_fric(IN_con, IN_var, dp_grav_b - dp_grav_a)+m_flow_small else
@@ -52,7 +44,6 @@ algorithm
   m_flow_b := if dp_grav_a<dp_grav_b then
     Internal.m_flow_of_dp_fric(IN_con, IN_var, dp_grav_a - dp_grav_b)-m_flow_small else
     -m_flow_small;
-
   if m_flow>=m_flow_a then
     // Positive flow outside regularization
     DP := Internal.dp_fric_of_m_flow(IN_con, IN_var, m_flow) + dp_grav_a;

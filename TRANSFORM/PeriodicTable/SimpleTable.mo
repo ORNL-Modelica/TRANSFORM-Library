@@ -1,13 +1,11 @@
 within TRANSFORM.PeriodicTable;
 record SimpleTable
-
   constant Integer z[:]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,
       23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,
       48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,
       73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,
       98,99,100,101,102,103,104,105,106,107,108,109,110,111,112}
     "Atomic number";
-
   constant String symbol[:]={"He","H","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si",
       "P","S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge",
       "As","Se","Br","Kr","Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In",
@@ -16,7 +14,6 @@ record SimpleTable
       "Po","At","Rn","Fr","Ra","Ac","Th","Pa","U","Np","Pu","Am","Cm","Bk","Cf","Es","Fm",
       "Md","No","Lr","Rf","Db","Sg","Bh","Hs","Mt","Ds","Rg","Cn"}
     "Element symbol";
-
   constant String name[:]={"hydrogen","helium","lithium","beryllium","boron","carbon","nitrogen",
       "oxygen","fluorine","neon","sodium","magnesium","aluminum","silicon","phosphorus","sulfur",
       "chlorine","argon","potassium","calcium","scandium","titanium","vanadium","chromium",
@@ -32,12 +29,10 @@ record SimpleTable
       "fermium","mendelevium","nobelium","lawrencium","rutherfordium","dubnium","seaborgium",
       "bohrium","hassium","meitnerium","darmstadtium","roentgenium","copernicium"}
     "Element name";
-
   constant Integer isotopesNatural[:]={2,2,2,1,2,2,2,3,1,3,1,3,1,3,1,4,2,3,3,6,
       1,5,2,4,1,4,1,5,2,5,2,5,1,6,2,6,2,4,1,5,1,7,0,7,1,6,2,8,2,10,2,8,1,9,1,7,2,
       4,1,7,0,7,2,7,1,7,1,6,1,7,2,6,2,5,2,7,2,6,1,7,2,4,1,0,0,0,0,0,0,1,1,3,0,0,
       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0} "Naturally occuring isotopes";
-
   constant SI.MolarMass MM[:]={0.001007947,0.004002602,0.0069412,0.009012182,0.0108117,
       0.01201078,0.01400672,0.01599943,0.018998403,0.02017976,0.022989769,0.02430506,
       0.026981539,0.02808553,0.030973762,0.0320655,0.0354532,0.0399481,0.03909831,

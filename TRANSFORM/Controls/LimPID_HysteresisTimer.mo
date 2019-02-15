@@ -1,19 +1,15 @@
 within TRANSFORM.Controls;
 model LimPID_HysteresisTimer
   "PID controller with anti-windup, hysteresis and timer to prevent short cycling"
-
   import Modelica.Blocks.Types.InitPID;
   import Modelica.Blocks.Types.Init;
   import Modelica.Blocks.Types.SimpleController;
   extends Modelica.Blocks.Interfaces.SVcontrol;
-
   parameter SimpleController controllerType=
          SimpleController.PID "Type of controller";
   parameter Boolean derMeas = true "=true avoid derivative kick" annotation(Evaluate=true,Dialog(enable=controllerType==SimpleController.PD or
                                 controllerType==SimpleController.PID));
-
   parameter Real k = 1 "Controller gain: +/- for direct/reverse acting" annotation(Dialog(group="Parameters: Tuning Controls"));
-
   parameter SI.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block" annotation (Dialog(group="Parameters: Tuning Controls",enable=
           controllerType == SimpleController.PI or
@@ -21,15 +17,11 @@ model LimPID_HysteresisTimer
   parameter SI.Time Td(min=0)=0.1 "Time constant of Derivative block"
     annotation (Dialog(group="Parameters: Tuning Controls",enable=controllerType == SimpleController.PD
            or controllerType == SimpleController.PID));
-
   parameter Real yb = 0 "Output bias. May improve simulation";
-
   parameter Real k_s= 1 "Setpoint input scaling: k_s*u_s. May improve simulation";
   parameter Real k_m= 1 "Measurement input scaling: k_m*u_m. May improve simulation";
-
   parameter Real yMax(start=1)=Modelica.Constants.inf "Upper limit of output";
   parameter Real yMin=-yMax "Lower limit of output";
-
   parameter Real wp(min=0) = 1
     "Set-point weight for Proportional block (0..1)" annotation(Dialog(group="Parameters: Tuning Controls"));
   parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
@@ -63,7 +55,6 @@ model LimPID_HysteresisTimer
           "Initialization"));
   parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
-
   parameter Real minOffTime=600
     "Minimum time that devices needs to be off before it can run again"
       annotation (Dialog(group="Hysteresis"));
@@ -75,12 +66,10 @@ model LimPID_HysteresisTimer
   parameter Boolean pre_y_start=false
     "Value of hysteresis output at initial time"
     annotation (Dialog(group="Hysteresis"));
-
   Modelica.Blocks.Interfaces.RealOutput tOn "Time since boiler switched on"
     annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput tOff "Time since boiler switched off"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-
   LimPID PID(
     final controllerType=controllerType,
     final k=k,

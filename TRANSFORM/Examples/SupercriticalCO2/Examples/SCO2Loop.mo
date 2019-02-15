@@ -1,15 +1,11 @@
 within TRANSFORM.Examples.SupercriticalCO2.Examples;
 model SCO2Loop
-
   extends TRANSFORM.Icons.Example;
-
   package Medium = ExternalMedia.Examples.CO2CoolProp(p_default=8e6);  //Requires VS2012 compiler option
   package Medium_salt =
       TRANSFORM.Media.Fluids.KClMgCl2.LinearKClMgCl2_67_33_pT;
-
   Data.Data_Basic data
     annotation (Placement(transformation(extent={{110,80},{130,100}})));
-
   HeatExchangers.GenericDistributed_HX PCHX(
     redeclare package Medium_shell = Medium_salt,
     redeclare package Medium_tube = Medium,
@@ -39,7 +35,6 @@ model SCO2Loop
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-80,30})));
-
   Fluid.BoundaryConditions.Boundary_pT sink_salt(
     T=data.T_cold_salt,
     redeclare package Medium = Medium_salt,
@@ -76,7 +71,6 @@ model SCO2Loop
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-80,-50})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow sink_AHX(Q_flow=-0.5*
         data.Q_nominal, use_port=true,
     showName=systemTF.showName)        annotation (Placement(transformation(
@@ -98,7 +92,6 @@ model SCO2Loop
     T_a_start=373.15,
     T_b_start=301.15)
     annotation (Placement(transformation(extent={{-60,-60},{-40,-80}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow sink_WHX(Q_flow=-0.5*
         data.Q_nominal, use_port=true,
     showName=systemTF.showName)        annotation (Placement(transformation(
@@ -156,7 +149,6 @@ model SCO2Loop
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={-10,50})));
-
   Fluid.Sensors.PressureTemperature sensor_pT2(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
@@ -186,7 +178,6 @@ model SCO2Loop
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     showName=systemTF.showName)
     annotation (Placement(transformation(extent={{-40,40},{-60,60}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow sink_AHX1(use_port=true, showName=
        systemTF.showName)
     annotation (Placement(transformation(
@@ -270,7 +261,6 @@ model SCO2Loop
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={20,50})));
-
   HeatExchangers.GenericDistributed_HX RHX_1(
     redeclare package Medium_tube = Medium,
     redeclare model HeatTransfer_tube =
@@ -301,7 +291,6 @@ model SCO2Loop
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,50})));
-
   Fluid.Sensors.PressureTemperature sensor_pT6(
     redeclare package Medium = Medium,
     redeclare function iconUnit =

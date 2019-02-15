@@ -1,19 +1,15 @@
 within TRANSFORM.Fluid.Machines.Examples;
 model Turbine_SinglePhase_Test
-
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   package Medium = Modelica.Media.IdealGases.SingleGases.H2 "Working fluid";
   parameter SI.MassFlowRate m_flow = 59.02 "Flow rate in cycle";
   parameter SI.Pressure p_steam = 8.6e6 "Steam pressure";
   parameter SI.Temperature T_steam = SI.Conversions.from_degC(500) "Steam temperature";
-
   parameter SI.Pressure p_condenser = 1e4 "Condenser pressure";
   parameter SI.Efficiency eta = 0.75 "Overall turbine efficiency";
   parameter SI.Temperature T_condenser = SI.Conversions.from_degC(45.8) "Condenser saturated liquid temperature";
   parameter SI.Power Q_capacity = 56.4e6 "Rated steam turbine capacity";
-
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T
                                                  source(
     m_flow=1,
@@ -42,9 +38,7 @@ model Turbine_SinglePhase_Test
     m_flow_start=m_flow,
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
 equation
-
   connect(turbine.shaft_b, constantSpeed.flange)
     annotation (Line(points={{10,0},{20,0}}, color={0,0,0}));
   connect(source.ports[1], turbine.port_a) annotation (Line(points={{-30,20},{-20,

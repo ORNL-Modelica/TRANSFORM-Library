@@ -10,7 +10,6 @@ block MSR_levelFF "MSR with feedforward control"
     m_flow_ref=u_m_flowIn,
     dp_nom=300000)
     annotation (Placement(transformation(extent={{-68,48},{-48,68}})));
-
   Modelica.Blocks.Math.Gain scaling_FF(k=100) annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},

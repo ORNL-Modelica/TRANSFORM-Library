@@ -1,6 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass;
 model MassFlow_multi "Mass flow boundary condition"
-
   parameter Integer nPorts = 1 "# of ports";
   parameter Integer nC = 1 "Number of substances";
   parameter Boolean use_port=false "=true then use input port"
@@ -8,7 +7,6 @@ model MassFlow_multi "Mass flow boundary condition"
     Evaluate=true,
     HideResult=true,
     choices(checkBox=true));
-
   parameter SI.MolarFlowRate n_flow[nPorts,nC]=zeros(nPorts,nC) "Molar flow rate at port"
     annotation (Dialog(enable=not use_port));
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
@@ -20,17 +18,14 @@ model MassFlow_multi "Mass flow boundary condition"
             10}})));
 protected
   Modelica.Blocks.Interfaces.RealInput n_flow_int[nPorts,nC](unit="mol/s");
-
 equation
   connect(n_flow_int, n_flow_ext);
   if not use_port then
     n_flow_int = n_flow;
   end if;
-
   for i in 1:nPorts loop
   port[i].n_flow = -n_flow_int[i,:];
   end for;
-
   annotation (
     defaultComponentName="boundary",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses;
 model Icon_TwoVolume
-
   extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
           points={{5,75},{1,75},{-5,65},{-5,-65},{1,-75},{5,-75},{5,75}},

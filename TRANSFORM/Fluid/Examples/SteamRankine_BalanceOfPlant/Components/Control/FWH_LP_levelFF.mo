@@ -13,7 +13,6 @@ block FWH_LP_levelFF
         nominalData.p_nom_preheater_LP)*{2,1,0},
     omega_RPM_nom=1200)
     annotation (Placement(transformation(extent={{-68,48},{-48,68}})));
-
   Records.RankineNominalValues nominalData
     annotation (Placement(transformation(extent={{62,64},{82,84}})));
   Modelica.Blocks.Continuous.FirstOrder FF_firstOrder(

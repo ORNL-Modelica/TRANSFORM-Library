@@ -1,17 +1,13 @@
 within TRANSFORM.Nuclear.FuelModels;
 model Regions_1_FD2DCyl
   "2D Cylindrical Finite Difference model with one solid media region"
-
   parameter Real nParallel=1 "# of parallel components";
-
   replaceable package Material_1 =
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                               "Region 1 material"
   annotation (choicesAllMatching=true);
-
   parameter Integer nZ=4 "# of discrete axial volumes";
   parameter Integer nR_1=3 "# nodes in region 1 radial direction";
-
   input SI.Length length "Length of axial dimension"
     annotation (Dialog(group="Inputs"));
   input SI.Length zs[nZ]=linspace(
@@ -27,11 +23,9 @@ model Regions_1_FD2DCyl
       r_1_outer,
       nR_1) "Region 1 radial positions"
     annotation (Dialog(group="Inputs"));
-
   /* Assumptions */
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balances" annotation(Dialog(tab="Advanced",group="Dynamics"));
-
   /* Initialization */
   parameter SI.Temperature T_start_1=Material_1.T_default
     annotation (Dialog(tab="Initialization"));
@@ -39,7 +33,6 @@ model Regions_1_FD2DCyl
       T_start_1,
       nR_1,
       nZ) annotation (Dialog(tab="Initialization"));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylinder_FD
     region_1(
     use_q_ppp=true,
@@ -56,7 +49,6 @@ model Regions_1_FD2DCyl
     redeclare model SolutionMethod_FD =
         HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.SolutionMethods.AxVolCentered_2D)
     annotation (Placement(transformation(extent={{-53,-17},{-21,17}})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions.Adiabatic_FD
     adiabatic_FD(nNodes=region_1.nR) annotation (Placement(transformation(
         extent={{-5,-4},{5,4}},
@@ -67,7 +59,6 @@ model Regions_1_FD2DCyl
         extent={{-5,-4},{5,4}},
         rotation=90,
         origin={-37,-22})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions.Adiabatic_FD
     adiabatic_FD6(nNodes=region_1.nZ)
     annotation (Placement(transformation(extent={{-62,-4},{-52,4}})));
@@ -97,7 +88,6 @@ model Regions_1_FD2DCyl
         extent={{-35,-10},{35,10}},
         rotation=-90,
         origin={102,1})));
-
 equation
   connect(adiabatic_FD6.port, region_1.heatPorts_inner)
     annotation (Line(points={{-52,0},{-46.44,0}}, color={191,0,0}));

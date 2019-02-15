@@ -6,7 +6,6 @@ model RelativeTemperature "Ideal relative temperature sensor"
         TRANSFORM.Units.Conversions.Functions.TemperatureDifference_dK.to_degCorK_diff
       constrainedby
       TRANSFORM.Units.Conversions.Functions.TemperatureDifference_dK.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput T_rel(final quantity="ThermodynamicTemperature",
                                               final unit = "K", displayUnit = "degC", min=0)
     "Relative temperature signal"                                                                               annotation (Placement(
@@ -17,9 +16,7 @@ model RelativeTemperature "Ideal relative temperature sensor"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,36})));
-
   parameter Boolean refPort_a = true "=true for T_rel = port_a.T - port_b.T else T_rel = port_b.T - port_a.T";
-
 equation
   // Relative temperature
   if refPort_a then
@@ -29,7 +26,6 @@ equation
     T_rel = Medium.temperature(Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), inStream(port_b.Xi_outflow))) -
             Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   end if;
-
   annotation (
     Icon(graphics={
         Text(

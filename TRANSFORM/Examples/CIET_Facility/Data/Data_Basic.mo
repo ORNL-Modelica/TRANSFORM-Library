@@ -1,8 +1,6 @@
 within TRANSFORM.Examples.CIET_Facility.Data;
 model Data_Basic
-
   extends TRANSFORM.Icons.Record;
-
   parameter Integer index_13 = 1 annotation(Dialog(tab="Indices"));
   parameter Integer index_14 = 2 annotation(Dialog(tab="Indices"));
   parameter Integer index_14a = 3 annotation(Dialog(tab="Indices"));
@@ -10,7 +8,6 @@ model Data_Basic
   parameter Integer index_16 = 5 annotation(Dialog(tab="Indices"));
   parameter Integer index_17 = 6 annotation(Dialog(tab="Indices"));
   parameter Integer index_18 = 7 annotation(Dialog(tab="Indices"));
-
   parameter Integer index_1b = 8 annotation(Dialog(tab="Indices"));
   parameter Integer index_1 = 9 annotation(Dialog(tab="Indices"));
   parameter Integer index_1a = 10 annotation(Dialog(tab="Indices"));
@@ -29,23 +26,17 @@ model Data_Basic
   parameter Integer index_10 = 23 annotation(Dialog(tab="Indices"));
   parameter Integer index_11 = 24 annotation(Dialog(tab="Indices"));
   parameter Integer index_12 = 25 annotation(Dialog(tab="Indices"));
-
   parameter SI.Length roughness = 1.5e-5;
-
   parameter SI.Temperature T_cold_primary = 80+273.15;
   parameter SI.Temperature T_hot_primary = 110+273.15;
-
   parameter SI.MassFlowRate m_flow_primary = 0.18;
   parameter SI.Pressure p_primary=1.0133e5;
-
   parameter SI.Area tank1_crossArea=0.25*Modelica.Constants.pi*
       TRANSFORM.Units.Conversions.Functions.Distance_m.from_in(12.39)^2;
   parameter SI.Area tank1_length=
       TRANSFORM.Units.Conversions.Functions.Distance_m.from_in(11.75);
-
   parameter SI.Temperature T_ambient = 298.15;
   parameter SI.Temperature T_ctah = 353.1;
-
   Blocks.DataTable pipes(table=[12,1.2732,0,0.0279,0.000611,23.78,145000,140000,
         325,325,0.002768,0.0508; 6,0.6687,90,0.0279,0.000611,2.4,140000,135000,325,
         325,0.002768,0.0508; 1,0.36,90,0.0279,0.000611,99999,135000,135000,325,325,

@@ -1,9 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Examples.Utilities;
 model Groeneveld2006LUT_withKs
   import TRANSFORM;
-
   extends TRANSFORM.Icons.Example;
-
   Modelica.Blocks.Sources.Sine G(
     freqHz=1/10,
     offset=4000,
@@ -41,7 +39,6 @@ model Groeneveld2006LUT_withKs
     q_local=3e5)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 algorithm
-
 equation
   connect(P.y, q.P) annotation (Line(points={{-39,30},{-26,30},{-26,4},{-12,4}},
         color={0,0,127}));

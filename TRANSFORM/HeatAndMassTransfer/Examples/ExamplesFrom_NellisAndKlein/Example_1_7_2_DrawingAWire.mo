@@ -3,7 +3,6 @@ model Example_1_7_2_DrawingAWire
   "part a) Determine temperature distribution in the wire"
   import TRANSFORM;
   extends Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_w(T=
         293.15) "water temperature"
     annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
@@ -58,11 +57,9 @@ model Example_1_7_2_DrawingAWire
     minY=0,
     maxY=700) "X - Dimensionless position (-) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{16,-76},{58,-36}})));
-
   Real xval[nNodes_1.k] = wire.geometry.cs_1/L.y;
   Real yval[nNodes_1.k]=
       TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(wire.materials.T);
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={yval[90]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation

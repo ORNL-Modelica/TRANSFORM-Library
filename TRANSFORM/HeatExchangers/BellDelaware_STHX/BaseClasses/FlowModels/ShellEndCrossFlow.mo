@@ -1,27 +1,21 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX.BaseClasses.FlowModels;
 model ShellEndCrossFlow
   "ShellFlow End Cross: Shell-side End Cross (of a shell and tube heat exchanger) flow pressure loss and gravity with replaceable WallFriction package"
-
   extends
     TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialSinglePhase;
-
   parameter SI.DynamicViscosity mu_w__nominal = Medium.dynamicViscosity(
       Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
     "Nominal wall viscosity";
-
   // Shell Model (Window) Parameters
   parameter Boolean toggleStaggered
     "true = staggered grid type; false = in-line"
   annotation(Dialog(tab="Shell Model (End Cross) Parameters"));
-
   parameter SI.Length d_o "Outer diameter of tubes"
   annotation(Dialog(tab="Shell Model (End Cross) Parameters"));
-
   parameter SI.Length D_i "Inside shell diameter"
   annotation(Dialog(tab="Shell Model (End Cross) Parameters"));
   parameter SI.Length DB "Tube bundle diameter"
   annotation(Dialog(tab="Shell Model (End Cross) Parameters"));
-
   parameter SI.Length s1 "Tube to tube pitch parallel to baffel edge"
   annotation(Dialog(tab="Shell Model (End Cross) Parameters"));
   parameter SI.Length s2 "Tube to tube pitch perpindicular to baffel edge"
@@ -33,7 +27,6 @@ model ShellEndCrossFlow
       annotation(Dialog(tab="Shell Model (End Cross) Parameters"));
   parameter SI.Length e1 "Space between tubes and shell"
   annotation(Dialog(tab="Shell Model (End Cross) Parameters"));
-
   parameter Real nes "# of shortest connections connecting neighboring tubes"
   annotation(Dialog(tab="Shell Model (End Cross) Parameters"));
   parameter Real n_MR "# of  main resistances in cross flow path"
@@ -42,7 +35,6 @@ model ShellEndCrossFlow
   annotation(Dialog(tab="Shell Model (End Cross) Parameters"));
   parameter Real n_s "# of pairs of sealing strips"
   annotation(Dialog(tab="Shell Model (End Cross) Parameters"));
-
   TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.EndCross.dp_IN_con[
     nFM] IN_con(
     length=lengths,
@@ -67,7 +59,6 @@ model ShellEndCrossFlow
     each n_s=n_s,
     each nNodes=nFM)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-
   TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.EndCross.dp_IN_var[
     nFM] IN_var(
     rho_a=rhos_a,
@@ -76,7 +67,6 @@ model ShellEndCrossFlow
     mu_b=mus_b,
     mu_w=mu_w)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-
 protected
   SI.Density[nFM] rhos_a "Density at port_a";
   SI.Density[nFM] rhos_b "Density at port_b";
@@ -84,7 +74,6 @@ protected
     "Dynamic viscosity at port_a (dummy if use_mu = false)";
   SI.DynamicViscosity[nFM] mus_b
     "Dynamic viscosity at port_b (dummy if use_mu = false)";
-
   TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.EndCross.dp_IN_var
     IN_var_nominal(
     rho_a=rho_nominal,
@@ -92,7 +81,6 @@ protected
     mu_a=mu_nominal,
     mu_b=mu_nominal,
     mu_w=mu_w__nominal);
-
   parameter SI.AbsolutePressure dp_small(start=1, fixed=false)
     "Within regularization if |dp| < dp_small (may be wider for large discontinuities in static head)"
     annotation (Dialog(enable=from_dp and use_dp_small));
@@ -106,21 +94,18 @@ protected
      or not allowFlowReversal
     "= true if the pressure loss is continuous around zero flow"
      annotation(Evaluate=true);
-
   SI.Pressure[nFM+1] Ps = Medium.pressure(states);
   Medium.ThermodynamicState[nFM+1] states_w = Medium.setState_pTX(Ps,Ts_w);
    SI.DynamicViscosity[nFM+1] mus_w = Medium.dynamicViscosity(states_w)
     "Viscosity of fluid at average wall temperature";
    SI.DynamicViscosity[nFM] mu_w=0.5*(mus_w[1:nFM] +
        mus_w[2:nFM+1]) "mean viscosity between segments";
-
   SI.AbsolutePressure dp_fric_nominal=sum(
       TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.EndCross.dp_DP(
       IN_con,
       IN_var_nominal,
       m_flow_nominal/nParallel,
       m_flow_small/nParallel)) "pressure loss for nominal conditions";
-
 initial equation
   // initialize dp_small from flow model
   if system.use_eps_Re then
@@ -128,27 +113,22 @@ initial equation
   else
     dp_small = system.dp_small;
   end if;
-
   // initialize dp_nominal from flow model
   if system.use_eps_Re then
     dp_nominal = dp_fric_nominal + g*sum(dheights)*rho_nominal;
   else
     dp_nominal = 1e3*dp_small;
   end if;
-
 equation
   for i in 1:nFM loop
     assert(m_flows[i] > -m_flow_small or allowFlowReversal, "Reverting flow occurs even though allowFlowReversal is false");
   end for;
-
   if continuousFlowReversal then
     // simple regularization
-
     rhos_a = rhos_act;
     rhos_b = rhos_act;
     mus_a = mus_act;
     mus_b = mus_act;
-
     if from_dp and not dp_is_zero then
       m_flows =homotopy(actual=
         TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.EndCross.dp_MFLOW(
@@ -168,12 +148,10 @@ equation
     end if;
   else
     // regularization for discontinuous flow reversal and static head
-
     rhos_a = rhos[1:nFM];
     rhos_b = rhos[2:nFM+1];
     mus_a = mus[1:nFM];
     mus_b = mus[2:nFM+1];
-
     if from_dp and not dp_is_zero then
       m_flows =homotopy(actual=
         TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.EndCross.dp_MFLOW_staticHead(
@@ -194,7 +172,6 @@ equation
         rho_nominal);
     end if;
   end if;
-
     annotation (Documentation(info="<html>
 <p>
 This model describes pressure losses due to <b>wall friction</b> in a pipe

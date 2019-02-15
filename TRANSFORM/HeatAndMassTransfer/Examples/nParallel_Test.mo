@@ -1,8 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Examples;
 model nParallel_Test
-
   extends TRANSFORM.Icons.Example;
-
   DiscritizedModels.HMTransfer_1D conduction_single(
     redeclare model Geometry =
         TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D

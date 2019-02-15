@@ -1,27 +1,6 @@
 within TRANSFORM.Fluid;
 package Sensors
-
   extends TRANSFORM.Icons.SensorsPackage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   annotation (preferredView="info", Documentation(info="<html>
 <p align = justify>

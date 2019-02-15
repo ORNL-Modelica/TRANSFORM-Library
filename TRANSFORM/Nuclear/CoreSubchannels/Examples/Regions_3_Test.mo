@@ -2,7 +2,6 @@ within TRANSFORM.Nuclear.CoreSubchannels.Examples;
 model Regions_3_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Nuclear.CoreSubchannels.Regions_3 coreSubchannel(
     Ts_start_1(displayUnit="K") = [817.624633789063,829.4697265625,
       840.789428710938,851.702392578125; 776.643981933594,788.022216796875,
@@ -47,7 +46,6 @@ model Regions_3_Test
     T_start_2=623.15,
     T_start_3=573.15)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Modelica.Fluid.Sources.Boundary_pT P_boundary(
     nPorts=1,
     redeclare package Medium = Modelica.Media.Water.StandardWater,

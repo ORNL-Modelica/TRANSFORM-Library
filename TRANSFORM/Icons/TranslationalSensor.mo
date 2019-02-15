@@ -1,7 +1,6 @@
 within TRANSFORM.Icons;
 partial class TranslationalSensor
   "Icon representing a linear measurement device"
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(

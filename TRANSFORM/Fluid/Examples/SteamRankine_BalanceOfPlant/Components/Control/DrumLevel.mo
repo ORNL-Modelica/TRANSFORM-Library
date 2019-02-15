@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Control;
 block DrumLevel
   extends Interfaces.DrumLevel;
   package Medium=Modelica.Media.Water.StandardWater;
-
   Controls.LimPID controller(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     initType=Modelica.Blocks.Types.InitPID.InitialOutput,

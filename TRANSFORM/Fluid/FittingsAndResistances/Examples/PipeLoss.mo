@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.FittingsAndResistances.Examples;
 model PipeLoss
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Fluid.FittingsAndResistances.PipeLoss from_dp(redeclare package
       Medium = Modelica.Media.Air.DryAirNasa, redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.Circle)

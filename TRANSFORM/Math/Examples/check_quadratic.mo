@@ -1,13 +1,10 @@
 within TRANSFORM.Math.Examples;
 model check_quadratic
   extends TRANSFORM.Icons.Example;
-
   Real y;
   Real[3] c;
-
   parameter Real x_curve[3] = {0,0.001,0.0015};
   parameter Real y_curve[3] = {0,0.001,0.0015};
-
   Modelica.Blocks.Sources.CombiTimeTable x_input(table=[0,5.88e-09; 0.02,5.88e-09;
         0.04,5.88e-09; 0.06,5.88e-09; 0.08,5.88e-09; 0.1,5.88e-09; 0.12,5.88e-09;
         0.14,5.88e-09; 0.16,5.88e-09; 0.18,5.88e-09; 0.2,5.88e-09; 0.22,5.88e-09;
@@ -215,15 +212,12 @@ model check_quadratic
         9.9,61.5489; 9.92,61.5489; 9.94,61.5489; 9.96,61.5489; 9.98,61.5489; 10,
         61.5489])
     annotation (Placement(transformation(extent={{22,-10},{42,10}})));
-
   Utilities.ErrorAnalysis.UnitTests unitTests(x={y}, x_reference={
         y_answer.y[1]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   c=quadraticCoefficients(x_curve, y_curve);
   y = quadraticCurve(x_input.y[1], x_curve, y_curve);
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=10));

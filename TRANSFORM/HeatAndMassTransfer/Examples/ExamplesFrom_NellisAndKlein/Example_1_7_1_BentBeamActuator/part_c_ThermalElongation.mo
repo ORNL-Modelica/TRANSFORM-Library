@@ -3,7 +3,6 @@ model part_c_ThermalElongation
   "part c) Plot actuator motion as a function of voltage"
   import TRANSFORM;
   extends Icons.Example;
-
   Modelica.Blocks.Sources.Constant L_a(each k=0.001) "distance between anchors"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.Constant w(each k=10e-6) "beam width"
@@ -58,13 +57,11 @@ model part_c_ThermalElongation
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-
   Modelica.Blocks.Sources.RealExpression L(y=0.5*L_a.y/Modelica.Math.cos(theta.y))
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Modelica.Blocks.Sources.RealExpression R_e[nNodes_1.k](y={rho_e.y*2*L.y/beam.geometry.crossAreas_1
         [i] for i in 1:nNodes_1.k})
     annotation (Placement(transformation(extent={{-10,56},{10,76}})));
-
   Modelica.Blocks.Sources.Ramp V(
     height=5,
     duration=10) "voltage"
@@ -78,7 +75,6 @@ model part_c_ThermalElongation
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={dy.y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(T_anchor_a.port, beam.port_a1)
     annotation (Line(points={{-60,0},{-10,0}}, color={191,0,0}));
   connect(T_infinity.port, convection.port_b) annotation (Line(points={{-60,-40},

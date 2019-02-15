@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume;
 model StraightPipe
-
   parameter SI.Length length = 1.0 "Length for flow models"
     annotation (Dialog(group="General"));
   parameter Boolean use_Dimension=true
@@ -14,17 +13,14 @@ model StraightPipe
    annotation (Dialog(group="General", enable=not use_Dimension));
   parameter SI.Height roughness = 2.5e-5 "Average heights of surface asperities"
     annotation (Dialog(group="General"));
-
   // Heat Transfer
   parameter SI.Area surfaceArea = perimeter*length
     "Heat transfer surface area (not including parallel)"
   annotation (Dialog(group="Heat transfer"));
-
   // Static head
   parameter SI.Length dheight= 0.0
     "Height(port_b) - Height(port_a) distributed by flow segment"
     annotation (Dialog(group="Static head"), Evaluate=true);
-
   extends
     TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.PartialGeometry(
     final lengths=fill(length/nNodes, nNodes),
@@ -35,7 +31,6 @@ model StraightPipe
     final roughnesses=fill(roughness, nNodes),
     final surfaceAreas=fill(surfaceArea/nNodes, nNodes),
     final dheights=fill(dheight/nNodes, nNodes));
-
   annotation (defaultComponentName="geometry",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

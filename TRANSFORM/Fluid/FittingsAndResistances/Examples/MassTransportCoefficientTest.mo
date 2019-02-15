@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.FittingsAndResistances.Examples;
 model MassTransportCoefficientTest
   extends TRANSFORM.Icons.Example;
-
   MassTranportCoefficient resistance(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     alphaM0=100,

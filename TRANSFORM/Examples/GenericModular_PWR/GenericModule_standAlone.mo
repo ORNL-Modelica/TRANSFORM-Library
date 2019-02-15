@@ -1,14 +1,11 @@
 within TRANSFORM.Examples.GenericModular_PWR;
 model GenericModule_standAlone
-
   extends BaseClasses.Partial_SubSystem(
     redeclare replaceable CS_Dummy CS,
     redeclare replaceable ED_Dummy ED,
     redeclare Data.Data_GenericModule data);
-
   package Medium = Modelica.Media.Water.StandardWater;
   package Medium_PHTS = Modelica.Media.Water.StandardWater;
-
 //core.coolantSubchannel
 final parameter SI.Density d_start_core_coolantSubchannel[:] = {729.99456787,707.68652344,683.89465332,658.36236572};
 final parameter SI.Pressure p_start_core_coolantSubchannel[:] = {12911367.,12907437.,12903607.,12899882.};
@@ -61,7 +58,6 @@ final parameter SI.Density d_start_pressurizer_tee = 658.202;
 final parameter SI.Pressure p_start_pressurizer_tee = 1.28109e+07;
 final parameter SI.Temperature T_start_pressurizer_tee = 597.826;
 final parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
-
   TRANSFORM.Fluid.Volumes.SimpleVolume inletPlenum(redeclare package Medium =
         Medium_PHTS,
       redeclare model Geometry =
@@ -139,7 +135,6 @@ final parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-40})));
-
   TRANSFORM.Fluid.Volumes.SimpleVolume outletPlenum(
     redeclare package Medium = Medium_PHTS,
     redeclare model Geometry =
@@ -213,7 +208,6 @@ final parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={24,2})));
-
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_to_port_b(
       redeclare package Medium = Medium, R=1*p_units/data.m_flow_steam)
     annotation (Placement(transformation(extent={{26,30},{46,50}})));
@@ -266,11 +260,9 @@ final parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,40})));
-
 protected
   final parameter SI.Pressure p_units = 1;
 equation
-
   connect(outletPlenum.port_a, core.port_b)
     annotation (Line(points={{-40,-16},{-40,-30}},        color={0,127,255}));
   connect(inletPlenum.port_b, core.port_a)
@@ -301,7 +293,6 @@ equation
     annotation (Line(points={{-40,30},{-40,40},{-37,40}}, color={0,127,255}));
   connect(tee_inlet.port_b, pressurizer_tee.port_1)
     annotation (Line(points={{-23,40},{-16,40}}, color={0,127,255}));
-
   annotation (
     defaultComponentName="PHS",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,140}})),

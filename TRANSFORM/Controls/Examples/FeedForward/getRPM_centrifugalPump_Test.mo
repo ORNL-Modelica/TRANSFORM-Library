@@ -1,11 +1,8 @@
 within TRANSFORM.Controls.Examples.FeedForward;
 model getRPM_centrifugalPump_Test
   import TRANSFORM;
-
   extends TRANSFORM.Icons.Example;
-
     package Medium = Modelica.Media.Water.StandardWater;
-
   Modelica.Fluid.Sources.Boundary_pT                       pressureBoundary_h(
     use_p_in=true,
     T=293.15,
@@ -26,7 +23,6 @@ model getRPM_centrifugalPump_Test
     annotation (Placement(transformation(extent={{-92,40},{-72,60}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{-62,28},{-42,48}})));
-
   TRANSFORM.Controls.FeedForward.getRPM_centrifugalPump centrifugalPumpInverse(
     dp=pump.dp,
     omega_RPM_nom=pump.N_nominal,

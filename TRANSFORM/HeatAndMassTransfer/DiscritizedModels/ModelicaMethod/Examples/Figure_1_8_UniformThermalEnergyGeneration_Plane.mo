@@ -12,7 +12,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
         wall1.unitCell.T,
         {T_C.T}))
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
-
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_H(T=353.15)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_C(T=293.15)
@@ -49,10 +48,8 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
         wall.geometry.xs,
         {L.k}))) "X - Axial Location (cm) | T - Temperature (°C)"
     annotation (Placement(transformation(extent={{64,-14},{98,18}})));
-
   Modelica.Blocks.Sources.Constant q_ppp[nNodes_1.k](each k=0)
     annotation (Placement(transformation(extent={{-36,6},{-28,14}})));
-
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_H1(
                                                              T=353.15)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -121,7 +118,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
         wall2.geometry.xs,
         {L.k}))) "X - Axial Location (cm) | T - Temperature (°C)"
     annotation (Placement(transformation(extent={{64,-76},{98,-44}})));
-
   Modelica.Blocks.Sources.RealExpression Vs[nNodes_1.k](y=wall.geometry.Vs)
     annotation (Placement(transformation(extent={{-40,14},{-24,26}})));
   Modelica.Blocks.Math.Product product[nNodes_1.k]
@@ -138,7 +134,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     annotation (Placement(transformation(extent={{-34,-56},{-26,-48}})));
   Modelica.Blocks.Math.Product product2[nNodes_1.k]
     annotation (Placement(transformation(extent={{-12,-48},{-4,-40}})));
-
   Modelica.Blocks.Sources.RealExpression deltaT_max(y=(L.y^2*sum(q_ppp.y)/
         nNodes_1.k/(4*1))) "Sanity check for order of magnitude expected"
     annotation (Placement(transformation(extent={{-70,-5},{-90,15}})));
@@ -155,7 +150,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
   Utilities.Visualizers.displayReal display2(use_port=true)
     annotation (Placement(transformation(extent={{-90,-75},{-70,-55}})));
 equation
-
   connect(q_ppp.y, product.u2) annotation (Line(points={{-27.6,10},{-22,10},{-22,
           15.6},{-14.8,15.6}}, color={0,0,127}));
   connect(Vs.y, product.u1) annotation (Line(points={{-23.2,20},{-14.8,20},

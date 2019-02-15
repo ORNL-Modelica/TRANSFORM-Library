@@ -1,14 +1,10 @@
 within TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models;
 model ArrheniusEquation "Arrhenius equation y = A*exp(-(Ea/RT)^b)"
-
   extends PartialSievertsLawCoefficient;
-
   parameter Boolean use_RecordData=true "=true then use predefined data";
-
   parameter Integer iTable[nC]=fill(1, nC)
     "Index of pre-defined values in data table: See Info page."
     annotation (Dialog(enable=use_RecordData));
-
   parameter Real kS0=0 "Pre-exponential factor [mol/(m3.Pa^(0.5)]"
     annotation (Dialog(enable=not use_RecordData));
   parameter Real kSs0[nC]=fill(kS0, nC) "if non-uniform then set"
@@ -21,7 +17,6 @@ model ArrheniusEquation "Arrhenius equation y = A*exp(-(Ea/RT)^b)"
     "Universal gas constant";
   parameter Real beta=1.0 "Correction factor";
   parameter Real betas[nC]=fill(beta, nC) "if non-uniform then set";
-
   TRANSFORM.Blocks.DataTable data(table=[0.758,15700; 0.427,13900; 7.59,26700;
         1.98,28500; 0.517,17500; 1.98,23100; 1.84,17200; 0.137,31200; 0.953,
         10700; 0.955,26700; 0.019,-19200; 0.046,39700; 0.438,-29000; 0.436,
@@ -30,9 +25,7 @@ model ArrheniusEquation "Arrhenius equation y = A*exp(-(Ea/RT)^b)"
         96600; 1,0])
     "Col 1 = kS0; Col 2 = Ea"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
 equation
-
   if use_RecordData then
     for i in 1:nC loop
       kSs[i] = data.table[iTable[i], 1]*exp(-(data.table[iTable[i], 2]/(R*T))^
@@ -43,7 +36,6 @@ equation
       kSs[i] = kSs0[i]*exp(-(deltaHs[i]/(R*T))^betas[i]);
     end for;
   end if;
-
   annotation (defaultComponentName="sievertsLawCoeff",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

@@ -1,9 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models;
 model Nus_SinglePhase_2Region "Specify Nus | Single Phase | 2 Regions"
-
   extends
     TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialSinglePhase;
-
   input SI.NusseltNumber[nHT] Nus_lam=
       Functions.SinglePhase.InternalFlow.Nu_Laminar_Local_Developed_Circular(
       Res_film,
@@ -12,7 +10,6 @@ model Nus_SinglePhase_2Region "Specify Nus | Single Phase | 2 Regions"
       dimensions,
       true) "Laminar Nusselt number"
     annotation (Dialog(group="Inputs"));
-
   input SI.NusseltNumber[nHT] Nus_turb=
       Functions.SinglePhase.InternalFlow.Nu_Turbulent_Local_Developed(
       Res_film,
@@ -21,16 +18,13 @@ model Nus_SinglePhase_2Region "Specify Nus | Single Phase | 2 Regions"
       dimensions,
       roughnesses) "Turbulent Nusselt number"
     annotation (Dialog(group="Inputs"));
-
   input SI.Length[nHT] L_char=dimensions
     "Characteristic dimension for calculation of alpha"
     annotation (Dialog(group="Inputs"));
   input SI.ThermalConductivity[nHT] lambda=mediums_film.lambda
     "Thermal conductivity for calculation of alpha"
     annotation (Dialog(group="Inputs"));
-
 equation
-
   for i in 1:nHT loop
   Nus[i] =  TRANSFORM.Math.spliceTanh(
     Nus_turb[i],
@@ -38,9 +32,7 @@ equation
     Res_film[i] - Re_center,
     Re_width);
 end for;
-
   alphas = Nus.*lambda./L_char;
-
   annotation (Documentation(info="<html>
 <p>Local heat transfer model for fully developed laminar and turbulent flow in circular pipes.</p>
 <ul>

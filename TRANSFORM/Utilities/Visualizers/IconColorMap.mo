@@ -1,6 +1,5 @@
 within TRANSFORM.Utilities.Visualizers;
 model IconColorMap
-
   parameter Boolean showColors = false "Toggle dynamic color display"  annotation(Dialog(tab="Visualization",group="Color Coding"));
   input Real val "Color map input variable" annotation(Dialog(tab="Visualization",group="Color Coding",enable=showColors));
   input Real val_min "val <= val_min is mapped to colorMap[1,:]" annotation(Dialog(tab="Visualization",group="Color Coding",enable=showColors));
@@ -11,9 +10,7 @@ model IconColorMap
           constrainedby Modelica.Mechanics.MultiBody.Interfaces.partialColorMap
       "Function defining the color map"
             annotation(choicesAllMatching=true, Dialog(enable=showColors,tab="Visualization",group="Color Coding"));
-
   Real dynColor[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val, val_min, val_max, colorMap(n_colors));
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end IconColorMap;

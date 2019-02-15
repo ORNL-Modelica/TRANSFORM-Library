@@ -3,7 +3,6 @@ model Grid "Ideal grid with finite droop"
   parameter SI.Frequency f_nominal=60 "Nominal frequency";
   parameter SI.Power Q_nominal "Nominal power installed on the network";
   parameter Real droop=Modelica.Constants.eps "Network droop";
-
   TRANSFORM.Electrical.Interfaces.ElectricalPowerPort_State port annotation (
       Placement(transformation(extent={{-114,-14},{-86,14}}, rotation=0),
         iconTransformation(extent={{-110,-10},{-90,10}})));

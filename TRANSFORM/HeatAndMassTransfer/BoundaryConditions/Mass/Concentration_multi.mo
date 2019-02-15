@@ -1,6 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass;
 model Concentration_multi "Mass concentration boundary condition"
-
   parameter Integer nPorts = 1 "# of ports";
   parameter Integer nC = 1 "Number of substances";
   parameter Boolean use_port=false "=true then use input port"
@@ -8,31 +7,25 @@ model Concentration_multi "Mass concentration boundary condition"
     Evaluate=true,
     HideResult=true,
     choices(checkBox=true));
-
   parameter SI.Concentration C[nPorts,nC]=zeros(nPorts,nC) "Fixed concentration at port"
     annotation (Dialog(enable=not use_port));
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-
   Modelica.Blocks.Interfaces.RealInput C_ext[nPorts,nC](unit="mol/m3") if use_port
     annotation (Placement(transformation(extent={{-60,-20},{-20,20}}),
         iconTransformation(extent={{-60,-20},{-20,20}})));
-
   Interfaces.MolePort_State port[nPorts](each nC=nC) annotation (Placement(transformation(
           extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
             10}})));
 protected
   Modelica.Blocks.Interfaces.RealInput C_int[nPorts,nC](unit="mol/m3");
-
 equation
   connect(C_int, C_ext);
   if not use_port then
     C_int = C;
   end if;
-
   for i in 1:nPorts loop
     port[i].C = C_int[i,:];
   end for;
-
   annotation (
     defaultComponentName="boundary",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

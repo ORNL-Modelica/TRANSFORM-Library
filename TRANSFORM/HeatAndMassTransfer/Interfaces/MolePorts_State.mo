@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Interfaces;
 connector MolePorts_State
   "Generic heat connector for vectors of ports defining state/non-flow variable (e.g., concentration - C). Vector dimensions must be added after dragging."
-
   extends MolePort;
   annotation (defaultComponentName="heatPorts_b",
        Icon(coordinateSystem(

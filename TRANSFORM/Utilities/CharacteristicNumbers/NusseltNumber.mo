@@ -1,7 +1,6 @@
 within TRANSFORM.Utilities.CharacteristicNumbers;
 function NusseltNumber "Return Nusselt number"
   extends Modelica.Icons.Function;
-
   input SI.CoefficientOfHeatTransfer alpha "Coefficient of heat transfer";
   input SI.Length D "Characteristic dimension";
   input SI.ThermalConductivity lambda "Thermal conductivity";

@@ -1,14 +1,11 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX.Examples.Verification;
 model BellDelaware_dP
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Utilities.ErrorAnalysis.Errors_AbsRelRMSold summary_Error(
     n=1,
     x_1={shell.entryPipe_a.mediums[1].p - sink.p},
     x_2={dP}) annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
   parameter SI.PressureDifference dP = 0.032e5 "Example total pressure drop";
-
   Modelica.Fluid.Sources.Boundary_pT sink(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     nPorts=1,
@@ -56,7 +53,6 @@ model BellDelaware_dP
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature[shell.nNodes_intTotal](each T=
         338.15)
     annotation (Placement(transformation(extent={{-36,44},{-24,56}})));
-
 equation
   connect(source.ports[1], shell.port_a)
     annotation (Line(points={{-48,0},{-34,0},{-18,0}}, color={0,127,255}));

@@ -1,19 +1,15 @@
 within TRANSFORM.Examples.MoltenSaltReactor.Components;
 model DRACS
-
   extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
-
   replaceable package Medium_DRACS =
       TRANSFORM.Media.Fluids.NaK.LinearNaK_22_78_pT constrainedby
     Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
-
   input SI.Area surfaceAreas_thimble[2] = fill(1,2)
     "Heat transfer surface area for gas and salt"
     annotation (Dialog(group="Inputs"));
   input SI.CoefficientOfHeatTransfer alphas_drainTank[2]=fill(2000,2)
     "Convection heat transfer coefficient at thimble-drain tank interface for gas and salt"
     annotation (Dialog(group="Inputs"));
-
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_drainTank(
     exposeState_b=true,
     redeclare package Material = Media.Solids.AlloyN,
@@ -67,7 +63,6 @@ model DRACS
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-80,-40})));
-
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_waterTank(
     exposeState_b=true,
     redeclare package Material = Media.Solids.AlloyN,
@@ -139,7 +134,6 @@ model DRACS
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={-60,30})));
-
   Fluid.Volumes.ExpansionTank waterTank(
     use_HeatPort=true,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
@@ -220,11 +214,9 @@ model DRACS
     each showName=false)
     "thimble_outer_drainTank.surfaceArea_outer"
     annotation (Placement(transformation(extent={{104,-70},{124,-50}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.Collector collector(n=2, showName=
        false)
     annotation (Placement(transformation(extent={{100,-70},{80,-50}})));
-
 equation
   connect(radiation_drainTank.port_a, thimble_outer_drainTank.port_b)
     annotation (Line(points={{37,-60},{50,-60}}, color={191,0,0}));

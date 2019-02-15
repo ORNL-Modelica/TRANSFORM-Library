@@ -1,11 +1,9 @@
 within TRANSFORM.Media.Interfaces.Solids;
 partial package PartialSimpleAlloy_TableBased "Material properties based on tables"
-
   import Poly =
   TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
 
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy;
-
   constant Integer npol=2 "Degree of polynomial used for fitting";
   constant Integer npolDensity=npol
     "Degree of polynomial used for fitting d(T)";
@@ -13,11 +11,9 @@ partial package PartialSimpleAlloy_TableBased "Material properties based on tabl
     "Degree of polynomial used for fitting cp(T)";
   constant Integer npolConductivity=npol
     "Degree of polynomial used for fitting lambda(T)";
-
   constant Real[:,2] tableDensity "Table for d(T)";
   constant Real[:,2] tableHeatCapacity "Table for cp(T)";
   constant Real[:,2] tableConductivity "Table for lambda(T)";
-
   final constant Real poly_d[:]=if size(tableDensity, 1) > 0 then
       Poly.fitting(
       tableDensity[:, 1],
@@ -55,7 +51,6 @@ protected
 
   redeclare function extends specificHeatCapacityCp
     "Specific heat capacity at constant volume (or pressure) of medium"
-
   algorithm
     cp := Poly.evaluate(poly_cp, state.T);
     annotation (Inline=true, smoothOrder=2);
@@ -63,7 +58,6 @@ protected
 
   redeclare function extends thermalConductivity
     "Return thermal conductivity as a function of the thermodynamic state record"
-
   algorithm
     lambda := Poly.evaluate(poly_lambda, state.T);
     annotation (Inline=true, smoothOrder=2);

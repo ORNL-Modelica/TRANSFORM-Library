@@ -11,7 +11,6 @@ protected
   Real[nHT] Xis;
 equation
   Nu_1=3.66;
-
   for i in 1:nHT loop
    Nus_turb[i]=smooth(0,(Xis[i]/8)*abs(Res[i])*Prs[i]/(1+12.7*(Xis[i]/8)^0.5*(Prs[i]^(2/3)-1))*(1+1/3*(dimensions[i]/lengths[i]/(if m_flows[i]>=0 then (i-0.5) else (nHT-i+0.5)))^(2/3)));
    Xis[i]=(1.8*Modelica.Math.log10(max(1e-10,Res[i]))-1.5)^(-2);

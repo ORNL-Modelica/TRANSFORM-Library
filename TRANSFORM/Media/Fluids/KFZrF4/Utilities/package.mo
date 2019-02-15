@@ -3,8 +3,4 @@ package Utilities
 import TRANSFORM;
 
 extends TRANSFORM.Icons.UtilitiesPackage;
-
-
-
-
 end Utilities;

@@ -3,7 +3,6 @@ model part_b_CalculateHeatLoss
   "part a) Determine temperature distribution and heat loss from the pipe"
   import TRANSFORM;
   extends Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_pipe(T=
         363.15) "hot gas temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
@@ -51,11 +50,9 @@ model part_b_CalculateHeatLoss
     maxX=0.5,
     maxY=100) "X - Dimensionless position (-) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{56,-84},{98,-44}})));
-
  Real xval[nNodes_1.k] = -roof.geometry.cs_1;
   Real yval[nNodes_1.k]=
       TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(roof.materials.T);
-
   Utilities.Visualizers.displayReal display(precision=0, val=-T_pipe.port.Q_flow)
     annotation (Placement(transformation(extent={{30,68},{50,88}})));
   Modelica.Blocks.Sources.RealExpression Q_flow[nNodes_1.k](y=qf_s.y*roof.geometry.surfaceAreas_3b)

@@ -3,14 +3,12 @@ model Example_1_4_1_FuelElement
   "Part a) Plot the temperature distribution in the fuel and cladding | Figure 2"
   import TRANSFORM;
   extends Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow Adiabatic(
       Q_flow=0) "Adiabatic boundary condition at sphere center"
     annotation (Placement(transformation(extent={{-88,-10},{-68,10}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature
     T_gas_infinite(T(displayUnit="degC") = 773.15)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-
   DiscritizedModels.Conduction_1D fuel(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
@@ -59,7 +57,6 @@ model Example_1_4_1_FuelElement
         {convection.port_a.T})))
     "X - Axial Location (cm) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{4,-78},{58,-24}})));
-
   Modelica.Blocks.Sources.Constant q_ppp0(k=5e5)
     "Center volumetric heat generation"
     annotation (Placement(transformation(extent={{-100,42},{-92,50}})));
@@ -86,12 +83,10 @@ model Example_1_4_1_FuelElement
   Utilities.Visualizers.displayReal display(val=
         TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(fuel.materials.T)))
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={Adiabatic.port.T,
         fuel.materials[25].T,clad.materials[5].T})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(convection.port_b, T_gas_infinite.port)
     annotation (Line(points={{47,0},{70,0}}, color={191,0,0}));
   connect(Adiabatic.port, fuel.port_a1)

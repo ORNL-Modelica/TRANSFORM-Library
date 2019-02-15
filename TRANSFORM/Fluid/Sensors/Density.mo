@@ -6,13 +6,11 @@ model Density "Ideal one port density sensor"
         TRANSFORM.Units.Conversions.Functions.Density_kg_m3.to_kg_m3
       constrainedby
       TRANSFORM.Units.Conversions.Functions.Density_kg_m3.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput d(final quantity="Density",
                                           final unit="kg/m3",
                                           min=0) "Density in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{50,-10},{70,10}})));
-
 equation
   d = Medium.density(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
   annotation (defaultComponentName="sensor_d",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},

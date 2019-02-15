@@ -2,21 +2,18 @@ within TRANSFORM.Fluid.Machines.BaseClasses;
 partial model PartialPump "Base model for centrifugal pumps"
   import NonSI = Modelica.SIunits.Conversions.NonSIunits;
   import Modelica.Constants;
-
   Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium, m_flow(
         min=if checkValve then 0 else -Modelica.Constants.inf))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.FluidPort_Flow port_b(redeclare package Medium = Medium, m_flow(
         max=if checkValve then 0 else +Modelica.Constants.inf))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
   parameter Medium.AbsolutePressure p_a_start=1e5 "Pressure at port a"
     annotation (Dialog(tab="Initialization", group=
           "Start Value: Absolute Pressure"));
   parameter Medium.AbsolutePressure p_b_start=p_a_start + dp_nominal
     "Pressure at port b" annotation (Dialog(tab="Initialization", group=
           "Start Value: Absolute Pressure"));
-
   extends Volumes.BaseClasses.PartialVolume(
     V = 0,
     final p_start=if (exposeState_a and not exposeState_b) then p_a_start
@@ -29,12 +26,9 @@ partial model PartialPump "Base model for centrifugal pumps"
         actualStream(port_b.Xi_outflow),
     mCb=port_a.m_flow*actualStream(port_a.C_outflow) + port_b.m_flow*
         actualStream(port_b.C_outflow) + mC_flow_internal);
-
   parameter Real nParallel = 1 "# of parallel components";
-
   input SI.Length diameter=diameter_nominal "Impeller diameter"
     annotation (Dialog(group="Inputs"));
-
   // Initialization
   parameter Medium.MassFlowRate m_flow_start=0 "Mass flow rate through all pumps"
     annotation (Dialog(tab="Initialization", group=
@@ -44,7 +38,6 @@ partial model PartialPump "Base model for centrifugal pumps"
       T_start,
       X_start);
   final parameter SI.VolumeFlowRate V_flow_start=max(abs(m_flow_start/nParallel)/d_start,1e-5);
-
   // Advanced
   parameter Boolean exposeState_a=true
     "=true, p is calculated at port_a else m_flow"
@@ -52,17 +45,13 @@ partial model PartialPump "Base model for centrifugal pumps"
   parameter Boolean exposeState_b=false
     "=true, p is calculated at port_b else m_flow"
     annotation (Dialog(group="Model Structure", tab="Advanced"));
-
   parameter Boolean checkValve=false "= true to prevent reverse flow"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
-
   parameter SI.Acceleration g_n=Modelica.Constants.g_n
     "Gravitational accelaration" annotation (Dialog(tab="Advanced"));
-
   SI.PressureDifference dp=port_b.p - port_a.p "Pressure increase";
   SI.MassFlowRate m_flow(start=m_flow_start/nParallel) "Mass flow rate";
   NonSI.AngularVelocity_rpm N(start=N_nominal) "Shaft rotational speed";
-
   // Variables defined by closure models
   SI.Height head "Pump head";
   SI.Power W "Power Consumption";
@@ -70,7 +59,6 @@ partial model PartialPump "Base model for centrifugal pumps"
   SI.Efficiency eta "Efficiency";
   SI.VolumeFlowRate V_flow(start=V_flow_start) = m_flow/medium.d
     "Volume flow rate";
-
   replaceable model FlowChar =
       TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve
     constrainedby
@@ -78,7 +66,6 @@ partial model PartialPump "Base model for centrifugal pumps"
     "Head vs. Volumetric flow rate" annotation (Dialog(group=
           "Characteristics: Based on single pump nominal conditions"),
       choicesAllMatching=true);
-
   FlowChar flowChar(
     redeclare final package Medium = Medium,
     final state=medium.state,
@@ -92,12 +79,10 @@ partial model PartialPump "Base model for centrifugal pumps"
     final head_nominal=head_nominal,
     final checkValve=checkValve)
     annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
-
   parameter Boolean use_powerCharacteristic=false
     "=true then use power characteristic else efficiency" annotation (Evaluate=
         true, Dialog(group=
           "Characteristics: Based on single pump nominal conditions"));
-
   replaceable model PowerChar =
       TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power.Constant
     constrainedby
@@ -105,7 +90,6 @@ partial model PartialPump "Base model for centrifugal pumps"
     "Power consumption vs. Volumetric flow rate" annotation (Dialog(group=
           "Characteristics: Based on single pump nominal conditions", enable=
           use_powerCharacteristic), choicesAllMatching=true);
-
   PowerChar powerChar(
     redeclare final package Medium = Medium,
     final state=medium.state,
@@ -119,7 +103,6 @@ partial model PartialPump "Base model for centrifugal pumps"
     final W_nominal=W_nominal,
     final m_flow=m_flow)
     annotation (Placement(transformation(extent={{-56,84},{-44,96}})));
-
   replaceable model EfficiencyChar =
       TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant
     constrainedby
@@ -127,7 +110,6 @@ partial model PartialPump "Base model for centrifugal pumps"
     "Efficiency vs. Volumetric flow rate" annotation (Dialog(group=
           "Characteristics: Based on single pump nominal conditions", enable=
           not use_powerCharacteristic), choicesAllMatching=true);
-
   EfficiencyChar efficiencyChar(
     redeclare final package Medium = Medium,
     final state=medium.state,
@@ -139,7 +121,6 @@ partial model PartialPump "Base model for centrifugal pumps"
     final N_nominal=N_nominal,
     final diameter_nominal=diameter_nominal)
     annotation (Placement(transformation(extent={{-76,84},{-64,96}})));
-
   // Nominal conditions: Single pump basis
   parameter NonSI.AngularVelocity_rpm N_nominal=1500 "Pump speed"
     annotation (Dialog(group="Nominal Conditions: Single pump basis"));
@@ -157,13 +138,11 @@ partial model PartialPump "Base model for centrifugal pumps"
   final parameter SI.VolumeFlowRate V_flow_nominal=m_flow_nominal/d_nominal;
   final parameter SI.Power W_nominal=dp_nominal*V_flow_nominal;
   final parameter SI.Height head_nominal=dp_nominal/(d_nominal*Modelica.Constants.g_n);
-
   parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced"),Evaluate=true);
   parameter Boolean use_TraceMassPort = false "=true to toggle trace mass port" annotation(Dialog(tab="Advanced"),Evaluate=true);
   parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
     "Trace substances molar mass"
     annotation (Dialog(group="Closure Models", enable=use_TraceMassPort));
-
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=medium.T, Q_flow=
         Q_flow_internal) if                                                                      use_HeatPort
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}}),
@@ -174,31 +153,25 @@ partial model PartialPump "Base model for centrifugal pumps"
     n_flow=mC_flow_internal ./ MMs) if                                                                                            use_TraceMassPort
     annotation (Placement(transformation(extent={{30,-50},{50,-30}}),
         iconTransformation(extent={{30,-50},{50,-30}})));
-
 protected
   SI.HeatFlowRate Q_flow_internal;
   SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
-
 equation
-
   if not use_HeatPort then
     Q_flow_internal = 0;
   end if;
   if not use_TraceMassPort then
     mC_flow_internal = zeros(Medium.nC);
   end if;
-
   if use_powerCharacteristic then
     W = powerChar.W;
   else
     eta = efficiencyChar.eta;
   end if;
-
   W_ideal = m_flow/medium.d*dp;
   W = W_ideal/eta;
   head = flowChar.head;
   dp = medium.d*g_n*head;
-
   if exposeState_a and exposeState_b then
     assert(false,
       "Single volume components cannot expose state at both ports a and b");
@@ -214,7 +187,6 @@ equation
     port_a.m_flow/nParallel = m_flow;
     port_b.m_flow/nParallel = -m_flow;
   end if;
-
   // Boundary Conditions
   port_a.h_outflow = medium.h;
   port_b.h_outflow = medium.h;
@@ -223,7 +195,6 @@ equation
   port_b.Xi_outflow = medium.Xi;
   port_a.C_outflow = C;
   port_b.C_outflow = C;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(

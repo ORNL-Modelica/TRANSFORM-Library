@@ -1,11 +1,9 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Utilities;
 model Groeneveld2006LUT
   extends Modelica.Blocks.Interfaces.SO;
-
   parameter Boolean[8] use_Ks=fill(false, 8)
     "=true to turn on correction factor. See info tab for details"
     annotation (Evaluate=true);
-
   input SI.Length D_hyd=1.0
     "Hydraulic diameter of subchannel. Used in K = 1,3,4,7" annotation (Dialog(
         group="Inputs", enable=if use_Ks[1] or useKs[3] or useKs[4] or useKs[7]
@@ -44,14 +42,12 @@ model Groeneveld2006LUT
   input SI.Acceleration g_n=Modelica.Constants.g_n
     "Gravity coefficient. Used in K = 7"
     annotation (Dialog(group="Inputs", enable=use_Ks[7]));
-
   // Set by input connectors
   //   input SIadd.NonDim x_abs=noEvent(max(0.0, min(1.0, x_th))) "Absolute quality. Used in table interpolation and  K = 2,4,5,6,7,8" annotation (
   //       Dialog(group="Inputs", enable=if use_Ks[2] or useKs[4] or useKs[5] or
   //           useKs[6] or useKs[7] or useKs[8] then true else false));
   //   input SIadd.MassFlux G=1.0 "Mass flux. Used in table interpolation and K = 3,7,8" annotation (Dialog(group="Inputs",
   //         enable=if use_Ks[3] or useKs[7] or useKs[8] then true else false));
-
   Modelica.Blocks.Interfaces.RealInput P(unit="Pa")
     "Pressure. Used in table interpolation" annotation (Placement(
         transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent=
@@ -74,16 +70,13 @@ model Groeneveld2006LUT
     interpMethod=SDF.Types.InterpolationMethod.Akima,
     extrapMethod=SDF.Types.ExtrapolationMethod.Linear,
     dataset="/q",
-    filename=Modelica.Utilities.Files.loadResource("modelica://TRANSFORM/Resources/Data/2006LUT.sdf"))
+    filename=Modelica.Utilities.Files.loadResource("modelica://TRANSFORM/Resources/data/chf/2006LUT.sdf"))
     "Outputs predicted CHF heat flux [W/m2]"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Real[8] Ks "Correction factors";
-
   Modelica.Blocks.Math.Abs absG
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 equation
-
   Ks[1] = if not use_Ks[1] then 1.0 else
     Internal.GroeneveldCorrectionFactors.K_1(D_hyd);
   Ks[2] = if not use_Ks[2] then 1.0 else
@@ -129,9 +122,7 @@ equation
     rho_lsat,
     rho_vsat,
     x_abs);
-
   y = q.y*Ks[1]*Ks[2]*Ks[3]*Ks[4]*Ks[5]*Ks[6]*Ks[7]*Ks[8];
-
   connect(x_th, q.u[2]) annotation (Line(points={{-120,0},{-12,0}}, color={0,0,127}));
   connect(P, q.u[3]) annotation (Line(points={{-120,40},{-30,40},{-30,1.33333},{
           -12,1.33333}}, color={0,0,127}));

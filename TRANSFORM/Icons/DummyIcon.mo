@@ -1,6 +1,5 @@
 within TRANSFORM.Icons;
 model DummyIcon
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-34,32},{34,-32}},

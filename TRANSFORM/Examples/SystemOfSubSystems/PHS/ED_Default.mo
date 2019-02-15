@@ -1,10 +1,6 @@
 within TRANSFORM.Examples.SystemOfSubSystems.PHS;
 model ED_Default
-
   extends BaseClasses.Partial_EventDriver;
-
-equation
-
 annotation(defaultComponentName="PHS_ED", Icon(graphics={
         Text(
           extent={{-94,82},{94,74}},

@@ -1,10 +1,7 @@
 within TRANSFORM.Examples.CIET_Facility.Examples;
 model CIETLoop3
-
   extends TRANSFORM.Icons.Example;
-
   package Medium = TRANSFORM.Media.Fluids.DOWTHERM.LinearDOWTHERM_A_95C;
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _1(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -179,7 +176,6 @@ model CIETLoop3
         extent={{-10,-10},{10,10}},
         rotation=45,
         origin={50,156})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _6a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -199,7 +195,6 @@ model CIETLoop3
         extent={{-10,-10},{10,10}},
         rotation=45,
         origin={70,176})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _7a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -220,7 +215,6 @@ model CIETLoop3
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={94,164})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _7b(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -241,7 +235,6 @@ model CIETLoop3
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={76,144})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _8a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -261,7 +254,6 @@ model CIETLoop3
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={62,120})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _8(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -281,7 +273,6 @@ model CIETLoop3
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={62,90})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _9(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -301,7 +292,6 @@ model CIETLoop3
         extent={{-10,-10},{10,10}},
         rotation=-45,
         origin={74,66})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _10(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -321,7 +311,6 @@ model CIETLoop3
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,30})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _11(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -341,7 +330,6 @@ model CIETLoop3
         extent={{-10,-10},{10,10}},
         rotation=-135,
         origin={74,0})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _12(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -361,7 +349,6 @@ model CIETLoop3
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={54,-20})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _18(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -381,7 +368,6 @@ model CIETLoop3
         extent={{10,-10},{-10,10}},
         rotation=45,
         origin={-76,-38})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _17(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -401,7 +387,6 @@ model CIETLoop3
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-60,-10})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _16(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -421,7 +406,6 @@ model CIETLoop3
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-60,18})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _14a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -441,7 +425,6 @@ model CIETLoop3
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-30,30})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _15(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -461,7 +444,6 @@ model CIETLoop3
         extent={{10,-10},{-10,10}},
         rotation=45,
         origin={-46,48})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _14(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -481,7 +463,6 @@ model CIETLoop3
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-30,0})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _13(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,

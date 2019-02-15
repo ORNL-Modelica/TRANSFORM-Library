@@ -1,54 +1,40 @@
 within TRANSFORM.HeatAndMassTransfer.Volumes;
 model UnitVolume
-
   import Modelica.Fluid.Types.Dynamics;
-
   extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
-
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Dialog(tab="Initialization", group="Dynamics"));
-
   parameter SI.Temperature T_start = 298.15 "Temperature"
     annotation(Dialog(tab = "Initialization",group="Start Value: Temperature"));
   parameter SI.Temperature T_reference = 273.15 "Reference temperature for zero enthalpy" annotation(Dialog(tab="Advanced"));
-
   input SI.Volume V "Volume" annotation(Dialog(group="Inputs"));
   input SI.Density d "Density" annotation(Dialog(group="Inputs"));
   input SI.SpecificHeatCapacity cp "Specific heat capacity" annotation(Dialog(group="Inputs"));
   input SI.HeatFlowRate Q_gen = 0 "Internal heat generation" annotation(Dialog(group="Inputs"));
-
   SI.InternalEnergy U "Internal energy";
   SI.Mass m "Mass";
-
   SI.Temperature T(stateSelect=StateSelect.prefer,start=T_start) "Temperature";
-
   Interfaces.HeatPort_State port "Heat flow across boundary"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-
 initial equation
   if energyDynamics == Dynamics.SteadyStateInitial then
     der(U) = 0;
   elseif energyDynamics == Dynamics.FixedInitial then
     T = T_start;
   end if;
-
 equation
-
   // Total Quantities
   m = d*V;
   U = m*cp*(T-T_reference);
-
   // Energy Balance
   if energyDynamics == Dynamics.SteadyState then
     0 =port.Q_flow + Q_gen;
   else
     der(U) =port.Q_flow + Q_gen;
   end if;
-
   // Port Definitions
   port.T = T;
-
   annotation (defaultComponentName="volume",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(

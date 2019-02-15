@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components;
 model Rankine "Rankine cycle model"
   import TRANSFORM;
-
   extends
     TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.PartialRankine;
   Real dearator_level_percentage=dearator.geometry.level_meas_percentage;
@@ -16,7 +15,6 @@ model Rankine "Rankine cycle model"
 //100*(condenser.level_meas-condenser.level_meas_min)/(condenser.level_meas_max-condenser.level_meas_min) "Condenser level percentage";
   Real MSR_level_percentage=MSR.hex.geometry.level_meas_percentage;
 //100*(MSR.hex.level_meas-MSR.hex.level_meas_min)/(MSR.hex.level_meas_max-MSR.hex.level_meas_min) "MSR level percentage";
-
   Modelica.SIunits.Time tau_condenser=((1 - condenser.mediaProps.x_abs)*
       condenser.m)/max(condenser.portSteamFeed.m_flow, 1)
     "Condenser hold up time";
@@ -28,10 +26,8 @@ model Rankine "Rankine cycle model"
       /max(dearator.summary.m_flow_out_condensate, 1) "Dearator hold up time";
   Modelica.SIunits.Time tau_MSR=((1 - MSR.hex.mediaProps.x_abs)*MSR.hex.m)/max(
       MSR.hex.portSteamFeed.m_flow, 1) "MSR hold up time";
-
   Electrical.PowerConverters.Generator_Basic generator(efficiency=0.98)
     annotation (Placement(transformation(extent={{130,41},{150,61}})));
-
   TRANSFORM.Fluid.Volumes.Condenser condenser(
     p_start=initData.p_start_condenser,
     level_start=0.6,
@@ -48,7 +44,6 @@ model Rankine "Rankine cycle model"
         th_tube=0.002),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{165,-3},{185,17}})));
-
   Pump CondPump_2(
     W_curve={1,1,1},
     checkValve=true,
@@ -86,7 +81,6 @@ model Rankine "Rankine cycle model"
     alpha_internal=5000,
     Twall_start=433.15)
     annotation (Placement(transformation(extent={{53,-53},{30,-36}})));
-
   Pump pump_ip(
     W_curve={1,1,1},
     checkValve=true,
@@ -107,7 +101,6 @@ model Rankine "Rankine cycle model"
           eta_constant=0.8),
     m_flow_nominal=pump_ip.m_flow_start)
     annotation (Placement(transformation(extent={{79,-96},{65,-82}})));
-
   Pump FWPump_2(
     W_curve={1,1,1},
     checkValve=true,
@@ -129,13 +122,11 @@ model Rankine "Rankine cycle model"
         ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant (
           eta_constant=0.8))
     annotation (Placement(transformation(extent={{29,-104},{15,-90}})));
-
   FittingsAndResistances.ElevationChange heightDiff(redeclare package Medium =
         Medium, dheight=-1) annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=-90,
         origin={174,-17})));
-
   FittingsAndResistances.ElevationChange heightDiff1(redeclare package Medium =
         Medium, dheight=-1) annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
@@ -161,7 +152,6 @@ model Rankine "Rankine cycle model"
         extent={{6,6},{-6,-6}},
         rotation=0,
         origin={-25,-85})));
-
   FittingsAndResistances.ElevationChange heightDiff3(redeclare package Medium =
         Medium, dheight=-1) annotation (Placement(transformation(
         extent={{-6,-6},{6,6}},
@@ -184,7 +174,6 @@ model Rankine "Rankine cycle model"
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={-52,15})));
-
   Valves.ValveIncompressible               valve_FWH_HP_control(
     redeclare package Medium = Medium,
     dp_nominal=(nominalData.p_nom_preheater_HP - nominalData.p_nom_dearator),
@@ -195,7 +184,6 @@ model Rankine "Rankine cycle model"
         extent={{7,7},{-7,-7}},
         rotation=180,
         origin={-1,-34})));
-
   Volumes.MixingVolume                    vol_preheater_HP(
     redeclare package Medium = Medium,
 redeclare model Geometry =
@@ -216,7 +204,6 @@ redeclare model Geometry =
         extent={{5.5,-6},{-5.5,6}},
         rotation=270,
         origin={-33,-63.5})));
-
   Records.RankineSummary summary(
     p_condenser=condenser.medium.p,
     p_feedWaterPump_drain=drain_to_SG1.p,
@@ -257,7 +244,6 @@ redeclare model Geometry =
     u_valve_preheat_hp=valve_FWH_HP_control.opening,
     T_turbine_LP_drain=condenser.medium.T)
     annotation (Placement(transformation(extent={{231,48},{251,68}})));
-
   LP_turbine                                                         LPT_1(
     eta_is=eta_is_LPT,
     eta_mech=eta_mech,
@@ -266,7 +252,6 @@ redeclare model Geometry =
     initData=initData,
     N_drain_stage2r=1) annotation (Placement(transformation(rotation=0, extent={
             {15,38},{40,63}})));
-
   Pump CondPump_1(
     W_curve={1,1,1},
     checkValve=true,
@@ -328,7 +313,6 @@ redeclare model Geometry =
         ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant (
           eta_constant=0.8))
     annotation (Placement(transformation(extent={{30,-82},{16,-68}})));
-
   Pump FWPump_3(
     W_curve={1,1,1},
     checkValve=true,
@@ -350,7 +334,6 @@ redeclare model Geometry =
         ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant (
           eta_constant=0.8))
     annotation (Placement(transformation(extent={{30,-126},{16,-112}})));
-
   LP_turbine                                                         LPT_2(
     eta_is=eta_is_LPT,
     eta_mech=eta_mech,
@@ -369,7 +352,6 @@ redeclare model Geometry =
   Modelica.Blocks.Sources.RealExpression level_preheater_HP(y=
         preheater_HP_level_percentage)
     annotation (Placement(transformation(extent={{202,-98},{187,-85}})));
-
   Valves.ValveIncompressible               FWIsolationValve_1(
     redeclare package Medium = Medium,
     dp_nominal=0.5*(nominalData.p_nom_preheater_HP_cooling_out - nominalData.p_nom_to_SG_drain),
@@ -382,7 +364,6 @@ redeclare model Geometry =
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={-142,-30})));
-
   Valves.ValveIncompressible               FWIsolationValve_2(
     redeclare package Medium = Medium,
     dp_nominal=(nominalData.p_nom_preheater_HP_cooling_out - nominalData.p_nom_to_SG_drain),
@@ -395,7 +376,6 @@ redeclare model Geometry =
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={-142,-81})));
-
   Valves.ValveIncompressible               FWIsolationValve_3(
     redeclare package Medium = Medium,
     dp_nominal=(nominalData.p_nom_preheater_HP_cooling_out - nominalData.p_nom_to_SG_drain),
@@ -408,7 +388,6 @@ redeclare model Geometry =
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={-143,-130})));
-
   Volumes.MixingVolume                    vol2_drain_to_SG1(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -422,7 +401,6 @@ redeclare model Geometry =
         extent={{6,6},{-6,-6}},
         rotation=0,
         origin={-124,-30})));
-
   Volumes.MixingVolume                    vol2_drain_to_SG2(
     nPorts_b=1,
     p_start=initData.p_start_preheater_HP_cooling_out - 0.5*(initData.p_start_preheater_HP_cooling_out
@@ -436,7 +414,6 @@ redeclare model Geometry =
         extent={{6,6},{-6,-6}},
         rotation=0,
         origin={-124,-81})));
-
   Volumes.MixingVolume                    vol2_drain_to_SG3(
     redeclare package Medium = Medium,
     p_start=initData.p_start_preheater_HP_cooling_out - 0.5*(initData.p_start_preheater_HP_cooling_out
@@ -450,7 +427,6 @@ redeclare model Geometry =
         extent={{6,6},{-6,-6}},
         rotation=0,
         origin={-124,-130})));
-
   Valves.ValveIncompressible               FWControlValve_1(
     dp_nominal=(nominalData.p_nom_preheater_HP_cooling_out - nominalData.p_nom_to_SG_drain)
         /2,
@@ -464,7 +440,6 @@ redeclare model Geometry =
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={-103,-30})));
-
   Valves.ValveIncompressible               FWControlValve_2(
     redeclare package Medium = Medium,
     dp_nominal=(nominalData.p_nom_preheater_HP_cooling_out - nominalData.p_nom_to_SG_drain)
@@ -478,7 +453,6 @@ redeclare model Geometry =
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={-103,-81})));
-
   Valves.ValveIncompressible               FWControlValve_3(
     redeclare package Medium = Medium,
     rho_nominal=FWControlValve_3.Medium.density_pTX(
@@ -492,7 +466,6 @@ redeclare model Geometry =
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={-103,-130})));
-
   Valves.ValveIncompressible               FWBypassValve_1(
     redeclare package Medium = Medium,
     dp_nominal=(nominalData.p_nom_preheater_HP_cooling_out - nominalData.p_nom_to_SG_drain)
@@ -506,7 +479,6 @@ redeclare model Geometry =
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={-103,-53})));
-
   Valves.ValveIncompressible               FWBypassValve_2(
     redeclare package Medium = Medium,
     dp_nominal=(nominalData.p_nom_preheater_HP_cooling_out - nominalData.p_nom_to_SG_drain)
@@ -520,7 +492,6 @@ redeclare model Geometry =
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={-103,-105})));
-
   Valves.ValveIncompressible               FWBypassValve_3(
     redeclare package Medium = Medium,
     dp_nominal=(nominalData.p_nom_preheater_HP_cooling_out - nominalData.p_nom_to_SG_drain)
@@ -534,7 +505,6 @@ redeclare model Geometry =
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={-103,-152})));
-
   Valves.ValveIncompressible FWBlockValve_1(
     m_flow_nominal=nominalData.m_flow_nom_feedWaterPump/3,
     redeclare package Medium = Medium,
@@ -572,7 +542,6 @@ redeclare model Geometry =
     redeclare model Geometry =
         ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (       V=20))
     annotation (Placement(transformation(extent={{-151,59},{-139,71}})));
-
   Valves.ValveCompressible                TBypassValve_2(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_HP_stage1_feed - nominalData.p_nom_condenser,
@@ -586,7 +555,6 @@ redeclare model Geometry =
         extent={{7,7},{-7,-7}},
         rotation=180,
         origin={-59,90})));
-
   Valves.ValveCompressible                TBypassValve_1(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_HP_stage1_feed - nominalData.p_nom_condenser,
@@ -600,7 +568,6 @@ redeclare model Geometry =
         extent={{7,7},{-7,-7}},
         rotation=180,
         origin={-59,105})));
-
   Valves.ValveCompressible                TStopValve(
     redeclare package Medium = Medium,
     m_flow_nominal=nominalData.m_flow_nom_turbine_HP_stage1,
@@ -614,7 +581,6 @@ redeclare model Geometry =
         extent={{7,7},{-7,-7}},
         rotation=180,
         origin={-126,65})));
-
   Volumes.MixingVolume                    vol2_turbine_HP_feed(
     nPorts_a=1,
     redeclare package Medium = Medium,
@@ -625,7 +591,6 @@ redeclare model Geometry =
     T_start=initData.T_start_turbine_HP_stage1_feed + 5,
     nPorts_b=1)
     annotation (Placement(transformation(extent={{-117,59},{-105,71}})));
-
   Valves.ValveCompressible                TControlValve(
     redeclare package Medium = Medium,
     m_flow_nominal=nominalData.m_flow_nom_turbine_HP_stage1,
@@ -639,7 +604,6 @@ redeclare model Geometry =
         extent={{7,7},{-7,-7}},
         rotation=180,
         origin={-95,65})));
-
   Volumes.MixingVolume                    vol3_turbine_HP_feed(
     nPorts_a=1,
     redeclare package Medium = Medium,
@@ -651,7 +615,6 @@ redeclare model Geometry =
     nPorts_b=1)
     annotation (Placement(transformation(extent={{-79,59},
             {-67,71}})));
-
   Modelica.Blocks.Sources.RealExpression flow_to_SG_2(y=-
         drain_to_SG2.m_flow)
     annotation (Placement(transformation(extent={{222,-135},{207,-122}})));
@@ -696,7 +659,6 @@ redeclare model Geometry =
     nominalData=nominalData,
     initData=initData,
     N_drain=2) annotation (Placement(transformation(extent={{-17,58},{13,88}})));
-
   HP_turbine                                                         HPT(
     redeclare package Medium = Medium,
     nominalData=nominalData,
@@ -718,7 +680,6 @@ redeclare model Geometry =
         extent={{6.5,6.5},{-6.5,-6.5}},
         rotation=180,
         origin={-59.5,76.5})));
-
   Modelica.Blocks.Sources.RealExpression level_MSR(y=
         MSR_level_percentage)
     annotation (Placement(transformation(extent={{202,-86},{187,-73}})));
@@ -742,7 +703,6 @@ redeclare model Geometry =
         extent={{-5.5,-5.5},{5.5,5.5}},
         rotation=270,
         origin={27.5,76.5})));
-
   Volumes.MixingVolume                    vol_turbine_LPT_1_feed(
     nPorts_b=1,
     nPorts_a=1,
@@ -756,7 +716,6 @@ redeclare model Geometry =
         extent={{-4,-4.5},{4,4.5}},
         rotation=270,
         origin={27.5,65})));
-
   Volumes.MixingVolume                    vol_turbine_LPT_1_feed1(
     redeclare package Medium = Medium,
 redeclare model Geometry =
@@ -770,7 +729,6 @@ redeclare model Geometry =
         extent={{-4,-4.5},{4,4.5}},
         rotation=270,
         origin={100,65})));
-
   Valves.ValveCompressible                TValve_LPT2(
     redeclare package Medium = Medium,
     m_flow_nominal=nominalData.m_flow_nom_turbine_LP_stage1,
@@ -784,7 +742,6 @@ redeclare model Geometry =
         extent={{-5.5,5.5},{5.5,-5.5}},
         rotation=270,
         origin={100,76.5})));
-
   Modelica.Blocks.Sources.Constant const(k=1)
     annotation (Placement(transformation(extent={{-17,-68},{-25,-60}})));
   Valves.ValveCompressible valve_reheater_lp1(
@@ -802,7 +759,6 @@ redeclare model Geometry =
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={110,17})));
-
   Valves.ValveCompressible valve_msr_preheater_hp(
     redeclare package Medium = Medium,
     m_flow_nominal=200,
@@ -831,7 +787,6 @@ redeclare model Geometry =
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={30,16})));
-
   Valves.ValveCompressible valve_dearator1(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_LP_stage1_drain - nominalData.p_nom_dearator,
@@ -847,7 +802,6 @@ redeclare model Geometry =
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={45,16})));
-
   Valves.ValveCompressible valve_reheater_lp(
     redeclare package Medium = Medium,
     dp_nominal=nominalData.p_nom_turbine_LP_stage2_drain - nominalData.p_nom_preheater_LP,
@@ -863,7 +817,6 @@ redeclare model Geometry =
         extent={{7,-7},{-7,7}},
         rotation=90,
         origin={95,17})));
-
   TRANSFORM.Fluid.Volumes.Condenser FWH_HP(
     p_start=initData.p_start_preheater_HP,
     T_start_wall=Medium.saturationTemperature(FWH_HP.p_start),
@@ -883,7 +836,6 @@ redeclare model Geometry =
         th_tube=0.002),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-63,-44},{-43,-24}})));
-
   TRANSFORM.Fluid.Volumes.Condenser FWH_LP(
     p_start=initData.p_start_preheater_LP,
     level_start=1.2,
@@ -902,7 +854,6 @@ redeclare model Geometry =
         th_tube=0.002),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{94,-52},{114,-32}})));
-
   BoundaryConditions.Boundary_pT cooling_sink(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     p=100000,
@@ -914,14 +865,12 @@ redeclare model Geometry =
     nPorts=1,
     T=293.15) annotation (Placement(transformation(extent={{233,13},{213,33}})));
 equation
-
   connect(pump_ip.N_input, controlBus.u_pumpspeed_IP) annotation (Line(
       points={{72,-82},{80,-82},{80,-83},{85,-83},{85,-140},{37.1,-140},{37.1,-139.9}},
       color={255,219,11},
       smooth=Smooth.None,
       pattern=LinePattern.Dash,
       thickness=0.5));
-
   connect(CondPump_2.N_input, controlBus.u_pumpspeed_LP[2]) annotation (Line(
       points={{157,-40},{173,-40},{173,-41},{178,-41},{178,-140},{37,-140},{37,
           -139.9},{37.1,-139.9}},
@@ -929,7 +878,6 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash,
       thickness=0.5));
-
   connect(controlBus.y_Generator_Power, gen_power.y) annotation (Line(
       points={{37.1,-139.9},{64,-139.9},{64,-140},{183,-140},{183,-128},{185,-128},
           {185,-127.5},{186.25,-127.5}},
@@ -963,7 +911,6 @@ equation
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash));
-
   connect(LPT_2.shaft_a, LPT_1.shaft_b) annotation (Line(points={{85.84,51},{42.5,
           51},{42.5,50.5}}, color={0,0,0}));
   connect(LPT_2.shaft_b, generator.shaft)
@@ -980,7 +927,6 @@ equation
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash));
-
   connect(controlBus.y_FWH_HP_level, level_preheater_HP.y) annotation (Line(
       points={{37.1,-139.9},{183,-139.9},{183,-91.5},{186.25,-91.5}},
       color={255,204,51},
@@ -991,7 +937,6 @@ equation
       color={255,204,51},
       thickness=0.5,
       pattern=LinePattern.Dash));
-
   connect(controlBus.y_FW_To_SG_2_flow, flow_to_SG_2.y) annotation (Line(
       points={{37.1,-139.9},{105,-139.9},{173,-139.9},{173,-147},{204,-147},{204,
           -129},{206.25,-129},{206.25,-128.5}},
@@ -1137,14 +1082,12 @@ equation
       points={{37.1,-139.9},{37.1,-147},{-80,-147},{-80,75},{-126,75},{-126,70.6}},
       color={255,204,51},
       thickness=0.5));
-
   connect(TStopValve.port_b, vol2_turbine_HP_feed.port_a[1])
     annotation (Line(points={{-119,65},{-114.6,65}}, color={0,127,255}));
   connect(controlBus.u_TControlValve, TControlValve.opening) annotation (Line(
       points={{37.1,-139.9},{37.1,-145},{-80,-145},{-80,74},{-95,74},{-95,70.6}},
       color={255,204,51},
       thickness=0.5));
-
   connect(vol2_turbine_HP_feed.port_b[1], TControlValve.port_a) annotation (
       Line(
       points={{-107.4,65},{-104.7,65},{-102,65}},
@@ -1216,7 +1159,6 @@ equation
       points={{37.1,-139.9},{-80,-139.9},{-80,-117},{-103,-117},{-103,-124.4}},
       color={255,204,51},
       thickness=0.5));
-
   connect(controlBus.u_FWBypassValve_3, FWBypassValve_3.opening) annotation (
       Line(
       points={{37.1,-139.9},{-80,-139.9},{-80,-146.4},{-103,-146.4}},
@@ -1289,12 +1231,10 @@ equation
       points={{37.1,-139.9},{37.1,-139.9},{37.1,-84},{-5.75,-84},{-5.75,-86.65}},
       color={255,204,51},
       thickness=0.5));
-
   connect(controlBus.u_FWBlockValve_3, FWBlockValve_3.opening) annotation (Line(
       points={{37.1,-139.9},{37.1,-139.9},{37.1,-109},{-5.75,-109},{-5.75,-110.65}},
       color={255,204,51},
       thickness=0.5));
-
   connect(FWBlockValve_1.port_b, vol_feedWaterPump.port_a[1]) annotation (Line(
         points={{-11.5,-70.25},{-14,-70.25},{-14,-84.6},{-21.4,-84.6}}, color={0,
           127,255}));
@@ -1370,7 +1310,6 @@ equation
       points={{100,67.4},{100,69.2},{100,71}},
       color={0,127,255},
       thickness=0.5));
-
   connect(controlBus.u_valve_preheat_HP, valve_FWH_HP_control.opening)
     annotation (Line(
       points={{37.1,-139.9},{37.1,-139.9},{37.1,-61},{15,-61},{15,-23},{-1,-23},

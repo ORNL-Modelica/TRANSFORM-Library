@@ -2,10 +2,8 @@ within TRANSFORM.Media.Solids;
 package ZircHydride "ZrH1.89"
   //ZrHx is complicated. Use with caution
 //cp from http://linkinghub.elsevier.com/retrieve/pii/S0925838899003898
-
 //lambda from variety of sources including: http://linkinghub.elsevier.com/retrieve/pii/S0022311501004573
 //It's basically constant
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="ZrH1.89",
     T_min=Modelica.SIunits.Conversions.from_degC(-273),

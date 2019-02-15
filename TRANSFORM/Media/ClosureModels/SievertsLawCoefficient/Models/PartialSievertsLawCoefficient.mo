@@ -1,16 +1,12 @@
 within TRANSFORM.Media.ClosureModels.SievertsLawCoefficient.Models;
 partial model PartialSievertsLawCoefficient
-
   parameter Integer nC = 1 "Number of substances";
-
   input SI.Temperature T "Temperature"
     annotation (Dialog(group="Inputs"));
-
   output Real kSs[nC] "Sievert's Law Coefficient [mol/(m3.Pa^(0.5)]" annotation (Dialog(
       tab="Internal Interface",
       group="Outputs",
       enable=false));
-
   annotation (defaultComponentName="sievertsLawCoeff",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{
               -102,-100},{102,100}}, fileName=

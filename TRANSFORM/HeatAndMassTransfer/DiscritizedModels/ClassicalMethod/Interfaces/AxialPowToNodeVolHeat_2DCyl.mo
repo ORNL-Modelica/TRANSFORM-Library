@@ -1,35 +1,27 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Interfaces;
 model AxialPowToNodeVolHeat_2DCyl
   "Converts axial volumetrically divided power to nodal volumetric heat generation for 2D cylindrical"
-
   import Modelica.Constants.pi;
-
   parameter Real nParallel=1 "# of parallel elements for power scaling";
   parameter Integer nR(min=3) "Nodes in radial direction";
   parameter Integer nZ(min=3) "Nodes in axial direction";
-
   input SI.Length r_inner "Centerline/Inner radius of cylinder"
   annotation(Dialog(group="Inputs"));
   input SI.Length r_outer "Outer radius of cylinder"
   annotation(Dialog(group="Inputs"));
   input SI.Length length "length of cylinder"
   annotation(Dialog(group="Inputs"));
-
   Modelica.Blocks.Interfaces.RealInput Power_in[nZ - 1]
     "Input Axial Power Distribution (volume approach)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-
   Modelica.Blocks.Interfaces.RealOutput q_ppp[nR,nZ](unit="W/m3")
     "Volumetric heat source"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
   SI.Volume volTotal = pi*(r_outer^2-r_inner^2)*length;
   SI.Volume volAxial=volTotal/(nZ - 1);
   Real q_ppp_vol[nZ - 1](unit="W/m3");
-
 equation
 q_ppp_vol =Power_in/(nParallel*volAxial);
-
   for i in 1:nR loop
   q_ppp[i,1] = q_ppp_vol[1];
     for j in 2:nZ - 1 loop
@@ -37,7 +29,6 @@ q_ppp_vol =Power_in/(nParallel*volAxial);
   end for;
     q_ppp[i, nZ] = q_ppp_vol[nZ - 1];
 end for;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(

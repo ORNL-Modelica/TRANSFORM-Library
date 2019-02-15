@@ -2,7 +2,6 @@ within TRANSFORM.Math;
 function smoothMax_cubic
   extends TRANSFORM.Icons.Function;
   import Modelica.Math;
-
   input Real x1 "First argument of smooth operator";
   input Real x2 "Second argument of smooth operator";
   input Real dx
@@ -11,13 +10,9 @@ function smoothMax_cubic
 protected
   Real k = dx;
   Real h;
-
 algorithm
-
   h :=max(k - abs(x1 - x2), 0);
-
   y :=max(x1,x2) + h^3/(6*k^2);
-
    annotation (smoothOrder=2, Documentation(info="<html>
 <p>An implementation of the smooth maximum using a cubic term approach.</p>
 <p><img src=\"modelica://TRANSFORM/Resources/Images/Information/smoothMax.jpg\"/></p>

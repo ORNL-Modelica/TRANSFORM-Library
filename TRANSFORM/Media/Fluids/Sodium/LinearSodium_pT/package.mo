@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Fluids.Sodium;
 package LinearSodium_pT "Sodium with linear compressibility"
-
 // references are based on 800K
 // specific enthalpy matches expected at 800K
   extends TRANSFORM.Media.Interfaces.Fluids.PartialLinearFluid(
@@ -18,7 +17,6 @@ package LinearSodium_pT "Sodium with linear compressibility"
     T_default = 800);
 
 redeclare function extends dynamicViscosity "Dynamic viscosity"
-
 algorithm
   eta := Utilities.eta_T(state.T);
   annotation(Inline=true);

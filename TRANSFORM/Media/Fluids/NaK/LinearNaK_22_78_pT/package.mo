@@ -1,9 +1,7 @@
 within TRANSFORM.Media.Fluids.NaK;
 package LinearNaK_22_78_pT "NaK | NaK 22%-78% | Linear compressibility"
-
   // THERMOPHYSICAL PROPERTIES OF MATERIALS FOR NUCLEAR ENGINEERING
   // beta_const adjusted till density matched. kappa left alone
-
   // assumed specific enthalpy at 273.15 is zero
   extends TRANSFORM.Media.Interfaces.Fluids.PartialLinearFluid(
     mediumName="Linear NaK",
@@ -21,7 +19,6 @@ package LinearNaK_22_78_pT "NaK | NaK 22%-78% | Linear compressibility"
     T_default=800);
 
   redeclare function extends dynamicViscosity "Dynamic viscosity"
-
   algorithm
     eta := TRANSFORM.Media.Fluids.NaK.Utilities_22_78.eta_T(state.T);
     annotation (Inline=true);

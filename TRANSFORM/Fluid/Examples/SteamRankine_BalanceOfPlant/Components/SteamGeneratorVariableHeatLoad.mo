@@ -25,7 +25,6 @@ model SteamGeneratorVariableHeatLoad "Variable heat load"
         extent={{-7,7},{7,-7}},
         rotation=180,
         origin={-61,-67})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.Collector collector(n=2)
     annotation (Placement(transformation(extent={{-72,-72},{-82,-62}})));
   Volumes.MixingVolume riser(

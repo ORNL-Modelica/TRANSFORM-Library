@@ -3,7 +3,6 @@ model Example_1_3_2_AbsorptionInALens
   "Part a & b) Determine the temperature distribution in the lense"
   import TRANSFORM;
   extends Icons.Example;
-
   DiscritizedModels.Conduction_1D lense(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
@@ -43,7 +42,6 @@ model Example_1_3_2_AbsorptionInALens
     minY=35.6,
     maxY=36.4) "X - Axial Location (mm) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{-30,-78},{30,-20}})));
-
   Modelica.Blocks.Sources.RealExpression position(y=
         TRANSFORM.Units.Conversions.Functions.Distance_m.to_cm(lense.geometry.xs[
         Modelica.Math.Vectors.find(
@@ -58,7 +56,6 @@ model Example_1_3_2_AbsorptionInALens
     annotation (Placement(transformation(extent={{-44,56},{-28,68}})));
   Utilities.Visualizers.displayReal display1(use_port=true)
     annotation (Placement(transformation(extent={{-20,52},{0,72}})));
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={T_max.y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation

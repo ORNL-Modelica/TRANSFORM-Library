@@ -1,10 +1,6 @@
 within TRANSFORM.Examples.Templates.System_Standalone;
 model ED_Dummy
-
   extends BaseClasses.Partial_EventDriver;
-
-equation
-
 annotation(defaultComponentName="changeMe_CS", Icon(graphics={
         Text(
           extent={{-94,82},{94,74}},

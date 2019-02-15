@@ -5,7 +5,6 @@ package Molybdenum "Mo: Molybdenum"
   // Vol 1 is Thermal Conductivity
   // Cp data located on pages 135-139 (used data from series 11 and 7)
   // k data is located on pages 223-229 (recommended values on pg 229)
-
    extends Interfaces.Solids.PartialSimpleAlloy_TableBased(
      mediumName="Molybdenum",
      T_min=13.23,

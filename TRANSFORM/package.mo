@@ -1,27 +1,10 @@
 within ;
 package TRANSFORM "TRANSFORM - TRANsient Simulation Framework Of Reconfigurable Models"
-
   extends TRANSFORM.Icons.TRANSFORMPackage;
-
 import SI = Modelica.SIunits;
 import SIadd = TRANSFORM.Units;
 import Modelica.Constants.pi;
 import Modelica.Math;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 annotation (
     uses(

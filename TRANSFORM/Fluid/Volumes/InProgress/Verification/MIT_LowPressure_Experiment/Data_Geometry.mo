@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.InProgress.Verification.MIT_LowPressure_Experiment;
 record Data_Geometry
   extends Icons.Record;
-
   constant SI.Length mainTank_d_inner=
       Units.Conversions.Functions.Distance_m.from_in(7.625)
     "Inner diameter of the main (primary) tank";

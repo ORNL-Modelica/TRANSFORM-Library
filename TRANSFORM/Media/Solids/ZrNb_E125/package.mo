@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids;
 package ZrNb_E125 "ZircAlloy: Thermodynamic properties for ZrNb_E125"
-
   /*
 Zirconium-niobium (2.5%) alloy type N-2.5 (E-125).
 
@@ -11,7 +10,6 @@ lambda => pg. 158 eq. 6.22
 d => pg. 158 eq. 6.20
 cp => pg 158 eq. 6.21
 */
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="ZrNb_E125",
     T_min=1,

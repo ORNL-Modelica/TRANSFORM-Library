@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Interfaces;
 connector HeatPorts_Flow
   "Generic connector for vectors of ports defining flow variable (e.g., heat flow rate - Q_flow). Vector dimensions must be added after dragging."
-
   extends HeatPort;
   annotation (
     defaultComponentName="heatPorts",

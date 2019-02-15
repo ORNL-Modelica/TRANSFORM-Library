@@ -1,22 +1,16 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX.BaseClasses;
 model STHX_ShellSide_BellDelaware
-
   import Modelica.Constants.pi;
   import Modelica.Constants.inf;
-
   extends Modelica.Fluid.Interfaces.PartialTwoPort(final showDesignFlowDirection=true);
-
   // Additional Model Parameters
   parameter Real nParallel = 1 "# of identical parallel shell-sides";
-
   Modelica.Fluid.Interfaces.HeatPorts_a[nNodes_intTotal] heatPorts_a annotation (Placement(
         transformation(extent={{-15,53},{15,81}}), iconTransformation(extent={{-19,-20},
             {19,-12}})));
-
   parameter Boolean isGas=false "true if Medium is a gas";
   parameter Real np=0
     "Gas specific exponential correction factor (e.g., air = 0; N2 = 0.12)";
-
   parameter SI.Length height_a=0
     "Elevation at port_a: Reference value only. No impact on calculations."
     annotation (Dialog(group="Static head"), Evaluate=true);
@@ -29,7 +23,6 @@ model STHX_ShellSide_BellDelaware
   parameter SI.Length dheight_entryPipe_b=0
     "Height(port_b) - Height(shell outlet nozzle midpoint)"
     annotation (Dialog(group="Static head"), Evaluate=true);
-
   // General Shell Parameters
   parameter Boolean toggleStaggered = true
     "true = staggered grid type; false = in-line"
@@ -41,7 +34,6 @@ model STHX_ShellSide_BellDelaware
  annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
   final parameter Real n_T = n_tubes + n_bs
     "Total # of tubes (including blind and support)";
-
   parameter SI.Length DB=D_i "Tube bundle diameter"
 annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
   parameter SI.Length D_BE = DB
@@ -53,7 +45,6 @@ annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
 annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
   parameter Real nes "# of shortest connections connecting neighboring tubes"
 annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
-
   // Cross Flow Section Parameters
   parameter SI.Length D_i "Inside shell diameter"
   annotation(Dialog(tab="Shell Side Part 1",group="Cross Flow Section Parameters"));
@@ -61,7 +52,6 @@ annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
 annotation(Dialog(tab="Shell Side Part 1",group="Cross Flow Section Parameters"));
   parameter Real n_MRE "# of main resistances in end cross flow path"
 annotation(Dialog(tab="Shell Side Part 1",group="Cross Flow Section Parameters"));
-
   // Window Section Parameters
   parameter Real n_W_tubes
     "Total # of heat transfer tubes in both the upper and lower window"
@@ -71,12 +61,10 @@ annotation(Dialog(tab="Shell Side Part 1",group="Window Section Parameters"));
 annotation(Dialog(tab="Shell Side Part 1",group="Window Section Parameters"));
   final parameter Real n_W(max=n_T) = n_W_tubes + n_W_bs
     "Total # of tubes in both the upper and lower window (including blind and support)";
-
   parameter Real n_RW "# of tube rows in a window section"
 annotation(Dialog(tab="Shell Side Part 1",group="Window Section Parameters"));
   parameter Real n_s=0 "# of pairs of sealing strips"
 annotation(Dialog(tab="Shell Side Part 1",group="Window Section Parameters"));
-
   // Baffle Parameters
   parameter Integer nb(min=2)=2 "# of baffles"
 annotation(Dialog(tab="Shell Side Part 2",group="Baffle Parameters"));
@@ -98,10 +86,8 @@ annotation(Dialog(tab="Shell Side Part 2",group="Baffle Parameters"));
   parameter SI.Length S_E_b=S
     "port b baffle spacing between the heat exchanger sheets and adjacent baffles"
 annotation(Dialog(tab="Shell Side Part 2",group="Baffle Parameters"));
-
   parameter SI.Length th_B = 0 "Baffle thickness"
 annotation(Dialog(tab="Shell Side Part 2",group="Baffle Parameters"));
-
   // Nozzle, Entry, and Elevation Parameters
   parameter SI.Length d_N_a "Nozzle a diameter"
 annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"));
@@ -111,14 +97,12 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
 annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"));
   parameter SI.Length length_entryPipe_b=0.001 "Length of entryPipe_b"
 annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"));
-
   parameter SI.Height roughness_entryPipe_a=2.5e-5
     "Avg. height of surface asperities"
     annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"));
   parameter SI.Height roughness_entryPipe_b=2.5e-5
     "Avg. height of surface asperities"
     annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"));
-
   // Assumptions Tab Parameters
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -132,7 +116,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
   parameter Modelica.Fluid.Types.Dynamics momentumDynamics=system.momentumDynamics
     "Formulation of momentum balances"
     annotation (Dialog(tab="Assumptions", group="Dynamics"));
-
   // Initialization Tab Parameters
   parameter Medium.AbsolutePressure p_a_start=system.p_start
       "Pressure at port a"
@@ -144,10 +127,8 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
     linspace(p_a_start,p_b_start,nNodes_Total)
     "Pressures {port_a,...,port_b}"
     annotation(Dialog(tab = "Initialization",group="Start Value: Absolute Pressure"));
-
   parameter Boolean use_Ts_start=true "Use T_start if true, otherwise h_start"
      annotation(Evaluate=true, Dialog(tab = "Initialization",group="Start Value: Temperature"));
-
   parameter Medium.Temperature T_a_start=system.T_start
       "Temperature at port a"
     annotation(Dialog(tab = "Initialization",group="Start Value: Temperature", enable = use_Ts_start));
@@ -163,7 +144,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         hs_start[i],
         X_start) for i in 1:nNodes_Total} "Temperatures {a,...,b}"
     annotation(Dialog(tab = "Initialization",group="Start Value: Temperature", enable = use_Ts_start));
-
   parameter Medium.SpecificEnthalpy h_a_start=Medium.specificEnthalpy_pTX(p_a_start,T_a_start,X_start)
       "Specific enthalpy at port a"
     annotation(Dialog(tab = "Initialization",group="Start Value: Specific Enthalpy", enable = not use_Ts_start));
@@ -180,7 +160,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
       cat(1,fill(h_a_start,nNodes_entryPipe_a+nNodes_nozzle),linspace(h_a_start,h_b_start,nNodes_intTotal),fill(h_b_start,nNodes_entryPipe_b+nNodes_nozzle))
     "Specific enthalpies {a,...,b}"
     annotation(Dialog(tab = "Initialization",group="Start Value: Specific Enthalpy", enable = not use_Ts_start));
-
   final parameter Modelica.Media.Interfaces.Types.MassFraction X_start[Medium.nX]=
       Medium.X_default "Mass fractions m_i/m"
     annotation (Dialog(tab="Initialization",group="Start Value: Mass Fractions", enable=Medium.nXi > 0));
@@ -190,7 +169,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
   parameter SI.MassFlowRate m_flow_start=system.m_flow_start
     "Mass flow rate"
      annotation(Evaluate=true, Dialog(tab = "Initialization",group="Start Value: Mass Flow Rate"));
-
   // Advanced Tab Parameters
   parameter Integer nNodes_entryPipe_a(min=1)=1
     "Number of discrete flow volumes in entryPipe_a"
@@ -212,35 +190,28 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
     annotation(Dialog(tab="Advanced"));
   parameter Modelica.Fluid.Types.ModelStructure modelStructure=Modelica.Fluid.Types.ModelStructure.av_b
     "Determines whether flow or volume models are present at the ports" annotation (Dialog(tab="Advanced"));
-
   final parameter Integer nNodes_intTotal = nNodes_endCross + (nb-1)*(nNodes_window+nNodes_centerCross) + nNodes_window + nNodes_endCross
     "Total number of nodes internal to the shell (i.e., not including nozzles and entry pipes)";
   final parameter Integer nNodes_Total = nNodes_entryPipe_a + nNodes_nozzle + nNodes_intTotal + nNodes_nozzle + nNodes_entryPipe_b
     "Total number of nodes in the shell-side (i.e., including nozzles and entry pipes)";
-
   // Static Head Calculations
   final parameter SI.Length dheight_windows = dheight_shell/nb;
   final parameter SI.Length[nb+1] heights_shell = {if i == 1 then entryPipe_a.height_b else heights_shell[i-1]+dheight_windows for i in 1:nb+1};
   final parameter SI.Length[nb] heights_shell_a=heights_shell[1:nb];
   final parameter SI.Length[nb] heights_shell_b=heights_shell[2:nb+1];
-
   // Characteristic parameters from Shell Flow Model Parameters
   final parameter Real gamma = 2*Modelica.Math.acos(1 - 2*H/D_l)*180/pi;
-
   final parameter Real a = s1/d_o;
   final parameter Real b = s2/d_o;
   final parameter Real c = ((a/2)^2 + b^2)^(0.5);
-
   final parameter SI.Length e = (if toggleStaggered then
                     (if b >= 0.5*(2*a+1)^(0.5) then (a - 1)*d_o else (c - 1)*d_o)
                  else (a - 1)*d_o);
   final parameter SI.Length L_E = 2*e1 + e*nes;
-
   final parameter SI.Area A_Ecenter = S*L_E
     "Approximate flow area for centerCross region";
   final parameter SI.Length U_Ecenter = 2*pi*D_i*(360-gamma)/360 + 2*S*(nes+1) +2*L_E
     "Approximate wetted perimeter for centerCross region";
-
   final parameter SI.Area A_Eend_a = S_E_a*L_E
     "Approximate flow area for endCross region";
   final parameter SI.Length U_Eend_a = 2*pi*D_i*(360-gamma)/360 + 2*S_E_a*(nes+1) +2*L_E
@@ -249,15 +220,12 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
     "Approximate flow area for endCross region";
   final parameter SI.Length U_Eend_b = 2*pi*D_i*(360-gamma)/360 + 2*S_E_b*(nes+1) +2*L_E
     "Approximate wetted perimeter for endCross region";
-
   final parameter SI.Area A_WT = pi/4*D_i^2*gamma/360 - (D_l-2*H)*D_l/4*Modelica.Math.sin(gamma/2*pi/180);
   final parameter SI.Area A_T = pi/4*d_o^2*n_W/2;
-
   final parameter SI.Area A_W = A_WT-A_T
     "Approximate flow area for window region";
   final parameter SI.Length U_W = pi*D_i*gamma/360+pi*d_o*n_W/2
     "Approximate wetted perimeter for window region";
-
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface entryPipe_a(
     nParallel=nParallel,
     length=length_entryPipe_a,
@@ -287,7 +255,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-70,50})));
-
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface nozzle_a(
     redeclare package Medium = Medium,
     redeclare model FlowModel = FlowModels.ShellNozzleFlow (
@@ -319,7 +286,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-70,20})));
-
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface endCross_a(
     redeclare package Medium = Medium,
     modelStructure=if modelStructure == Modelica.Fluid.Types.ModelStructure.a_v_b
@@ -395,7 +361,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         extent={{-10,10},{10,-10}},
         rotation=-90,
         origin={-70,-20})));
-
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface[nb - 1] window(
     redeclare each package Medium = Medium,
     each modelStructure=modelStructure,
@@ -489,7 +454,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,-60})));
-
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface[nb - 1] centerCross(
     redeclare each package Medium = Medium,
     each modelStructure=if modelStructure == Modelica.Fluid.Types.ModelStructure.a_v_b
@@ -586,7 +550,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-20})));
-
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface window_b(
     redeclare package Medium = Medium,
     modelStructure=modelStructure,
@@ -664,7 +627,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,-60})));
-
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface endCross_b(
     redeclare package Medium = Medium,
     modelStructure=if modelStructure == Modelica.Fluid.Types.ModelStructure.a_v_b
@@ -743,7 +705,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={70,-20})));
-
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface nozzle_b(
     redeclare package Medium = Medium,
     redeclare model FlowModel = FlowModels.ShellNozzleFlow (
@@ -780,7 +741,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={70,20})));
-
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface entryPipe_b(
     nParallel=nParallel,
     length=length_entryPipe_b,
@@ -810,25 +770,21 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
         extent={{-10,10},{10,-10}},
         rotation=0,
         origin={70,50})));
-
   // Summary Calculation Variables
   SI.Area surfaceArea_total_output "Total heat transfer surface area";
   SI.CoefficientOfHeatTransfer alpha_avg_output
     "Average heat transfer coefficient";
   SI.ThermalResistance R_conv_output
     "Averagethermal resistance to convective heat transfer";
-
   // Key variables for diagnostics
   SI.CoefficientOfHeatTransfer[nNodes_intTotal] alphas_output
     "Volume node heat transfer coefficient";
   SI.Area[nNodes_intTotal]   surfaceAreas_output "Heat transfer surface area";
   SI.Temperature[nNodes_intTotal] Ts_medium_output "Medium temperature";
   SI.Temperature[nNodes_intTotal] Ts_wall_output "Wall temperature";
-
 equation
   connect(nozzle_a.port_b, endCross_a.port_a) annotation (Line(points={{-70,10},
           {-70,10},{-70,-10}},  color={0,127,255}));
-
   if nb == 1 then
     connect(endCross_a.port_b,window_b.port_a);
   elseif nb == 2 then
@@ -844,12 +800,10 @@ equation
     connect(window[nb-1].port_b,centerCross[nb-1].port_a);
     connect(centerCross[nb-1].port_b,window_b.port_a);
   end if;
-
   connect(window_b.port_b, endCross_b.port_a)
     annotation (Line(points={{60,-60},{70,-60},{70,-30}}, color={0,127,255}));
   connect(endCross_b.port_b, nozzle_b.port_b)
     annotation (Line(points={{70,-10},{70,0},{70,10}}, color={0,127,255}));
-
   connect(endCross_a.heatPorts, heatPorts_a[1:nNodes_endCross]);
   for i in 1:nb-1 loop
     connect(window[i].heatPorts, heatPorts_a[nNodes_endCross+(i-1)*(nNodes_window+nNodes_centerCross)+1:nNodes_endCross+(i-1)*(nNodes_window+nNodes_centerCross)+nNodes_window]);
@@ -857,7 +811,6 @@ equation
   end for;
   connect(window_b.heatPorts, heatPorts_a[nNodes_endCross+(nb-1)*(nNodes_window+nNodes_centerCross)+1:nNodes_endCross+ (nb-1)*(nNodes_window+nNodes_centerCross)+ nNodes_window]);
   connect(endCross_b.heatPorts, heatPorts_a[nNodes_intTotal-nNodes_endCross+1:nNodes_intTotal]);
-
   connect(entryPipe_a.port_a, port_a) annotation (Line(points={{-80,50},
           {-90,50},{-90,0},{-100,0}}, color={0,127,255}));
   connect(entryPipe_a.port_b, nozzle_a.port_a) annotation (Line(points={
@@ -866,7 +819,6 @@ equation
           {60,50},{50,50},{50,40},{70,40},{70,30}}, color={0,127,255}));
   connect(entryPipe_b.port_b, port_b) annotation (Line(points={{80,50},{
           90,50},{90,0},{100,0}}, color={0,127,255}));
-
   /* Gather key outputs under single variabls names for diagnostics. */
   // 1
   alphas_output[1:nNodes_endCross] = endCross_a.heatTransfer.alphas;
@@ -876,7 +828,6 @@ equation
   Ts_medium_output[1:nNodes_endCross] = endCross_a.mediums.T;
   // 4
   Ts_wall_output[1:nNodes_endCross] = endCross_a.heatPorts.T;
-
   for i in 1:nb-1 loop
     // 1
     alphas_output[nNodes_endCross+(i-1)*(nNodes_window+nNodes_centerCross)+1:nNodes_endCross+(i-1)*(nNodes_window+nNodes_centerCross)+nNodes_window]= window[i].heatTransfer.alphas;
@@ -903,12 +854,10 @@ equation
   // 4
   Ts_wall_output[nNodes_intTotal-nNodes_endCross-nNodes_window+1:nNodes_intTotal-nNodes_endCross] =  window_b.heatPorts.T;
   Ts_wall_output[nNodes_intTotal-nNodes_endCross+1:nNodes_intTotal] = endCross_b.heatPorts.T;
-
   /* Summary Calculations */
   surfaceArea_total_output = sum(surfaceAreas_output);
   alpha_avg_output = sum(alphas_output*surfaceAreas_output/surfaceArea_total_output);
   R_conv_output = 1/(alpha_avg_output*surfaceArea_total_output);
-
   annotation (defaultComponentName="shell",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),

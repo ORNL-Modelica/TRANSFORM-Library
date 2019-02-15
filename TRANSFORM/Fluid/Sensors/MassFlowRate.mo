@@ -6,7 +6,6 @@ model MassFlowRate "Ideal sensor for mass flow rate"
         TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.to_kg_s
       constrainedby
       TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput m_flow(quantity="MassFlowRate",
                                                final unit="kg/s")
     "Mass flow rate from port_a to port_b" annotation (Placement(
@@ -17,7 +16,6 @@ model MassFlowRate "Ideal sensor for mass flow rate"
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,36})));
-
 equation
   m_flow = port_a.m_flow;
   annotation (

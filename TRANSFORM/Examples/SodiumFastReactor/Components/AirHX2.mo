@@ -1,14 +1,11 @@
 within TRANSFORM.Examples.SodiumFastReactor.Components;
 model AirHX2
-
 replaceable package Medium =
       TRANSFORM.Media.Fluids.Sodium.ConstantPropertyLiquidSodium
     "Intermediate heat system medium" annotation(choicesAllMatching=true);
-
  replaceable package Medium_Ambient =
       Modelica.Media.Air.DryAirNasa
     "Ambient medium" annotation(choicesAllMatching=true);
-
   Fluid.FittingsAndResistances.SpecifiedResistance resistance_toAHX(redeclare
       package Medium = Medium, R=50)
     annotation (Placement(transformation(extent={{-28,16},{-8,36}})));
@@ -57,7 +54,6 @@ replaceable package Medium =
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={0,-20})));
-
   Modelica.Fluid.Sources.MassFlowSource_T blower(
     nPorts=1,
     redeclare package Medium = Medium_Ambient,

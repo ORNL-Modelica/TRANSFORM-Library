@@ -1,10 +1,8 @@
 within TRANSFORM.Math;
 function smoothMax_exponential_der
   extends TRANSFORM.Icons.Function;
-
   import Modelica.Math.exp;
   import Modelica.Math.log;
-
   input Real x1 "First argument of smooth max operator";
   input Real x2 "Second argument of smooth max operator";
   input Real dx
@@ -20,7 +18,6 @@ algorithm
     x2 - max(x1, x2))*ddx/dx^2)*exp(4*(x2 - max(x1, x2))/dx))*dx/(exp(4*(
     x1 - max(x1, x2))/dx) + exp(4*(x2 - max(x1, x2))/dx)) + log(exp(4*(x1
      - max(x1, x2))/dx) + exp(4*(x2 - max(x1, x2))/dx))*ddx);
-
   annotation (Documentation(info="<html>
 <p>Derivative of smoothMax_exponential. See smoothMax_exponential.</p>
 </html>"));

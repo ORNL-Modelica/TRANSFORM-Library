@@ -1,7 +1,6 @@
 within TRANSFORM.UsersGuide;
 model Resources
   extends Modelica.Icons.Information;
-
   annotation (Documentation(info="<html>
 <p>There are a variety of resources for learning Modelica. Below are recommendations for learning and becoming engaged with Modelica.</p>
 <p><b>Online Book</b> - Start Your Journey</p>

@@ -1,9 +1,7 @@
 within TRANSFORM.Fluid.Sensors;
 model TraceSubstancesTwoPort_multi
   "Ideal two port sensor for trace substance"
-
   parameter Integer iDisplay = 1 "Index of trace substance to display (for GUI only)";
-
   extends BaseClasses.PartialTwoPortSensor;
   extends BaseClasses.PartialMultiSensor_1values(final var=if Medium.nC < 1 then 0 else C[iDisplay],
       redeclare replaceable function iconUnit =
@@ -19,7 +17,6 @@ model TraceSubstancesTwoPort_multi
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,36})));
-
 equation
   if allowFlowReversal then
     for i in 1:Medium.nC loop

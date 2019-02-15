@@ -2,10 +2,8 @@ within TRANSFORM.Fluid.Machines;
 model SteamTurbine
   "Steam turbine: Includes options for Stodola's ellipse law, multiple units, etc."
   extends TRANSFORM.Fluid.Machines.BaseClasses.SteamTurbineBase;
-
   parameter Real partialArc_nominal=1 "Nominal partial arc";
   parameter SI.MassFlowRate m_flow_nominal=m_flow_start "Nominal mass flowrate";
-
   // Nominal Inlet Parameters for Kt
   parameter Boolean use_Stodola=true
     "=true to use Stodola's law, i.e., infinite stages per unit"
@@ -32,9 +30,7 @@ model SteamTurbine
       Medium.reference_X)) "Nominal inlet density" annotation (Dialog(group="Stodola's Law Coefficient",
         enable=if use_NominalInlet and not use_T_nominal and use_Stodola then true
            else false));
-
   final parameter SI.Area Kt(fixed=false) "Flow area coefficient";
-
 initial equation
   if use_NominalInlet then
     //     Kt = m_flow_nom*sqrt(p_inlet/Medium.density_pT(p_inlet,T_nom))/
@@ -54,7 +50,6 @@ initial equation
   else
     Kt = Kt_constant;
   end if;
-
 equation
   if use_Stodola then
     m_flow = homotopy(Kt*partialArc*sqrt(p_in*Medium.density(state_a))*
@@ -64,7 +59,6 @@ equation
     m_flow = homotopy(portHP.p*partialArc*m_flow_nominal/p_inlet_nominal,
       partialArc/partialArc_nominal*m_flow_nominal/p_inlet_nominal*p_in);
   end if;
-
   annotation (defaultComponentName="steamTurbine", Documentation(info="<html>
 <p>This model extends <code>SteamTurbineBase</code> by adding the actual performance characteristics: </p>
 <ul>

@@ -1,13 +1,11 @@
 within TRANSFORM.HeatAndMassTransfer.Sensors;
 model Temperature "Ideal sensor for temperature"
-
    extends BaseClasses.PartialAbsoluteSensor;
    extends BaseClasses.PartialRotationIcon_withValueIndicator(final var=T,
        redeclare replaceable function iconUnit =
          TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC
        constrainedby
       TRANSFORM.Units.Conversions.Functions.Temperature_K.BaseClasses.to);
-
    Modelica.Blocks.Interfaces.RealOutput T(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -15,10 +13,8 @@ model Temperature "Ideal sensor for temperature"
     min=0) "Temperature in port" annotation (Placement(transformation(
            extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{
              120,10}})));
-
 equation
    T = port.T;
-
   annotation (
     Documentation(info="<html>
 <p>This is an ideal absolute temperature sensor which returns the temperature of the connected port in Kelvin as an output signal.</p>

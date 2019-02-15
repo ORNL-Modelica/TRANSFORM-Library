@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Exampl
 model part_a_AppropriateToUseExtendedSurface
   "part a) Determine if it appropriate to use an extended surface"
   extends Icons.Example;
-
   BoundaryConditions.Heat.Temperature T_anchor_a(T=293.15) "anchor temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   BoundaryConditions.Heat.Temperature T_anchor_b(T=293.15) "anchor temperature"

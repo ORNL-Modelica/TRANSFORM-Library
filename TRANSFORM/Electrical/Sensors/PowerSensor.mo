@@ -1,12 +1,10 @@
 within TRANSFORM.Electrical.Sensors;
 model PowerSensor "Measures power flow through the component (port_a to port_b is default direction)"
-
   extends BaseClasses.PartialRotationIcon_withValueIndicator(final var=W,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.Power_W.to_W
       constrainedby
       TRANSFORM.Units.Conversions.Functions.Power_W.BaseClasses.to);
-
   TRANSFORM.Electrical.Interfaces.ElectricalPowerPort_Flow port_a annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0)));
   TRANSFORM.Electrical.Interfaces.ElectricalPowerPort_Flow port_b annotation (

@@ -1,16 +1,12 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model Adiabatic_multi
   "Adiabatic boundary condition for multiple connections"
-
   parameter Integer nPorts=1 "# of ports";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-
   Interfaces.HeatPort_Flow port[nPorts] annotation (Placement(transformation(extent={{
             90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
 equation
-
   port.Q_flow = zeros(nPorts);
-
   annotation (defaultComponentName="adiabatic",
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}),     graphics={

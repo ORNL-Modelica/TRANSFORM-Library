@@ -1,20 +1,15 @@
 within TRANSFORM.Fluid.Pipes.BaseClasses;
 record GenericPipe_Record_multiSurface
   import TRANSFORM;
-
   import Modelica.Fluid.Types.Dynamics;
   import TRANSFORM.Math.linspace_1D;
   import TRANSFORM.Math.linspaceRepeat_1D;
   import TRANSFORM.Fluid.Types.LumpedLocation;
-
   parameter Real nParallel=1 "Number of parallel components";
-
   replaceable package Medium = Modelica.Media.Water.StandardWater
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium properties"
     annotation (choicesAllMatching=true);
-
   parameter Integer nV(min=1) = 1 "Number of discrete volumes";
-
   // Advanced
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
@@ -27,7 +22,6 @@ record GenericPipe_Record_multiSurface
   parameter Dynamics traceDynamics=massDynamics
     "Formulation of trace substance balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-
   // Initialization
   parameter SI.AbsolutePressure[nV] ps_start=linspace_1D(
         p_a_start,
@@ -65,12 +59,10 @@ record GenericPipe_Record_multiSurface
       tab="Initialization",
       group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
-
   parameter SI.AbsolutePressure p_a_start=Medium.p_default "Pressure at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
   parameter SI.AbsolutePressure p_b_start=p_a_start + (if m_flow_a_start > 0 then -1e3 elseif m_flow_a_start < 0 then -1e3 else 0) "Pressure at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
-
   parameter SI.Temperature T_a_start=Medium.T_default "Temperature at port a" annotation (
       Dialog(
       tab="Initialization",
@@ -80,7 +72,6 @@ record GenericPipe_Record_multiSurface
       tab="Initialization",
       group="Start Value: Temperature",
       enable=use_Ts_start));
-
   parameter SI.SpecificEnthalpy h_a_start=Medium.specificEnthalpy_pTX(
       p_a_start,
       T_a_start,
@@ -95,21 +86,18 @@ record GenericPipe_Record_multiSurface
       tab="Initialization",
       group="Start Value: Specific Enthalpy",
       enable=not use_Ts_start));
-
   parameter SI.MassFraction X_a_start[Medium.nX]=Medium.X_default
     "Mass fraction at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Species Mass Fraction"));
   parameter SI.MassFraction X_b_start[Medium.nX]=X_a_start
     "Mass fraction at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Species Mass Fraction"));
-
   parameter SIadd.ExtraProperty C_a_start[Medium.nC]=fill(0, Medium.nC)
     "Mass-Specific value at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
   parameter SIadd.ExtraProperty C_b_start[Medium.nC]=C_a_start
     "Mass-Specific value at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
-
   parameter SI.MassFlowRate m_flow_a_start=0 "Mass flow rate at port_a"
     annotation (Dialog(tab="Initialization", group="Start Value: Mass Flow Rate"));
   parameter SI.MassFlowRate m_flow_b_start=-m_flow_a_start "Mass flow rate at port_b"
@@ -119,7 +107,6 @@ record GenericPipe_Record_multiSurface
       -m_flow_b_start,
       nV + 1) "Mass flow rates" annotation (Evaluate=true, Dialog(tab="Initialization", group=
          "Start Value: Mass Flow Rate"));
-
   // Pressure Loss Model
   replaceable model FlowModel =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
@@ -127,18 +114,15 @@ record GenericPipe_Record_multiSurface
     TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
                                                 "Pressure loss models (i.e., momentum, wall friction)" annotation (Dialog(
         group="Pressure Loss"), choicesAllMatching=true);
-
   // Heat Transfer Model
   parameter Boolean use_HeatTransfer=false "= true to use the HeatTransfer model"
     annotation (Dialog(group="Heat Transfer"));
-
   replaceable model HeatTransfer =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.PartialHeatTransfer_setT
     "Coefficient of heat transfer" annotation (Dialog(group="Heat Transfer", enable=
           use_HeatTransfer), choicesAllMatching=true);
-
   // Internal Heat Generation Model
   replaceable model InternalHeatGen =
       TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
@@ -146,22 +130,18 @@ record GenericPipe_Record_multiSurface
     TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.PartialInternalHeatGeneration
                                                 "Internal heat generation" annotation (Dialog(
         group="Heat Transfer"), choicesAllMatching=true);
-
   // Assumptions
   parameter Boolean exposeState_a=true "=true, p is calculated at port_a else m_flow"
     annotation (Dialog(group="Model Structure", tab="Advanced"));
   parameter Boolean exposeState_b=false "=true, p is calculated at port_b else m_flow"
     annotation (Dialog(group="Model Structure", tab="Advanced"));
-
   // Initialization
   parameter Modelica.Fluid.Types.Dynamics momentumDynamics=Dynamics.SteadyState
     "Formulation of momentum balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-
   // Advanced
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
     annotation (Dialog(tab="Advanced", group="Inputs"));
-
   parameter Boolean useInnerPortProperties=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced",group="Parameters"), Evaluate=true);
@@ -171,7 +151,6 @@ record GenericPipe_Record_multiSurface
     "Location of pressure for flow calculations"
     annotation (Dialog(tab="Advanced",group="Parameters",enable=useLumpedPressure), Evaluate=true);
   parameter Boolean calc_Wb = true "= false to not calculate p*der(V) [Wb_flows] for energy equation" annotation(Dialog(tab="Advanced"));
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end GenericPipe_Record_multiSurface;

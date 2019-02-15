@@ -1,10 +1,7 @@
 within TRANSFORM.Media.Solids;
 package Rhenium "Pure natural Rhenium"
-
 //cp from http://www.dtic.mil/docs/citations/AD0806940 via lambda ref below
-
 //lambda from http://www.dtic.mil/docs/citations/AD0807299
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="Rhenium",
     T_min=Modelica.SIunits.Conversions.from_degC(0),

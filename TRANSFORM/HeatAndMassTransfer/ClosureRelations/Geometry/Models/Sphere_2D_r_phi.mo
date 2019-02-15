@@ -1,13 +1,10 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Sphere_2D_r_phi
-
   extends
     TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D(
       final ns={nR,nPhi}, final figure=3);
-
   parameter Integer nR(min=1) = 1 "Number of nodes in r-direction";
   parameter Integer nPhi(min=1) = 1 "Number of nodes in z-direction";
-
   input SI.Length r_inner=0
     "Specify inner radius or dthetas in r-dimension and r_outer"
     annotation (Dialog(group="Inputs"));
@@ -23,7 +20,6 @@ model Sphere_2D_r_phi
     max=Modelica.Constants.pi) = Modelica.Constants.pi
     "Specify overall angle or dphis in phi-dimension"
     annotation (Dialog(group="Inputs"));
-
   input SI.Length drs[nR,nPhi](min=0) = fill(
     (r_outer - r_inner)/nR,
     nR,
@@ -39,14 +35,11 @@ model Sphere_2D_r_phi
     nR,
     nPhi) "Unit volume lengths of phi-dimension"
     annotation (Dialog(group="Inputs"));
-
   SI.Length rs[nR,nPhi] "Position in r-dimension";
   SI.Angle thetas[nR,nPhi] "Position in theta-dimension";
   SI.Angle phis[nR,nPhi] "Position in phi-dimension";
-
 initial equation
   closedDim_1 = fill(false,nPhi);
-
   for i in 1:nR loop
     if abs(sum(dphis[i, :]) - Modelica.Constants.pi) < Modelica.Constants.eps then
       closedDim_2[i] = true;
@@ -54,9 +47,6 @@ initial equation
       closedDim_2[i] = false;
     end if;
   end for;
-
-equation
-
 algorithm
   for k in 1:nPhi loop
     rs[1, k] := r_inner + 0.5*drs[1, k];
@@ -64,20 +54,17 @@ algorithm
       rs[i, k] := r_inner + sum(drs[1:i - 1, k]) + 0.5*drs[i, k];
     end for;
   end for;
-
   for i in 1:nR loop
     for k in 1:nPhi loop
       thetas[i, k] := 0.5*dthetas[i, k];
     end for;
   end for;
-
   for i in 1:nR loop
     phis[i, 1] := 0.5*dphis[i, 1];
     for k in 2:nPhi loop
       phis[i, k] := sum(dphis[i, 1:k - 1]) + 0.5*dphis[i, k];
     end for;
   end for;
-
   for i in 1:nR loop
     for k in 1:nPhi loop
       Vs[i, k] := 1/3*((rs[i, k] + 0.5*drs[i, k])^3 - (rs[i, k] - 0.5*drs[i, k])
@@ -85,7 +72,6 @@ algorithm
         Modelica.Math.cos(phis[i, k] - 0.5*dphis[i, k]));
     end for;
   end for;
-
   for k in 1:nPhi loop
     for i in 1:nR loop
       crossAreas_1[i, k] := (rs[i, k] - 0.5*drs[i, k])^2*dthetas[i, k]*(-
@@ -96,7 +82,6 @@ algorithm
       Modelica.Math.cos(phis[nR, k] + 0.5*dphis[nR, k]) + Modelica.Math.cos(
       phis[nR, k] - 0.5*dphis[nR, k]));
   end for;
-
   for i in 1:nR loop
     for k in 1:nPhi loop
       crossAreas_2[i, k] := 0.5*((rs[i, k] + 0.5*drs[i, k])^2 - (rs[i, k] - 0.5
@@ -105,14 +90,12 @@ algorithm
     crossAreas_2[i, nPhi + 1] := 0.5*((rs[i, nPhi] + 0.5*drs[i, nPhi])^2 - (rs[
       i, nPhi] - 0.5*drs[i, nPhi])^2)*dphis[i, nPhi];
   end for;
-
   for i in 1:nR loop
     for k in 1:nPhi loop
       dlengths_1[i, k] := drs[i, k];
       dlengths_2[i, k] := rs[i, k]*dphis[i, k];
     end for;
   end for;
-
   for i in 1:nR loop
     for k in 1:nPhi loop
       cs_1[i, k] := rs[i, k]*Modelica.Math.cos(thetas[i, k])*Modelica.Math.sin(
@@ -120,7 +103,6 @@ algorithm
       cs_2[i, k] := rs[i, k]*Modelica.Math.cos(phis[i, k]);
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nPhi loop
       if dthetas[i, j] < 2*Modelica.Constants.pi then
@@ -143,7 +125,6 @@ algorithm
       end if;
     end for;
   end for;
-
   annotation (
     defaultComponentName="geometry",
     Icon(coordinateSystem(preserveAspectRatio=false)),

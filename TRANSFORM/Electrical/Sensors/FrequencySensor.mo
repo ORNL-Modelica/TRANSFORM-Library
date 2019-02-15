@@ -1,16 +1,13 @@
 within TRANSFORM.Electrical.Sensors;
 model FrequencySensor "Measures the frequency at the connector"
-
   extends BaseClasses.PartialRotationIcon_withValueIndicator(final var=f,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.Frequency_Hz.to_Hz
       constrainedby
       TRANSFORM.Units.Conversions.Functions.Frequency_Hz.BaseClasses.to);
-
   TRANSFORM.Electrical.Interfaces.ElectricalPowerPort_Flow port annotation (
       Placement(transformation(extent={{-10,-110},{10,-90}}, rotation=0),
         iconTransformation(extent={{-10,-110},{10,-90}})));
-
   Modelica.Blocks.Interfaces.RealOutput f(
     min=0,
     final quantity="Frequency",

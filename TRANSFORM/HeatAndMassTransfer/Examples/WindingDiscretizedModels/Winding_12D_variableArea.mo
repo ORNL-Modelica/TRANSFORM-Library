@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels;
 model Winding_12D_variableArea
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   DiscritizedModels.Conduction_2D winding(
     exposeState_a1=true,
     redeclare package Material =
@@ -55,7 +54,6 @@ model Winding_12D_variableArea
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic bound_outer[
     nNodes_2.k]
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-
   Real hA_val_inner[nNodes_2.k];
   Real hA_val_top[nNodes_1.k];
   Utilities.Visualizers.displayReal display(use_port=true)
@@ -80,19 +78,15 @@ model Winding_12D_variableArea
     amplitude=0.01,
     startTime=20)
     annotation (Placement(transformation(extent={{-100,24},{-90,34}})));
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={T_max.y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   for j in 1:nNodes_2.k loop
     hA_val_inner[j] = 400*winding.geometry.crossAreas_1[1, j];
   end for;
-
   for i in 1:nNodes_1.k loop
     hA_val_top[i] = 400*winding.geometry.crossAreas_2[i, nNodes_2.k];
   end for;
-
   connect(T_max.y, display.u)
     annotation (Line(points={{-21.2,-60},{-11.5,-60}}, color={0,0,127}));
   connect(T_inf_inner.port, convection_inner.port_b)

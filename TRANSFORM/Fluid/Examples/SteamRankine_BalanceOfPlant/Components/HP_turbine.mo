@@ -7,11 +7,9 @@ model HP_turbine
     annotation (__Dymola_choicesAllMatching=true);
   parameter Integer N_drain_stage1r=1   "Number of drain_stage1r ports" annotation(Dialog(connectorSizing=true));
   parameter Integer N_drain_stage2r=1   "Number of drain_stage2r ports" annotation(Dialog(connectorSizing=true));
-
   parameter Records.RankineNominalValues nominalData "Nominal data"
     annotation (Dialog(group="Nominal operating data"), Placement(
         transformation(extent={{40,73},{60,94}})));
-
   Machines.SteamTurbine stage1(
     eta_mech=eta_mech,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
@@ -69,7 +67,6 @@ redeclare model Geometry =
         ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (       V=20),
     use_HeatPort=true)
     annotation (Placement(transformation(extent={{-29,-26},{-17,-14}})));
-
   Volumes.MixingVolume                 vol_turbine2(
     nPorts_b=1,
     nPorts_a=1,
@@ -81,7 +78,6 @@ redeclare model Geometry =
     T_start=initData.T_start_turbine_HP_stage1_drain,
     use_HeatPort=true)
     annotation (Placement(transformation(extent={{24,-26},{36,-14}})));
-
   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft_a annotation (
       Placement(transformation(rotation=0, extent={{-128,-10},{-108,10}}),
         iconTransformation(extent={{-128,-10},{-108,10}})));
@@ -123,7 +119,6 @@ redeclare model Geometry =
     T_start_turbine_LP_feed=nominalData.T_nom_turbine_LP_stage1_feed)
     "Initialization data" annotation (Dialog(group="Initialization"),
       Placement(transformation(extent={{66,74},{86,94}})));
-
   HeatAndMassTransfer.Resistances.Heat.Convection convection1(surfaceArea=100,
       alpha=5000)
     annotation (Placement(transformation(extent={{-46,-32},{-36,-22}})));
@@ -158,7 +153,6 @@ equation
       points={{-84,44},{-50,44},{-50,6}},
       color={0,127,255},
       thickness=0.5));
-
   connect(drain2, vol_turbine2.port_b[1]) annotation (Line(
       points={{64,-88},{64,-20},{33.6,-20}},
       color={0,127,255},

@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids;
 package UN "UN: Uranium Mononitride"
-
   //Uses data from the series of papers by Hayes, Thomas and Peddicord
   //10.1016/0022-3115(90)90374-V
   //10.1016/0022-3115(90)90374-W
@@ -13,7 +12,6 @@ package UN "UN: Uranium Mononitride"
     MM_const=0.252,
     use_constantDensity=true,
     T_density=1000);
-
     constant Real theta(unit="K") = 365.7;
     constant Real porosity = 0;
     constant Real h0 = 8183.64;

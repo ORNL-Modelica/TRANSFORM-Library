@@ -15,7 +15,6 @@ model ControlSystem "Plant control system"
     u_FWControlValve_3(y=drumLevel_SG_3.y),
     u_MSRControlLevelValve_1(y=mSR_levelFF.y),
     u_TBypassValve_1(y=uu_TBypassValve_1.y));
-
   replaceable DrumLevelFF          drumLevel_SG_1 constrainedby
     Interfaces.DrumLevel
     annotation (choicesAllMatching=true,Placement(transformation(extent={{-2,-230},{-22,-210}})));
@@ -50,7 +49,6 @@ model ControlSystem "Plant control system"
     startTime=36000) annotation (Placement(transformation(extent={{-220,
             20},{-200,40}})));
 equation
-
   connect(controlBus_Rankine.y_FWH_HP_level, fWH_HP_level.u_m_level)
     annotation (Line(
       points={{-100.1,-29.9},{-102,-29.9},{-102,-66},{-50,-66},{-50,-84},{-54,
@@ -68,7 +66,6 @@ equation
       points={{-100.1,-221.9},{-100.1,-240},{6,-240},{6,-219.4},{-0.6,-219.4}},
       color={255,204,51},
       thickness=0.5));
-
   connect(controlBus_SteamGenerator1.y_drum_steamFlow, drumLevel_SG_1.u_m_steamFlow)
     annotation (Line(
       points={{-100.1,-221.9},{-100.1,-221.9},{-100.1,-240},{-12,-240},{-12,
@@ -123,7 +120,6 @@ equation
       points={{-100.1,-29.9},{-100.1,-106},{80,-106},{80,-129.4},{69.4,-129.4}},
       color={255,204,51},
       thickness=0.5));
-
   connect(controlBus_Rankine.y_FWH_HP_flow_in, fWH_HP_level.u_m_flowIn)
     annotation (Line(
       points={{-100.1,-29.9},{-100.1,-29.9},{-100.1,-106},{-70,-106},{-70,
@@ -141,13 +137,11 @@ equation
       points={{-100.1,-29.9},{-100.1,-29.9},{-100.1,-106},{2,-106},{2,-95.4}},
       color={255,204,51},
       thickness=0.5));
-
   connect(controlBus_Rankine.y_FWH_LP_flow_out, fWH_LP_level.u_m_flowOut)
     annotation (Line(
       points={{-100.1,-29.9},{-100.1,-29.9},{-100.1,-106},{9,-106},{9,-95.4}},
       color={255,204,51},
       thickness=0.5));
-
   connect(controlBus_Rankine.y_FWH_LP_flow_out, condenserLevel.u_m_flowOut)
     annotation (Line(
       points={{-100.1,-29.9},{-100.1,-106},{65,-106},{65,-95.4}},
@@ -158,7 +152,6 @@ equation
       points={{-100.1,-29.9},{-100.1,-29.9},{-100.1,-106},{58,-106},{58,-95.4}},
       color={255,204,51},
       thickness=0.5));
-
   connect(controlBus_Rankine.y_FWH_HP_Valve_dp, fWH_HP_level.u_m_dp)
     annotation (Line(
       points={{-100.1,-29.9},{-100.1,-29.9},{-100.1,-106},{-77,-106},{-77,
@@ -170,7 +163,6 @@ equation
       points={{-100.1,-29.9},{-100.1,-29.9},{-100.1,-106},{-5,-106},{-5,-95.4}},
       color={255,204,51},
       thickness=0.5));
-
   connect(controlBus_Rankine.y_CondenserPump_dp, condenserLevel.u_m_dp)
     annotation (Line(
       points={{-100.1,-29.9},{-100.1,-106},{51,-106},{51,-95.4}},
@@ -199,7 +191,6 @@ equation
       points={{-100.1,-29.9},{-100.1,-66},{126,-66},{126,-83.4},{117.4,-83.4}},
       color={255,204,51},
       thickness=0.5));
-
   connect(controlBus_Rankine.y_MSR_Valve_dp, mSR_levelFF.u_m_dp) annotation (
       Line(
       points={{-100.1,-29.9},{-100.1,-106},{99,-106},{99,-95.4}},

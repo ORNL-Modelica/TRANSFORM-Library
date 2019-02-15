@@ -1,13 +1,9 @@
 within TRANSFORM.Math.Examples;
 model check_BesselJ
-
   extends TRANSFORM.Icons.Example;
-
   final parameter Integer n=100 "Number of values of x in Jk(x)";
-
   Real[n] J0 "J0 function value";
   Real[n] J1 "J0 function value";
-
   Utilities.ErrorAnalysis.UnitTests unitTests(
     n=2,
     x={J0[10],J1[10]},
@@ -15,7 +11,6 @@ model check_BesselJ
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Real[n] x = linspace(0.0,10,n) "Value in Jk(x)";
   Real[2] k = {0,1} "Order value";
-
   Real[n] J0_Matlab = {1,0.997450866006856,0.989822955517259,
         0.97717457740866,0.959602362647066,0.937240443698823,0.910259315971194,0.878864391432786,
         0.843294257304748,0.803818655335421,0.76073619965063,0.71437185348644,0.665074187239829,
@@ -41,7 +36,6 @@ model check_BesselJ
         -0.156233652653024,-0.175667176053693,-0.193111593991925,-0.208413158613459,
         -0.221440958453665,-0.232087978616263,-0.240271918971821,-0.245935764451348}
       "Result of BesselJ0 from Matlab built-in function";
-
     Real[n] J1_Matlab = {0,0.050440664748465,0.100495671469118,
         0.149782638417423,0.197925707190716,0.244558731605566,0.289328379971115,
         0.331897123130027,0.371946081686273,0.409177707130056,0.443318273092609,
@@ -69,7 +63,6 @@ model check_BesselJ
         0.0434727461688614}
 "Result of BesselJ1 from Matlab built-in function";
 equation
-
   for i in 1:n loop
     J0[i] = TRANSFORM.Math.besselJ(
                 k=k[1],
@@ -78,6 +71,5 @@ equation
                 k=k[2],
                 x=x[i]);
   end for;
-
   annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
 end check_BesselJ;

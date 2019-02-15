@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Fluids.FLiBe;
 package LinearFLiBe_pT "FLiBe | LiF-BeF2 67%-33% with 99.995% enriched Li-7 | Linear compressibility"
-
 // ORNL/TM-2006/12
 // beta_const adjusted till density matched. kappa left alone
 // references are based on 800K
@@ -20,7 +19,6 @@ extends TRANSFORM.Media.Interfaces.Fluids.PartialLinearFluid(
   T_default=800);
 
 redeclare function extends dynamicViscosity "Dynamic viscosity"
-
 algorithm
   eta :=Utilities_FLiBe.eta_T(state.T);
   annotation(Inline=true);

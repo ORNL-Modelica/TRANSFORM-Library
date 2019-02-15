@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels;
 model Winding_123D_withMass
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   DiscritizedModels.HMTransfer_3D winding(
     exposeState_a1=true,
     redeclare model Geometry =
@@ -66,7 +65,6 @@ model Winding_123D_withMass
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic bound_outer[
     nNodes_2.k,nNodes_3.k]
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-
   Utilities.Visualizers.displayReal display(use_port=true)
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Modelica.Blocks.Sources.RealExpression T_max(y=
@@ -133,7 +131,6 @@ model Winding_123D_withMass
         4, 1]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(T_inf_inner.port, convection_inner.port_b)
     annotation (Line(points={{-60,0},{-47,0}},         color={191,0,0}));
   connect(convection_inner.port_a, winding.port_a1)

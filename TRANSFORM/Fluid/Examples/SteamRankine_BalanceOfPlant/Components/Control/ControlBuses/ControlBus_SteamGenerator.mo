@@ -10,7 +10,6 @@ expandable connector ControlBus_SteamGenerator
   output Real y_drum_level "Drum level [%]" annotation ();
   output Real y_drum_steamFlow "Drum steam flow [kg/s]" annotation ();
   output Real y_drum_FeedWaterFlow "Drum feedwater flow [kg/s]" annotation ();
-
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 <p>Control bus for the Rankine example. </p>
