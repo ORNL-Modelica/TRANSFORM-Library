@@ -1,8 +1,6 @@
 within TRANSFORM.Math.Interpolation.Models.Examples;
 model Interpolation_2D_Test
-
   extends TRANSFORM.Icons.Example;
-
   Math.Interpolation.Models.Interpolation_2D lookupTables_2D(
     tablePath_u1=Modelica.Utilities.Files.loadResource(
         "modelica://MediaLookupTables/Resources/data/lookupTables/ParaHydrogen/pT/p.csv"),
@@ -11,7 +9,6 @@ model Interpolation_2D_Test
     tablePath_y=Modelica.Utilities.Files.loadResource(
         "modelica://MediaLookupTables/Resources/data/lookupTables/ParaHydrogen/pT/h.csv"))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Modelica.Blocks.Sources.Constant const(k=102341.14021054539)
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Blocks.Sources.Ramp ramp(

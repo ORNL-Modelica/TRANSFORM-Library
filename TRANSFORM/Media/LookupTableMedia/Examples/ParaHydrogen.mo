@@ -3,7 +3,7 @@ model ParaHydrogen
   extends TRANSFORM.Icons.Example;
   replaceable package Medium =
       TRANSFORM.Media.LookupTableMedia.ParaHydrogen;
-  Medium.BaseProperties medium(h(start=Medium.specificEnthalpy(Medium.setState_pT(p.k,T.offset))));
+  Medium.BaseProperties medium(T(start=T.offset));
   Modelica.SIunits.DynamicViscosity eta=Medium.dynamicViscosity(medium.state);
   Modelica.SIunits.ThermalConductivity lambda=Medium.thermalConductivity(medium.state);
   Modelica.Blocks.Sources.Constant p(k=1e5)
@@ -15,7 +15,7 @@ model ParaHydrogen
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
 equation
   medium.p = p.y;
-  medium.h = Medium.specificEnthalpy(Medium.setState_pT(p.y,T.y));
+  medium.T = T.y;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ParaHydrogen;

@@ -5,7 +5,6 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   extends TRANSFORM.Media.Interfaces.Fluids.PartialSinglePhaseMedium(
       ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.pT,
       singleState=false, fluidConstants={externalFluidConstants});
-
   constant FluidConstants externalFluidConstants=FluidConstants(
       iupacName="unknown",
       casRegistryNumber="unknown",
@@ -35,7 +34,6 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   constant String tablePath_lambda=Modelica.Utilities.Files.loadResource(tablePath + "k.csv") "Thermal conductivity";
   constant String tablePath_mu=Modelica.Utilities.Files.loadResource(tablePath + "mu.csv") "Dynamic viscosity";
   constant String tablePath_s=Modelica.Utilities.Files.loadResource(tablePath + "s.csv") "Specific entropy";
-
   constant String tablesPath_pT_h=TRANSFORM.Utilities.Strings.concatenate(
       {tablePath_p,tablePath_T,tablePath_h},
       "|",
@@ -144,7 +142,6 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
 
   replaceable function getMolarMass
     output MolarMass MM "molar mass";
-
   algorithm
     MM :=0.01;
   end getMolarMass;
