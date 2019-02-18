@@ -5,3 +5,4 @@ bilinear_eval_deriv_y
 bilinear_eval_deriv_xx
 bilinear_eval_deriv_yy
 bilinear_eval_deriv_xy
+bilinear_eval_deriv_xy_alt

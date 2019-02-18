@@ -10,4 +10,6 @@ external"C" z = bilinear_eval_deriv_y(
     Library="noname",
     IncludeDirectory="modelica://TRANSFORM/Resources/Include",
     LibraryDirectory="modelica://TRANSFORM/Resources/Library");
+
+annotation (derivative(zeroDerivative=y)=bilinear_eval_deriv_xy,derivative(zeroDerivative=x)=bilinear_eval_deriv_yy);
 end bilinear_eval_deriv_y;
