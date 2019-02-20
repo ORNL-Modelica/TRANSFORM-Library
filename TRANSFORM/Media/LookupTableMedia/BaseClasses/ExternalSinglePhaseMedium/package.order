@@ -1,4 +1,6 @@
 externalFluidConstants
+T_min
+T_max
 inputChoice
 Method
 Method_dx
@@ -26,9 +28,11 @@ ThermodynamicState
 BaseProperties
 getMolarMass
 setState_ph
+T_ph
 setState_pT
 setState_dT
 setState_ps
+T_ps
 setState_hs
 setState_phX
 setState_pTX

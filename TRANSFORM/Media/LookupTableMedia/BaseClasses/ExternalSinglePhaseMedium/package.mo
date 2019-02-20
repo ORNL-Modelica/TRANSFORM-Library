@@ -11,6 +11,9 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
       chemicalFormula="unknown",
       structureFormula="unknown",
       molarMass=getMolarMass());
+  constant SI.Temperature T_min = 0;
+  constant SI.Temperature T_max = 1e9;
+
   constant InputChoice inputChoice=InputChoice.pT
     "Default choice of input variables for property computations";
 
@@ -70,7 +73,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   redeclare record extends ThermodynamicState
     AbsolutePressure p "pressure";
     Temperature T "temperature";
-    SpecificEnthalpy h "specific enthalpy";
+    //     SpecificEnthalpy h "specific enthalpy";
     //     Density d "Density";
   end ThermodynamicState;
 
@@ -133,8 +136,8 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     if (basePropertiesInputChoice == InputChoice.pT) then
       state = setState_pT(p, T);
       d = density(state);
-      h = specificEnthalpy(state);
-      s = specificEntropy(state);
+      h = specificEnthalpy_pT(p,T);//specificEnthalpy(state);
+      s = specificEntropy_pT(p,T);//specificEntropy(state);
     end if;
     // Compute the internal energy
     u = h - p/d;
@@ -153,8 +156,35 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     input SpecificEnthalpy h "specific enthalpy";
     output ThermodynamicState state;
   algorithm
-    assert(false,"This function is not yet supported");
+    state :=ThermodynamicState(p=p,T=T_ph(p,h));//,h=h);
+    annotation(Inline=true,smoothOrder=3);
   end setState_ph;
+
+  function T_ph "Compute temperature from pressure and specific enthalpy"
+    extends Modelica.Icons.Function;
+    input AbsolutePressure p "Pressure";
+    input SpecificEnthalpy h "Specific enthalpy";
+    output Temperature T "Temperature";
+protected
+    package Internal
+      "Solve h(T) for T with given h (use only indirectly via temperature_phX)"
+      extends Modelica.Media.Common.OneNonLinearEquation;
+
+      redeclare record extends f_nonlinear_Data
+        "Superfluous record, fix later when better structure of inverse functions exists"
+          constant Real[5] dummy = {1,2,3,4,5};
+      end f_nonlinear_Data;
+
+      redeclare function extends f_nonlinear "P is smuggled in via vector"
+      algorithm
+        y := specificEnthalpy_pT(p,x);
+      end f_nonlinear;
+
+    end Internal;
+  algorithm
+   T := Internal.solve(h, T_min, T_max, p, {1}, Internal.f_nonlinear_Data());
+    annotation(Inline=false, LateInline=true, inverse(h=specificEnthalpy_pT(p,T)));
+  end T_ph;
 
   redeclare replaceable function setState_pT
     "Return thermodynamic state record from p and T"
@@ -165,11 +195,11 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   algorithm
     state := ThermodynamicState(
       p=p,
-      T=T,
-      h=Method(
-        tablesPath_pT_h,
-        p,
-        T));
+      T=T);
+    //       h=Method(
+    //          tablesPath_pT_h,
+    //          p,
+    //          T));
   end setState_pT;
 
   redeclare replaceable function setState_dT
@@ -189,8 +219,35 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     input SpecificEntropy s "specific entropy";
     output ThermodynamicState state;
   algorithm
-    assert(false,"This function is not yet supported");
+    state :=ThermodynamicState(p=p,T=T_ps(p,s));
+    annotation(Inline=true,smoothOrder=3);
   end setState_ps;
+
+  function T_ps "Compute temperature from pressure and specific enthalpy"
+    extends Modelica.Icons.Function;
+
+    input AbsolutePressure p "Pressure";
+    input SpecificEntropy s "Specific entropy";
+    output Temperature T "Temperature";
+protected
+    package Internal
+      "Solve h(T) for T with given h (use only indirectly via temperature_phX)"
+      extends Modelica.Media.Common.OneNonLinearEquation;
+
+      redeclare record extends f_nonlinear_Data
+        "Superfluous record, fix later when better structure of inverse functions exists"
+          constant Real[5] dummy = {1,2,3,4,5};
+      end f_nonlinear_Data;
+
+      redeclare function extends f_nonlinear "P is smuggled in via vector"
+      algorithm
+        y := specificEntropy_pT(p,x);
+      end f_nonlinear;
+
+    end Internal;
+  algorithm
+   T := Internal.solve(s, T_min, T_max, p, {1}, Internal.f_nonlinear_Data());
+  end T_ps;
 
   replaceable function setState_hs
     "Return thermodynamic state record from h and s"
@@ -579,7 +636,10 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   redeclare replaceable function extends specificEnthalpy
     "Return specific enthalpy from state"
   algorithm
-    h := state.h;
+    h := Method(
+        tablesPath_pT_h,
+        state.p,
+        state.T);//state.h;
     annotation (Inline=true);
   end specificEnthalpy;
 
