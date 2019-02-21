@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids;
 package Sodium "Liquid Sodium: thermal properties of liquid sodium"
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="Na_liquid",
     T_min=Modelica.SIunits.Conversions.from_degC(0),

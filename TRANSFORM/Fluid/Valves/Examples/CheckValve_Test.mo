@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Valves.Examples;
 model CheckValve_Test
   extends TRANSFORM.Icons.Example;
-
   CheckValve checkValve_true(redeclare package Medium =
         Modelica.Media.Water.StandardWater, checkValve=true)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));

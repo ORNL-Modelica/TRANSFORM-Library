@@ -39,7 +39,6 @@ model Regions_1_Test
     Teffref_coolant=547.25,
     T_start_1=623.15)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Modelica.Blocks.Sources.Step     ControlRod_Reactivity(
                      height=0.001, startTime=100)
     annotation (Placement(transformation(extent={{-60,70},{-40,90}})));

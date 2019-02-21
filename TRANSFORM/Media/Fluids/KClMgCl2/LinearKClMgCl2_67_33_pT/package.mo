@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Fluids.KClMgCl2;
 package LinearKClMgCl2_67_33_pT "KCl-MgCl2 | 67%-33% | Linear compressibility"
-
 // beta_const adjusted till density matched. kappa left alone
 // references are based on 1150K
 // assumed specific enthalpy at 273.15 is zero
@@ -22,7 +21,6 @@ constant SI.MolarMass MM[2]={0.039098+0.03545,0.024305+2*0.03545} "Molar mass of
     T_default=1150);
 
 redeclare function extends dynamicViscosity "Dynamic viscosity"
-
 algorithm
   eta :=Utilities_67_33.eta_T(state.T);
   annotation(Inline=true);

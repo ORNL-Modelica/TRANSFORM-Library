@@ -1,13 +1,10 @@
 within TRANSFORM.Blocks;
 block IntegerTable "Generate an Integer table"
-
   extends Modelica.Blocks.Icons.IntegerBlock;
-
   parameter Integer table[:, :]=fill(
         0,
         0,
         2) "Table matrix for Integer parameters";
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={               Text(
@@ -46,5 +43,4 @@ block IntegerTable "Generate an Integer table"
               1, 5;
               2, 6];</pre>
 </html>"));
-
 end IntegerTable;

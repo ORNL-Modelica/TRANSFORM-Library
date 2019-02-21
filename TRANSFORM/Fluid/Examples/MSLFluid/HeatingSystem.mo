@@ -4,7 +4,6 @@ model HeatingSystem "Simple model of a heating system"
    replaceable package Medium =
       Modelica.Media.Water.StandardWater
      constrainedby Modelica.Media.Interfaces.PartialMedium;
-
   Modelica.Fluid.Vessels.OpenTank tank(
     redeclare package Medium = Medium,
     crossArea=0.01,
@@ -70,7 +69,6 @@ Pipes.GenericPipe_MultiTransferSurface
     redeclare model HeatTransfer =
         ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal)
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-
 Pipes.GenericPipe_MultiTransferSurface
                   radiator(
     redeclare package Medium = Medium,
@@ -88,7 +86,6 @@ Pipes.GenericPipe_MultiTransferSurface
     redeclare model HeatTransfer =
         ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal)
     annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
-
 protected
   Modelica.Blocks.Interfaces.RealOutput T_forward
     annotation (Placement(transformation(extent={{74,34},{86,46}})));
@@ -127,7 +124,6 @@ Pipes.GenericPipe_MultiTransferSurface
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,-20})));
-
   Utilities.ErrorAnalysis.UnitTests unitTests(
     name="HeatingSystem_T",
     errorExpected=2,

@@ -1,15 +1,12 @@
 within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.LaminarTurbulent_ReynoldsRelation;
 record dp_IN_con "Input record for function dp_DP and dp_MFLOW"
-
   extends TRANSFORM.Icons.Record;
-
   SI.Diameter diameter_a "Inner (hydraulic) diameter at port_a";
   SI.Diameter diameter_b "Inner (hydraulic) diameter at port_b";
   SI.Area crossArea_a=Modelica.Constants.pi*diameter_a^2/4
     "Inner cross section area at port_a";
   SI.Area crossArea_b=Modelica.Constants.pi*diameter_b^2/4
     "Inner cross section area at port_b";
-
   Real A;
   Real B;
   Real C;
@@ -21,5 +18,4 @@ record dp_IN_con "Input record for function dp_DP and dp_MFLOW"
 //
 //   SI.ReynoldsNumber Re_turbulent=4000
 //     "Turbulent transition point if Re >= Re_turbulent";
-
 end dp_IN_con;

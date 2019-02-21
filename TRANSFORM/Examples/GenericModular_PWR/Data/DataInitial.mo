@@ -1,8 +1,6 @@
 within TRANSFORM.Examples.GenericModular_PWR.Data;
 record DataInitial
-
   extends TRANSFORM.Icons.Record;
-
 //core.coolantSubchannel
 parameter SI.Density d_start_core_coolantSubchannel[:] = {729.99456787,707.68652344,683.89465332,658.36236572};
 parameter SI.Pressure p_start_core_coolantSubchannel[:] = {12911367.,12907437.,12903607.,12899882.};
@@ -55,7 +53,6 @@ parameter SI.Density d_start_pressurizer_tee = 658.202;
 parameter SI.Pressure p_start_pressurizer_tee = 1.28109e+07;
 parameter SI.Temperature T_start_pressurizer_tee = 597.826;
 parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                                                 Text(
           lineColor={0,0,0},

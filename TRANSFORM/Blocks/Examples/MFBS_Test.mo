@@ -1,7 +1,6 @@
 within TRANSFORM.Blocks.Examples;
 model MFBS_Test
   extends TRANSFORM.Icons.Example;
-
   Noise.MFBS sequencer(
     startTime=0.5,
     offset=1,

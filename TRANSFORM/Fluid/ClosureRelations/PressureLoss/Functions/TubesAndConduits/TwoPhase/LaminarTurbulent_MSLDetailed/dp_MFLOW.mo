@@ -1,11 +1,8 @@
 within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.TwoPhase.LaminarTurbulent_MSLDetailed;
 function dp_MFLOW "calculate mass flow rate"
-
   import Modelica.Constants.pi;
   import Modelica.Math;
-
   extends Modelica.Icons.Function;
-
   //input records
   input dp_IN_con IN_con "Input record for function dp_overall_MFLOW"
     annotation (Dialog(group="Constant inputs"));
@@ -15,17 +12,14 @@ function dp_MFLOW "calculate mass flow rate"
     annotation (Dialog(group="Input"));
   input SI.AbsolutePressure dp_small=1
     "Regularization of zero flow if |dp| < dp_small (dummy if use_dp_small = false)";
-
   //Outputs
   output SI.MassFlowRate M_FLOW "Output of function dp_overall_MFLOW";
-
 protected
   Real diameter = 0.5*(IN_con.diameter_a+IN_con.diameter_b) "Average diameter";
   Real crossArea = 0.5*(IN_con.crossArea_a+IN_con.crossArea_b)
     "Average cross area";
   Real roughness = 0.5*(IN_con.roughness_a+IN_con.roughness_b)
     "Average height of surface asperities";
-
     Real Delta = roughness/diameter "Relative roughness";
     SI.ReynoldsNumber Re1=min((745*Math.exp(if Delta <= 0.0065
          then 1 else 0.0065/Delta))^0.97, IN_con.Re_turbulent)
@@ -35,14 +29,12 @@ protected
     SI.Density rho "Upstream density";
     SI.ReynoldsNumber Re "Reynolds number";
     Real lambda2 "Modified friction coefficient (= lambda*Re^2)";
-
   SI.DynamicViscosity mu_lsat "Upstream liquid viscosity";
   SI.Density rho_lsat "Upstream liquid density";
   SI.DynamicViscosity mu_vsat "Upstream vapor viscosity";
   SI.Density rho_vsat "Upstream vapor density";
   SIadd.NonDim x_abs "Upstream absolute quality";
   Real phi2 "Two-phase modifier";
-
     function interpolateInRegion2
        input Real Re_turbulent;
        input SI.ReynoldsNumber Re1;
@@ -55,7 +47,6 @@ protected
       Real x1=Math.log10(64*Re1);
       Real y1=Math.log10(Re1);
       Real yd1=1;
-
       // Point lg(lambda2(Re2)) with derivative at lg(Re2)
       Real aux1=(0.5/Math.log(10))*5.74*0.9;
       Real aux2=Delta/3.7 + 5.74/Re2^0.9;
@@ -66,7 +57,6 @@ protected
       Real x2=Math.log10(L2);
       Real y2=Math.log10(aux5);
       Real yd2=0.5 + (2.51/Math.log(10))/(aux5*aux4);
-
       // Constants: Cubic polynomial between lg(Re1) and lg(Re2)
       Real diff_x=x2 - x1;
       Real m=(y2 - y1)/diff_x;
@@ -79,7 +69,6 @@ protected
        Re := Re1*(lambda2/lambda2_1)^(1 + dx*(c2 + dx*c3));
        annotation(smoothOrder=1);
     end interpolateInRegion2;
-
 algorithm
     // Determine upstream density, upstream viscosity, and lambda2
   if dp >= 0 then
@@ -99,14 +88,10 @@ algorithm
     mu_vsat  := IN_var.mu_vsat_b;
     x_abs := IN_var.x_abs_b;
   end if;
-
   phi2 := TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Utilities.TwoPhaseFrictionMultiplier(x_abs,mu_lsat,mu_vsat,rho_lsat,rho_vsat);
-
     lambda2 := abs(dp)*2*diameter*diameter*diameter*rho/(IN_con.length*mu*mu)/phi2;
-
     // Determine Re under the assumption of laminar flow
     Re := lambda2/64;
-
     // Modify Re, if turbulent flow
     if Re > Re1 then
        Re :=-2*sqrt(lambda2)*Math.log10(2.51/sqrt(lambda2) + 0.27*Delta);
@@ -114,7 +99,6 @@ algorithm
           Re := interpolateInRegion2(Re, Re1, Re2, Delta, lambda2);
        end if;
     end if;
-
     // Determine mass flow rate
     M_FLOW := crossArea/diameter*mu*(if dp >= 0 then Re else -Re);
             annotation (smoothOrder=1, Documentation(info="<html>

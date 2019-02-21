@@ -1,13 +1,10 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model Adiabatic "Adiabatic boundary condition"
-
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-
   Interfaces.HeatPort_Flow port annotation (Placement(transformation(extent={{
             90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
 equation
   port.Q_flow = 0;
-
   annotation (defaultComponentName="adiabatic",
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}),     graphics={

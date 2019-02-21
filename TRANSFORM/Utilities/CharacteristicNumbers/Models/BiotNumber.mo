@@ -1,18 +1,14 @@
 within TRANSFORM.Utilities.CharacteristicNumbers.Models;
 model BiotNumber
-
   input SI.CoefficientOfHeatTransfer alpha "Heat transfer coefficient" annotation(Dialog(group="Inputs"));
   input SI.Length L "Characteristic length" annotation(Dialog(group="Inputs"));
   input SI.ThermalConductivity lambda "Thermal conductivity (e.g., of the solid)" annotation(Dialog(group="Inputs"));
-
   Units.NonDim Bi "Biot number";
-
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 algorithm
   Bi :=alpha*L/lambda;
   y:=Bi;
-
   annotation (defaultComponentName="biotNumber",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(

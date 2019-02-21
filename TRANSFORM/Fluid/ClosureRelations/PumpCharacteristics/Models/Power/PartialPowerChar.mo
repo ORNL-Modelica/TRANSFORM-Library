@@ -1,20 +1,13 @@
 within TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power;
 partial model PartialPowerChar
   "Base class for pump power characteristics."
-
   extends PartialCharacteristic;
-
   parameter SI.Power W_nominal "Power consumption" annotation (Dialog(
         tab="Internal Interface", group="Nominal Operating Parameters"));
-
   input SI.MassFlowRate m_flow;
-
   SI.Power W "Power consumption";
-
 equation
-
     affinityLaw = (N/N_nominal)^3*(diameter/diameter_nominal)^3;
-
   annotation (defaultComponentName="flowCurve",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                              Ellipse(

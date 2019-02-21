@@ -3,7 +3,6 @@ model QuenchingACompositeStructure
   "Example 3.3-2 Quenching a composite structure pp. 363-369"
   import TRANSFORM;
   extends Icons.Example;
-
   Modelica.Blocks.Sources.Constant th_s(each k=0.0005) "thickness - silicon"
     annotation (Placement(transformation(extent={{-82,84},{-74,92}})));
   Modelica.Blocks.Sources.Constant lambda_s(each k=150)
@@ -25,7 +24,6 @@ model QuenchingACompositeStructure
     annotation (Placement(transformation(extent={{-96,84},{-88,92}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=100)
     annotation (Placement(transformation(extent={{-96,56},{-88,64}})));
-
   Modelica.Blocks.Sources.Constant lambda_p(each k=1.4)
     "thermal conductivity - pyrex"
     annotation (Placement(transformation(extent={{-54,84},{-46,92}})));

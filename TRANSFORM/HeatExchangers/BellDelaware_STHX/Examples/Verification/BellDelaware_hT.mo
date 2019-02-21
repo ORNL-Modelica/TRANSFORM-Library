@@ -1,20 +1,15 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX.Examples.Verification;
 model BellDelaware_hT
-
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Utilities.ErrorAnalysis.Errors_AbsRelRMSold[2] summary_Error(
     n={1,1},
     x_1={{shell.alpha_avg_output},{shell.entryPipe_b.mediums[1].T - source.T}},
     x_2={{alpha},{dT}})
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
   parameter SI.Temperature T_inlet = 63.3+273.15 "Example problem input temperature";
   parameter SI.Temperature T_outlet = 56.7+273.15 "Example problem output temperature";
   final parameter SI.TemperatureDifference  dT = T_outlet - T_inlet;
-
   parameter SI.CoefficientOfHeatTransfer alpha = 3324 "Example problem calculated heat transfer coefficient";
-
   Modelica.Fluid.Sources.Boundary_pT sink(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     nPorts=1,
@@ -68,7 +63,6 @@ model BellDelaware_hT
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature[shell.nNodes_intTotal](
      each T=323.15)
     annotation (Placement(transformation(extent={{-36,44},{-24,56}})));
-
 equation
   connect(source.ports[1], shell.port_a)
     annotation (Line(points={{-48,0},{-34,0},{-18,0}}, color={0,127,255}));

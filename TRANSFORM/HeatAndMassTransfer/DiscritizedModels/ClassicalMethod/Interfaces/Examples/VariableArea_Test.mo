@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Interface
 model VariableArea_Test "Verification of VariableArea component"
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   VariableArea variableArea(
     nVar=2,
     surfaceAreas_Var={Area_1.y,Area_2.y},

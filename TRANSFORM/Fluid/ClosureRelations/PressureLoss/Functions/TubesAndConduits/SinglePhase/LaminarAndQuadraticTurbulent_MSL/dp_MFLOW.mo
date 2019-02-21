@@ -1,9 +1,7 @@
 within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.LaminarAndQuadraticTurbulent_MSL;
 function dp_MFLOW
   "Return mass flow rate m_flow as function of pressure loss dp, i.e., m_flow = f(dp), due to wall friction"
-
   extends Modelica.Icons.Function;
-
   //input records
   input dp_IN_con IN_con "Input record for function dp_overall_MFLOW"
     annotation (Dialog(group="Constant inputs"));
@@ -13,21 +11,17 @@ function dp_MFLOW
     annotation (Dialog(group="Input"));
   input SI.AbsolutePressure dp_small=1
     "Regularization of zero flow if |dp| < dp_small (dummy if use_dp_small = false)";
-
   //Outputs
   output SI.MassFlowRate M_FLOW "Output of function dp_overall_MFLOW";
-
 protected
   SI.Length diameter = 0.5*(IN_con.diameter_a+IN_con.diameter_b);
   SI.Area crossArea = 0.5*(IN_con.crossArea_a+IN_con.crossArea_b);
   SI.Height roughness = 0.5*(IN_con.roughness_a+IN_con.roughness_b);
-
   Real zeta;
   Real k0;
   Real k_inv;
   Real yd0 "Derivative of m_flow=m_flow(dp) at zero";
   SI.AbsolutePressure dp_turbulent;
-
 algorithm
 /*
 Turbulent region:

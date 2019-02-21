@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Fluids.Sodium;
 package LinearSodium_pTold "Sodium with linear compressibility"
-
 // references are based on 800K
   extends TRANSFORM.Media.Interfaces.Fluids.PartialLinearFluid(
     mediumName="Linear Sodium",
@@ -17,7 +16,6 @@ package LinearSodium_pTold "Sodium with linear compressibility"
     T_default = 800);
 
 redeclare function extends dynamicViscosity "Dynamic viscosity"
-
 algorithm
   eta := -3.0655e-7*state.T+5.2303e-4;
 end dynamicViscosity;

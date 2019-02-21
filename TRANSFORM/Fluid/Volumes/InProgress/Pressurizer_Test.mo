@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.InProgress;
 model Pressurizer_Test
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Fluid.Volumes.InProgress.Pressurizer_withWall pressurizer(
     redeclare model BulkCondensation =
         Volumes.ClosureModels.MassTransfer.Condensation.ConstantTimeDelay (tau=
@@ -33,7 +32,6 @@ model Pressurizer_Test
         BaseClasses.ClosureModels.HeatTransfer.ConstantHeatTransferCoefficient,
     Vfrac_liquid_start=1/3)
     annotation (Placement(transformation(extent={{-20,-26},{20,26}})));
-
   Modelica.Fluid.Sources.MassFlowSource_h spray(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     h=400e3,

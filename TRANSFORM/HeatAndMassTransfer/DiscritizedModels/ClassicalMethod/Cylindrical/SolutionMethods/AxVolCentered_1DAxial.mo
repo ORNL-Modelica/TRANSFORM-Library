@@ -3,17 +3,13 @@ model AxVolCentered_1DAxial
   "1-D Axial | Axially Volume Centered | 2nd Order Central Finite Difference"
   import SI = Modelica.SIunits;
   import Modelica.Constants.pi;
-
   extends BaseClasses.Partial_FDCond_Cylinder;
-
   SI.Length[nR - 1] dr={rs[i + 1] - rs[i] for i in 1:nR - 1}
     "Radial nodal spacing";
   SI.Length[nZ] dz={if i == 1 then 2*zs[i] else 2*(zs[i] - zs[i - 1]) -
       dz[i - 1] for i in 1:nZ} "Axial nodal spacing";
-
   Real beta_max = max(dr)/min(dz) "Maximum skewness of dr/dz";
   Real beta_min = min(dr)/max(dz) "Minimum skewness of dr/dz";
-
 equation
   /* 
 
@@ -42,7 +38,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           dz[j] + dz[j + 1])) + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Inner Edge */
   for i in 1:1 loop
       for j in 2:nZ - 1 loop
@@ -56,7 +51,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           0.5*(dz[j] + dz[j + 1])) + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Outer Edge */
     for i in nR:nR loop
       for j in 2:nZ - 1 loop
@@ -71,7 +65,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           j]*Vs[i, j];
     end for;
   end for;
-
   /* Bottom Edge */
     for i in 2:nR - 1 loop
     for j in 1:1 loop
@@ -86,7 +79,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Top Edge */
     for i in 2:nR - 1 loop
       for j in nZ:nZ loop
@@ -101,7 +93,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Bottom Inner Corner */
   for i in 1:1 loop
     for j in 1:1 loop
@@ -116,7 +107,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Top Inner Corner */
   for i in 1:1 loop
       for j in nZ:nZ loop
@@ -131,7 +121,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           *Vs[i, j];
     end for;
   end for;
-
   /* Bottom Outer Corner */
     for i in nR:nR loop
     for j in 1:1 loop
@@ -146,7 +135,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           1])) + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Top Outer Corner */
     for i in nR:nR loop
       for j in nZ:nZ loop
@@ -161,7 +149,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
 else
   /* Center Nodes */
     for i in 2:nR - 1 loop
@@ -177,7 +164,6 @@ else
           q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Inner Edge */
   for i in 1:1 loop
       for j in 2:nZ - 1 loop
@@ -192,7 +178,6 @@ else
            + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Outer Edge */
     for i in nR:nR loop
       for j in 2:nZ - 1 loop
@@ -207,7 +192,6 @@ else
           (0.5*(dz[j] + dz[j + 1])) + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Bottom Edge */
     for i in 2:nR - 1 loop
     for j in 1:1 loop
@@ -222,7 +206,6 @@ else
           Ts[i, j + 1])/(0.5*(dz[j] + dz[j + 1])) + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Top Edge */
     for i in 2:nR - 1 loop
       for j in nZ:nZ loop
@@ -238,7 +221,6 @@ else
           i, j];
     end for;
   end for;
-
   /* Bottom Inner Corner */
   for i in 1:1 loop
     for j in 1:1 loop
@@ -253,7 +235,6 @@ else
           /(0.5*(dz[j] + dz[j + 1])) + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Top Inner Corner */
   for i in 1:1 loop
       for j in nZ:nZ loop
@@ -268,7 +249,6 @@ else
            + heatPorts_top[i].Q_flow + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Bottom Outer Corner */
     for i in nR:nR loop
     for j in 1:1 loop
@@ -283,7 +263,6 @@ else
           Ts[i, j + 1])/(0.5*(dz[j] + dz[j + 1])) + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Top Outer Corner */
     for i in nR:nR loop
       for j in nZ:nZ loop
@@ -299,7 +278,6 @@ else
     end for;
   end for;
 end if;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
 <p><span style=\"font-family: MS Shell Dlg 2;\">Below is a representative stencil for the distribution of the nodes and associated stencil. </span></p>

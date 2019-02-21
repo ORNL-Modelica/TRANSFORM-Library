@@ -1,14 +1,11 @@
 within TRANSFORM.Examples.SodiumFastReactor.Components;
 model IHTS5_AHX3
-
 replaceable package Medium =
       TRANSFORM.Media.Fluids.Sodium.ConstantPropertyLiquidSodium
     "Primary heat system medium" annotation(choicesAllMatching=true);
-
  replaceable package Medium_Ambient =
       Modelica.Media.Air.DryAirNasa
     "Ambient medium" annotation(choicesAllMatching=true);
-
   Fluid.Machines.Pump_SimpleMassFlow pump(m_flow_nominal=data.m_flow_IHX_IHTS,
       redeclare package Medium = Medium) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -23,7 +20,6 @@ replaceable package Medium =
     redeclare package Medium = Medium,
     p_a_start=400000)
     annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface pipe_fromIHX(
     T_a_start=data.T_IHX_outletIHTS,
     m_flow_a_start=data.m_flow_IHX_IHTS,
@@ -33,7 +29,6 @@ replaceable package Medium =
     redeclare package Medium = Medium,
     p_a_start=300000)
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
-
   Data.SFR_PHS data
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance_toExpTank(

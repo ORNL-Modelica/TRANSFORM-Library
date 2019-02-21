@@ -7,7 +7,6 @@ model SpecificEnthalpyTwoPort
         TRANSFORM.Units.Conversions.Functions.SpecificEnergy_J_kg.to_J_kg
       constrainedby
       TRANSFORM.Units.Conversions.Functions.SpecificEnergy_J_kg.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg")
     "Specific enthalpy of the passing fluid"
@@ -18,7 +17,6 @@ model SpecificEnthalpyTwoPort
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,36})));
-
 equation
   if allowFlowReversal then
      h_out = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow, port_a.h_outflow, m_flow_small);

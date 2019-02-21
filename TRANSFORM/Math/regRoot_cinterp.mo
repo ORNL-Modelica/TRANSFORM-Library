@@ -4,7 +4,6 @@ function regRoot_cinterp "Square root function with cubic interpolation near 0"
   input Real x "Argument of root";
   input Real deltax=0.01 "Interpolation interval near 0";
   output Real y "Root or regularized root near zero";
-
 protected
   Real C3;
   Real C1;

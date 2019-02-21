@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.LaminarTurbulent_MSLDetailed;
 function dp_DP_staticHead "calculate pressure loss with static head"
   extends Modelica.Icons.Function;
-
   //input records
   input dp_IN_con IN_con "Input record for function dp_overall_DP"
     annotation (Dialog(group="Constant inputs"));
@@ -13,46 +12,37 @@ function dp_DP_staticHead "calculate pressure loss with static head"
     "Regularization of zero flow if |m_flow| < m_flow_small (dummy if use_m_flow_small = false)";
   input Real g_times_height_ab
     "Gravity times (Height(port_b) - Height(port_a))";
-
   //Outputs
   output SI.Pressure DP "Output for function dp_overall_DP";
-
 protected
     Real diameter = 0.5*(IN_con.diameter_a+IN_con.diameter_b)
     "Average diameter";
     Real roughness = 0.5*(IN_con.roughness_a+IN_con.roughness_b)
     "Average height of surface asperities";
-
     Real Delta = roughness/diameter "Relative roughness";
     SI.ReynoldsNumber Re1=min(745*exp(if Delta <= 0.0065 then 1
          else 0.0065/Delta), IN_con.Re_turbulent)
     "Boundary between laminar regime and transition";
     SI.ReynoldsNumber Re2=IN_con.Re_turbulent
     "Boundary between transition and turbulent regime";
-
     SI.MassFlowRate m_flow_a
     "Upper end of regularization domain of the dp(m_flow) relation";
     SI.MassFlowRate m_flow_b
     "Lower end of regularization domain of the dp(m_flow) relation";
-
     SI.Pressure dp_a "Value at upper end of regularization domain";
     SI.Pressure dp_b "Value at lower end of regularization domain";
-
     SI.Pressure dp_grav_a=g_times_height_ab*IN_var.rho_a
     "Static head if mass flows in design direction (a to b)";
     SI.Pressure dp_grav_b=g_times_height_ab*IN_var.rho_b
     "Static head if mass flows against design direction (b to a)";
-
     Real ddp_dm_flow_a
     "Derivative of pressure drop with mass flow rate at m_flow_a";
     Real ddp_dm_flow_b
     "Derivative of pressure drop with mass flow rate at m_flow_b";
-
     // Properly define zero mass flow conditions
     SI.MassFlowRate m_flow_zero=0;
     SI.Pressure dp_zero=(dp_grav_a + dp_grav_b)/2;
     Real ddp_dm_flow_zero;
-
 algorithm
     m_flow_a := if dp_grav_a<dp_grav_b then
       Internal.m_flow_of_dp_fric(IN_con, IN_var, dp_grav_b - dp_grav_a, Re1, Re2, Delta)+m_flow_small else
@@ -60,7 +50,6 @@ algorithm
     m_flow_b := if dp_grav_a<dp_grav_b then
       Internal.m_flow_of_dp_fric(IN_con, IN_var, dp_grav_a - dp_grav_b, Re1, Re2, Delta)-m_flow_small else
       -m_flow_small;
-
     if m_flow>=m_flow_a then
       // Positive flow outside regularization
       DP := Internal.dp_fric_of_m_flow(IN_con, IN_var, m_flow, Re1, Re2, Delta) + dp_grav_a;

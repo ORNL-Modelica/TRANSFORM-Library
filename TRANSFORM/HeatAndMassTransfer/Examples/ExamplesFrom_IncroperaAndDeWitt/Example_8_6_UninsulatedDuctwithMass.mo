@@ -3,7 +3,6 @@ model Example_8_6_UninsulatedDuctwithMass
   "Example 8.6 Uninsulated Duct pp. 516-518"
   import TRANSFORM;
   extends Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.HMTransfer_2D pipe(
     redeclare model Geometry =
         TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
@@ -67,7 +66,6 @@ model Example_8_6_UninsulatedDuctwithMass
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-24})));
-
   Modelica.Blocks.Sources.IntegerConstant nNodes_2(k=10)
     annotation (Placement(transformation(extent={{-12,84},{-4,92}})));
   Modelica.Blocks.Sources.Constant Tout(k=

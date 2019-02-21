@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.FittingsAndResistances.Examples;
 model GasKineticTheoryTest
   extends TRANSFORM.Icons.Example;
-
   GasKineticTheory        resistance(redeclare package Medium =
         Modelica.Media.Water.StandardWater, surfaceArea=1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

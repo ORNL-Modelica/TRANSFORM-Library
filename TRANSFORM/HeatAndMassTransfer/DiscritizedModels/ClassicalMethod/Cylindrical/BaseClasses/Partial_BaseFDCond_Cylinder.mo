@@ -1,20 +1,17 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.BaseClasses;
 partial model Partial_BaseFDCond_Cylinder
   import SI = Modelica.SIunits;
-
   /* General */
   replaceable package Material =
       TRANSFORM.Media.Solids.SS316                     constrainedby
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Specify material type"
     annotation(choicesAllMatching=true);
-
   parameter Boolean use_q_ppp = false
     "Toggle volumetric heat generation interface"
    annotation(Evaluate=true,choices(checkBox=true));
   parameter Integer nR(min=2) = 2 "Nodes in radial direction";
   parameter Integer nZ(min=2) = 2 "Nodes in axial direction";
-
   input SI.Length r_inner(min=0) = 0 "Centerline/Inner radius of cylinder or specify rs"
   annotation(Dialog(group="Inputs"));
   input SI.Length r_outer "Outer radius of cylinder or specify rs"
@@ -30,11 +27,9 @@ partial model Partial_BaseFDCond_Cylinder
       0,
       length,
       nZ) "Define axial nodal positions" annotation (Dialog(group="Inputs"));
-
   /* Assumptions */
   parameter Modelica.Fluid.Types.Dynamics energyDynamics = Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balances" annotation(Dialog(tab="Advanced",group="Dynamics"));
-
   /* Initialization */
   parameter SI.Temperature Tref = 273.15 "Center nodes initial temperature"
    annotation(Dialog(tab="Initialization"));
@@ -43,7 +38,6 @@ partial model Partial_BaseFDCond_Cylinder
             nR,
             nZ)
           annotation (Dialog(tab="Initialization"));
-
   Modelica.Blocks.Interfaces.RealInput[nR,nZ] q_ppp_input(unit="W/m3") if
     use_q_ppp "Volumetric heat generation" annotation (Placement(transformation(
           extent={{-130,45},{-100,75}}), iconTransformation(
@@ -77,7 +71,6 @@ partial model Partial_BaseFDCond_Cylinder
           Ts_start[:, end])) "Heat interface on top boundary" annotation (
      Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-20,56},{20,66}})));
-
 equation
   assert(r_outer > r_inner, "r_inner must be greater than r_outer");
   assert(abs(rs[1] - r_inner) < Modelica.Constants.eps, "r_inner and r[1] must be equal");
@@ -88,5 +81,4 @@ equation
   assert(zs[1] >= 0, "cylinder length z[1] must be >= 0");
   assert(zs[end] <= length, "cylinder length z[1] must be >= 0");
   //assert((length-abs(z[end]-z[1]))/length < 1e-3, "length of cylinder must be equal to length of z");
-
 end Partial_BaseFDCond_Cylinder;

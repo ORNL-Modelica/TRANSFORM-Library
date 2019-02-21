@@ -3,7 +3,6 @@ model DumpTank_Test
    replaceable package Medium = Modelica.Media.Water.StandardWater (extraPropertiesNames={"CO2"},
          C_nominal={1.519E-1});
   extends TRANSFORM.Icons.Example;
-
   BoundaryConditions.MassFlowSource_h source(
     h=1e5,
     m_flow=100,

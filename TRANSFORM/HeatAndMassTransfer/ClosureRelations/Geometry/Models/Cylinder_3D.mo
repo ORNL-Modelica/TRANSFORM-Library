@@ -1,30 +1,23 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Cylinder_3D
-
   extends
     TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_3D(
       final ns={nR,nTheta,nZ}, final figure=2);
-
   parameter Integer nR(min=1) = 1 "Number of nodes in r-direction";
   parameter Integer nTheta(min=1) = 1 "Number of nodes in theta-direction";
   parameter Integer nZ(min=1) = 1 "Number of nodes in z-direction";
-
   input SI.Length r_inner = 0 "Specify inner radius or dthetas in r-dimension and r_outer" annotation(Dialog(group="Inputs"));
   input SI.Length r_outer = 1 "Specify outer radius or dthetas in r-dimension" annotation(Dialog(group="Inputs"));
   input SI.Angle angle_theta(min=0,max=2*Modelica.Constants.pi) = 2*Modelica.Constants.pi "Specify overall angle or dthetas in theta-dimension" annotation(Dialog(group="Inputs"));
   input SI.Length length_z = 1 "Specify overall length or dzs in z-dimension" annotation(Dialog(group="Inputs"));
-
   input SI.Length drs[nR,nTheta,nZ](min=0) = fill((r_outer-r_inner)/nR,nR,nTheta,nZ) "Unit volume lengths of r-dimension" annotation(Dialog(group="Inputs"));
   input SI.Angle dthetas[nR,nTheta,nZ](min=0) = fill(angle_theta/nTheta,nR,nTheta,nZ)  "Unit volume lengths of theta-dimension" annotation(Dialog(group="Inputs"));
   input SI.Length dzs[nR,nTheta,nZ](min=0) = fill((length_z)/nZ,nR,nTheta,nZ) "Unit volume lengths of z-dimension" annotation(Dialog(group="Inputs"));
-
   SI.Length rs[nR,nTheta,nZ] "Position in r-dimension";
   SI.Angle thetas[nR,nTheta,nZ] "Position in theta-dimension";
   SI.Length zs[nR,nTheta,nZ] "Position in z-dimension";
-
 initial equation
   closedDim_1 = fill(false,nTheta,nZ);
-
   for i in 1:nR loop
     for j in 1:nZ loop
       if abs(sum(dthetas[i, :, j]) - 2*Modelica.Constants.pi) < Modelica.Constants.eps then
@@ -34,9 +27,7 @@ initial equation
       end if;
     end for;
   end for;
-
   closedDim_3 = fill(false,nR,nTheta);
-
 algorithm
   for j in 1:nTheta loop
     for k in 1:nZ loop
@@ -46,7 +37,6 @@ algorithm
       end for;
     end for;
   end for;
-
   for i in 1:nR loop
     for k in 1:nZ loop
       thetas[i, 1, k] := 0.5*dthetas[i, 1, k];
@@ -55,7 +45,6 @@ algorithm
       end for;
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nTheta loop
       zs[i, j, 1] :=0.5*dzs[i, j, 1];
@@ -64,7 +53,6 @@ algorithm
       end for;
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nTheta loop
       for k in 1:nZ loop
@@ -75,7 +63,6 @@ algorithm
       end for;
     end for;
   end for;
-
   for j in 1:nTheta loop
     for k in 1:nZ loop
       for i in 1:nR loop
@@ -90,7 +77,6 @@ algorithm
           *dzs[nR, j, k];
     end for;
   end for;
-
   for i in 1:nR loop
     for k in 1:nZ loop
       for j in 1:nTheta loop
@@ -99,7 +85,6 @@ algorithm
       crossAreas_2[i,nTheta+1,k] :=drs[i, nTheta, k]*dzs[i, nTheta, k];
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nTheta loop
       for k in 1:nZ loop
@@ -112,7 +97,6 @@ algorithm
         *dthetas[i, j, nZ];
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nTheta loop
       for k in 1:nZ loop
@@ -122,7 +106,6 @@ algorithm
       end for;
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nTheta loop
       for k in 1:nZ loop
@@ -132,7 +115,6 @@ algorithm
       end for;
     end for;
   end for;
-
   annotation (
     defaultComponentName="geometry",
     Icon(coordinateSystem(preserveAspectRatio=false)),

@@ -2,18 +2,13 @@ within TRANSFORM.Fluid.BoundaryConditions.BaseClasses;
 partial model PartialFlowSource
     "Partial component source with one fluid connector"
   import Modelica.Constants;
-
     extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
-
   parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
-
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium
       "Medium model within the source"
      annotation (choicesAllMatching=true);
-
   Medium.BaseProperties medium "Medium in the source";
-
   Modelica.Fluid.Interfaces.FluidPort_b ports[nPorts](redeclare each package
       Medium = Medium, m_flow(each max=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Leaving
            then 0 else +Constants.inf, each min=if flowDirection == Modelica.Fluid.Types.PortFlowDirection.Entering
@@ -35,7 +30,6 @@ of the modeller. Increase nPorts to add an additional port.
      ports[i].h_outflow  = medium.h;
      ports[i].Xi_outflow = medium.Xi;
   end for;
-
   annotation (defaultComponentName="boundary", Documentation(info="<html>
 <p>
 Partial component to model the <b>volume interface</b> of a <b>source</b>

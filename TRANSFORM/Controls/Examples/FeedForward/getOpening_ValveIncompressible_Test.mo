@@ -2,9 +2,7 @@ within TRANSFORM.Controls.Examples.FeedForward;
 model getOpening_ValveIncompressible_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   package Medium = Modelica.Media.Water.StandardWater;
-
   Modelica.Fluid.Sources.Boundary_pT
     pressureBoundary_h(
     use_p_in=true,
@@ -64,7 +62,6 @@ equation
                 color={0,0,127}));
   connect(const.y, add.u2) annotation (Line(points={{-79,40},{-72,40},{-72,52}},
                     color={0,0,127}));
-
   connect(add.y, pressureBoundary_h.p_in) annotation (Line(points={{-49,58},{
           -40,58},{-40,20},{-80,20},{-80,8},{-62,8}}, color={0,0,127}));
   connect(pressureBoundary_h.ports[1], valve.port_a)

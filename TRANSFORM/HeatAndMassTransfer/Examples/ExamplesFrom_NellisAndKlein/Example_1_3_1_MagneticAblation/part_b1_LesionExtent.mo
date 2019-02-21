@@ -3,11 +3,9 @@ model part_b1_LesionExtent
   "Part b) Locate the location where the tissue first reaches the lethal temperature"
   import TRANSFORM;
   extends Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow Adiabatic(
       Q_flow=0) "Adiabatic boundary condition at sphere center"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
   DiscritizedModels.Conduction_1D thermoseed(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
@@ -64,7 +62,6 @@ model part_b1_LesionExtent
         {Tissue_infinite.port.T})))
     "X - Axial Location (mm) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{-26,-82},{28,-28}})));
-
   Modelica.Blocks.Sources.Constant Q_gen_ts(each k=1)
     annotation (Placement(transformation(extent={{-100,34},{-92,42}})));
   Modelica.Blocks.Sources.Constant T_lethal(k=323.15)
@@ -80,7 +77,6 @@ model part_b1_LesionExtent
     annotation (Placement(transformation(extent={{-34,48},{-18,60}})));
   Utilities.Visualizers.displayReal display1(use_port=true)
     annotation (Placement(transformation(extent={{-10,44},{10,64}})));
-
   Modelica.Blocks.Sources.RealExpression node(y=Modelica.Math.Vectors.find(
           T_lethal.y,
           tissue.materials.T,
@@ -89,7 +85,6 @@ model part_b1_LesionExtent
   Utilities.Visualizers.displayReal display2(
                                             use_port=true)
     annotation (Placement(transformation(extent={{-10,72},{10,92}})));
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature
     Tissue_infinite(T=310.15)
     annotation (Placement(transformation(extent={{70,-10},{50,10}})));
@@ -97,7 +92,6 @@ model part_b1_LesionExtent
         thermoseed.materials[3].T,tissue.materials[2].T})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(r_lesion.y, display.u)
     annotation (Line(points={{-17.2,68},{-11.5,68}}, color={0,0,127}));
   connect(T_max.y, display1.u)

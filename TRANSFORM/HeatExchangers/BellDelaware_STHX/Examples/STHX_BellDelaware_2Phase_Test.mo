@@ -1,7 +1,6 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX.Examples;
 model STHX_BellDelaware_2Phase_Test
   extends TRANSFORM.Icons.Example;
-
   Modelica.Fluid.Sources.MassFlowSource_T shell_inlet(
     m_flow=20/60^2*983,
     nPorts=1,
@@ -14,7 +13,6 @@ model STHX_BellDelaware_2Phase_Test
     p(displayUnit="bar") = 2000000,
     T(displayUnit="degC") = 413.15)
     annotation (Placement(transformation(extent={{-45,-65},{-35,-55}})));
-
   Modelica.Fluid.Sources.MassFlowSource_T tube_inlet(
     nPorts=1,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
@@ -27,7 +25,6 @@ model STHX_BellDelaware_2Phase_Test
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     T(displayUnit="degC") = 383.15)
               annotation (Placement(transformation(extent={{45,55},{35,65}})));
-
   inner Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
   TRANSFORM.Fluid.Sensors.BaseClasses.stateSensor sensor_shell_inlet(redeclare
@@ -54,7 +51,6 @@ model STHX_BellDelaware_2Phase_Test
         extent={{-6.5,-5.5},{6.5,5.5}},
         rotation=90,
         origin={2.5,39.5})));
-
   TRANSFORM.Fluid.Sensors.BaseClasses.stateDisplay stateDisplay_tOutlet
     annotation (Placement(transformation(extent={{20,34},{58,62}})));
   TRANSFORM.Fluid.Sensors.BaseClasses.stateDisplay stateDisplay_tInlet

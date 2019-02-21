@@ -1,9 +1,7 @@
 within TRANSFORM.Examples.MoltenSaltReactor.Components;
 model BOP3
-
   replaceable package Medium_BOP = Modelica.Media.Water.StandardWater constrainedby
     Modelica.Media.Interfaces.PartialMedium;
-
   Data.data_SHX data_SHX
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   Fluid.Volumes.MixingVolume steamMixer(
@@ -15,7 +13,6 @@ model BOP3
     T_start=data_SHX.T_outlet_tube,
     nPorts_a=1)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-
   Data.data_BOP data_BOP
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Fluid.Volumes.IdealCondenser condenser1(
@@ -51,7 +48,6 @@ model BOP3
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1),
     nPorts_b=1)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-
   Fluid.Machines.SteamTurbine steamTurbine_LP(
     redeclare package Medium = Medium_BOP,
     T_a_start=data_SHX.T_outlet_tube,

@@ -1,15 +1,12 @@
 within TRANSFORM.Media.Interfaces.Solids;
 partial package PartialSimpleAlloy "Material properties based on tables"
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialAlloy(Temperature(min=T_min,
         max=T_max),T_density=0.5*(T_min+T_max));
-
   // Constants to be set in actual Medium
   constant Modelica.SIunits.Temperature T_min
     "Minimum temperature valid for medium model";
   constant Modelica.SIunits.Temperature T_max
     "Maximum temperature valid for medium model";
-
   constant SI.MolarMass MM_const=0.1 "Molar mass";
 
   redeclare record extends ThermodynamicState "Thermodynamic state"
@@ -19,19 +16,15 @@ partial package PartialSimpleAlloy "Material properties based on tables"
   redeclare model extends BaseProperties(T(stateSelect=if preferredMediumStates
            then StateSelect.prefer else StateSelect.default))
     "Base properties of T dependent medium"
-
   equation
     assert(T >= T_min and T <= T_max, "Temperature T (= " + String(T) +
       " K) is not in the allowed range (" + String(T_min) + " K <= T <= " +
       String(T_max) + " K) required from medium model \"" + mediumName + "\".");
-
     state.T = T;
-
     d = density(state);
     h = specificEnthalpy(state);
     u = h;
     MM = MM_const;
-
   end BaseProperties;
 
   redeclare function extends setState_T

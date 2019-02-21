@@ -6,7 +6,6 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
         TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC
       constrainedby
       TRANSFORM.Units.Conversions.Functions.Temperature_K.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput T(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -19,7 +18,6 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,36})));
-
 protected
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
   Medium.Temperature T_b_inflow

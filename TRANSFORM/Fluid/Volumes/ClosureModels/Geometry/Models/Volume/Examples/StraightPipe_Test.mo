@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples;
 model StraightPipe_Test
   extends Icons.Example;
-
   extends
     TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
     dimensions_Exp=0.3,
@@ -19,14 +18,12 @@ model StraightPipe_Test
       nParallel=nParallel,
       nNodes=nNodes,
       height_a=height_a));
-
   constant Real nParallel=6;
   constant Integer nNodes=5;
   constant SI.Length length=9;
   constant SI.Length dimension=0.3;
   constant SI.Height dheight=sin(pi/4)*length;
   constant SI.Height height_a=2;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end StraightPipe_Test;

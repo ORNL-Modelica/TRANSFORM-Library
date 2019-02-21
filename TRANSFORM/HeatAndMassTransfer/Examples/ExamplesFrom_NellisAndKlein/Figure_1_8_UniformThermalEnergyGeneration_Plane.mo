@@ -14,7 +14,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
         {T_C.T}),
     name="Figure_1_8_UniformThermalEnergyGeneration")
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_H(T=
         353.15)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -35,7 +34,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_1_d_7990_cp_500)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=10)
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   UserInteraction.Outputs.SpatialPlot TemperaturePlot(
@@ -53,7 +51,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
         wall.materials.T,
         {T_C.T}))) "X - Axial Location (cm) | T - Temperature (°C)"
     annotation (Placement(transformation(extent={{64,-14},{98,18}})));
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_H1(T=
         353.15)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
@@ -76,7 +73,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
         DiscritizedModels.BaseClasses.Dimensions_1.VolumetricHeatGeneration (
           q_ppp=2e6))
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_H2(T=
         353.15)
     annotation (Placement(transformation(extent={{-60,-70},{-40,-50}})));
@@ -98,7 +94,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
         DiscritizedModels.BaseClasses.Dimensions_1.VolumetricHeatGeneration (
           q_ppp=1e7))
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-
   UserInteraction.Outputs.SpatialPlot TemperaturePlot1(
     minY=20,
     maxY=180,
@@ -129,7 +124,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
         wall2.materials.T,
         {T_C2.T}))) "X - Axial Location (cm) | T - Temperature (°C)"
     annotation (Placement(transformation(extent={{64,-76},{98,-44}})));
-
   Modelica.Blocks.Sources.RealExpression deltaT_max(y=(L.y^2*sum(0)/
         nNodes_1.k/(4*1))) "Sanity check for order of magnitude expected"
     annotation (Placement(transformation(extent={{-70,-5},{-90,15}})));
@@ -146,7 +140,6 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
   Utilities.Visualizers.displayReal display2(use_port=true)
     annotation (Placement(transformation(extent={{-90,-75},{-70,-55}})));
 equation
-
   connect(deltaT_max.y, display.u) annotation (Line(points={{-91,5},{-96,5},{-96,
           -5},{-91.5,-5}}, color={0,0,127}));
   connect(deltaT_max1.y, display1.u) annotation (Line(points={{-91,-25},{-96,-25},

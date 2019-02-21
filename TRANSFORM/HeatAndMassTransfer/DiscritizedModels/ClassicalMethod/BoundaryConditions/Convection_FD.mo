@@ -1,14 +1,11 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions;
 model Convection_FD
   "Convection boundary condition for finite difference between port_a and port_b"
-
 parameter Integer nNodes(min=2) "# of nodal points";
 parameter Modelica.SIunits.CoefficientOfHeatTransfer[nNodes] alphas
     "Convection heat transfer coefficient";
-
 input Modelica.SIunits.Area[nNodes] Areas = linspace(0,1,nNodes)
     "Nodal heat transfer area" annotation(Dialog(group="Inputs"));
-
 Modelica.Fluid.Interfaces.HeatPorts_a[nNodes] port_a annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -25,14 +22,12 @@ Modelica.Fluid.Interfaces.HeatPorts_b[nNodes] port_b annotation (Placement(
         extent={{-40,-10},{40,10}},
         rotation=-90,
         origin={110,0})));
-
 equation
   for i in 1:nNodes loop
     port_a[i].Q_flow + port_b[i].Q_flow = 0 "Conservation of energy";
     port_a[i].Q_flow = alphas[i]*Areas[i]*(port_a[i].T-port_b[i].T)
       "Heat transfer equation";
   end for;
-
   annotation (defaultComponentName="convection",
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={

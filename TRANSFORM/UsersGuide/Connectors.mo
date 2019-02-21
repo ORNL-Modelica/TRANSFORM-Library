@@ -1,7 +1,6 @@
 within TRANSFORM.UsersGuide;
 model Connectors
   extends Modelica.Icons.Information;
-
   annotation (Documentation(info="<html>
 <p>For connectors which contain both flow and non-flow components, the TRANSFORM library adopts a default GUI structure to help guide the user on what, generally, should and should not be connected.</p>
 <p>The table below presents examples of flow, non-flow, and stream variables. Typically, flow variables contain the suffix of &quot;_flow&quot; as an identifier.</p>

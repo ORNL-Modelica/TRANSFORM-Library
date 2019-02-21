@@ -3,24 +3,19 @@ model Cylinder_NodeCentered_2O_vs_Analytic_2Dradial
   "Cylindrical node centered 2O component vs the 2D radial analytic solution"
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   Utilities.ErrorAnalysis.Errors_AbsRelRMSold summary_Error(
     n=nRadial,
     x_1=cylinder.solutionMethod.Ts[:, 2],
     x_2=T_analytic)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-
   parameter Integer nRadial = 50 "Radial nodes";
   parameter TRANSFORM.Units.VolumetricHeatGenerationRate q_ppp=1e6
     "Volumetric heat generation";
   parameter SI.Length r_o = 1 "Outer radius of cylinder";
   parameter SI.Temperature T_surface = 373.15 "Surface temperature";
-
   package Material = TRANSFORM.Media.Solids.SS316 "Material properties";
-
   SI.Temperature[nRadial] T_analytic "Analytic Temperature";
   SI.Length[nRadial] r = linspace(0,r_o,nRadial) "Radial position";
-
   Cylinder_FD cylinder(
     use_q_ppp=true,
     redeclare model SolutionMethod_FD =
@@ -31,14 +26,11 @@ model Cylinder_NodeCentered_2O_vs_Analytic_2Dradial
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare package Material = Material,
     length=1) annotation (Placement(transformation(extent={{-40,-56},{40,34}})));
-
   BoundaryConditions.Adiabatic_FD adiabatic_bottom(nNodes=cylinder.nR)
     annotation (Placement(transformation(extent={{-26,-80},{-6,-60}})));
-
   Modelica.Blocks.Sources.Constant const[cylinder.nR,cylinder.nZ](k=q_ppp*ones(
         cylinder.nR, cylinder.nZ))
     annotation (Placement(transformation(extent={{-62,20},{-42,40}})));
-
   BoundaryConditions.Adiabatic_FD adiabatic_centerline(nNodes=cylinder.nZ)
     annotation (Placement(transformation(extent={{-68,-20},{-48,0}})));
   BoundaryConditions.Adiabatic_FD adiabatic_top(nNodes=cylinder.nR)
@@ -46,15 +38,12 @@ model Cylinder_NodeCentered_2O_vs_Analytic_2Dradial
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature[
     cylinder.nZ](each T=T_surface)
     annotation (Placement(transformation(extent={{70,-20},{50,0}})));
-
 equation
-
   for i in 1:nRadial loop
     T_analytic[i] =q_ppp*r_o^2/(4*
       TRANSFORM.Media.Solids.SS316.thermalConductivity_T(T=T_analytic[i]))*(1
        - r[i]^2/r_o^2) + T_surface;
   end for;
-
   connect(adiabatic_bottom.port, cylinder.heatPorts_bottom)
     annotation (Line(points={{-6,-70},{0,-70},{0,-37.55}}, color={191,0,0}));
   connect(const.y, cylinder.q_ppp_input)

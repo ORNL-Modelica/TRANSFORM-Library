@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.CentralCross;
 function dp_MFLOW_staticHead "calculate mass flow rate  with static head"
   extends Modelica.Icons.Function;
-
   //input records
   input
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.CentralCross.dp_IN_con
@@ -17,10 +16,8 @@ function dp_MFLOW_staticHead "calculate mass flow rate  with static head"
     "Regularization of zero flow if |dp| < dp_small (dummy if use_dp_small = false)";
   input Real g_times_height_ab
     "Gravity times (Height(port_b) - Height(port_a))";
-
   //Outputs
   output SI.MassFlowRate M_FLOW "Output of function dp_overall_MFLOW";
-
 protected
   SI.Pressure dp_a
     "Upper end of regularization domain of the m_flow(dp) relation";
@@ -28,26 +25,21 @@ protected
     "Lower end of regularization domain of the m_flow(dp) relation";
   SI.MassFlowRate m_flow_a "Value at upper end of regularization domain";
   SI.MassFlowRate m_flow_b "Value at lower end of regularization domain";
-
   SI.MassFlowRate dm_flow_ddp_fric_a
     "Derivative at upper end of regularization domain";
   SI.MassFlowRate dm_flow_ddp_fric_b
     "Derivative at lower end of regularization domain";
-
   SI.Pressure dp_grav_a=g_times_height_ab*IN_var.rho_a
     "Static head if mass flows in design direction (a to b)";
   SI.Pressure dp_grav_b=g_times_height_ab*IN_var.rho_b
     "Static head if mass flows against design direction (b to a)";
-
   // Properly define zero mass flow conditions
   SI.MassFlowRate m_flow_zero=0;
   SI.Pressure dp_zero=(dp_grav_a + dp_grav_b)/2;
   Real dm_flow_ddp_fric_zero;
-
 algorithm
   dp_a := max(dp_grav_a, dp_grav_b)+dp_small;
   dp_b := min(dp_grav_a, dp_grav_b)-dp_small;
-
   if dp>=dp_a then
     // Positive flow outside regularization
     M_FLOW := Internal.m_flow_of_dp_fric(IN_con, IN_var, dp-dp_grav_a);

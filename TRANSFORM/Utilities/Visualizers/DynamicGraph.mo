@@ -1,11 +1,9 @@
 within TRANSFORM.Utilities.Visualizers;
 model DynamicGraph "Dynamic graphical display of one variable"
-
   parameter Boolean use_port=false "=true to use input port"
     annotation (choices(checkBox=true));
   input Real y_var=0 "Input variable for plotting"
     annotation (Dialog(enable=not use_port));
-
   parameter String y_name="VariableName" "y-axis label name"
     annotation (Dialog(group="Layout"));
   parameter String Unit="[-]" "y-axis unit for label"
@@ -17,7 +15,6 @@ model DynamicGraph "Dynamic graphical display of one variable"
       choice={0,0,255} "Blue",
       choice={50,205,50} "Green",
       choice={255,255,255} "White"));
-
   parameter Real y_min=0 "Minimum value of the y-axis"
     annotation (Dialog(group="Scaling"));
   parameter Real y_max(min=y_min + Modelica.Constants.eps) = 1
@@ -29,15 +26,12 @@ model DynamicGraph "Dynamic graphical display of one variable"
     annotation (Dialog(group="Scaling"));
   parameter SI.Time dt(min=Modelica.Constants.eps) = (t_end - t_start)/100
     "Time interval for plot" annotation (Dialog(group="Scaling"));
-
   parameter SI.Time tau=0.01
     "Stabilizing time constant, = 0 then no stabilization"
     annotation (Dialog(group="Numerics"));
-
   Modelica.Blocks.Interfaces.RealInput u(value=u_aux) if use_port
     "Input signal" annotation (Placement(transformation(extent={{-70,30},{-30,70}}),
         iconTransformation(extent={{-42,44},{-30,56}})));
-
 protected
   final parameter Integer nPoints=integer((t_end - t_start)/dt + 1)
     "Number of points";
@@ -49,27 +43,21 @@ protected
   Real f "Horizontal position of the cover-rectangle" annotation (Hide=false);
   Real u_int "Value to be displayed";
   Real u_aux "Auxilliary variable";
-
 initial equation
   if tau > 0 then
     u_int = u_aux;
   end if;
-
 equation
-
   assert(y_max > y_min, "Error: y_max must be greater than y_min.");
   assert(t_end > t_start, "Error: t_end must be greater than t_start");
-
   if not use_port then
     u_aux = y_var;
   end if;
-
   if tau > 0 then
     der(u_int) =(u_aux - u_int)/tau;
   else
     u_int = u_aux;
   end if;
-
   for i in 1:nPoints loop
     when time < (i)*dt + t_start and time >= (i - 1)*dt + t_start and sample(
         t_start, dt) then
@@ -78,10 +66,8 @@ equation
          else (1 - (y_max - u_int)/(y_max - y_min))*100;
     end when;
   end for;
-
   f = if time <= t_start then 0 else if time >= (t_end - t_start) + t_start
      then 100 else (time - dt - t_start)*100/(t_end - t_start);
-
   annotation (
     defaultComponentName="graph",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-30,-10},{110,120}}),

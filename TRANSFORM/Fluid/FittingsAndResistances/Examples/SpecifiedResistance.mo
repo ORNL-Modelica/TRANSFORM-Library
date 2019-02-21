@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.FittingsAndResistances.Examples;
 model SpecifiedResistance
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance from_dp(redeclare
       package Medium = Modelica.Media.Air.DryAirNasa, R=R.y)
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));

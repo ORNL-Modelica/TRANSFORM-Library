@@ -2,22 +2,18 @@ within TRANSFORM.Nuclear.CoreSubchannels;
 model Regions_1
   "0-D point kinetics fuel channel model with one solid media regions"
   import TRANSFORM;
-
   import TRANSFORM.Math.linspace_1D;
   import TRANSFORM.Math.linspaceRepeat_1D;
   import Modelica.Fluid.Types.ModelStructure;
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
-
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
-
   parameter Real nParallel=1 "Number of identical parallel coolant channels";
-
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Coolant medium" annotation (choicesAllMatching=true);
   replaceable package Material_1 =
@@ -26,29 +22,24 @@ model Regions_1
   replaceable package Material_2 =
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy
       annotation (choicesAllMatching=true);
-
   replaceable model Geometry =
       ClosureRelations.Geometry.Models.CoreSubchannels.Generic
     constrainedby ClosureRelations.Geometry.Models.CoreSubchannels.Generic
     "Geometry" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-
   Geometry geometry(final nRegions=1)
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
-
   replaceable model FlowModel =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
     "Coolant flow models (i.e., momentum, pressure loss, wall friction)"
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
-
   replaceable model HeatTransfer =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.PartialHeatTransfer_setT
     "Coolant coefficient of heat transfer" annotation (choicesAllMatching=true,
       Dialog(group="Heat Transfer"));
-
   /* Kinetics */
   parameter SI.Power Q_nominal=1e6
     "Total nominal reactor power (fission + decay)";
@@ -98,7 +89,6 @@ model Regions_1
       j]/kinetics.lambdas_dh_start[j] for j in 1:kinetics.nDH}
     "Initial decay heat group energy"
     annotation (Dialog(tab="Kinetics", group="Decay-Heat"));
-
   parameter Units.ExtraPropertyExtrinsic mCs_fp_start[kinetics.nFP]=
       TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_FissionProducts(
       kinetics.fissionProducts.nC,
@@ -117,7 +107,6 @@ model Regions_1
       kinetics.fissionProducts.V_start)
     "Number of fission product atoms per group"
     annotation (Dialog(tab="Kinetics", group="Fission Products"));
-
 //   parameter Units.ExtraPropertyExtrinsic mCs_fp_start[kinetics.nFP]=fill(
 //       0,
 //       kinetics.nFP) "Number of fission product atoms per group" annotation (Dialog(tab="Kinetics",group="Fission Products"));
@@ -132,7 +121,6 @@ model Regions_1
     "Change in decay constant" annotation(Dialog(tab="Parameter Change",group="Input: Decay-Heat"));
   input Units.NonDim defs_dh[kinetics.nDH]=fill(0, kinetics.nDH)
     "Change in effective energy fraction" annotation(Dialog(tab="Parameter Change",group="Input: Decay-Heat"));
-
   parameter Units.TempFeedbackCoeff alpha_fuel=-2.5e-5
     "Doppler feedback coefficient"
     annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
@@ -143,7 +131,6 @@ model Regions_1
                                  annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
   parameter SI.Temperature Teffref_coolant "Coolant reference temperature"
                                     annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
-
   parameter Units.NonDim fissionSources_start[kinetics.nFS]=fill(1/kinetics.nFS,
       kinetics.nFS) "Source of fissile material fractional composition (sum=1)" annotation(Dialog(tab="Kinetics",group="Fission Products"));
   parameter Units.NonDim fissionTypes_start[kinetics.nFS,kinetics.nT]=fill(
@@ -176,17 +163,14 @@ model Regions_1
     "Change in # fission product atoms yielded per fission per fissile source [#/fission]" annotation(Dialog(tab="Parameter Change",group="Input: Fission Products"));
   input Units.InverseTime dlambdas_FP[kinetics.nFP]=fill(0, kinetics.nFP)
     "Change in decay constants for each fission product" annotation(Dialog(tab="Parameter Change",group="Input: Fission Products"));
-
   // Fuel Initialization
   parameter SI.Temperature T_start_1=Material_1.T_default "Fuel temperature"
     annotation (Dialog(tab="Fuel Element Initialization",group="Reference Temperatures for Start Values"));
-
   parameter SI.Temperature Ts_start_1[geometry.nRs[1],geometry.nV]=fill(
       T_start_1,
       geometry.nRs[1],
       geometry.nV) "Fuel temperatures"     annotation (Dialog(tab="Fuel Element Initialization",
         group="Start Value: Temperature"));
-
       // Coolant Initialization
   parameter SI.AbsolutePressure[geometry.nV] ps_start=linspace_1D(
       p_a_start,
@@ -197,7 +181,6 @@ model Regions_1
     "Pressure at port a" annotation (Dialog(tab="Coolant Initialization", group="Start Value: Absolute Pressure"));
   parameter SI.AbsolutePressure p_b_start=p_a_start + (if m_flow_a_start > 0 then -1e3 elseif m_flow_a_start < 0 then -1e3 else 0)
     "Pressure at port b" annotation (Dialog(tab="Coolant Initialization", group="Start Value: Absolute Pressure"));
-
   parameter Boolean use_Ts_start=true
     "Use T_start if true, otherwise h_start" annotation (Evaluate=true, Dialog(
         tab="Coolant Initialization", group="Start Value: Temperature"));
@@ -218,7 +201,6 @@ model Regions_1
       tab="Coolant Initialization",
       group="Start Value: Temperature",
       enable=use_Ts_start));
-
   parameter SI.SpecificEnthalpy[geometry.nV] hs_start=if not
       use_Ts_start then linspace_1D(
       h_a_start,
@@ -245,7 +227,6 @@ model Regions_1
       tab="Coolant Initialization",
       group="Start Value: Specific Enthalpy",
       enable=not use_Ts_start));
-
   parameter SI.MassFraction Xs_start[geometry.nV,Medium.nX]=
       linspaceRepeat_1D(
       X_a_start,
@@ -260,7 +241,6 @@ model Regions_1
   parameter SI.MassFraction X_b_start[Medium.nX]=X_a_start
     "Mass fraction at port b" annotation (Dialog(tab="Coolant Initialization",
         group="Start Value: Species Mass Fraction"));
-
   parameter SI.MassFraction Cs_start[geometry.nV,Medium.nC]=
       linspaceRepeat_1D(
       C_a_start,
@@ -275,7 +255,6 @@ model Regions_1
   parameter SI.MassFraction C_b_start[Medium.nC]=C_a_start
     "Mass fraction at port b" annotation (Dialog(tab="Coolant Initialization",
         group="Start Value: Trace Substances Mass Fraction"));
-
   parameter SI.MassFlowRate[geometry.nV + 1] m_flows_start=linspace(
       m_flow_a_start,
       -m_flow_b_start,
@@ -286,7 +265,6 @@ model Regions_1
   parameter SI.MassFlowRate m_flow_b_start=-m_flow_a_start
     "Mass flow rate at port_b" annotation (Dialog(tab="Coolant Initialization",
         group="Start Value: Mass Flow Rate"));
-
   // Advanced
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances {coolant}"
@@ -302,7 +280,6 @@ model Regions_1
     annotation (Dialog(tab="Advanced", group="Dynamics"));
   parameter Dynamics momentumDynamics=Dynamics.SteadyState "Formulation of momentum balances {coolant}"
     annotation (Dialog(tab="Advanced", group="Dynamics"));
-
   parameter Dynamics kineticDynamics=energyDynamics_fuel
     "Formulation of nuclear kinetics balances" annotation (Dialog(tab="Advanced", group="Dynamics: Kinetics"));
   parameter Dynamics precursorDynamics=kineticDynamics
@@ -311,7 +288,6 @@ model Regions_1
     "Formulation of decay-heat balances" annotation (Dialog(tab="Advanced", group="Dynamics: Kinetics"));
   parameter Dynamics fissionProductDynamics=kineticDynamics
     "Formulation of fission product balances" annotation (Dialog(tab="Advanced", group="Dynamics: Kinetics"));
-
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Advanced", group="Coolant"));
@@ -333,17 +309,13 @@ model Regions_1
   parameter Boolean useInnerPortProperties=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Coolant"), Evaluate=true);
-
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
-
   Real SF_mC_add[geometry.nV,Medium.nC] = {{coolantSubchannel.mCs[i, j]/sum(coolantSubchannel.mCs[:, j]) for j in 1:Medium.nC} for i in 1:geometry.nV};
-
   Modelica.Blocks.Sources.RealExpression Q_total(y=kinetics.Q_total)
     "Total power (fission+decay heat)"
     annotation (Placement(transformation(extent={{50,26},{34,36}})));
-
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_powerBased kinetics(
     Q_nominal=Q_nominal,
     specifyPower=specifyPower,
@@ -398,7 +370,6 @@ model Regions_1
     Vs_add=coolantSubchannel.geometry.V_total*coolantSubchannel.nParallel,
     toggle_ReactivityFP=toggle_ReactivityFP)
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface
                                        coolantSubchannel(
     use_HeatTransfer=true,
@@ -459,7 +430,6 @@ model Regions_1
         extent={{-15,-13},{15,13}},
         rotation=0,
         origin={0,-14})));
-
   TRANSFORM.Nuclear.FuelModels.Regions_1_FD2DCyl
                                fuelModel(
     energyDynamics=energyDynamics_fuel,
@@ -475,14 +445,12 @@ model Regions_1
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,10})));
-
   Blocks.ShapeFactor shapeFactor(n=geometry.nV, SF_start=SF_start_power)
     annotation (Placement(transformation(extent={{24,26},{14,36}})));
   parameter Boolean toggle_ReactivityFP=true
     "=true to include fission product reacitivity feedback"
     annotation (Dialog(tab="Kinetics", group="Fission Products"));
 equation
-
   connect(port_a, coolantSubchannel.port_a) annotation (Line(points={{-100,0},{-70,
           0},{-40,0},{-40,-14},{-15,-14}}, color={0,127,255}));
   connect(coolantSubchannel.port_b, port_b) annotation (Line(points={{15,-14},{40,

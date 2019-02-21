@@ -1,7 +1,6 @@
 within TRANSFORM.Utilities.Diagnostics.Examples;
 model CheckEquality
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Utilities.Diagnostics.CheckEquality check
     annotation (Placement(transformation(extent={{20,-4},{40,16}})));
   Modelica.Blocks.Sources.Constant con(k=0.1) "Input"
@@ -14,7 +13,6 @@ model CheckEquality
   ErrorAnalysis.UnitTests unitTests(x={check.y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(con.y, check.u1) annotation (Line(points={{-39,26},{-20,26},{-20,
           12},{18,12}}, color={0,0,127}));
   connect(add.u1, con.y) annotation (Line(points={{-22,2},{-30,2},{-30,26},

@@ -1,10 +1,7 @@
 within TRANSFORM.Blocks;
 model SmoothTransition
-
   extends Modelica.Blocks.Interfaces.SI2SO;
-
   parameter Real deltax=1 "Region around x with spline interpolation";
-
   Modelica.Blocks.Interfaces.RealInput x annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=90,
@@ -12,9 +9,7 @@ model SmoothTransition
         rotation=90,
         origin={0,-120})));
 equation
-
   y = Math.spliceTanh(u1, u2, x, deltax);
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(points={{2,28},{2,-20}}, color={192,192,192}),
         Line(points={{-80,58},{-80,-80}}, color={192,192,192}),

@@ -1,10 +1,8 @@
 within TRANSFORM.Examples.Templates.System_Standalone.Examples;
 model Test
   extends TRANSFORM.Icons.Example;
-
   SubSystem_Dummy changeMe
     annotation (Placement(transformation(extent={{-40,-42},{40,38}})));
-
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}})),

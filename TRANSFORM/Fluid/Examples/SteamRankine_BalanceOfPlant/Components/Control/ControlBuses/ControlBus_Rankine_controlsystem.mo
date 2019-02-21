@@ -23,17 +23,14 @@ expandable connector ControlBus_Rankine_controlsystem
  output Real u_FWBlockValve_1 "FeedWater Block Valve 1 input [0-1]" annotation ();
  output Real u_FWBlockValve_2 "FeedWater Block Valve 2 input [0-1]" annotation ();
  output Real u_FWBlockValve_3 "FeedWater Block Valve 3 input [0-1]" annotation ();
-
   // old inputs
  output Real u_valve_HP "Valve input [0-1]" annotation ();
  output Real u_valve_IP "Valve input [0-1]" annotation ();
  output Real u_valve_LP "Valve input [0-1]" annotation ();
-
  output Real u_valve_preheat_HP "Valve input [0-1]" annotation ();
  output Real u_pumpspeed_HP[3] "Pump speed [rpm]" annotation ();
  output Real u_pumpspeed_IP "Pump speed [rpm]" annotation ();
  output Real u_pumpspeed_LP[3] "Pump speed [rpm]" annotation ();
-
   // Outputs
  input Real y_FW_To_FWH_HP_flow "FeedWater flow to high pressure feedwater heaters [kg/s]" annotation ();
  input Real y_FW_To_SG_1_flow "FeedWater flow to SG_1 [kg/s]" annotation ();
@@ -48,7 +45,6 @@ expandable connector ControlBus_Rankine_controlsystem
  input Real y_FWH_LP_level "Low Pressure feedwater heaters condensate level [%]" annotation ();
  input Real y_FWH_LP_flow_in "Low Pressure feedwater heater inlet flow [kg/s]" annotation ();
  input Real y_FWH_LP_flow_out "Low Pressure feedwater heater outlet flow [kg/s]" annotation ();
-
  input Real y_Condenser_level "Condenser condensate level [%]" annotation ();
  input Real y_Condenser_flow_in "Condenser inlet flow [kg/s]" annotation ();
  input Real y_Condenser_flow_out "Condenser outlet flow [kg/s]" annotation ();
@@ -61,7 +57,6 @@ expandable connector ControlBus_Rankine_controlsystem
  input Real y_FWControlValve_1_dp "Differential pressure over control valve FWControlValve_1 [Pa]" annotation ();
  input Real y_FWControlValve_2_dp "Differential pressure over control valve FWControlValve_2 [Pa]" annotation ();
  input Real y_FWControlValve_3_dp "Differential pressure over control valve FWControlValve_3 [Pa]" annotation ();
-
   annotation (Documentation(info="<html>
 <h4>Description</h4>
 <p>Control bus for the Rankine example.</p>

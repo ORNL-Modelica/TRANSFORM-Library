@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Fluids.DOWTHERM;
 package LinearDOWTHERM_A_95C "DOWTHERM A | cp @ 95 C"
-
 // beta_const adjusted till density matched. kappa left alone
 // assumed specific enthalpy at 273.15 is zero
   extends TRANSFORM.Media.Interfaces.Fluids.PartialLinearFluid(
@@ -18,7 +17,6 @@ package LinearDOWTHERM_A_95C "DOWTHERM A | cp @ 95 C"
     T_default=95+273.15);
 
 redeclare function extends dynamicViscosity "Dynamic viscosity"
-
 algorithm
   eta :=Utilities_DOWTHERM_A.eta_T(state.T);
   annotation(Inline=true);

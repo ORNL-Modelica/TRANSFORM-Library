@@ -2,15 +2,12 @@ within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Examples;
 model NSSS_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   SI.SpecificEnthalpy Ts_tube[PHS.steamGenerator.geometry.nV] = PHS.steamGenerator.tube.mediums.T;
   SI.SpecificEnthalpy hs_tube[PHS.steamGenerator.geometry.nV] = PHS.steamGenerator.tube.mediums.h;
   SI.SpecificEnthalpy hs_shell[PHS.steamGenerator.geometry.nV] = PHS.steamGenerator.shell.mediums.h;
-
   TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.NSSS PHS(redeclare
       TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.CS_v2 CS)
     annotation (Placement(transformation(extent={{-40,-42},{40,38}})));
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={PHS.pressurizer.drum2Phase.p,
         PHS.coreSubchannel.kinetics.Q_total})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

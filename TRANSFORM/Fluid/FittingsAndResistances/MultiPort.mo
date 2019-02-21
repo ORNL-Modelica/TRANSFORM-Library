@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.FittingsAndResistances;
 model MultiPort
   "Multiply a port; useful if multiple connections shall be made to a port exposing a state"
-
   function positiveMax
     extends Modelica.Icons.Function;
     input Real x;
@@ -9,28 +8,22 @@ model MultiPort
   algorithm
     y :=max(x, 1e-10);
   end positiveMax;
-
   import Modelica.Constants;
-
   replaceable package Medium=Modelica.Media.Interfaces.PartialMedium annotation(choicesAllMatching);
-
   // Ports
   parameter Integer nPorts_b=0
     "Number of outlet ports (mass is distributed evenly between the outlet ports"
     annotation(Dialog(connectorSizing=true));
-
   Modelica.Fluid.Interfaces.FluidPort_a port_a(
     redeclare package Medium=Medium)
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports_b[nPorts_b](
     redeclare each package Medium=Medium)
     annotation (Placement(transformation(extent={{30,40},{50,-40}})));
-
   Medium.MassFraction ports_b_Xi_inStream[nPorts_b,Medium.nXi]
     "inStream mass fractions at ports_b";
   Medium.ExtraProperty ports_b_C_inStream[nPorts_b,Medium.nC]
     "inStream extra properties at ports_b";
-
 equation
   // Only one connection allowed to a port to avoid unwanted ideal mixing
   for i in 1:nPorts_b loop
@@ -41,11 +34,9 @@ place with these connections, which is usually not the intention
 of the modeller. Increase nPorts_b to add an additional port.
 ");
   end for;
-
   // mass and momentum balance
   0 = port_a.m_flow + sum(ports_b.m_flow);
   ports_b.p = fill(port_a.p, nPorts_b);
-
   // mixing at port_a
   port_a.h_outflow = sum({positiveMax(ports_b[j].m_flow)*inStream(ports_b[j].h_outflow) for j in 1:nPorts_b})
                        / sum({positiveMax(ports_b[j].m_flow) for j in 1:nPorts_b});
@@ -54,7 +45,6 @@ of the modeller. Increase nPorts_b to add an additional port.
      ports_b[j].h_outflow  = inStream(port_a.h_outflow);
      ports_b[j].Xi_outflow = inStream(port_a.Xi_outflow);
      ports_b[j].C_outflow  = inStream(port_a.C_outflow);
-
      ports_b_Xi_inStream[j,:] = inStream(ports_b[j].Xi_outflow);
      ports_b_C_inStream[j,:] = inStream(ports_b[j].C_outflow);
   end for;

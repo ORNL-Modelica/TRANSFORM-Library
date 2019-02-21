@@ -1,0 +1,16 @@
+tableDensity
+tableHeatCapacity
+tableConductivity
+x_d
+y_d
+d_d
+x_cp
+y_cp
+d_cp
+x_lambda
+y_lambda
+d_lambda
+density
+specificEnthalpy
+specificHeatCapacityCp
+thermalConductivity

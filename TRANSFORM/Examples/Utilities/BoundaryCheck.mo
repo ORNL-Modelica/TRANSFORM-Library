@@ -1,17 +1,13 @@
 within TRANSFORM.Examples.Utilities;
 model BoundaryCheck "Check for equivalent boundary conditions"
-
   parameter Integer n = 1 "Number of comparisons";
-
   parameter Real[n] x1 "Parameters 1";
   parameter Real[n] x2 "Parameters 2";
   parameter Real[n] tol = fill(Modelica.Constants.eps,n) "Tolerance for equality";
   parameter Boolean[n] isFlow = fill(false,n) "=true for flow variable (i.e., err = x1 + x2 else err = x1 - x2)";
-
   Real[n] err "Error for x1 - x2";
   Boolean[n] passed "=true if error > tolerance";
   Boolean passedAll "=true if all passed";
-
 equation
   for i in 1:n loop
     if isFlow[i] then
@@ -21,9 +17,7 @@ equation
     end if;
     passed[i] = if abs(err[i]) <= tol[i] then true else false;
   end for;
-
   passedAll = Modelica.Math.BooleanVectors.allTrue(passed);
-
   annotation (defaultComponentName="BCcheck",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(

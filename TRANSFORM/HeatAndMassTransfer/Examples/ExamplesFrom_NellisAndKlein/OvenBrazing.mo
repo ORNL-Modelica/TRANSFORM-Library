@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein;
 model OvenBrazing "Example 3.2-1 Oven Brazing pp. 339-348"
   extends Icons.Example;
-
   Modelica.Blocks.Sources.Constant V(k=10/100^3) "volume"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.Constant As(k=35/100^2)

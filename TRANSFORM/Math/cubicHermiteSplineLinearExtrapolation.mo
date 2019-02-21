@@ -1,7 +1,6 @@
 within TRANSFORM.Math;
 function cubicHermiteSplineLinearExtrapolation   "Interpolate using a cubic Hermite spline with linear extrapolation"
   extends TRANSFORM.Icons.Function;
-
   input Real x "Abscissa value";
   input Real x1 "Lower abscissa value";
   input Real x2 "Upper abscissa value";

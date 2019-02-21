@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Records;
 record RankineSummary "Summary record for Rankine example"
   extends TRANSFORM.Icons.Record;
-
   // Pressure
   Modelica.SIunits.Pressure p_turbine_HP_stage1_feed "Turbine HP feed pressure"
                                annotation(Dialog(group="Pressure"));
@@ -25,7 +24,6 @@ record RankineSummary "Summary record for Rankine example"
     "HP preheater cooling inlet pressure" annotation(Dialog(group="Pressure"));
   Modelica.SIunits.Pressure p_preheater_HP_cooling_out
     "HP preheater cooling outlet pressure" annotation(Dialog(group="Pressure"));
-
   // Temperature
   Modelica.SIunits.Temperature T_turbine_HP_stage1_feed
     "Turbine HP feed temperature" annotation(Dialog(group="Temperature"));
@@ -45,7 +43,6 @@ record RankineSummary "Summary record for Rankine example"
   Modelica.SIunits.Temperature T_condenser_cooling_out
     "Condenser outlet cooling temperature"
                             annotation(Dialog(group="Temperature"));
-
   // Mass-flow
   Modelica.SIunits.MassFlowRate m_flow_turbine_HP
     "Turbine HP mass flow rate" annotation(Dialog(group="Flow"));
@@ -55,7 +52,6 @@ record RankineSummary "Summary record for Rankine example"
     "Turbine LP drain mass flow rate" annotation(Dialog(group="Flow"));
   Modelica.SIunits.MassFlowRate m_flow_feedWaterPump
     "Feed water pump mass flow rate" annotation(Dialog(group="Flow"));
-
   // Levels
   Modelica.SIunits.Height level_preheater_LP
     "LP preheater codensate level"
@@ -67,7 +63,6 @@ record RankineSummary "Summary record for Rankine example"
                             annotation(Dialog(group="Condensate level"));
   Modelica.SIunits.Height level_condenser "Condenser codensate level"
                             annotation(Dialog(group="Condensate level"));
-
   // Power production
   Modelica.SIunits.Power power_generator "Generator power"
                             annotation(Dialog(group="Power production"));
@@ -81,7 +76,6 @@ record RankineSummary "Summary record for Rankine example"
   Modelica.SIunits.Power power_consumption_total=power_pump_lp+power_pump_ip+power_pump_hp
     "Total power consumption"
                             annotation(Dialog(group="Power consumption"));
-
  // Heat flow
   Modelica.SIunits.HeatFlowRate Q_preheater_LP "LP preheater heat duty"
                             annotation(Dialog(group="Heat"));
@@ -89,7 +83,6 @@ record RankineSummary "Summary record for Rankine example"
                             annotation(Dialog(group="Heat"));
   Modelica.SIunits.HeatFlowRate Q_condenser "Condenser heat duty"
                             annotation(Dialog(group="Heat"));
-
  // Control inputs
   Real u_pump_lp "Pump lp control input"
                             annotation(Dialog(group="Control input"));
@@ -99,7 +92,6 @@ record RankineSummary "Summary record for Rankine example"
                             annotation(Dialog(group="Control input"));
   Real u_valve_preheat_hp "Valve preheat hp control input"
                             annotation(Dialog(group="Control input"));
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(revisions="<html>

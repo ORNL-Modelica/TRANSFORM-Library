@@ -1,12 +1,9 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Flow;
 partial model PartialGeometry
-
   parameter Real nParallel(min=1)=1 "Number of identical parallel components"
     annotation(Dialog);
-
   parameter Integer nNodes(min=1)=2 "Number of discrete serial nodes"
     annotation(Dialog,  Evaluate=true);
-
   input SI.Length[nNodes] lengths = ones(nNodes) "Length of node segment"
     annotation (Dialog(group="General"));
   parameter Boolean use_Dimensions=true
@@ -20,7 +17,6 @@ partial model PartialGeometry
    annotation (Dialog(group="General", enable=not use_Dimensions));
   input SI.Height[nNodes+1] roughnesses = fill(2.5e-5,nNodes+1) "Average heights of surface asperities"
     annotation (Dialog(group="General"));
-
   // Static head
   input SI.Length[nNodes] dheights=fill(0,nNodes)
     "Height(port_b) - Height(port_a) distributed by flow segment"
@@ -31,15 +27,12 @@ partial model PartialGeometry
   SI.Length height_b=height_a + sum(dheights)
     "Elevation at port_b: Reference value only. No impact on calculations."
     annotation (Dialog(group="Static head", enable= false), Evaluate=true);
-
   Real[nNodes] dxs = lengths/sum(lengths) "Fractional lengths";
-
 equation
   for i in 1:nNodes loop
     assert(dimensions[i]>0, "Characteristic dimension must be > 0");
     assert(lengths[i] >= abs(dheights[i]), "Parameter lengths must be greater or equal to abs(dheights)");
   end for;
-
   annotation (defaultComponentName="geometry",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-116,-100},{116,100}}, fileName=

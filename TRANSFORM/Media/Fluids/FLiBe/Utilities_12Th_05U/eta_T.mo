@@ -1,10 +1,8 @@
 within TRANSFORM.Media.Fluids.FLiBe.Utilities_12Th_05U;
 function eta_T
-
   import TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degR;
   import from_lb_hrfeet =
     TRANSFORM.Units.Conversions.Functions.DynamicViscosity_kg_ms.from_lb_hrft;
-
   input SI.Temperature T;
   output SI.DynamicViscosity eta;
 algorithm

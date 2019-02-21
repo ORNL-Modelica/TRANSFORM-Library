@@ -11,9 +11,7 @@ model dfa "HT to DHT adaptor"
         origin={-120,-30},
         extent={{-20,-20},{20,20}},
         rotation=0)));
-
   parameter Integer nNodes=2;
-
   Modelica.Blocks.Interfaces.RealOutput[nNodes] y annotation (
       Placement(transformation(
         origin={120,0},

@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components;
 model MoistureSeparatorReheater "Moisture separator reheater"
   import TRANSFORM;
-
   Interfaces.FluidPort_Flow                 feed(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
                 annotation (Placement(transformation(extent={{-10,-56},{10,-36}}),
@@ -18,7 +17,6 @@ model MoistureSeparatorReheater "Moisture separator reheater"
         Modelica.Media.Water.StandardWater) annotation (Placement(
         transformation(extent={{-110,-30},{-90,-10}}), iconTransformation(
           extent={{-110,-30},{-90,-10}})));
-
   TRANSFORM.Fluid.Volumes.Separator_2phaseOnly separator(
     eta_sep=0.85,
     nPorts_b=1,
@@ -42,7 +40,6 @@ model MoistureSeparatorReheater "Moisture separator reheater"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={16,20})));
-
   FittingsAndResistances.NominalLoss lossMainSteam1(
     dp_nominal=(nominalData.p_nom_turbine_HP_stage2_drain - nominalData.p_nom_turbine_LP_stage1_feed)
         /3,
@@ -90,7 +87,6 @@ redeclare model Geometry =
     p_start_turbine_HP_stage2_drain=nominalData.p_nom_turbine_HP_stage2_drain)
     "Initialization data" annotation (Dialog(group="Initialization"),
       Placement(transformation(extent={{67,60},{87,80}})));
-
   replaceable package Medium =
       Modelica.Media.Water.StandardWater;
  parameter Integer N_drain=0 "Number of drain ports"

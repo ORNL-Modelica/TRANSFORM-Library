@@ -6,7 +6,6 @@ model Temperature "Ideal one port temperature sensor"
         TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC
       constrainedby
       TRANSFORM.Units.Conversions.Functions.Temperature_K.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput T(
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -14,13 +13,11 @@ model Temperature "Ideal one port temperature sensor"
     min=0) "Temperature in port medium" annotation (Placement(transformation(
           extent={{100,-10},{120,10}}), iconTransformation(extent={{50,-10},{70,
             10}})));
-
 equation
   T = Medium.temperature(Medium.setState_phX(
     port.p,
     inStream(port.h_outflow),
     inStream(port.Xi_outflow)));
-
   annotation (defaultComponentName="sensor_T",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Text(

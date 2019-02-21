@@ -1,9 +1,7 @@
 within TRANSFORM.Fluid.Volumes.InProgress;
 model Pressurizer
   "internal pressurizer region two phase drum model with 3 fluid ports and 4 heat ports"
-
   extends TRANSFORM.Fluid.Volumes.InProgress.PartialDrum2Phase2Volume;
-
   /* General */
   replaceable model DrumType =
       TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.PartialDrumType
@@ -13,7 +11,6 @@ model Pressurizer
     Vfrac_liquid=Vfrac_liquid,
     V_liquid=V_liquid,
     V_vapor=V_vapor);
-
   /* Constitutive/Closure Models*/
   replaceable model BulkEvaporation =
       TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.ConstantTimeDelay
@@ -21,20 +18,16 @@ model Pressurizer
     TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.PartialMassTransfer
     "Vapor bubble transport from liquid to vapor phase" annotation (
       choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   BulkEvaporation bulkEvaporation(redeclare final package Medium = Medium,
       final state=state_liquid);
-
   replaceable model BulkCondensation =
       TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.ConstantTimeDelay
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.PartialMassTransfer
     "Liquid droplet transport from vapor to liquid phase" annotation (
       choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   BulkCondensation bulkCondensation(redeclare final package Medium = Medium,
       final state=state_vapor);
-
 //   replaceable model MassTransfer_VL =
 //       TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.PhaseInterface.PartialPhase_m_flow
 //     "Vapor-liquid interface mass transport coefficient" annotation (
@@ -45,7 +38,6 @@ model Pressurizer
 //     state_liquid=state_liquid,
 //     state_vapor=state_vapor,
 //     surfaceArea=surfaceArea_VL);
-
   //   replaceable model HeatTransfer_VL =
   //       TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.PhaseInterface.PartialPhase_alpha
   //     "Vapor-liquid interface heat transfer coefficient"
@@ -56,14 +48,12 @@ model Pressurizer
   //     state_liquid=state_liquid,
   //     state_vapor=state_vapor,
   //     surfaceArea=surfaceArea_VL);
-
   replaceable model HeatTransfer_WL =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.Ideal
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.PartialHeatTransfer_setT
     "Wall-liquid heat transfer coefficient" annotation (choicesAllMatching=true,
       Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   HeatTransfer_WL heatTransfer_WL(
     redeclare each final package Medium = Medium,
     final v=0,
@@ -73,14 +63,12 @@ model Pressurizer
     final dimension=V_liquid/drumType.crossArea_liquid,
     final nParallel=1) annotation (Placement(transformation(extent={{64,-46},{76,
             -34}}, rotation=0)));
-
   replaceable model HeatTransfer_WV =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.Ideal
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.PartialHeatTransfer_setT
     "Wall-vapor heat transfer coefficient" annotation (choicesAllMatching=true,
       Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   HeatTransfer_WV heatTransfer_WV(
     redeclare each final package Medium = Medium,
     final v=0,
@@ -90,7 +78,6 @@ model Pressurizer
     final dimension=V_vapor/drumType.crossArea_vapor,
     final nParallel=1) annotation (Placement(transformation(extent={{64,46},{76,
             34}}, rotation=0)));
-
   /* Redefiniation of Port Parameters */
   SI.MassFlowRate W_surge "Mass flowrate of surgePort";
   SI.SpecificEnthalpy h_surge "Specific enthalpy of surgePort";
@@ -98,7 +85,6 @@ model Pressurizer
   SI.SpecificEnthalpy h_relief "Specific enthalpy of steamPort";
   SI.MassFlowRate W_spray "Mass flowrate of sprayPort";
   SI.SpecificEnthalpy h_spray "Specific enthalpy of sprayPort";
-
   /* Constitutive Parameters */
   // Geometry
   SI.Height level=drumType.level "Measured fluid level";
@@ -108,11 +94,9 @@ model Pressurizer
   SI.Area surfaceArea_WV=drumType.surfaceArea_WV "Wall-Vapor surface area";
   SI.Area surfaceArea_VL=drumType.surfaceArea_VL
     "Vapor-Liquid interfacial area";
-
   // Bulk Behavior
   SI.MassFlowRate W_cBulk "Mass flowrate of bulk condensation";
   SI.MassFlowRate W_eBulk "Mass flowrate of bulk evaporation";
-
   // Spray
   //   SI.QualityFactor x_th_spray "Thermodynamic quality of sprayPort";
   //   SI.MassFlowRate W_cSpray "Mass flowrate of condensate from sprayPort";
@@ -125,23 +109,19 @@ model Pressurizer
   //     "Mass flowrate of of liquid after heat/mass balance from sprayPort";
   //   SI.EnthalpyFlowRate H_liqSpray
   //     "Mass flowrate of of liquid after heat/mass balance from sprayPort";
-
   // Vapor-Liquid Interface
   SI.MassFlowRate W_vl "Mass flowrate from vapor-liquid interface model";
   SI.Power Q_vl "Heat transfer at vapor-liquid interface";
-
   // Wall-Liquid/Vapor Interfaces
   SI.Power Q_wl "Heat transfer at wall-liquid surface";
   SI.Power Q_wv "Heat transfer at wall-vapor surface";
   SI.MassFlowRate W_cWall
     "Mass flowrate from condensate due to wall-vapor heat transfer";
-
   /* Additional Parameters */
   SI.QualityFactor x_th_liquid "Thermodynamic quality of liquid region";
   SI.QualityFactor x_abs_liquid "Absolute quality of liquid region";
   SI.QualityFactor x_th_vapor "Thermodynamic quality of vapor region";
   SI.QualityFactor x_abs_vapor "Absolute quality of liquid region";
-
   Modelica.Fluid.Interfaces.FluidPort_b surgePort(
     p(start=p_start),
     redeclare package Medium = Medium,
@@ -162,12 +142,10 @@ model Pressurizer
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a liquidHeater
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
-
   SI.Power Q_hl "Heat transfer at heater-liquid";
   SI.Power Q_hv "Heat transfer at heater-vapor";
   SI.SpecificEnthalpy h_vl
     "Specific enthalpy of fluid flow at vapor-liquid interface";
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort_WV
     annotation (Placement(transformation(extent={{90,30},{110,50}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort_WL
@@ -201,22 +179,18 @@ model Pressurizer
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,0})));
-
   parameter Real alphaM0(unit="kg/(s.m2.K)")=0 "Vapor-Liquid coefficient of mass transfer"
     annotation (Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
 equation
   assert(abs(V_total - drumType.V_total) < 0.001, "Total volumes don't equate, check that V_total is equal to the volume calculated from the drum type geometry parameters");
-
   /* Mass Conservation Equations */
   // === Liquid ===
   mb_flow_liquid = W_surge + W_cBulk + W_vl + W_cWall - W_eBulk;
   //mb_flow_liquid = W_cBulk - W_eBulk + W_surge + W_liqSpray + W_cSpray + W_vl + W_cWall;
-
   // === Vapor ===
   mb_flow_vapor = W_spray + W_relief + W_eBulk - W_cBulk - W_vl - W_cWall;
   //mb_flow_vapor = W_eBulk - W_cBulk + W_relief - W_cSpray + W_vapSpray - W_vl - W_cWall;
   //Consider adding evaporation from spray term (applicable when vapor is superheated
-
   /* Energy Conservation Equations */
   // === Liquid ===
   Hb_flow_liquid = W_surge*h_surge + W_cBulk*h_fsat + W_vl*h_vl + W_cWall*
@@ -231,7 +205,6 @@ equation
   //                       + W_cWall*(h_gsat-h_fsat);
   //   Qb_flow_liquid = liquidHeater.Q_flow + Q_vl + Q_wl;
   //   Wb_flow_liquid = -p*der(V_liquid);
-
   // === Vapor ===
   Hb_flow_vapor = W_spray*h_spray + W_relief*h_relief + W_eBulk*h_gsat -
     W_cBulk*h_fsat - W_vl*h_vl - W_cWall*h_fsat;
@@ -245,25 +218,18 @@ equation
   //                     - W_cWall*(h_gsat-h_fsat);
   //   Qb_flow_vapor = vaporHeater.Q_flow - Q_vl + Q_wv;
   //   Wb_flow_vapor =  -p*der(V_vapor);
-
   /* Constitutive Models */
   Q_hv = 0;
   Q_hl = 0;
-
   h_vl = h_gsat;
   //if W_vl >= 0 then h_fsat else h_gsat;
-
   W_cWall = noEvent(if Q_wv < 0 then -Q_wv/(h_gsat - h_fsat) else 0);
-
   W_eBulk = bulkEvaporation.m_flow;
   W_cBulk = bulkCondensation.m_flow;
-
   W_vl = massTransfer_VL.m_flow;
   Q_vl = heatTransfer_VL.Q_flow;
-
   Q_wl = heatPort_WL.Q_flow;
   Q_wv = heatPort_WV.Q_flow;
-
   // Spray Port physics. Flow into liquid is defined as positive direction.
   // Spray is assumed to reach saturation conditions immediately upon entering
   // which has been shown by experiment to be a reasonable approximation.
@@ -290,14 +256,12 @@ equation
   //      W_liqSpray = W_spray-W_vapSpray;
   //      H_liqSpray = W_liqSpray*h_fsat;
   //    end if;
-
   /* Additional Parameter Definitions */
   x_th_liquid = (h_liquid - h_fsat)/(h_gsat - h_fsat);
   x_abs_liquid = homotopy(noEvent(if h_liquid <= h_fsat then 0 else x_th_liquid),
     0);
   x_th_vapor = (h_vapor - h_fsat)/(h_gsat - h_fsat);
   x_abs_vapor = homotopy(noEvent(if h_vapor >= h_gsat then 1 else x_th_vapor), 1);
-
   /* Connector Stream Definitions */
   // Surge Port
   surgePort.p = p + rho_liquid*Modelica.Constants.g_n*level;
@@ -322,10 +286,8 @@ equation
   vaporHeater.T = T_vapor;
   //   heatPort_WL = T_wl;
   //   heatPort_WV = T_vl;
-
   mbXi_liquid_flow = zeros(Medium.nXi);
   mbXi_liquid_flow = zeros(Medium.nXi);
-
   connect(heatTransfer_WV.heatPorts, heatPort_WV)
     annotation (Line(points={{76,40},{100,40},{100,40}}, color={191,0,0}));
   connect(heatTransfer_WL.heatPorts, heatPort_WL)

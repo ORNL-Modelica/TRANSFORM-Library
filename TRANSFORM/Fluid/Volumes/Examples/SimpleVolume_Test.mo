@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model SimpleVolume_Test
-
   extends TRANSFORM.Icons.Example;
-
   SimpleVolume volume(redeclare package Medium =
         Modelica.Media.Water.StandardWater, redeclare model Geometry =
         ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1))

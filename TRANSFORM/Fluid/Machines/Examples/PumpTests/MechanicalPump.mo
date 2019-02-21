@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Machines.Examples.PumpTests;
 model MechanicalPump
   extends TRANSFORM.Icons.Example;
-
   Pump_wShaft Pump(
     V=0.001,
     redeclare model FlowChar =

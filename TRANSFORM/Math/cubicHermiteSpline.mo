@@ -1,7 +1,6 @@
 within TRANSFORM.Math;
 function cubicHermiteSpline
   extends TRANSFORM.Icons.Function;
-
  input Real x "Abscissa value";
   input Real x1 "Lower abscissa value";
   input Real x2 "Upper abscissa value";
@@ -24,10 +23,8 @@ algorithm
   if abs(h)>0 then
     // Regular case
     t := (x - x1)/h;
-
     aux3 :=t^3;
     aux2 :=t^2;
-
     h00 := 2*aux3 - 3*aux2 + 1;
     h10 := aux3 - 2*aux2 + t;
     h01 := -2*aux3 + 3*aux2;

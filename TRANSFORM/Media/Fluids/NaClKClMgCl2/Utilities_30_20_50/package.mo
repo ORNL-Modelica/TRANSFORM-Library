@@ -4,9 +4,6 @@ import TRANSFORM;
 
 extends TRANSFORM.Icons.UtilitiesPackage;
 
-
-
-
 annotation (Documentation(info="<html>
 <p>Source:</p>
 <p>All properties except thermal conductivity and heat capacity:</p>

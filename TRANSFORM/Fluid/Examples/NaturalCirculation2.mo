@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.Examples;
 model NaturalCirculation2
-
   extends TRANSFORM.Icons.Example;
-
   Pipes.GenericPipe_MultiTransferSurface riser(
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe

@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein;
 model Example_1_6_2_ThermoelectricHeatSink
   "part a) Estimate heat transfer through finned surface"
   extends Icons.Example;
-
   Modelica.Blocks.Sources.Constant L_fin(each k=0.015) "fin length"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.Constant D_fin(each k=0.0015) "fin diameter"

@@ -2,23 +2,17 @@ within TRANSFORM.Math;
 function linspace_2Dcorner
   "Create a linearly spaced 2D matrix from the linear interpolation of 4 corner values"
   extends TRANSFORM.Icons.Function;
-
   input Real x1 "Corner value x[1,1]";
   input Real x2 "Corner value x[1,end]";
   input Real x3 "Corner value x[end,1]";
   input Real x4 "Corner value x[end,end]";
-
   input Integer n1 "Number of rows";
   input Integer n2 "Number of columns";
-
   output Real y[n1,n2] "2-D matrix";
-
 protected
   Real row[n2];
   Real col[n1];
-
 algorithm
-
   if n1 == 1 and n2 == 1 then
     y[1, 1] := 0.25*(x1 + x2 + x3 + x4);
   elseif n1 == 1 then
@@ -48,7 +42,6 @@ algorithm
       x3,
       x4,
       n2);
-
     for i in 2:n1 - 1 loop
       for j in 2:n2 - 1 loop
         row := linspace(
@@ -63,7 +56,6 @@ algorithm
       end for;
     end for;
   end if;
-
   annotation (smoothOrder=2, Documentation(info="<html>
 <p>For example:</p>
 <p>For x1=0, x2=10, x3=-5, x4 = 5, n1=5, and n2=3.</p>

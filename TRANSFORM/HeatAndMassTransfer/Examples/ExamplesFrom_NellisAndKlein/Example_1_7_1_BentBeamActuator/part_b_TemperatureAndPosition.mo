@@ -3,7 +3,6 @@ model part_b_TemperatureAndPosition
   "part b) Determine the temperature as a function of position on the beam"
   import TRANSFORM;
   extends Icons.Example;
-
   Modelica.Blocks.Sources.Constant L_a(each k=0.001) "distance between anchors"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.Constant w(each k=10e-6) "beam width"
@@ -54,7 +53,6 @@ model part_b_TemperatureAndPosition
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-
   Modelica.Blocks.Sources.RealExpression L(y=0.5*L_a.y/Modelica.Math.cos(theta.y))
     annotation (Placement(transformation(extent={{-10,70},{10,90}})));
   Modelica.Blocks.Sources.RealExpression R_e[nNodes_1.k](y={rho_e.y*2*L.y/beam.geometry.crossAreas_1
@@ -68,7 +66,6 @@ model part_b_TemperatureAndPosition
     minY=0,
     maxY=800) "X - Dimensionless position (-) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{16,-76},{58,-36}})));
-
  Real xval[nNodes_1.k] = beam.geometry.cs_1/L.y;
   Real yval[nNodes_1.k]=
       TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(beam.materials.T);
@@ -76,7 +73,6 @@ model part_b_TemperatureAndPosition
         end].T})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(T_anchor_a.port, beam.port_a1)
     annotation (Line(points={{-60,0},{-10,0}}, color={191,0,0}));
   connect(T_infinity.port, convection.port_b) annotation (Line(points={{-60,-40},

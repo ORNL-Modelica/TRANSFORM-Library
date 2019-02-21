@@ -6,7 +6,6 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
         TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
       constrainedby
       TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput C
     "Trace substance of the passing fluid"
     annotation (Placement(transformation(
@@ -17,7 +16,6 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
         rotation=270,
         origin={0,36})));
   parameter String substanceName = "CO2" "Name of trace substance";
-
 protected
   parameter Integer ind(fixed=false)
     "Index of species in vector of auxiliary substances";

@@ -1,8 +1,6 @@
 within TRANSFORM.Media.Solids;
 package SS316 "SS316: Stainless steel 316"
-
   // Fits are taken from aksteel.com for 316 steel.
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="SS316",
     T_min=Modelica.SIunits.Conversions.from_degC(0),

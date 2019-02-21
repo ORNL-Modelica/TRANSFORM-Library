@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples;
 model ShellSide_STHX_Test
   extends Icons.Example;
-
   extends
     TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
     dimensions_Exp=0.0125,
@@ -23,7 +22,6 @@ model ShellSide_STHX_Test
       nTubes=nTubes,
       length_tube=length_tube,
       D_o_tube=D_o_tube));
-
   constant Real nParallel=6;
   constant Integer nNodes=5;
   constant SI.Length length_shell=9;
@@ -31,11 +29,9 @@ model ShellSide_STHX_Test
   constant SI.Length D_i_shell = 0.5;
   constant SI.Height dheight=sin(pi/4)*length_shell;
   constant SI.Height height_a=2;
-
   constant Real nTubes = 18;
   constant SI.Length length_tube=15;
   constant SI.Length D_o_tube=0.15;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ShellSide_STHX_Test;

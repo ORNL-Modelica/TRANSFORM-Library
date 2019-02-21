@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Control.Interfaces;
 expandable connector SignalSubBus "Icon for signal sub-bus"
-
   annotation (defaultComponentName="sensorsBus",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}, initialScale=0.1), graphics={
           Line(
@@ -64,5 +63,4 @@ expandable connector SignalSubBus "Icon for signal sub-bus"
 This icon is designed for a <b>sub-bus</b> in a signal connector.
 </p>
 </html>"));
-
 end SignalSubBus;

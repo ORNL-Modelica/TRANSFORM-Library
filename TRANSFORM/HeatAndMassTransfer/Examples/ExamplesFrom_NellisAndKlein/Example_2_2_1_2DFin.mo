@@ -3,7 +3,6 @@ model Example_2_2_1_2DFin
   "Uniform thermaly energy generation in a plane wall (Figure 1-8) | pg. 28"
   import TRANSFORM;
   extends Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_base[
     nNodes_2.k](each T=473.15)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
@@ -11,7 +10,6 @@ model Example_2_2_1_2DFin
     annotation (Placement(transformation(extent={{-100,72},{-92,80}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=20)
     annotation (Placement(transformation(extent={{-78,80},{-70,88}})));
-
   Modelica.Blocks.Sources.IntegerConstant nNodes_2(k=10)
     annotation (Placement(transformation(extent={{-64,80},{-56,88}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_inf[
@@ -33,7 +31,6 @@ model Example_2_2_1_2DFin
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-30})));
-
   UserInteraction.Outputs.SpatialPlot Temperature_y0(
     minX=0,
     maxX=0.05,
@@ -70,7 +67,6 @@ model Example_2_2_1_2DFin
         TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.ForwardDifference_1O,
     adiabaticDims={true,false})
             annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
  Real xval[nNodes_1.k] = fin.geometry.cs_1[:, 1];
   Real yval[nNodes_1.k]=
       TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(fin.materials[
@@ -79,11 +75,9 @@ model Example_2_2_1_2DFin
   Real yval2[nNodes_1.k]=
       TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(fin.materials[
       :, nNodes_2.k].T);
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={yval[5],yval[15]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(T_inf.port, convection.port_b) annotation (Line(points={{-10,-70},{0,
           -70},{0,-37}},    color={191,0,0}));
   connect(fin.port_b1, bound_right.port)

@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids.CustomSolids;
 package Lambda_fT_d_7763_cp_fT "Lambda_fT_d_7763_cp_fT"
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="GenericSolid",
     T_min=0,

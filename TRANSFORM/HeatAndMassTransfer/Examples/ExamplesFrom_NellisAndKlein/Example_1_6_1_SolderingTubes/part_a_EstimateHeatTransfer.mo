@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Exampl
 model part_a_EstimateHeatTransfer
   "part a) Estimate heat transfer required to solder pipes"
   extends Icons.Example;
-
   Modelica.Blocks.Sources.Constant L(each k=
         Units.Conversions.Functions.Distance_m.from_ft(2.5)) "Length"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));

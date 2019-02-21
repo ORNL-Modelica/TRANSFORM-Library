@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant;
 model SystemVariableHeatLoad
-
 extends TRANSFORM.Icons.Example;
-
   extends
     TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.PartialBOPSystem(
     redeclare Components.SteamGeneratorVariableHeatLoad SG_1(circulationRatio=

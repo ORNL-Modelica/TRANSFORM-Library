@@ -1,16 +1,13 @@
 within TRANSFORM.Fluid.Pipes;
 model GenericPipe
   extends TRANSFORM.Icons.ObsoleteModel;
-
   import TRANSFORM.Math.linspace_1D;
   import TRANSFORM.Math.linspaceRepeat_1D;
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
   import TRANSFORM;
   import Modelica.Fluid.Types.ModelStructure;
-
   outer TRANSFORM.Fluid.SystemTF systemTF;
-
   BaseClasses.Summary summary(
     T_effective=sum(mediums.T .* ms/sum(ms)),
     T_max=max(mediums.T),
@@ -23,22 +20,17 @@ model GenericPipe
         {if exposeState_b then sum(geometry.dlengths) else sum(geometry.dlengths)
            - 0.5*geometry.dlengths[nV]}))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Advanced"), Evaluate=true);
-
   Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
   Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
-
   parameter Real nParallel=1 "Number of parallel components";
-
   //extends TRANSFORM.Fluid.Pipes.ClosureModels.Geometry.PipeIcons(final figure=geometry.figure);
-
   extends BaseClasses.PartialDistributedVolume(
     final Vs=geometry.Vs,
     final nV= geometry.nV,
@@ -61,13 +53,11 @@ model GenericPipe
     Cs_start=linspaceRepeat_1D(
         C_a_start,
         C_b_start,nV));
-
   /* Initialization Tab*/
   parameter SI.AbsolutePressure p_a_start = Medium.p_default "Pressure at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
   parameter SI.AbsolutePressure p_b_start=p_a_start + (if m_flow_a_start > 0 then -1e3 elseif m_flow_a_start < 0 then -1e3 else 0)  "Pressure at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
-
   parameter SI.Temperature T_a_start=Medium.T_default "Temperature at port a" annotation (
       Dialog(
       tab="Initialization",
@@ -77,7 +67,6 @@ model GenericPipe
       tab="Initialization",
       group="Start Value: Temperature",
       enable=use_Ts_start));
-
   parameter SI.SpecificEnthalpy h_a_start=Medium.specificEnthalpy_pTX(
       p_a_start,
       T_a_start,
@@ -92,21 +81,18 @@ model GenericPipe
       tab="Initialization",
       group="Start Value: Specific Enthalpy",
       enable=not use_Ts_start));
-
   parameter SI.MassFraction X_a_start[Medium.nX]=Medium.X_default
     "Mass fraction at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Species Mass Fraction"));
   parameter SI.MassFraction X_b_start[Medium.nX]=X_a_start
     "Mass fraction at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Species Mass Fraction"));
-
   parameter SIadd.ExtraProperty C_a_start[Medium.nC]=fill(0, Medium.nC)
     "Mass-Specific value at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
   parameter SIadd.ExtraProperty C_b_start[Medium.nC]=C_a_start
     "Mass-Specific value at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
-
   parameter SI.MassFlowRate m_flow_a_start = 0 "Mass flow rate at port_a"
     annotation (Dialog(tab="Initialization", group="Start Value: Mass Flow Rate"));
   parameter SI.MassFlowRate m_flow_b_start=-m_flow_a_start "Mass flow rate at port_b"
@@ -116,7 +102,6 @@ model GenericPipe
       -m_flow_b_start,
       nV + 1) "Mass flow rates" annotation (Evaluate=true, Dialog(tab="Initialization", group=
          "Start Value: Mass Flow Rate"));
-
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -124,9 +109,7 @@ model GenericPipe
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
                                                                           "Geometry"
     annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-
   Geometry geometry annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
-
   // Flow Model
    replaceable model FlowModel =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
@@ -134,7 +117,6 @@ model GenericPipe
     TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
                                                  "Flow models (i.e., momentum, pressure loss, wall friction)" annotation (Dialog(
          group="Pressure Loss"), choicesAllMatching=true);
-
    FlowModel flowModel(
      redeclare final package Medium = Medium,
      final nFM=nFM,
@@ -153,18 +135,15 @@ model GenericPipe
      final Ts_wall = Ts_wallFM,
      final allowFlowReversal=allowFlowReversal) "Conduction Model"
      annotation (Placement(transformation(extent={{-58,82},{-42,98}}, rotation=0)));
-
   // Heat Transfer Model
     parameter Boolean use_HeatTransfer=false "= true to use the HeatTransfer model"
       annotation (Dialog(group="Heat Transfer"));
-
     replaceable model HeatTransfer =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal
       constrainedby
     TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.PartialHeatTransfer_setT
       "Coefficient of heat transfer" annotation (Dialog(group="Heat Transfer", enable=
             use_HeatTransfer), choicesAllMatching=true);
-
     HeatTransfer heatTransfer(
       final nParallel=nParallel,
       redeclare package Medium = Medium,
@@ -180,7 +159,6 @@ model GenericPipe
           extent={{-8,-8},{8,8}},
           rotation=0,
           origin={-20,60})));
-
   // Internal Heat Generation Model
   replaceable model InternalHeatGen =
       TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
@@ -188,7 +166,6 @@ model GenericPipe
     TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.PartialInternalHeatGeneration
                                                 "Internal heat generation" annotation (Dialog(
         group="Heat Transfer"), choicesAllMatching=true);
-
   InternalHeatGen internalHeatGen(
     redeclare final package Medium = Medium,
     final nV=nV,
@@ -198,18 +175,15 @@ model GenericPipe
     final dlengths=geometry.dlengths,
     final states=mediums.state)
     annotation (Placement(transformation(extent={{-38,82},{-22,98}}, rotation=0)));
-
   // Trace Mass Transfer Model
   parameter Boolean use_TraceMassTransfer=false "= true to use the TraceMassTransfer model"
     annotation (Dialog(group="Trace Mass Transfer"));
-
   replaceable model TraceMassTransfer =
       TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.Ideal
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.PartialMassTransfer_setC
     "Trace Substance mass transfer" annotation (Dialog(group="Trace Mass Transfer", enable=
           use_TraceMassTransfer), choicesAllMatching=true);
-
   TraceMassTransfer traceMassTransfer(
     final nParallel=nParallel,
     redeclare package Medium = Medium,
@@ -227,7 +201,6 @@ model GenericPipe
         extent={{-8,-8},{8,8}},
         rotation=0,
         origin={-60,60})));
-
   // Internal Trace Substance Generation Model
   replaceable model InternalTraceGen =
       TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
@@ -235,7 +208,6 @@ model GenericPipe
     TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.PartialInternalTraceGeneration
                                                 "Internal trace mass generation" annotation (Dialog(
         group="Trace Mass Transfer"), choicesAllMatching=true);
-
   InternalTraceGen internalTraceGen(
     redeclare final package Medium = Medium,
     final nV=nV,
@@ -246,7 +218,6 @@ model GenericPipe
     final dlengths=geometry.dlengths,
     final states=mediums.state)
     annotation (Placement(transformation(extent={{-18,82},{-2,98}},  rotation=0)));
-
   // Assumptions
   parameter Boolean exposeState_a=true "=true, p is calculated at port_a else m_flow"
     annotation (Dialog(group="Model Structure", tab="Advanced"));
@@ -256,16 +227,13 @@ model GenericPipe
 //       elseif exposeState_a == false and exposeState_b == true then ModelStructure.a_vb else ModelStructure.a_v_b
 //     "Determines whether flow or volume models are present at the ports"
 //     annotation (Dialog(tab="Advanced"), Evaluate=true);
-
   // Initialization
   parameter Modelica.Fluid.Types.Dynamics momentumDynamics=Dynamics.SteadyState
     "Formulation of momentum balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-
   // Advanced
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
     annotation (Dialog(tab="Advanced", group="Inputs"));
-
   parameter Boolean useInnerPortProperties=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
@@ -274,20 +242,15 @@ model GenericPipe
   parameter LumpedLocation lumpPressureAt=LumpedLocation.port_a
     "Location of pressure for flow calculations" annotation (Dialog(tab="Advanced", enable=
           if useLumpedPressure and not (exposeState_a and exposeState_b) then true else false));
-
   final parameter Integer nFM=if useLumpedPressure then nFMLumped else nFMDistributed
     "number of flow models in flowModel";
-
   final parameter Integer nFMDistributed=if not exposeState_a and not exposeState_b then nV +
       1 else if (not exposeState_a and exposeState_b) or (exposeState_a and not exposeState_b)
        then nV else nV - 1;
-
   final parameter Integer nFMLumped=if not exposeState_a and not exposeState_b then 2 else 1;
-
   final parameter Integer iLumped=integer(nV/2) + 1
     "Index of control volume with representative state if useLumpedPressure"
     annotation (Evaluate=true);
-
   // Initialization for Closure Models
   final parameter SI.PressureDifference dp_start=p_a_start - p_b_start;
   final parameter SI.PressureDifference[nFM] dps_start=if useLumpedPressure then if not
@@ -311,7 +274,6 @@ model GenericPipe
       1,
       {ps_start[i] - ps_start[i + 1] for i in 1:nV - 1},
       {dp_start/nV}) else {ps_start[i] - ps_start[i + 1] for i in 1:nV - 1};
-
   final parameter SI.MassFlowRate[nFM] m_flowsFM_start=if useLumpedPressure then if
       lumpPressureAt == LumpedLocation.port_a then if not exposeState_a and not exposeState_b
        then cat(
@@ -326,7 +288,6 @@ model GenericPipe
       exposeState_a and exposeState_b then {m_flows_start[i] for i in 1:nV}/nParallel elseif
       exposeState_a and not exposeState_b then {m_flows_start[i] for i in 2:nV + 1}/nParallel
        else {m_flows_start[i] for i in 2:nV}/nParallel;
-
   final parameter SI.Temperature[nFM + 1] Ts_wallFM_start=if useLumpedPressure then if not
       exposeState_a and not exposeState_b then cat(
       1,
@@ -357,10 +318,8 @@ model GenericPipe
       1,
       {Ts_start[i] for i in 1:nV},
       {T_b_start}) else {Ts_start[i] for i in 1:nV};
-
   Medium.ThermodynamicState state_a "state defined by volume outside port_a";
   Medium.ThermodynamicState state_b "state defined by volume outside port_b";
-
   // Flow quantities
   SI.MassFlowRate m_flows[nV + 1] "Mass flow rates across segment boundaries";
   SI.HeatFlowRate H_flows[nV + 1] "Enthalpy flow rates across segment boundaries";
@@ -368,35 +327,26 @@ model GenericPipe
     "Species mass flow rates across segment boundaries";
   SIadd.ExtraPropertyFlowRate mC_flows[nV + 1,Medium.nC]
     "Trace substance flow rates across segment boundaries";
-
   SI.Velocity[nV] vs={0.5*(m_flows[i] + m_flows[i + 1])/mediums[i].d/geometry.crossAreas[i]
       for i in 1:nV} "mean velocities in flow segments";
-
   SI.Temperature[nV] Ts_wall(start=Ts_start)
     "use_HeatTransfer = true then wall temperature else bulk medium temperature";
-
   SI.Power[nV] Wb_flows "Mechanical power, p*der(V) etc.";
-
   HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts[nV] if use_HeatTransfer annotation (
       Placement(transformation(extent={{-10,50},{10,70}}), iconTransformation(extent={{-10,40},
             {10,60}})));
   HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts[nV](each nC=Medium.nC) if use_TraceMassTransfer
     annotation (Placement(transformation(extent={{-50,50},{-30,70}}),
         iconTransformation(extent={{-50,40},{-30,60}})));
-
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
-
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=summary.T_effective);
-
 protected
   HeatAndMassTransfer.Interfaces.HeatPort_State[nV] heatPorts_int;
-
   Medium.ThermodynamicState[nFM + 1] statesFM "state vector for flowModel model";
   SI.Temperature[nFM + 1] Ts_wallFM(start=Ts_wallFM_start)
     "Mean wall temperatures of heat transfer surface";
-
   SI.Velocity[nFM + 1] vsFM "Mean velocities in flow segments";
   SI.Length dlengthsFM[nFM] "Lengths of flow segments";
   SI.Length[nFM] dheightsFM "Differences in heights between flow segments";
@@ -404,9 +354,7 @@ protected
   SI.Area[nFM + 1] crossAreasFM "Cross flow areas of flow segments";
   SI.Length[nFM + 1] perimetersFM "Wetted perimeters of flow segments";
   SI.Height[nFM + 1] roughnessesFM "Average heights of surface asperities";
-
 equation
-
   // Source/sink terms for balance equations
   for i in 1:nV loop
     mbs[i] = m_flows[i] - m_flows[i + 1];
@@ -414,7 +362,6 @@ equation
     mXibs[i, :] = mXi_flows[i, :] - mXi_flows[i + 1, :];
     mCbs[i, :] =mC_flows [i, :] -mC_flows [i + 1, :] + traceMassTransfer.mC_flows[i,:] + internalTraceGen.mC_flows[i, :]/nParallel;
   end for;
-
   // Heat Transfer connections
    connect(heatTransfer.heatPorts, heatPorts) annotation (Line(
        points={{-12,60},{-12,60},{0,60}},
@@ -426,13 +373,11 @@ equation
    else
      Ts_wall = heatPorts_int.T;
    end if;
-
   // Trace Mass Transfer connections
   connect(traceMassTransfer.massPorts, massPorts) annotation (Line(
       points={{-52,60},{-40,60}},
       color={0,140,72},
       thickness=0.5));
-
   // Boundary Conditions
    port_a.m_flow/nParallel = m_flows[1];
    port_b.m_flow/nParallel =-m_flows[nV + 1];
@@ -442,7 +387,6 @@ equation
    port_b.Xi_outflow = mediums[nV].Xi;
    port_a.C_outflow = Cs[1, :];
    port_b.C_outflow = Cs[nV, :];
-
    if useInnerPortProperties and nV > 0 then
      state_a = Medium.setState_phX(
        port_a.p,
@@ -462,7 +406,6 @@ equation
        inStream(port_b.h_outflow),
        inStream(port_b.Xi_outflow));
    end if;
-
  // Distributed flow quantities, upwind discretization
   H_flows[1] = semiLinear(
     port_a.m_flow,
@@ -502,7 +445,6 @@ equation
     port_b.m_flow,
     inStream(port_b.C_outflow),
     Cs[nV, :])/nParallel;
-
   // Wb_flow = v*A*dpdx + v*F_fric
   //         = v*A*dpdx + v*A*flowModel.dp_fg - v*A*dp_grav
    if nV == 1 or useLumpedPressure then
@@ -529,14 +471,12 @@ equation
        assert(false, "Unknown model structure");
      end if;
    end if;
-
   /*##########################################################################*/
   /*                    Dimension-1 Flow Model Definitions                    */
   /*##########################################################################*/
   if exposeState_a and exposeState_b then
     assert(nV > 1, "nV must be > 1 if exposeState_a and exposeState_b = true");
   end if;
-
   /************************************************************************/
   /*                      Lumped Pressure Model                           */
   /************************************************************************/
@@ -600,7 +540,6 @@ equation
     else
       assert(false, "Unknown model structure");
     end if;
-
     // Geometry
     if not (not exposeState_a and not exposeState_b) then
       dlengthsFM[1] = sum(geometry.dlengths);
@@ -653,27 +592,22 @@ equation
       /*             1.a Model Structure (true, true) (i.e., v_v)             */
       /************************************************************************/
       //nFM = nV-1
-
       // Connections
       m_flows[2:nV] = flowModel.m_flows[1:nV - 1];
-
       /* Boundary Ports */
       // Left Boundary
       port_a.p = mediums[1].p;
       // Right Boundary
       port_b.p = mediums[nV].p;
-
       /* State Variables */
       statesFM[1:nFM+1] = mediums[1:nV].state;
       vsFM[1:nFM+1] = vs;
       Ts_wallFM[1:nFM+1] = Ts_wall[1:nV];
-
       /* Geometry Variables */
       crossAreasFM = geometry.crossAreas;
       dimensionsFM = geometry.dimensions;
       perimetersFM = geometry.perimeters;
       roughnessesFM = geometry.roughnesses;
-
        if nFM == 1 then
          dlengthsFM[1] = geometry.dlengths[1] + geometry.dlengths[2];
          dheightsFM[1] = geometry.dheights[1] + geometry.dheights[2];
@@ -681,36 +615,29 @@ equation
          dlengthsFM[1:nFM] = cat(1, {geometry.dlengths[1] + 0.5*geometry.dlengths[2]}, 0.5*(geometry.dlengths[2:nV-2] + geometry.dlengths[3:nV-1]), {0.5*geometry.dlengths[nV-1] + geometry.dlengths[nV]});
          dheightsFM[1:nFM] = cat(1, {geometry.dheights[1] + 0.5*geometry.dheights[2]}, 0.5*(geometry.dheights[2:nV-2] + geometry.dheights[3:nV-1]), {0.5*geometry.dheights[nV-1] + geometry.dheights[nV]});
        end if;
-
     elseif exposeState_a and not exposeState_b then
       /************************************************************************/
       /*             1.b Model Structure (true, false) (i.e., v_)             */
       /************************************************************************/
       //nFM = nV
-
       // Connections
       m_flows[2:nV + 1] = flowModel.m_flows[1:nV];
-
       /* Boundary Ports */
       // Left Boundary
       port_a.p = mediums[1].p;
       // Right Boundary - set by connecting model
-
       /* State Variables */
       statesFM[1:nFM] = mediums[1:nV].state;
       vsFM[1:nFM] = vs;
       Ts_wallFM[1:nFM] = Ts_wall[1:nV];
-
       statesFM[nFM + 1] = state_b;
       vsFM[nFM + 1] = m_flows[nV + 1]/Medium.density(state_b)/geometry.crossAreas[nV];
       Ts_wallFM[nFM + 1] =Ts_wall[nV];
-
       /* Geometry Variables */
       crossAreasFM[1:nFM+1] = cat(1, geometry.crossAreas[1:nV], {geometry.crossAreas[nV]});
       dimensionsFM[1:nFM+1] = cat(1, geometry.dimensions[1:nV], {geometry.dimensions[nV]});
       perimetersFM[1:nFM+1] = cat(1, geometry.perimeters[1:nV], {geometry.perimeters[nV]});
       roughnessesFM[1:nFM+1] = cat(1, geometry.roughnesses[1:nV], {geometry.roughnesses[nV]});
-
       if nFM == 1 then
         dlengthsFM[1] = geometry.dlengths[1];
         dheightsFM[1] = geometry.dheights[1];
@@ -724,36 +651,29 @@ equation
         dlengthsFM[nFM] = 0.5*geometry.dlengths[nFM];
         dheightsFM[nFM] = 0.5*geometry.dheights[nFM];
       end if;
-
     elseif not exposeState_a and exposeState_b then
       /************************************************************************/
       /*             1.c Model Structure (false, true) (i.e., _v)             */
       /************************************************************************/
       //nFM = nV
-
       // Connections
       m_flows[1:nV] = flowModel.m_flows[1:nV];
-
       /* Boundary Ports */
       // Left Boundary - set by connecting model
       // Right Boundary
       port_b.p = mediums[nV].p;
-
       /* State Variables */
       statesFM[1] = state_a;
       vsFM[1] = m_flows[1]/Medium.density(state_a)/geometry.crossAreas[1];
       Ts_wallFM[1] = Ts_wall[1];
-
       statesFM[2:nFM+1] = mediums[1:nV].state;
       vsFM[2:nFM+1] = vs;
       Ts_wallFM[2:nFM+1] = Ts_wall[1:nV];
-
       /* Geometry Variables */
       crossAreasFM[1:nFM+1] = cat(1, {geometry.crossAreas[1]}, geometry.crossAreas[1:nV]);
       dimensionsFM[1:nFM+1] = cat(1, {geometry.dimensions[1]}, geometry.dimensions[1:nV]);
       perimetersFM[1:nFM+1] = cat(1, {geometry.perimeters[1]}, geometry.perimeters[1:nV]);
       roughnessesFM[1:nFM+1] = cat(1, {geometry.roughnesses[1]}, geometry.roughnesses[1:nV]);
-
       if nFM == 1 then
         dlengthsFM[1] = geometry.dlengths[1];
         dheightsFM[1] = geometry.dheights[1];
@@ -767,47 +687,37 @@ equation
         dlengthsFM[nFM] = 0.5*geometry.dlengths[nFM - 1] + geometry.dlengths[nFM];
         dheightsFM[nFM] = 0.5*geometry.dheights[nFM - 1] + geometry.dheights[nFM];
       end if;
-
     elseif not exposeState_a and not exposeState_b then
       /************************************************************************/
       /*            1.d Model Structure (false, false) (i.e., _v_)            */
       /************************************************************************/
       //nFM = nV+1;
-
       // Connections
       m_flows[1:nV + 1] = flowModel.m_flows[1:nV + 1];
-
       /* Boundary Ports */
       // Left Boundary - set by connecting model
       // Right Boundary - set by connecting model
-
       /* State Variables */
       statesFM[1] = state_a;
       vsFM[1] = m_flows[1]/Medium.density(state_a)/geometry.crossAreas[1];
       Ts_wallFM[1] = Ts_wall[1];
-
       statesFM[2:nFM] = mediums[1:nV].state;
       vsFM[2:nFM] = vs;
       Ts_wallFM[2:nFM] = Ts_wall[1:nV];
-
       statesFM[nFM + 1] = state_b;
       vsFM[nFM + 1] = m_flows[nV+1]/Medium.density(state_b)/geometry.crossAreas[nV];
       Ts_wallFM[nFM + 1] =Ts_wall[nV];
-
       /* Geometry Variables */
       crossAreasFM[1:nFM+1] = cat(1, {geometry.crossAreas[1]}, geometry.crossAreas[1:nV], {geometry.crossAreas[nV]});
       dimensionsFM[1:nFM+1] = cat(1, {geometry.dimensions[1]}, geometry.dimensions[1:nV], {geometry.dimensions[nV]});
       perimetersFM[1:nFM+1] = cat(1, {geometry.perimeters[1]}, geometry.perimeters[1:nV], {geometry.perimeters[nV]});
       roughnessesFM[1:nFM+1] = cat(1, {geometry.roughnesses[1]}, geometry.roughnesses[1:nV], {geometry.roughnesses[nV]});
-
       dlengthsFM[1:nFM] = cat(1, {0.5*geometry.dlengths[1]}, 0.5*(geometry.dlengths[1:nV-1] + geometry.dlengths[2:nV]), {0.5*geometry.dlengths[nV]});
       dheightsFM[1:nFM] = cat(1, {0.5*geometry.dheights[1]}, 0.5*(geometry.dheights[1:nV-1] + geometry.dheights[2:nV]), {0.5*geometry.dheights[nV]});
-
     else
       assert(false, "Unknown model structure");
     end if;
   end if;
-
   annotation (
     defaultComponentName="pipe",
     Documentation(info="<html>

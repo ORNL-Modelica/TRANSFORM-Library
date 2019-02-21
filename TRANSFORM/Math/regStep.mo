@@ -2,7 +2,6 @@ within TRANSFORM.Math;
 function regStep
   "Approximation of a general step, such that the approximation is continuous and differentiable"
   extends TRANSFORM.Icons.Function;
-
   input Real pos "Ordinate value for x > 0";
   input Real neg "Ordinate value for x < 0";
   input Real x "Abscissa value";
@@ -13,7 +12,6 @@ algorithm
   y :=smooth(1, if x > deltax then pos else if x < -deltax then neg else if
     deltax > 0 then (x/deltax)*((x/deltax)^2 - 3)*(neg - pos)/4 + (pos + neg)/2
      else (pos + neg)/2);
-
   annotation (smoothOrder=4,Inline=true, Documentation(info="<html>
 <p>
 This function is used to approximate the equation

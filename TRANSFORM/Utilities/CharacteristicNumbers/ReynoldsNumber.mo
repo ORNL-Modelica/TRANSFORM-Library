@@ -1,7 +1,6 @@
 within TRANSFORM.Utilities.CharacteristicNumbers;
 function ReynoldsNumber "Return Reynolds number from v, rho, mu, D"
   extends Modelica.Icons.Function;
-
   input SI.Velocity v "Mean velocity of fluid flow";
   input SI.Density rho "Fluid density";
   input SI.DynamicViscosity mu "Dynamic (absolute) viscosity";

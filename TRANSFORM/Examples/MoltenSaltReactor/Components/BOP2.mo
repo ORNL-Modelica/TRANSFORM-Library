@@ -1,14 +1,10 @@
 within TRANSFORM.Examples.MoltenSaltReactor.Components;
 model BOP2
-
   package Medium_PCL = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT (
   extraPropertiesNames={"Tritium"},
   C_nominal={1e6}) "Primary coolant loop medium";
-
 package Medium_BOP = Modelica.Media.Water.StandardWater;
-
   parameter Integer toggleStaticHead = 0 "=1 to turn on, =0 to turn off";
-
   HeatExchangers.GenericDistributed_HX    SHX(
     redeclare package Medium_shell = Medium_PCL,
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
@@ -47,7 +43,6 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,0})));
-
   Fluid.BoundaryConditions.Boundary_pT boundary2(
     nPorts=1,
     redeclare package Medium = Medium_PCL,
@@ -76,7 +71,6 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
     p_start=data_SHX.p_outlet_tube,
     T_start=data_SHX.T_outlet_tube)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-
   Data.data_BOP data_BOP
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
   Fluid.Volumes.IdealCondenser condenser1(
@@ -112,7 +106,6 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=1),
     nPorts_b=1)
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-
   Fluid.Machines.SteamTurbine steamTurbine_LP(
     redeclare package Medium = Medium_BOP,
     T_a_start=data_SHX.T_outlet_tube,

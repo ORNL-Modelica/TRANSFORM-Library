@@ -1,6 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Data.Tritium;
 record tritium_0 "Choose to define no fission products"
-
   extends PartialTritium(
     extraPropertiesNames=fill("", 0),
     C_nominal=fill(1e14, nC),
@@ -11,7 +10,6 @@ record tritium_0 "Choose to define no fission products"
         0,
         nC,
         nC));
-
   annotation (defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

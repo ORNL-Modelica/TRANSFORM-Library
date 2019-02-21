@@ -1,7 +1,6 @@
 within TRANSFORM.Icons;
 partial class ObsoleteModel
   "Icon for classes that are obsolete and will be removed in later versions"
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
           extent={{-102,102},{102,-102}},

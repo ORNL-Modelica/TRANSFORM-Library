@@ -1,12 +1,10 @@
 within TRANSFORM.Examples.Utilities;
 model BoundaryCheck_fluidPorts
-
   parameter Integer n=1 "Number of comparisons";
   parameter TRANSFORM.Examples.Utilities.Record_fluidPorts[n] port1
     "Fluid port 1";
   parameter TRANSFORM.Examples.Utilities.Record_fluidPorts[n] port2
     "Fluid port 2";
-
   parameter SI.AbsolutePressure[n] tol_p=fill(Modelica.Constants.eps,n)
     "Tolerance for equality: pressure";
   parameter SI.Temperature[n] tol_T=fill(Modelica.Constants.eps,n)
@@ -15,7 +13,6 @@ model BoundaryCheck_fluidPorts
     "Tolerance for equality: specific enthalpy";
   parameter SI.MassFlowRate[n] tol_m_flow=fill(Modelica.Constants.eps,n)
     "Tolerance for equality: mass flow rate";
-
   BoundaryCheck BCcheck_p(
     n=n,
     x1=port1.p,
@@ -40,7 +37,6 @@ model BoundaryCheck_fluidPorts
     tol=tol_m_flow,
     isFlow=fill(true, n))
     annotation (Placement(transformation(extent={{70,-6},{90,14}})));
-
   annotation (defaultComponentName="BCcheck",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-300,-100},
             {300,100}}), graphics={

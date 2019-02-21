@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Exampl
 model part_c_InsulationThickness
   "Part c) Rate of heat transfer as a function of the insulation thickness (Figure 1-8)"
   extends Icons.Example;
-
   Resistances.Heat.Sphere linerInner(
     lambda=15,
     r_in=r_in.y,
@@ -68,7 +67,6 @@ model part_c_InsulationThickness
     annotation (Placement(transformation(extent={{-48,48},{-28,68}})));
   Utilities.Visualizers.displayReal display_r_out(use_port=true)
     annotation (Placement(transformation(extent={{-36,30},{-16,50}})));
-
   Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={display_Q_total.val})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation

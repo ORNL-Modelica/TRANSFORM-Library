@@ -1,7 +1,6 @@
 within TRANSFORM.Controls.Examples;
 model LimPID_HysteresisTimer_Test
   extends TRANSFORM.Icons.Example;
-
   LimPID_HysteresisTimer                  PID(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0.3,
@@ -40,7 +39,6 @@ model LimPID_HysteresisTimer_Test
   Utilities.ErrorAnalysis.UnitTests           unitTests(n=2, x={PID.y,sensor.T})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(setpoint.y, PID.u_s)
     annotation (Line(points={{-59,-20},{-42,-20}}, color={0,0,127}));
   connect(boundary.port, conduction.port_a)

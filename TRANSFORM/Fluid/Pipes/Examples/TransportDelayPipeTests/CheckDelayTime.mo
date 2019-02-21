@@ -1,10 +1,7 @@
 within TRANSFORM.Fluid.Pipes.Examples.TransportDelayPipeTests;
 model CheckDelayTime
-
   extends Icons.Example;
-
   package Medium=Modelica.Media.Water.StandardWater;
-
   TransportDelayPipe transportDelayPipe(
     redeclare package Medium = Medium,
     crossArea=0.01,
@@ -41,7 +38,6 @@ equation
       points={{12,0},{50,0}},
       color={0,127,255},
       thickness));
-
   connect(step2.y, boundary1.T_in) annotation (Line(points={{-59,10},{-50,10},{
           -50,4},{-40,4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

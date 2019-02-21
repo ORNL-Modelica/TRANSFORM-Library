@@ -1,18 +1,15 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model CounterFlow
   "Switch temperature arrays for counter flow cases"
-
   parameter Integer n=0 "Number of connected elements";// annotation(Dialog(connectorSizing=true));
   parameter Boolean counterCurrent=false
     "Swap temperature and flux vector order";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-
   Interfaces.HeatPort_Flow port_a[n]
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.HeatPort_Flow port_b[n]
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
-
   if not counterCurrent then
     for i in 1:n loop
       port_a[i].Q_flow + port_b[i].Q_flow = 0;
@@ -24,7 +21,6 @@ equation
       port_a[n - (i - 1)].T = port_b[i].T;
     end for;
   end if;
-
   annotation (defaultComponentName="counterFlow",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,

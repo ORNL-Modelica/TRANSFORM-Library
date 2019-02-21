@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Control.Templates;
 model ControlSystem "Plant control system"
-
   ControlBuses.ControlBus_Rankine_controlsystem controlBus_Rankine annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -12,7 +11,6 @@ model ControlSystem "Plant control system"
     annotation (Placement(transformation(extent={{8,-22},{-8,-6}})));
   Modelica.Blocks.Sources.RealExpression valve_LP(y=1)
     annotation (Placement(transformation(extent={{76,-22},{60,-6}})));
-
   Records.NominalData data
     annotation (Placement(transformation(extent={{144,52},{164,72}})));
   ControlBuses.ControlBus_SteamGenerator_controlsystem controlBus_SteamGenerator1
@@ -132,7 +130,6 @@ model ControlSystem "Plant control system"
         1)
     annotation (Placement(transformation(extent={{140,-2},{124,14}})));
 equation
-
   connect(controlBus_Rankine.u_valve_HP, valve_HP.y) annotation (Line(
       points={{-100.1,-29.9},{-100,-29.9},{-100,-28},{-100,-14},{-78.8,-14}},
       color={255,204,51},
@@ -148,7 +145,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-
   connect(controlBus_Rankine.u_valve_LP, valve_LP.y) annotation (Line(
       points={{-100.1,-29.9},{-100.1,-36},{-100,-36},{-100,-22},{38,-22},{38,-14},
           {59.2,-14}},
@@ -157,7 +153,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-
   connect(controlBus_SteamGenerator1.u_SGBlockValve, u_SGBlockValve_SG3.y)
     annotation (Line(
       points={{-100.1,-221.9},{-100.1,-212},{-66.8,-212}},
@@ -241,7 +236,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-
   connect(controlBus_Rankine.u_FWIsolationValve_2, u_FWIsolationValve_2.y)
     annotation (Line(
       points={{-100.1,-29.9},{-102,-29.9},{-102,58},{-18,58},{-18,66},{-10.8,66}},
@@ -258,7 +252,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-
   connect(controlBus_Rankine.u_FWBypassValve_1, u_FWBypassValve_1.y)
     annotation (Line(
       points={{-100.1,-29.9},{-100.1,46},{-78.8,46}},
@@ -299,7 +292,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-
   connect(controlBus_Rankine.u_TStopValve, u_TStopValve.y) annotation (Line(
       points={{-100.1,-29.9},{-102,-29.9},{-102,90},{-102,88},{-78.8,88}},
       color={255,204,51},
@@ -370,7 +362,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-
   connect(controlBus_Rankine.u_pumpspeed_LP[1], u_pumpspeed_LP_1.y) annotation (
      Line(
       points={{-100.1,-29.9},{-100.1,-29.9},{-100.1,-62},{-12,-62},{-12,-54},{-8.8,
@@ -388,7 +379,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-
   connect(controlBus_Rankine.u_pumpspeed_LP[3], u_pumpspeed_LP_3.y) annotation (
      Line(
       points={{-100.1,-29.9},{-100.1,-62},{122,-62},{122,-54},{125.2,-54}},

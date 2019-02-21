@@ -6,13 +6,10 @@ model MassFractions "Ideal one port mass fraction sensor"
         TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
       constrainedby
       TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
-
   parameter String substanceName = "water" "Name of mass fraction";
-
   Modelica.Blocks.Interfaces.RealOutput Xi "Mass fraction in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{50,-10},{70,10}})));
-
 protected
   parameter Integer ind(fixed=false)
     "Index of species in vector of independent mass fractions";

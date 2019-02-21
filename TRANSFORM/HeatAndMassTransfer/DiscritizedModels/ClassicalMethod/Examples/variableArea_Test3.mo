@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Examples;
 model variableArea_Test3
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   Cylinder_FD Winding(
     r_inner=0.01,
     r_outer=0.02,
@@ -23,7 +22,6 @@ model variableArea_Test3
     redeclare model SolutionMethod_FD =
         Cylindrical.SolutionMethods.NodeCentered_2D,
     nZ=2) annotation (Placement(transformation(extent={{-34,-56},{46,34}})));
-
   BoundaryConditions.Convection_constantArea_2DCyl convection_top(
     nNodes=Winding.nR,
     alphas=400*ones(Winding.nR),
@@ -33,21 +31,16 @@ model variableArea_Test3
         extent={{-10,-15},{10,15}},
         rotation=90,
         origin={6,59})));
-
   BoundaryConditions.FixedTemperature_FD fixedTemperature_FD2(nNodes=
         Winding.nR, T(displayUnit="K") = 320*ones(Winding.nR))
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-
   BoundaryConditions.Adiabatic_FD adiabatic_bottom(nNodes=Winding.nR)
     annotation (Placement(transformation(extent={{-26,-80},{-6,-60}})));
-
   BoundaryConditions.Adiabatic_FD adiabatic_outer(nNodes=Winding.nZ)
     annotation (Placement(transformation(extent={{88,-21},{68,-1}})));
-
   Modelica.Blocks.Sources.Constant const[Winding.nR,Winding.nZ](k=6e5*ones(
         Winding.nR, Winding.nZ))
     annotation (Placement(transformation(extent={{-62,20},{-42,40}})));
-
   Interfaces.VariableArea variableArea(
     surfaceAreas_Fixed=Winding.solutionMethod.A_inner,
     nVar=2,

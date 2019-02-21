@@ -6,11 +6,9 @@ model Collector
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.HeatPort_Flow port_b
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
 equation
   port_b.Q_flow + sum(port_a.Q_flow) = 0;
   port_a.T = fill(port_b.T, n);
-
   annotation (defaultComponentName="collector",
   Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={

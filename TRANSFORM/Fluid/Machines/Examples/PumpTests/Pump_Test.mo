@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.Machines.Examples.PumpTests;
 model Pump_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Fluid.BoundaryConditions.Boundary_ph Source(
     h=1.5e5,
     p=100000,
@@ -27,7 +26,6 @@ model Pump_Test
     offset=1e-6,
     duration=1) annotation (Placement(transformation(extent={{-20,20},{0,40}},
           rotation=0)));
-
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance ValveLin(R=1/(1e-5
         *Step1.y)) annotation (Placement(transformation(extent={{-6,-10},{14,10}},
           rotation=0)));

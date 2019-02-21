@@ -1,6 +1,5 @@
 within TRANSFORM.Examples.GenericModular_PWR;
 model GenericModule
-
   extends BaseClasses.Partial_SubSystem_A(
     redeclare replaceable CS_Dummy CS,
     redeclare replaceable ED_Dummy ED,
@@ -11,11 +10,8 @@ model GenericModule
      h=data.h_steam_cold,
      m_flow=data.m_flow_steam),
    port_b_nominal(p=data.p_steam, h=dataInitial.h_start_STHX_tube[end]));
-
   package Medium_PHTS = Modelica.Media.Water.StandardWater;
-
   parameter Data.DataInitial dataInitial;
-
   TRANSFORM.Fluid.Volumes.SimpleVolume inletPlenum(redeclare package Medium =
         Medium_PHTS,
       redeclare model Geometry =
@@ -94,7 +90,6 @@ model GenericModule
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-40})));
-
   TRANSFORM.Fluid.Volumes.SimpleVolume outletPlenum(
     redeclare package Medium = Medium_PHTS,
     redeclare model Geometry =
@@ -168,7 +163,6 @@ model GenericModule
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={24,2})));
-
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_to_port_b(
       redeclare package Medium = Medium, R=1*p_units/data.m_flow_steam)
     annotation (Placement(transformation(extent={{26,30},{46,50}})));
@@ -209,7 +203,6 @@ model GenericModule
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,40})));
-
   TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow1(redeclare
       package Medium = Medium, m_flow_nominal=data.m_flow_steam,
     use_input=true)
@@ -224,11 +217,9 @@ model GenericModule
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-66,-42})));
-
 protected
   final parameter SI.Pressure p_units = 1;
 equation
-
   connect(outletPlenum.port_a, core.port_b)
     annotation (Line(points={{-40,-16},{-40,-30}},        color={0,127,255}));
   connect(inletPlenum.port_b, core.port_a)
@@ -255,10 +246,8 @@ equation
     annotation (Line(points={{-40,30},{-40,40},{-37,40}}, color={0,127,255}));
   connect(tee_inlet.port_b, pressurizer_tee.port_1)
     annotation (Line(points={{-23,40},{-16,40}}, color={0,127,255}));
-
   connect(resistance_to_port_b.port_b, port_b)
     annotation (Line(points={{43,40},{100,40}}, color={0,127,255}));
-
   connect(STHX.port_a_tube, pump_SimpleMassFlow1.port_b)
     annotation (Line(points={{24,-8},{24,-40},{40,-40}}, color={0,127,255}));
   connect(pump_SimpleMassFlow1.port_a, port_a)

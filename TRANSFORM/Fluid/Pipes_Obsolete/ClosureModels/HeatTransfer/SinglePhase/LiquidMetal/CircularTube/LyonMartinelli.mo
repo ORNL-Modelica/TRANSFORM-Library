@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.SinglePhase.LiquidMetal.CircularTube;
 model LyonMartinelli
   "Lyon-Martinelli: Liquid metal correlation for flow in circular tubes and constant heat flux"
-
   /* source: 
   M. M. Wakil
   Nuclear Heat Transport 1993
@@ -12,10 +11,8 @@ model LyonMartinelli
   - flow in circular tubes
   - constant heat flux along tube wall
   */
-
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
-
     Real[nHT] Pes "Peclet Number";
 equation
   Pes = TRANSFORM.Utilities.CharacteristicNumbers.PecletNumber(Res, Prs);

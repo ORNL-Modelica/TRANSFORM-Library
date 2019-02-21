@@ -4,7 +4,6 @@ model UseOfGeometryModel
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   replaceable package Medium = Modelica.Media.Water.StandardWater;
-
   inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                                      annotation(Placement(transformation(origin = {-80, 80}, extent = {{-10, -10}, {10, 10}})));
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary(
@@ -59,7 +58,6 @@ TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
       r_outer=0.5*0.015,
       length=100)) annotation (Placement(transformation(origin={-20,-40},
         extent={{-10,-10},{10,10}})));
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={circular_pipe.port_b.p,
         annulus_pipe.port_b.p})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Interfaces.Fluids;
 partial package PartialLinearFluid "Generic pure liquid model with constant cp, compressibility and thermal expansion coefficients"
-
   //extends Modelica.Media.Interfaces.PartialPureSubstance
   extends TRANSFORM.Media.Interfaces.Fluids.PartialPureSubstance(ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.pTX,
       singleState=false);
@@ -152,7 +151,6 @@ partial package PartialLinearFluid "Generic pure liquid model with constant cp, 
   end isentropicExponent;
 
   redeclare function extends isentropicEnthalpy "Return isentropic enthalpy"
-
     /* Previous wrong equation:
 
 protected
@@ -183,7 +181,6 @@ algorithm
 
      state.T = reference_T/(1 - ((refState.T-reference_T)*cp_const/refState.T + (refState.p-p_downstream)*(-beta_const/reference_d))/cp_const)
   */
-
     h_is := specificEnthalpy(setState_pTX(
             p_downstream,
             reference_T/(1 - ((refState.T - reference_T)/refState.T + (

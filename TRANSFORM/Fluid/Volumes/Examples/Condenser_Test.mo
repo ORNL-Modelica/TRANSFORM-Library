@@ -1,9 +1,7 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model Condenser_Test
   import TRANSFORM;
-
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Fluid.Volumes.Condenser cond(
     use_T_start=false,
     alphaInt_WExt=1000,
@@ -57,7 +55,6 @@ model Condenser_Test
     y_start=-3,
     initType=Modelica.Blocks.Types.Init.SteadyState) annotation (Placement(
         transformation(extent={{-51,-33},{-67,-17}}, rotation=0)));
-
   Modelica.Blocks.Sources.Ramp coolingMassFlow(
     height=30,
     duration=10,

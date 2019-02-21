@@ -1,9 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Interfaces;
 connector MolePort_Flow
   "Generic connector for defined flow variable (e.g., molar flow rate - n_flow)"
-
   extends MolePort;
-
   annotation(defaultComponentName = "port_a",
     Documentation(info="<html>
 <p>This connector is used for 1-dimensional heat flow between components.

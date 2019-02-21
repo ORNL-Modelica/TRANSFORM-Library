@@ -6,7 +6,6 @@ model Pressure "Ideal pressure sensor"
         TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_Pa
       constrainedby
       TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput p(
     final quantity="Pressure",
     final unit="Pa",
@@ -14,10 +13,8 @@ model Pressure "Ideal pressure sensor"
     min=0) "Pressure at port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{50,-10},{70,10}})));
-
 equation
   p = port.p;
-
   annotation (defaultComponentName="sensor_p",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Text(

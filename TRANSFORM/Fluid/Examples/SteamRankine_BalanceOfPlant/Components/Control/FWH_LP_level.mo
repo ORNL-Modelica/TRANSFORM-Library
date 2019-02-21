@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Control;
 block FWH_LP_level
   extends Interfaces.CondenserLevel;
-
   Modelica.Blocks.Sources.RealExpression level_setPoint(y=
         30)
            annotation (Placement(transformation(extent={{-50,-10},{-30,10}},

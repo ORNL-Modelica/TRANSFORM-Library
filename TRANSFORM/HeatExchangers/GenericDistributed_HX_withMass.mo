@@ -1,39 +1,32 @@
 within TRANSFORM.HeatExchangers;
 model GenericDistributed_HX_withMass
   "A (i.e., no inlet/outlet plenum considerations, etc.) generic heat exchanger with discritized fluid and wall volumes where concurrent/counter flow is specified mass flow direction."
-
   import TRANSFORM.Math.linspace_1D;
   import TRANSFORM.Math.fillArray_1D;
   import TRANSFORM.Math.linspaceRepeat_1D;
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
   import TRANSFORM.Math.linspaceRepeat_1D_multi;
-
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_tube(redeclare package
       Medium = Medium_tube) annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b_tube(redeclare package
       Medium = Medium_tube) annotation (Placement(transformation(extent={{90,-10},
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_shell(redeclare package
       Medium = Medium_shell) annotation (Placement(transformation(extent={{90,36},
             {110,56}}), iconTransformation(extent={{90,36},{110,56}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b_shell(redeclare package
       Medium = Medium_shell) annotation (Placement(transformation(extent={{-110,
             36},{-90,56}}), iconTransformation(extent={{-110,36},{-90,56}})));
-
   parameter Real nParallel=1 "# of identical parallel HXs";
-
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.StraightPipeHX
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.GenericHX
     "Geometry" annotation (choicesAllMatching=true);
-
   Geometry geometry
     annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
-
   replaceable package Medium_shell =
       Modelica.Media.Interfaces.PartialMedium
      "Shell side medium" annotation (choicesAllMatching=true);
@@ -42,10 +35,8 @@ model GenericDistributed_HX_withMass
   replaceable package Material_wall =
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy "Tube wall material"
     annotation (choicesAllMatching=true);
-
   parameter Boolean counterCurrent=true
     "Swap shell side temperature and flux vector order";
-
   replaceable model FlowModel_shell =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
     constrainedby
@@ -58,7 +49,6 @@ model GenericDistributed_HX_withMass
     TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
     "Tube side flow models (i.e., momentum, pressure loss, wall friction)"
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
-
   parameter Boolean use_HeatTransfer_tube=true
     "= true to use inner wall heat port (i.e., tube to wall)" annotation (Dialog(group="Heat Transfer"));
   parameter Boolean use_HeatTransfer_shell=true
@@ -84,7 +74,6 @@ model GenericDistributed_HX_withMass
   replaceable model InternalHeatModel_wall =
       HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
     annotation (Dialog(group="Heat Transfer"),choicesAllMatching=true);
-
   // Shell Initialization
   parameter SI.AbsolutePressure[geometry.nV] ps_start_shell=linspace_1D(
       p_a_start_shell,
@@ -97,7 +86,6 @@ model GenericDistributed_HX_withMass
       m_flow_a_start_shell > 0 then -1e3 elseif m_flow_a_start_shell < 0 then -1e3
        else 0) "Pressure at port b" annotation (Dialog(tab="Shell Initialization",
         group="Start Value: Absolute Pressure"));
-
   parameter Boolean use_Ts_start_shell=true
     "Use T_start if true, otherwise h_start" annotation (Evaluate=true, Dialog(
         tab="Shell Initialization", group="Start Value: Temperature"));
@@ -118,7 +106,6 @@ model GenericDistributed_HX_withMass
       tab="Shell Initialization",
       group="Start Value: Temperature",
       enable=use_Ts_start_shell));
-
   parameter SI.SpecificEnthalpy[geometry.nV] hs_start_shell=if not
       use_Ts_start_shell then linspace_1D(
       h_a_start_shell,
@@ -147,7 +134,6 @@ model GenericDistributed_HX_withMass
       tab="Shell Initialization",
       group="Start Value: Specific Enthalpy",
       enable=not use_Ts_start_shell));
-
   parameter SI.MassFraction Xs_start_shell[geometry.nV,Medium_shell.nX]=
       linspaceRepeat_1D(
       X_a_start_shell,
@@ -162,7 +148,6 @@ model GenericDistributed_HX_withMass
   parameter SI.MassFraction X_b_start_shell[Medium_shell.nX]=X_a_start_shell
     "Mass fraction at port b" annotation (Dialog(tab="Shell Initialization",
         group="Start Value: Species Mass Fraction"));
-
   parameter SIadd.ExtraProperty Cs_start_shell[geometry.nV,Medium_shell.nC]=
       linspaceRepeat_1D(
       C_a_start_shell,
@@ -177,7 +162,6 @@ model GenericDistributed_HX_withMass
   parameter SIadd.ExtraProperty C_b_start_shell[Medium_shell.nC]=
       C_a_start_shell "Mass-Specific value at port b" annotation (Dialog(tab="Shell Initialization",
         group="Start Value: Trace Substances"));
-
   parameter SI.MassFlowRate[geometry.nV + 1] m_flows_start_shell=linspace(
       m_flow_a_start_shell,
       -m_flow_b_start_shell,
@@ -188,7 +172,6 @@ model GenericDistributed_HX_withMass
   parameter SI.MassFlowRate m_flow_b_start_shell=-m_flow_a_start_shell
     "Mass flow rate at port_b" annotation (Dialog(tab="Shell Initialization",
         group="Start Value: Mass Flow Rate"));
-
   // Tube Initialization
   parameter SI.AbsolutePressure[geometry.nV] ps_start_tube=linspace_1D(
       p_a_start_tube,
@@ -201,7 +184,6 @@ model GenericDistributed_HX_withMass
       m_flow_a_start_tube > 0 then -1e3 elseif m_flow_a_start_tube < 0 then -1e3
        else 0) "Pressure at port b" annotation (Dialog(tab="Tube Initialization",
         group="Start Value: Absolute Pressure"));
-
   parameter Boolean use_Ts_start_tube=true
     "Use T_start if true, otherwise h_start" annotation (Evaluate=true, Dialog(
         tab="Tube Initialization", group="Start Value: Temperature"));
@@ -222,7 +204,6 @@ model GenericDistributed_HX_withMass
       tab="Tube Initialization",
       group="Start Value: Temperature",
       enable=use_Ts_start_tube));
-
   parameter SI.SpecificEnthalpy[geometry.nV] hs_start_tube=if not
       use_Ts_start_tube then linspace_1D(
       h_a_start_tube,
@@ -249,7 +230,6 @@ model GenericDistributed_HX_withMass
       tab="Tube Initialization",
       group="Start Value: Specific Enthalpy",
       enable=not use_Ts_start_tube));
-
   parameter SI.MassFraction Xs_start_tube[geometry.nV,Medium_tube.nX]=
       linspaceRepeat_1D(
       X_a_start_tube,
@@ -264,7 +244,6 @@ model GenericDistributed_HX_withMass
   parameter SI.MassFraction X_b_start_tube[Medium_tube.nX]=X_a_start_tube
     "Mass fraction at port b" annotation (Dialog(tab="Tube Initialization",
         group="Start Value: Species Mass Fraction"));
-
   parameter SIadd.ExtraProperty Cs_start_tube[geometry.nV,Medium_tube.nC]=
       linspaceRepeat_1D(
       C_a_start_tube,
@@ -279,7 +258,6 @@ model GenericDistributed_HX_withMass
   parameter SIadd.ExtraProperty C_b_start_tube[Medium_tube.nC]=C_a_start_tube
     "Mass-Specific value at port b" annotation (Dialog(tab="Tube Initialization",
         group="Start Value: Trace Substances"));
-
   parameter SI.MassFlowRate[geometry.nV + 1] m_flows_start_tube=linspace(
       m_flow_a_start_tube,
       -m_flow_b_start_tube,
@@ -290,7 +268,6 @@ model GenericDistributed_HX_withMass
   parameter SI.MassFlowRate m_flow_b_start_tube=-m_flow_a_start_tube
     "Mass flow rate at port_b" annotation (Dialog(tab="Tube Initialization",
         group="Start Value: Mass Flow Rate"));
-
   // Tube Wall Initialization
   parameter SI.Temperature Ts_start_wall[geometry.nR,geometry.nV]=
       linspaceRepeat_1D(
@@ -311,7 +288,6 @@ model GenericDistributed_HX_withMass
       hs_start_shell,
       Xs_start_shell) "Shell side wall temperature" annotation (Dialog(tab="Wall Initialization",
         group="Start Value: Temperature"));
-
   // Advanced
   parameter Modelica.Fluid.Types.Dynamics energyDynamics[3]={Dynamics.DynamicFreeInitial,
       Dynamics.DynamicFreeInitial,Dynamics.DynamicFreeInitial}
@@ -326,7 +302,6 @@ model GenericDistributed_HX_withMass
   parameter Modelica.Fluid.Types.Dynamics momentumDynamics[2]={Dynamics.SteadyState,
       Dynamics.SteadyState} "Formulation of momentum balances {shell,tube}"
     annotation (Dialog(tab="Advanced", group="Dynamics"));
-
   parameter Boolean allowFlowReversal_shell=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Advanced", group="Shell Side"));
@@ -348,7 +323,6 @@ model GenericDistributed_HX_withMass
   parameter Boolean useInnerPortProperties_shell=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Shell Side"), Evaluate=true);
-
   parameter Boolean allowFlowReversal_tube=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Advanced", group="Tube Side"));
@@ -373,7 +347,6 @@ model GenericDistributed_HX_withMass
   parameter Boolean adiabaticDims[2]={false,false}
     "=true, toggle off conduction heat transfer in dimension {1,2}"
     annotation (Dialog(tab="Advanced", group="Tube Wall"));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface shell(
     redeclare package Medium = Medium_shell,
     redeclare model HeatTransfer = HeatTransfer_shell,
@@ -538,7 +511,6 @@ model GenericDistributed_HX_withMass
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,-34})));
-
   TRANSFORM.HeatExchangers.BaseClasses.Summary summary(
     R_shell=if shell.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({shell.heatTransfer.alphas[
         i, 1]*shell.geometry.surfaceAreas[i, 1] for i in 1:shell.nV})*shell.nParallel
@@ -549,7 +521,6 @@ model GenericDistributed_HX_withMass
         i, 1]*tube.geometry.surfaceAreas[i, 1] for i in 1:tube.nV})*tube.nParallel
         /tube.nV))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-
   parameter Integer nC=0 "Number of trace substances transfered through wall. Currently nC must be <= min(Medium_tube.nC,Medium_shell.nC)" annotation(Dialog(tab="Trace Mass Transfer"),Evalutate=true);
   parameter Boolean use_TraceMassTransfer_shell=false
     "= true to use the TraceMassTransfer model"
@@ -580,7 +551,6 @@ model GenericDistributed_HX_withMass
                                                                                                               constrainedby
     TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.PartialInternalTraceGeneration
     annotation (Dialog(tab="Trace Mass Transfer",group="Tube"), choicesAllMatching=true);
-
   parameter SI.Concentration Cs_start_wall[geometry.nR,geometry.nV,nC]=linspaceRepeat_1D_multi(Cs_start_wall_tubeSide,if counterCurrent then Modelica.Math.Matrices.flipUpDown(Cs_start_wall_shellSide) else Cs_start_wall_shellSide,geometry.nR)
     annotation (Dialog(tab="Wall Initialization", group="Start Value: Concentration"));
   parameter SI.Concentration Cs_start_wall_tubeSide[geometry.nV,nC]={{tube.Cs_start[
@@ -597,21 +567,18 @@ model GenericDistributed_HX_withMass
       Xs_start_shell[i, :])/shell.traceMassTransfer.MMs[j] for j in 1:nC} for i in
           1:geometry.nV} "Shell side wall concentration" annotation (Dialog(tab=
          "Wall Initialization", group="Start Value: Concentration"));
-
   replaceable model InternalMassModel_wall =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericMassGeneration
     constrainedby
     TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalMassGeneration
     "Internal mass generation" annotation (Dialog(tab="Trace Mass Transfer",group="Wall"),
       choicesAllMatching=true);
-
   replaceable model DiffusionCoeff_wall =
       TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
     constrainedby
     TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
     "Diffusion Coefficient" annotation (Dialog(tab="Trace Mass Transfer",group="Wall"),
       choicesAllMatching=true);
-
   parameter Real nb_wall_shellSide[geometry.nV,nC]=fill(
       1,
       geometry.nV,
@@ -627,7 +594,6 @@ model GenericDistributed_HX_withMass
       geometry.nV,
       nC) "Wall side solubility coefficient (i.e., Henry/Sievert)"
     annotation (Dialog(tab="Trace Mass Transfer",group="Wall"));
-
   parameter Real nb_wall_tubeSide[geometry.nV,nC]=fill(
       1,
       geometry.nV,
@@ -643,7 +609,6 @@ model GenericDistributed_HX_withMass
       geometry.nV,
       nC) "Wall side solubility coefficient (i.e., Henry/Sievert)"
     annotation (Dialog(tab="Trace Mass Transfer",group="Wall"));
-
   HeatAndMassTransfer.BoundaryConditions.Mass.CounterFlow counterFlowM(
     nC=nC,
     counterCurrent=counterCurrent,
@@ -689,7 +654,6 @@ model GenericDistributed_HX_withMass
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-4,-62})));
-
   HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interfaceM_shellSide[geometry.nV](
     each nC=nC,
     nb=nb_wall_shellSide,
@@ -699,7 +663,6 @@ model GenericDistributed_HX_withMass
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-4,-10})));
-
   // Visualization
   parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
   parameter SI.Density ds_reference[geometry.nR,geometry.nV]=Material_wall.density(
@@ -712,9 +675,7 @@ model GenericDistributed_HX_withMass
   parameter Units.NonDim C_nominal[nC]=fill(1e-6, nC)
     "Nominal concentration [mol/m3] for improved numeric stability"
     annotation (Dialog(tab="Advanced", group="Wall"));
-
 equation
-
   //    SI.TemperatureDifference DT_lm "Log mean temperature difference";
   //    SI.ThermalConductance UA "Overall heat transfer conductance";
   //
@@ -726,7 +687,6 @@ equation
   //
   //    SI.CoefficientOfHeatTransfer alphaAvg_tube;
   //    SI.ThermalResistance R_tube;
-
   //   alphaAvg_shell = sum(shell.heatTransfer.alphas)/geometry.nV;
   //   R_shell = 1/(alphaAvg_shell*sum(shell.surfaceAreas));
   //
@@ -747,7 +707,6 @@ equation
   //
   //   U_shell = UA/sum(shell.surfaceAreas);
   //   U_tube = UA/sum(tube.surfaceAreas);
-
   connect(shell.port_a, port_a_shell) annotation (Line(
       points={{10,46},{70,46},{100,46}},
       color={0,127,255},
@@ -762,7 +721,6 @@ equation
     annotation (Line(points={{0,-75},{0,-44}}, color={191,0,0}));
   connect(counterFlow.port_b, shell.heatPorts[:, 1])
     annotation (Line(points={{0,28},{0,41}}, color={191,0,0}));
-
   connect(counterFlow.port_a, tubeWall.port_b1)
     annotation (Line(points={{0,8},{0,-24}}, color={191,0,0}));
   connect(adiabatic_shellSide.port, tubeWall.port_b1)
@@ -771,7 +729,6 @@ equation
           {-24,-16},{-24,-30},{-9.8,-30}}, color={0,140,72}));
   connect(adiabaticM_b.port, tubeWall.portM_b2) annotation (Line(points={{40,-16},
           {26,-16},{26,-30},{10,-30}}, color={0,140,72}));
-
   connect(interfaceM_tubeSide.port_b, tubeWall.portM_a1)
     annotation (Line(points={{-4,-55},{-4,-44}}, color={0,140,72}));
   connect(adiabaticM_tubeSide.port, tubeWall.portM_a1)
@@ -788,14 +745,12 @@ equation
     annotation (Line(points={{-4,-17},{-4,-24}}, color={0,140,72}));
   connect(adiabaticM_shellSide.port, tubeWall.portM_b1) annotation (Line(points=
          {{-40,2},{-22,2},{-22,-20},{-4,-20},{-4,-24}}, color={0,140,72}));
-
 //   for i in 1:geometry.nV loop
 //     for j in 1:nC loop
 //       connect(counterFlowM[i].port_b[j], shell.massPorts[iC_shell[i], 1]);
 //       connect(interfaceM_inner[i].port_a[j], tube.massPorts[iC_tube[i], 1]);
 //     end for;
 //   end for;
-
   connect(counterFlowM.port_b, shell.massPorts[:, 1]) annotation (Line(points={{
           -20,28},{-20,34},{4,34},{4,41}}, color={0,140,72}));
   connect(interfaceM_tubeSide.port_a, tube.massPorts[:, 1])

@@ -7,11 +7,9 @@ model TraceSubstances "Ideal one port trace substances sensor"
       constrainedby
       TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
   parameter String substanceName = "CO2" "Name of trace substance";
-
   Modelica.Blocks.Interfaces.RealOutput C "Trace substance in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{50,-10},{70,10}})));
-
 protected
   parameter Integer ind(fixed=false)
     "Index of species in vector of auxiliary substances";

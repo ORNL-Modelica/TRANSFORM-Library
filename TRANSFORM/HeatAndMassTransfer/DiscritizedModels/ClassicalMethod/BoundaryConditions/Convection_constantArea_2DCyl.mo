@@ -1,32 +1,25 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions;
 model Convection_constantArea_2DCyl
   "Convection boundary condition for finite difference between port_a and port_b for Cylindrical Coordinates"
-
 parameter Integer nNodes(min=2) "# of nodal points";
 input Modelica.SIunits.CoefficientOfHeatTransfer alphas[nNodes]
     "Convection heat transfer coefficient";
-
 parameter Boolean isAxial = true
     "Specify the convection axis (axial or radial)"
     annotation(Evaluate=true);
-
 parameter Boolean isVolCentered = false
     "Solution method is volume centered in axial direction"
     annotation(Dialog(enable=isAxial),Evaluate=true);
-
 parameter Boolean isInner = false
     "Indicate appropriate convection edge (inner or outer)"
     annotation(Dialog(enable=isAxial),Evaluate=true);
-
 input Modelica.SIunits.Length r_inner = 1 "Inner radius" annotation(Dialog(group="Inputs",enable = (if not isAxial then true else isInner)));
 input Modelica.SIunits.Length r_outer = 1 "Outer radius" annotation(Dialog(group="Inputs",enable=(if not isAxial then true else not isInner)));
 input Modelica.SIunits.Length length = 1 "Axial length" annotation(Dialog(group="Inputs",enable=isAxial));
-
 Modelica.SIunits.Area A;
 Modelica.SIunits.Area A_node[nNodes];
 Modelica.SIunits.Length dxr;
 Modelica.SIunits.Length[nNodes] xr;
-
 Modelica.Fluid.Interfaces.HeatPorts_a port_a[nNodes] annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -43,7 +36,6 @@ Modelica.Fluid.Interfaces.HeatPorts_b port_b[nNodes] annotation (Placement(
         extent={{-40,-10},{40,10}},
         rotation=-90,
         origin={110,0})));
-
 equation
   if isAxial then
     // Calculate the area for convection of each node based on axial condition
@@ -52,12 +44,10 @@ equation
     else
       A = 2*Modelica.Constants.pi*length*r_outer;
     end if;
-
     if isVolCentered then
       dxr = length/(nNodes);
       xr[1:nNodes] = {dxr*(i-1) + dxr/2 for i in 1:nNodes};
       A_node[1:nNodes] = A/nNodes*ones(nNodes);
-
     else
       dxr = length/(nNodes-1);
       xr[1:nNodes] = {dxr*(i-1) for i in 1:nNodes};
@@ -69,20 +59,16 @@ equation
     // Calculate the area for convection of each node based on radial condition
     A = Modelica.Constants.pi*(r_outer^2-r_inner^2);
     dxr = (r_outer-r_inner)/(nNodes-1);
-
     xr[1:nNodes] = {dxr*(i-1) + r_inner for i in 1:nNodes};
     A_node[1] = Modelica.Constants.pi*xr[1]*dxr;
     A_node[2:nNodes-1] = {2*Modelica.Constants.pi*xr[i]*dxr for i in 2:nNodes-1};
     A_node[nNodes] = Modelica.Constants.pi*xr[end]*dxr;
-
   end if;
-
   for i in 1:nNodes loop
     port_a[i].Q_flow + port_b[i].Q_flow = 0 "Conservation of energy";
     port_a[i].Q_flow = alphas[i]*A_node[i]*(port_a[i].T-port_b[i].T)
       "Heat transfer equation";
   end for;
-
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

@@ -3,17 +3,13 @@ model NodeCentered_2D
   "2-D Axial/Radial | Node Centered | 2nd Order Central Finite Difference"
   import SI = Modelica.SIunits;
   import Modelica.Constants.pi;
-
   extends BaseClasses.Partial_FDCond_Cylinder;
-
   SI.Length[nR - 1] dr={rs[i + 1] - rs[i] for i in 1:nR - 1}
     "Radial nodal spacing";
   SI.Length[nZ - 1] dz={zs[i + 1] - zs[i] for i in 1:nZ - 1}
     "Axial nodal spacing";
-
   Real beta_max = max(dr)/min(dz) "Maximum skewness of dr/dz";
   Real beta_min = min(dr)/max(dz) "Minimum skewness of dr/dz";
-
 equation
   /* 
 
@@ -30,7 +26,6 @@ equation
   + q'''*V_ij
   
   */
-
 if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
     /* Center Nodes */
     for i in 2:nR - 1 loop
@@ -48,7 +43,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           (Ts[i, j] - Ts[i, j + 1])/dz[j] + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Inner Edge */
   for i in 1:1 loop
       for j in 2:nZ - 1 loop
@@ -65,7 +59,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           i, j];
     end for;
   end for;
-
   /* Outer Edge */
     for i in nR:nR loop
       for j in 2:nZ - 1 loop
@@ -82,7 +75,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           j + 1])/dz[j] + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Bottom Edge */
     for i in 2:nR - 1 loop
     for j in 1:1 loop
@@ -100,7 +92,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           1])/dz[j] + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Top Edge */
     for i in 2:nR - 1 loop
       for j in nZ:nZ loop
@@ -118,7 +109,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
            + heatPorts_top[i].Q_flow + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Bottom Inner Corner */
   for i in 1:1 loop
     for j in 1:1 loop
@@ -134,7 +124,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           j + 1])/dz[j] + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Top Inner Corner */
   for i in 1:1 loop
       for j in nZ:nZ loop
@@ -150,7 +139,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           heatPorts_top[i].Q_flow + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Bottom Outer Corner */
     for i in nR:nR loop
     for j in 1:1 loop
@@ -168,7 +156,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           Vs[i, j];
     end for;
   end for;
-
   /* Top Outer Corner */
     for i in nR:nR loop
       for j in nZ:nZ loop
@@ -186,7 +173,6 @@ if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState then
           i, j];
     end for;
   end for;
-
 else
   /* Center Nodes */
     for i in 2:nR - 1 loop
@@ -205,7 +191,6 @@ else
           1])/dz[j] + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Inner Edge */
   for i in 1:1 loop
       for j in 2:nZ - 1 loop
@@ -222,7 +207,6 @@ else
           Ts[i, j + 1])/dz[j] + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Outer Edge */
     for i in nR:nR loop
       for j in 2:nZ - 1 loop
@@ -240,7 +224,6 @@ else
           Vs[i, j];
     end for;
   end for;
-
   /* Bottom Edge */
     for i in 2:nR - 1 loop
     for j in 1:1 loop
@@ -259,7 +242,6 @@ else
           q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Top Edge */
     for i in 2:nR - 1 loop
       for j in nZ:nZ loop
@@ -278,7 +260,6 @@ else
            + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Bottom Inner Corner */
   for i in 1:1 loop
     for j in 1:1 loop
@@ -295,7 +276,6 @@ else
           j];
     end for;
   end for;
-
   /* Top Inner Corner */
   for i in 1:1 loop
       for j in nZ:nZ loop
@@ -312,7 +292,6 @@ else
           q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Bottom Outer Corner */
     for i in nR:nR loop
     for j in 1:1 loop
@@ -330,7 +309,6 @@ else
           i, j + 1])/dz[j] + q_ppp[i, j]*Vs[i, j];
     end for;
   end for;
-
   /* Top Outer Corner */
     for i in nR:nR loop
       for j in nZ:nZ loop

@@ -14,7 +14,6 @@ model MassFractionsTwoPort "Ideal two port sensor for mass fraction"
         rotation=90,
         origin={0,36})));
   parameter String substanceName = "water" "Name of mass fraction";
-
 protected
   parameter Integer ind(fixed=false)
     "Index of species in vector of independent mass fractions";

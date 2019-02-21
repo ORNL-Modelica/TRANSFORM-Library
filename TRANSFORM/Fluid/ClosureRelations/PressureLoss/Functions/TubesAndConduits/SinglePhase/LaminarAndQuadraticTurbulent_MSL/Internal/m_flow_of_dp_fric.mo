@@ -2,32 +2,26 @@ within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.
 function m_flow_of_dp_fric
   "Calculate mass flow rate as function of pressure drop due to friction"
   extends Modelica.Icons.Function;
-
   //input records
   input dp_IN_con IN_con "Input record for function dp_overall_MFLOW"
     annotation (Dialog(group="Constant inputs"));
   input dp_IN_var IN_var "Input record for function dp_overall_MFLOW"
     annotation (Dialog(group="Variable inputs"));
-
   input SI.Pressure dp_fric
     "Pressure loss due to friction (dp = port_a.p - port_b.p)";
   input SI.ReynoldsNumber Re1 "Boundary between laminar regime and transition";
   input SI.ReynoldsNumber Re2
     "Boundary between transition and turbulent regime";
   input Real Delta "Relative IN_con.roughness";
-
   //Outputs
   output SI.MassFlowRate m_flow;
   output Real dm_flow_ddp_fric "Derivative of mass flow rate with dp_fric";
-
 protected
   Real diameter = 0.5*(IN_con.diameter_a+IN_con.diameter_b) "Average diameter";
   Real crossArea = 0.5*(IN_con.crossArea_a+IN_con.crossArea_b)
     "Average cross area";
-
   SI.DynamicViscosity mu "Upstream viscosity";
   SI.Density rho "Upstream density";
-
   Real zeta;
   Real k0;
   Real k_inv;
@@ -71,12 +65,10 @@ Laminar region:
   zeta := (IN_con.length/diameter)/(2*log10(3.7/(Delta)))^2;
   k_inv := (pi*diameter*diameter)^2/(8*zeta);
   dp_fric_turbulent := sign(dp_fric)*(mu*diameter*pi/4)^2*Re2^2/(k_inv*rho);
-
   // Laminar
   k0 := 128*IN_con.length/(pi*diameter^4);
   dm_flow_ddp_laminar := rho/(k0*mu);
   dp_fric_laminar := sign(dp_fric)*pi*k0*mu^2/rho*diameter/4*Re1;
-
   if abs(dp_fric) > abs(dp_fric_turbulent) then
     m_flow := sign(dp_fric)*sqrt(rho*k_inv*abs(dp_fric));
     dm_flow_ddp_fric := 0.5*rho*k_inv*(rho*k_inv*abs(dp_fric))^(-0.5);

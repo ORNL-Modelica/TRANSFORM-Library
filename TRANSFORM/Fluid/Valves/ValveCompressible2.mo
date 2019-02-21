@@ -17,13 +17,11 @@ model ValveCompressible2
   Real xs "Saturated pressure drop ratio";
   Real Y "Compressibility factor";
   Medium.AbsolutePressure p "Inlet pressure";
-
   Real gamma_a = Medium.specificHeatCapacityCp(state_a)/Medium.specificHeatCapacityCv(state_a) "Specific heat ratio";
   Real gamma_b = Medium.specificHeatCapacityCp(state_b)/Medium.specificHeatCapacityCv(state_b) "Specific heat ratio";
   Real x_a = (2/(gamma_a+1))^(gamma_a/(gamma_a-1));
   Real x_b = (2/(gamma_b+1))^(gamma_b/(gamma_b-1));
   Real xChoice;
-
   constant SI.ReynoldsNumber Re_turbulent = 4000
     "cf. straight pipe for fully open valve -- dp_turbulent increases for closing valve";
   parameter Boolean use_Re = false
@@ -38,7 +36,6 @@ protected
   parameter Real xs_nominal(fixed=false)
     "Nominal saturated pressure drop ratio";
   parameter Real Y_nominal(fixed=false) "Nominal compressibility factor";
-
 initial equation
   if CvData == CvTypes.OpPoint then
     // Determination of Av by the nominal operating point conditions
@@ -56,7 +53,6 @@ initial equation
     xs_nominal = 0;
     Y_nominal = 0;
   end if;
-
 equation
   if port_b.p > port_a.p then
     p=port_b.p;
@@ -99,7 +95,6 @@ equation
                       valveCharacteristic(opening_actual)*m_flow_nominal*dp/dp_nominal);
 */
   end if;
-
   annotation (
   Documentation(info="<html>
 <p>Valve model according to the IEC 534/ISA S.75 standards for valve sizing, compressible fluid, no phase change, also covering choked-flow conditions.</p>

@@ -3,9 +3,7 @@ model stateSensor
   "fluid data sensor - should be connected to MultiDisplayPanel to visualization of fluid state parameters"
   extends TRANSFORM.Icons.UnderConstruction;
   extends Sensors.BaseClasses.PartialTwoPortSensor;
-
   parameter Boolean use_Display = true "true to enable display panel";
-
   Modelica.Fluid.Sensors.Pressure pressure(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,9},{30,29}})));
   Modelica.Fluid.Sensors.Temperature temperature(redeclare package Medium =
@@ -17,28 +15,23 @@ model stateSensor
   Modelica.Fluid.Sensors.SpecificEnthalpy specificEnthalpy(redeclare package
       Medium = Medium)
     annotation (Placement(transformation(extent={{-30,9},{-10,29}})));
-
   TRANSFORM.Fluid.Sensors.BaseClasses.statePort statePort annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}), iconTransformation(extent={{
             -10,20},{10,40}})));
-
 equation
 connect(pressure.port,port_a);
 connect(temperature.port,port_a);
 connect(port_a,massFlowRate.port_a);
 connect(massFlowRate.port_b,port_b);
 connect(specificEnthalpy.port,port_a);
-
 // connect(statePort.p,pressure.p);
 // connect(statePort.T,temperature.T);
 // connect(statePort.m_flow,massFlowRate.m_flow);
 // connect(statePort.h_out,specificEnthalpy.h_out);
-
 statePort.p=pressure.p;
 statePort.T=temperature.T;
 statePort.m_flow=massFlowRate.m_flow;
 statePort.h_out=specificEnthalpy.h_out;
-
   annotation (
         Icon(coordinateSystem(
         preserveAspectRatio=false,

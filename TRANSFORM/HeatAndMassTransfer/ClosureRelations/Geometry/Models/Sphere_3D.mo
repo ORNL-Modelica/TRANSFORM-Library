@@ -1,30 +1,23 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Sphere_3D
-
   extends
     TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_3D(
       final ns={nR,nTheta,nPhi}, final figure=3);
-
   parameter Integer nR(min=1) = 1 "Number of nodes in r-direction";
   parameter Integer nTheta(min=1) = 1 "Number of nodes in theta-direction";
   parameter Integer nPhi(min=1) = 1 "Number of nodes in phi-direction";
-
   input SI.Length r_inner = 0 "Specify inner radius or dthetas in r-dimension and r_outer" annotation(Dialog(group="Inputs"));
   input SI.Length r_outer = 1 "Specify outer radius or dthetas in r-dimension" annotation(Dialog(group="Inputs"));
   input SI.Angle angle_theta(min=0,max=2*Modelica.Constants.pi) = 2*Modelica.Constants.pi "Specify overall angle or dthetas in theta-dimension" annotation(Dialog(group="Inputs"));
   input SI.Angle angle_phi(min=0,max=Modelica.Constants.pi) = Modelica.Constants.pi "Specify overall angle or dphis in phi-dimension" annotation(Dialog(group="Inputs"));
-
   input SI.Length drs[nR,nTheta,nPhi](min=0) = fill((r_outer-r_inner)/nR,nR,nTheta,nPhi) "Unit volume lengths of r-dimension" annotation(Dialog(group="Inputs"));
   input SI.Angle dthetas[nR,nTheta,nPhi](min=0) = fill(angle_theta/nTheta,nR,nTheta,nPhi)  "Unit volume lengths of theta-dimension" annotation(Dialog(group="Inputs"));
   input SI.Angle dphis[nR,nTheta,nPhi](min=0) = fill(angle_phi/nPhi,nR,nTheta,nPhi) "Unit volume lengths of phi-dimension" annotation(Dialog(group="Inputs"));
-
   SI.Length rs[nR,nTheta,nPhi] "Position in r-dimension";
   SI.Angle thetas[nR,nTheta,nPhi] "Position in theta-dimension";
   SI.Angle phis[nR,nTheta,nPhi] "Position in phi-dimension";
-
 initial equation
   closedDim_1 = fill(false,nTheta,nPhi);
-
   for i in 1:nR loop
     for j in 1:nPhi loop
       if abs(sum(dthetas[i, :, j]) - 2*Modelica.Constants.pi) < Modelica.Constants.eps then
@@ -34,7 +27,6 @@ initial equation
       end if;
     end for;
   end for;
-
   for i in 1:nTheta loop
     for j in 1:nPhi loop
       if abs(sum(dphis[i, :, j]) - Modelica.Constants.pi) < Modelica.Constants.eps then
@@ -44,9 +36,6 @@ initial equation
       end if;
     end for;
   end for;
-
-equation
-
 algorithm
   for j in 1:nTheta loop
     for k in 1:nPhi loop
@@ -56,7 +45,6 @@ algorithm
       end for;
     end for;
   end for;
-
   for i in 1:nR loop
     for k in 1:nPhi loop
       thetas[i, 1, k] := 0.5*dthetas[i, 1, k];
@@ -65,7 +53,6 @@ algorithm
       end for;
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nTheta loop
       phis[i, j, 1] :=0.5*dphis[i, j, 1];
@@ -74,7 +61,6 @@ algorithm
       end for;
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nTheta loop
       for k in 1:nPhi loop
@@ -84,7 +70,6 @@ algorithm
       end for;
     end for;
   end for;
-
   for j in 1:nTheta loop
     for k in 1:nPhi loop
       for i in 1:nR loop
@@ -101,7 +86,6 @@ algorithm
             Modelica.Math.cos(phis[nR,j,k]-0.5*dphis[nR,j,k]));
     end for;
   end for;
-
   for i in 1:nR loop
     for k in 1:nPhi loop
       for j in 1:nTheta loop
@@ -116,7 +100,6 @@ algorithm
           *Modelica.Math.sin(phis[i,nTheta,k]);
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nTheta loop
       for k in 1:nPhi loop
@@ -129,7 +112,6 @@ algorithm
           *dphis[i,j,nPhi];
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nTheta loop
       for k in 1:nPhi loop
@@ -139,7 +121,6 @@ algorithm
       end for;
     end for;
   end for;
-
   for i in 1:nR loop
     for j in 1:nTheta loop
       for k in 1:nPhi loop
@@ -149,7 +130,6 @@ algorithm
       end for;
     end for;
   end for;
-
   annotation (
     defaultComponentName="geometry",
     Icon(coordinateSystem(preserveAspectRatio=false)),

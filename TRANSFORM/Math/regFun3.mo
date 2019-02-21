@@ -1,7 +1,6 @@
 within TRANSFORM.Math;
 function regFun3 "Co-monotonic and C1 smooth regularization function"
   extends TRANSFORM.Icons.Function;
-
   input Real x "Abscissa value";
   input Real x1 "Lower abscissa value";
   input Real x2 "Upper abscissa value";
@@ -9,11 +8,9 @@ function regFun3 "Co-monotonic and C1 smooth regularization function"
   input Real y2 "Ordinate value at upper abscissa value";
   input Real y1d "Derivative at lower abscissa value";
   input Real y2d "Derivative at upper abscissa value";
-
   output Real y "Ordinate value";
   output Real c
     "Slope of linear section between two cubic polynomials or dummy linear section slope if single cubic is used";
-
 protected
   Real h0 "Width of interval i=0";
   Real Delta0 "Slope of secant on interval i=0";
@@ -47,10 +44,8 @@ algorithm
     assert(abs(y1d)<Modelica.Constants.eps or abs(y2d)<Modelica.Constants.eps, "regFun3(): Derivatives at data points do not allow co-monotone interpolation, as both are non-zero, of opposite sign and have an absolute value larger than machine eps (y0d = " +
     String(y1d) + ", y1d = " + String(y2d) + "). Please correct arguments.");
   end if;
-
   h0 :=x2  -x1;
   Delta0 := (y2 -y1) /h0;
-
   if abs(Delta0) <= 0 then
     // Points (x0,y0) and (x1,y1) on horizontal line
     // Degenerate case as we cannot fulfill the C1 goal an comonotone behaviour at the same time
@@ -72,7 +67,6 @@ algorithm
     eta :=x2  - xstar;
     omega := 3*(y1d +y2d  - 2*Delta0)*(xstar -x1) ^2/h0^2 + 2*(-2*y1d -y2d  + 3*
       Delta0)*(xstar -x1) /h0 +y1d;
-
     aux01 := 0.25*sign(Delta0)*min(abs(omega), abs(Delta0))
       "Slope c if not using plain cubic S0";
     if abs(y1d -y2d)  <= 100*Modelica.Constants.eps then
@@ -93,10 +87,8 @@ algorithm
       aux02 := (6*Delta0*(y2d +y1d  - 3/2*Delta0) -y2d *y1d -y2d ^2 -y1d ^2)/(3*
         (y2d +y1d  - 2*Delta0));
     end if;
-
     //aux02 := -1/3*(y0d^2+y0d*y1d-6*y0d*Delta0+y1d^2-6*y1d*Delta0+9*Delta0^2)/(y0d+y1d-2*Delta0);
     //aux02 := -1/3*(6*y1d*y0*x1+y0d*y1d*x1^2-6*y0d*x0*y0+y0d^2*x0^2+y0d^2*x1^2+y1d^2*x1^2+y1d^2*x0^2-2*y0d*x0*y1d*x1-2*x0*y0d^2*x1+y0d*y1d*x0^2+6*y0d*x0*y1-6*y0d*y1*x1+6*y0d*y0*x1-2*x0*y1d^2*x1-6*y1d*y1*x1+6*y1d*x0*y1-6*y1d*x0*y0-18*y1*y0+9*y1^2+9*y0^2)/(y0d*x1^2-2*x0*y0d*x1+y1d*x1^2-2*x0*y1d*x1-2*y1*x1+2*y0*x1+y0d*x0^2+y1d*x0^2+2*x0*y1-2*x0*y0);
-
     // Test criteria (also used to avoid saddle points that lead to integrator contraction):
     //
     //  1. Cubic is not monotonic (from Gasparo Morandi)
@@ -154,7 +146,6 @@ algorithm
          +y1d;
     end if;
   end if;
-
   annotation (smoothOrder=1, Documentation(revisions="<html>
 <ul>
 <li><i>May 2008</i> by <a href=\"mailto:Michael.Sielemann@dlr.de\">Michael Sielemann</a>:<br/>Designed and implemented.</li>

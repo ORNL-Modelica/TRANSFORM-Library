@@ -1,14 +1,11 @@
 within TRANSFORM.Examples.SodiumFastReactor.Components;
 model DRACS_ADHX5
-
 replaceable package Medium =
       TRANSFORM.Media.Fluids.Sodium.ConstantPropertyLiquidSodium
     "Primary heat system medium" annotation(choicesAllMatching=true);
-
  replaceable package Medium_Ambient =
       Modelica.Media.Air.DryAirNasa
     "Ambient medium" annotation(choicesAllMatching=true);
-
   Fluid.Machines.Pump_SimpleMassFlow pump(
       redeclare package Medium = Medium, m_flow_nominal=data.m_flow_DRACSsec)
                                          annotation (Placement(transformation(
@@ -24,7 +21,6 @@ replaceable package Medium =
     p_a_start=400000,
     T_a_start=data.T_inlet_DRACSsec)
     annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface pipe_fromDRACS(
     redeclare package Medium = Medium,
     m_flow_a_start=data.m_flow_DRACSsec,
@@ -34,7 +30,6 @@ replaceable package Medium =
     p_a_start=300000,
     T_a_start=data.T_outlet_DRACSsec)
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
-
   Data.SFR_PHS data
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance_toExpTank(
@@ -47,7 +42,6 @@ replaceable package Medium =
     annotation (Placement(transformation(extent={{-110,-70},{-90,-50}})));
   Fluid.Interfaces.FluidPort_State port_b(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-
   Fluid.Pipes.GenericPipe_withWall ADHX_tube(
     nParallel=data.nTubes_ADHX,
     redeclare package Medium = Medium,
@@ -75,7 +69,6 @@ replaceable package Medium =
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={50,-10})));
-
   Fluid.BoundaryConditions.Boundary_pT expansionTank(
     nPorts=1,
     redeclare package Medium = Medium,

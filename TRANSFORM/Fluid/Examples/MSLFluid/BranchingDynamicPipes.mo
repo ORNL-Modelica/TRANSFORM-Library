@@ -4,7 +4,6 @@ model BranchingDynamicPipes
 extends TRANSFORM.Icons.Example;
   replaceable package Medium=Modelica.Media.Air.MoistAir constrainedby
     Modelica.Media.Interfaces.PartialMedium;
-
   inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
       momentumDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));
@@ -61,7 +60,6 @@ Pipes.GenericPipe_MultiTransferSurface pipe2(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-20,-10})));
-
 Pipes.GenericPipe_MultiTransferSurface pipe3(
     redeclare package Medium = Medium,
     m_flow_a_start=0.01,
@@ -442,7 +440,6 @@ Pipes.GenericPipe_MultiTransferSurface pipe4(
     annotation (Placement(transformation(extent={{-56,-20},{-36,0}})));
   Modelica.Blocks.Sources.RealExpression realExpression[pipe2.nV](y=200*pipe2.geometry.dxs)
     annotation (Placement(transformation(extent={{-86,-20},{-66,0}})));
-
   Modelica.Blocks.Sources.CombiTimeTable timeTable_pipe2_p(smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
       table=[0,129873,128565,127670,126754,125350; 0.02,129873,128565,127670,126754,
         125350; 0.04,129873,128565,127670,126754,125350; 0.06,129873,128565,127670,
@@ -743,7 +740,6 @@ equation
       points={{0,40},{0,50}},
       color={0,127,255},
       thickness=0.5));
-
   connect(realExpression.y, heat2.Q_flow_ext) annotation (Line(points={{-65,-10},
           {-57.5,-10},{-50,-10}}, color={0,0,127}));
   connect(pipe2.port_a, pipe3.port_a) annotation (Line(

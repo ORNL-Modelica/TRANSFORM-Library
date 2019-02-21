@@ -1,13 +1,10 @@
 within TRANSFORM.Blocks;
 block StringTable "Generate a String table"
-
   extends Modelica.Blocks.Icons.Block;
-
   parameter String table[:, :]=fill(
         "",
         0,
         2) "Table matrix for String parameters";
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={               Text(
@@ -46,5 +43,4 @@ block StringTable "Generate a String table"
 <p><span style=\"font-family: Courier New;\">            &quot;c&quot;, &quot;cat&quot;;</span></p>
 <p><span style=\"font-family: Courier New;\">            &quot;d&quot;, &quot;dog&quot;];</span></p>
 </html>"));
-
 end StringTable;

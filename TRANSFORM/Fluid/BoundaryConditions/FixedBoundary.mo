@@ -30,7 +30,6 @@ parameter Medium.Density d=
        quantity=Medium.substanceNames)=Medium.X_default
     "Boundary mass fractions m_i/m"
     annotation (Dialog(group = "Only for multi-substance flow", enable=Medium.nXi > 0));
-
   parameter Medium.ExtraProperty C[Medium.nC](
        quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Boundary trace substances"
@@ -50,39 +49,33 @@ equation
         // p,h,X given
         state = Medium.setState_phX(p, h, X);
      end if;
-
      if Medium.ThermoStates == IndependentVariables.dTX then
         medium.d = Medium.density(state);
      else
         medium.p = Medium.pressure(state);
      end if;
-
      if Medium.ThermoStates == IndependentVariables.ph or
         Medium.ThermoStates == IndependentVariables.phX then
         medium.h = Medium.specificEnthalpy(state);
      else
         medium.T = Medium.temperature(state);
      end if;
-
   else
      // d given
      if use_T then
         // d,T,X given
         state = Medium.setState_dTX(d, T, X);
-
         if Medium.ThermoStates == IndependentVariables.dTX then
            medium.d = Medium.density(state);
         else
            medium.p = Medium.pressure(state);
         end if;
-
         if Medium.ThermoStates == IndependentVariables.ph or
            Medium.ThermoStates == IndependentVariables.phX then
            medium.h = Medium.specificEnthalpy(state);
         else
            medium.T = Medium.temperature(state);
         end if;
-
      else
         // d,h,X given
         medium.d = d;
@@ -90,9 +83,7 @@ equation
         state = Medium.setState_dTX(d,T,X);
      end if;
   end if;
-
   medium.Xi = X[1:Medium.nXi];
-
   ports.C_outflow = fill(C, nPorts);
   annotation (defaultComponentName="boundary",
     Icon(coordinateSystem(

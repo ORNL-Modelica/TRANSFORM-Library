@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Control;
 block SteamPressure "Steam pressure"
   extends Interfaces.SteamPressure;
-
   Controls.LimPID                          controller(
     Ti=5,
     yMin=0.05,

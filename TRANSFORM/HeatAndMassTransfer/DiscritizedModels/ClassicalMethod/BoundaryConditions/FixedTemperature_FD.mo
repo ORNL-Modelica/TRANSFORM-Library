@@ -1,13 +1,10 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions;
 model FixedTemperature_FD
   "Fixed temperature boundary condition in Kelvin for finite difference"
-
   parameter Integer nNodes(min=2);
   parameter Modelica.SIunits.Temperature[nNodes] T "Fixed temperature at port";
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nNodes] port annotation (
       Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
-
 equation
   for i in 1:nNodes loop
     port[i].T = T[i];

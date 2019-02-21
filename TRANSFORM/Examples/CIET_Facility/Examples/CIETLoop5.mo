@@ -1,16 +1,12 @@
 within TRANSFORM.Examples.CIET_Facility.Examples;
 model CIETLoop5 "add heat structures"
-
   extends TRANSFORM.Icons.Example;
-
   package Medium = TRANSFORM.Media.Fluids.DOWTHERM.LinearDOWTHERM_A_95C;
   package Material_wall = TRANSFORM.Media.Solids.SS304_TRACE;
   package Material_insulation =
       TRANSFORM.Media.Solids.FiberGlassGeneric;
-
   SI.Power Q_heater_fluid = -sum(wall_1.port_a.Q_flow);
   SI.Power Q_heater_ambient = -sum(wall_1.port_b.Q_flow);
-
   SI.Power Q_insulation = sum(_1a.boundary.port.Q_flow)+
 sum(_1b.boundary.port.Q_flow)+
 sum(_2.boundary.port.Q_flow)+
@@ -33,9 +29,7 @@ sum(_15.boundary.port.Q_flow)+
 sum(_16.boundary.port.Q_flow)+
 sum(_17.boundary.port.Q_flow)+
 sum(_18.boundary.port.Q_flow);
-
   SI.Power Q_ctah = sum(_7a.heatPorts.Q_flow)+sum(_7b.heatPorts.Q_flow);
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface _1(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -110,7 +104,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={-100,14})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _2(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -273,7 +266,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=45,
         origin={50,156})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _6a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -301,7 +293,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=45,
         origin={70,176})));
-
   Fluid.Pipes.GenericPipe_withWall             _7a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -329,7 +320,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={94,164})));
-
   Fluid.Pipes.GenericPipe_withWall             _7b(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -357,7 +347,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{10,10},{-10,-10}},
         rotation=0,
         origin={76,144})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _8a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -385,7 +374,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={62,120})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _8(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -413,7 +401,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={62,90})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _9(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -441,7 +428,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=-45,
         origin={74,66})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _10(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -469,7 +455,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={90,30})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _11(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -497,7 +482,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=-135,
         origin={74,0})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _12(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -525,7 +509,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={54,-20})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _18(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -553,7 +536,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=-135,
         origin={-76,-38})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _17(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -581,7 +563,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-60,-10})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _16(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -609,7 +590,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-60,18})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _14a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -637,7 +617,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-30,30})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _15(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -665,7 +644,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{10,-10},{-10,10}},
         rotation=45,
         origin={-46,48})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _14(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -693,7 +671,6 @@ sum(_18.boundary.port.Q_flow);
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-30,0})));
-
   Fluid.Pipes.GenericPipe_withWallAndInsulation _13(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,

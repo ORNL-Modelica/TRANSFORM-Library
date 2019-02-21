@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids.CustomSolids;
 package Lambda_1_d_7990_cp_500 "Custom: lambda = 1 | d = 7990 | cp = 500"
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="GenericSolid",
     T_min=0,

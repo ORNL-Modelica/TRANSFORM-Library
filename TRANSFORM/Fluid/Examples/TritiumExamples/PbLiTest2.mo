@@ -1,10 +1,7 @@
 within TRANSFORM.Fluid.Examples.TritiumExamples;
 model PbLiTest2
-
   extends TRANSFORM.Icons.Example;
-
   package Medium=TRANSFORM.Media.Fluids.PbLi.ConstantPropertyLiquidPbLi(extraPropertiesNames={"Tritium"});
-
   Modelica.Fluid.Sources.MassFlowSource_T source(
     use_C_in=true,
     redeclare package Medium = Medium,
@@ -67,13 +64,11 @@ model PbLiTest2
     T_a1_start=743.15,
     T_a2_start=743.15)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
-
   Modelica.Fluid.Sources.Boundary_pT sink(
     redeclare package Medium = Medium,
     p=100000,
     T=743.15,
     nPorts=1) annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic
                                                                 [permeator.nV]
     annotation (Placement(transformation(
@@ -86,7 +81,6 @@ model PbLiTest2
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,-30})));
-
   Modelica.Blocks.Sources.Constant const(k=5.812e-10)
     annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
   Modelica.Fluid.Sensors.TraceSubstancesTwoPort permeatorIn(

@@ -1,9 +1,7 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency;
 model eta_Baumann "Baumann rule"
   extends TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency.Partial_eta;
-
   parameter SI.Efficiency alpha = 1.0 "Baumann factor";
-
 equation
   eta = eta_nominal*(1-alpha*(1-0.5*(x_abs_in+x_abs_out)));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

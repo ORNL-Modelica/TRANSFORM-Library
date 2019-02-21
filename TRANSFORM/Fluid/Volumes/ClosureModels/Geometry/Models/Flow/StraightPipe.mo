@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Flow;
 model StraightPipe
-
   input SI.Length length = 1.0 "Length for flow models"
     annotation (Dialog(group="General"));
   parameter Boolean use_Dimension=true
@@ -14,12 +13,10 @@ model StraightPipe
    annotation (Dialog(group="General", enable=not use_Dimension));
   input SI.Height roughness = 2.5e-5 "Average heights of surface asperities"
     annotation (Dialog(group="General"));
-
   // Static head
   input SI.Length dheight= 0.0
     "Height(port_b) - Height(port_a) distributed by flow segment"
     annotation (Dialog(group="Static head"), Evaluate=true);
-
   extends
     TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Flow.PartialGeometry(
     final lengths=fill(length/nNodes, nNodes),
@@ -29,7 +26,6 @@ model StraightPipe
     final perimeters=fill(perimeter, nNodes + 1),
     final roughnesses=fill(roughness, nNodes + 1),
     final dheights=fill(dheight/nNodes, nNodes));
-
   annotation (defaultComponentName="geometry",
     Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

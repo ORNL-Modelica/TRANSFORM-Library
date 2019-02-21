@@ -14,7 +14,6 @@ protected
   parameter Modelica.SIunits.Time t0( fixed=false) "Simulation start time";
 initial equation
   t0 = time + startTime;
-
   annotation (Icon(graphics={Text(
           extent={{-62,-54},{54,-84}},
           lineColor={162,29,33},
