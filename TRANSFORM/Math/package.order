@@ -43,6 +43,7 @@ fillArray_3D
 arrheniusEquation
 cumulativeSum
 mean
+cspline
 cubicHermiteSpline
 cubicHermiteSplineLinearExtrapolation
 splineDerivatives
@@ -60,3 +61,4 @@ max_len_seq__sine_time
 diff
 regFun3
 clamp
+findPlace

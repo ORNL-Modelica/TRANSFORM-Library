@@ -7,6 +7,7 @@ check_smoothMax
 check_smoothMin
 check_logspace
 check_quadratic
+check_cspline
 check_cubicHermiteSpline
 check_integral_TrapezoidalRule
 check_gamma_Lanczos
@@ -36,3 +37,4 @@ check_max_len_seq
 check_max_len_seq_sine_time
 check_max_len_seq_ternary
 check_max_len_seq_sine
+check_findPlace

@@ -5,12 +5,13 @@ package Tungsten "W: Tungsten"
   // Vol 1 is Thermal Conductivity
   // Cp data located on pages 263-267 (used data from series 8, 13, and 15)
   // k data is located on pages 416-428 (recommended values on pg 428)
-   extends Interfaces.Solids.PartialSimpleAlloy_TableBased(
+   extends Interfaces.Solids.PartialSimpleAlloy_SplineBased(
      mediumName="Tungsten",
+     T_reference=1,
      T_min=4,
      T_max=3100,
      tableDensity=[0,19300; 4000,19300],
-     tableHeatCapacity=[0.,0.; 11.81,0.394; 11.87,0.392; 12.46,0.446; 12.57,0.458;
+     tableHeatCapacity=[1.,0.; 11.81,0.394; 11.87,0.392; 12.46,0.446; 12.57,0.458;
      14.07,0.619; 14.24,0.658; 14.46,0.681; 14.65,0.704; 14.82,0.724; 15.92,0.899;
      16.51,0.993; 17.05,1.093; 17.62,1.205; 18.03,1.298; 18.38,1.369; 19.06,1.505;
      19.42,1.624; 20.23,1.847; 20.44,1.892; 20.5,1.938; 22.44,2.68; 25.85,4.375;
