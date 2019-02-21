@@ -2,7 +2,6 @@ within TRANSFORM.Math.Examples;
 model check_cspline "Test problem for cubic splines"
   extends TRANSFORM.Icons.Example;
 
-
   parameter Real[:] x={10,20,50,80,85,90} "Support points";
   parameter Real[size(x, 1)] y={11,15,-5,0,14,60} "Support points";
 

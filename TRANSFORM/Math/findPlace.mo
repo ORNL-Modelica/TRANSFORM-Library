@@ -24,7 +24,6 @@ algorithm
 
   result := j;
 
-
   annotation (smoothOrder=1, Documentation(info="<html>
 <p>NOTE: Currently only handles montonically increasing, positive array values.</p>
 <p>Example:</p>

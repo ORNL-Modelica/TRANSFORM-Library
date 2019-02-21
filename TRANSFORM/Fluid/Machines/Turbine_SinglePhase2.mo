@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.Machines;
 model Turbine_SinglePhase2
   extends BaseClasses.PartialTurbine;
 
-
   parameter Real partialArc_nominal=1 "Nominal partial arc";
   parameter SI.MassFlowRate m_flow_nominal=m_flow_start "Nominal mass flowrate";
   // Nominal Inlet Parameters for Kt
@@ -72,9 +71,6 @@ equation
     m_flow = homotopy(port_a.p*partialArc*m_flow_nominal/p_inlet_nominal,
       partialArc/partialArc_nominal*m_flow_nominal/p_inlet_nominal*port_a.p);
   end if;
-
-
-
 
   annotation (defaultComponentName="turbine",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

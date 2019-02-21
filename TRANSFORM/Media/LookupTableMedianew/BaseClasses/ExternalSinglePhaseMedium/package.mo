@@ -1,6 +1,6 @@
-within TRANSFORM.Media.LookupTableMedia.BaseClasses;
+within TRANSFORM.Media.LookupTableMedianew.BaseClasses;
 package ExternalSinglePhaseMedium "Generic external single phase medium package"
-  import TRANSFORM.Media.LookupTableMedia.BaseClasses.Common.InputChoice;
+  import TRANSFORM.Media.LookupTableMedianew.BaseClasses.Common.InputChoice;
 
   extends TRANSFORM.Media.Interfaces.Fluids.PartialSinglePhaseMedium(
       ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.pT,
@@ -27,6 +27,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
       TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_deriv_y "Interpolation method selection for derivative wrt y";
   constant String tablePath="modelica://TRANSFORM/Resources/data/lookupTables/"
        + mediumName + (if inputChoice == InputChoice.pT then "/pT/" else "/error/");
+
   constant String tablePath_p=Modelica.Utilities.Files.loadResource(tablePath + "p.csv") "Pressure";
   constant String tablePath_T=Modelica.Utilities.Files.loadResource(tablePath + "T.csv") "Temperature";
   constant String tablePath_h=Modelica.Utilities.Files.loadResource(tablePath + "h.csv") "Specific enthalpy";
@@ -70,6 +71,100 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
       "|",
       3);
 
+  constant String tablePath_ph="modelica://TRANSFORM/Resources/data/lookupTables/"
+       + mediumName + (if inputChoice == InputChoice.pT then "/ph/" else "/error/");
+
+  constant String tablePath_ph_p=Modelica.Utilities.Files.loadResource(tablePath_ph + "p.csv") "Pressure";
+  constant String tablePath_ph_T=Modelica.Utilities.Files.loadResource(tablePath_ph + "T.csv") "Temperature";
+  constant String tablePath_ph_h=Modelica.Utilities.Files.loadResource(tablePath_ph + "h.csv") "Specific enthalpy";
+  constant String tablePath_ph_a=Modelica.Utilities.Files.loadResource(tablePath_ph + "a.csv") "Speed of sound";
+  constant String tablePath_ph_cp=Modelica.Utilities.Files.loadResource(tablePath_ph + "cp.csv") "Isobaric specific heat capacity";
+  constant String tablePath_ph_cv=Modelica.Utilities.Files.loadResource(tablePath_ph + "cv.csv") "Isochoric specific heat capacity";
+  constant String tablePath_ph_d=Modelica.Utilities.Files.loadResource(tablePath_ph + "d.csv") "Density";
+  constant String tablePath_ph_lambda=Modelica.Utilities.Files.loadResource(tablePath_ph + "k.csv") "Thermal conductivity";
+  constant String tablePath_ph_mu=Modelica.Utilities.Files.loadResource(tablePath_ph + "mu.csv") "Dynamic viscosity";
+  constant String tablePath_ph_s=Modelica.Utilities.Files.loadResource(tablePath_ph + "s.csv") "Specific entropy";
+
+  constant String tablesPath_ph_T=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_h},
+      "|",
+      3);
+  constant String tablesPath_ph_a=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_a},
+      "|",
+      3);
+  constant String tablesPath_ph_cp=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_cp},
+      "|",
+      3);
+  constant String tablesPath_ph_cv=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_cv},
+      "|",
+      3);
+   constant String tablesPath_ph_d=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_d},
+      "|",
+      3);
+  constant String tablesPath_ph_lambda=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_lambda},
+      "|",
+      3);
+  constant String tablesPath_ph_mu=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_mu},
+      "|",
+      3);
+  constant String tablesPath_ph_s=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_s},
+      "|",
+      3);
+
+  constant String tablePath_ps="modelica://TRANSFORM/Resources/data/lookupTables/"
+       + mediumName + (if inputChoice == InputChoice.pT then "/ph/" else "/error/");
+
+  constant String tablePath_ps_p=Modelica.Utilities.Files.loadResource(tablePath_ps + "p.csv") "Pressure";
+  constant String tablePath_ps_T=Modelica.Utilities.Files.loadResource(tablePath_ps + "T.csv") "Temperature";
+  constant String tablePath_ps_h=Modelica.Utilities.Files.loadResource(tablePath_ps + "h.csv") "Specific enthalpy";
+  constant String tablePath_ps_a=Modelica.Utilities.Files.loadResource(tablePath_ps + "a.csv") "Speed of sound";
+  constant String tablePath_ps_cp=Modelica.Utilities.Files.loadResource(tablePath_ps + "cp.csv") "Isobaric specific heat capacity";
+  constant String tablePath_ps_cv=Modelica.Utilities.Files.loadResource(tablePath_ps + "cv.csv") "Isochoric specific heat capacity";
+  constant String tablePath_ps_d=Modelica.Utilities.Files.loadResource(tablePath_ps + "d.csv") "Density";
+  constant String tablePath_ps_lambda=Modelica.Utilities.Files.loadResource(tablePath_ps + "k.csv") "Thermal conductivity";
+  constant String tablePath_ps_mu=Modelica.Utilities.Files.loadResource(tablePath_ps + "mu.csv") "Dynamic viscosity";
+  constant String tablePath_ps_s=Modelica.Utilities.Files.loadResource(tablePath_ps + "s.csv") "Specific entropy";
+
+  constant String tablesPath_ps_T=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_h},
+      "|",
+      3);
+  constant String tablesPath_ps_a=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_a},
+      "|",
+      3);
+  constant String tablesPath_ps_cp=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_cp},
+      "|",
+      3);
+  constant String tablesPath_ps_cv=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_cv},
+      "|",
+      3);
+   constant String tablesPath_ps_d=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_d},
+      "|",
+      3);
+  constant String tablesPath_ps_lambda=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_lambda},
+      "|",
+      3);
+  constant String tablesPath_ps_mu=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_mu},
+      "|",
+      3);
+  constant String tablesPath_ps_s=TRANSFORM.Utilities.Strings.concatenate(
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_s},
+      "|",
+      3);
+
   redeclare record extends ThermodynamicState
     AbsolutePressure p "pressure";
     Temperature T "temperature";
@@ -90,7 +185,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
           StateSelect.prefer else StateSelect.default),
     d(stateSelect=if preferredMediumStates and basePropertiesInputChoice ==
           InputChoice.dT then StateSelect.prefer else StateSelect.default))
-    import TRANSFORM.Media.LookupTableMedia.BaseClasses.Common.InputChoice;
+    import TRANSFORM.Media.LookupTableMedianew.BaseClasses.Common.InputChoice;
     parameter InputChoice basePropertiesInputChoice=inputChoice
       "Choice of input variables for property computations";
     SpecificEntropy s(stateSelect=if (basePropertiesInputChoice == InputChoice.hs
@@ -156,10 +251,13 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     input SpecificEnthalpy h "specific enthalpy";
     output ThermodynamicState state;
   algorithm
-    state :=ThermodynamicState(p=p,T=T_ph(p,h));//,h=h);
+    state :=ThermodynamicState(p=p,T=Method(
+         tablesPath_ph_T,
+         p,
+         h));
+
     annotation(Inline=true,smoothOrder=3);
   end setState_ph;
-
 
   redeclare replaceable function setState_pT
     "Return thermodynamic state record from p and T"
@@ -194,10 +292,12 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     input SpecificEntropy s "specific entropy";
     output ThermodynamicState state;
   algorithm
-    state :=ThermodynamicState(p=p,T=T_ps(p,s));
+    state :=ThermodynamicState(p=p,T=Method(
+         tablesPath_ps_T,
+         p,
+         s));
     annotation(Inline=true,smoothOrder=3);
   end setState_ps;
-
 
   replaceable function setState_hs
     "Return thermodynamic state record from h and s"
