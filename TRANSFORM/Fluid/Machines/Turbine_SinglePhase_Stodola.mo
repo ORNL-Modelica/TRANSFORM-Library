@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Machines;
-model Turbine_SinglePhase2
-  extends BaseClasses.PartialTurbine;
+model Turbine_SinglePhase_Stodola
+  extends BaseClasses.PartialTurbine(eta_is=1.0,eta_mech=1.0);
 
   parameter Real partialArc_nominal=1 "Nominal partial arc";
   parameter SI.MassFlowRate m_flow_nominal=m_flow_start "Nominal mass flowrate";
@@ -38,15 +38,10 @@ model Turbine_SinglePhase2
 
 initial equation
   if use_NominalInlet then
-    //     Kt = m_flow_nom*sqrt(p_inlet/Medium.density_pT(p_inlet,T_nom))/
-    //          sqrt(p_inlet^2-p_outlet^2);
     if use_T_nominal then
-      Kt = m_flow_nominal/(sqrt(p_inlet_nominal*Medium.density(
-        Medium.setState_pTX(
-        p_inlet_nominal,
-        T_nominal,
-        Medium.reference_X)))*Modelica.Fluid.Utilities.regRoot2(1 - (
-        p_outlet_nominal/p_inlet_nominal)^2));
+      Kt = m_flow_nominal/(sqrt(T_nominal/Modelica.Constants.R)*
+        Modelica.Fluid.Utilities.regRoot2(1 - (p_outlet_nominal/p_inlet_nominal)
+        ^2));
     else
       Kt = m_flow_nominal/(sqrt(p_inlet_nominal*d_nominal)*
         Modelica.Fluid.Utilities.regRoot2(1 - (p_outlet_nominal/p_inlet_nominal)
@@ -57,21 +52,29 @@ initial equation
   end if;
 
 equation
-//   p_ratio = 1;
-  eta_is = 0.85;
-  eta_mech = 1.0;
-
-  partialArc = 1.0;
+  if cardinality(partialArc) == 0 then
+    partialArc = 1.0 "Default value if not connected";
+  end if;
 
   if use_Stodola then
-    m_flow = homotopy(Kt*partialArc*sqrt(port_a.p*max(Medium.density(state_a),0.01))*
-      Modelica.Fluid.Utilities.regRoot(1 - p_ratio^2), partialArc/
-      partialArc_nominal*m_flow_nominal/p_inlet_nominal*port_a.p) "Stodola's law";
+    m_flow = homotopy(Kt*partialArc*sqrt(port_a.p*max(Medium.density(state_a), 0.01))
+      *Modelica.Fluid.Utilities.regRoot(1 - p_ratio^2), partialArc/
+      partialArc_nominal*m_flow_nominal/p_inlet_nominal*port_a.p);
   else
     m_flow = homotopy(port_a.p*partialArc*m_flow_nominal/p_inlet_nominal,
       partialArc/partialArc_nominal*m_flow_nominal/p_inlet_nominal*port_a.p);
   end if;
 
-  annotation (defaultComponentName="turbine",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
-end Turbine_SinglePhase2;
+  annotation (
+    defaultComponentName="turbine",
+    Icon(coordinateSystem(preserveAspectRatio=false)),
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Stodola method applies an &quot;ellipse law&quot; to the behavior of a multistage turbine. It is often used in steam turbine practice but can also be used in single phase, however, this approach is most suited for high pressure ratios.</p>
+<p>Equation 4.32 of Source 1 or http://www.thermopedia.com/content/1222/</p>
+<p>m_flow*sqrt(T_inlet)/p_inlet = k*sqrt(1-(p_outlet/p_inlet)^2)</p>
+<p>Note: k has been multiplied by the constant sqrt(R) where R is gas constant.</p>
+<p>Source</p>
+<p>1. S. L. DIXON, <i>Fluid mechanics and thermodynamics of turbomachinery</i>, 4. ed. in SI/metric units, Butterworth-Heinemann, Boston, Mass. (1998). </p>
+</html>"));
+end Turbine_SinglePhase_Stodola;

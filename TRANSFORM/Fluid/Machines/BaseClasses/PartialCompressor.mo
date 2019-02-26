@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.Machines.BaseClasses;
-partial model PartialTurbine
+partial model PartialCompressor
   import TRANSFORM.Types.Dynamics;
   Interfaces.FluidPort_State port_a(
     redeclare package Medium = Medium,
@@ -19,20 +19,10 @@ partial model PartialTurbine
   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b annotation (
       Placement(transformation(extent={{90,-10},{110,10}}, rotation=0),
         iconTransformation(extent={{90,-10},{110,10}})));
+
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium properties" annotation (choicesAllMatching=true);
-  // // Initialization
-  // parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
-  //   "Formulation of energy balances"
-  //   annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-  // parameter Dynamics massDynamics=energyDynamics "Formulation of mass balances"
-  //   annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-  // final parameter Dynamics substanceDynamics=massDynamics
-  //   "Formulation of substance balances"
-  //   annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-  // parameter Dynamics traceDynamics=massDynamics
-  //   "Formulation of trace substance balances"
-  //   annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
+
   parameter Medium.AbsolutePressure p_a_start=Medium.p_default
     "Pressure at port a" annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
   parameter Medium.AbsolutePressure p_b_start=p_a_start "Pressure at port b"
@@ -76,8 +66,7 @@ partial model PartialTurbine
       enable=Medium.nC > 0));
   parameter Medium.MassFlowRate m_flow_start=0 "Mass flow rate" annotation (
       Dialog(tab="Initialization", group="Start Value: Mass Flow Rate"));
-  //   parameter SI.Power Q_turbine_start=m_flow_start*(h_a_start - h_b_start)
-  //     annotation (Dialog(tab="Initialization", group="Start Value: Turbine Power"));
+
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
@@ -99,9 +88,8 @@ partial model PartialTurbine
   Medium.SpecificEnthalpy h_is "Isentropic outlet enthalpy";
   Medium.SpecificEnthalpy dh_ideal "Ideal enthalpy change";
   Medium.SpecificEnthalpy dh "Actual enthalpy change";
-  SI.Power Q_turbine "Mechanical power to turbine";
+  SI.Power Q_mech "Mechanical power added to system";
   SI.Power Ub "Energy balance";
-  //    SI.Energy U "Energy";
 
 equation
   // Port states
@@ -109,34 +97,33 @@ equation
     port_a.p,
     inStream(port_a.h_outflow),
     inStream(port_a.Xi_outflow));
-  //   state_b = Medium.setState_phX(
-  //     port_b.p,
-  //     inStream(port_b.h_outflow),
-  //     inStream(port_b.Xi_outflow));
+
   // Pressure relations
   p_ratio = port_b.p/port_a.p;
+
   // Mass balance equations
   port_a.m_flow + port_b.m_flow = 0;
+
   // Enthalpy relations
   h_is = Medium.isentropicEnthalpy(port_b.p, state_a);
-  dh_ideal = (h_in - h_is);
+  dh_ideal = h_is - h_in;
   dh = eta_is*dh_ideal;
-  dh = h_in - h_out;
-  // Mechanical shaft power output
-  Q_turbine = eta_mech*omega*tau;
+  dh = h_out - h_in;
+
+  // Mechanical shaft power
+  Q_mech = eta_mech*omega*tau;
+
   // Energy balace
   Ub = port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*
-    actualStream(port_b.h_outflow) + Q_turbine;
-  //    if energyDynamics == Dynamics.SteadyState then
+    actualStream(port_b.h_outflow) + Q_mech;
   0 = Ub;
-  //    else
-  //      der(U) = Ub;
-  //    end if;
+
   // Mechanical boundary conditions
   tau = shaft_a.tau + shaft_b.tau;
   shaft_a.phi = phi;
   shaft_b.phi = phi;
   der(phi) = omega;
+
   // Fluid Port Boundary Conditions
   h_in = inStream(port_a.h_outflow);
   m_flow = port_a.m_flow;
@@ -146,8 +133,9 @@ equation
   port_b.h_outflow = inStream(port_a.h_outflow) - dh;
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
   port_b.C_outflow = inStream(port_a.C_outflow);
+
   annotation (
-    defaultComponentName="turbine",
+    defaultComponentName="compressor",
     Icon(graphics={
         Rectangle(
           extent={{40,66},{92,54}},
@@ -161,7 +149,7 @@ equation
           lineThickness=0.5,
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={0,127,255},
-          origin={-34,47.5},
+          origin={34,47.5},
           rotation=180),
         Rectangle(
           extent={{-102,6},{98,-6}},
@@ -169,7 +157,7 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={160,160,164}),
         Polygon(
-          points={{-40,30},{-40,-30},{40,-80},{40,80},{-40,30}},
+          points={{40,30},{40,-30},{-40,-80},{-40,80},{40,30}},
           lineColor={0,0,0},
           fillColor={0,114,208},
           fillPattern=FillPattern.Solid),
@@ -205,4 +193,4 @@ equation
        Small changes in alias variables.</li>
 </ul>
 </html>"));
-end PartialTurbine;
+end PartialCompressor;

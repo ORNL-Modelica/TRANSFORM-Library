@@ -914,7 +914,7 @@ equation
   connect(LPT_2.shaft_a, LPT_1.shaft_b) annotation (Line(points={{85.84,51},{42.5,
           51},{42.5,50.5}}, color={0,0,0}));
   connect(LPT_2.shaft_b, generator.shaft)
-    annotation (Line(points={{114.4,51},{122,51},{122,51.3},{130.3,51.3}},
+    annotation (Line(points={{114.4,51},{122,51},{122,50.9},{129.9,50.9}},
                                                    color={0,0,0}));
   connect(controlBus.y_Condenser_level, level_condenser.y) annotation (Line(
       points={{37.1,-139.9},{183,-139.9},{183,-115.5},{186.25,-115.5}},
