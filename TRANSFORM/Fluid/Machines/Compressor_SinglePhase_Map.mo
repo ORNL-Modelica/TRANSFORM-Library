@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Machines;
 model Compressor_SinglePhase_Map
-  extends BaseClasses.PartialCompressor(final eta_is=
-        efficiencyIsentropic_RLineN.y, eta_mech=1.0);
+  extends BaseClasses.PartialCompressor(eta_mech=1.0);
 
   import NonSI = Modelica.SIunits.Conversions.NonSIunits;
 
@@ -49,6 +48,7 @@ model Compressor_SinglePhase_Map
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 equation
+
   omega = N*2*Modelica.Constants.pi/60;
 
   massFlowRate_RLineN.u1 = Rline*scale_u1;
@@ -57,7 +57,7 @@ equation
 
   efficiencyIsentropic_RLineN.u1 = Rline*scale_u1;
   efficiencyIsentropic_RLineN.u2 = N*scale_u2;
-
+  efficiencyIsentropic_RLineN.y = eta_is;
   pressureRatio_RLineN.u1 = Rline*scale_u1;
   pressureRatio_RLineN.u2 = N*scale_u2;
   pressureRatio_RLineN.y*scale_y = p_ratio;

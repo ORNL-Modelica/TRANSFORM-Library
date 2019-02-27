@@ -99,7 +99,7 @@ partial model PartialTurbine
   Medium.SpecificEnthalpy h_is "Isentropic outlet enthalpy";
   Medium.SpecificEnthalpy dh_ideal "Ideal enthalpy change";
   Medium.SpecificEnthalpy dh "Actual enthalpy change";
-  SI.Power Q_turbine "Mechanical power to turbine";
+  SI.Power Q_mech "Mechanical power";
   SI.Power Ub "Energy balance";
   //    SI.Energy U "Energy";
 
@@ -123,10 +123,10 @@ equation
   dh = eta_is*dh_ideal;
   dh = h_in - h_out;
   // Mechanical shaft power output
-  Q_turbine = eta_mech*omega*tau;
+  Q_mech = eta_mech*omega*tau;
   // Energy balace
-  Ub = port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*
-    actualStream(port_b.h_outflow) + Q_turbine;
+  Ub =port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*actualStream(
+    port_b.h_outflow) + Q_mech;
   //    if energyDynamics == Dynamics.SteadyState then
   0 = Ub;
   //    else

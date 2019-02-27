@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Machines;
 model Compressor_SinglePhase_Map2
-  extends BaseClasses.PartialCompressor(final eta_is=
-        efficiencyIsentropic_RLineN.y, eta_mech=1.0);
+  extends BaseClasses.PartialCompressor(eta_mech=1.0);
 
   import NonSI = Modelica.SIunits.Conversions.NonSIunits;
 
@@ -20,25 +19,35 @@ model Compressor_SinglePhase_Map2
       0,
       2) "Pressure table where u1 = RLine, u2 = N, and y = p_ratio";
 
-  input Real scale_u1=1.0 "Scaling value for tableVar u1: input = var*scale"
-    annotation (Dialog(group="Inputs"));
-  input Real scale_u2=1.0 "Scaling value for tableVar u2: input = var*scale"
-    annotation (Dialog(group="Inputs"));
-  input Real scale_y=1.0 "Scaling value for tableVar y: var = output*scale"
-    annotation (Dialog(group="Inputs"));
-
     // Questionable if need but the values are taken from Source 1 4.2.4
-  SI.Temperature T_ref = 288.15;
-  SI.Pressure p_ref = 101325;
-  NonSI.AngularVelocity_rpm N(start=N_nominal) "Shaft rotational speed";
-  SIadd.NonDim m_flow_c(unit="kg")=m_flow*sqrt(T_inlet/T_ref)*p_ref/p_inlet
-    "Referred or corrected mass flow rate [kg-K^0.5/Pa-s]";
-  SIadd.NonDim N_c=N/sqrt(T_inlet) "Referred or corrected speed";
+  parameter SI.Temperature T_ref = 288.15;
+  parameter SI.Pressure p_ref = 101325;
+
+  parameter SI.MassFlowRate m_c_design = m_c_design_map;
+  parameter SI.MassFlowRate m_c_design_map = m_flow_start*sqrt(T_a_start/T_ref)*p_a_start/p_ref;
+
+  parameter SIadd.NonDim PR_design = PR_design_map;
+  parameter SIadd.NonDim PR_design_map = p_b_start/p_a_start;
+
+  parameter SI.Efficiency eta_is_design = eta_is_design_map;
+  parameter SI.Efficiency eta_is_design_map = 1.0;
+
+  NonSI.AngularVelocity_rpm N(start=N_nominal) = omega*60/(2*Modelica.Constants.pi) "Shaft rotational speed";
+  NonSI.AngularVelocity_rpm N_c=N/sqrt(T_inlet/T_ref) "Referred or corrected speed";
+
+  SI.MassFlowRate m_flow_c=m_flow*sqrt(T_inlet/T_ref)*p_inlet/p_ref
+    "Referred or corrected mass flow rate";
+  SI.MassFlowRate m_flow_c_scaled  "Scaled corrected mass flow rate";
+
+  SIadd.NonDim PR = port_b.p/port_a.p "Pressure ratio";
+  SIadd.NonDim PR_scaled "Scaled pressure ratio";
+
+  SI.Efficiency eta_is_scaled "Scaled efficiency";
 
   SI.Temperature T_inlet=Medium.temperature(state_a);
   SI.Pressure p_inlet=port_a.p;
   Real Rline(start=integer(size(pressureChar, 1)/2))
-    "Arbitraty defined lines on compressor map. Also known as beta (Source 1 5.2.5)";
+    "Arbitraty defined lines on compressor map. Also known as beta (Source 1 - 5.2.5)";
 
   Modelica.Blocks.Tables.CombiTable2D efficiencyIsentropic_RLineN(table=
         efficiencyChar, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
@@ -52,18 +61,24 @@ model Compressor_SinglePhase_Map2
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 equation
-  omega = N*2*Modelica.Constants.pi/60;
 
-  massFlowRate_RLineN.u1 = Rline*scale_u1;
-  massFlowRate_RLineN.u2 = N*scale_u2;
-  massFlowRate_RLineN.y*scale_y = m_flow;
+  m_flow_c_scaled = m_flow_c*m_c_design/m_c_design_map;
 
-  efficiencyIsentropic_RLineN.u1 = Rline*scale_u1;
-  efficiencyIsentropic_RLineN.u2 = N*scale_u2;
+  PR_scaled = (PR_design-1)/(PR_design_map-1)*(PR-1) + 1;
 
-  pressureRatio_RLineN.u1 = Rline*scale_u1;
-  pressureRatio_RLineN.u2 = N*scale_u2;
-  pressureRatio_RLineN.y*scale_y = p_ratio;
+  eta_is_scaled = eta_is_design/eta_is_design_map*eta_is;
+
+  massFlowRate_RLineN.u1 = Rline;
+  massFlowRate_RLineN.u2 = N_c;
+  massFlowRate_RLineN.y = m_flow_c_scaled;
+
+  efficiencyIsentropic_RLineN.u1 = Rline;
+  efficiencyIsentropic_RLineN.u2 = N_c;
+  efficiencyIsentropic_RLineN.y = eta_is_scaled;
+
+  pressureRatio_RLineN.u1 = Rline;
+  pressureRatio_RLineN.u2 = N_c;
+  pressureRatio_RLineN.y = PR_scaled;
 
   annotation (
     defaultComponentName="compressor",

@@ -73,8 +73,7 @@ partial model PartialCompressor
 
   input SI.Efficiency eta_mech "Turbine mechanical efficiency"
     annotation (Dialog(group="Inputs"));
-  input SI.Efficiency eta_is "Isentropic or aerodynamic efficiency"
-    annotation (Dialog(group="Inputs"));
+  SI.Efficiency eta_is "Isentropic or aerodynamic efficiency";
 
   Medium.ThermodynamicState state_a;
   //   Medium.ThermodynamicState state_b;
