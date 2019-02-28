@@ -91,10 +91,7 @@ equation
     port_a.p,
     inStream(port_a.h_outflow),
     inStream(port_a.Xi_outflow));
-  state_b = Medium.setState_phX(
-    port_b.p,
-    inStream(port_b.h_outflow),
-    inStream(port_b.Xi_outflow));
+
   // Pressure relations
   dp = port_b.p - port_a.p;
 

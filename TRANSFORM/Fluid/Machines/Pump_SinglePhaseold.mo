@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.Machines;
-model Pump_SinglePhase
+model Pump_SinglePhaseold
   extends BaseClasses.PartialPump_SinglePhase;
 
   import NonSI = Modelica.SIunits.Conversions.NonSIunits;
@@ -8,42 +8,35 @@ model Pump_SinglePhase
   parameter SI.Length diameter_nominal=0.1524 "Impeller diameter";
   parameter SI.Length diameter = diameter_nominal "Impeller diameter";
 
-  replaceable model FlowChar =
-      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.TableBasedInterpolation
-    constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.PartialFlowChar
-    "Head vs. Volumetric flow rate" annotation (Dialog(group=
-          "Characteristics: Based on single pump nominal conditions"),
-      choicesAllMatching=true);
-  FlowChar flowChar(
-    redeclare final package Medium = Medium,
-    final dp=dp,
-    final state=state_a,
-    final N=N,
-    final diameter=diameter,
-    final N_nominal=N_nominal,
-    final diameter_nominal=diameter_nominal)
-    annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
+  parameter Real flowChar[:,:]=fill(
+      0.0,
+      0,
+      2);
+
+  parameter SI.Efficiency eta_is_design = eta_is_design_map;
+  parameter SI.Efficiency eta_is_design_map = 1.0;
 
   NonSI.AngularVelocity_rpm N(start=N_nominal) = omega*60/(2*Modelica.Constants.pi) "Shaft rotational speed";
 
   SI.Temperature T_inlet=Medium.temperature(state_a);
   SI.Pressure p_inlet=port_a.p;
-  SI.Density d_inlet = Medium.density(state_a) "Inlet density";
 
-// SI.Height head "Pump pressure head";
+  Modelica.Blocks.Tables.CombiTable1D FlowChar(table=flowChar, smoothness=
+        Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
+SI.Density d_inlet = Medium.density(state_a) "Inlet density";
+SI.Height head "Pump pressure head";
 SI.VolumeFlowRate V_flow = m_flow/d_inlet;
-// SIadd.NonDim affinityLaw_head;
+SIadd.NonDim affinityLaw_head;
 
 equation
 
-//   affinityLaw_head = (N/N_nominal)^2*(diameter/diameter_nominal)^2;
-//   V_flow*N = FlowChar.y[1];
-//   FlowChar.u[1]*N^2 = head;
+  affinityLaw_head = (N/N_nominal)^2*(diameter/diameter_nominal)^2;
+  V_flow*N = FlowChar.y[1];
+  FlowChar.u[1]*N^2 = head;
 
-//   dp = d_inlet*Modelica.Constants.g_n*flowChar.head;
-
-  V_flow = flowChar.V_flow;
+  dp = d_inlet*Modelica.Constants.g_n*head;
 
   eta_is = 0.7;
 
@@ -56,4 +49,4 @@ equation
 <p><br>Sources</p>
 <p>1. P. P. WALSH and P. FLETCHER, <i>Gas Turbine Performance</i>, 2. ed., [repr.], Blackwell Science, Oxford (2004). </p>
 </html>"));
-end Pump_SinglePhase;
+end Pump_SinglePhaseold;
