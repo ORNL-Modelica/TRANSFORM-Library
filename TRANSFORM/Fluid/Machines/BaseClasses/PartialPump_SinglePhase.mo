@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.Machines.BaseClasses;
-partial model PartialPumpnew
+partial model PartialPump_SinglePhase
   import TRANSFORM.Types.Dynamics;
   Interfaces.FluidPort_State port_a(
     redeclare package Medium = Medium,
@@ -71,23 +71,18 @@ partial model PartialPumpnew
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
 
-  input SI.Efficiency eta_mech "Turbine mechanical efficiency"
-    annotation (Dialog(group="Inputs"));
   SI.Efficiency eta_is "Isentropic or aerodynamic efficiency";
-
   Medium.ThermodynamicState state_a;
-  //   Medium.ThermodynamicState state_b;
   SI.PressureDifference dp "Pressure change";
   SI.Angle phi "Shaft rotation angle";
   SI.Torque tau "Net torque acting on the turbine";
   SI.AngularVelocity omega "Shaft angular velocity";
   SI.MassFlowRate m_flow(start=m_flow_start) "Mass flow rate";
-  Medium.SpecificEnthalpy h_in(start=h_a_start) "Inlet enthalpy";
-  Medium.SpecificEnthalpy h_out "Outlet enthalpy";
-  Medium.SpecificEnthalpy h_is "Isentropic outlet enthalpy";
   Medium.SpecificEnthalpy dh_ideal "Ideal enthalpy change";
   Medium.SpecificEnthalpy dh "Actual enthalpy change";
-  SI.Power Q_mech "Mechanical power added to system";
+  SI.Power Q_mech "Mechanical power added to system (i.e., pumping power)";
+  SI.Power W = dh*m_flow "Pumping power required";
+  SI.Power W_ideal=dh_ideal*m_flow "Ideal pumping power required";
   SI.Power Ub "Energy balance";
 
 equation
@@ -96,7 +91,10 @@ equation
     port_a.p,
     inStream(port_a.h_outflow),
     inStream(port_a.Xi_outflow));
-
+  state_b = Medium.setState_phX(
+    port_b.p,
+    inStream(port_b.h_outflow),
+    inStream(port_b.Xi_outflow));
   // Pressure relations
   dp = port_b.p - port_a.p;
 
@@ -104,13 +102,11 @@ equation
   port_a.m_flow + port_b.m_flow = 0;
 
   // Enthalpy relations
-  h_is = Medium.isentropicEnthalpy(port_b.p, state_a);
-  dh_ideal = h_is - h_in;
+  dh_ideal = dp/Medium.density(state_a);
   dh*eta_is = dh_ideal;
-  dh = h_out - h_in;
 
   // Mechanical shaft power
-  Q_mech = eta_mech*omega*tau;
+  Q_mech = omega*tau;
 
   // Energy balace
   Ub = port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*
@@ -124,9 +120,8 @@ equation
   der(phi) = omega;
 
   // Fluid Port Boundary Conditions
-  h_in = inStream(port_a.h_outflow);
   m_flow = port_a.m_flow;
-  port_a.h_outflow = inStream(port_b.h_outflow) - dh;
+  port_a.h_outflow = inStream(port_b.h_outflow) + dh;
   port_a.Xi_outflow = inStream(port_b.Xi_outflow);
   port_a.C_outflow = inStream(port_b.C_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow) + dh;
@@ -192,4 +187,4 @@ equation
        Small changes in alias variables.</li>
 </ul>
 </html>"));
-end PartialPumpnew;
+end PartialPump_SinglePhase;

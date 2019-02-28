@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Machines;
-model Pump2new
-  extends BaseClasses.PartialPumpnew2;
+model Pump_SinglePhase
+  extends BaseClasses.PartialPump_SinglePhase;
 
   import NonSI = Modelica.SIunits.Conversions.NonSIunits;
 
@@ -49,4 +49,4 @@ equation
 <p><br>Sources</p>
 <p>1. P. P. WALSH and P. FLETCHER, <i>Gas Turbine Performance</i>, 2. ed., [repr.], Blackwell Science, Oxford (2004). </p>
 </html>"));
-end Pump2new;
+end Pump_SinglePhase;
