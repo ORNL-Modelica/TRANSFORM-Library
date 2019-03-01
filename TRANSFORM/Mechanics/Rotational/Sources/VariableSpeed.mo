@@ -2,7 +2,6 @@ within TRANSFORM.Mechanics.Rotational.Sources;
 model VariableSpeed "Variable speed, not dependent on torque"
   extends Modelica.Mechanics.Rotational.Interfaces.PartialTorque;
 
-
   parameter Boolean use_port=false "=true then use input port"
     annotation (
     Evaluate=true,

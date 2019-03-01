@@ -37,7 +37,7 @@ model Pump_Controlled_Test
     checkValve=true,
     N_nominal=1500,
     redeclare model FlowChar =
-        TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.SplineCurve
+        TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.PerformanceCurve
         (head_curve={0,30,60}, V_flow_curve={0.0015,0.001,0}),
     p_a_start=100000,
     p_b_start=688484)

@@ -1,12 +1,13 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Functions;
 function PerformanceCurve
   input Real x "Value of interest";
-  input Real x_curve[:];
-  input Real y_curve[size(x_curve, 1)];
+  input Real x_curve[:] "Abcissa";
+  input Real y_curve[size(x_curve, 1)] "Ordinate";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Real delta=0.05
     "Small value for switching implementation around zero rpm";
   output Real y "Output at x";
+
 protected
   Integer n=size(x_curve, 1) "Dimension of data vector";
   Real r_R(unit="1") "Relative revolution, bounded below by delta";
@@ -16,6 +17,7 @@ protected
       x=x_curve,
       y=y_curve,
       ensureMonotonicity=TRANSFORM.Math.isMonotonic(x=y_curve, strict=false));
+
 algorithm
   // For r_N < delta, we restrict r_N in the term V_flow/r_N.
   // This is done using a cubic spline in a region 0.75*delta < r_N < 1.25*r_N

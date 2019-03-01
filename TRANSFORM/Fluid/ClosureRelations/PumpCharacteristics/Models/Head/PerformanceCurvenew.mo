@@ -1,8 +1,11 @@
-within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow;
-model SplineCurve
-  extends PartialFlowChar;
-  parameter SI.Height head_curve[:]={0,head_nominal,2*head_nominal} "Pump head nominal operating points";
-  parameter SI.VolumeFlowRate V_flow_curve[size(head_curve, 1)]={1.5*V_flow_nominal,V_flow_nominal,0}
+within TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head;
+model PerformanceCurvenew
+  "Cubic spline of a characteristic curve of head vs. volume flow rate"
+  extends PartialFlowChar2;
+  parameter SI.Height head_curve[:]={2*head_nominal,
+      head_nominal,0} "Pump head nominal operating points";
+  parameter SI.VolumeFlowRate V_flow_curve[size(head_curve, 1)]={0,V_flow_nominal,1.5*
+      V_flow_nominal}
     "Volume flow rate nominal operating points (single pump)";
 
   Real s(start=head_start/unit_head)
@@ -19,7 +22,7 @@ protected
 
 equation
   if checkValve then
-    V_flow = homotopy(if s > 0 then s else 0, s);
+    head = homotopy(if s > 0 then s else 0, s);
     //V_flow = homotopy(TRANSFORM.Math.spliceTanh(V_flow,0,s,0.001),s);
   else
     s = 0;
@@ -41,4 +44,4 @@ equation
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end SplineCurve;
+end PerformanceCurvenew;

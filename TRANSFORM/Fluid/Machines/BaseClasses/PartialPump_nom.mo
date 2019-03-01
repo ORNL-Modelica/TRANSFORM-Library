@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.Machines.BaseClasses;
-partial model PartialPump_nominal
+partial model PartialPump_nom
   extends PartialPump_Simple(final allowFlowReversal=not
         checkValve);
 
@@ -11,7 +11,7 @@ partial model PartialPump_nominal
     annotation (Dialog(group="Inputs"));
 
   replaceable model FlowChar =
-      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.TableBasedInterpolation_old
+      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.PerformanceCurve
     constrainedby
     TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.PartialFlowChar
     "Head vs. Volumetric flow rate" annotation (Dialog(group="Characteristics: Based on single pump nominal conditions"),
@@ -61,13 +61,13 @@ partial model PartialPump_nominal
   SI.Pressure p_inlet=port_a.p;
   SI.Density d_inlet=Medium.density(state_a);
 
-  SI.VolumeFlowRate V_flow=m_flow/d_inlet;
-  //SI.Height head=flowChar.head;
+  SI.VolumeFlowRate V_flow=flowChar.V_flow;
+  SI.Height head=flowChar.head;
 
 equation
 
-  V_flow = flowChar.V_flow;
+  V_flow=m_flow/d_inlet;
 
   eta_is = 0.7;
 
-end PartialPump_nominal;
+end PartialPump_nom;
