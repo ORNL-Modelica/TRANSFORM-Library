@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow;
 model CombiTableCurve "CombiTable interpolation: V_flow = f(head)"
-  extends PartialFlowChar;
+  extends PartialFlowChar(final checkValve=false);
 
    parameter Real flowChar[:,:]=fill(
        0.0,

@@ -1,11 +1,9 @@
 within TRANSFORM.Fluid.Machines.BaseClasses;
 partial model PartialPump_nom
   extends PartialPump_Simple(final allowFlowReversal=not
-        checkValve);
+        flowChar.checkValve);
 
   import NonSI = Modelica.SIunits.Conversions.NonSIunits;
-
-  parameter Boolean checkValve=false "=true then no reverse flow";
 
   input SI.Length diameter=diameter_nominal "Impeller diameter"
     annotation (Dialog(group="Inputs"));
@@ -27,8 +25,7 @@ partial model PartialPump_nom
     final V_flow_start=V_flow_start,
     final head_start=head_start,
     final V_flow_nominal=V_flow_nominal,
-    final head_nominal=head_nominal,
-    final checkValve=checkValve)
+    final head_nominal=head_nominal)
     annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
 
   parameter NonSI.AngularVelocity_rpm N_nominal=1500 "Pump speed"

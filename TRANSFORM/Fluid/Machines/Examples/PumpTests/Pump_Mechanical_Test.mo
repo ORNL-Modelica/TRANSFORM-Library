@@ -34,11 +34,13 @@ model Pump_Mechanical_Test
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
   TRANSFORM.Fluid.Machines.Pump_Mechanical pump(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
-    checkValve=true,
     N_nominal=1500,
     redeclare model FlowChar =
         TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.PerformanceCurve
-        (head_curve={0,30,60}, V_flow_curve={0.0015,0.001,0}),
+        (
+        checkValve=true,
+        head_curve={0,30,60},
+        V_flow_curve={0.0015,0.001,0}),
     p_a_start=100000,
     p_b_start=688484)
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
@@ -46,7 +48,7 @@ model Pump_Mechanical_Test
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Mechanics.Rotational.Sources.ConstantSpeed constantSpeed(w_fixed=
         3000/60*3.14159)
-    annotation (Placement(transformation(extent={{-40,36},{-60,56}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 equation
   connect(Ramp1.y, SinkP.p_in)
     annotation (Line(points={{79,10},{66,10},{66,8},{52,8}}, color={0,0,127}));
@@ -61,8 +63,8 @@ equation
       points={{-44,0},{-58,0},{-58,0},{-70,0}},
       color={0,127,255},
       thickness=0.5));
-  connect(constantSpeed.flange, pump.shaft) annotation (Line(points={{-60,46},{
-          -48,46},{-48,12},{-34,12},{-34,6}}, color={0,0,0}));
+  connect(constantSpeed.flange, pump.shaft) annotation (Line(points={{-40,30},{
+          -34,30},{-34,6}},                   color={0,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=10, Tolerance=1e-006));

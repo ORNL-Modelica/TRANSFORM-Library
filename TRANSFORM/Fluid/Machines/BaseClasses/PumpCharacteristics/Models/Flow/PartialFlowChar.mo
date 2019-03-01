@@ -25,7 +25,7 @@ partial model PartialFlowChar
     annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.Height head_nominal "Nominal head" annotation (Dialog(tab="Internal Interface",group="Nominal Operating Parameters"));
 
-  parameter Boolean checkValve "=true then no reverse flow" annotation (Dialog(tab="Internal Interface",group="Inputs"));
+  parameter Boolean checkValve = false "=true then no reverse flow" annotation(Dialog(tab="Advanced"));
 
   SI.Height head "Pump pressure head";
   SI.VolumeFlowRate V_flow(start=V_flow_start) "Flow rate";
