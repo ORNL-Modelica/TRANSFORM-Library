@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow;
 model PerformanceCurve
-  "Cubic spline of a characteristic curve of head vs. volume flow rate"
   extends PartialFlowChar;
   parameter SI.VolumeFlowRate V_flow_curve[:]={0,V_flow_nominal,1.5*
       V_flow_nominal}

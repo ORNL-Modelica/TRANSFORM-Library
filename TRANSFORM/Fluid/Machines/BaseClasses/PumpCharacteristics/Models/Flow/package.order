@@ -1,4 +1,6 @@
 Examples
 PartialFlowChar
 PerformanceCurve
-TableBasedInterpolation
+TableBasedInterpolation_old
+CombiTableCurve
+SplineCurve

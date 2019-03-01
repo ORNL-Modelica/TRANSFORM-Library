@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow;
-model TableBasedInterpolation
+model CombiTableCurve "CombiTable interpolation: V_flow = f(head)"
   extends PartialFlowChar;
 
    parameter Real flowChar[:,:]=fill(
@@ -13,9 +13,9 @@ model TableBasedInterpolation
 
 equation
 
-  V_flow*N = FlowChar.y[1];
-  FlowChar.u[1]*N^2 = head;
+  V_flow/FlowChar.y[1] = affinityLaw_flow;
+  head/FlowChar.u[1] = affinityLaw_head;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end TableBasedInterpolation;
+end CombiTableCurve;

@@ -5,20 +5,20 @@ partial model PartialPump_SinglePhase
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=h_a_start)) "high pressure port" annotation (Placement(
-        transformation(extent={{-120,40},{-80,80}}, rotation=0),
-        iconTransformation(extent={{-110,50},{-90,70}})));
+        transformation(extent={{-120,-20},{-80,20}},rotation=0),
+        iconTransformation(extent={{-110,-10},{-90,10}})));
   Interfaces.FluidPort_Flow port_b(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     p(start=p_b_start)) "low pressure port" annotation (Placement(
-        transformation(extent={{80,40},{120,80}}, rotation=0),
-        iconTransformation(extent={{90,50},{110,70}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_a annotation (
-      Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=0),
-        iconTransformation(extent={{-110,-10},{-90,10}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b annotation (
-      Placement(transformation(extent={{90,-10},{110,10}}, rotation=0),
+        transformation(extent={{80,-20},{120,20}},rotation=0),
         iconTransformation(extent={{90,-10},{110,10}})));
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_a annotation (
+      Placement(transformation(extent={{-110,50},{-90,70}},  rotation=0),
+        iconTransformation(extent={{-110,50},{-90,70}})));
+  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b annotation (
+      Placement(transformation(extent={{90,50},{110,70}},  rotation=0),
+        iconTransformation(extent={{90,50},{110,70}})));
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium properties" annotation (choicesAllMatching=true);
@@ -128,46 +128,37 @@ equation
   annotation (
     defaultComponentName="compressor",
     Icon(graphics={
-        Rectangle(
-          extent={{40,66},{92,54}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
-        Rectangle(
-          extent={{-6,18.5},{6,-18.5}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillPattern=FillPattern.VerticalCylinder,
-          fillColor={0,127,255},
-          origin={34,47.5},
-          rotation=180),
-        Rectangle(
-          extent={{-102,6},{98,-6}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={160,160,164}),
-        Polygon(
-          points={{40,30},{40,-30},{-40,-80},{-40,80},{40,30}},
-          lineColor={0,0,0},
-          fillColor={0,114,208},
-          fillPattern=FillPattern.Solid),
         Polygon(
           points={{-104,38},{-104,38}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,0,255}),
-        Rectangle(
-          extent={{-94,66},{-40,54}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
         Text(
           extent={{-149,-68},{151,-108}},
           lineColor={0,0,255},
           textString="%name",
-          visible=DynamicSelect(true, showName))}),
+          visible=DynamicSelect(true, showName)),
+        Rectangle(
+          extent={{-80,30},{-40,-30}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder),
+        Rectangle(
+          extent={{-2,60},{80,0}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder),
+        Ellipse(
+          extent={{60,60},{-60,-60}},
+          lineColor={0,0,0},
+          fillColor={0,128,255},
+          fillPattern=FillPattern.Sphere),
+        Polygon(
+          points={{-20,20},{-20,-22},{30,0},{-20,20}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255})}),
     Documentation(info="<html>
 <p>This base model contains the basic interface, parameters and definitions for steam turbine models. It lacks the actual performance characteristics, i.e. two more equations to determine the flow rate and the efficiency.
 <p>This model does not include any shaft inertia by itself; if that is needed, connect a <tt>Modelica.Mechanics.Rotational.Inertia</tt> model to one of the shaft connectors.
