@@ -34,36 +34,10 @@ model Pump_Controlled
         rotation=-90,
         origin={0,70})));
 
-//    Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft annotation (Placement(
-//          transformation(extent={{-10,50},{10,70}}, rotation=0),
-//          iconTransformation(extent={{-10,50},{10,70}})));
-
-  //SI.Power Q_mech "Mechanical power added to system (i.e., pumping power)";
-  //SI.Angle phi "Shaft rotation angle";
-  //SI.Torque tau "Net torque acting on the turbine";
-//   SI.AngularVelocity omega=N*2*Modelica.Constants.pi/60
-//     "Shaft angular velocity";
-
 protected
   Modelica.Blocks.Interfaces.RealInput inputSignal_int;
 
 equation
-
-  // Mechanical shaft power
-  //W = Q_mech;
-  //Q_mech = omega*tau;
-
-  // Mechanical boundary conditions
-//    tau = shaft.tau;
-//    shaft.phi = phi;
-//    der(phi) = omega;
-
- // Mechanical boundary conditions
-  //tau =shaft_int.tau + shaft.tau;
-  //shaft_int.phi = phi;
-  //shaft.phi = phi;
-  //der(phi) = omega;
-
   connect(inputSignal_int, inputSignal);
   if not use_port then
     inputSignal_int = 0;
