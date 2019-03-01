@@ -2,39 +2,38 @@ within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Power.Exa
 model Constant_Test
   import TRANSFORM;
   extends Icons.Example;
-import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+
+  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+
   package Medium = Modelica.Media.Water.StandardWater;
-  constant SI.Pressure p = 5e5 "Pressure";
-  constant SI.Temperature T = 300 "Temperature";
-  constant Medium.ThermodynamicState state = Medium.setState_pT(p,T) "Component state";
-  parameter SI.Pressure p_a_start = p-1e5;
-  parameter SI.Pressure p_b_start = p;
-  parameter SI.SpecificEnthalpy h_start = Medium.specificEnthalpy(state);
-  parameter SI.MassFlowRate m_flow_start = m_flow.offset;
-  // Nominal conditions for Affinity Laws (Single pump basis)
-  constant NonSI.AngularVelocity_rpm N_nominal = 1500 "Pump speed";
-  constant SI.Length diameter_nominal = 0.1 "Impeller diameter";
-  constant SI.MassFlowRate m_flow_nominal = 1 "Nominal mass flow rate";
-  constant SI.Density rho_nominal = 1000 "Nominal density";
-  constant SI.Pressure dp_nominal = 1e5 "Nominal pressure loss";
-  TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power.Constant
+
+  parameter SI.Pressure p = 5e5 "Pressure";
+  parameter SI.Temperature T = 300 "Temperature";
+  parameter Medium.ThermodynamicState state = Medium.setState_pT(p,T);
+
+  parameter NonSI.AngularVelocity_rpm N_nominal = N.offset "Pump speed";
+  parameter SI.Length diameter_nominal = diameter.offset "Impeller diameter";
+
+
+  parameter SI.VolumeFlowRate V_flow_start=V_flow.offset;
+  parameter SI.VolumeFlowRate V_flow_nominal=V_flow.offset;
+
+  parameter SI.Power W_nominal = 1;
+
+  TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Power.Constant
     powerChar(
     redeclare package Medium = Medium,
     state=state,
-    m_flow=m_flow.y,
+    V_flow=V_flow.y,
     N=N.y,
     diameter=diameter.y,
+    V_flow_start=V_flow_start,
     final N_nominal=N_nominal,
     final diameter_nominal=diameter_nominal,
-    final rho_nominal=rho_nominal,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal,
-    final p_a_start=p_a_start,
-    final p_b_start=p_b_start,
-    final h_start=h_start,
-    final m_flow_start=m_flow_start)
+    V_flow_nominal=V_flow_nominal,
+    W_nominal=W_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Trapezoid m_flow(
+  Modelica.Blocks.Sources.Trapezoid V_flow(
     rising=5,
     width=5,
     falling=5,

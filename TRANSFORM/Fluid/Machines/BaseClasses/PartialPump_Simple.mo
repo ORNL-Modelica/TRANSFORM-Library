@@ -17,6 +17,8 @@ partial model PartialPump_Simple
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium properties" annotation (choicesAllMatching=true);
 
+  parameter Real nParallel = 1 "# of parallel components";
+
   parameter Medium.AbsolutePressure p_a_start=Medium.p_default
     "Pressure at port a" annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
   parameter Medium.AbsolutePressure p_b_start=p_a_start "Pressure at port b"
@@ -94,11 +96,11 @@ equation
 
   // Energy balace
   Ub = port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*
-    actualStream(port_b.h_outflow) + W;
+    actualStream(port_b.h_outflow) + W*nParallel;
   0 = Ub;
 
   // Fluid Port Boundary Conditions
-  m_flow = port_a.m_flow;
+  m_flow = port_a.m_flow/nParallel;
   port_a.h_outflow = inStream(port_b.h_outflow) + dh;
   port_a.Xi_outflow = inStream(port_b.Xi_outflow);
   port_a.C_outflow = inStream(port_b.C_outflow);

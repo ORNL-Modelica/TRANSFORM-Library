@@ -1,13 +1,35 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Power;
 partial model PartialPowerChar
-  "Base class for pump power characteristics."
-  extends PartialCharacteristic;
+  "Base class for pump power characteristics"
+
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component" annotation (Dialog(tab="Internal Interface"));
+
+  input SI.VolumeFlowRate V_flow annotation (Dialog(tab="Internal Interface", group="Inputs"));
+  input Medium.ThermodynamicState state "Thermodynamic state"
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
+
+  input SI.Conversions.NonSIunits.AngularVelocity_rpm N "Pump speed"
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
+  input SI.Length diameter "Impeller Diameter"
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
+
+  parameter SI.VolumeFlowRate V_flow_start annotation (Dialog(tab="Internal Interface", group="Initialization"));
+
+  parameter SI.Conversions.NonSIunits.AngularVelocity_rpm N_nominal
+    "Pump speed" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
+  parameter SI.Length diameter_nominal "Impeller Diameter" annotation (Dialog(
+        tab="Internal Interface", group="Nominal Operating Parameters"));
+  parameter SI.VolumeFlowRate V_flow_nominal "Nominal volumetric flow rate"
+    annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
+
   parameter SI.Power W_nominal "Power consumption" annotation (Dialog(
         tab="Internal Interface", group="Nominal Operating Parameters"));
-  input SI.MassFlowRate m_flow;
+
   SI.Power W "Power consumption";
-equation
-    affinityLaw = (N/N_nominal)^3*(diameter/diameter_nominal)^3;
+  Units.NonDim affinityLaw_flow = (N/N_nominal)*(diameter/diameter_nominal) "Affinity law for scaling";
+  Units.NonDim affinityLaw_power = (N/N_nominal)^3*(diameter/diameter_nominal)^3 "Affinity law for scaling";
+
   annotation (defaultComponentName="flowCurve",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                              Ellipse(

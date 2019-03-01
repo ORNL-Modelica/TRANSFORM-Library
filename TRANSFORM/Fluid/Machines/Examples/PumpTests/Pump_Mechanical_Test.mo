@@ -34,6 +34,10 @@ model Pump_Mechanical_Test
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
   TRANSFORM.Fluid.Machines.Pump_Mechanical pump(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
+    use_powerCharacteristic=true,
+    redeclare model EfficiencyChar =
+        TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Efficiency.Constant
+        (eta_constant=0.7),
     N_nominal=1500,
     redeclare model FlowChar =
         TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.PerformanceCurve
