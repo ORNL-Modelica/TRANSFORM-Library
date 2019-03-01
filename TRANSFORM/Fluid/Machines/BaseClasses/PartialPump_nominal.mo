@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses;
 partial model PartialPump_nominal
-  extends BaseClasses.PartialPump_new(final allowFlowReversal=not
+  extends PartialPump_Simple(final allowFlowReversal=not
         checkValve);
 
   import NonSI = Modelica.SIunits.Conversions.NonSIunits;
@@ -62,7 +62,7 @@ partial model PartialPump_nominal
   SI.Density d_inlet=Medium.density(state_a);
 
   SI.VolumeFlowRate V_flow=m_flow/d_inlet;
-  SI.Height head=flowChar.head;
+  //SI.Height head=flowChar.head;
 
 equation
 

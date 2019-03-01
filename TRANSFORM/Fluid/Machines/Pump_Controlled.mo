@@ -1,5 +1,5 @@
 within TRANSFORM.Fluid.Machines;
-model Pump_new
+model Pump_Controlled
   extends BaseClasses.PartialPump_nominal;
 
   parameter String controlType="RPM" annotation (Dialog(group="Inputs Control Setting"),
@@ -77,4 +77,4 @@ equation
 <p><br>Sources</p>
 <p>1. P. P. WALSH and P. FLETCHER, <i>Gas Turbine Performance</i>, 2. ed., [repr.], Blackwell Science, Oxford (2004). </p>
 </html>"));
-end Pump_new;
+end Pump_Controlled;

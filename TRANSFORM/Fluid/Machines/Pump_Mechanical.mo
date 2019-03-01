@@ -2,12 +2,12 @@ within TRANSFORM.Fluid.Machines;
 model Pump_Mechanical
   extends BaseClasses.PartialPump_nominal;
 
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_a annotation (
-      Placement(transformation(extent={{-110,50},{-90,70}}, rotation=0),
-        iconTransformation(extent={{-110,50},{-90,70}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b annotation (
-      Placement(transformation(extent={{90,50},{110,70}}, rotation=0),
-        iconTransformation(extent={{90,50},{110,70}})));
+//   Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_a annotation (
+//       Placement(transformation(extent={{-110,50},{-90,70}}, rotation=0),
+//         iconTransformation(extent={{-110,50},{-90,70}})));
+  Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft annotation (Placement(
+        transformation(extent={{-10,50},{10,70}}, rotation=0),
+        iconTransformation(extent={{-10,50},{10,70}})));
 
   SI.Power Q_mech "Mechanical power added to system (i.e., pumping power)";
   SI.Angle phi "Shaft rotation angle";
@@ -22,10 +22,15 @@ equation
   Q_mech = omega*tau;
 
   // Mechanical boundary conditions
-  tau = shaft_a.tau + shaft_b.tau;
-  shaft_a.phi = phi;
-  shaft_b.phi = phi;
+  tau = shaft.tau;
+  shaft.phi = phi;
   der(phi) = omega;
+
+  // // Mechanical boundary conditions - 2 Shafts
+  // tau =shaft_a.tau + shaft_b.tau;
+  // shaft_a.phi = phi;
+  // shaft_b.phi = phi;
+  // der(phi) = omega;
 
   annotation (
     defaultComponentName="pump",

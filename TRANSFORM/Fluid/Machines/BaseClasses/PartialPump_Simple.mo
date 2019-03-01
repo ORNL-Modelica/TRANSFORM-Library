@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Machines.BaseClasses;
-partial model PartialPump_SinglePhase
+partial model PartialPump_Simple
   import TRANSFORM.Types.Dynamics;
-  Interfaces.FluidPort_State port_a(
+  Interfaces.FluidPort_Flow  port_a(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
     h_outflow(start=h_a_start)) "high pressure port" annotation (Placement(
@@ -13,12 +13,6 @@ partial model PartialPump_SinglePhase
     p(start=p_b_start)) "low pressure port" annotation (Placement(
         transformation(extent={{80,-20},{120,20}},rotation=0),
         iconTransformation(extent={{90,-10},{110,10}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_a annotation (
-      Placement(transformation(extent={{-110,50},{-90,70}},  rotation=0),
-        iconTransformation(extent={{-110,50},{-90,70}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_b shaft_b annotation (
-      Placement(transformation(extent={{90,50},{110,70}},  rotation=0),
-        iconTransformation(extent={{90,50},{110,70}})));
 
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium properties" annotation (choicesAllMatching=true);
@@ -74,14 +68,10 @@ partial model PartialPump_SinglePhase
   SI.Efficiency eta_is "Isentropic or aerodynamic efficiency";
   Medium.ThermodynamicState state_a;
   SI.PressureDifference dp "Pressure change";
-  SI.Angle phi "Shaft rotation angle";
-  SI.Torque tau "Net torque acting on the turbine";
-  SI.AngularVelocity omega "Shaft angular velocity";
   SI.MassFlowRate m_flow(start=m_flow_start) "Mass flow rate";
   Medium.SpecificEnthalpy dh_ideal "Ideal enthalpy change";
   Medium.SpecificEnthalpy dh "Actual enthalpy change";
-  SI.Power Q_mech "Mechanical power added to system (i.e., pumping power)";
-  SI.Power W = dh*m_flow "Pumping power required";
+  SI.Power W "Pumping power required";
   SI.Power W_ideal=dh_ideal*m_flow "Ideal pumping power required";
   SI.Power Ub "Energy balance";
 
@@ -102,19 +92,10 @@ equation
   dh_ideal = dp/Medium.density(state_a);
   dh*eta_is = dh_ideal;
 
-  // Mechanical shaft power
-  Q_mech = omega*tau;
-
   // Energy balace
   Ub = port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*
-    actualStream(port_b.h_outflow) + Q_mech;
+    actualStream(port_b.h_outflow) + W;
   0 = Ub;
-
-  // Mechanical boundary conditions
-  tau = shaft_a.tau + shaft_b.tau;
-  shaft_a.phi = phi;
-  shaft_b.phi = phi;
-  der(phi) = omega;
 
   // Fluid Port Boundary Conditions
   m_flow = port_a.m_flow;
@@ -175,4 +156,4 @@ equation
        Small changes in alias variables.</li>
 </ul>
 </html>"));
-end PartialPump_SinglePhase;
+end PartialPump_Simple;
