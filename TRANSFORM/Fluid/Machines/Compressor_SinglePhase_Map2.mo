@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Machines;
 model Compressor_SinglePhase_Map2
   extends BaseClasses.PartialCompressor(eta_mech=1.0);
-
+extends TRANSFORM.Icons.UnderConstruction;
   import NonSI = Modelica.SIunits.Conversions.NonSIunits;
 
   parameter NonSI.AngularVelocity_rpm N_nominal=1500 "Pump speed";

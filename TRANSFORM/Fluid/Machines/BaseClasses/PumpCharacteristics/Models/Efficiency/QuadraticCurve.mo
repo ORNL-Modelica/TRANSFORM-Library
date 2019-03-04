@@ -7,7 +7,7 @@ model QuadraticCurve
       V_flow_nominal}
     "Volume flow rate for three operating points (single pump)";
   parameter SI.Height[3] eta_curve={0.0,1.0,0.5}
-    "Pump head for three operating points";
+    "Efficiency for three operating points";
 
 equation
 

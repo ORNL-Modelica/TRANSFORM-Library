@@ -29,7 +29,7 @@ partial model PartialFlowChar
 
   SI.Height head "Pump pressure head";
   SI.VolumeFlowRate V_flow(start=V_flow_start) "Flow rate";
-  Units.NonDim affinityLaw_flow = (N/N_nominal)*(diameter/diameter_nominal) "Affinity law for scaling";
+  Units.NonDim affinityLaw_flow = (N/N_nominal)*(diameter/diameter_nominal)^3 "Affinity law for scaling";
   Units.NonDim affinityLaw_head = (N/N_nominal)^2*(diameter/diameter_nominal)^2 "Affinity law for scaling";
 equation
 

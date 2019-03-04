@@ -36,11 +36,11 @@ model Pump_Mechanical_Test
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     use_powerCharacteristic=true,
     redeclare model EfficiencyChar =
-        TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Efficiency.Constant
+        TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Efficiency.Constant
         (eta_constant=0.7),
     N_nominal=1500,
     redeclare model FlowChar =
-        TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.PerformanceCurve
+        TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Flow.PerformanceCurve
         (
         checkValve=true,
         head_curve={0,30,60},

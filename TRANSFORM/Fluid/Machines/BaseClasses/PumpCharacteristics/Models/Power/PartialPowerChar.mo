@@ -22,13 +22,15 @@ partial model PartialPowerChar
         tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.VolumeFlowRate V_flow_nominal "Nominal volumetric flow rate"
     annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
+  parameter SI.Density d_nominal "Nominal density"
+    annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
 
   parameter SI.Power W_nominal "Power consumption" annotation (Dialog(
         tab="Internal Interface", group="Nominal Operating Parameters"));
 
   SI.Power W "Power consumption";
-  Units.NonDim affinityLaw_flow = (N/N_nominal)*(diameter/diameter_nominal) "Affinity law for scaling";
-  Units.NonDim affinityLaw_power = (N/N_nominal)^3*(diameter/diameter_nominal)^3 "Affinity law for scaling";
+  Units.NonDim affinityLaw_flow = (N/N_nominal)*(diameter/diameter_nominal)^3 "Affinity law for scaling";
+  Units.NonDim affinityLaw_power = Medium.density(state)/d_nominal*(N/N_nominal)^3*(diameter/diameter_nominal)^5 "Affinity law for scaling";
 
   annotation (defaultComponentName="flowCurve",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

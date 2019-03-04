@@ -36,6 +36,8 @@ model Turbine_SinglePhase_Stodola
         transformation(extent={{-60,-50},{-40,-30}}, rotation=0),
         iconTransformation(extent={{-60,-50},{-40,-30}})));
 
+Real p_ratio "port_b.p/port_a.p pressure ratio";
+
 initial equation
   if use_NominalInlet then
     if use_T_nominal then
@@ -52,6 +54,7 @@ initial equation
   end if;
 
 equation
+  p_ratio = port_b.p/port_a.p;
   if cardinality(partialArc) == 0 then
     partialArc = 1.0 "Default value if not connected";
   end if;

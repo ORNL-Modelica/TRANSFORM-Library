@@ -9,9 +9,9 @@ partial model PartialPump_nom
     annotation (Dialog(group="Inputs"));
 
   replaceable model FlowChar =
-      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.PerformanceCurve
+      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Flow.PerformanceCurve
     constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Flow.PartialFlowChar
+    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Flow.PartialFlowChar
     "Head vs. Volumetric flow rate" annotation (Dialog(group="Characteristics: Based on single pump nominal conditions"),
       choicesAllMatching=true);
   FlowChar flowChar(
@@ -32,9 +32,9 @@ partial model PartialPump_nom
         true, Dialog(group=
           "Characteristics: Based on single pump nominal conditions"));
   replaceable model PowerChar =
-      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Power.Constant
+      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Power.Constant
     constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Power.PartialPowerChar
+    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Power.PartialPowerChar
     "Power consumption vs. Volumetric flow rate" annotation (Dialog(group=
           "Characteristics: Based on single pump nominal conditions", enable=
           use_powerCharacteristic), choicesAllMatching=true);
@@ -48,13 +48,14 @@ partial model PartialPump_nom
     final diameter=diameter,
     final N_nominal=N_nominal,
     final diameter_nominal=diameter_nominal,
+    final d_nominal = d_nominal,
     final W_nominal=W_nominal)
     annotation (Placement(transformation(extent={{-56,84},{-44,96}})));
 
   replaceable model EfficiencyChar =
-      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Efficiency.Constant
+      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Efficiency.Constant
     constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Models.Efficiency.PartialEfficiencyChar
+    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Efficiency.PartialEfficiencyChar
     "Efficiency vs. Volumetric flow rate" annotation (Dialog(group=
           "Characteristics: Based on single pump nominal conditions", enable=
           not use_powerCharacteristic), choicesAllMatching=true);

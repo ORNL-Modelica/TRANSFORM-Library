@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Machines;
 model Turbine_SinglePhase_Map
   extends BaseClasses.PartialTurbine(final eta_is=efficiencyIsentropic_PRN.y,
       eta_mech=1.0);
-
+extends TRANSFORM.Icons.UnderConstruction;
   import NonSI = Modelica.SIunits.Conversions.NonSIunits;
 
   parameter NonSI.AngularVelocity_rpm N_nominal=1500 "Pump speed";
@@ -35,8 +35,9 @@ model Turbine_SinglePhase_Map
 
   SI.Temperature T_inlet = Medium.temperature(state_a);
   SI.Pressure p_inlet = port_a.p;
-
+Real p_ratio "port_b.p/port_a.p pressure ratio";
 equation
+p_ratio = port_b.p/port_a.p;
   omega = N*2*Modelica.Constants.pi/60;
 
   massFlowRate_PRN.u1 = PR*scale_u1;

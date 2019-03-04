@@ -8,7 +8,7 @@ model PerformanceCurve   "Cubic spline of a characteristic curve of power vs. vo
     "Pump head operating points";
 
 equation
-  W = affinityLaw_power*PumpCharacteristics.Functions.PerformanceCurve(
+  W =affinityLaw_power*Math.PerformanceCurve(
     V_flow/affinityLaw_flow,
     V_flow_curve,
     W_curve,

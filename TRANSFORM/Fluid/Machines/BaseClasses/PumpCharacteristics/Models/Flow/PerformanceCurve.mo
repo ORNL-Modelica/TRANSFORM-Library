@@ -19,19 +19,17 @@ equation
     s = 0;
   end if;
   if checkValve then
-    V_flow = if s > 0 then affinityLaw_flow*
-      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Functions.PerformanceCurve(
-            head/affinityLaw_head,
-            head_curve,
-            V_flow_curve,
-            N/N_nominal) else 0;
+    V_flow =if s > 0 then affinityLaw_flow*TRANSFORM.Math.PerformanceCurve(
+      head/affinityLaw_head,
+      head_curve,
+      V_flow_curve,
+      N/N_nominal) else 0;
   else
-    V_flow = affinityLaw_flow*
-      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Functions.PerformanceCurve(
-            head/affinityLaw_head,
-            head_curve,
-            V_flow_curve,
-            N/N_nominal);
+    V_flow =affinityLaw_flow*TRANSFORM.Math.PerformanceCurve(
+      head/affinityLaw_head,
+      head_curve,
+      V_flow_curve,
+      N/N_nominal);
   end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

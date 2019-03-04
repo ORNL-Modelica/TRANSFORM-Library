@@ -89,7 +89,7 @@ partial model PartialTurbine
 
   Medium.ThermodynamicState state_a;
   //   Medium.ThermodynamicState state_b;
-  Real p_ratio "port_b.p/port_a.p pressure ratio";
+
   SI.Angle phi "Shaft rotation angle";
   SI.Torque tau "Net torque acting on the turbine";
   SI.AngularVelocity omega "Shaft angular velocity";
@@ -113,8 +113,7 @@ equation
   //     port_b.p,
   //     inStream(port_b.h_outflow),
   //     inStream(port_b.Xi_outflow));
-  // Pressure relations
-  p_ratio = port_b.p/port_a.p;
+
   // Mass balance equations
   port_a.m_flow + port_b.m_flow = 0;
   // Enthalpy relations
