@@ -1,4 +1,4 @@
-within TRANSFORM.Math;
+within TRANSFORM.Math.Scratch;
 function test3
   extends TRANSFORM.Icons.Function;
 
@@ -10,7 +10,6 @@ function test3
 algorithm
 
   y :=(1 - t)^2*P[1] + 2*(1 - t)*t*P[2] + t^2*P[3];
-
 
   annotation (smoothOrder=4, Documentation(info="<html>
 <p>Implementation of the psi or digamma function. See also scipy.special.psi or scipy.special.digamma</p>

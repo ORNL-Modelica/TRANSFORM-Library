@@ -1,4 +1,4 @@
-within TRANSFORM.Math;
+within TRANSFORM.Math.Scratch;
 function test
   extends TRANSFORM.Icons.Function;
   input Real t "Abcissa value";

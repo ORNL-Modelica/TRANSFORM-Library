@@ -1,4 +1,4 @@
-within TRANSFORM.Math;
+within TRANSFORM.Math.Scratch;
 function test2
   extends TRANSFORM.Icons.Function;
 
@@ -12,7 +12,7 @@ algorithm
   // Cubic Bezier curve
   //Z := (1 - t^3)*P0 + 3*t*(1 - t)^2*P1 + 3*t^2*(1 - t)*P2 + t^3*P3;
 
-  y := (1 - t^3)*P[0] + 3*t*(1 - t)^2*P[1] + 3*t^2*(1 - t)*P[2] + t^3*P[3];
+  y := (1 - t^3)*P[1] + 3*t*(1 - t)^2*P[2] + 3*t^2*(1 - t)*P[3] + t^3*P[4];
 
   annotation (smoothOrder=4, Documentation(info="<html>
 <p>Implementation of the psi or digamma function. See also scipy.special.psi or scipy.special.digamma</p>
