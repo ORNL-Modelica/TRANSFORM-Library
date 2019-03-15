@@ -4,3 +4,5 @@ PerformanceCurve
 PerformanceCurve_table
 CombiTableCurve
 TableBasedInterpolation_old
+Parabolic_2Region
+Parabolic_2Region_Normalized
