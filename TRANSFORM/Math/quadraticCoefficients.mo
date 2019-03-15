@@ -1,6 +1,9 @@
 within TRANSFORM.Math;
 function quadraticCoefficients
   "Returns the coefficients of a quadritic equation a*x + b*x^2 + c*x^3 from three number pairs (x,y)"
+
+  extends TRANSFORM.Icons.Function;
+
   input Real[3] x "Abscissa points";
   input Real[3] y "Ordinate points";
   output Real[3] c "Quadratic coefficients";

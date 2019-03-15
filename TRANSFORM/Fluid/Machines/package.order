@@ -1,9 +1,15 @@
 Examples
 Pump_SimpleMassFlow
 Pump_PressureBooster
+Pump_Controlled
+Pump_Mechanical
 Pump
 Pump_wShaft
 SteamTurbine
 BaseClasses
 Turbine_SinglePhase
-Turbine_SinglePhase2
+Turbine_SinglePhase_Stodola
+Turbine_SinglePhase_Map
+Compressor_SinglePhase_Map
+Compressor_SinglePhase_Map2
+Turbine_SinglePhase_Mechanical

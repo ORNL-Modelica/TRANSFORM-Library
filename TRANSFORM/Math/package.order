@@ -1,3 +1,4 @@
+Scratch
 Examples
 ComplexMath
 Interpolation
@@ -62,3 +63,5 @@ diff
 regFun3
 clamp
 findPlace
+PerformanceCurve
+psi

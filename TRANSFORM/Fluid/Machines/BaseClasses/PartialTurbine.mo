@@ -7,7 +7,7 @@ partial model PartialTurbine
     h_outflow(start=h_a_start)) "high pressure port" annotation (Placement(
         transformation(extent={{-120,40},{-80,80}}, rotation=0),
         iconTransformation(extent={{-110,50},{-90,70}})));
-  Interfaces.FluidPort_Flow                 port_b(
+  Interfaces.FluidPort_Flow port_b(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
     p(start=p_b_start)) "low pressure port" annotation (Placement(
@@ -81,9 +81,15 @@ partial model PartialTurbine
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
+
+  input SI.Efficiency eta_mech "Turbine mechanical efficiency"
+    annotation (Dialog(group="Inputs"));
+  input SI.Efficiency eta_is "Isentropic or aerodynamic efficiency"
+    annotation (Dialog(group="Inputs"));
+
   Medium.ThermodynamicState state_a;
   //   Medium.ThermodynamicState state_b;
-  Real p_ratio "port_b.p/port_a.p pressure ratio";
+
   SI.Angle phi "Shaft rotation angle";
   SI.Torque tau "Net torque acting on the turbine";
   SI.AngularVelocity omega "Shaft angular velocity";
@@ -93,15 +99,13 @@ partial model PartialTurbine
   Medium.SpecificEnthalpy h_is "Isentropic outlet enthalpy";
   Medium.SpecificEnthalpy dh_ideal "Ideal enthalpy change";
   Medium.SpecificEnthalpy dh "Actual enthalpy change";
-  SI.Power Q_turbine "Mechanical power to turbine";
+  SI.Power Q_mech "Mechanical power";
   SI.Power Ub "Energy balance";
   //    SI.Energy U "Energy";
-  // Efficiency
-  SI.Efficiency eta_mech "Turbine mechanical efficiency";
-  SI.Efficiency eta_is "Isentropic efficiency";
+
 equation
   // Port states
-  state_a =Medium.setState_phX(
+  state_a = Medium.setState_phX(
     port_a.p,
     inStream(port_a.h_outflow),
     inStream(port_a.Xi_outflow));
@@ -109,8 +113,7 @@ equation
   //     port_b.p,
   //     inStream(port_b.h_outflow),
   //     inStream(port_b.Xi_outflow));
-  // Pressure relations
-  p_ratio =port_b.p/port_a.p;
+
   // Mass balance equations
   port_a.m_flow + port_b.m_flow = 0;
   // Enthalpy relations
@@ -119,10 +122,10 @@ equation
   dh = eta_is*dh_ideal;
   dh = h_in - h_out;
   // Mechanical shaft power output
-  Q_turbine = eta_mech*omega*tau;
+  Q_mech = eta_mech*omega*tau;
   // Energy balace
   Ub =port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*actualStream(
-     port_b.h_outflow) + Q_turbine;
+    port_b.h_outflow) + Q_mech;
   //    if energyDynamics == Dynamics.SteadyState then
   0 = Ub;
   //    else
@@ -134,14 +137,14 @@ equation
   shaft_b.phi = phi;
   der(phi) = omega;
   // Fluid Port Boundary Conditions
-  h_in =inStream(port_a.h_outflow);
-  m_flow =port_a.m_flow;
+  h_in = inStream(port_a.h_outflow);
+  m_flow = port_a.m_flow;
   port_a.h_outflow = inStream(port_b.h_outflow) + dh;
   port_a.Xi_outflow = inStream(port_b.Xi_outflow);
   port_a.C_outflow = inStream(port_b.C_outflow);
-  port_b.h_outflow =inStream(port_a.h_outflow) - dh;
-  port_b.Xi_outflow =inStream(port_a.Xi_outflow);
-  port_b.C_outflow =inStream(port_a.C_outflow);
+  port_b.h_outflow = inStream(port_a.h_outflow) - dh;
+  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+  port_b.C_outflow = inStream(port_a.C_outflow);
   annotation (
     defaultComponentName="turbine",
     Icon(graphics={
