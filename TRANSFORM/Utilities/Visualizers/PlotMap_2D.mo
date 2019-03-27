@@ -1,5 +1,5 @@
 within TRANSFORM.Utilities.Visualizers;
-model PlotMap
+model PlotMap_2D
 
   parameter String imageName="" "Location of image" annotation (Dialog(
         loadSelector(filter="All files (*.*);;PNG files (*.png)", caption="Open image file")));
@@ -14,9 +14,9 @@ model PlotMap
   parameter Real x_scale[2]={0,1} "x-axis bounds";
   parameter Real y_scale[2]={0,1} "y-axis bounds";
 
-  input Real x=0 "Units (i.e., scale) should match x-scales"
+  input Real x=0 "Units (i.e., scale) should match x-scale"
     annotation (Dialog(group="Inputs"));
-  input Real y=0 "Units (i.e., scale) should match y-scales"
+  input Real y=0 "Units (i.e., scale) should match y-scale"
     annotation (Dialog(group="Inputs"));
 
   parameter Boolean showAnchors=true
@@ -32,7 +32,6 @@ model PlotMap
   parameter Real lowerRight[2]={upperRight[1],lowerLeft[2]}
     annotation (Dialog(tab="Anchor Coordinates {x,y}"));
 
-protected
   Real x_scaled "Normalized space";
   Real y_scaled "Normalized space";
 
@@ -42,7 +41,7 @@ protected
 equation
 
   assert(x_scale[2] > x_scale[1], "x_scale[2] must be greater than x_scale[1]");
-  assert(x_scale[2] > x_scale[1], "x_scale[2] must be greater than x_scale[1]");
+  assert(y_scale[2] > y_scale[1], "y_scale[2] must be greater than y_scale[1]");
 
   // Normalize input to give values between 0 and 1 when within nominal range
   x_scaled = (x - x_scale[1])/(x_scale[2] - x_scale[1]);
@@ -101,4 +100,4 @@ equation
           fillColor=dotColor,
           fillPattern=FillPattern.Sphere)}),
     Diagram(coordinateSystem(extent={{0,0},{100,100}}, grid={1,1})));
-end PlotMap;
+end PlotMap_2D;

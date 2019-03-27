@@ -3,7 +3,8 @@ displayReal
 DynamicGraph
 IconColorMap
 IconColorMap_1D
-PlotMap
+PlotMap_2D
+PlotMap_3D
 PlotMap_Example
 PlotMap_withTrace
 BaseClasses

@@ -1,6 +1,6 @@
 within TRANSFORM.Utilities.Visualizers;
 model PlotMap_Example
-  extends TRANSFORM.Utilities.Visualizers.PlotMap(
+  extends TRANSFORM.Utilities.Visualizers.PlotMap_2D(
     imageName="modelica://TRANSFORM/Resources/Images/Icons/Conduction_xy.jpg",
     x_scale={0,1500},
     y_scale={0,6000},
