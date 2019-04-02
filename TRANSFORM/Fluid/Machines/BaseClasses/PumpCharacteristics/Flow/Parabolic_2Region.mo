@@ -6,6 +6,9 @@ model Parabolic_2Region
   parameter Real cs[3]
     "Coefficients defining the equation: head = cs[1]*V_flow^2+cs[2]*V_flow+cs[3]";
 
+    parameter Boolean manual = false;
+    parameter Boolean high = true;
+
 protected
   constant SI.Height unit_head=1;
   constant SI.VolumeFlowRate unit_V_flow=1;
@@ -29,7 +32,7 @@ equation
   x_high = (-cs[2] - sqroot)/2*cs[1];
   x_low = (-cs[2] + sqroot)/2*cs[1];
 
-
+  if not manual then
   if x > (y0 - 0.01) then
     y = x0;
   else
@@ -37,6 +40,12 @@ equation
       y = x_low;
     else
       y = x_high;
+    end if;
+  end if;
+  else
+    if high then
+      y = x_high;
+    else y = x_low;
     end if;
   end if;
 

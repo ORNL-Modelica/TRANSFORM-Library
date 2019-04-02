@@ -2,12 +2,9 @@ within TRANSFORM.Math.Interpolation.Models.Examples;
 model Interpolation_2D_Test_check_derivatives_x
   extends TRANSFORM.Icons.Example;
   Math.Interpolation.Models.Interpolation_2D lookupTables_2D(
-    tablePath_u1=Modelica.Utilities.Files.loadResource(
-        "modelica://MediaLookupTables/Resources/data/lookupTables/ParaHydrogen/pT/p.csv"),
-    tablePath_u2=Modelica.Utilities.Files.loadResource(
-        "modelica://MediaLookupTables/Resources/data/lookupTables/ParaHydrogen/pT/T.csv"),
-    tablePath_y=Modelica.Utilities.Files.loadResource(
-        "modelica://MediaLookupTables/Resources/data/lookupTables/ParaHydrogen/pT/h.csv"))
+    tablePath_u1="C:/Users/vmg/Documents/Modelica/MediaLookupTables/Modelica/MediaLookupTables/Resources/data/lookupTables/ParaHydrogen/pT/p.csv",
+    tablePath_u2="C:/Users/vmg/Documents/Modelica/MediaLookupTables/Modelica/MediaLookupTables/Resources/data/lookupTables/ParaHydrogen/pT/T.csv",
+    tablePath_y="C:/Users/vmg/Documents/Modelica/MediaLookupTables/Modelica/MediaLookupTables/Resources/data/lookupTables/ParaHydrogen/pT/h.csv")
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp     ramp(
     height=1e6,
