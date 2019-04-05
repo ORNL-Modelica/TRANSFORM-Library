@@ -562,7 +562,7 @@ equation
   connect(tubeWall.port_b2, adiabaticWall_b2.port)
     annotation (Line(points={{10,-30},{15,-30},{20,-30}}, color={191,0,0}));
   annotation (
-    defaultComponentName="STHX",
+    defaultComponentName="heatExchanger",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

@@ -1,5 +1,5 @@
 within TRANSFORM.HeatExchangers;
-model LMTD_HX "Log mean temperature difference heat exchanger"
+model LMTD_HX_Area "Log mean temperature difference heat exchanger"
   replaceable package Medium_1 =
       TRANSFORM.Media.ExternalMedia.CoolProp.Helium
     constrainedby Modelica.Media.Interfaces.PartialMedium annotation (
@@ -7,12 +7,20 @@ model LMTD_HX "Log mean temperature difference heat exchanger"
   replaceable package Medium_2 = Modelica.Media.Air.DryAirNasa constrainedby
     Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
 
-  parameter SI.Power Q_flow=0.5e6;
-  parameter SI.CoefficientOfHeatTransfer alpha_1 = 800;
-  parameter SI.CoefficientOfHeatTransfer alpha_2 = 4000;
+  SI.Power Q_flow(start=1);
+  input SI.CoefficientOfHeatTransfer alpha_1 = 800 annotation(Dialog(group="Inputs"));
+  input SI.CoefficientOfHeatTransfer alpha_2 = 4000 annotation(Dialog(group="Inputs"));
   SI.ThermalConductance UA;
   SI.TemperatureDifference dT_LM;
-  SI.Area surfaceArea(start=1);
+  parameter SI.Area surfaceArea;
+
+
+Medium_1.ThermodynamicState state_a_1;
+Medium_1.ThermodynamicState state_b_1;
+
+Medium_2.ThermodynamicState state_a_2;
+Medium_2.ThermodynamicState state_b_2;
+
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a1(redeclare package Medium =
         Medium_1) annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
         iconTransformation(extent={{-110,-50},{-90,-30}})));
@@ -68,6 +76,26 @@ equation
   dT_LM = TRANSFORM.HeatExchangers.Utilities.Functions.logMean(sensor_T_a1.T -
     sensor_T_b1.T, sensor_T_b2.T - sensor_T_a2.T);
   UA = 1/(1/(alpha_1*surfaceArea) + 1/(alpha_2*surfaceArea));
+
+  // Properties
+  state_a_1 = Medium_1.setState_phX(
+    port_a1.p,
+    inStream(port_a1.h_outflow),
+    inStream(port_a1.Xi_outflow));
+  state_b_1 = Medium_1.setState_phX(
+    port_b1.p,
+    inStream(port_b1.h_outflow),
+    inStream(port_b1.Xi_outflow));
+
+  state_a_2 = Medium_2.setState_phX(
+    port_a2.p,
+    inStream(port_a2.h_outflow),
+    inStream(port_a2.Xi_outflow));
+  state_b_2 = Medium_2.setState_phX(
+    port_b2.p,
+    inStream(port_b2.h_outflow),
+    inStream(port_b2.Xi_outflow));
+
   connect(volume1.port_b, resistance1.port_a)
     annotation (Line(points={{-34,-40},{3,-40}}, color={0,127,255}));
   connect(volume1.heatPort, boundary1.port)
@@ -116,4 +144,4 @@ equation
 <p>Assumption:</p>
 <p>Side 1 is hot side (i.e,. if Q_flow &lt; 0 then heat is going from Side 1 to Side 2)</p>
 </html>"));
-end LMTD_HX;
+end LMTD_HX_Area;
