@@ -95,7 +95,6 @@ equation
   h = head/head_nominal;
   beta = tau/tau_nominal;
 
-
   if alpha > 0 and v >= 0 and v/alpha <= 1 then
     h/alpha^2 = HAN.y[1];
     beta/alpha^2 = BAN.y[1];
@@ -125,8 +124,6 @@ equation
     beta = 0; //Dummy
     assert(false,"Unknown condition");
   end if;
-
-
 
   connect(alpha_v.y, HVD.u[1])
     annotation (Line(points={{11,-40},{14,-40},{14,-64},{18,-64}},

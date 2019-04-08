@@ -14,7 +14,6 @@ model LMTD_HX_Area "Log mean temperature difference heat exchanger"
   SI.TemperatureDifference dT_LM;
   parameter SI.Area surfaceArea;
 
-
 Medium_1.ThermodynamicState state_a_1;
 Medium_1.ThermodynamicState state_b_1;
 

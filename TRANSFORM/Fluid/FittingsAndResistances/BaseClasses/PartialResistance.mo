@@ -20,7 +20,6 @@ partial model PartialResistance
     input SI.HeatFlowRate Q_gen=0 "Internal heat generation"
       annotation (Dialog(tab="Advanced", group="Heat Transfer"));
 
-
     HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=Medium.temperature(state), Q_flow=
           Q_flow_internal) if use_HeatPort
       annotation (Placement(transformation(extent={{-10,50},{10,70}}),

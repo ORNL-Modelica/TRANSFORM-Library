@@ -41,7 +41,6 @@ import NonSI = Modelica.SIunits.Conversions.NonSIunits;
   SI.VolumeFlowRate V_flow;
   SI.Height head;
 
-
   SI.Power Q_mech "Mechanical power added to system (i.e., pumping power)";
   SI.Angle phi "Shaft rotation angle";
   SI.Torque tau;
