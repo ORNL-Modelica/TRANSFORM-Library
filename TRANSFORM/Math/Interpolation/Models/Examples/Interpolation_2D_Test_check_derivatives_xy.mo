@@ -16,10 +16,13 @@ model Interpolation_2D_Test_check_derivatives_xy
     duration=1,
     offset=102341.14021054539)
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-Real dy;
+Real dy,dxx,dyy;
 
 equation
   dy = der(lookupTables_2D.y);
+
+ dxx = Bicubic.bicubic_eval_deriv_xx(lookupTables_2D.tablesPath, ramp1.y, ramp.y);
+ dyy = Bicubic.bicubic_eval_deriv_yy(lookupTables_2D.tablesPath, ramp1.y, ramp.y);
 
   connect(ramp.y, lookupTables_2D.u2) annotation (Line(points={{-39,-20},{-26,-20},
           {-26,-6},{-12,-6}}, color={0,0,127}));
