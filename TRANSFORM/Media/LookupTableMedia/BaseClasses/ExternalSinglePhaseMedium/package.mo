@@ -18,7 +18,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     "Default choice of input variables for property computations";
 
   replaceable function Method =
-      TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval "Interpolation method selection";
+      TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_extrap "Interpolation method selection";
 
   replaceable function Method_dx =
       TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_deriv_x "Interpolation method selection for derivative wrt x";
@@ -160,7 +160,6 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     annotation(Inline=true,smoothOrder=3);
   end setState_ph;
 
-
   redeclare replaceable function setState_pT
     "Return thermodynamic state record from p and T"
     extends Modelica.Icons.Function;
@@ -197,7 +196,6 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     state :=ThermodynamicState(p=p,T=T_ps(p,s));
     annotation(Inline=true,smoothOrder=3);
   end setState_ps;
-
 
   replaceable function setState_hs
     "Return thermodynamic state record from h and s"
