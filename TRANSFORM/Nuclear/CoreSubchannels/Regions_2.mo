@@ -77,9 +77,9 @@ model Regions_2
   parameter SI.Power history[:,2]=fill(
       0,
       0,
-      2) "Power history up to simulation time=0, [t,Q]" annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
+      2) "Power history up to simulation time=0, [t,Q]" annotation (Dialog(tab="Kinetics",group="Decay-Heat",enable = use_history));
   parameter Boolean includeDH=false
-    "=true if power history includes decay heat" annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
+    "=true if power history includes decay heat" annotation (Dialog(tab="Kinetics",group="Decay-Heat",enable = use_history));
   parameter SI.Power Q_fission_start=Q_nominal/(1 + sum(kinetics.efs_dh_start))
     "Initial reactor fission power" annotation (Dialog(tab="Kinetics",group="Neutron Kinetics"));
   parameter SI.Power Cs_pg_start[kinetics.nC]={kinetics.betas_start[j]/(kinetics.lambdas_start[
@@ -118,10 +118,10 @@ model Regions_2
     "Change in decay constant" annotation(Dialog(tab="Parameter Change",group="Input: Decay-Heat"));
   input Units.NonDim defs_dh[kinetics.nDH]=fill(0, kinetics.nDH)
     "Change in effective energy fraction" annotation(Dialog(tab="Parameter Change",group="Input: Decay-Heat"));
-  parameter Units.TempFeedbackCoeff alpha_fuel=-2.5e-5
+  input Units.TempFeedbackCoeff alpha_fuel=-2.5e-5
     "Doppler feedback coefficient"
     annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
-  parameter Units.TempFeedbackCoeff alpha_coolant=-20e-5
+  input Units.TempFeedbackCoeff alpha_coolant=-20e-5
     "Moderator feedback coefficient"
     annotation (Dialog(tab="Kinetics", group="Reactivity Feedback"));
   parameter SI.Temperature Teffref_fuel "Fuel reference temperature"
