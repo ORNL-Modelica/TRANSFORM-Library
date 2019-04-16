@@ -7,7 +7,7 @@ package ZircHydride "ZrH1.89"
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="ZrH1.89",
     T_min=Modelica.SIunits.Conversions.from_degC(-273),
-    T_max=1000,
+    T_max=1200,
     MM_const=0.093129);
     constant Real X = 1.89;
     constant Real A = 25.02;
@@ -38,7 +38,7 @@ package ZircHydride "ZrH1.89"
   redeclare function extends thermalConductivity
     "Thermal conductivity"
   algorithm
-    lambda := 17;
+    lambda := 18;
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp
