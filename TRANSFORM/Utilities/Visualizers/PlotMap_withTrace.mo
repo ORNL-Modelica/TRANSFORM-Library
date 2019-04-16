@@ -3,7 +3,7 @@ model PlotMap_withTrace
 
   import TRANSFORM.Utilities.Visualizers.BaseClasses.Types.LinePattern;
 
-  extends TRANSFORM.Utilities.Visualizers.PlotMap;
+  extends TRANSFORM.Utilities.Visualizers.PlotMap_2D;
 
   parameter Integer[3] lineColor=dotColor "Trace color" annotation (Dialog(tab="Tracing",
         group="Effects"), choices(
@@ -29,15 +29,15 @@ model PlotMap_withTrace
     "Time interval for plot"
     annotation (Dialog(tab="Tracing", enable=plotControl == "Time interval"));
 
+  Real x_trace[nPoints] "x-positions of line points";
+  Real y_trace[nPoints] "y-positions of line points";
+
 protected
   final parameter Integer nPoints=if plotControl == "Frequency" then integer((
       t_end - t_start)*f + 1) else integer((t_end - t_start)/dt + 1)
     "Number of points";
   final parameter SI.Time dt_int=(t_end - t_start)/(nPoints - 1)
     "Internal time stepping based on user input";
-
-  Real x_trace[nPoints] "x-positions of line points";
-  Real y_trace[nPoints] "y-positions of line points";
 
 equation
   for i in 1:nPoints loop

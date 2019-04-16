@@ -6,6 +6,7 @@ model LMTD_HX "Log mean temperature difference heat exchanger"
       choicesAllMatching=true);
   replaceable package Medium_2 = Modelica.Media.Air.DryAirNasa constrainedby
     Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
+
   parameter SI.Power Q_flow=0.5e6;
   parameter SI.CoefficientOfHeatTransfer alpha_1 = 800;
   parameter SI.CoefficientOfHeatTransfer alpha_2 = 4000;

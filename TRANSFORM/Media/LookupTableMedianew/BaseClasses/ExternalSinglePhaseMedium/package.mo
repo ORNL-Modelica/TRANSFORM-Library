@@ -18,7 +18,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     "Default choice of input variables for property computations";
 
   replaceable function Method =
-      TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval "Interpolation method selection";
+      TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_extrap "Interpolation method selection";
 
   replaceable function Method_dx =
       TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_deriv_x "Interpolation method selection for derivative wrt x";

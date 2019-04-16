@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.Machines.BaseClasses.TurbineCharacteristics.Flow;
 model HyperbolicTangent
   extends PartialFlowChar;
 
-
   final parameter Real beta =  0.5*log((1+m_flow_c_nominal)/(1-m_flow_c_nominal))/(PR_nominal-1) "Fitting constant";
 
 equation

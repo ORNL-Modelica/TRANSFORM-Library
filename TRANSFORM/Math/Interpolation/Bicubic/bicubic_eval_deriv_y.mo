@@ -7,7 +7,7 @@ external"C" z = bicubic_eval_deriv_y(
     x,
     y) annotation (
     Include="#include \"noname.h\"",
-    Library="noname",
+    Library={"noname","gsl"},
     IncludeDirectory="modelica://TRANSFORM/Resources/Include",
     LibraryDirectory="modelica://TRANSFORM/Resources/Library");
 

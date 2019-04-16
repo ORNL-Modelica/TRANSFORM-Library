@@ -17,7 +17,7 @@ model PlotMap_Test
   TRANSFORM.Utilities.Visualizers.PlotMap_Example map_example(x=x_coordinate.y,
       y=y_coordinate.y)
     annotation (Placement(transformation(extent={{-100,-40},{-20,40}})));
-  PlotMap map(
+  PlotMap_2D map(
     x_scale={0,1500},
     y_scale={0,6000},
     x=x_coordinate.y,

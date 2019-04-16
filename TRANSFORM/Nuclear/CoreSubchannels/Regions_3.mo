@@ -80,9 +80,9 @@ model Regions_3
   parameter SI.Power history[:,2]=fill(
       0,
       0,
-      2) "Power history up to simulation time=0, [t,Q]" annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
+      2) "Power history up to simulation time=0, [t,Q]" annotation (Dialog(tab="Kinetics",group="Decay-Heat",enable = use_history));
   parameter Boolean includeDH=false
-    "=true if power history includes decay heat" annotation (Dialog(tab="Kinetics",group="Decay-Heat"));
+    "=true if power history includes decay heat" annotation (Dialog(tab="Kinetics",group="Decay-Heat",enable = use_history));
   parameter SI.Power Q_fission_start=Q_nominal/(1 + sum(kinetics.efs_dh_start))
     "Initial reactor fission power" annotation (Dialog(tab="Kinetics",group="Neutron Kinetics"));
   parameter SI.Power Cs_pg_start[kinetics.nC]={kinetics.betas_start[j]/(kinetics.lambdas_start[
