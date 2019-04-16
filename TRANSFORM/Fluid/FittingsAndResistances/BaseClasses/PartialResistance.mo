@@ -26,7 +26,6 @@ partial model PartialResistance
           iconTransformation(extent={{-10,50},{10,70}})));
 protected
     SI.HeatFlowRate Q_flow_internal;
-    SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
 
 equation
    if not use_HeatPort then
