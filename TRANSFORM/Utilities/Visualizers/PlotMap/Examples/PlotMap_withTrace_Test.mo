@@ -26,7 +26,6 @@ model PlotMap_withTrace_Test
     imageName=ModelicaServices.ExternalReferences.loadResource(
         "modelica://TRANSFORM/Resources/Images/Icons/Conduction_xy.jpg"),
     pattern=TRANSFORM.Utilities.Visualizers.BaseClasses.Types.LinePattern.Dash,
-
     t_end=100,
     f=0.5) annotation (Placement(transformation(extent={{-40,-40},{40,40}})));
 

@@ -29,7 +29,6 @@ model PlotMap_2_points_withTrace_Test
     x_2=x_coordinate.y + 100,
     y_2=y_coordinate.y + 400,
     pattern=TRANSFORM.Utilities.Visualizers.BaseClasses.Types.LinePattern.Dash,
-
     t_end=100,
     f=0.5) annotation (Placement(transformation(extent={{-40,-40},{40,40}})));
 
