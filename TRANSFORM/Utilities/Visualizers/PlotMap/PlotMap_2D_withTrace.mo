@@ -1,9 +1,9 @@
-within TRANSFORM.Utilities.Visualizers;
-model PlotMap_withTrace
+within TRANSFORM.Utilities.Visualizers.PlotMap;
+model PlotMap_2D_withTrace
 
   import TRANSFORM.Utilities.Visualizers.BaseClasses.Types.LinePattern;
 
-  extends TRANSFORM.Utilities.Visualizers.PlotMap_2D;
+  extends TRANSFORM.Utilities.Visualizers.PlotMap.PlotMap_2D;
 
   parameter Integer[3] lineColor=dotColor "Trace color" annotation (Dialog(tab="Tracing",
         group="Effects"), choices(
@@ -57,4 +57,4 @@ equation
           pattern=pattern,
           thickness=0.5)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
-end PlotMap_withTrace;
+end PlotMap_2D_withTrace;

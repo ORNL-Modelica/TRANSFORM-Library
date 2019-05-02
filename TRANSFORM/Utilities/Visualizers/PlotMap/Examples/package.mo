@@ -1,4 +1,4 @@
-within TRANSFORM.Utilities.Visualizers;
+within TRANSFORM.Utilities.Visualizers.PlotMap;
 package Examples
   extends TRANSFORM.Icons.ExamplesPackage;
 
