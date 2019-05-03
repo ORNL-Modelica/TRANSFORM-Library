@@ -183,7 +183,7 @@ simulateModel("TRANSFORM.Math.Examples.check_max_len_seq_sine_time",resultFile="
 simulateModel("TRANSFORM.Math.Examples.check_max_len_seq_ternary",resultFile="check_max_len_seq_ternary");
 simulateModel("TRANSFORM.Math.Examples.check_mean",stopTime=10,resultFile="check_mean");
 simulateModel("TRANSFORM.Math.Examples.check_meanFactor",stopTime=10,resultFile="check_meanFactor");
-simulateModel("TRANSFORM.Math.Examples.check_psi",stopTime=4,resultFile="check_psi");
+simulateModel("TRANSFORM.Math.Examples.check_psi_math",stopTime=4,resultFile="check_psi_math");
 simulateModel("TRANSFORM.Math.Examples.check_quadratic",stopTime=10,resultFile="check_quadratic");
 simulateModel("TRANSFORM.Math.Examples.check_radialspace",stopTime=10,resultFile="check_radialspace");
 simulateModel("TRANSFORM.Math.Examples.check_regFun3",stopTime=1.0,resultFile="check_regFun3");
