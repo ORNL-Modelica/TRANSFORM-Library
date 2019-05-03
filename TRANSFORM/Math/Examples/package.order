@@ -38,4 +38,4 @@ check_max_len_seq_sine_time
 check_max_len_seq_ternary
 check_max_len_seq_sine
 check_findPlace
-check_psi
+check_psi_math

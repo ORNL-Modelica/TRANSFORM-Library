@@ -1,4 +1,4 @@
-within TRANSFORM.Utilities.Visualizers.Examples;
+within TRANSFORM.Utilities.Visualizers.PlotMap.Examples;
 model PlotMap_Test
   extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.Sine y_coordinate(
@@ -14,10 +14,10 @@ model PlotMap_Test
     offset=750,
     startTime=10)
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
-  TRANSFORM.Utilities.Visualizers.PlotMap_Example map_example(x=x_coordinate.y,
-      y=y_coordinate.y)
+  TRANSFORM.Utilities.Visualizers.PlotMap.PlotMap_2D_Example map_example(x=
+        x_coordinate.y, y=y_coordinate.y)
     annotation (Placement(transformation(extent={{-100,-40},{-20,40}})));
-  PlotMap_2D map(
+  PlotMap.PlotMap_2D map(
     x_scale={0,1500},
     y_scale={0,6000},
     x=x_coordinate.y,

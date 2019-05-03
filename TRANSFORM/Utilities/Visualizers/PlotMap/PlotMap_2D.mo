@@ -1,4 +1,4 @@
-within TRANSFORM.Utilities.Visualizers;
+within TRANSFORM.Utilities.Visualizers.PlotMap;
 model PlotMap_2D
 
   parameter String imageName="" "Location of image" annotation (Dialog(

@@ -1,4 +1,4 @@
-within TRANSFORM.Utilities.Visualizers.Examples;
+within TRANSFORM.Utilities.Visualizers.PlotMap.Examples;
 model PlotMap_withTrace_Test
   extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.ExpSine
@@ -18,7 +18,7 @@ model PlotMap_withTrace_Test
     offset=750,
     startTime=10)
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
-  PlotMap_withTrace map(
+  PlotMap_2D_withTrace map(
     x_scale={0,1500},
     y_scale={0,6000},
     x=x_coordinate.y,
