@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.CIET_Facility.Examples;
-model CIETLoop5 "add heat structures"
+model CIET_initial "Initial approach to modeling CIET"
   extends TRANSFORM.Icons.Example;
   package Medium = TRANSFORM.Media.Fluids.DOWTHERM.LinearDOWTHERM_A_95C;
   package Material_wall = TRANSFORM.Media.Solids.SS304_TRACE;
@@ -52,8 +52,9 @@ sum(_18.boundary.port.Q_flow);
               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={-100,-10})));
-  Data.Data_Basic data annotation (Placement(transformation(extent={{120,82},{140,102}})));
+        origin={-86,-50})));
+  Data.Data_initial data
+    annotation (Placement(transformation(extent={{134,42},{154,62}})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _1b(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -78,7 +79,7 @@ sum(_18.boundary.port.Q_flow);
               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={-100,-34})));
+        origin={-86,-74})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _1a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -103,7 +104,7 @@ sum(_18.boundary.port.Q_flow);
               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={-100,14})));
+        origin={-86,-26})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _2(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -130,7 +131,7 @@ sum(_18.boundary.port.Q_flow);
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={-100,40})));
+        origin={-86,0})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _2a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -157,7 +158,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={-100,66})));
+        origin={-86,26})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _4(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -184,7 +185,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                          annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=-45,
-        origin={-112,118})));
+        origin={-98,78})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _3(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -211,7 +212,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                          annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={-100,90})));
+        origin={-86,50})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _5(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -238,7 +239,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-110,140})));
+        origin={-96,100})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _6(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -265,7 +266,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=45,
-        origin={50,156})));
+        origin={64,116})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _6a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -292,7 +293,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=45,
-        origin={70,176})));
+        origin={84,136})));
   Fluid.Pipes.GenericPipe_withWall             _7a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -319,7 +320,7 @@ sum(_18.boundary.port.Q_flow);
               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={94,164})));
+        origin={108,124})));
   Fluid.Pipes.GenericPipe_withWall             _7b(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -346,7 +347,7 @@ sum(_18.boundary.port.Q_flow);
               annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=0,
-        origin={76,144})));
+        origin={90,104})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _8a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -373,7 +374,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={62,120})));
+        origin={76,80})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _8(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -400,7 +401,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={62,90})));
+        origin={76,50})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _9(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -427,7 +428,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-45,
-        origin={74,66})));
+        origin={88,26})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _10(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -454,7 +455,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={90,30})));
+        origin={104,-10})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _11(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -481,7 +482,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-135,
-        origin={74,0})));
+        origin={88,-40})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _12(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -508,7 +509,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={54,-20})));
+        origin={68,-60})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _18(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -535,7 +536,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=-135,
-        origin={-76,-38})));
+        origin={-62,-78})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _17(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -562,7 +563,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-60,-10})));
+        origin={-46,-50})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _16(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -589,7 +590,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-60,18})));
+        origin={-46,-22})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _14a(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -616,7 +617,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                              annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-30,30})));
+        origin={-16,-10})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _15(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -643,7 +644,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=45,
-        origin={-46,48})));
+        origin={-32,8})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _14(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -670,7 +671,7 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
-        origin={-30,0})));
+        origin={-16,-40})));
   Fluid.Pipes.GenericPipe_withWallAndInsulation _13(
     m_flow_a_start=data.m_flow_primary,
     redeclare package Medium = Medium,
@@ -697,42 +698,47 @@ sum(_18.boundary.port.Q_flow);
                                                                                                            annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={-14,-20})));
+        origin={0,-60})));
   Fluid.Volumes.ExpansionTank_1Port tank1(
     redeclare package Medium = Medium,
     p_start=data.p_primary,
     use_T_start=true,
     T_start=data.T_hot_primary,
     A=data.tank1_crossArea,
-    level_start=0.5*data.tank1_length) annotation (Placement(transformation(extent={{-50,178},{-30,198}})));
+    level_start=0.5*data.tank1_length) annotation (Placement(transformation(extent={{-36,138},
+            {-16,158}})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
       Medium =                                                                           Medium, R=1)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={-40,160})));
+        origin={-26,120})));
   Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow(redeclare package
       Medium =                                                                      Medium, m_flow_nominal=data.m_flow_primary)
-    annotation (Placement(transformation(extent={{22,-30},{2,-10}})));
+    annotation (Placement(transformation(extent={{36,-70},{16,-50}})));
   Fluid.Volumes.SimpleVolume volume(
     redeclare package Medium = Medium,
     p_start=_12.p_b_start,
     T_start=_12.T_b_start,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (                       V=0.01))
-    annotation (Placement(transformation(extent={{22,-30},{42,-10}})));
+    annotation (Placement(transformation(extent={{36,-70},{56,-50}})));
   HeatAndMassTransfer.Resistances.Heat.Convection convection_7a[integer(data.pipes.table[data.index_7a, 1])](surfaceArea=_7a.wall.geometry.crossAreas_1
         [end, :], each alpha=100000)
-                                   annotation (Placement(transformation(extent={{104,154},{124,174}})));
+                                   annotation (Placement(transformation(extent={{118,114},
+            {138,134}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Temperature_multi boundary_7a(nPorts=integer(data.pipes.table[data.index_7a, 1]), T=fill(
         data.T_cold_primary, integer(data.pipes.table[data.index_7a, 1])))
-                                                                   annotation (Placement(transformation(extent={{154,154},{134,174}})));
+                                                                   annotation (Placement(transformation(extent={{168,114},
+            {148,134}})));
   HeatAndMassTransfer.Resistances.Heat.Convection convection_7b[integer(data.pipes.table[data.index_7b, 1])](surfaceArea=_7b.wall.geometry.crossAreas_1
         [end, :], each alpha=100000)
-                                   annotation (Placement(transformation(extent={{104,126},{124,146}})));
+                                   annotation (Placement(transformation(extent={{118,86},
+            {138,106}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Temperature_multi boundary_7b(nPorts=integer(data.pipes.table[data.index_7b, 1]), T=fill(
         data.T_cold_primary, integer(data.pipes.table[data.index_7b, 1])))
-                                                                   annotation (Placement(transformation(extent={{154,126},{134,146}})));
+                                                                   annotation (Placement(transformation(extent={{168,86},
+            {148,106}})));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder wall_1[integer(data.pipes.table[data.index_1, 1])](
     each exposeState_a=true,
     redeclare package Material = Material_wall,
@@ -743,19 +749,19 @@ sum(_18.boundary.port.Q_flow);
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={-130,-10})));
+        origin={-110,-50})));
   HeatAndMassTransfer.Resistances.Heat.Convection convection_1[integer(data.pipes.table[data.index_1, 1])](surfaceArea=wall_1.surfaceArea_outer, each
       alpha=10)
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
-        origin={-160,-10})));
+        origin={-132,-50})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Temperature_multi boundary(use_port=false, nPorts=integer(data.pipes.table[data.index_1, 1]),
     T=fill(data.T_ctah, integer(data.pipes.table[data.index_1, 1])))
                           annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,
-        origin={-190,-10})));
+        origin={-156,-50})));
   Fluid.Sensors.PressureTemperature sensor_pT(
     redeclare package Medium = Medium,
     precision=1,
@@ -763,15 +769,15 @@ sum(_18.boundary.port.Q_flow);
         Units.Conversions.Functions.Pressure_Pa.to_bar,
     redeclare function iconUnit2 =
         Units.Conversions.Functions.Temperature_K.to_degC)
-                                       annotation (Placement(transformation(extent={{-140,12},
-            {-120,32}})));
+                                       annotation (Placement(transformation(extent={{-126,
+            -28},{-106,-8}})));
   Fluid.Sensors.PressureTemperature sensor_pT1(redeclare package Medium = Medium,
     precision=1,
     redeclare function iconUnit =
         Units.Conversions.Functions.Pressure_Pa.to_bar,
     redeclare function iconUnit2 =
         Units.Conversions.Functions.Temperature_K.to_degC)
-    annotation (Placement(transformation(extent={{-140,-32},{-120,-52}})));
+    annotation (Placement(transformation(extent={{-126,-72},{-106,-92}})));
   Fluid.Sensors.PressureTemperature sensor_pT2(
     redeclare package Medium = Medium,
     precision=1,
@@ -779,8 +785,8 @@ sum(_18.boundary.port.Q_flow);
         Units.Conversions.Functions.Pressure_Pa.to_bar,
     redeclare function iconUnit2 =
         Units.Conversions.Functions.Temperature_K.to_degC)
-                                       annotation (Placement(transformation(extent={{84,182},
-            {104,202}})));
+                                       annotation (Placement(transformation(extent={{98,142},
+            {118,162}})));
   Fluid.Sensors.PressureTemperature sensor_pT3(
     redeclare package Medium = Medium,
     precision=1,
@@ -788,75 +794,93 @@ sum(_18.boundary.port.Q_flow);
         Units.Conversions.Functions.Pressure_Pa.to_bar,
     redeclare function iconUnit2 =
         Units.Conversions.Functions.Temperature_K.to_degC)
-    annotation (Placement(transformation(extent={{80,120},{100,100}})));
+    annotation (Placement(transformation(extent={{94,80},{114,60}})));
 equation
-  connect(_1b.port_b, _1.port_a) annotation (Line(points={{-100,-24},{-100,-20}}, color={0,127,255}));
-  connect(_1a.port_a, _1.port_b) annotation (Line(points={{-100,4},{-100,0}}, color={0,127,255}));
-  connect(_2.port_a, _1a.port_b) annotation (Line(points={{-100,30},{-100,24}}, color={0,127,255}));
-  connect(_2a.port_a, _2.port_b) annotation (Line(points={{-100,56},{-100,50}}, color={0,127,255}));
-  connect(_3.port_a, _2a.port_b) annotation (Line(points={{-100,80},{-100,76}}, color={0,127,255}));
+  connect(_1b.port_b, _1.port_a) annotation (Line(points={{-86,-64},{-86,-60}},   color={0,127,255}));
+  connect(_1a.port_a, _1.port_b) annotation (Line(points={{-86,-36},{-86,-40}},
+                                                                              color={0,127,255}));
+  connect(_2.port_a, _1a.port_b) annotation (Line(points={{-86,-10},{-86,-16}}, color={0,127,255}));
+  connect(_2a.port_a, _2.port_b) annotation (Line(points={{-86,16},{-86,10}},   color={0,127,255}));
+  connect(_3.port_a, _2a.port_b) annotation (Line(points={{-86,40},{-86,36}},   color={0,127,255}));
   connect(_4.port_a, _3.port_b)
-    annotation (Line(points={{-104.929,110.929},{-104.929,105.465},{-100,
-          105.465},{-100,100}},                                                                color={0,127,255}));
+    annotation (Line(points={{-90.9289,70.9289},{-90.9289,65.465},{-86,65.465},
+          {-86,60}},                                                                           color={0,127,255}));
   connect(_4.port_b, _5.port_a)
-    annotation (Line(points={{-119.071,125.071},{-126,125.071},{-126,140},{-120,
-          140}},                                                                       color={0,127,255}));
-  connect(_5.port_b, _6.port_a) annotation (Line(points={{-100,140},{42.9289,
-          140},{42.9289,148.929}},                                                                    color={0,127,255}));
-  connect(_6.port_b, _6a.port_a) annotation (Line(points={{57.0711,163.071},{
-          62.9289,168.929}},                                                                    color={0,127,255}));
-  connect(_6a.port_b, _7a.port_a) annotation (Line(points={{77.0711,183.071},{
-          94,183.071},{94,174}},                                                                     color={0,127,255}));
-  connect(_7b.port_b, _8a.port_a) annotation (Line(points={{66,144},{62,144},{62,130}}, color={0,127,255}));
-  connect(_8.port_b, _9.port_a) annotation (Line(points={{62,80},{62,73.0711},{
-          66.9289,73.0711}},                                                                      color={0,127,255}));
+    annotation (Line(points={{-105.071,85.0711},{-112,85.0711},{-112,100},{-106,
+          100}},                                                                       color={0,127,255}));
+  connect(_5.port_b, _6.port_a) annotation (Line(points={{-86,100},{56.9289,100},
+          {56.9289,108.929}},                                                                         color={0,127,255}));
+  connect(_6.port_b, _6a.port_a) annotation (Line(points={{71.0711,123.071},{
+          76.9289,128.929}},                                                                    color={0,127,255}));
+  connect(_6a.port_b, _7a.port_a) annotation (Line(points={{91.0711,143.071},{
+          108,143.071},{108,134}},                                                                   color={0,127,255}));
+  connect(_7b.port_b, _8a.port_a) annotation (Line(points={{80,104},{76,104},{
+          76,90}},                                                                      color={0,127,255}));
+  connect(_8.port_b, _9.port_a) annotation (Line(points={{76,40},{76,33.0711},{
+          80.9289,33.0711}},                                                                      color={0,127,255}));
   connect(_9.port_b, _10.port_a)
-    annotation (Line(points={{81.0711,58.9289},{81.0711,51.4644},{90,51.4644},{
-          90,40}},                                                                      color={0,127,255}));
+    annotation (Line(points={{95.0711,18.9289},{95.0711,11.4644},{104,11.4644},
+          {104,0}},                                                                     color={0,127,255}));
   connect(_11.port_a, _10.port_b)
-    annotation (Line(points={{81.0711,7.07107},{81.0711,13.5355},{90,13.5355},{
-          90,20}},                                                                      color={0,127,255}));
-  connect(_7b.port_a, _7a.port_b) annotation (Line(points={{86,144},{94,144},{94,154}}, color={0,127,255}));
-  connect(_8a.port_b, _8.port_a) annotation (Line(points={{62,110},{62,100}}, color={0,127,255}));
-  connect(_12.port_a, _11.port_b) annotation (Line(points={{64,-20},{64,
-          -7.07107},{66.9289,-7.07107}},                                                               color={0,127,255}));
+    annotation (Line(points={{95.0711,-32.9289},{95.0711,-26.4645},{104,
+          -26.4645},{104,-20}},                                                         color={0,127,255}));
+  connect(_7b.port_a, _7a.port_b) annotation (Line(points={{100,104},{108,104},
+          {108,114}},                                                                   color={0,127,255}));
+  connect(_8a.port_b, _8.port_a) annotation (Line(points={{76,70},{76,60}},   color={0,127,255}));
+  connect(_12.port_a, _11.port_b) annotation (Line(points={{78,-60},{78,
+          -47.0711},{80.9289,-47.0711}},                                                               color={0,127,255}));
   connect(_18.port_b, _1b.port_a)
-    annotation (Line(points={{-83.0711,-45.0711},{-83.0711,-50},{-100,-50},{
-          -100,-44}},                                                                   color={0,127,255}));
-  connect(_17.port_b, _18.port_a) annotation (Line(points={{-60,-20},{-60,
-          -30.9289},{-68.9289,-30.9289}},                                                                 color={0,127,255}));
-  connect(_16.port_b, _17.port_a) annotation (Line(points={{-60,8},{-60,0}}, color={0,127,255}));
-  connect(_16.port_a, _15.port_b) annotation (Line(points={{-60,28},{-60,
-          40.9289},{-53.0711,40.9289}},                                                                color={0,127,255}));
-  connect(_15.port_a, _14a.port_b) annotation (Line(points={{-38.9289,55.0711},
-          {-30,55.0711},{-30,40}},                                                                      color={0,127,255}));
-  connect(_14a.port_a, _14.port_b) annotation (Line(points={{-30,20},{-30,10}}, color={0,127,255}));
-  connect(_14.port_a, _13.port_b) annotation (Line(points={{-30,-10},{-30,-20},{-24,-20}}, color={0,127,255}));
-  connect(resistance.port_b, tank1.port) annotation (Line(points={{-40,167},{-40,179.6}}, color={0,127,255}));
+    annotation (Line(points={{-69.0711,-85.0711},{-69.0711,-90},{-86,-90},{-86,
+          -84}},                                                                        color={0,127,255}));
+  connect(_17.port_b, _18.port_a) annotation (Line(points={{-46,-60},{-46,
+          -70.9289},{-54.9289,-70.9289}},                                                                 color={0,127,255}));
+  connect(_16.port_b, _17.port_a) annotation (Line(points={{-46,-32},{-46,-40}},
+                                                                             color={0,127,255}));
+  connect(_16.port_a, _15.port_b) annotation (Line(points={{-46,-12},{-46,
+          0.92893},{-39.0711,0.92893}},                                                                color={0,127,255}));
+  connect(_15.port_a, _14a.port_b) annotation (Line(points={{-24.9289,15.0711},
+          {-16,15.0711},{-16,0}},                                                                       color={0,127,255}));
+  connect(_14a.port_a, _14.port_b) annotation (Line(points={{-16,-20},{-16,-30}},
+                                                                                color={0,127,255}));
+  connect(_14.port_a, _13.port_b) annotation (Line(points={{-16,-50},{-16,-60},
+          {-10,-60}},                                                                      color={0,127,255}));
+  connect(resistance.port_b, tank1.port) annotation (Line(points={{-26,127},{
+          -26,139.6}},                                                                    color={0,127,255}));
   connect(resistance.port_a, _6.port_a)
-    annotation (Line(points={{-40,153},{-40,140},{42.9289,140},{42.9289,148.929}}, color={0,127,255}));
-  connect(_13.port_a, pump_SimpleMassFlow.port_b) annotation (Line(points={{-4,-20},{2,-20}}, color={0,127,255}));
-  connect(pump_SimpleMassFlow.port_a, volume.port_a) annotation (Line(points={{22,-20},{26,-20}}, color={0,127,255}));
-  connect(volume.port_b, _12.port_b) annotation (Line(points={{38,-20},{44,-20}}, color={0,127,255}));
-  connect(_7a.heatPorts, convection_7a.port_a) annotation (Line(points={{99,164},{107,164}}, color={191,0,0}));
-  connect(convection_7a.port_b, boundary_7a.port) annotation (Line(points={{121,164},{134,164}}, color={191,0,0}));
-  connect(convection_7b.port_b, boundary_7b.port) annotation (Line(points={{121,136},{134,136}}, color={191,0,0}));
-  connect(convection_7b.port_a, _7b.heatPorts) annotation (Line(points={{107,136},{76,136},{76,139}}, color={191,0,0}));
-  connect(wall_1.port_a, _1.heatPorts[:, 1]) annotation (Line(points={{-120,-10},{-105,-10}}, color={191,0,0}));
-  connect(convection_1.port_a, wall_1.port_b) annotation (Line(points={{-153,-10},{-140,-10}}, color={191,0,0}));
-  connect(boundary.port, convection_1.port_b) annotation (Line(points={{-180,-10},{-167,-10}}, color={191,0,0}));
-  connect(sensor_pT.port, _1a.port_a) annotation (Line(points={{-130,12},{-130,
-          4},{-100,4}},                                                                      color={0,127,255}));
-  connect(sensor_pT1.port, _1b.port_b) annotation (Line(points={{-130,-32},{
-          -130,-24},{-100,-24}},                                                        color={0,127,255}));
+    annotation (Line(points={{-26,113},{-26,100},{56.9289,100},{56.9289,108.929}}, color={0,127,255}));
+  connect(_13.port_a, pump_SimpleMassFlow.port_b) annotation (Line(points={{10,-60},
+          {16,-60}},                                                                          color={0,127,255}));
+  connect(pump_SimpleMassFlow.port_a, volume.port_a) annotation (Line(points={{36,-60},
+          {40,-60}},                                                                              color={0,127,255}));
+  connect(volume.port_b, _12.port_b) annotation (Line(points={{52,-60},{58,-60}}, color={0,127,255}));
+  connect(_7a.heatPorts, convection_7a.port_a) annotation (Line(points={{113,124},
+          {121,124}},                                                                        color={191,0,0}));
+  connect(convection_7a.port_b, boundary_7a.port) annotation (Line(points={{135,124},
+          {148,124}},                                                                            color={191,0,0}));
+  connect(convection_7b.port_b, boundary_7b.port) annotation (Line(points={{135,96},
+          {148,96}},                                                                             color={191,0,0}));
+  connect(convection_7b.port_a, _7b.heatPorts) annotation (Line(points={{121,96},
+          {90,96},{90,99}},                                                                           color={191,0,0}));
+  connect(wall_1.port_a, _1.heatPorts[:, 1]) annotation (Line(points={{-100,-50},
+          {-91,-50}},                                                                         color={191,0,0}));
+  connect(convection_1.port_a, wall_1.port_b) annotation (Line(points={{-125,
+          -50},{-120,-50}},                                                                    color={191,0,0}));
+  connect(boundary.port, convection_1.port_b) annotation (Line(points={{-146,
+          -50},{-139,-50}},                                                                    color={191,0,0}));
+  connect(sensor_pT.port, _1a.port_a) annotation (Line(points={{-116,-28},{-116,
+          -36},{-86,-36}},                                                                   color={0,127,255}));
+  connect(sensor_pT1.port, _1b.port_b) annotation (Line(points={{-116,-72},{
+          -116,-64},{-86,-64}},                                                         color={0,127,255}));
   connect(sensor_pT3.port, _8a.port_a)
-    annotation (Line(points={{90,120},{90,130},{62,130}}, color={0,127,255}));
+    annotation (Line(points={{104,80},{104,90},{76,90}},  color={0,127,255}));
   connect(sensor_pT2.port, _7a.port_a)
-    annotation (Line(points={{94,182},{94,174}}, color={0,127,255}));
-  connect(_6a.port_b, sensor_pT2.port) annotation (Line(points={{77.0711,
-          183.071},{94,183.071},{94,182}}, color={0,127,255}));
+    annotation (Line(points={{108,142},{108,134}},
+                                                 color={0,127,255}));
+  connect(_6a.port_b, sensor_pT2.port) annotation (Line(points={{91.0711,
+          143.071},{108,143.071},{108,142}},
+                                           color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-160,-120},{160,200}})),
     experiment(StopTime=10000, __Dymola_NumberOfIntervals=1000));
-end CIETLoop5;
+end CIET_initial;
