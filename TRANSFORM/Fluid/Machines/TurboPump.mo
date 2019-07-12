@@ -13,12 +13,15 @@ extends TRANSFORM.Icons.UnderConstruction;
   final parameter SI.Torque tau_nominal = Modelica.Constants.g_n*d_nominal*head_nominal*V_flow_nominal/(eta_nominal*omega_nominal) "Rated or design torque";
   final parameter SI.AngularVelocity omega_nominal = N_nominal*2*Modelica.Constants.pi/60;
   parameter SI.Efficiency eta_nominal = 0.8 "Rated or design efficiency";
+  //Real junk;
 
-  Modelica.Blocks.Tables.CombiTable1D h_table(smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1, table=
-        nonDimCurve.table_h)
+  Modelica.Blocks.Tables.CombiTable1D h_table(                                                                           table=
+        nonDimCurve.table_h, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Tables.CombiTable1D beta_table(smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1, table=
-        nonDimCurve.table_beta)
+  Modelica.Blocks.Tables.CombiTable1D beta_table(                                                                           table=
+        nonDimCurve.table_beta, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
   replaceable model
@@ -32,9 +35,12 @@ extends TRANSFORM.Icons.UnderConstruction;
     NonDimCurve nonDimCurve;
 equation
 
-a_tan = Modelica.Math.atan2(n,v);
+a_tan = TRANSFORM.Math.atan22(n,v);
+//a_tan = Modelica.Math.atan2(n,v);
+//theta = if a_tan < 0 then a_tan+ 2*Modelica.Constants.pi else a_tan;
 theta = Modelica.Constants.pi + a_tan;
-n2v2 = max(1,n^2+v^2);
+n2v2 = n^2+v^2;
+//junk=der(a_tan);
 
 v = V_flow/V_flow_nominal;
 n = N/N_nominal;
