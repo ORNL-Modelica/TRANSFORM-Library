@@ -30,7 +30,6 @@ extends TRANSFORM.Icons.UnderConstruction;
     TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves.PartialNonDimCurve
                                                                                                                                                                                                             annotation(choicesAllMatching=true);
 
-
     NonDimCurve nonDimCurve;
 equation
 
