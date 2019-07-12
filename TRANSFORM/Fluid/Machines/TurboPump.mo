@@ -14,11 +14,13 @@ extends TRANSFORM.Icons.UnderConstruction;
   final parameter SI.AngularVelocity omega_nominal = N_nominal*2*Modelica.Constants.pi/60;
   parameter SI.Efficiency eta_nominal = 0.8 "Rated or design efficiency";
 
-  Modelica.Blocks.Tables.CombiTable1D h_table(smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1, table=
-        nonDimCurve.table_h)
+  Modelica.Blocks.Tables.CombiTable1D h_table(                                                                           table=
+        nonDimCurve.table_h, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Tables.CombiTable1D beta_table(smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1, table=
-        nonDimCurve.table_beta)
+  Modelica.Blocks.Tables.CombiTable1D beta_table(                                                                           table=
+        nonDimCurve.table_beta, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
   replaceable model
@@ -28,24 +30,20 @@ extends TRANSFORM.Icons.UnderConstruction;
     TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves.PartialNonDimCurve
                                                                                                                                                                                                             annotation(choicesAllMatching=true);
 
-
     NonDimCurve nonDimCurve;
 equation
 
 a_tan = Modelica.Math.atan2(n,v);
 theta = Modelica.Constants.pi + a_tan;
-n2v2 = max(1,n^2+v^2);
+n2v2 = n^2+v^2;
 
 v = V_flow/V_flow_nominal;
 n = N/N_nominal;
 
-//head = 1
 h = head/head_nominal/n2v2;
 
 theta = h_table.u[1];
 h = h_table.y[1];
-
-//tau = 1;
 
 beta = tau/tau_nominal/n2v2;
 

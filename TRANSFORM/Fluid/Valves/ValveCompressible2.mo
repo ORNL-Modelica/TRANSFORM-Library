@@ -17,10 +17,10 @@ model ValveCompressible2
   Real xs "Saturated pressure drop ratio";
   Real Y "Compressibility factor";
   Medium.AbsolutePressure p "Inlet pressure";
-  Real gamma_a = Medium.specificHeatCapacityCp(state_a)/Medium.specificHeatCapacityCv(state_a) "Specific heat ratio";
-  Real gamma_b = Medium.specificHeatCapacityCp(state_b)/Medium.specificHeatCapacityCv(state_b) "Specific heat ratio";
-  Real x_a = (2/(gamma_a+1))^(gamma_a/(gamma_a-1));
-  Real x_b = (2/(gamma_b+1))^(gamma_b/(gamma_b-1));
+  Real gamma_a "Specific heat ratio at port a";
+  Real gamma_b "Specific heat ratio at port b";
+  Real x_a;
+  Real x_b;
   Real xChoice;
   constant SI.ReynoldsNumber Re_turbulent = 4000
     "cf. straight pipe for fully open valve -- dp_turbulent increases for closing valve";
@@ -54,6 +54,11 @@ initial equation
     Y_nominal = 0;
   end if;
 equation
+  x_a = (2/(gamma_a+1))^(gamma_a/(gamma_a-1));
+  x_b = (2/(gamma_b+1))^(gamma_b/(gamma_b-1));
+  gamma_a*Medium.specificHeatCapacityCv(state_a) = Medium.specificHeatCapacityCp(state_a);
+  gamma_b*Medium.specificHeatCapacityCv(state_b) = Medium.specificHeatCapacityCp(state_b);
+
   if port_b.p > port_a.p then
     p=port_b.p;
     xChoice=x_b;
@@ -62,7 +67,7 @@ equation
     xChoice=x_a;
   end if;
   Fxt = x_a*xtCharacteristic(opening_actual);
-  x = dp/p;
+  x*p = dp;
   xs = max(-Fxt, min(x, Fxt));
   //xs = smooth(0, if x < -Fxt then -Fxt else if x > Fxt then Fxt else x);
   Y = 1 - abs(xs)/(3*Fxt);
