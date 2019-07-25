@@ -115,7 +115,7 @@ model GenericPipe_withWall
         length_z=sum(geometry.dlengths),
         drs=geometry.drs,
         dzs=geometry.dzs,
-        r_inner=0.5*sum(geometry.dimensions)/geometry.nV),
+        r_inner=geometry.r_inner),
     exposeState_b1=exposeState_outerWall,
     exposeState_a2=exposeState_a,
     exposeState_b2=exposeState_b,
