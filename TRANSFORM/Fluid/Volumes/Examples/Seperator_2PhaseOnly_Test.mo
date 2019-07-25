@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model Seperator_2PhaseOnly_Test
-
   extends TRANSFORM.Icons.Example;
-
   Separator_2phaseOnly volume(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =

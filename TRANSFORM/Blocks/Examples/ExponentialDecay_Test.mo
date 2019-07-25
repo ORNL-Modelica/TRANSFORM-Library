@@ -1,7 +1,6 @@
 within TRANSFORM.Blocks.Examples;
 model ExponentialDecay_Test
   extends TRANSFORM.Icons.Example;
-
   ExponentialDecay exponentialDecay(
     startTime=0.1,
     offset=5,

@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.Sensors.BaseClasses;
 model stateDisplay
-
   extends TRANSFORM.Icons.UnderConstruction;
-
   parameter Integer precision_p=2 "Pressure"
    annotation(Evaluate=true,Dialog(group="Set Number of Displayed Significant Digits"));
   parameter Integer precision_h=1 "Specific enthalpy"
@@ -11,22 +9,18 @@ model stateDisplay
    annotation(Evaluate=true,Dialog(group="Set Number of Displayed Significant Digits"));
   parameter Integer precision_m_flow=1 "Mass flow rate"
    annotation(Evaluate=true,Dialog(group="Set Number of Displayed Significant Digits"));
-
   TRANSFORM.Fluid.Sensors.BaseClasses.statePort statePort annotation (Placement(
         transformation(extent={{-10,-10},{10,10}}), iconTransformation(extent={{
             -5,-31},{5,-21}})));
-
   Real h_out(unit="kJ/kg");
   Real p(unit="bar");
   Real m_flow(unit="kg/s");
   Real T(unit="degC");
-
 equation
   h_out = statePort.h_out/1000;
   p = statePort.p/1e5;
   m_flow = statePort.m_flow;
   T = statePort.T - 273.15;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                    graphics={

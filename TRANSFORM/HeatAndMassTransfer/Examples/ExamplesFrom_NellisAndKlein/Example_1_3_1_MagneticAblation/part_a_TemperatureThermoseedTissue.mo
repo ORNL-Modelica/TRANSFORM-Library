@@ -3,14 +3,12 @@ model part_a_TemperatureThermoseedTissue
   "Part a) show the temperature in the thermoseed and in the tissue"
   import TRANSFORM;
   extends Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow Adiabatic(
       Q_flow=0) "Adiabatic boundary condition at sphere center"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature
     Tissue_infinite(T(displayUnit="degC") = 310.15)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-
   DiscritizedModels.Conduction_1D thermoseed(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
@@ -65,12 +63,10 @@ model part_a_TemperatureThermoseedTissue
     maxX=10,
     minY=50) "X - Axial Location (mm) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{-26,-82},{28,-28}})));
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={Adiabatic.port.T,
         thermoseed.materials[3].T,tissue.materials[2].T})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(Adiabatic.port, thermoseed.port_a1)
     annotation (Line(points={{-60,0},{-30,0}},         color={191,0,0}));
   connect(thermoseed.port_b1, tissue.port_a1)

@@ -3,10 +3,8 @@ partial model PartialFlowHeatTransfer
   "base class for any pipe heat transfer correlation"
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialHeatTransfer;
-
   // Additional inputs provided to flow heat transfer model
   input SI.MassFlowRate[nHT] m_flows "Mean flow rate in segments";
-
   // Geometry parameters and inputs for flow heat transfer
   parameter Real nParallel "number of identical parallel flow devices"
      annotation(Dialog(tab="Internal Interface",enable=false,group="Geometry"));
@@ -16,10 +14,8 @@ partial model PartialFlowHeatTransfer
   input SI.Area[nHT] crossAreas "Cross flow area of flow segments";
   input SI.Area[nHT] surfaceAreas "Heat transfer areas";
   input SI.Height[nHT] roughnesses "Average heights of surface asperities";
-
   parameter SI.CoefficientOfHeatTransfer[nHT] alphas_start "heat transfer coefficient" annotation(Dialog(tab="Initialization"));
   SI.CoefficientOfHeatTransfer[nHT] alphas(start=alphas_start) "Coefficient of heat transfer";
-
   annotation (Documentation(info="<html>
 Base class for heat transfer models of flow devices.
 <p>

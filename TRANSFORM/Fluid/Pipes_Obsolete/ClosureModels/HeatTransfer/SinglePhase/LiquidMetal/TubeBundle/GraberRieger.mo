@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.SinglePhase.LiquidMetal.TubeBundle;
 model GraberRieger
   "Graber-Rieger: Liquid metal rod bundle; 1.25 <= P/D <= 1.95, 150 <= Pe <= 3000"
-
   /* source: 
   AlanE. Waltar, Donald R. Todd, Pavel V. Tsvetkov
   Fast Spectrum Reactors 2012
@@ -10,10 +9,8 @@ model GraberRieger
   1.25 <= P/D <= 1.95
   150 <= Pe <= 3000
   */
-
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
-
     parameter Real PDratio "Tube Pitch to Diameter ratio";
     Real[nHT] Pes "Peclet Number";
 equation

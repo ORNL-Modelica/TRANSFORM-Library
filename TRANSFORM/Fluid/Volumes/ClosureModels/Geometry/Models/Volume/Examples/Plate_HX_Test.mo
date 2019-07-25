@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples;
 model Plate_HX_Test
   extends Icons.Example;
-
   extends
     TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
     dimensions_Exp=0.019047619,
@@ -21,7 +20,6 @@ model Plate_HX_Test
       nAreas_NoHT=nAreas_NoHT,
       dheight=dheight,
       height_a=height_a));
-
   constant Real nParallel=6;
   constant Integer nNodes=5;
   constant SI.Length H=0.01;
@@ -30,7 +28,6 @@ model Plate_HX_Test
   constant Real nAreas_NoHT=1;
   constant SI.Height dheight=sin(pi/4)*L;
   constant SI.Height height_a=2;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Plate_HX_Test;

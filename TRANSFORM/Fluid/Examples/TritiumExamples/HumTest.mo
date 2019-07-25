@@ -1,11 +1,8 @@
 within TRANSFORM.Fluid.Examples.TritiumExamples;
 model HumTest
-
   extends TRANSFORM.Icons.Example;
-
   package Medium =
       TRANSFORM.Media.Fluids.FLiBe.ConstantPropertyLiquidFLiBe (          extraPropertiesNames={"Tritium"});
-
   Modelica.Fluid.Sources.MassFlowSource_T source(
     use_C_in=true,
     nPorts=1,
@@ -56,13 +53,11 @@ model HumTest
             TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
             (iTable={1})))
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
-
   Modelica.Fluid.Sources.Boundary_pT sink(
     nPorts=1,
     redeclare package Medium = Medium,
     p=100000,
     T=973.15) annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic
                                                                 [permeator.nV]
     annotation (Placement(transformation(
@@ -75,7 +70,6 @@ model HumTest
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-10,-30})));
-
   Modelica.Blocks.Sources.Constant const(k=2e6*1.629e-12)
     annotation (Placement(transformation(extent={{-100,-18},{-80,2}})));
   Modelica.Fluid.Sensors.TraceSubstancesTwoPort permeatorIn(

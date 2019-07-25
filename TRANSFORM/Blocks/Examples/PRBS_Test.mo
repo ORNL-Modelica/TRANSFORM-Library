@@ -1,7 +1,6 @@
 within TRANSFORM.Blocks.Examples;
 model PRBS_Test
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Blocks.Noise.PRBS sequencer(
     freqHz=10,
     offset=1,

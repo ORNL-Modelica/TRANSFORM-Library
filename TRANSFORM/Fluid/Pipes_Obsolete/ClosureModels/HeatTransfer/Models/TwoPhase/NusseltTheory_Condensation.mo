@@ -1,15 +1,11 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.TwoPhase;
 model NusseltTheory_Condensation
-
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.TwoPhase.PartialTwoPhase;
-
   SI.NusseltNumber[nHT] Nus "Nusselt number";
   SI.SpecificEnthalpy[nHT] hs_fgp "Modified latent heat of vaporization";
   Units.NonDim[nHT] Jas "Jakob number";
-
 equation
-
   for i in 1:nHT loop
     (alphas[i],Nus[i],hs_fgp[i],Jas[i]) =
       TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.TwoPhase.Condensation.alpha_NusseltTheory_Condensation(
@@ -26,7 +22,6 @@ equation
               T_sat=mediums2[i].sat.Tsat,
               T_wall=Ts_wall[i]);
   end for;
-
   annotation (defaultComponentName="heatTransfer",
 Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

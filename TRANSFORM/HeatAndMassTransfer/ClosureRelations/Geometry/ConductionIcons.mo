@@ -1,6 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry;
 partial model ConductionIcons
-
   parameter Integer figure=1 "Index for Icon figure" annotation (choices(
       choice=1 "Plane",
       choice=2 "Cylinder",

@@ -1,10 +1,6 @@
 within TRANSFORM.Examples.SodiumFastReactor;
 model CS_Default
-
   extends BaseClasses.Partial_ControlSystem;
-
-equation
-
 annotation(defaultComponentName="PHS_CS", Icon(graphics={
         Text(
           extent={{-94,82},{94,74}},

@@ -1,10 +1,6 @@
 within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse;
 model ED_Default
-
   extends BaseClasses.Partial_EventDriver;
-
-equation
-
 annotation(defaultComponentName="PHS_CS", Icon(graphics={
         Text(
           extent={{-94,82},{94,74}},

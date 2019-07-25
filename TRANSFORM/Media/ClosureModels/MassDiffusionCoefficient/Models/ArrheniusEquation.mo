@@ -1,29 +1,22 @@
 within TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models;
 model ArrheniusEquation "Arrhenius equation y = u*A*exp(-(Ea/RT)^b)"
   extends PartialMassDiffusionCoefficient;
-
   parameter Boolean use_RecordData=true "=true then use predefined data";
-
   parameter Integer iTable[nC]=fill(1, nC)
     "Index of pre-defined values in data table: See Info page."
     annotation (Dialog(enable=use_RecordData));
-
   parameter SI.DiffusionCoefficient D_ab0=0 "Pre-exponential factor"
     annotation (Dialog(enable=not use_RecordData));
   parameter SI.DiffusionCoefficient D_abs0[nC]=fill(D_ab0, nC)
     "if non-uniform then set" annotation (Dialog(enable=not use_RecordData));
-
   parameter SI.MolarEnergy Ea=0 "Activation energy"
     annotation (Dialog(enable=not use_RecordData));
   parameter SI.MolarEnergy Eas[nC]=fill(Ea, nC) "if non-uniform then set"
     annotation (Dialog(enable=not use_RecordData));
-
   parameter SI.MolarHeatCapacity R=Modelica.Constants.R
     "Universal gas constant";
-
   parameter Real beta=1.0 "Correction factor";
   parameter Real betas[nC]=fill(beta, nC) "if non-uniform then set";
-
   TRANSFORM.Blocks.DataTable data(table=[9.3e-07,42000; 8.25e-07,49700;
         6.32e-07,47800; 1.7e-07,37600; 1.36e-07,37700; 4.62e-08,36800; 1.11e-07,
         37200; 1.43e-07,34400; 2.26e-07,29300; 7.43e-07,44100; 6.63e-07,44900;
@@ -32,9 +25,7 @@ model ArrheniusEquation "Arrhenius equation y = u*A*exp(-(Ea/RT)^b)"
         103000; 6e-07,24700; 5.6e-08,23600; 3e-11,18300; 1e-15,0; 1e15,0])
                       "Col 1 = D_ab0; Col 2 = Ea"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
 equation
-
   if use_RecordData then
     for i in 1:nC loop
       D_abs[i] = data.table[iTable[i], 1]*exp(-(data.table[iTable[i], 2]/(R*T))^
@@ -45,7 +36,6 @@ equation
       D_abs[i] = D_abs0[i]*exp(-(Eas[i]/(R*T))^betas[i]);
     end for;
   end if;
-
   annotation (
     defaultComponentName="massDiffusionCoeff",
     Icon(coordinateSystem(preserveAspectRatio=false)),

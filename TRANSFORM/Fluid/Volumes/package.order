@@ -13,6 +13,7 @@ ExpansionTank_1Port
 DumpTank
 Pressurizer
 Pressurizer_withWall
+MoistureSeparator
 BaseClasses
 ClosureModels
 InProgress

@@ -1,4 +1,11 @@
-PartialPump
+PumpCharacteristics
 WetSteamEfficiency
+PartialPump_Simple
+PartialPump_nom
+PartialPump
 SteamTurbineBase
 SteamTurbineBaseold
+PartialTurbine
+PartialCompressor
+TurbineCharacteristics
+PartialTurboPump

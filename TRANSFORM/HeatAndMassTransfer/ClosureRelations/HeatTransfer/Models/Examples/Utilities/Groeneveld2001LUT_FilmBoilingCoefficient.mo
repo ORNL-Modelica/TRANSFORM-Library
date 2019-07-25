@@ -1,15 +1,13 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Examples.Utilities;
 model Groeneveld2001LUT_FilmBoilingCoefficient
-
   extends TRANSFORM.Icons.Example;
-
   SDF.NDTable alpha(
     readFromFile=true,
     interpMethod=SDF.Types.InterpolationMethod.Akima,
     extrapMethod=SDF.Types.ExtrapolationMethod.Linear,
     nin=4,
     filename=Modelica.Utilities.Files.loadResource(
-        "modelica://TRANSFORM/Resources/Data/2001LUTFB.sdf"),
+        "modelica://TRANSFORM/Resources/data/chf/2001LUTFB.sdf"),
     dataset="/alpha",
     dataUnit="W/(m2.K)",
     scaleUnits={"1","K","kg/(m2.s)","Pa"})
@@ -40,7 +38,6 @@ model Groeneveld2001LUT_FilmBoilingCoefficient
     amplitude=650) "T_wall - T_sat"
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 algorithm
-
 equation
   connect(x.y, alpha.u[1]) annotation (Line(points={{-39,-50},{-20,-50},{-20,
           -1.5},{-12,-1.5}}, color={0,0,127}));

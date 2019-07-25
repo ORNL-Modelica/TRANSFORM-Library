@@ -1,45 +1,33 @@
 within TRANSFORM.Fluid.Pipes.Examples.RELAPComparison;
 model HeatedPipe_Transients
-
   extends TRANSFORM.Icons.Example;
-
   import SI = Modelica.SIunits;
   import SIadd = TRANSFORM.Units;
-
   package Medium = Modelica.Media.Water.StandardWater;
-
   parameter Integer iTest = 3 "Set test number to change test run" annotation(Evaluate=false);
   parameter String test_type[4] = {"lowQuality_10","highQuality_10","lowQuality_100","highQuality_100"};
   parameter SIadd.MassFlux Gs[4] = {10,10,100,100};
   parameter SI.HeatFlux Qs_pp[4] = {5e2,4e3,5e3,4e4};
-
   parameter SIadd.MassFlux G = Gs[iTest];
   parameter SI.HeatFlux Q_pp = Qs_pp[iTest];
-
   parameter Integer nV = 50;
   parameter Integer nR = 5;
-
   parameter SI.Length D_hyd = 0.015;
   parameter SI.Area area = 0.25*Modelica.Constants.pi*D_hyd^2;
   parameter SI.Length length = 20;
   parameter SI.Angle angle = Modelica.Constants.pi/2;
-
   parameter SI.Length roughness = 5e-5;
   parameter SI.Length r_outer = 0.5*D_hyd;
-
   parameter SI.MassFlowRate m_flow_source = G*area;
   parameter SI.Temperature T_source = 450;
   parameter SI.Pressure p_sink = 5e6;
   parameter SI.SpecificEnthalpy h_sink = Medium.dewEnthalpy(Medium.setSat_p(p_sink));
-
   parameter SI.Area surfaceArea = Modelica.Constants.pi*D_hyd*length;
   parameter SI.Power Q_gen = Q_pp*surfaceArea/(nV*nR);
-
   parameter Real alpha_Q_gen = 0;
   parameter Real alpha_pressure = 0;
   parameter Real alpha_m_flow = -0.1;
   parameter Real alpha_T = 0;
-
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T source(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -82,7 +70,6 @@ model HeatedPipe_Transients
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,0})));
-
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance(
       redeclare package Medium = Medium, R=1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},

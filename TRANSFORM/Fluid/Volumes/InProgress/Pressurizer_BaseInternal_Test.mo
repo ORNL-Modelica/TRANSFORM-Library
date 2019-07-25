@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.Volumes.InProgress;
 model Pressurizer_BaseInternal_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow vaporHeater
     annotation (Placement(transformation(extent={{-58,10},{-38,30}})));
   Modelica.Blocks.Sources.Constant vaporHeaterSource(k=0)
@@ -50,7 +49,6 @@ model Pressurizer_BaseInternal_Test
     redeclare model HeatTransfer_WV =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.Alphas)
     annotation (Placement(transformation(extent={{-23,-24},{23,24}})));
-
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature Temp_wallVapor(T=398.15)
                 annotation (Placement(transformation(extent={{70,10},{50,30}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature Temp_walLiquid(T=348.15)

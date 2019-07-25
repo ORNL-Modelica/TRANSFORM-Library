@@ -1,10 +1,7 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger;
 model GenericHX
-
   import TRANSFORM.Math.fillArray_1D;
-
   parameter Integer nV(min=1) = 1 "Number of volume nodes";
-
   parameter Integer nSurfaces_shell=1 "Number of transfer (heat/mass) surfaces"
   annotation (Dialog(tab="Shell Side",enable=false));
   input SI.Length dimensions_shell[nV]= 4*crossAreas_shell ./ perimeters_shell
@@ -24,7 +21,6 @@ model GenericHX
   input SI.Area surfaceAreas_shell[nV,nSurfaces_shell]={{if j == 1 then pi*dimensions_tube_outer[i]*dlengths_tube[i]*nTubes else 0 for j in 1:nSurfaces_shell} for i in 1:nV}
     "Discretized area per transfer surface"
     annotation (Dialog(tab="Shell Side",group="Inputs"));
-
   // Elevation
   input SI.Angle[nV] angles_shell=fill(0,nV) "Vertical angle from the horizontal  (-pi/2 < x <= pi/2)"
     annotation (Dialog(tab="Shell Side",group="Inputs Elevation"));
@@ -36,7 +32,6 @@ model GenericHX
   output SI.Length height_b_shell=height_a_shell + sum(dheights_shell)
     "Elevation at port_b: Reference value only. No impact on calculations."
     annotation (Dialog(tab="Shell Side",group="Inputs Elevation", enable=false));
-
   // Tube Side
   parameter Real nTubes=1 "# of tubes per heat exchanger" annotation (Dialog(tab="Tube Side"));
   parameter Integer nR(min=1) = 1 "Number of radial nodes in wall (r-direction)" annotation(Dialog(tab="Tube Side"));
@@ -59,7 +54,6 @@ model GenericHX
   input SI.Area surfaceAreas_tube[nV,nSurfaces_tube]={{if j ==1 then perimeters_tube[i]* dlengths_tube[i] else 0 for j in 1:nSurfaces_tube} for i in 1:nV}
     "Discretized area per transfer surface"
     annotation (Dialog(tab="Tube Side",group="Inputs"));
-
   // Elevation
   input SI.Angle[nV] angles_tube=fill(0,nV) "Vertical angle from the horizontal  (-pi/2 < x <= pi/2)"
     annotation (Dialog(tab="Tube Side",group="Inputs Elevation"));
@@ -71,7 +65,6 @@ model GenericHX
   output SI.Length height_b_tube=height_a_tube + sum(dheights_tube)
     "Elevation at port_b: Reference value only. No impact on calculations."
     annotation (Dialog(tab="Tube Side",group="Inputs Elevation", enable=false));
-
   // Tube Wall
   input SI.Length ths_wall[nV]=fill(0.001, nV)
     "Tube wall thickness"
@@ -80,7 +73,6 @@ model GenericHX
     annotation (Dialog(tab="Tube Side", group="Inputs: Tube Wall"));
   SI.Length dimensions_tube_outer[nV] = {dimensions_tube[i] + 2*sum(drs[:,i]) for i in 1:nV} "Tube outer diameter";
   SI.Length D_o_tube = sum(dimensions_tube_outer)/nV "Tube outer average diameter";
-
 equation
   for i in 1:nV loop
     assert(dimensions_shell[i] > 0, "Characteristic dimension must be > 0");
@@ -92,7 +84,6 @@ equation
     assert(dimensions_tube[i] > 0, "Characteristic dimension must be > 0");
     assert(dlengths_tube[i] >= abs(dheights_tube[i]), "Geometry dlengths_tube must be greater or equal to abs(dheights_tube)");
   end for;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                                                 Bitmap(extent={{
               -100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/Geometry_genericVolume.jpg")}),

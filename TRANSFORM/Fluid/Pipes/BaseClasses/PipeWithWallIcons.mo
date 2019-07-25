@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.Pipes.BaseClasses;
 model PipeWithWallIcons
-
   annotation (Icon(graphics={
         Rectangle(
           extent={{-86,40},{86,-40}},

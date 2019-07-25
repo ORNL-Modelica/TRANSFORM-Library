@@ -1,11 +1,9 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Interfaces;
 model ScalePower "Scales power from one heating element to nElem elements"
-
   parameter Real nParallel=1 "# of parallel heated elements";
   parameter Integer nNodes = 1 "# of nodes";
   parameter Boolean counterCurrent = false
     "Swap temperature and flux vector order";
-
   Modelica.Fluid.Interfaces.HeatPorts_a heatPorts_a[nNodes] annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -25,7 +23,6 @@ model ScalePower "Scales power from one heating element to nElem elements"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prescribedHeatFlow[nNodes]
     annotation (Placement(transformation(extent={{-8,-10},{12,10}})));
 equation
-
   if not counterCurrent then
     for i in 1:nNodes loop
     prescribedHeatFlow[i].Q_flow =nParallel*heatPorts_a[i].Q_flow;
@@ -37,7 +34,6 @@ equation
     prescribedHeatFlow[nNodes-(i-1)].port.T = heatPorts_a[i].T;
     end for;
   end if;
-
   connect(prescribedHeatFlow.port, heatPorts_b)
     annotation (Line(points={{12,0},{100,0}},         color={191,0,0}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

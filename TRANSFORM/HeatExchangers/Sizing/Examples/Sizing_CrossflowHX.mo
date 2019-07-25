@@ -1,19 +1,19 @@
 within TRANSFORM.HeatExchangers.Sizing.Examples;
 model Sizing_CrossflowHX
-
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={example_11_3.calcType.surfaceArea,
         example_11_4.calcType.T_1_cold})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Sizing_EffectivenessNTU example_11_3(
-    redeclare record CalcType = Records.EffectivenessNTU_CalcType.Option2,
+    redeclare record CalcType =
+        Records.EffectivenessNTU_CalcType.Option2,
     redeclare model EffectivenessNTU =
         ClosureRelations.Models.EffectivenessNTU_Relations.Crossflow,
     inputNTU=false)
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Sizing_EffectivenessNTU example_11_4(
-    redeclare record CalcType = Records.EffectivenessNTU_CalcType.Option1,
+    redeclare record CalcType =
+        Records.EffectivenessNTU_CalcType.Option1,
     redeclare model EffectivenessNTU =
         ClosureRelations.Models.EffectivenessNTU_Relations.Crossflow,
     inputNTU=false)

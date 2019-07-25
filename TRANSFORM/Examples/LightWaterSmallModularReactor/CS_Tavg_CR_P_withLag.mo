@@ -1,11 +1,8 @@
 within TRANSFORM.Examples.LightWaterSmallModularReactor;
 model CS_Tavg_CR_P_withLag
-
   extends BaseClasses.Partial_ControlSystem;
-
   parameter SI.Time delayStart_N=50 "Delay pump speed control";
   parameter SI.Time delayStart_CR=25 "Delay control rod reactivity control";
-
   Modelica.Blocks.Sources.Constant Other_Reactivity(k=0)
     annotation (Placement(transformation(extent={{220,10},{240,30}})));
   Modelica.Blocks.Sources.Constant S_external(k=0)
@@ -102,7 +99,6 @@ model CS_Tavg_CR_P_withLag
   Data.IRIS_PHS data
     annotation (Placement(transformation(extent={{-10,-88},{10,-68}})));
 equation
-
   connect(gain.y, PID_CR.u_m)
     annotation (Line(points={{51,80},{80,80},{80,88}}, color={0,0,127}));
   connect(pumpDelay.y, greater5.u2) annotation (Line(points={{-239,190},{-234,
@@ -144,7 +140,6 @@ equation
           130},{102,130},{102,80},{108,80}}, color={255,0,255}));
   connect(switch_Q_total.u2, switch_CR.u2) annotation (Line(points={{-12,80},{
           -20,80},{-20,130},{102,130},{102,80},{108,80}}, color={255,0,255}));
-
   connect(CRDelay.y, greater.u2) annotation (Line(points={{-239,110},{-232,110},
           {-232,122},{-222,122}},color={0,0,127}));
   connect(greater.u1, greater5.u1) annotation (Line(points={{-222,130},{-234,
@@ -237,7 +232,6 @@ equation
       color={111,216,99},
       pattern=LinePattern.Dash,
       thickness=0.5));
-
 annotation(defaultComponentName="PHS_CS", Icon(coordinateSystem(extent={{-100,-100},
             {100,100}}),                       graphics={
         Text(

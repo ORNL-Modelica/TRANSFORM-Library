@@ -3,7 +3,6 @@ model ValveIncompressible "Valve for (almost) incompressible fluids"
   extends BaseClasses.PartialValve;
   import TRANSFORM.Fluid.Types.CvTypes;
   import Modelica.Constants.pi;
-
   constant SI.ReynoldsNumber Re_turbulent = 4000
   "cf. straight pipe for fully open valve -- dp_turbulent increases for closing valve";
   parameter Boolean use_Re = false
@@ -18,7 +17,6 @@ model ValveIncompressible "Valve for (almost) incompressible fluids"
   SI.AbsolutePressure dp_turbulent = if not use_Re then dp_small else
     max(dp_small, (Medium.dynamicViscosity(state_a) + Medium.dynamicViscosity(state_b))^2*pi/8*Re_turbulent^2
                   /(max(relativeFlowCoefficient,0.001)*Av*(Medium.density(state_a) + Medium.density(state_b))));
-
 protected
   Real relativeFlowCoefficient;
 initial equation
@@ -27,10 +25,8 @@ initial equation
     *Modelica.Fluid.Utilities.regRoot(dp_nominal, dp_small)
     "Determination of Av by the operating point";
   end if;
-
 equation
   // m_flow = valveCharacteristic(opening)*Av*sqrt(d)*sqrt(dp);
-
   relativeFlowCoefficient = valveCharacteristic(opening_actual);
   if checkValve then
   m_flow = homotopy(relativeFlowCoefficient*Av*sqrt(Medium.density(state_a))
@@ -61,7 +57,6 @@ equation
     m_flow = smooth(0, Utilities.regRoot(dp, dp_turbulent)*(if dp>=0 then sqrt(Medium.density(state_a)) else sqrt(Medium.density(state_b))));
     */
   end if;
-
 annotation (
 Documentation(info="<html>
 <p>

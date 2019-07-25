@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Math.Examples.check_cspline",stopTime=100,resultFile="check_cspline");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

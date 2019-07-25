@@ -1,14 +1,11 @@
 within TRANSFORM.Blocks;
 block DataTable
   "Generate a Real table"
-
   extends Modelica.Blocks.Icons.Block;
-
   parameter Real table[:, :]=fill(
         0,
         0,
         2) "Table matrix for Real parameters";
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={               Text(
@@ -47,5 +44,4 @@ block DataTable
             1.5, 5;
               2, 6];</pre>
 </html>"));
-
 end DataTable;

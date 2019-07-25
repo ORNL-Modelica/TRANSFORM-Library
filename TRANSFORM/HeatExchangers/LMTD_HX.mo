@@ -1,7 +1,7 @@
 within TRANSFORM.HeatExchangers;
 model LMTD_HX "Log mean temperature difference heat exchanger"
-
-  replaceable package Medium_1 = TRANSFORM.Media.ExternalMedia.CoolProp.Helium
+  replaceable package Medium_1 =
+      TRANSFORM.Media.ExternalMedia.CoolProp.Helium
     constrainedby Modelica.Media.Interfaces.PartialMedium annotation (
       choicesAllMatching=true);
   replaceable package Medium_2 = Modelica.Media.Air.DryAirNasa constrainedby
@@ -10,25 +10,21 @@ model LMTD_HX "Log mean temperature difference heat exchanger"
   parameter SI.Power Q_flow=0.5e6;
   parameter SI.CoefficientOfHeatTransfer alpha_1 = 800;
   parameter SI.CoefficientOfHeatTransfer alpha_2 = 4000;
-
   SI.ThermalConductance UA;
   SI.TemperatureDifference dT_LM;
   SI.Area surfaceArea(start=1);
-
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a1(redeclare package Medium =
         Medium_1) annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
         iconTransformation(extent={{-110,-50},{-90,-30}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_b1(redeclare package Medium =
         Medium_1) annotation (Placement(transformation(extent={{90,-50},{110,-30}}),
         iconTransformation(extent={{90,-50},{110,-30}})));
-
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a2(redeclare package Medium =
         Medium_2) annotation (Placement(transformation(extent={{-110,30},{-90,50}}),
         iconTransformation(extent={{-110,30},{-90,50}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_b2(redeclare package Medium =
         Medium_2) annotation (Placement(transformation(extent={{90,30},{110,50}}),
         iconTransformation(extent={{90,30},{110,50}})));
-
   TRANSFORM.Fluid.Volumes.SimpleVolume volume1(redeclare package Medium =
         Medium_1, use_HeatPort=true)
     annotation (Placement(transformation(extent={{-50,-30},{-30,-50}})));
@@ -68,12 +64,10 @@ model LMTD_HX "Log mean temperature difference heat exchanger"
   Modelica.Blocks.Sources.RealExpression boundary1_input(y=-Q_flow)
     annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
 equation
-
   Q_flow = UA*dT_LM;
   dT_LM = TRANSFORM.HeatExchangers.Utilities.Functions.logMean(sensor_T_a1.T -
     sensor_T_b1.T, sensor_T_b2.T - sensor_T_a2.T);
   UA = 1/(1/(alpha_1*surfaceArea) + 1/(alpha_2*surfaceArea));
-
   connect(volume1.port_b, resistance1.port_a)
     annotation (Line(points={{-34,-40},{3,-40}}, color={0,127,255}));
   connect(volume1.heatPort, boundary1.port)

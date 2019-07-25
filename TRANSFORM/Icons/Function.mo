@@ -1,6 +1,5 @@
 within TRANSFORM.Icons;
 partial function Function "Icon for functions"
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Text(
           lineColor={0,0,255},

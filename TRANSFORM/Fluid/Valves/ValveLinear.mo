@@ -17,14 +17,11 @@ model ValveLinear "Valve for water/steam flows with linear pressure drop"
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,80})));
-
 equation
   m_flow = opening*k*dp;
-
   // Isenthalpic state transformation (no storage and no loss of energy)
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
-
 annotation (
   Icon(coordinateSystem(
         preserveAspectRatio=true,

@@ -1,9 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Interfaces;
 connector HeatPort_Flow
   "Generic connector for defined flow variable (e.g., heat flow rate - Q_flow)"
-
   extends HeatPort;
-
   annotation(defaultComponentName = "port_a",
     Documentation(info="<html>
 <p>This connector is used for 1-dimensional heat flow between components.

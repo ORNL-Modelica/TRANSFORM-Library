@@ -2,9 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2;
 model ForwardDifference_1O
   extends
     TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialDistributedFlow;
-
 equation
-
   if adiabaticDims[1] == false then
     for i in 1:nFM_1 loop
       for j in 1:nVs[2] loop
@@ -13,14 +11,12 @@ equation
       end for;
     end for;
   else
-
     for i in 1:nFM_1 loop
       for j in 1:nVs[2] loop
         Q_flows_1[i, j] = 0;
       end for;
     end for;
   end if;
-
   if adiabaticDims[2] == false then
     for i in 1:nVs[1] loop
       for j in 1:nFM_2 loop
@@ -35,7 +31,6 @@ equation
       end for;
     end for;
   end if;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ForwardDifference_1O;

@@ -1,8 +1,6 @@
 within TRANSFORM.HeatExchangers.Examples;
 model UAdT_lm_Example_11_1
-
   extends TRANSFORM.Icons.Example;
-
   UAdT_lm uAdT_lm(
     Q_flow=0.1*2131*(uAdT_lm.Ts_h[1] - uAdT_lm.Ts_h[2]),
     U_input=38.1,

@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Control;
 block FWH_HP_level
   extends Interfaces.CondenserLevel;
-
   Controls.LimPID                           controller(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0,

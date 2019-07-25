@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Interfaces;
 connector MolePorts_Flow
   "Generic connector for vectors of ports defining flow variable (e.g., molar flow rate - n_flow). Vector dimensions must be added after dragging."
-
   extends MolePort;
   annotation (defaultComponentName="heatPorts_a",
        Icon(coordinateSystem(

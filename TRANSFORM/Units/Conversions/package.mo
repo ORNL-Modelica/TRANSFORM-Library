@@ -1,7 +1,5 @@
 within TRANSFORM.Units;
 package Conversions
-
-
 annotation (Documentation(info="<html>
 <p>This package contains unit conversion functions and a model with a replaceable function call to assist the user. If a desired unit is not available, it may be added.</p>
 <p>However ensure that there does not already exist an appropriate alternative. For example Internal energy and enthalpy both have units of [J]. There only exists an &quot;Energy&quot; package as the unit is the same between them.</p>

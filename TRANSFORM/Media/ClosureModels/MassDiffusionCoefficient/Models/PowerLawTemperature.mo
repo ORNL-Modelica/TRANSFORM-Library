@@ -1,30 +1,22 @@
 within TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models;
 model PowerLawTemperature "Power Law Temperature y = A*T^n"
-
   extends PartialMassDiffusionCoefficient;
-
   parameter Boolean use_RecordData=false "=true then use predefined data";
-
   parameter Integer iTable[nC]=fill(1, nC)
     "Index of pre-defined values in data table: See Info page."
     annotation (Dialog(enable=use_RecordData));
-
   parameter SI.DiffusionCoefficient D_ab0=0 "Pre-exponential factor"
     annotation (Dialog(enable=not use_RecordData));
   parameter SI.DiffusionCoefficient D_abs0[nC]=fill(D_ab0, nC)
     "if non-uniform then set" annotation (Dialog(enable=not use_RecordData));
-
   parameter SI.MolarEnergy n=0 "Activation energy"
     annotation (Dialog(enable=not use_RecordData));
   parameter SI.MolarEnergy ns[nC]=fill(n, nC) "if non-uniform then set"
     annotation (Dialog(enable=not use_RecordData));
-
   TRANSFORM.Blocks.DataTable data(table=[6.4854e-26,5.7227])
     "Col 1 = D_ab0; Col 2 = n"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
 equation
-
   if use_RecordData then
     for i in 1:nC loop
       D_abs[i] = data.table[iTable[i], 1]*T^data.table[iTable[i], 2];
@@ -34,7 +26,6 @@ equation
       D_abs[i] = D_abs0[i]*T^ns[i];
     end for;
   end if;
-
   annotation (defaultComponentName = "massDiffusionCoeff",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

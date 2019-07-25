@@ -4,7 +4,6 @@ record RankineNominalValues
   replaceable package Medium =
       Modelica.Media.Water.WaterIF97_ph
     annotation (__Dymola_choicesAllMatching=true);
-
   // Pressure
   parameter Modelica.SIunits.Pressure p_nom_turbine_HP_stage1_feed=70e5
     "Nominal turbine HP feed pressure" annotation(Evaluate=true,Dialog(group="Pressure"));
@@ -14,13 +13,10 @@ record RankineNominalValues
     "Nominal turbine HP feed pressure" annotation(Evaluate=true,Dialog(group="Pressure"));
   parameter Modelica.SIunits.Pressure p_nom_turbine_HP_stage2_drain=13e5
     "Nominal turbine HP drain pressure" annotation(Evaluate=true,Dialog(group="Pressure"));
-
   parameter Modelica.SIunits.Pressure p_nom_turbine_LP_stage1_feed=12e5
     "Nominal turbine LP feed pressure" annotation(Evaluate=true,Dialog(group="Pressure"));
-
   parameter Modelica.SIunits.Pressure p_nom_turbine_LP_stage1_drain=7e5
     "Nominal turbine LP drain pressure" annotation(Evaluate=true,Dialog(group="Pressure"));
-
   parameter Modelica.SIunits.Pressure p_nom_turbine_LP_stage2_drain=2e5
     "Nominal turbine LP drain pressure" annotation(Evaluate=true,Dialog(group="Pressure"));
   parameter Modelica.SIunits.Pressure p_nom_condenser=0.033e5
@@ -39,7 +35,6 @@ record RankineNominalValues
     "Nominal HP preheater cooling outlet pressure" annotation(Evaluate=true,Dialog(group="Pressure"));
   parameter Modelica.SIunits.Pressure p_nom_to_SG_drain=72e5
     "Nominal drain to steam generator pressure" annotation(Evaluate=true,Dialog(group="Pressure"));
-
   // Temperature
   parameter Modelica.SIunits.Temperature T_nom_turbine_HP_stage1_feed= 580+273.15
     "Nominal turbine HP feed temperature" annotation(Evaluate=true,Dialog(group="Temperature"));
@@ -53,7 +48,6 @@ record RankineNominalValues
     "Nominal turbine LP drain temperature" annotation(Evaluate=true,Dialog(group="Temperature"));
   parameter Modelica.SIunits.Temperature T_nom_preheater_HP_cooling_out=256+273.15
     "Nominal HP preheater cooling temperrature" annotation(Evaluate=true,Dialog(group="Temperature"));
-
   // Mass-flow
   parameter Modelica.SIunits.MassFlowRate m_flow_nom_turbine_HP_stage1=290*0.78*3
     "Nominal turbine HP mass flow rate" annotation(Evaluate=true,Dialog(group="Flow"));

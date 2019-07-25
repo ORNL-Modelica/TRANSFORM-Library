@@ -1,6 +1,5 @@
 within TRANSFORM.Examples.Interfaces;
 expandable connector SignalBus "Icon for signal bus"
-
   annotation (defaultComponentName="sensorBus",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}, initialScale=0.2), graphics={
           Rectangle(

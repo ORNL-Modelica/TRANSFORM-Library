@@ -1,10 +1,7 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model ExpansionTank2_Test
-
   extends TRANSFORM.Icons.Example;
-
   package Medium = Modelica.Media.Water.StandardWater(extraPropertiesNames={"CO2"}, C_nominal={1.519E-1});
-
   ExpansionTank_1Port
                 expansionTank(
     A=1,

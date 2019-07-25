@@ -1,10 +1,7 @@
 within TRANSFORM.Controls;
 block PI_Control "Proportional-Integral controller: y = yb + Kc*e + Kc/Ti*integral(e)"
-
   import Modelica.Blocks.Types.Init;
-
   extends Modelica.Blocks.Interfaces.SVcontrol;
-
   parameter Real k(unit="1") = 1 "Error Gain";
   parameter SI.Time Ti(
     start=1,
@@ -17,18 +14,14 @@ block PI_Control "Proportional-Integral controller: y = yb + Kc*e + Kc/Ti*integr
   parameter Real k_m=1 "Scaling factor for measurement: k_m*u_m";
   parameter Boolean directActing=true "=false reverse acting"
     annotation (Evaluate=true);
-
   parameter Real x_start=0 "Initial or guess value of error integral (state)"
     annotation (Dialog(group="Initialization"));
   parameter Real y_start=0 "Initial value of output" annotation (Dialog(enable=
           initType == Init.SteadyState or initType == Init.InitialOutput, group=
          "Initialization"));
-
   Real x(start=x_start) "Error integral (state)";
-
   Real Kc=k*(if directActing then +1 else -1);
   Real e=k_s*u_s - k_m*u_m;
-
 initial equation
   if initType == Init.SteadyState then
     der(x) = 0;
@@ -37,7 +30,6 @@ initial equation
   elseif initType == Init.InitialOutput then
     y = y_start;
   end if;
-
 equation
   der(x) = e;
   y = yb + Kc*e + Kc/Ti*x;

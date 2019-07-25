@@ -1,29 +1,23 @@
 within TRANSFORM.Examples.SodiumFastReactor;
 model SFR
-
   extends BaseClasses.Partial_SubSystem(
     redeclare replaceable CS_Default CS,
     redeclare replaceable ED_Default ED,
     redeclare Data.SFR_PHS data);
-
   package Medium_PHTS =
       TRANSFORM.Media.Fluids.Sodium.ConstantPropertyLiquidSodium
     "Primary heat system medium" annotation (Dialog(enable=false));
-
   package Medium_IHTS =
       TRANSFORM.Media.Fluids.Sodium.ConstantPropertyLiquidSodium
     "Primary heat system medium" annotation (Dialog(enable=false));
-
   package Medium_DRACS =
       TRANSFORM.Media.Fluids.Sodium.ConstantPropertyLiquidSodium
     "Primary heat system medium" annotation (Dialog(enable=false));
-
   SI.HeatFlowRate Q_total_shell=sum(IHX.shell.heatTransfer.Q_flows);
   SI.HeatFlowRate Q_total_tube=sum(IHX.tube.heatTransfer.Q_flows);
   SI.Temperature T_up = upperPlenum.medium.T;
   SI.Temperature T_lpo = lowerPlenum_outer.medium.T;
   SI.Temperature T_lp = lowerPlenum.medium.T;
-
   Nuclear.CoreSubchannels.Regions_2    outerCore(
     nParallel=data.nOuterCore,
     redeclare package Material_1 = Media.Solids.UO2,
@@ -366,7 +360,6 @@ model SFR
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={72,2})));
-
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
     minY1=min({data.T_IHX_inletIHTS,data.T_IHX_inletPHTS,data.T_IHX_inletIHTS,
         data.T_IHX_oultetPHTS}),
@@ -399,7 +392,6 @@ model SFR
     T=data.T_start_cold,
     p=data.p_start + 0.75e5,
     nPorts=1) annotation (Placement(transformation(extent={{34,54},{26,62}})));
-
   Fluid.FittingsAndResistances.SpecifiedResistance resistance_toExpTank(
       redeclare package Medium = Medium_PHTS, R=1/data.m_flow_PHTS)
     annotation (Placement(transformation(
@@ -421,7 +413,6 @@ model SFR
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={30,-98})));
-
   Fluid.Machines.Pump_SimpleMassFlow
                       pump_SimpleMassFlow
                           [3](
@@ -431,7 +422,6 @@ model SFR
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={30,-18})));
-
   Fluid.Volumes.MixingVolume lowerPlenum(
     nPorts_a=3,
     redeclare package Medium = Medium_PHTS,
@@ -444,7 +434,6 @@ model SFR
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-20,-128})));
-
   Fluid.FittingsAndResistances.SpecifiedResistance resistances[4](redeclare
       package Medium = Medium_PHTS, R={2e5/
         data.m_flow_shield,2e5/data.m_flow_reflector,1/data.m_flow_outer,1/data.m_flow_inner})
@@ -475,19 +464,16 @@ model SFR
       surfaceArea={vessel.geometry.crossAreas_1[1, 1],vessel.geometry.crossAreas_1
         [1, 2]}, alpha={1000,100})
     annotation (Placement(transformation(extent={{82,-118},{102,-98}})));
-
   Fluid.FittingsAndResistances.SpecifiedResistance resistance_toExpTank1(
       redeclare package Medium = Medium_PHTS, R=1e6)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={10,58})));
-
   Components.IHTS5_AHX3
                    IHTS[3](
     redeclare package Medium = Medium_IHTS)
     annotation (Placement(transformation(extent={{100,-20},{160,40}})));
-
   HeatExchangers.GenericDistributed_HX    DRACSHX[3](
     redeclare package Medium_shell = Medium_PHTS,
     redeclare package Material_tubeWall = Media.Solids.SS304,
@@ -526,14 +512,12 @@ model SFR
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-84,2})));
-
   Fluid.Machines.Pump_SimpleMassFlow               resistance_toDRACS[3](
       redeclare package Medium = Medium_PHTS, m_flow_nominal=data.m_flow_DRACS)
     annotation (Placement(transformation(extent={{-50,16},{-70,36}})));
   Components.DRACS_ADHX5 DRACS[3](redeclare package Medium = Medium_DRACS)
     annotation (Placement(transformation(extent={{-100,-20},{-160,40}})));
 equation
-
   connect(upperPlenum.heatPort, convection[2].port_a) annotation (Line(points={{-14,18},
           {53,18},{53,-108},{85,-108}},           color={191,0,0}));
   connect(shield.port_b, upperPlenum.port_a[1]) annotation (Line(points={{-60,-44},

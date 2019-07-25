@@ -1,9 +1,7 @@
 within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D;
 model SinglePhase_Developed_2Region_NumStable
   "Single Phase | Fully Developed | 2 Region - Laminar & Turbulent | Numerically Stable Method"
-
   extends PartialSinglePhase;
-
   TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.LaminarTurbulent_MSLDetailed.dp_IN_con[
     nFM] IN_con(
     length=dlengths,
@@ -15,7 +13,6 @@ model SinglePhase_Developed_2Region_NumStable
     roughness_b=roughnesses[2:nFM + 1],
     each Re_turbulent=Re_turb)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-
   TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.LaminarTurbulent_MSLDetailed.dp_IN_var[
     nFM] IN_var(
     rho_a=ds_a,
@@ -23,7 +20,6 @@ model SinglePhase_Developed_2Region_NumStable
     mu_a=mus_a,
     mu_b=mus_b)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-
   // Parameters
   parameter SI.AbsolutePressure dp_nominal(start=1, fixed=false)
     "Nominal pressure loss (only for nominal models)" annotation (Dialog(tab="Advanced", group="Nominal Conditions", enable=false));
@@ -42,7 +38,6 @@ model SinglePhase_Developed_2Region_NumStable
       tab="Advanced",
       group="Nominal Conditions",
       enable=use_d_nominal));
-
   parameter Boolean use_mu_nominal=false
     "= true, if mu_nominal is used, otherwise computed from medium" annotation (
      Dialog(tab="Advanced", group="Nominal Conditions"), Evaluate=true);
@@ -56,12 +51,10 @@ model SinglePhase_Developed_2Region_NumStable
       tab="Advanced",
       group="Nominal Conditions",
       enable=use_mu_nominal));
-
   parameter Boolean continuousFlowReversal=if use_d_nominal and use_mu_nominal
        then true else false
     "= true if the pressure loss is continuous around zero flow" annotation (
       Dialog(tab="Advanced", group="Nominal Conditions"), Evaluate=true);
-
   SI.DynamicViscosity mus[nFM];
   SI.DynamicViscosity mus_a[nFM]=if use_mu_nominal then fill(mu_nominal, nFM)
        else mediaProps[1:nFM].mu;
@@ -72,7 +65,6 @@ model SinglePhase_Developed_2Region_NumStable
       mediaProps[1:nFM].d;
   SI.Density ds_b[nFM]=if use_d_nominal then fill(d_nominal, nFM) else
       mediaProps[2:nFM + 1].d;
-
 protected
   TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.LaminarTurbulent_MSLDetailed.dp_IN_var
     IN_var_nominal(
@@ -80,19 +72,15 @@ protected
     rho_b=d_nominal,
     mu_a=mu_nominal,
     mu_b=mu_nominal);
-
   SI.AbsolutePressure dp_fric_nominal=sum(
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.LaminarTurbulent_MSLDetailed.dp_DP(
       IN_con,
       IN_var_nominal,
       m_flow_nominal,
       m_flow_small)) "pressure loss for nominal conditions";
-
 initial equation
   dp_nominal = dp_fric_nominal + g_n*sum(dheights)*d_nominal;
-
 equation
-
   for i in 1:nFM loop
     ds[i] = TRANSFORM.Math.spliceTanh(
       ds_a[i],
@@ -105,10 +93,8 @@ equation
       m_flows[i],
       m_flow_small);
   end for;
-
   if continuousFlowReversal then
     // simple regularization
-
     if from_dp then
       // and not dp_is_zero then
       m_flows =homotopy(actual=
@@ -129,7 +115,6 @@ equation
     end if;
   else
     // regularization for discontinuous flow reversal and static head
-
     if from_dp then
       // and not dp_is_zero then
       m_flows =homotopy(actual=
@@ -151,7 +136,6 @@ equation
         dheights*d_nominal);
     end if;
   end if;
-
     annotation (Dialog(tab="Advanced", group="Nominal Conditions",enable=false),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

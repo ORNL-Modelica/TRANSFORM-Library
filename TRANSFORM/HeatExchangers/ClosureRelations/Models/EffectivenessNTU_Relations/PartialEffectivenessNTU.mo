@@ -1,6 +1,5 @@
 within TRANSFORM.HeatExchangers.ClosureRelations.Models.EffectivenessNTU_Relations;
 partial model PartialEffectivenessNTU
-
   input SI.ThermalConductance C_1 "Heat capacity rate"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.ThermalConductance C_2 "Heat capacity rate"
@@ -15,16 +14,12 @@ partial model PartialEffectivenessNTU
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   parameter Boolean inputNTU=true "=true for u=NTU else u=epsilon"
     annotation (Dialog(tab="Internal Interface"));
-
   SIadd.NonDim epsilon "Effectiveness";
   SIadd.NonDim NTU "Number of transfer units";
-
   SIadd.NonDim y(start=y_start);
-
   parameter SIadd.NonDim y_start=1
     "Initial value for non-input (i.e., if u=NTU than y=epsilon"
     annotation (Dialog(tab="Initialization"));
-
 equation
   if inputNTU then
     u = NTU;
@@ -33,7 +28,6 @@ equation
     u = epsilon;
     y = NTU;
   end if;
-
   annotation (
     defaultComponentName="effectivenessNTU",
     Icon(coordinateSystem(preserveAspectRatio=false)),

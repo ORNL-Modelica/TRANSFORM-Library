@@ -1,9 +1,7 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components;
 partial model PartialBOPSystem " Plant"
-
   package WaterMedium =
       Modelica.Media.Water.StandardWater;
-
   Control.ControlSystem controlSystem
     annotation (Placement(transformation(extent={{54,-96},{74,-76}})));
   Records.NominalData data
@@ -23,14 +21,11 @@ partial model PartialBOPSystem " Plant"
     SG_3(redeclare package Medium = WaterMedium) constrainedby
     TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.PartialSteamGenerator
     annotation (Placement(transformation(extent={{-88,-86},{-58,-52}})));
-
   // above here needs to be visited
-
   Real total_Q_MW;
   Modelica.SIunits.HeatFlowRate total_Q=total_Q_MW*1e6;
   Real netEfficiency=steamCycle.generator.power
       /max(sum(total_Q),1e-6)*100;
-
   TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Rankine steamCycle(
       redeclare package Medium = WaterMedium)
     annotation (Placement(transformation(extent={{-8,-56},{68,-12}})));
@@ -101,7 +96,6 @@ partial model PartialBOPSystem " Plant"
         steamCycle.MSR.summary.T_main_steam_out - 273.15)
     annotation (Placement(transformation(extent={{-150,76},{-130,96}})));
 equation
-
   connect(steamCycle.controlBus, controlSystem.controlBus_Rankine) annotation (
       Line(
       points={{27.7545,-52.8571},{27.7545,-83.6471},{54,-83.6471}},
@@ -143,12 +137,10 @@ equation
       points={{-58,-79.8182},{-16,-79.8182},{-16,-51.2857},{-7.82727,-51.2857}},
       color={0,127,255},
       thickness=0.5));
-
   connect(SG_2.port_feedWater, steamCycle.drain_to_SG2) annotation (Line(
       points={{-58,-37.8182},{-34,-37.8182},{-34,-43.4286},{-7.82727,-43.4286}},
       color={0,127,255},
       thickness=0.5));
-
   connect(SG_1.port_feedWater, steamCycle.drain_to_SG1) annotation (Line(
       points={{-58,8.18182},{-46,8.18182},{-46,8},{-20,8},{-20,-35.5714},{
           -7.82727,-35.5714}},

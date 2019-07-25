@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Machines;
 model Pump "Centrifugal pump with ideally controlled speed"
   extends TRANSFORM.Fluid.Machines.BaseClasses.PartialPump;
-
   parameter String controlType="RPM" annotation (Dialog(group="Inputs Control Setting"), choices(
       choice="RPM",
       choice="m_flow",
@@ -9,7 +8,6 @@ model Pump "Centrifugal pump with ideally controlled speed"
       choice="dp"));
   parameter Boolean use_port=false "=true to toggle port for control signal"
     annotation (Dialog(group="Inputs Control Setting"));
-
   input SI.Conversions.NonSIunits.AngularVelocity_rpm N_input=N_nominal "Set rotational speed"
     annotation (Dialog(group="Inputs Control Setting", enable=if controlType == "RPM" and use_port == false
            then true else false));
@@ -19,7 +17,6 @@ model Pump "Centrifugal pump with ideally controlled speed"
         enable=if controlType == "pressure" and use_port == false then true else false));
   input SI.PressureDifference dp_input=dp_nominal "Set pressure rise" annotation (Dialog(group="Inputs Control Setting",
         enable=if controlType == "dp" and use_port == false then true else false));
-
   Modelica.Blocks.Interfaces.RealInput inputSignal if  use_port annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
@@ -27,17 +24,13 @@ model Pump "Centrifugal pump with ideally controlled speed"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,70})));
-
 protected
   Modelica.Blocks.Interfaces.RealInput inputSignal_int;
-
 equation
-
   connect(inputSignal_int, inputSignal);
   if not use_port then
     inputSignal_int = 0;
   end if;
-
   if use_port then
     if controlType == "RPM" then
       N = max(inputSignal_int, 1e-3);

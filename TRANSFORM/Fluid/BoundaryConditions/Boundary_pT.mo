@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.BoundaryConditions;
 model Boundary_pT
   "Boundary with prescribed pressure, temperature, composition and trace substances"
   import Modelica.Media.Interfaces.Choices.IndependentVariables;
-
   extends BaseClasses.PartialSource;
   parameter Boolean use_p_in = false
     "Get the pressure from the input connector"

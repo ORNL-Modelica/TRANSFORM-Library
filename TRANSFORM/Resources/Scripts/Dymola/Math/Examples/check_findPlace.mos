@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Math.Examples.check_findPlace",resultFile="check_findPlace");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.SinglePhase.LiquidMetal.CircularTube;
 model SebanShimazaki
   "Seban-Shimazaki: Liquid metal correlation for flow in circular tubes and uniform wall temperature"
-
   /* source: 
   M. M. Wakil
   Nuclear Heat Transport 1993
@@ -12,10 +11,8 @@ model SebanShimazaki
   - flow in circular tubes
   - uniform wall temperature
   */
-
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
-
     Real[nHT] Pes "Peclet Number";
 equation
   Pes = TRANSFORM.Utilities.CharacteristicNumbers.PecletNumber(Res, Prs);

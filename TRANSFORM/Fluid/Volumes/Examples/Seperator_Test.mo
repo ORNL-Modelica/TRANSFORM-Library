@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model Seperator_Test
-
   extends TRANSFORM.Icons.Example;
-
   Separator volume(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     redeclare model Geometry =

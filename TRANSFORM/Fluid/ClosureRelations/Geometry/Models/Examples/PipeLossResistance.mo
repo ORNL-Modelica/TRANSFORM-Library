@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.Examples;
 model PipeLossResistance
-
   extends TRANSFORM.Icons.Example;
-
   ClosureRelations.Geometry.Models.PipeLossResistance.Generic generic
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   ClosureRelations.Geometry.Models.PipeLossResistance.Circle circle

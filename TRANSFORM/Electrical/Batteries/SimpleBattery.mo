@@ -1,22 +1,18 @@
 within TRANSFORM.Electrical.Batteries;
 model SimpleBattery "Simple battery based on block controller logic"
-
   parameter TRANSFORM.Units.NonDim capacityFrac_start=1.0
     "Initial capacity as a fraction of usable capacity (capacity_max-capacity_min)"
     annotation (Dialog(tab="Initialization"));
-
   parameter SI.Conversions.NonSIunits.Energy_Wh capacity_max=100e6
     "Maximum storage capacity";
   parameter SI.Conversions.NonSIunits.Energy_Wh capacity_min=0
     "Minimum storage capacity";
-
   parameter SI.Power chargePower_max=Modelica.Constants.inf
     "Maximum charge power";
   parameter SI.Power chargePower_min=0 "Minimum charge power";
   parameter SI.Power dischargePower_max=Modelica.Constants.inf
     "Maximum discharge power";
   parameter SI.Power dischargePower_min=0 "Minimum discharge power";
-
   final parameter SI.Conversions.NonSIunits.Energy_Wh capacity_usable=
       capacity_max - capacity_min "Maximum usable capacity";
   final parameter SI.Energy E_start=SI.Conversions.from_Wh(capacity_usable)*
@@ -25,17 +21,13 @@ model SimpleBattery "Simple battery based on block controller logic"
     "Maximum storable energy";
   final parameter SI.Energy E_min=SI.Conversions.from_Wh(capacity_min)
     "Minimum storable energy";
-
   SI.Energy E "Total energy stored";
-
   SI.Power W "Charge/discharge power";
   SI.Frequency f "Electrical frequency";
-
   Modelica.Blocks.Interfaces.RealInput W_setpoint(unit="W")
     "Demanded power input/output" annotation (Placement(transformation(extent={{
             -126,-18},{-90,18}}, rotation=0), iconTransformation(extent={{-126,-18},
             {-90,18}})));
-
   Modelica.Blocks.Logical.GreaterThreshold greaterThreshold
     annotation (Placement(transformation(extent={{-66,-6},{-54,6}})));
   Modelica.Blocks.Logical.Switch W_limited(y(unit="W"))
@@ -71,7 +63,6 @@ model SimpleBattery "Simple battery based on block controller logic"
     annotation (Placement(transformation(extent={{0,-60},{10,-50}})));
   Modelica.Blocks.Sources.Constant discharge_max(k=-dischargePower_max)
     annotation (Placement(transformation(extent={{-40,-44},{-30,-34}})));
-
 public
   Modelica.Blocks.Continuous.LimIntegrator E_total(
     outMax=E_max,
@@ -82,13 +73,10 @@ public
   TRANSFORM.Electrical.Interfaces.ElectricalPowerPort_Flow port
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
 equation
-
   E = E_total.y;
   der(E) = W;
-
   f = port.f;
   W=port.W;
-
   connect(W_setpoint, greaterThreshold.u)
     annotation (Line(points={{-108,0},{-88,0},{-67.2,0}}, color={0,0,127}));
   connect(greaterThreshold.y, W_limited.u2) annotation (Line(points={{-53.4,0},{
@@ -115,7 +103,6 @@ equation
           {12,-55},{12,-44.8},{18.8,-44.8}}, color={0,0,127}));
   connect(discharge_max.y, discharge_max_switch.u3) annotation (Line(points={{-29.5,
           -39},{-24,-39},{-24,-24.8},{-17.2,-24.8}}, color={0,0,127}));
-
   connect(discharge_max_less.u, discharge_min_greater.u) annotation (Line(
         points={{-41.2,-20},{-60,-20},{-60,-60},{-41.2,-60}}, color={0,0,127}));
   connect(discharge_max_switch.u1, greaterThreshold.u) annotation (Line(points={

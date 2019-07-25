@@ -1,12 +1,9 @@
 within TRANSFORM.Media.Fluids.NaClKClMgCl2;
 package LinearNaClKClMgCl2_30_20_50_pT "NaClKClMgCl2 | NaCl-KCl-MgCl2 30%-20%-50% | Linear compressibility"
-
   import elem = TRANSFORM.PeriodicTable.Elements;
-
 // beta_const adjusted till density matched. kappa left alone
 // references are based on 800K
 // assumed specific enthalpy at 273.15 is zero
-
 extends TRANSFORM.Media.Interfaces.Fluids.PartialLinearFluid(
   mediumName="Linear NaClKClMgCl2",
   constantJacobian=false,
@@ -23,7 +20,6 @@ extends TRANSFORM.Media.Interfaces.Fluids.PartialLinearFluid(
   T_default=800);
 
 redeclare function extends dynamicViscosity "Dynamic viscosity"
-
 algorithm
   eta :=Utilities_30_20_50.eta_T(state.T);
   annotation(Inline=true);

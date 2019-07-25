@@ -1,14 +1,11 @@
 within TRANSFORM.Blocks;
 block DataTable_Inputs
   "Generate a Real table of potentially time dependent values"
-
   extends Modelica.Blocks.Icons.Block;
-
   input Real table[:, :]=fill(
         0,
         0,
         2) "Table matrix for Real parameters" annotation(Dialog(group="Inputs"));
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={               Text(
@@ -47,5 +44,4 @@ block DataTable_Inputs
             1.5, 5;
               2, 6];</pre>
 </html>"));
-
 end DataTable_Inputs;

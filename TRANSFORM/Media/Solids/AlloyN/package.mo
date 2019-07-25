@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids;
 package AlloyN "AlloyN: Material properties for Alloy-N (R)"
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="alloyN",
     T_min=Modelica.SIunits.Conversions.from_degC(0),

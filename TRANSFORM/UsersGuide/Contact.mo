@@ -1,7 +1,6 @@
 within TRANSFORM.UsersGuide;
 class Contact "Contact"
   extends Modelica.Icons.Contact;
-
  annotation (Documentation(info="<html>
 <p>The development of this TRANFORM package is organized by:</p>
 <dd>Scott Greenwood</dd>
@@ -12,5 +11,4 @@ class Contact "Contact"
 <dd>email: greenwoodms@ornl.gov</dd>
 <dd>&nbsp;&nbsp;</dd>
 </html>"));
-
 end Contact;

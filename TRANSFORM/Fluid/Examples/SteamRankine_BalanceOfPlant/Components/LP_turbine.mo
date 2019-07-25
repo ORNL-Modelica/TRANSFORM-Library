@@ -7,11 +7,9 @@ model LP_turbine
     annotation (__Dymola_choicesAllMatching=true);
   parameter Integer N_drain_stage1r=0 "Number of drain_stage1r ports" annotation(Dialog(connectorSizing=true));
   parameter Integer N_drain_stage2r=0 "Number of drain_stage2r ports" annotation(Dialog(connectorSizing=true));
-
   parameter Records.RankineNominalValues nominalData "Nominal data"
     annotation (Dialog(group="Nominal operating data"), Placement(
         transformation(extent={{40,73},{60,94}})));
-
   Machines.SteamTurbine stage1(
     eta_mech=eta_mech,
     redeclare model Eta_wetSteam =
@@ -89,7 +87,6 @@ redeclare model Geometry =
     T_start=initData.T_start_turbine_IP_drain,
     use_HeatPort=true)
     annotation (Placement(transformation(extent={{-29,-26},{-17,-14}})));
-
   Volumes.MixingVolume                 vol_turbine2(
     nPorts_b=2,
     nPorts_a=1,
@@ -101,7 +98,6 @@ redeclare model Geometry =
     T_start=initData.T_start_turbine_LP_drain,
     use_HeatPort=true)
     annotation (Placement(transformation(extent={{18,-26},{30,-14}})));
-
   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft_a annotation (
       Placement(transformation(rotation=0, extent={{-128,-10},{-108,10}}),
         iconTransformation(extent={{-128,-10},{-108,10}})));
@@ -146,7 +142,6 @@ redeclare model Geometry =
     T_start_turbine_LP_feed=nominalData.T_nom_turbine_LP_stage1_feed)
     "Initialization data" annotation (Dialog(group="Initialization"),
       Placement(transformation(extent={{66,74},{86,94}})));
-
   HeatAndMassTransfer.Volumes.UnitVolume unitVolume1(
     V=1,
     cp=500,

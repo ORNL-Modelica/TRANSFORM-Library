@@ -1,7 +1,5 @@
 within TRANSFORM.Media.Solids;
 package FiberGlassGeneric "Fiber Glass: Generic"
-
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="FiberGlassGeneric",
     T_min=Modelica.SIunits.Conversions.from_degC(0),

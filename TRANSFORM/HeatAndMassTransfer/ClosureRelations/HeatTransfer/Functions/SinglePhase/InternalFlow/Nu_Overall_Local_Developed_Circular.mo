@@ -1,6 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow;
 function Nu_Overall_Local_Developed_Circular
-
   input SI.ReynoldsNumber Re "Reynolds Number";
   input SI.PrandtlNumber Pr "Prandtl Number";
   input SI.Length x "Position of local heat transfer calculation";
@@ -9,15 +8,11 @@ function Nu_Overall_Local_Developed_Circular
   input SI.Height roughness=2.5e-5 "Average height of surface asperities";
   input Boolean constantTwall=true
     "= true for constant wall temperature correlation else constant heat flux (laminar conditions only Re ~< 2300)";
-
   output SI.NusseltNumber Nu "Nusselt number";
-
 protected
   SI.NusseltNumber Nu_lam "Laminar Nusselt number";
   SI.NusseltNumber Nu_turb "Turbulent Nusselt number";
-
 algorithm
-
   Nu_lam := Nu_Laminar_Local_Developed_Circular(
     Re,
     Pr,
@@ -30,14 +25,12 @@ algorithm
     x,
     dimension,
     roughness);
-
   // Transition region from 2300 < Re < 1e4 with center at 6150
   Nu := TRANSFORM.Math.spliceTanh(
     Nu_turb,
     Nu_lam,
     Re - 6150,
     3850);
-
   annotation (Documentation(info="<html>
 <p>Local heat transfer model for fully developed laminar and turbulent flow in circular pipes.</p>
 <ul>

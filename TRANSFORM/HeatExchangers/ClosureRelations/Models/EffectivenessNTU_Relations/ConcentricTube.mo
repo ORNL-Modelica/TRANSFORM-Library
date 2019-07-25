@@ -1,12 +1,8 @@
 within TRANSFORM.HeatExchangers.ClosureRelations.Models.EffectivenessNTU_Relations;
 model ConcentricTube "Concentric tube"
-
   extends PartialMethod;
-
   parameter Boolean counterflow=false "=true for parallel flow";
-
 equation
-
   if epsilonMethod then
     if not counterflow then
       method = (1 - exp(-NTU*(1 + C_r)))/(1 + C_r);
@@ -22,7 +18,6 @@ equation
         C_r - 1)) else epsilon/(1 - epsilon));
     end if;
   end if;
-
   annotation (defaultComponentName="effectivenessNTU",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

@@ -1,8 +1,6 @@
 within TRANSFORM.Examples.Templates.System_Standalone.Data;
 record Data_Dummy
-
   extends BaseClasses.Record_Data;
-
   annotation (
     defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(

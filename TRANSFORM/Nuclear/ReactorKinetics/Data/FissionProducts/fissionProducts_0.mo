@@ -1,6 +1,5 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts;
 record fissionProducts_0 "Choose to define no fission products"
-
   extends PartialFissionProduct(
     extraPropertiesNames=fill("", 0),
     fissionSourceNames=fill("", 0),
@@ -19,7 +18,6 @@ record fissionProducts_0 "Choose to define no fission products"
         0,
         nC,
         nC));
-
   annotation (
     defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false)),

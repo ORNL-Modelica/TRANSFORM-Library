@@ -1,11 +1,8 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions;
 model Adiabatic_FD "Adiabatic boundary condition for finite difference methods"
-
   parameter Integer nNodes(min=2);
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b[nNodes] port annotation (
       Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
-
 equation
   for i in 1:nNodes loop
     port[i].Q_flow = 0;

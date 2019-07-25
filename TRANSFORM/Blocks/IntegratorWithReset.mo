@@ -1,9 +1,7 @@
 within TRANSFORM.Blocks;
 block IntegratorWithReset "Output the integral of the input signal"
   extends Modelica.Blocks.Interfaces.SISO(y(start=y_start));
-
   parameter Real k(unit="1")=1 "Integrator gain";
-
   /* InitialState is the default, because it was the default in Modelica 2.2
      and therefore this setting is backward compatible
   */
@@ -11,25 +9,20 @@ block IntegratorWithReset "Output the integral of the input signal"
     "Type of initialization (1: no init, 2: steady state, 3,4: initial output)"
     annotation(Evaluate=true,
       Dialog(group="Initialization"));
-
   parameter Real y_start=0 "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
-
   parameter TRANSFORM.Types.Reset reset = TRANSFORM.Types.Reset.Disabled
     "Type of integrator reset";
-
   parameter Real y_reset = 0
     "Value to which integrator is reset, used if reset = TRANSFORM.Types.Reset.Parameter"
     annotation(Evaluate=true,
                Dialog(
                  enable=reset == TRANSFORM.Types.Reset.Parameter,
                  group="Integrator reset"));
-
   Modelica.Blocks.Interfaces.RealInput y_reset_in if
        reset == TRANSFORM.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = TRANSFORM.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-
   Modelica.Blocks.Interfaces.BooleanInput trigger if
        reset <> TRANSFORM.Types.Reset.Disabled
     "Resets the integrator output when trigger becomes true"
@@ -42,10 +35,8 @@ protected
   Modelica.Blocks.Interfaces.RealInput y_reset_internal
    "Internal connector for integrator reset"
    annotation(Evaluate=true);
-
   Modelica.Blocks.Interfaces.BooleanInput trigger_internal
     "Needed to use conditional connector trigger";
-
 initial equation
   if initType == Modelica.Blocks.Types.Init.SteadyState then
      der(y) = 0;
@@ -53,18 +44,14 @@ initial equation
          initType == Modelica.Blocks.Types.Init.InitialOutput then
     y = y_start;
   end if;
-
 equation
   der(y) = k*u;
-
   // Equations for integrator reset
   connect(trigger, trigger_internal);
   connect(y_reset_in, y_reset_internal);
-
   if reset <> TRANSFORM.Types.Reset.Input then
     y_reset_internal = y_reset;
   end if;
-
   if reset == TRANSFORM.Types.Reset.Disabled then
     trigger_internal = false;
   else
@@ -72,7 +59,6 @@ equation
       reinit(y, y_reset_internal);
     end when;
   end if;
-
   annotation (
 defaultComponentName="intWitRes",
     Documentation(info="<html>

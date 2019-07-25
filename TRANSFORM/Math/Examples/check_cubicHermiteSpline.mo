@@ -13,7 +13,6 @@ model check_cubicHermiteSpline "Test problem for cubic hermite splines"
   Real yMonotone "Dependent variable with monotone interpolation";
   Real y_noLinExtrap "Dependent variable without monotone interpolation nor linear extrapolation";
   Real yMonotone_noLinExtrap "Dependent variable with monotone interpolation nor linear extrapolation";
-
   Integer i "Integer to select data interval";
   Utilities.ErrorAnalysis.UnitTests unitTests(n=4, x={y,yMonotone,y_noLinExtrap,yMonotone_noLinExtrap})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
@@ -36,7 +35,6 @@ algorithm
     end if;
   end for;
   // Extrapolate or interpolate the data
-
   y := cubicHermiteSplineLinearExtrapolation(
     x=x,
     x1=xd[i],
@@ -54,7 +52,6 @@ algorithm
     y2=yd[i + 1],
     y1d=dMonotone[i],
     y2d=dMonotone[i + 1]);
-
   y_noLinExtrap := cubicHermiteSpline(
     x=x,
     x1=xd[i],
@@ -63,7 +60,6 @@ algorithm
     y2=yd[i + 1],
     y1d=d[i],
     y2d=d[i + 1]);
-
   yMonotone_noLinExtrap :=
     cubicHermiteSplineLinearExtrapolation(
     x=x,

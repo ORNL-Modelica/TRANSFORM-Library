@@ -1,8 +1,6 @@
 within TRANSFORM.Examples.Templates.System_Category.SubSystem_Specific.BaseClasses;
 expandable connector SignalSubBus_SensorOutput
-
   extends TRANSFORM.Examples.Interfaces.SignalSubBus_SensorOutput;
-
   annotation (defaultComponentName="sensorBus",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

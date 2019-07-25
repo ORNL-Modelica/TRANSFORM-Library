@@ -2,9 +2,7 @@ within TRANSFORM.Examples.SystemOfSubSystems.PHS.Examples;
 model IRIS_Default_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   IRIS PHS annotation (Placement(transformation(extent={{-40,-42},{40,38}})));
-
   Modelica.Fluid.Sources.Boundary_ph sink(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     nPorts=1,

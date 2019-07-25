@@ -1,20 +1,15 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model HeatFlow "Heat flow boundary condition"
-
   parameter Boolean use_port=false "=true then use input port"
   annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
-
   parameter SI.HeatFlowRate Q_flow=0 "Heat flow rate at port"             annotation(Dialog(                        enable=not
           use_port));
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-
   Modelica.Blocks.Interfaces.RealInput Q_flow_ext(unit="W") if use_port  annotation (Placement(transformation(
           extent={{-60,-20},{-20,20}}), iconTransformation(extent={{-60,-20},{
             -20,20}})));
-
 protected
     Modelica.Blocks.Interfaces.RealInput Q_flow_int(unit="W");
-
 public
   Interfaces.HeatPort_Flow port annotation (Placement(transformation(extent={{
             90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
@@ -23,9 +18,7 @@ equation
   if not use_port then
     Q_flow_int = Q_flow;
   end if;
-
   port.Q_flow = - Q_flow_int;
-
   annotation (defaultComponentName="boundary",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={

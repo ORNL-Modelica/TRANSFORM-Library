@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase;
 function fRe2_Laminar_Local_Developed_MultipleShapes
   "f*Re^2 | Laminar | Local | Fully Developed | Specify Shape"
-
   input SI.ReynoldsNumber Re "Reynolds Number";
   input String shape = "Circle" "Geometry shape" annotation(choices(choice= "Circle",choice= "Rectangle",choice= "Ellipse",choice= "Isosceles Triangle"));
   input Units.NonDim ab = 1 "Ratio of major (a)/minor (b) length (only for rectangle and elipse)";
@@ -19,5 +18,4 @@ algorithm
   else
     assert(false,"Shape for friction factor not recognized");
   end if;
-
 end fRe2_Laminar_Local_Developed_MultipleShapes;

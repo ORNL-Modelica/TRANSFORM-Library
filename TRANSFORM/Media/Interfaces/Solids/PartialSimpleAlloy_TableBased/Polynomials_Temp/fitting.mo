@@ -16,7 +16,6 @@ algorithm
   for j in n:-1:1 loop
     V[:, j] := {u[i]*V[i, j + 1] for i in 1:size(u, 1)};
   end for;
-
   // Solve least squares problem
   p := Modelica.Math.Matrices.leastSquares(V, y);
   annotation (Documentation(info="<html>

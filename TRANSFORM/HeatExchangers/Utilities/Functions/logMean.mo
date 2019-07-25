@@ -2,7 +2,6 @@ within TRANSFORM.HeatExchangers.Utilities.Functions;
 function logMean
   "Calculation of the log mean temperature difference for a heat exchanger"
   extends Modelica.Icons.Function;
-
    input Real dTx "Temperature difference 1";
    input Real dTy "Temperature difference 2";
    input Real small_dT =  1.0 "small x or y";

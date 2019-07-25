@@ -1,57 +1,45 @@
 within TRANSFORM.Fluid.Volumes;
 model Pressurizer_withWall
-
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
-
   outer Modelica.Fluid.System system "System properties";
-
   replaceable package Medium = Modelica.Media.Water.StandardWater
     constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium
     "Medium in the component"
      annotation(choicesAllMatching=true);
-
   /* General */
   parameter SI.SpecificHeatCapacity cp_wall "Heat capacity of pressurizer wall";
   parameter SI.Density rho_wall "Density of pressurizer wall";
   parameter SI.Volume V_wall "Volume of pressurizer wall";
-
   replaceable model DrumType =
     TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.PartialDrumType
     "1. Select model 2. Set parameters (Total volume must match V_total)"
     annotation(choicesAllMatching=true, Dialog(group="Geometry"));
-
   /* Constitutive/Closure Models*/
   replaceable model BulkEvaporation =
       TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Evaporation.PartialBulkEvaporation
     "Vapor bubble transport from liquid to vapor phase"
     annotation(choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   replaceable model BulkCondensation =
       TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.PartialBulkCondensation
     "Liquid droplet transport from vapor to liquid phase"
     annotation(choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   replaceable model MassTransfer_VL =
       TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.PartialPhase_m_flow
     "Vapor-liquid interface mass transport coefficient"
     annotation(choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   replaceable model HeatTransfer_VL =
       TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.PartialPhase_alpha
     "Vapor-liquid interface heet transfer coefficient"
     annotation(choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   replaceable model HeatTransfer_WL =
       TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.PartialHeatTransfer
     "Wall-vapor heat transfer coefficient"
     annotation(choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   replaceable model HeatTransfer_WV =
       TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.PartialHeatTransfer
     "Wall-liquid heat transfer coefficient"
     annotation(choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   /* Assumptions */
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal, false restrics to design direction"
@@ -62,7 +50,6 @@ model Pressurizer_withWall
   parameter Types.Dynamics massDynamics=system.massDynamics
     "Formulation of mass balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-
   /* Initialization */
   parameter Real Vfrac_liquid_start=0.5
     "Initial fraction of volume in the liquid phase"
@@ -75,7 +62,6 @@ model Pressurizer_withWall
   parameter SI.SpecificEnthalpy h_vapor_start=Medium.dewEnthalpy(Medium.setSat_p(p_start))
     "Vapour specific enthalpy start value"
     annotation (Dialog(tab="Initialization"));
-
   TRANSFORM.Fluid.Volumes.Pressurizer drum2Phase(
     Vfrac_liquid_start=Vfrac_liquid_start,
     p_start=p_start,
@@ -102,7 +88,6 @@ model Pressurizer_withWall
   Interfaces.FluidPort_State            surgePort(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor Capacitance_wall(C=
         cp_wall*rho_wall*V_wall)
     annotation (Placement(transformation(extent={{50,0},{70,20}})));
@@ -125,7 +110,6 @@ equation
         points={{26,-12},{40,-12},{40,12},{26,12}}, color={191,0,0}));
   connect(Capacitance_wall.port, heatTransfer_wall)
     annotation (Line(points={{60,0},{80,0},{100,0}}, color={191,0,0}));
-
   connect(drum2Phase.vaporHeater, vaporHeater) annotation (Line(points={{-26,12},
           {-44,12},{-60,12},{-60,40},{-100,40}}, color={191,0,0}));
   connect(drum2Phase.liquidHeater, liquidHeater) annotation (Line(points={{-26,-12},

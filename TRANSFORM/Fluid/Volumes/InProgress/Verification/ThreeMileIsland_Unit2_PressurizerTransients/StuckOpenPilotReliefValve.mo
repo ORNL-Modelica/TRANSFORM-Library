@@ -2,14 +2,11 @@ within TRANSFORM.Fluid.Volumes.InProgress.Verification.ThreeMileIsland_Unit2_Pre
 model StuckOpenPilotReliefValve
   "Section 4.1.1 of EPRI 1987 report for Three Mile Island Unit-2 Transient: Stuck open pilot operated relief valve"
   extends Icons.Example;
-
   // Experiment Initial Conditions
   constant SI.Height level_start = 2.65 "Initial liquid level (empty = 0)";
   constant SI.Pressure p_start = SI.Conversions.from_bar(151.3) "Initial pressure";
   constant SI.Temperature T_start = 616 "Initial temperature";
-
   Real p_exp "Experimentally measured pressure in psia";
-
   // Models
   Modelica.Fluid.Sources.MassFlowSource_h spray(nPorts=1, redeclare package
       Medium = Medium)
@@ -43,7 +40,6 @@ model StuckOpenPilotReliefValve
     redeclare model MassTransfer_VL =
         Volumes.ClosureModels.MassTransfer.PhaseInterface.GasKineticTheory)
     annotation (Placement(transformation(extent={{-24,-26},{24,26}})));
-
     //G=2*pi*wall_lambda*0.5*mainTank_height/Modelica.Math.log(mainTank_d_outer/mainTank_d_inner)
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaterVapor
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -80,9 +76,7 @@ model StuckOpenPilotReliefValve
         Units.Conversions.Functions.Pressure_Pa.from_bar)
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 equation
-
  p_exp =TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_psi(data_pressure.y);
-
   connect(insurge.ports[1], pressurizer.surgePort) annotation (Line(points={{-28,-60},
           {-14,-60},{0,-60},{0,-26}},      color={0,127,255}));
   connect(spray.ports[1], pressurizer.sprayPort) annotation (Line(points={{-28,60},

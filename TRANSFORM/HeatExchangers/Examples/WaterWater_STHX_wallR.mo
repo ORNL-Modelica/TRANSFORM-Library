@@ -3,7 +3,6 @@ model WaterWater_STHX_wallR
   "Example of an water and water shell and tube exchanger"
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T tube_inlet(
     m_flow=1,
     T(displayUnit="degC") = 293.15,

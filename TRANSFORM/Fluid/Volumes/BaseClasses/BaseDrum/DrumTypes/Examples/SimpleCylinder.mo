@@ -1,15 +1,11 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.Examples;
 model SimpleCylinder
   import TRANSFORM;
-
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Units.NonDim Vfrac_liquid=variableVfrac_liquid.y;
   parameter SI.Length r_1 = 1;
   parameter SI.Length h_1 = 1;
-
   final parameter SI.Volume V = pi*r_1^2*h_1;
-
   TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.SimpleCylinder traditional_topcap(
     Vfrac_liquid=Vfrac_liquid,
     V_liquid=V*Vfrac_liquid,
@@ -17,7 +13,6 @@ model SimpleCylinder
     r_1=r_1,
     h_1=h_1)
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
-
   Modelica.Blocks.Sources.Sine variableVfrac_liquid(
     freqHz=0.5,
     amplitude=0.9,

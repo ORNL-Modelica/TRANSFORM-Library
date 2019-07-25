@@ -1,62 +1,46 @@
 within TRANSFORM.HeatAndMassTransfer.Volumes;
 model UnitVolume_withMedia
-
   import Modelica.Fluid.Types.Dynamics;
-
   extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
-
   replaceable package Material =
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true);
-
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Dialog(tab="Initialization", group="Dynamics"));
-
   parameter SI.Temperature T_start = 298.15 "Temperature"
     annotation(Dialog(tab = "Initialization",group="Start Value: Temperature"));
-
   parameter SI.Density d_reference=Material.density(Material.setState_T(T_start))
     "Reference density of mass reference for constant volumes"
     annotation (Dialog(tab="Advanced"));
-
   input SI.Volume V "Volume" annotation(Dialog(group="Inputs"));
   input SI.HeatFlowRate Q_gen = 0 "Internal heat generation" annotation(Dialog(group="Inputs"));
-
   SI.InternalEnergy U "Internal energy";
   SI.Mass m "Mass";
   SI.Mass delta_m "Change in mass of constant volume";
-
   Material.BaseProperties material(T(stateSelect=StateSelect.prefer,
         start=T_start));
-
   Interfaces.HeatPort_State port "Heat flow across boundary"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-
 initial equation
   if energyDynamics == Dynamics.SteadyStateInitial then
     der(U) = 0;
   elseif energyDynamics == Dynamics.FixedInitial then
     material.T = T_start;
   end if;
-
 equation
-
   // Total Quantities
   m = V*d_reference;
   delta_m = m - V*material.d;
   U = V*material.d*material.u;
-
   // Energy Balance
   if energyDynamics == Dynamics.SteadyState then
     0 =port.Q_flow + Q_gen;
   else
     der(U) =port.Q_flow + Q_gen;
   end if;
-
   // Port Definitions
   port.T = material.T;
-
   annotation (defaultComponentName="volume",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(

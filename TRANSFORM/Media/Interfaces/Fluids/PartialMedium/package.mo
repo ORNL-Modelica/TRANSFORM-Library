@@ -3,7 +3,6 @@ partial package PartialMedium "Partial medium properties (base package of all me
   extends Modelica.Media.Interfaces.Types;
 
   extends Modelica.Icons.MaterialPropertiesPackage;
-
   // Constants to be set in Medium
   constant Modelica.Media.Interfaces.Choices.IndependentVariables
     ThermoStates "Enumeration type for independent variables";
@@ -35,14 +34,12 @@ partial package PartialMedium "Partial medium properties (base package of all me
     "Default value for specific enthalpy of medium (for initialization)";
   constant MassFraction X_default[nX]=reference_X
     "Default value for mass fractions of medium (for initialization)";
-
   final constant Integer nS=size(substanceNames, 1) "Number of substances"
     annotation (Evaluate=true);
   constant Integer nX=nS "Number of mass fractions" annotation (Evaluate=true);
   constant Integer nXi=if fixedX then 0 else if reducedX then nS - 1 else nS
     "Number of structurally independent mass fractions (see docu for details)"
     annotation (Evaluate=true);
-
   final constant Integer nC=size(extraPropertiesNames, 1)
     "Number of extra (outside of standard mass-balance) transported properties"
     annotation (Evaluate=true);
@@ -84,7 +81,6 @@ partial package PartialMedium "Partial medium properties (base package of all me
     SI.Conversions.NonSIunits.Pressure_bar p_bar=
         Modelica.SIunits.Conversions.to_bar(p)
       "Absolute pressure of medium in [bar]";
-
     // Local connector definition, used for equation balancing check
     connector InputAbsolutePressure = input SI.AbsolutePressure
       "Pressure as input signal connector";
@@ -92,11 +88,9 @@ partial package PartialMedium "Partial medium properties (base package of all me
       "Specific enthalpy as input signal connector";
     connector InputMassFraction = input SI.MassFraction
       "Mass fraction as input signal connector";
-
   equation
     if standardOrderComponents then
       Xi = X[1:nXi];
-
       if fixedX then
         X = reference_X;
       end if;
@@ -109,9 +103,7 @@ partial package PartialMedium "Partial medium properties (base package of all me
           substanceNames[i] + "\nof medium " + mediumName +
           " is not in the range 0..1");
       end for;
-
     end if;
-
   //     assert(p >= 0.0, "Pressure (= " + String(p) + " Pa) of medium \"" +
   //       mediumName + "\" is negative\n(Temperature = " + String(T) + " K)");
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -517,7 +509,6 @@ kappa is defined as - 1/v * der(v,p), with v = 1/d at constant temperature T.
             p,
             T,
             X));
-
     annotation (inverse(T=temperature_psX(
                   p,
                   s,

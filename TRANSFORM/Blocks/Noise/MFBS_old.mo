@@ -1,13 +1,11 @@
 within TRANSFORM.Blocks.Noise;
 model MFBS_old
   extends TRANSFORM.Icons.ObsoleteModel;
-
   parameter Real amplitude=1 "Amplitude of signal";
   parameter SI.Time period "Period for repeating sequence";
   parameter Real offset=0 "Offset of output signal";
   parameter SI.Time startTime=0 "Output = offset for time < startTime";
   extends Modelica.Blocks.Interfaces.SO;
-
   parameter Integer weights[:]={1,1,1,1,1,1,1};
   parameter Integer harmonics[size(weights, 1)]={1,2,4,8,16,32,64};
   final parameter Real mls[integer(max(harmonics)^2)]=
@@ -15,16 +13,13 @@ model MFBS_old
 protected
   Real dy;
   Real i(start=1);
-
 algorithm
   when sample(startTime, period/size(mls,1)) then
     i := if i + 1 > integer(max(harmonics)^2) then 1 else i + 1;
     dy := amplitude*mls[integer(i)];
   end when;
-
 equation
   y = offset + (if time < startTime then 0 else dy);
-
   annotation (defaultComponentName="sequencer",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Line(points={{-80,68},{-80,-80}}, color={192,192,192}),

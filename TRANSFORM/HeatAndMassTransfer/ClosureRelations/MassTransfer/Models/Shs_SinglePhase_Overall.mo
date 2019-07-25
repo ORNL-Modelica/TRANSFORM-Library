@@ -1,8 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.MassTransfer.Models;
 model Shs_SinglePhase_Overall "Specify Shs | Single Phase | Overall"
-
   extends PartialSinglePhase;
-
   input SI.SchmidtNumber Shs_lam[nMT,nC]={
       Functions.SinglePhase.InternalFlow.Sh_Laminar_Local_Developed_Circular_SiederTate(
       Res[i],
@@ -10,18 +8,14 @@ model Shs_SinglePhase_Overall "Specify Shs | Single Phase | Overall"
       sum(dlengths),
       dimensions[i]) for i in 1:nMT,j in 1:nC} "Laminar Schmidt number"
     annotation (Dialog(group="Inputs"));
-
   input SI.SchmidtNumber Shs_turb[nMT,nC]={
       Functions.SinglePhase.InternalFlow.Sh_Turbulent_Local_Developed_Circular_DittusBoelter(
        Res[i], Scs[i, j]) for i in 1:nMT,j in 1:nC}
     "Turbulent Schmidt number" annotation (Dialog(group="Inputs"));
-
   input SI.Length[nMT] L_char=dimensions
     "Characteristic dimension for calculation of alphaM"
     annotation (Dialog(group="Inputs"));
-
 equation
-
   for i in 1:nMT loop
     Shs[i, :] = TRANSFORM.Math.spliceTanh(
       Shs_turb[i, :],
@@ -29,11 +23,9 @@ equation
       Res[i] - Re_center,
       Re_width);
   end for;
-
   for i in 1:nMT loop
     alphasM[i, :] =Shs[i, :] .* Ds_ab[i, :] ./ L_char[i];
   end for;
-
   annotation (Documentation(info="<html>
 <p>Local heat transfer model for fully developed laminar and turbulent flow in circular pipes.</p>
 <ul>

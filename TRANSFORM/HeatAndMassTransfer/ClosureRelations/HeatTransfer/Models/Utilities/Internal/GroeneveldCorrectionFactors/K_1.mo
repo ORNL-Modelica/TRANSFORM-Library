@@ -1,9 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Utilities.Internal.GroeneveldCorrectionFactors;
 function K_1 "Diameter Effect Factor"
   input SI.Length D_hyd "Hydraulic diameter of subchannel";
-
   output Real K "Correction factor";
-
 algorithm
   if D_hyd < 0.002 then
     K := 1;

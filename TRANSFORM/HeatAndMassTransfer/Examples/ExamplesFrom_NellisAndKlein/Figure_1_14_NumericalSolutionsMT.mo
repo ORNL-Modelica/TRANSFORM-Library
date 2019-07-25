@@ -3,11 +3,9 @@ model Figure_1_14_NumericalSolutionsMT
   "Figure 1 - 14 for an aluminnum oxide cylinder  pp. 45-55"
   import TRANSFORM;
   extends Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_inf_out(T(
         displayUnit="degC") = 373.15)
     annotation (Placement(transformation(extent={{90,-10},{70,10}})));
-
   DiscritizedModels.HMTransfer_1D cylinder(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
@@ -33,7 +31,6 @@ model Figure_1_14_NumericalSolutionsMT
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=20)
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
-
   Modelica.Blocks.Sources.Constant r_out(each k=0.2) "radius outer"
     annotation (Placement(transformation(extent={{-100,54},{-92,62}})));
   Resistances.Heat.Convection h_out(alpha=200, surfaceArea=cylinder.geometry.crossAreas_1
@@ -61,7 +58,6 @@ model Figure_1_14_NumericalSolutionsMT
         cylinder.materials.T,
         {h_out.port_a.T}))) "X - Axial Location (m) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{-24,-72},{30,-18}})));
-
   Utilities.Visualizers.displayReal display(val=
         TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(
         cylinder.materials.T)))
@@ -116,7 +112,6 @@ model Figure_1_14_NumericalSolutionsMT
         1],cylinder.Cs[10, 1],low_pressure.C[1]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(h_out.port_b, T_inf_out.port)
     annotation (Line(points={{47,0},{70,0}}, color={191,0,0}));
   connect(T_inf_in.port, h_in.port_b)

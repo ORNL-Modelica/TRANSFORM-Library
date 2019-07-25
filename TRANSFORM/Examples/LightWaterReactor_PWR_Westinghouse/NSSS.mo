@@ -1,7 +1,6 @@
 within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse;
 model NSSS "Nuclear steam supply system"
   import TRANSFORM;
-
   extends BaseClasses.Partial_SubSystem_A(
     replaceable package Medium = Modelica.Media.Water.StandardWater,
     allowFlowReversal=system.allowFlowReversal,
@@ -13,10 +12,8 @@ model NSSS "Nuclear steam supply system"
       m_flow=data.m_flow_shellSide_total),
     port_b_nominal(p=data.p_shellSide, h=data.h_vsat),
     redeclare Data.Data_Basic data);
-
   package Medium_PHTS = Modelica.Media.Water.StandardWater
     "Primary heat transport system medium" annotation (Dialog(enable=false));
-
   TRANSFORM.Nuclear.CoreSubchannels.Regions_3 coreSubchannel(
     redeclare package Medium = Medium_PHTS,
     redeclare package Material_1 = Media.Solids.UO2,
@@ -59,7 +56,6 @@ model NSSS "Nuclear steam supply system"
         extent={{-7,-6},{7,6}},
         rotation=90,
         origin={-60,-30})));
-
   Fluid.Volumes.SimpleVolume    core_outletPlenum(
     redeclare package Medium = Medium_PHTS,
     redeclare model Geometry =
@@ -165,7 +161,6 @@ model NSSS "Nuclear steam supply system"
     Vfrac_liquid_start=data.Vfrac_liquid_pzr,
     p_start(displayUnit="Pa") = data.p_nominal)
     annotation (Placement(transformation(extent={{-34,70},{-22,84}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.Temperature Temp_walLiquid(
                                                                         T=298.15)
     annotation (Placement(transformation(extent={{-10,73},{-18,81}})));
@@ -251,14 +246,12 @@ model NSSS "Nuclear steam supply system"
         extent={{6,6},{-6,-6}},
         rotation=90,
         origin={56,-26})));
-
   Fluid.Sensors.Temperature          T_Core_Inlet(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-68,-40},{-76,-48}})));
   Fluid.Sensors.Temperature          T_Core_Outlet(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-68,-20},{-76,-12}})));
-
   Modelica.Blocks.Sources.RealExpression p_pressurizer(y=pressurizer.drum2Phase.p)
     "pressurizer pressure"
     annotation (Placement(transformation(extent={{-96,128},{-84,140}})));
@@ -269,7 +262,6 @@ model NSSS "Nuclear steam supply system"
         Q_total.y/(200*1.6e-13*6.022e23/0.235))
     "Approximate nuclear fuel consumption [kg/s]"
     annotation (Placement(transformation(extent={{-96,108},{-84,120}})));
-
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance res_fromHeader(
       redeclare package Medium = Medium_PHTS, R=1*p_units/data.m_flow_nominal)
     annotation (Placement(transformation(
@@ -317,7 +309,6 @@ model NSSS "Nuclear steam supply system"
         extent={{-13,-11},{13,11}},
         rotation=-90,
         origin={30,1})));
-
   Blocks.RealExpression CR_reactivity
     annotation (Placement(transformation(extent={{-54,128},{-42,140}})));
   Modelica.Blocks.Sources.RealExpression Q_total(y=coreSubchannel.kinetics.Q_total)
@@ -370,7 +361,6 @@ model NSSS "Nuclear steam supply system"
         origin={20,52.5},
         extent={{5.5,-5},{-5.5,5}},
         rotation=180)));
-
 protected
   final parameter SI.Pressure p_units = 1;
 public
@@ -426,7 +416,6 @@ public
         rotation=90,
         origin={74,-30})));
 equation
-
   connect(res_toPzr.port_b, PressurizerHeader.port_3) annotation (Line(points={{
           -28,59.5},{-28,59.5},{-28,56}}, color={0,0,255}));
   connect(coreSubchannel.port_a, res_coreInlet.port_b)
@@ -462,7 +451,6 @@ equation
       thickness=0.5));
   connect(PressurizerHeader.port_2, res_fromHeader.port_a)
     annotation (Line(points={{-24,52},{-17.5,52}}, color={0,127,255}));
-
   connect(coreSubchannel.port_b, res_coreOutlet.port_a)
     annotation (Line(points={{-60,-23},{-60,-12.35}}, color={0,127,255}));
   connect(T_Core_Outlet.port, res_coreOutlet.port_a) annotation (Line(points={{-72,

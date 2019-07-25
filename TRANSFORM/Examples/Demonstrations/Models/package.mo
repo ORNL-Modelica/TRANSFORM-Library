@@ -1,6 +1,5 @@
 within TRANSFORM.Examples.Demonstrations;
 package Models
-
   extends Icons.ModelPackage;
 
 annotation (Documentation(info="<html>

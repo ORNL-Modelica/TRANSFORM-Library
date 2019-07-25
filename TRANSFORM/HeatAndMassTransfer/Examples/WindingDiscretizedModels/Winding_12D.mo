@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels;
 model Winding_12D
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   DiscritizedModels.Conduction_2D winding(
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_28_5_d_7990_cp_500,
@@ -58,7 +57,6 @@ model Winding_12D
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic bound_outer[
     nNodes_2.k]
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-
   Utilities.Visualizers.displayReal display(use_port=true)
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Modelica.Blocks.Sources.RealExpression T_max(y=
@@ -89,11 +87,9 @@ model Winding_12D
   Real yval2[nNodes_1.k]=
       TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(winding.materials[
       :, nNodes_2.k].T);
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={yval[3]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(T_max.y, display.u)
     annotation (Line(points={{-21.2,-60},{-11.5,-60}}, color={0,0,127}));
   connect(T_inf_inner.port, convection_inner.port_b)

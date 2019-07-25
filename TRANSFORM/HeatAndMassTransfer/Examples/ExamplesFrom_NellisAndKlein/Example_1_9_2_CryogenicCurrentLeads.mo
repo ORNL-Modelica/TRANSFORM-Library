@@ -3,7 +3,6 @@ model Example_1_9_2_CryogenicCurrentLeads
   "part a) Find the optimal lead diameter to the cryogenic device"
   import TRANSFORM;
   extends Icons.Example;
-
   Modelica.Blocks.Sources.Constant D(k=0.004) "lead diameter 0.004 to 0.006"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.Constant L(each k=1) "lead length"
@@ -28,7 +27,6 @@ model Example_1_9_2_CryogenicCurrentLeads
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     T_a1_start=293.15)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_H(T=
         293.15) "room temperature wall"
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));

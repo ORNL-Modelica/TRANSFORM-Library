@@ -2,19 +2,16 @@ within TRANSFORM.Fluid.TraceComponents.Examples;
 model TraceSeparator_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   replaceable package Medium = Modelica.Media.IdealGases.SingleGases.He (
         extraPropertiesNames=fill("dummy",4)) constrainedby
     Modelica.Media.Interfaces.PartialMedium "Medium properties" annotation (
       choicesAllMatching=true);
-
   replaceable package Medium_carrier =
       Modelica.Media.IdealGases.SingleGases.He (
        extraPropertiesNames=fill("dummy",4),
   C_nominal=fill(1e6,Medium_carrier.nC)) constrainedby
     Modelica.Media.Interfaces.PartialMedium "Medium properties" annotation (
       choicesAllMatching=true);
-
   TRANSFORM.Fluid.TraceComponents.TraceSeparator traceSeparator(
     redeclare package Medium = Medium,
     redeclare package Medium_carrier = Medium_carrier,

@@ -1,10 +1,8 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models;
 model DetailedPipeFlow
   "DetailedPipeFlow: Detailed characteristic for laminar and turbulent flow"
-
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.PartialGenericPipeFlow;
-
   TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.Functions.Pipes.Detailed.dp_IN_con[
     nFM] IN_con(
     length=lengths,
@@ -16,7 +14,6 @@ model DetailedPipeFlow
     roughness_b=roughnesses[2:nFM + 1],
     Re_turbulent=Res_turbulent)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-
   TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.Functions.Pipes.Detailed.dp_IN_var[
     nFM] IN_var(
     rho_a=rhos_a,
@@ -24,7 +21,6 @@ model DetailedPipeFlow
     mu_a=mus_a,
     mu_b=mus_b)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-
 protected
   SI.Density[nFM] rhos_a "Density at port_a";
   SI.Density[nFM] rhos_b "Density at port_b";
@@ -32,14 +28,12 @@ protected
     "Dynamic viscosity at port_a (dummy if use_mu = false)";
   SI.DynamicViscosity[nFM] mus_b
     "Dynamic viscosity at port_b (dummy if use_mu = false)";
-
   TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.Functions.Pipes.Detailed.dp_IN_var
     IN_var_nominal(
     rho_a=rho_nominal,
     rho_b=rho_nominal,
     mu_a=mu_nominal,
     mu_b=mu_nominal);
-
   parameter SI.AbsolutePressure dp_small(start=1, fixed=false)
     "Within regularization if |dp| < dp_small (may be wider for large discontinuities in static head)"
     annotation (Dialog(enable=from_dp and use_dp_small));
@@ -53,14 +47,12 @@ protected
      or not allowFlowReversal
     "= true if the pressure loss is continuous around zero flow"
      annotation(Evaluate=true);
-
   SI.AbsolutePressure dp_fric_nominal=sum(
       Functions.Pipes.Detailed.dp_DP(
       IN_con,
       IN_var_nominal,
       m_flow_nominal/nParallel,
       m_flow_small/nParallel)) "pressure loss for nominal conditions";
-
 initial equation
   // initialize dp_small from flow model
   if system.use_eps_Re then
@@ -68,27 +60,22 @@ initial equation
   else
     dp_small = system.dp_small;
   end if;
-
   // initialize dp_nominal from flow model
   if system.use_eps_Re then
     dp_nominal = dp_fric_nominal + g*sum(dheights)*rho_nominal;
   else
     dp_nominal = 1e3*dp_small;
   end if;
-
 equation
   for i in 1:nFM loop
     assert(m_flows[i] > -m_flow_small or allowFlowReversal, "Reverting flow occurs even though allowFlowReversal is false");
   end for;
-
   if continuousFlowReversal then
     // simple regularization
-
     rhos_a = rhos_act;
     rhos_b = rhos_act;
     mus_a = mus_act;
     mus_b = mus_act;
-
     if from_dp and not dp_is_zero then
       m_flows = homotopy(actual=
         TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.Functions.Pipes.Detailed.dp_MFLOW(
@@ -109,12 +96,10 @@ equation
     end if;
   else
     // regularization for discontinuous flow reversal and static head
-
     rhos_a = rhos[1:nFM];
     rhos_b = rhos[2:nFM+1];
     mus_a = mus[1:nFM];
     mus_b = mus[2:nFM+1];
-
     if from_dp and not dp_is_zero then
       m_flows = homotopy(actual=
         TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.Functions.Pipes.Detailed.dp_MFLOW_staticHead(
@@ -135,7 +120,6 @@ equation
          + g*dheights*rho_nominal);
     end if;
   end if;
-
     annotation (Documentation(info="<html>
 <p>
 This model describes pressure losses due to <b>wall friction</b> in a pipe

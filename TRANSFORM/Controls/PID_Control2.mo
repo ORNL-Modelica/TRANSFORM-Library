@@ -1,46 +1,32 @@
 within TRANSFORM.Controls;
 model PID_Control2 "Proportional controller: y = yb + Kc*e"
-
   import Modelica.Blocks.Types.Init;
-
   extends Modelica.Blocks.Interfaces.SVcontrol;
-
   parameter Boolean directActing = true "=false reverse acting" annotation(Evaluate=true);
   parameter Real k(unit="1")=1 "Error gain";
   parameter Real yb = 0 "Output bias";
-
   parameter Real k_s= 1 "Scaling factor for setpoint: set = k_s*u_s";
   parameter Real k_m= 1 "Scaling factor for measurment: meas = k_m*u_m";
-
   parameter SI.Time Ti(
     start=1,
     min=Modelica.Constants.small) = 1 "Time Constant (Ti>0 required)";
-
   parameter SI.Time Td(min=0, start=0.1) = 0.1
     "Time Constant of Derivative block";
-
   parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.NoInit
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation (Evaluate=true, Dialog(group="Initialization"));
-
   parameter Real xi_start=0 "Initial or guess value of integral state"
     annotation (Dialog(group="Initialization"));
   parameter Real xd_start=0 "Initial or guess value of derivative state"
     annotation (Dialog(group="Initialization"));
-
   parameter Real y_start=0 "Initial value of output" annotation (Dialog(enable=
           initType == Init.SteadyState or initType == Init.InitialOutput, group=
          "Initialization"));
-
   parameter Boolean derMeas = true "=true for derivative on measured value to avoid kick else error" annotation(Evaluate=true);
-
   parameter Real Nd(min=Modelica.Constants.small) = 10
     "The higher Nd, the more ideal the derivative block";
-
   constant SI.Time unitTime=1  annotation(HideResult=true);
-
   final parameter Real Kc = k*(if directActing then +1 else -1);
-
   Modelica.Blocks.Math.Gain P(k=Kc) "Proportional part of PID controller"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Math.Gain gain_u_s(k=k_s)
@@ -69,20 +55,16 @@ model PID_Control2 "Proportional controller: y = yb + Kc*e"
     k=if derMeas then -Td/unitTime else Td/unitTime)
                                             "Derivative part of PID controller"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-
 initial equation
   if initType==Init.InitialOutput then
      y = y_start;
   end if;
-
 equation
-
   if derMeas then
     connect(D.u,gain_u_m.y);
   else
     connect(D.u,error.y);
   end if;
-
   connect(u_s, gain_u_s.u)
     annotation (Line(points={{-120,0},{-92,0}}, color={0,0,127}));
   connect(gain_u_m.u, u_m)

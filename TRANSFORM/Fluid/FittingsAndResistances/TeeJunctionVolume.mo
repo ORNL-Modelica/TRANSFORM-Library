@@ -12,7 +12,6 @@ model TeeJunctionVolume
   mCb=port_1.m_flow*actualStream(port_1.C_outflow)
             + port_2.m_flow*actualStream(port_2.C_outflow)
             + port_3.m_flow*actualStream(port_3.C_outflow));
-
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_1(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
@@ -22,7 +21,6 @@ model TeeJunctionVolume
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_3(
     redeclare package Medium=Medium)
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
-
 equation
   // Only one connection allowed to a port to avoid unwanted ideal mixing
   assert(cardinality(port_1) <= 1,"
@@ -43,25 +41,20 @@ If two or more connections are present, ideal mixing takes
 place with these connections which is usually not the intention
 of the modeller.
 ");
-
   // Boundary conditions
   port_1.h_outflow = medium.h;
   port_2.h_outflow = medium.h;
   port_3.h_outflow = medium.h;
-
   port_1.Xi_outflow = medium.Xi;
   port_2.Xi_outflow = medium.Xi;
   port_3.Xi_outflow = medium.Xi;
-
   port_1.C_outflow = C;
   port_2.C_outflow = C;
   port_3.C_outflow = C;
-
   // Momentum balance (suitable for compressible media)
   port_1.p = medium.p;
   port_2.p = medium.p;
   port_3.p = medium.p;
-
   annotation (defaultComponentName="tee",Documentation(info="<html>
   This model introduces a mixing volume into a junction.
   This might be useful to examine the non-ideal mixing taking place in a real junction.</html>"),

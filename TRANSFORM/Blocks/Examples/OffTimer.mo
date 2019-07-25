@@ -1,7 +1,6 @@
 within TRANSFORM.Blocks.Examples;
 model OffTimer "Example model for off timer"
   extends TRANSFORM.Icons.Example;
-
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(period=0.2)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   TRANSFORM.Blocks.OffTimer offTim1

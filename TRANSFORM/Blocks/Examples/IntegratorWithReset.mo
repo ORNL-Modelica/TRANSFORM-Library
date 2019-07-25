@@ -3,13 +3,11 @@ model IntegratorWithReset "Test model for integrator with reset"
   extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.Constant cons(k=10) "Constant as source term"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-
   TRANSFORM.Blocks.IntegratorWithReset intWitRes1(
     y_start=5, reset=TRANSFORM.Types.Reset.Parameter,
     k=0.5,
     y_reset=2)                                      "Integrator with reset"
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-
   TRANSFORM.Blocks.IntegratorWithReset intWitRes2(
     y_reset=10,
     y_start=-5,

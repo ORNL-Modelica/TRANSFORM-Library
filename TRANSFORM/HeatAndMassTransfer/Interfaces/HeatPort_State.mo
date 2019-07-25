@@ -1,9 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Interfaces;
 connector HeatPort_State
   "Generic connector for defined state/non-flow variable (e.g., temperature - T)"
-
   extends Modelica.Thermal.HeatTransfer.Interfaces.HeatPort;
-
   annotation(defaultComponentName = "port_b",
     Documentation(info="<html>
 <p>This connector is used for 1-dimensional heat flow between components.

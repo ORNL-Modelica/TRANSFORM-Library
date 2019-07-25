@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Fluids.FLiBe;
 package LinearFLiBe_12Th_05U_pT "FLiBe Fueled | LiF-BeF2-ThF4-UF4 71.5%-16%-12%-0.5% | Linear compressibility"
-
   // ORNL-TM-3832 Table 3
 // beta_const adjusted till density matched. kappa left alone
 // references are based on 800K
@@ -20,7 +19,6 @@ package LinearFLiBe_12Th_05U_pT "FLiBe Fueled | LiF-BeF2-ThF4-UF4 71.5%-16%-12%-
     T_default = 800);
 
 redeclare function extends dynamicViscosity "Dynamic viscosity"
-
 algorithm
   eta := Utilities_12Th_05U.eta_T(state.T);
   annotation(Inline=true);

@@ -1,11 +1,8 @@
 within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.TwoPhase.LaminarTurbulent_MSLDetailed;
 function dp_DP "calculate pressure loss"
-
   import Modelica.Constants.pi;
   import Modelica.Math;
-
   extends Modelica.Icons.Function;
-
   //input records
   input dp_IN_con IN_con "Input record for function dp_overall_DP"
     annotation (Dialog(group="Constant inputs"));
@@ -15,17 +12,14 @@ function dp_DP "calculate pressure loss"
     annotation (Dialog(group="Input"));
   input SI.MassFlowRate m_flow_small=0.01
     "Regularization of zero flow if |m_flow| < m_flow_small (dummy if use_m_flow_small = false)";
-
   //Outputs
   output SI.Pressure DP "Output for function dp_overall_DP";
-
 protected
   Real diameter = 0.5*(IN_con.diameter_a+IN_con.diameter_b) "Average diameter";
   Real crossArea = 0.5*(IN_con.crossArea_a+IN_con.crossArea_b)
     "Average cross area";
   Real roughness = 0.5*(IN_con.roughness_a+IN_con.roughness_b)
     "Average height of surface asperities";
-
   Real Delta = roughness/diameter "Relative roughness";
   SI.ReynoldsNumber Re1=min(745*Math.exp(if Delta <= 0.0065
        then 1 else 0.0065/Delta), IN_con.Re_turbulent)
@@ -35,14 +29,12 @@ protected
   SI.Density rho "Upstream density";
   SI.ReynoldsNumber Re "Reynolds number";
   Real lambda2 "Modified friction coefficient (= lambda*Re^2)";
-
   SI.DynamicViscosity mu_lsat "Upstream liquid viscosity";
   SI.Density rho_lsat "Upstream liquid density";
   SI.DynamicViscosity mu_vsat "Upstream vapor viscosity";
   SI.Density rho_vsat "Upstream vapor density";
   SIadd.NonDim x_abs "Upstream absolute quality";
   Real phi2 "Two-phase modifier";
-
   function interpolateInRegion2
      input SI.ReynoldsNumber Re;
      input SI.ReynoldsNumber Re1;
@@ -54,7 +46,6 @@ protected
     Real x1 = Math.log10(Re1);
     Real y1 = Math.log10(64*Re1);
     Real yd1=1;
-
     // Point lg(lambda2(Re2)) with derivative at lg(Re2)
     Real aux1=(0.5/Math.log(10))*5.74*0.9;
     Real aux2=Delta/3.7 + 5.74/Re2^0.9;
@@ -65,7 +56,6 @@ protected
     Real x2 =  Math.log10(Re2);
     Real y2 =  Math.log10(L2);
     Real yd2 = 2 + 4*aux1/(aux2*aux3*(Re2)^0.9);
-
     // Constants: Cubic polynomial between lg(Re1) and lg(Re2)
     Real diff_x=x2 - x1;
     Real m=(y2 - y1)/diff_x;
@@ -96,9 +86,7 @@ algorithm
     mu_vsat  := IN_var.mu_vsat_b;
     x_abs := IN_var.x_abs_b;
   end if;
-
   phi2 := TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Utilities.TwoPhaseFrictionMultiplier(x_abs,mu_lsat,mu_vsat,rho_lsat,rho_vsat);
-
   // Determine Re, lambda2 and pressure drop
   Re := diameter*abs(m_flow)/(crossArea*mu);
   lambda2 := if Re <= Re1 then 64*Re else

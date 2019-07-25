@@ -1,13 +1,11 @@
 within TRANSFORM.Blocks;
 model OffTimer "Records the time since the input changed to false"
   extends Modelica.Blocks.Interfaces.partialBooleanBlockIcon;
-
   Modelica.Blocks.Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(
           extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
 protected
   discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
 initial equation

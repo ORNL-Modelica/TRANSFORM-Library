@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Functions;
 function PerformanceCurve
-
   input Real x "Value of interest";
   input Real x_curve[:];
   input Real y_curve[size(x_curve, 1)];
@@ -8,21 +7,16 @@ function PerformanceCurve
   input Real delta=0.05
     "Small value for switching implementation around zero rpm";
   output Real y "Output at x";
-
 protected
   Integer n=size(x_curve, 1) "Dimension of data vector";
-
   Real r_R(unit="1") "Relative revolution, bounded below by delta";
   Real ratio "Ratio of x/r_N";
   Integer i "Integer to select data interval";
-
   Real d[size(x_curve, 1)]=TRANSFORM.Math.splineDerivatives(
       x=x_curve,
       y=y_curve,
       ensureMonotonicity=TRANSFORM.Math.isMonotonic(x=y_curve, strict=false));
-
 algorithm
-
   // For r_N < delta, we restrict r_N in the term V_flow/r_N.
   // This is done using a cubic spline in a region 0.75*delta < r_N < 1.25*r_N
   // We call this restricted value r_R
@@ -41,7 +35,6 @@ algorithm
       y1d=0,
       y2d=1);
   end if;
-
   if n == 1 then
     y := y_curve[1];
   else
@@ -68,6 +61,5 @@ algorithm
       y1d=d[i],
       y2d=d[i + 1]);
   end if;
-
 annotation(smoothOrder=1);
 end PerformanceCurve;

@@ -32,7 +32,6 @@ model RoomCO2WithControls
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_portsData=false,
     nPorts=4) annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-
   Pipes.GenericPipe_MultiTransferSurface
                     ductOut(
     redeclare package Medium = Medium,
@@ -48,7 +47,6 @@ model RoomCO2WithControls
     exposeState_a=false,
     momentumDynamics=system.momentumDynamics) "Outlet duct"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
-
   TRANSFORM.Fluid.Sensors.TraceSubstances traceDuctIn(redeclare package Medium =
         Medium) "Trace substance at duct inlet"
     annotation (Placement(transformation(extent={{-54,0},{-34,20}})));
@@ -82,7 +80,6 @@ model RoomCO2WithControls
     yMin=-1,
     Ti=10,
     k=10)   annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-
   Pipes.GenericPipe_MultiTransferSurface
                     ductIn(
     redeclare package Medium = Medium,
@@ -97,7 +94,6 @@ model RoomCO2WithControls
         nV=2),
     momentumDynamics=system.momentumDynamics) "Inlet duct"
     annotation (Placement(transformation(extent={{-38,-40},{-18,-20}})));
-
   TRANSFORM.Fluid.Sensors.TraceSubstances traceDuctOut(redeclare package Medium =
         Medium) "Trace substance at duct outlet"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));

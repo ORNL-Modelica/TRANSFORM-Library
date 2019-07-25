@@ -1,16 +1,9 @@
 within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase;
 package LaminarAndQuadraticTurbulent_MSL "Pipe wall friction for laminar and turbulent flow in circular tubes (simple characteristic)"
-
   import ln = Modelica.Math.log "Logarithm, base e";
   import Modelica.Math.log10 "Logarithm, base 10";
   import Modelica.Math.exp "Exponential function";
   import Modelica.Constants.pi;
-
-
-
-
-
-
 
   annotation (Documentation(info="<html>
 <p>

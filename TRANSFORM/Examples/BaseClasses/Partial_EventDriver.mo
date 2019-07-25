@@ -1,6 +1,5 @@
 within TRANSFORM.Examples.BaseClasses;
 partial model Partial_EventDriver
-
   annotation (
     defaultComponentName="ED",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

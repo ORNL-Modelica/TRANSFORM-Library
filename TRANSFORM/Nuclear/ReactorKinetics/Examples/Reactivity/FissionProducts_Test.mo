@@ -1,9 +1,7 @@
 within TRANSFORM.Nuclear.ReactorKinetics.Examples.Reactivity;
 model FissionProducts_Test
   import TRANSFORM;
-
   extends TRANSFORM.Icons.Example;
-
   Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x=fissionProducts.mCs)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_withDecayHeat

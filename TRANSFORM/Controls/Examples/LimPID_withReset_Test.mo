@@ -1,8 +1,6 @@
 within TRANSFORM.Controls.Examples;
 model LimPID_withReset_Test
-
   extends TRANSFORM.Icons.Example;
-
   Modelica.Blocks.Sources.Sine setPoi(freqHz=1) "Set point signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   LimPID limPID_parameter(

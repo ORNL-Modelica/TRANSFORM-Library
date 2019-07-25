@@ -3,40 +3,31 @@ model GenericPipe_wWall_wTraceMass
   import Modelica.Fluid.Types.Dynamics;
   import TRANSFORM.Math.linspace_2Dedge;
   import TRANSFORM.Math.linspaceRepeat_2Dedge;
-
   outer TRANSFORM.Fluid.SystemTF systemTF;
-
   //extends TRANSFORM.Fluid.Pipes.ClosureModels.Geometry.PipeWithWallIcons;
-
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.PartialPipeWithWall
     "Geometry" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
-
   Geometry geometry
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
-
   extends BaseClasses.GenericPipe_wTraceMass_Record_multiSurface(
     final nV=pipe.geometry.nV,
     use_HeatTransfer=true,
     use_TraceMassTransfer=true);
-
   replaceable package Material = TRANSFORM.Media.Solids.SS316 constrainedby
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                             "Wall material properties"
     annotation (choicesAllMatching=true);
-
   parameter Boolean counterCurrent=false "Swap wall vector order";
   parameter Boolean use_HeatTransferOuter=false
     "= true to use outer wall heat port" annotation (Dialog(group="Heat Transfer"));
   parameter Boolean use_TraceMassTransferOuter=false
     "= true to use outer wall mass port" annotation (Dialog(group="Trace Mass Transfer"));
-
   final parameter Integer nVs[2](min=1) = {geometry.nR,geometry.nZ}
     "Number of discrete volumes";
-
   // Initialization: Wall
   parameter Dynamics energyDynamics_wall=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
@@ -60,26 +51,21 @@ model GenericPipe_wWall_wTraceMass
         group="Start Value: Temperature"));
   parameter SI.Temperature T_b2_start=T_a2_start "Temperature at port b2"
     annotation (Dialog(tab="Initialization: Wall", group="Start Value: Temperature"));
-
   // Advanced
   parameter Boolean exposeState_outerWall=false
     "=true, T is calculated at outer wall else Q_flow" annotation (Dialog(group=
          "Model Structure", tab="Advanced"));
-
   replaceable model InternalHeatModel_wall =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
     constrainedby
     TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
     "Internal heat generation" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
-
   final parameter Integer nC=Medium.nC "Number of trace substances";
-
   // Initialization: Wall
   parameter Dynamics traceDynamics_wall=energyDynamics_wall
     "Formulation of trace substance balances"
     annotation (Dialog(tab="Advanced", group="Dynamics"));
-
   parameter SI.Concentration Cs_start_wall[nVs[1],nVs[2],nC]=
       linspaceRepeat_2Dedge(
       C_a1_start_wall,
@@ -103,21 +89,18 @@ model GenericPipe_wWall_wTraceMass
   parameter SI.Concentration C_b2_start_wall[nC]=C_a2_start_wall
     "Concentration at portM_b2" annotation (Dialog(tab="Initialization: Wall",
         group="Start Value: Concentration"));
-
   replaceable model InternalMassModel_wall =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericMassGeneration
     constrainedby
     TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalMassGeneration
     "Internal mass generation" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
-
   replaceable model DiffusionCoeff_wall =
       TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
                                                                                           constrainedby
     TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
     "Diffusion Coefficient" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
-
   parameter Real nb[nV,nC]=fill(
       1,
       nV,
@@ -133,7 +116,6 @@ model GenericPipe_wWall_wTraceMass
       nV,
       nC) "Wall side solubility coefficient (i.e., Henry/Sievert)"
     annotation (Dialog(group="Trace Mass Transfer"));
-
   GenericPipe_MultiTransferSurface
               pipe(
     nParallel=nParallel,
@@ -218,7 +200,6 @@ model GenericPipe_wWall_wTraceMass
   Interfaces.FluidPort_Flow port_b(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_a[geometry.nR]
     annotation (Placement(transformation(extent={{-60,-44},{-40,-24}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_b[geometry.nR]
@@ -265,7 +246,6 @@ model GenericPipe_wWall_wTraceMass
     geometry.nZ](each nC=nC) if
                     not use_TraceMassTransfer
     annotation (Placement(transformation(extent={{-60,-62},{-40,-42}})));
-
   HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interface[geometry.nZ](
     each nC=nC,
     nb=nb,
@@ -274,12 +254,10 @@ model GenericPipe_wWall_wTraceMass
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-4,-62})));
-
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=pipe.summary.T_effective);
-
   HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_add[geometry.nZ,
     geometry.nSurfaces - 1] if geometry.nSurfaces > 1
     annotation (Placement(transformation(extent={{20,-80},{40,-60}}),
@@ -387,7 +365,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           extent={{-90,40},{90,-40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
+          fillColor=DynamicSelect({0,127,255}, if showColors then dynColor else {0,127,255})),
         Ellipse(
           extent={{-65,5},{-55,-5}},
           lineColor={0,0,0},

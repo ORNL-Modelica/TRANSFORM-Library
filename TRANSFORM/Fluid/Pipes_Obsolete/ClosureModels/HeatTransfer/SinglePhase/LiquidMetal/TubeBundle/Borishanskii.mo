@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.SinglePhase.LiquidMetal.TubeBundle;
 model Borishanskii
   "Borishanskii et al.: Liquid metal rod bundle; 1.1 <= P/D <= 1.5, Pe <= 2000"
-
   /* source: 
   AlanE. Waltar, Donald R. Todd, Pavel V. Tsvetkov
   Fast Spectrum Reactors 2012
@@ -10,13 +9,10 @@ model Borishanskii
   1.1 <= P/D <= 1.5
   Pe <= 2000
   */
-
   import Modelica.Math.log10;
   import Modelica.Math.exp;
-
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
-
     parameter Real PDratio "Tube Pitch to Diameter ratio";
     Real[nHT] Pes "Peclet Number";
 equation

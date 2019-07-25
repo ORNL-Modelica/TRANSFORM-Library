@@ -12,5 +12,4 @@ partial package ElectricalPackage
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}));
-
 end ElectricalPackage;

@@ -20,7 +20,6 @@ model ValveVaporizing
   Medium.AbsolutePressure p_sat "Saturation pressure";
   Medium.AbsolutePressure p_in "Inlet pressure";
   Medium.AbsolutePressure p_out "Outlet pressure";
-
   constant SI.ReynoldsNumber Re_turbulent = 4000
     "cf. straight pipe for fully open valve -- dp_turbulent increases for closing valve";
   parameter Boolean use_Re = false
@@ -75,7 +74,6 @@ equation
       smooth(0, Utilities.regRoot(dpEff, dp_turbulent)*(if dpEff>=0 then sqrt(Medium.density(state_a)) else sqrt(Medium.density(state_b))));
    */
   end if;
-
   annotation (
     Documentation(info="<html>
 <p>Valve model according to the IEC 534/ISA S.75 standards for valve sizing, incompressible fluid at the inlet, and possibly two-phase fluid at the outlet, including choked flow conditions.</p>

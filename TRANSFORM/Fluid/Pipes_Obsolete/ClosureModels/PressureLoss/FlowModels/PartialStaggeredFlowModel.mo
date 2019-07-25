@@ -1,20 +1,16 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.FlowModels;
 partial model PartialStaggeredFlowModel
   "Base class for momentum balances in flow models"
-
   // Implementation of momentum balance
   extends TRANSFORM.Fluid.Pipes_Obsolete.PartialDistributedFlowOLD(
              final lengthsFM = lengths);
              //final dps_fg_start = {Medium.pressure(states[i+1])-Medium.pressure(states[i]) for i in 1:nFM});
-
   // Inputs
   input Medium.ThermodynamicState[nFM+1] states
     "Thermodynamic states along design flow";
   input SI.Velocity[nFM+1] vs "Mean velocities of fluid flow";
-
   // Geometry parameters and inputs
   parameter Real nParallel "number of identical parallel flow devices";
-
   input SI.Temperature[nFM+1] Ts_w
     "Mean wall temperatures of heat transfer surface";
   input SI.Length[nFM] lengths(min=0) "Lengths of flow elements";
@@ -22,12 +18,9 @@ partial model PartialStaggeredFlowModel
   input SI.Length[nFM+1] dimensions
     "Characteristic dimensions for fluid flow (diameters for pipe flow)";
   input SI.Height[nFM+1] roughnesses "Average height of surface asperities";
-
   // Static head
   input SI.Length[nFM] dheights "Height(states[2:nFM+1]) - Height(states[1:nFM])";
-
   parameter SI.Acceleration g=system.g "Constant gravity acceleration";
-
   // Assumptions
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal, false restricts to design direction (states[1] -> states[nFM+1+1])"
@@ -35,7 +28,6 @@ partial model PartialStaggeredFlowModel
   parameter Modelica.Fluid.Types.Dynamics momentumDynamics=system.momentumDynamics
     "Formulation of momentum balance"
     annotation(Dialog(tab="Internal Interface",enable=false,group = "Assumptions"), Evaluate=true);
-
   // Initialization
 //   parameter Medium.MassFlowRate[nFM] m_flow_start=system.m_flow_start*ones(nFM)
 //     "Start value of mass flow rates"
@@ -43,27 +35,21 @@ partial model PartialStaggeredFlowModel
 //   final parameter SI.PressureDifference[nFM] dps_fg_start = {ps_start[i]-ps_start[i+1] for i in 1:nFM}
 //     "Start value for p[1] at design inflow"
 //     annotation(Dialog(tab="Internal Interface",enable=false,group = "Initialization"));
-
   // Advanced parameters
   parameter Boolean useUpstreamScheme = true
     "= false to average upstream and downstream properties across flow segments"
      annotation(Dialog(group="Advanced"), Evaluate=true);
-
   parameter Boolean use_Ib_flows = momentumDynamics <>Modelica.Fluid.Types.Dynamics.SteadyState
     "= true to consider differences in flow of momentum through boundaries"
      annotation(Dialog(group="Advanced"), Evaluate=true);
-
   // Variables
   Medium.Density[nFM+1] rhos = if use_rho_nominal then fill(rho_nominal, nFM+1) else Medium.density(states);
   Medium.Density[nFM] rhos_act "Actual density per segment";
-
   Medium.DynamicViscosity[nFM+1] mus = if use_mu_nominal then fill(mu_nominal, nFM+1) else Medium.dynamicViscosity(states);
   Medium.DynamicViscosity[nFM] mus_act "Actual viscosity per segment";
-
   // Variables
   SI.Pressure[nFM] dps_fg(start = dps_fg_start)
     "pressure drop between states";
-
   // Reynolds Number
   parameter SI.ReynoldsNumber[nFM] Res_turbulent=4000*ones(nFM)
     "Start of turbulent regime, depending on type of flow device";
@@ -89,7 +75,6 @@ protected
       Medium.X_default)
     "Nominal density (e.g., rho_liquidWater = 995, rho_air = 1.2)"
     annotation (Dialog(group="Advanced", enable=use_rho_nominal));
-
   parameter Boolean use_mu_nominal = false
     "= true, if mu_nominal is used, otherwise computed from medium"
      annotation(Dialog(group="Advanced"), Evaluate=true);
@@ -100,7 +85,6 @@ protected
       Medium.X_default))
     "Nominal dynamic viscosity (e.g., mu_liquidWater = 1e-3, mu_air = 1.8e-5)"
     annotation (Dialog(group="Advanced", enable=use_mu_nominal));
-
 equation
   if not allowFlowReversal then
     rhos_act = rhos[1:nFM];
@@ -114,7 +98,6 @@ equation
       mus_act[i] = noEvent(if m_flows[i] > 0 then mus[i] else mus[i+1]);
     end for;
   end if;
-
   if use_Ib_flows then
     Ib_flows = nParallel*{rhos[i]*vs[i]*vs[i]*crossAreas[i] - rhos[i+1]*vs[i+1]*vs[i+1]*crossAreas[i+1] for i in 1:nFM};
     // alternatively use densities rhos_act of actual streams, together with mass flow rates,
@@ -123,12 +106,9 @@ equation
   else
     Ib_flows = zeros(nFM);
   end if;
-
   Fs_p = nParallel*{0.5*(crossAreas[i]+crossAreas[i+1])*(Medium.pressure(states[i+1])-Medium.pressure(states[i])) for i in 1:nFM};
-
   // Note: the equation is written for dps_fg instead of Fs_fg to help the translator
   dps_fg = {Fs_fg[i]/nParallel*2/(crossAreas[i]+crossAreas[i+1]) for i in 1:nFM};
-
   annotation (Documentation(info="<html>
 <p>
 This partial model defines a common interface for <code>nFM</code> flow models between <code>nFM+1</code> device segments.

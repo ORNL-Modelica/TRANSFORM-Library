@@ -3,6 +3,8 @@ Interfaces
 Fluids
 Solids
 ExternalMedia
+LookupTableMedia
+LookupTableMedianew
 ClosureModels
 BaseProperties1Phase
 BaseProperties2Phase

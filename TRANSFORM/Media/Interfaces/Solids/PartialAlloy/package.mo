@@ -3,22 +3,18 @@ partial package PartialAlloy "Partial material properties (base package of all m
   extends Modelica.Media.Interfaces.Types;
 
   extends Modelica.Icons.MaterialPropertiesPackage;
-
   // Constants to be set in Medium
   constant String mediumName="unusablePartialMedium" "Name of the medium";
   constant String substanceNames[:]={mediumName}
     "Names of the mixture substances. Set substanceNames={mediumName} if only one substance.";
-
   constant Modelica.Media.Interfaces.Types.Temperature T_reference=298.15
     "Reference temperature of Medium: default 25 deg Celsius";
   constant Modelica.Media.Interfaces.Types.SpecificEnthalpy h_reference=0
     "Reference enthalpy at T_reference";
-
   constant Temperature T_default=293.15
     "Default value for temperature of medium (for initialization)";
   constant SpecificEnthalpy h_default=specificEnthalpy_T(T_default)
     "Default value for specific enthalpy of medium (for initialization)";
-
   constant Boolean use_constantDensity = false "=true to have density constant at T_density if a temperature dependent function for density exists";
   constant Temperature T_density = T_reference "Reference temperature for constant density calculations";
 
@@ -29,11 +25,9 @@ partial package PartialAlloy "Partial material properties (base package of all m
 
   replaceable partial model BaseProperties
     "Base properties (d, T, h, u, MM) of a medium"
-
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       annotation (Evaluate=true, Dialog(tab="Advanced"));
-
     InputTemperature T "Temperature";
     SpecificEnthalpy h "Specific enthalpy of medium";
     Density d "Density of medium";
@@ -41,12 +35,8 @@ partial package PartialAlloy "Partial material properties (base package of all m
     SI.MolarMass MM "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "Thermodynamic state record for optional functions";
-
     // Local connector definition, used for equation balancing check
     connector InputTemperature = input SI.Temperature;
-
-  equation
-
   end BaseProperties;
 
   replaceable partial function setState_T
@@ -61,7 +51,6 @@ partial package PartialAlloy "Partial material properties (base package of all m
   //   input SpecificEnthalpy h "Specific enthalpy";
   //   output ThermodynamicState state "Thermodynamic state record";
   //   end setState_h;
-
   replaceable partial function setSmoothState
     "Return thermodynamic state so that it smoothly approximates: if x > 0 then state_a else state_b"
     extends Modelica.Icons.Function;
@@ -270,7 +259,6 @@ partial package PartialAlloy "Partial material properties (base package of all m
   //   algorithm
   //   d := density(setState_h(h));
   //   end density_h;
-
   annotation (Documentation(info="<html>
 <p>
 <b>PartialMedium</b> is a package and contains all <b>declarations</b> for

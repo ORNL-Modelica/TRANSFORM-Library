@@ -1,32 +1,23 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes;
 model Traditional "Traditional: Cylinder with spherical caps"
-
   extends
     TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.PartialDrumType(
     final V_total_parameter=0.5*4/3*pi*r_1^3+pi*r_2^2*h_2+0.5*4/3*pi*r_3^3);
-
   parameter SI.Length r_1 "Region 1 radius" annotation(Dialog(group="Region 1: Bottom Spherical Cap"));
-
   parameter SI.Length r_2 "Region 2 radius" annotation(Dialog(group="Region 2: Middle Cylinder"));
   parameter SI.Height h_2 "Region 2 height" annotation(Dialog(group="Region 2: Middle Cylinder"));
-
   parameter SI.Length r_3 "Region 3 radius" annotation(Dialog(group="Region 3: Top Spherical Cap"));
-
 protected
   SI.Area A_2c = pi*r_2^2 "Region 2 cross liquid/vapor surface area";
-
   SI.Volume V_1 = 0.5*4/3*pi*r_1^3 "Region 1 volume";
   SI.Volume V_2 = A_2c*h_2 "Region 2 volume";
   SI.Volume V_3 = 0.5*4/3*pi*r_3^3 "Region 3 volume";
-
   SI.Area A_1w = 0.5*4*pi*r_1^2 "Region 1 total wall surface area";
   SI.Area A_2w = 2*pi*r_2*h_2 "Region 2 total wall surface area";
   SI.Area A_3w = 0.5*4*pi*r_3^2 "Region 3 total wall surface area";
-
 algorithm
   V_total :=V_1 + V_2 + V_3;
   A_surfaceWTotal :=A_1w + A_2w + A_3w;
-
   level := smooth(1, noEvent(if V_liquid < V_1 then
     TRANSFORM.Math.cubicRoots_SingleReal(
                 a=-pi/3,
@@ -43,7 +34,6 @@ algorithm
                 d=V_1 + V_2 - V_liquid,
                 u_min=-0.1,
                 u_max=r_3 + 0.1)));
-
   A_surfaceVL := smooth(1,noEvent(
              if V_liquid < V_1 then
                pi*(r_1^2 - (r_1 - level)^2)
@@ -51,7 +41,6 @@ algorithm
                A_2c
              else
                pi*(r_3^2 - (level - h_2 - r_1)^2)));
-
   A_surfaceWL := smooth(1,noEvent(
              if V_liquid < V_1 then
                2*pi*r_1*level
@@ -59,16 +48,13 @@ algorithm
                A_1w + 2*pi*r_2*(level - r_1)
              else
                A_1w + A_2w + A_3w - 2*pi*r_3*(r_3 - (level - h_2 - r_1))));
-
   Region := noEvent(if level < r_1 then
                  1
                elseif (level >= r_1 and level <= h_2+r_1) then
                  2
                else
                  3);
-
   A_surfaceWV :=A_surfaceWTotal - A_surfaceWL;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Ellipse(

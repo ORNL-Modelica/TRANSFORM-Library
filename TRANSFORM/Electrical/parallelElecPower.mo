@@ -1,9 +1,7 @@
 within TRANSFORM.Electrical;
 model parallelElecPower
   "Scale electrical power: simulates parallel flow streams"
-
   parameter Real nParallel = 1 "port_a.W is divided into nParallel flow streams";
-
   TRANSFORM.Electrical.Interfaces.ElectricalPowerPort_Flow singleFlow
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-110,-10},{-90,10}})));
@@ -13,10 +11,8 @@ model parallelElecPower
 equation
   // mass balance
   0 =singleFlow.W + parallelFlow.W*nParallel;
-
   // frequency equation
   singleFlow.f =parallelFlow.f;
-
   annotation (defaultComponentName="nFlow",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(
             extent={{-100,-100},{100,100}}, fileName=

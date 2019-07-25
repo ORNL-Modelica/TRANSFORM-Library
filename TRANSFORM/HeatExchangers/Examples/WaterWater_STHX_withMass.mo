@@ -3,14 +3,12 @@ model WaterWater_STHX_withMass
   "Example of an water and water shell and tube exchanger"
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   package Medium_tube = Modelica.Media.Water.StandardWater (
   extraPropertiesNames={"t1","t2","t3"},
   C_nominal=fill(1e6,3));
   package Medium_shell = Modelica.Media.Water.StandardWater (
   extraPropertiesNames={"t3","t4"},
   C_nominal=fill(1e6,2));
-
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T tube_inlet(
     m_flow=1,
     T(displayUnit="degC") = 293.15,
@@ -86,7 +84,6 @@ model WaterWater_STHX_withMass
         (alphaM0={1}, iC={1}))
     "{Modelica.Fluid.Types.Dynamics.FixedInitial,Modelica.Fluid.Types.Dynamics.FixedInitial,Modelica.Fluid.Types.Dynamics.FixedInitial}"
     annotation (Placement(transformation(extent={{-21,-20},{21,20}})));
-
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
     y1={STHX.tube.mediums[i].T for i in 1:STHX.geometry.nV},
     y2={STHX.shell.mediums[i].T for i in 1:STHX.geometry.nV},

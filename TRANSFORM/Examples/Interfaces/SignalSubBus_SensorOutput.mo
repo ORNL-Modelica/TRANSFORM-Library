@@ -1,7 +1,6 @@
 within TRANSFORM.Examples.Interfaces;
 expandable connector SignalSubBus_SensorOutput
   "Icon for sensor/output signal sub-bus"
-
   annotation (defaultComponentName="sensorSubBus",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}, initialScale=0.2), graphics={
           Rectangle(

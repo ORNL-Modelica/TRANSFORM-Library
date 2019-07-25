@@ -1,18 +1,14 @@
 within TRANSFORM.Fluid.Valves.BaseClasses;
 partial model PartialTwoPort "Partial component with two ports"
-
   extends TRANSFORM.Fluid.Interfaces.Records.Medium_fluid;
-
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
   parameter Boolean showDesignFlowDirection=true
     "= false to hide the flow direction arrow"
     annotation (Dialog(tab="Visualization"));
   parameter Boolean showName=true "= false to hide component name"
     annotation (Dialog(tab="Visualization"));
-
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(
                                 redeclare package Medium = Medium,
                      m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0))
@@ -23,7 +19,6 @@ partial model PartialTwoPort "Partial component with two ports"
                      m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}}), iconTransformation(extent={{110,-10},{90,10}})));
-
   annotation (Icon(graphics={
         Polygon(
           points={{20,-45},{60,-60},{20,-75},{20,-45}},

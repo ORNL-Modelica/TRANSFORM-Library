@@ -1,16 +1,12 @@
 within TRANSFORM.Fluid.Sensors.BaseClasses;
 partial model PartialAbsoluteSensor
   "Partial component to model a sensor that measures a potential variable"
-
   extends TRANSFORM.Fluid.Interfaces.Records.Medium_fluid;
-
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
-
   parameter Boolean showName=true "= false to hide component name"
     annotation (Dialog(tab="Visualization"));
-
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),

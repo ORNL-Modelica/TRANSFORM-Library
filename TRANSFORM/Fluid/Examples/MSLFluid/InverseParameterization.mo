@@ -2,15 +2,12 @@ within TRANSFORM.Fluid.Examples.MSLFluid;
 model InverseParameterization
   "Demonstrates the parameterization of a pump and a pipe for given nominal values"
   extends TRANSFORM.Icons.Example;
-
   replaceable package Medium = Modelica.Media.Water.StandardWater;
   //replaceable package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
-
   //parameter Real eps_m_flow_turbulent = 0.0 "Turbulent flow |m_flow| >= eps_m_flow_nominal*m_flow_nominal";
   parameter Real eps_m_flow_turbulent = 0.1
     "Turbulent flow |m_flow| >= eps_m_flow_nominal*m_flow_nominal";
   //parameter Real eps_m_flow_turbulent = 1 "Turbulent flow |m_flow| >= eps_m_flow_nominal*m_flow_nominal";
-
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT source(
     redeclare package Medium = Medium,
     nPorts=1,
@@ -39,12 +36,10 @@ model InverseParameterization
     dp_nominal=100000,
     m_flow_nominal=1) annotation (Placement(transformation(extent={{20,10},{40,
             30}})));
-
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT sink(
     nPorts=1,
     redeclare package Medium = Medium,
     p=100000) annotation (Placement(transformation(extent={{76,14},{64,26}})));
-
   inner Modelica.Fluid.System system
                         annotation (Placement(transformation(extent={{-90,50},{
             -70,70}})));
@@ -108,7 +103,6 @@ equation
   connect(pipe2.port_b, sink2.ports[1]) annotation (Line(
       points={{40,-60},{64,-60}},
       color={0,127,255}));
-
   connect(pump.port_b, pipe2.port_a) annotation (Line(
       points={{-20,20},{0,20},{0,-60},{20,-60}},
       color={0,127,255}));

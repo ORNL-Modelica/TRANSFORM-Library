@@ -1,19 +1,14 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model Temperature "Temperature boundary condition in Kelvin"
-
   parameter Boolean use_port=false "=true then use input port"
   annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
-
   parameter SI.Temperature T=293.15 "Fixed temperature at port"             annotation(Dialog(                        enable=not use_port));
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-
   Modelica.Blocks.Interfaces.RealInput T_ext(unit="K") if use_port  annotation (Placement(transformation(
           extent={{-60,-20},{-20,20}}), iconTransformation(extent={{-60,-20},
             {-20,20}})));
-
 protected
     Modelica.Blocks.Interfaces.RealInput T_int(unit="K");
-
 public
   Interfaces.HeatPort_State port annotation (Placement(transformation(extent={{
             90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
@@ -22,9 +17,7 @@ equation
   if not use_port then
     T_int = T;
   end if;
-
   port.T = T_int;
-
   annotation (defaultComponentName="boundary",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={

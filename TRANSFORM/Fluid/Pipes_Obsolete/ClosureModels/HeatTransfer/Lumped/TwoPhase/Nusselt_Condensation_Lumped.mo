@@ -1,16 +1,13 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.TwoPhase;
 model Nusselt_Condensation_Lumped
   "Condensation | Laminar | Film: Nusselt theory two phase laminar film condensation model"
-
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.BaseClasses.PartialLumpedHeatTransfer;
-
   SI.CoefficientOfHeatTransfer alpha "Coefficient of heat transfer";
   SI.NusseltNumber Nu "Nusselt number";
   SI.SpecificEnthalpy h_fgp "Modified latent heat of vaporization";
   Units.NonDim Ja "Jakob number";
 equation
-
   (alpha,Nu,h_fgp,Ja) =
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.TwoPhase.Condensation.alpha_NusseltTheory_Condensation(
             L_c=dimension,
@@ -25,7 +22,5 @@ equation
             T_state=state.T,
             T_sat=medium2.sat.Tsat,
             T_wall=heatPort.T);
-
   Q_flow=alpha*surfaceArea*(T_wall - state.T)*nParallel;
-
 end Nusselt_Condensation_Lumped;

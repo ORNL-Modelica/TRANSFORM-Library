@@ -5,13 +5,13 @@ package Molybdenum "Mo: Molybdenum"
   // Vol 1 is Thermal Conductivity
   // Cp data located on pages 135-139 (used data from series 11 and 7)
   // k data is located on pages 223-229 (recommended values on pg 229)
-
-   extends Interfaces.Solids.PartialSimpleAlloy_TableBased(
+   extends Interfaces.Solids.PartialSimpleAlloy_SplineBased(
      mediumName="Molybdenum",
      T_min=13.23,
      T_max=2800.,
+     T_reference=1.,
      tableDensity=[0.,10220.; 3000.,10220.],
-     tableHeatCapacity=[0.,0.; 13.23,0.795; 14.14,0.913; 14.38,0.942; 15.27,1.089;
+     tableHeatCapacity=[1.,0.; 13.23,0.795; 14.14,0.913; 14.38,0.942; 15.27,1.089;
      16.1,1.256; 16.61,1.357; 16.71,1.373; 18.34, 1.721; 19.24,1.968; 19.39,1.997;
      19.46,2.018; 21.3,2.629; 23.16,3.442; 26.81,5.472; 31.13,9.01; 35.98,14.537;
      40.77,21.713; 46.62,32.339; 51.85,43.208; 57.56,55.768; 62.6,67.031;

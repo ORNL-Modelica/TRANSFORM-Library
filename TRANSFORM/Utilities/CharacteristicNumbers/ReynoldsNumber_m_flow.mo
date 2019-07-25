@@ -1,7 +1,6 @@
 within TRANSFORM.Utilities.CharacteristicNumbers;
 function ReynoldsNumber_m_flow "Return Reynolds number from m_flow, mu, D, A"
   extends Modelica.Icons.Function;
-
   input SI.MassFlowRate m_flow "Mass flow rate";
   input SI.DynamicViscosity mu "Dynamic viscosity";
   input SI.Length D

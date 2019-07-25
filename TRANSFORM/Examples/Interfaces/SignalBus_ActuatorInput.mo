@@ -1,7 +1,6 @@
 within TRANSFORM.Examples.Interfaces;
 expandable connector SignalBus_ActuatorInput
   "Icon for actuator/input signal bus"
-
   annotation (defaultComponentName="actuatorBus",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}, initialScale=0.2), graphics={
           Rectangle(

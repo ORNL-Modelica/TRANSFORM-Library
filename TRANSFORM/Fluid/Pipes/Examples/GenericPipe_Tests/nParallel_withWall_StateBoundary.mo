@@ -1,11 +1,8 @@
 within TRANSFORM.Fluid.Pipes.Examples.GenericPipe_Tests;
 model nParallel_withWall_StateBoundary
   import TRANSFORM;
-
   extends TRANSFORM.Icons.Example;
-
   package Medium=Modelica.Media.Water.StandardWater(extraPropertiesNames={"Tritium"});
-
   GenericPipe_wWall_wTraceMass
               pipe_single(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare package Medium = Medium,

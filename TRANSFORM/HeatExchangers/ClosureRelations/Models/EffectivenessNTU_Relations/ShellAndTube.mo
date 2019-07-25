@@ -1,18 +1,13 @@
 within TRANSFORM.HeatExchangers.ClosureRelations.Models.EffectivenessNTU_Relations;
 model ShellAndTube "Shell-and-tube"
-
   extends PartialMethod;
-
   parameter Real n=1 "# of shell passes";
-
 protected
   SIadd.NonDim E;
   SIadd.NonDim epsilon_1;
   SIadd.NonDim F;
   SIadd.NonDim NTU_1;
-
 equation
-
   if epsilonMethod then
     epsilon_1 = 2/(1 + C_r + sqrt(1 + C_r^2)*(1 + exp(-NTU_1*sqrt(1 + C_r^2)))/(
       1 - exp(-NTU_1*sqrt(1 + C_r^2))));
@@ -26,10 +21,8 @@ equation
     epsilon_1 = (F - 1)/(F - C_r);
     F = ((epsilon*C_r - 1)/(epsilon - 1))^(1/n);
     NTU_1 = -1/sqrt((1 + C_r^2))*log((E - 1)/(E + 1));
-
     method = n*NTU_1;
   end if;
-
   annotation (defaultComponentName="effectivenessNTU",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

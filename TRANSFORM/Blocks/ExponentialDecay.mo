@@ -1,19 +1,15 @@
 within TRANSFORM.Blocks;
 model ExponentialDecay "Generate a exponential decay signal"
-
   parameter SI.DecayConstant lambda=1 "Decay constant";
   parameter Real offset=0 "Offset of output signal";
   parameter Real frac = 0 "Fraction of offset for y(inf)";
   parameter SI.Time startTime=0 "Output = offset for time < startTime";
   extends Modelica.Blocks.Interfaces.SO;
-
 equation
-
   //y = offset*(if time < startTime then 1 else Modelica.Math.exp(-lambda*(time-startTime)));
   //y = shift + (offset-shift)*(if time < startTime then 1 else Modelica.Math.exp(-lambda*(time-startTime)));
   //y = frac*offset + (1-frac)*offset*(if time < startTime then 1 else Modelica.Math.exp(-lambda*(time-startTime)));
   y = offset*(frac + (1-frac)*(if time < startTime then 1 else Modelica.Math.exp(-lambda*(time-startTime))));
-
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=true,

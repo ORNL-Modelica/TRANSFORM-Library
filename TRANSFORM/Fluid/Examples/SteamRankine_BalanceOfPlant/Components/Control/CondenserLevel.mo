@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.Components.Control;
 block CondenserLevel
   extends Interfaces.CondenserLevel;
-
   Controls.LimPID                           controller(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     initType=Modelica.Blocks.Types.InitPID.InitialOutput,

@@ -1,6 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass;
 model AdiabaticMass "Adiabatic boundary condition"
-
   parameter Integer nC = 1 "Number of substances";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   Interfaces.MolePort_Flow port(nC=nC) annotation (Placement(transformation(
@@ -8,7 +7,6 @@ model AdiabaticMass "Adiabatic boundary condition"
             10}})));
 equation
   port.n_flow = zeros(nC);
-
   annotation (defaultComponentName="adiabatic",
     Icon(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}),     graphics={

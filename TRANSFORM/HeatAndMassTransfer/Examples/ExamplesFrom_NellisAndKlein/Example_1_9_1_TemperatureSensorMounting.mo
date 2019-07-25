@@ -3,7 +3,6 @@ model Example_1_9_1_TemperatureSensorMounting
   "part a) Plot the temperature distribution to identify the measurement error"
   import TRANSFORM;
   extends Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_w(T=
         293.15) "wall temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));

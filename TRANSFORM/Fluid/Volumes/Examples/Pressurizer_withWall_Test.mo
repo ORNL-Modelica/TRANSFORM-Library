@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model Pressurizer_withWall_Test
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Fluid.Volumes.Pressurizer_withWall pressurizer(
     redeclare model BulkCondensation =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay
@@ -32,7 +31,6 @@ model Pressurizer_withWall_Test
     Vfrac_liquid_start=1/3,
     rho_wall=7000)
     annotation (Placement(transformation(extent={{-20,-26},{20,26}})));
-
   Modelica.Fluid.Sources.MassFlowSource_h spray(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     h=400e3,

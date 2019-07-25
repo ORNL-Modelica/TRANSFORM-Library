@@ -2,7 +2,6 @@ within TRANSFORM.Math;
 function smoothMax_splice
   "Once continuously differentiable approximation to the maximum function using splice"
   extends TRANSFORM.Icons.Function;
-
   input Real x1 "First argument";
   input Real x2 "Second argument";
   input Real dx "Width of transition interval";

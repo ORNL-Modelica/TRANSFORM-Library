@@ -1,10 +1,8 @@
 within TRANSFORM.Media.Fluids.NaFNaBF4;
 package ConstantPropertyLiquidNaFNaBF4 "NaFNaBF4i: Molten fluoroborate salt (incompressible, constant data)"
-
   /*
   Properties have been calculated at 540C (813K)
 */
-
   constant Modelica.Media.Interfaces.Types.Basic.FluidConstants[1]
     simpleNaFNaBF4Constants(
     each chemicalFormula="NaFNaBF4",

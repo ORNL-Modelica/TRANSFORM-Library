@@ -1,7 +1,6 @@
 within TRANSFORM.Icons;
 partial class ReleaseNotes
   "Icon for release notes in documentation"
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Polygon(
@@ -29,5 +28,4 @@ partial class ReleaseNotes
           fillPattern=FillPattern.Solid)}), Documentation(info="<html>
 <p>This icon indicates release notes and the revision history of a library.</p>
 </html>"));
-
 end ReleaseNotes;

@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid;
 model System
   "Fluid system properties and default values (ambient, flow direction, initialization)"
-
   package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model for default start values"
       annotation (choicesAllMatching = true);
@@ -14,7 +13,6 @@ model System
   parameter Modelica.SIunits.Acceleration g=Modelica.Constants.g_n
     "Constant gravity acceleration"
     annotation(Dialog(group="Environment"));
-
   // Assumptions
   parameter Boolean allowFlowReversal = true
     "= false to restrict to design flow direction (port_a -> port_b)"
@@ -36,7 +34,6 @@ model System
     Modelica.Fluid.Types.Dynamics.SteadyState
     "Default formulation of momentum balances, if options available"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-
   // Initialization
   parameter Modelica.SIunits.MassFlowRate m_flow_start = 0
     "Default start value for mass flow rates"
