@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D;
 partial model PartialTwoPhase
 
   extends PartialMomentumBalance(
-      replaceable package Medium =
+      redeclare replaceable package Medium =
         Modelica.Media.Water.StandardWater
       constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium);
 

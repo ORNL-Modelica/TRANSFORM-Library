@@ -3,7 +3,7 @@ model IRIS
   import TRANSFORM;
 
   extends BaseClasses.Partial_SubSystem_A(
-    replaceable package Medium = Modelica.Media.Water.StandardWater,
+    redeclare package Medium = Modelica.Media.Water.StandardWater,
     allowFlowReversal=system.allowFlowReversal,
     redeclare replaceable CS_Default CS,
     redeclare replaceable ED_Default ED,
