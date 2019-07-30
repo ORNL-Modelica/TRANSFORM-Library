@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D;
 partial model PartialTwoPhase
   extends PartialMassTransfer_setn_flows(
-      replaceable package Medium =
+      redeclare replaceable package Medium =
         Modelica.Media.Water.StandardWater
       constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium);
   TRANSFORM.Media.BaseProperties2Phase[nMT] mediums(redeclare package Medium =
