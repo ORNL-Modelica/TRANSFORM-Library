@@ -3,7 +3,7 @@ partial model PartialTwoPhase
 
   extends
     TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialHeatTransfer(
-      final flagIdeal=0, replaceable package Medium =
+      final flagIdeal=0, redeclare replaceable package Medium =
         Modelica.Media.Water.StandardWater constrainedby
       Modelica.Media.Interfaces.PartialTwoPhaseMedium);
 

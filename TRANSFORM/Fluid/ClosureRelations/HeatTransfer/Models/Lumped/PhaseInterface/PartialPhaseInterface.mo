@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.PhaseInterfac
 partial model PartialPhaseInterface
 
   extends TRANSFORM.Fluid.Interfaces.Records.Medium_fluidInternal(
-      replaceable package Medium =
+      redeclare replaceable package Medium =
                        Modelica.Media.Water.StandardWater constrainedby
       Modelica.Media.Interfaces.PartialTwoPhaseMedium);
 
