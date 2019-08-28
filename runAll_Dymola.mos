@@ -1,3 +1,4 @@
+simulateModel("TRANSFORM.Examples.CIET_Facility.Examples.CIET_nureth",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="CIET_nureth");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.BatemanEquations_Test",stopTime=1000,numberOfIntervals=1000,resultFile="BatemanEquations_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
@@ -16,6 +17,7 @@ simulateModel("TRANSFORM.Controls.Examples.LimPID_HysteresisTimer_Test",stopTime
 simulateModel("TRANSFORM.Controls.Examples.LimPID_Hysteresis_Test",stopTime=86400,tolerance=1e-6,resultFile="LimPID_Hysteresis_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_withReset_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_withReset_Test");
+simulateModel("TRANSFORM.Examples.CIET_Facility.Examples.CIET_nureth",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="CIET_nureth");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.BatemanEquations_Test",stopTime=1000,numberOfIntervals=1000,resultFile="BatemanEquations_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
