@@ -15,11 +15,6 @@ extends TRANSFORM.Icons.Example;
     annotation (Placement(transformation(extent={{-192,-36},{-172,-16}})));
   Modelica.Blocks.Sources.Constant const2(each k=4.19348e8)
     annotation (Placement(transformation(extent={{-194,-86},{-174,-66}})));
-  Utilities.ErrorAnalysis.UnitTests unitTests(
-    n=1,
-    printResult=false,
-    x={total_Q_MW})
-    annotation (Placement(transformation(extent={{-200,80},{-180,100}})));
 equation
  total_Q_MW=sum(SG_1.riser.heatPort.Q_flow + SG_2.riser.heatPort.Q_flow + SG_3.riser.heatPort.Q_flow+SG_1.riser1.heatPort.Q_flow + SG_2.riser1.heatPort.Q_flow + SG_3.riser1.heatPort.Q_flow)*1e-6;
   connect(const.y, SG_1.Q_fromPHS) annotation (Line(points={{-171,18},{-91,18},
