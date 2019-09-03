@@ -188,7 +188,7 @@ model GenericPipe_wWall_wTraceMass
         length_z=sum(geometry.dlengths),
         drs=geometry.drs,
         dzs=geometry.dzs,
-        r_inner=0.5*sum(geometry.dimensions)/geometry.nV),
+        r_inner=geometry.r_inner),
     exposeState_a1=false)                                        annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},

@@ -41,7 +41,7 @@ equation
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
   port_a.C_outflow = inStream(port_b.C_outflow);
   port_b.C_outflow = inStream(port_a.C_outflow);
-  annotation (
+  annotation (defaultComponentName="pump",
     Icon(graphics={
         Rectangle(
           extent={{-80,30},{-40,-30}},

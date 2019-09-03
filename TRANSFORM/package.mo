@@ -8,11 +8,11 @@ import Modelica.Math;
 
 annotation (
     uses(
-    SDF(version="0.4.0"),
     ModelicaServices(version="3.2.2"),
     Modelica(version="3.2.3"),
     Complex(version="3.2.3"),
-    UserInteraction(version="0.65")),
+    UserInteraction(version="0.65"),
+    SDF(version="0.4.1")),
     version="1",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>

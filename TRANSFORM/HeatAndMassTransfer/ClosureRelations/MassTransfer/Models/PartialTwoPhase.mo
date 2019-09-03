@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.MassTransfer.Models;
 partial model PartialTwoPhase
   extends PartialMassTransfer(
-     final flagIdeal=0, replaceable package Medium =
+     final flagIdeal=0, redeclare replaceable package Medium =
         Modelica.Media.Water.StandardWater constrainedby
       Modelica.Media.Interfaces.PartialTwoPhaseMedium);
   TRANSFORM.Media.BaseProperties2Phase[nMT] mediaProps(redeclare package Medium =

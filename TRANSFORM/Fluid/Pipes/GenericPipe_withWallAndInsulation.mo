@@ -90,11 +90,12 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
   parameter Boolean use_heatPort_addWall = false "=true for additional source/sink for heat between wall and insulation" annotation(Dialog(group="Heat Transfer"));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder wall[pipe.geometry.nV](
     length=pipe.geometry.dlengths,
-    r_inner=0.5*pipe.geometry.dimensions,
+    r_inner={pipe.geometry.surfaceAreas[i, 1]/(pipe.geometry.dlengths[i]*2*
+        Modelica.Constants.pi) for i in 1:pipe.geometry.nV},
     redeclare package Material = Material_wall,
     each energyDynamics=energyDynamics_wall,
     each T_start=T_wall_start,
-    r_outer=ths_wall + 0.5*pipe.geometry.dimensions,
+    r_outer=ths_wall + wall.r_inner,
     each exposeState_a=true,
     Q_gen=Q_gen)     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
