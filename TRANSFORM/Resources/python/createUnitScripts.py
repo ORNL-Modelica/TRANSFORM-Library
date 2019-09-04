@@ -329,4 +329,8 @@ if not unitTests_notFound == []:
     print('Some .mo recognized as examples did not contain the unitTests model. View variable "unitTests_notFound" for the complete list')
 
 if cleanupRefRes:
-    cleanupRefResults(unitTests,folderName,folderNameRefResults,simEnv)
+    refsPath = os.path.join(folderPath,folderName,'Resources/References/')
+    if os.path.exists(refsPath):
+        cleanupRefResults(unitTests,folderName,folderNameRefResults,simEnv)
+    else:
+        print('\n{} Does not exist. Skipping cleanup of reference results'.format(refsPath))
