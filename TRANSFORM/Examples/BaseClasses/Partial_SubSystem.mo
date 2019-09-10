@@ -1,6 +1,5 @@
 within TRANSFORM.Examples.BaseClasses;
 partial model Partial_SubSystem
-
   annotation (
     defaultComponentName="subSystem",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

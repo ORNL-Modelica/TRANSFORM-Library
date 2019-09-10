@@ -1,10 +1,5 @@
 within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.HeatExchangers;
 package BellDelawareSTHX_ShellSide
-
-
-
-
-
 annotation (Documentation(info="<html>
 <p><span style=\"font-family: MS Shell Dlg 2;\">The Bell-Delaware shell and tube heat exchanger model is based on the method presented by Edward S. Gaddis and Volker Gnielinski in the VDI Heat Atlas 2nd Edition (2010). This method is based off of the extensive work performed at the University of Delaware. The Bell-Delaware method consists of breaking down the pressure drop (dP) model into various sections of the heat exchanger (see Figure 1) while the heat transfer correlation model is more of a lumped parameter type approach. The traditional Bell-Delaware method employs diagrams while the Gaddis Gnielinski version has translated the information to equations. The tube side of the shell and tube heat exchanger is independent of the Bell-Delaware method and thus can be exchanged with any appropriate pipe model, dP model, and/or heat transfer model.</span></p>
 <p><img src=\"modelica://TRANSFORM//Resources/Images/NonPowerPoint/BellDelaware/BellDelaware_dPlayout.PNG\"/></p>

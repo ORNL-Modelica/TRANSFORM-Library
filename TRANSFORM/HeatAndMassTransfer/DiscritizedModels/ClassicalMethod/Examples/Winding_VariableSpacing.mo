@@ -26,7 +26,6 @@ model Winding_VariableSpacing
     redeclare model SolutionMethod_FD =
         Cylindrical.SolutionMethods.NodeCentered_2D)
     annotation (Placement(transformation(extent={{-34,-56},{46,34}})));
-
   BoundaryConditions.Convection_FD convection_top(
     nNodes=Winding.nR,
     alphas=400*ones(Winding.nR),
@@ -39,17 +38,13 @@ model Winding_VariableSpacing
         extent={{-9.5,-12},{9.5,12}},
         rotation=90,
         origin={6,58.5})));
-
   BoundaryConditions.FixedTemperature_FD fixedTemperature_FD2(nNodes=
         Winding.nR, T(displayUnit="K") = 320*ones(Winding.nR))
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-
   BoundaryConditions.Adiabatic_FD adiabatic_bottom(nNodes=Winding.nR)
     annotation (Placement(transformation(extent={{-26,-80},{-6,-60}})));
-
   BoundaryConditions.Adiabatic_FD adiabatic_outer(nNodes=Winding.nZ)
     annotation (Placement(transformation(extent={{88,-21},{68,-1}})));
-
   BoundaryConditions.Convection_FD convection_inner(
     nNodes=Winding.nZ,
     Areas={2.24399e-05,4.48799e-05,4.48799e-05,4.48799e-05,4.48799e-05,4.48799e-05,
@@ -61,15 +56,12 @@ model Winding_VariableSpacing
         0.000141372,0.000141372,0.000141372,7.06858e-05},
     alphas=400*ones(Winding.nZ))
     annotation (Placement(transformation(extent={{-36,-22},{-56,-2}})));
-
   BoundaryConditions.FixedTemperature_FD fixedTemperature_FD(nNodes=Winding.nZ,
       T(displayUnit="K") = 320*ones(Winding.nZ))
     annotation (Placement(transformation(extent={{-90,-22},{-70,-2}})));
-
   Modelica.Blocks.Sources.Constant const[Winding.nR,Winding.nZ](k=6e5*ones(
         Winding.nR, Winding.nZ))
     annotation (Placement(transformation(extent={{-62,20},{-42,40}})));
-
 equation
   connect(convection_top.port_a, Winding.heatPorts_top)
     annotation (Line(points={{6,48.05},{6,32},{6,16.45}},

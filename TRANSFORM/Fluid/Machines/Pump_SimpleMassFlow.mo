@@ -1,24 +1,19 @@
 within TRANSFORM.Fluid.Machines;
 model Pump_SimpleMassFlow "Prescribes mass flow rate across the component"
-
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium model"
     annotation(choicesAllMatching = true);
   parameter Boolean use_input=false "Use connector input for the mass flow" annotation(choices(checkBox=true));
   parameter SI.MassFlowRate m_flow_nominal=0 "Nominal mass flowrate" annotation(Dialog(enable=not use_input));
-
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction" annotation(Dialog(tab="Advanced"));
-
   SI.MassFlowRate m_flow "Mass flowrate";
-
   Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium, m_flow(
         min=if allowFlowReversal then -Modelica.Constants.inf else 0))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.FluidPort_Flow port_b(redeclare package Medium = Medium, m_flow(
         max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
   Modelica.Blocks.Interfaces.RealInput in_m_flow(value=m_flow_internal) if
                                                 use_input annotation (
       Placement(transformation(
@@ -28,31 +23,23 @@ model Pump_SimpleMassFlow "Prescribes mass flow rate across the component"
         extent={{-13,-13},{13,13}},
         rotation=270,
         origin={0,73})));
-
 protected
   SI.MassFlowRate m_flow_internal;
-
 equation
-
   if not use_input then
     m_flow_internal =m_flow_nominal;
   end if;
   m_flow = m_flow_internal;
-
   port_a.m_flow + port_b.m_flow = 0;
   port_a.m_flow = m_flow;
-
   // Balance Equations
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
-
   port_a.Xi_outflow = inStream(port_b.Xi_outflow);
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-
   port_a.C_outflow = inStream(port_b.C_outflow);
   port_b.C_outflow = inStream(port_a.C_outflow);
-
-  annotation (
+  annotation (defaultComponentName="pump",
     Icon(graphics={
         Rectangle(
           extent={{-80,30},{-40,-30}},

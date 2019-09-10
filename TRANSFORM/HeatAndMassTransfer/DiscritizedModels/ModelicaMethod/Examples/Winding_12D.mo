@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ModelicaMethod.Examples;
 model Winding_12D
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ModelicaMethod.Conduction_12D
     winding(
     redeclare package Material =
@@ -58,7 +57,6 @@ model Winding_12D
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic bound_outer[
     nNodes_2.k]
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-
   Real hA_val_inner[nNodes_2.k];
   Real hA_val_top[nNodes_1.k];
   Modelica.Blocks.Sources.RealExpression Vs[nNodes_1.k,nNodes_2.k](y=winding.geometry.Vs)
@@ -72,7 +70,6 @@ model Winding_12D
   Modelica.Blocks.Sources.RealExpression T_max(y=
         TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(winding.unitCell.T)))
     annotation (Placement(transformation(extent={{-38,-66},{-22,-54}})));
-
      Real xval[nNodes_1.k] = abs(winding.geometry.cs_1[:, 1]);
   Real yval[nNodes_1.k]=
       TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(winding.unitCell[
@@ -82,15 +79,12 @@ model Winding_12D
       TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(winding.unitCell[
       :, nNodes_2.k].T);
 equation
-
   for j in 1:nNodes_2.k loop
     hA_val_inner[j] = 400*winding.geometry.crossAreas_1[1, j];
   end for;
-
   for i in 1:nNodes_1.k loop
     hA_val_top[i] = 400*winding.geometry.crossAreas_2[i, nNodes_2.k];
   end for;
-
   connect(T_max.y, display.u)
     annotation (Line(points={{-21.2,-60},{-11.5,-60}}, color={0,0,127}));
   connect(Vs.y, Q_gen.u1) annotation (Line(points={{-39.2,44},{-30.8,44},{-30.8,

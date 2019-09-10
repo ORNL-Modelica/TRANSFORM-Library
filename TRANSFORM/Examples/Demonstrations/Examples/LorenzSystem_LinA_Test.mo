@@ -1,9 +1,7 @@
 within TRANSFORM.Examples.Demonstrations.Examples;
 model LorenzSystem_LinA_Test
   import TRANSFORM;
-
   extends Icons.Example;
-
   TRANSFORM.Examples.Demonstrations.Models.LorenzSystem lorenzSystem(
     rho=28,
     beta=8/3,
@@ -12,7 +10,6 @@ model LorenzSystem_LinA_Test
     z_start=1.05,
     sigma=add.y)
     annotation (Placement(transformation(extent={{-40,-30},{40,30}})));
-
   Modelica.Blocks.Sources.RealExpression realExpression(y=lorenzSystem.y)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Interfaces.RealInput u annotation (Placement(transformation(

@@ -1,18 +1,13 @@
 within TRANSFORM.Utilities.CharacteristicNumbers.Models;
 model DiffusiveMassTimeConstant
-
   input SI.Length L "Characteristic length" annotation(Dialog(group="Inputs"));
-
   input SI.DiffusionCoefficient D_ab "Diffusion coefficient" annotation(Dialog(group="Inputs"));
-
   SI.Time tau "Diffusive mass transfer time constant";
-
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal" annotation (Placement(
         transformation(extent={{100,-10},{120,10}})));
 algorithm
   tau := 0.25*L^2/D_ab;
   y:=tau;
-
   annotation (defaultComponentName="tau_diff",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(

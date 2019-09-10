@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids;
 package Helium "Helium: pseudo-Helium gas/solid"
-
   /*
 Helium Thermal capacity, density, and specific heat.
 
@@ -14,7 +13,6 @@ k => regression from pg 57 table (units in table are wrong, off by 1000)
 rho => regression from pg 57 table
 cp => pg 56
 */
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="He",
     T_min=Modelica.SIunits.Conversions.from_degC(0),
@@ -28,6 +26,8 @@ cp => pg 56
 
   redeclare function extends density
     "Density"
+protected
+    Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
     d := 0.165 - 4.3e-4*state.T + 6.7e-7*state.T^2 - 5.5e-10*state.T^3 + 1.7e-13*state.T^4;
   end density;

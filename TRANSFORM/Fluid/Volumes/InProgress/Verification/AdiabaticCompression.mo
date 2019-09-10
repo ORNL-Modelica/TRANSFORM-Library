@@ -1,16 +1,13 @@
 within TRANSFORM.Fluid.Volumes.InProgress.Verification;
 model AdiabaticCompression
   extends TRANSFORM.Icons.Example;
-
   package Medium = Modelica.Media.Water.StandardWater "Medium in component";
   constant SI.Pressure p_start = 100e3 "Initial pressure";
   constant SI.Temperature T_start = Medium.saturationTemperature(p_start) "Initial temperature";
   constant SI.SpecificEnthalpy h_start = Medium.specificEnthalpy_pT(p_start,T_start) "Initial temperature";
-
   constant SI.Pressure p_final = 300e3 "Final pressure";
   constant SI.SpecificEnthalpy h_final = 2888.8e3 "Final enthalpy";
   constant SI.Temperature T_final = Medium.temperature(Medium.setState_ph(p_final,h_final)) "Final temperature";
-
   Volumes.InProgress.Pressurizer pressurizer(
     redeclare package Medium = Medium,
     redeclare model DrumType =
@@ -32,7 +29,6 @@ model AdiabaticCompression
     redeclare model HeatTransfer_WV =
         ClosureRelations.HeatTransfer.Models.Lumped.Alphas)
     annotation (Placement(transformation(extent={{-26,-30},{26,30}})));
-
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_liquid(T=373.15)
     annotation (Placement(transformation(extent={{70,-30},{50,-10}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaterLiquid
@@ -75,7 +71,6 @@ model AdiabaticCompression
     x_1={pressurizer.h_vapor})
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
-
   connect(heaterVapor.port, pressurizer.vaporHeater) annotation (Line(points={{-40,
           10},{-34,10},{-34,12},{-26,12}}, color={191,0,0}));
   connect(heaterLiquid.port, pressurizer.liquidHeater)

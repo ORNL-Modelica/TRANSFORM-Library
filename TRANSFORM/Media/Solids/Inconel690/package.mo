@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids;
 package Inconel690 "IN690: Inconel 690"
-
    extends Interfaces.Solids.PartialSimpleAlloy_TableBased(
      mediumName="IN690",
      T_min=Modelica.SIunits.Conversions.from_degC(0),

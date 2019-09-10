@@ -6,7 +6,6 @@ model VolumeFlowRate "Ideal sensor for volume flow rate"
         TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.to_m3_s
       constrainedby
       TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput V_flow(final quantity="VolumeFlowRate",
                                                final unit="m3/s")
     "Volume flow rate from port_a to port_b"
@@ -17,7 +16,6 @@ model VolumeFlowRate "Ideal sensor for volume flow rate"
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,36})));
-
 protected
   Medium.Density rho_a_inflow "Density of inflowing fluid at port_a";
   Medium.Density rho_b_inflow

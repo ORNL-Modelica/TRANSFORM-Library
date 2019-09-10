@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Math.Examples.check_interpolate2D",stopTime=10,resultFile="check_interpolate2D");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -18,6 +18,7 @@ import os
 import re
 import errno
 import sys
+import shutil
 
 folderPath = r'C:\Users\vmg\Documents\Modelica\TRANSFORM-Library'
 folderName = r'TRANSFORM'
@@ -108,7 +109,12 @@ def cleanupRefResults(unitTests,folderName,folderNameRefResults,simEnv):
             if ans.lower() == 'y':
                 os.remove(os.path.join(folderNameRefResults, f))       
 
-            
+# Delete Scripts folder if it exists
+scriptsPath = os.path.join(folderPath,folderName,'Resources/Scripts/')
+if os.path.exists(scriptsPath):
+    print('Deleting {}'.format(scriptsPath))
+    shutil.rmtree(os.path.join(folderPath,folderName,'Resources/Scripts/'))
+
 # Get list of all files within Examples folders
 directory_list = list()
 exclude = set(['Resources'])
@@ -133,8 +139,8 @@ for item in directory_list:
                         break
 
 # Delete runAll.mos file if it exists
-if os.path.exists(os.path.join(folderPath,'runAll_Dym.mos')):
-    os.remove(os.path.join(folderPath,'runAll_Dym.mos'))
+if os.path.exists(os.path.join(folderPath,'runAll_Dymola.mos')):
+    os.remove(os.path.join(folderPath,'runAll_Dymola.mos'))
     
 # List of possible simulation parameters
 expParameters = list()
@@ -191,6 +197,8 @@ for item in test_list:
                                 if 'NumberOfIntervals' in val:
                                     if not val.split('=')[1] == 0:
                                         exp_list['NumberOfIntervals'] = val.split('=')[1]
+                                        if val.split('=')[1] < 100:
+                                            print('Buildingspy requires NumberOfIntervals >= 100. Revise simulation conditions for: {}'.format(item))
                                         break
                                 else:
                                     if not val.split('=')[1] == 0:
@@ -311,7 +319,7 @@ for item in test_list:
                  
 #                mosfil.write("result = model.simulate()\n")
                 
-            with open(os.path.join(folderPath,'runAll_Dym.mos'), 'a') as mosDym:
+            with open(os.path.join(folderPath,'runAll_Dymola.mos'), 'a') as mosDym:
                 mosDym.write('simulateModel("{}",'.format(plotSimPath))
                 for key, value in exp_list.items():
                     mosDym.write('{}={},'.format(exp_dict[key], value))
@@ -321,4 +329,8 @@ if not unitTests_notFound == []:
     print('Some .mo recognized as examples did not contain the unitTests model. View variable "unitTests_notFound" for the complete list')
 
 if cleanupRefRes:
-    cleanupRefResults(unitTests,folderName,folderNameRefResults,simEnv)
+    refsPath = os.path.join(folderPath,folderName,'Resources/References/')
+    if os.path.exists(refsPath):
+        cleanupRefResults(unitTests,folderName,folderNameRefResults,simEnv)
+    else:
+        print('\n{} Does not exist. Skipping cleanup of reference results'.format(refsPath))

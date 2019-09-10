@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein;
 model SensorInOscillatingTemperatureEnvironment
   "Example 3.1-2 Sensor in an oscillating temperature environment pp. 310-316"
   extends Icons.Example;
-
   Modelica.Blocks.Sources.Constant D_s(each k=0.001) "sensor diameter"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.Constant alpha(each k=500)

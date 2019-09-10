@@ -3,7 +3,6 @@ model OilWater_PCHX
   "Example of an oil and water printed circuit heat exchanger"
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T tube_inlet(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     m_flow=0.2,
@@ -23,7 +22,6 @@ model OilWater_PCHX
         Media.Fluids.Incompressible.EngineOilUnused,
     nPorts=1)
     annotation (Placement(transformation(extent={{51,14},{39,26}})));
-
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT shell_outlet(
     p(displayUnit="bar") = 100000,
     T(displayUnit="degC") = 333.15,
@@ -31,7 +29,6 @@ model OilWater_PCHX
         Media.Fluids.Incompressible.EngineOilUnused,
     nPorts=1)
     annotation (Placement(transformation(extent={{-51,15},{-41,25}})));
-
   TRANSFORM.HeatExchangers.GenericDistributed_HX STHX(
     p_b_start_shell=shell_outlet.p,
     T_a_start_shell=shell_inlet.T,
@@ -66,7 +63,6 @@ model OilWater_PCHX
         nT=60,
         nR=3))
     annotation (Placement(transformation(extent={{-21,-20},{21,20}})));
-
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
     y1={STHX.tube.mediums[i].T for i in 1:STHX.geometry.nV},
     y2={STHX.shell.mediums[i].T for i in 1:STHX.geometry.nV},

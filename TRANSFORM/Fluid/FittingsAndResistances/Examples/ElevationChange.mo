@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.FittingsAndResistances.Examples;
 model ElevationChange
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   Modelica.Fluid.Sources.FixedBoundary OUT_mflow(
     p=system.p_ambient,
     T=system.T_ambient,

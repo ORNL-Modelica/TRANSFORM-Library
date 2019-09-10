@@ -1,7 +1,6 @@
 within TRANSFORM.Icons;
 partial class UnderConstruction
   "Icon for classes that are still under construction"
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Polygon(points={{-100,-100},{0,80},{100,-100},{-100,-100}},
           lineColor={255,0,0},

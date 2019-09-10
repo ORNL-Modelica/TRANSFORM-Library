@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.FlowModels;
 partial model PartialGenericPipeFlow
-
 // Constants to be set in subpackages
   constant Boolean use_mu = true
     "= true, if mu_a/mu_b are used in function, otherwise value is not used";
@@ -14,14 +13,11 @@ partial model PartialGenericPipeFlow
     "= true, if no wall friction is present, i.e., dp = 0 (function massFlowRate_dp() cannot be used)";
   constant Boolean use_Re_turbulent = true
     "= true, if Re_turbulent input is used in function, otherwise value is not used";
-
   parameter Boolean from_dp = momentumDynamics >=Modelica.Fluid.Types.Dynamics.SteadyStateInitial
     "= true, use m_flow = f(dp), otherwise dp = f(m_flow)"
     annotation (Dialog(group="Advanced"), Evaluate=true);
-
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.FlowModels.PartialStaggeredFlowModel;
-
   // Parameters
   parameter SI.AbsolutePressure dp_nominal(start=1, fixed=false)
     "Nominal pressure loss (only for nominal models)";
@@ -34,5 +30,4 @@ partial model PartialGenericPipeFlow
   parameter SI.Temperature Ts_w_nominal = Medium.temperature(
       Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
     "Nominal temperature";
-
 end PartialGenericPipeFlow;

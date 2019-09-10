@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Examples;
 model ResistanceCheck
   extends Icons.Example;
-
   Resistances.Heat.Plane plane(
     L=L.y,
     crossArea=crossArea.y,
@@ -30,7 +29,6 @@ model ResistanceCheck
     surfaceArea=surfaceArea.y,
     epsilon=epsilon.y)
     annotation (Placement(transformation(extent={{40,-56},{60,-36}})));
-
   Modelica.Blocks.Sources.Constant L(k=1)
     annotation (Placement(transformation(extent={{-100,68},{-90,78}})));
   Modelica.Blocks.Sources.Constant surfaceArea(k=2)
@@ -53,7 +51,6 @@ model ResistanceCheck
     annotation (Placement(transformation(extent={{-60,50},{-50,60}})));
   Modelica.Blocks.Sources.Constant alpha(k=15)
     annotation (Placement(transformation(extent={{-40,86},{-30,96}})));
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_a1(T(
         displayUnit="degC") = T_a.k)
     annotation (Placement(transformation(extent={{-90,4},{-70,24}})));
@@ -66,14 +63,12 @@ model ResistanceCheck
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_b2(T(
         displayUnit="degC") = T_b.k)
     annotation (Placement(transformation(extent={{-10,-26},{-30,-6}})));
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_a3(T(
         displayUnit="degC") = T_a.k)
     annotation (Placement(transformation(extent={{-90,-56},{-70,-36}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_b3(T(
         displayUnit="degC") = T_b.k)
     annotation (Placement(transformation(extent={{-10,-56},{-30,-36}})));
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_a4(T(
         displayUnit="degC") = T_a.k)
     annotation (Placement(transformation(extent={{-90,-86},{-70,-66}})));
@@ -98,7 +93,6 @@ model ResistanceCheck
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_b7(T(
         displayUnit="degC") = T_b.k)
     annotation (Placement(transformation(extent={{90,-56},{70,-36}})));
-
   Resistances.Heat.SemiInfinitePlane plane_semiInf(
     crossArea=crossArea.y,
     lambda=lambda.y,

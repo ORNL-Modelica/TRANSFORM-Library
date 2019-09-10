@@ -2,7 +2,6 @@ within TRANSFORM.Nuclear.FuelModels.Examples;
 model Regions_3_FD2DCyl_Test
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Nuclear.FuelModels.Regions_3_FD2DCyl fuelModel(
     energyDynamics=system.energyDynamics,
     length=1,
@@ -24,7 +23,6 @@ model Regions_3_FD2DCyl_Test
     annotation (Placement(transformation(extent={{-12,-32},{52,32}})));
   Modelica.Blocks.Sources.Constant const(k=10e3)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
-
   inner TRANSFORM.Fluid.System    system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
   TRANSFORM.Nuclear.PowerProfiles.GenericPowerProfile powerProfile(nNodes=

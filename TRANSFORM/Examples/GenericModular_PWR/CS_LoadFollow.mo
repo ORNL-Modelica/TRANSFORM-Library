@@ -1,10 +1,7 @@
 within TRANSFORM.Examples.GenericModular_PWR;
 model CS_LoadFollow
-
   extends BaseClasses.Partial_ControlSystem;
-
   input SI.Power Q_total_setpoint "Setpoint reactor power" annotation(Dialog(group="Inputs"));
-
   TRANSFORM.Controls.LimPID PID_Q(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=1e-3,
@@ -26,7 +23,6 @@ model CS_LoadFollow
   Modelica.Blocks.Sources.RealExpression realExpression1(y=data.dT_core)
     annotation (Placement(transformation(extent={{-50,-50},{-30,-30}})));
 equation
-
   connect(actuatorBus.reactivity_CR, PID_Q.y) annotation (Line(
       points={{30.1,-99.9},{50,-99.9},{50,0},{11,0}},
       color={111,216,99},

@@ -13,5 +13,5 @@ ResPath = LibPath
 rt.showGUI(False)
 rt.setLibraryRoot(LibPath, ResPath)
 rt.setNumberOfThreads(1)
-# rt.TestSinglePackage('ResistanceCheck', SinglePack=True)
+#rt.TestSinglePackage('ClosedGeometry_Test', SinglePack=True)
 rt.run()

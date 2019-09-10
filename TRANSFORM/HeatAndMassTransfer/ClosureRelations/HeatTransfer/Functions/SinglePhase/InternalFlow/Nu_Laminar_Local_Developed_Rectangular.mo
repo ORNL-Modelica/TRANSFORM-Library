@@ -1,34 +1,24 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow;
 function Nu_Laminar_Local_Developed_Rectangular
   "Nuselt Number | Single phase | Laminar | Local | Rectangular | Internal | Fully Developed"
-
-  input SI.ReynoldsNumber Re "Reynolds Number";
-  input SI.PrandtlNumber Pr "Prandtl Number";
   input Real AR "Ratio of maximum to minimum duct dimension";
   input Boolean constantTwall=true
     "= true for constant wall temperature correlation else constant heat flux";
-
   output SI.NusseltNumber Nu "Nusselt number";
-
 protected
   SI.NusseltNumber Nu_T
     "Constant wall temperature Nusselt number - S1:Eq. 5-82";
   SI.NusseltNumber Nu_H "Constant heat flux Nusselt number  - S1:Eq. 5-83";
-
 algorithm
-
   Nu_T := 7.541*(1 - 2.610*AR + 4.970*AR^2 - 5.119*AR^3 + 2.702*AR^4 - 0.548*AR
     ^5);
-
   Nu_H := 8.235*(1 - 2.042*AR + 3.085*AR^2 - 2.477*AR^3 + 1.058*AR^4 - 0.186*AR
     ^5);
-
   if constantTwall then
     Nu := Nu_T;
   else
     Nu := Nu_H;
   end if;
-
   annotation (Documentation(info="<html>
 <p>Local heat transfer model for fully developed laminar and turbulent flow in rectangular ducts.</p>
 <ul>

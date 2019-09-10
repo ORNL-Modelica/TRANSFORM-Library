@@ -1,32 +1,24 @@
 within TRANSFORM.Controls;
 model PI_Control2 "Proportional controller: y = yb + Kc*e"
-
   extends Modelica.Blocks.Interfaces.SVcontrol;
-
   parameter Boolean directActing = true "=false reverse acting" annotation(Evaluate=true);
   parameter Real k(unit="1")=1 "Error gain";
   parameter Real yb = 0 "Output bias";
-
   parameter Real k_s= 1 "Scaling factor for setpoint: set = k_s*u_s";
   parameter Real k_m= 1 "Scaling factor for measurment: meas = k_m*u_m";
-
   parameter SI.Time Ti(
     start=1,
     min=Modelica.Constants.small) = 1 "Time Constant (Ti>0 required)";
   parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.NoInit
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation (Evaluate=true, Dialog(group="Initialization"));
-
   parameter Real xi_start=0 "Initial or guess value of error integral (state)"
     annotation (Dialog(group="Initialization"));
   parameter Real y_start=0 "Initial value of output" annotation (Dialog(enable=
           initType == Init.SteadyState or initType == Init.InitialOutput, group=
          "Initialization"));
-
   constant SI.Time unitTime=1  annotation(HideResult=true);
-
   final parameter Real Kc = k*(if directActing then +1 else -1);
-
   Modelica.Blocks.Math.Gain P(k=Kc) "Proportional part of PID controller"
     annotation (Placement(transformation(extent={{2,30},{22,50}})));
   Modelica.Blocks.Math.Gain gain_u_s(k=k_s)

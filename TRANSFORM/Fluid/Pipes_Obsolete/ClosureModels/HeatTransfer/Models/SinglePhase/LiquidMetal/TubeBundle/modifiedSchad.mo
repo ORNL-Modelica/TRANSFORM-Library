@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.SinglePhase.LiquidMetal.TubeBundle;
 model modifiedSchad
   "modifiedSchad: Liquid metal rod bundle; 1.05 <= P/D <= 1.15, Pe <= 1000"
-
   /* source: 
   AlanE. Waltar, Donald R. Todd, Pavel V. Tsvetkov
   Fast Spectrum Reactors 2012
@@ -10,19 +9,14 @@ model modifiedSchad
   1.05 <= P/D <= 1.15
   Pe <= 1000
   */
-
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.PartialHeatTransfer_setQ_flows;
-
   parameter Real PDratio "Tube Pitch to Diameter ratio" annotation(Dialog(group="Heat Transfer Model:"));
-
   SI.NusseltNumber[nHT] Nus "Nusselt number";
   SI.ReynoldsNumber[nHT] Res "Reynolds number";
   SI.PrandtlNumber[nHT] Prs "Prandtl number";
   Real[nHT] Pes "Peclet Number";
-
 equation
-
   Prs = Medium.prandtlNumber(states);
   Res = TRANSFORM.Utilities.CharacteristicNumbers.ReynoldsNumber_m_flow(
     m_flow=m_flows/nParallel,
@@ -30,7 +24,6 @@ equation
     D=dimensions,
     A=crossAreas);
   Pes = TRANSFORM.Utilities.CharacteristicNumbers.PecletNumber(Res, Prs);
-
   for i in 1:nHT loop
     if Pes[i] <= 150 then
       Nus[i] = 4.496*(-16.15 + 24.96*PDratio - 8.55*PDratio^2);

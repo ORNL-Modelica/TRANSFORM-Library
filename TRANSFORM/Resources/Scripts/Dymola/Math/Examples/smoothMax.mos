@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Math.Examples.smoothMax",stopTime=10,resultFile="smoothMax");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

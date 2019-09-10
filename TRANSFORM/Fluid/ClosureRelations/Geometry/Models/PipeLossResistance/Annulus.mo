@@ -1,14 +1,11 @@
 ﻿within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance;
 model Annulus
-
   // Source: Idelčik, I. E. & Ginevskiĭ, A. S. Handbook of hydraulic resistance. (Begell House, 2007).
   // Diagram 2.7 - Circular correction factor for stabilized flow - Concentric Annulus
-
   input SI.Length d0=0.01 "Small diameter"
     annotation (Dialog(group="Inputs"));
   input SI.Length d1=0.02 "Large diameter"
     annotation (Dialog(group="Inputs"));
-
   parameter Boolean use_e_abs=true
     "=true then use absolute eccentricity else relative";
   input SI.Length e_abs=0.0 "Absolute off-center distance"
@@ -17,12 +14,10 @@ model Annulus
     min=0.0,
     max=1.0) = 0.0 "Relative off-center distance, min = 0; max = 1.0"
     annotation (Dialog(group="Inputs", enable=not use_e_abs));
-
   extends PartialGeometry(
     final dimension=4*crossArea/perimeter,
     final crossArea=0.25*Modelica.Constants.pi*(d1^2 - d0^2),
     final perimeter=Modelica.Constants.pi*(d1 + d0));
-
   Units.NonDim e_bar=if use_e_abs then 2*e_abs/(d1 - d0) else e_rel;
   Real R_d0d1=d0/d1 "Ratio of small/large (d0/d1) diameters";
 protected
@@ -38,22 +33,18 @@ protected
   Real CF_e_lam=1/(1 + B*e_bar)^2 "Laminar eccentricity correction factor";
   Real CF_e_turb=1 - 0.9*(1 - 2/3*e_bar)*e_bar^2
     "Laminar eccentricity correction factor";
-
 equation
-
   ks[1] = CF_e_lam*Math.interpolate_wLimit(
     data_R,
     data_lam,
     R_d0d1,
     useBound=true);
-
   // Turbulent factor is taken from a regression of the average of Reynolds
   // values as a function of diameter ratios provided in the source table due to
   // the explicit equation depending on the friction factor which is a
   // difficult calculation and adds unnecessary computational burden.
   // This assumption is valid as the differences are small over large Re ranges.
   ks[2] = CF_e_turb*(1.065943 - 0.057142*(R_d0d1 - 1.0)^2);
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

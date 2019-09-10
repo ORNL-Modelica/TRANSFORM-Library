@@ -2,26 +2,22 @@ within TRANSFORM.Nuclear.ReactorKinetics.Examples;
 model PointKinetics_Drift_Test_feedback_Xenon
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   replaceable package Medium =
       TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT (
   extraPropertiesNames=core_kinetics.summary_data.extraPropertiesNames,
   C_nominal=core_kinetics.summary_data.C_nominal);
-
   parameter SI.Length H = 3.4;
   parameter SI.Length L = 6.296;
   parameter SI.Velocity v=0.4772;
   parameter SI.Length Ds[core.nV] = {sqrt(4*m_flow/rhos[i]/v/Modelica.Constants.pi) for i in 1:core.nV};
   parameter SI.Length Ds1[loop_.nV] = {sqrt(4*m_flow/rhos1[i]/v/Modelica.Constants.pi) for i in 1:loop_.nV};
   parameter SI.MassFlowRate m_flow = 1;
-
   parameter SI.Temperature[core.nV] Tsr = linspace(300+273.15,500+273.15,core.nV);
   parameter SI.Temperature[loop_.nV] Tsr1 = linspace(500+273.15,300+273.15,loop_.nV);
   parameter SI.Pressure[core.nV] ps = 1e5*ones(core.nV);
   parameter SI.Pressure[loop_.nV] ps1 = 1e5*ones(loop_.nV);
   parameter SI.Density[core.nV] rhos = Medium.density_pT(ps,Tsr);
   parameter SI.Density[loop_.nV] rhos1 = Medium.density_pT(ps1,Tsr1);
-
   SIadd.ExtraPropertyFlowRate[loop_.nV,core_kinetics.summary_data.nC] mC_gens_pipe1={{
       -core_kinetics.summary_data.lambdas[j]*loop_.mCs[i, j]*loop_.nParallel +
       mC_gens_pipe1_PtoD[i, j] for j in 1:core_kinetics.summary_data.nC} for i in 1:
@@ -31,7 +27,6 @@ model PointKinetics_Drift_Test_feedback_Xenon
        .* loop_.nParallel .* core_kinetics.summary_data.parents[j, k] for k in 1:
       core_kinetics.summary_data.nC}) for j in 1:core_kinetics.summary_data.nC} for i in 1:
       loop_.nV};
-
   SI.Temperature[core.nV] Ts=core.mediums.T;
   SI.Temperature[loop_.nV] Ts1=loop_.mediums.T;
   SI.Power[core.nV] Q_gens=core_kinetics.Qs;
@@ -40,7 +35,6 @@ model PointKinetics_Drift_Test_feedback_Xenon
   SI.Power Power_gamma=sum(core_kinetics.fissionProducts.Qs_far);
   SI.Power Power_DH = Power_beta + Power_gamma;
   SI.Power Power_total = Power_DH + Power;
-
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT back_to_core(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -75,7 +69,6 @@ model PointKinetics_Drift_Test_feedback_Xenon
     p_a_start=100000,
     T_a_start=573.15)
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface           loop_(
     redeclare package Medium = Medium,
     m_flow_a_start=1,
@@ -95,15 +88,12 @@ model PointKinetics_Drift_Test_feedback_Xenon
     T_a_start=773.15,
     T_b_start=573.15)
     annotation (Placement(transformation(extent={{6,-10},{26,10}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow_multi heat_rejection(
       nPorts=loop_.nV, Q_flow=fill(-5e4, heat_rejection.nPorts))
     annotation (Placement(transformation(extent={{46,10},{26,30}})));
-
   Fluid.Sensors.TraceSubstancesTwoPort_multi Concentration_Measure(redeclare
       package Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
-
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external
     core_kinetics(
     nV=core.nV,
@@ -120,19 +110,17 @@ model PointKinetics_Drift_Test_feedback_Xenon
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235,
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
-    SF_Qs_fission=sin(Modelica.Constants.pi/H*core.summary.xpos)/sum(sin(
+    SF_Q_fission=sin(Modelica.Constants.pi/H*core.summary.xpos)/sum(sin(
         Modelica.Constants.pi/H*core.summary.xpos)),
-    rhos_input=Reactivity.y,
+    rho_input=Reactivity.y,
     alphas_feedback={-1e-4},
     vals_feedback={core.summary.T_effective},
     vals_feedback_reference={400 + 273.15},
-    Ns_external=1)
+    N_external=1)
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[
         6],core.mCs[6, 3],sum(core_kinetics.Qs_decay[6, :])})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-
   Modelica.Blocks.Sources.Pulse Reactivity(
     nperiod=1,
     startTime=6*60*60,
@@ -141,12 +129,10 @@ model PointKinetics_Drift_Test_feedback_Xenon
     amplitude=0.01,
     offset=-0.01)
     annotation (Placement(transformation(extent={{-30,50},{-10,70}})));
-
     Real rhorho = sum(core_kinetics.fissionProducts.rhos);
 Real lambda_te = core_kinetics.fissionProducts.data.lambdas[1];
 Real lambda_i = core_kinetics.fissionProducts.data.lambdas[2];
 Real lambda_xe = core_kinetics.fissionProducts.data.lambdas[3];
-
 Real gamma_te = 0.061;
 Real gamma_i = 0;
 Real gamma_xe = 0.003;
@@ -157,20 +143,16 @@ Real C_xe(start=0);
 Real C_te_core = sum(core.mCs[:,7]);
 Real C_i_core = sum(core.mCs[:,8]);
 Real C_xe_core = sum(core.mCs[:,9]);
-
 Real C_te_coreloop = sum(core.mCs[:,7]) + sum(loop_.mCs[:,7]);
 Real C_i_coreloop = sum(core.mCs[:,8]) + sum(loop_.mCs[:,8]);
 Real C_xe_coreloop = sum(core.mCs[:,9]) + sum(loop_.mCs[:,9]);
-
-Real P = max(0,core_kinetics.Q_fission_total);
+Real P = max(0,core_kinetics.Q_fission);
 Real sigma_xe=core_kinetics.fissionProducts.data.sigmasA[3];
 Real Sigmaf=26;
 equation
-
   der(C_te) = P/wf*gamma_te - lambda_te*C_te;
   der(C_i) = P/wf*gamma_i - lambda_i*C_i + lambda_te*C_te;
   der(C_xe) = P/wf*gamma_xe - lambda_xe*C_xe + lambda_i*C_i - sigma_xe*P/Sigmaf/wf*C_xe*H/(H+L)/core.geometry.V_total;
-
   connect(core_inlet.ports[1], core.port_a)
     annotation (Line(points={{-36,0},{-26,0}}, color={0,127,255}));
   connect(core.port_b,loop_. port_a)
@@ -181,9 +163,8 @@ equation
     annotation (Line(points={{26,0},{36,0}}, color={0,127,255}));
   connect(Concentration_Measure.port_b, back_to_core.ports[1])
     annotation (Line(points={{56,0},{66,0}}, color={0,127,255}));
-  connect(Concentration_Measure.C, core_inlet.C_in) annotation (Line(points={{
-          46,-11},{46,-20},{-60,-20},{-60,-8},{-56,-8}}, color={0,0,127}));
-
+  connect(Concentration_Measure.C, core_inlet.C_in) annotation (Line(points={{46,-3.6},
+          {46,-20},{-60,-20},{-60,-8},{-56,-8}},         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=741600, __Dymola_NumberOfIntervals=74160));

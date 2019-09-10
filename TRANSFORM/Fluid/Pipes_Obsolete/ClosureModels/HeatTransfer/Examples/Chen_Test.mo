@@ -4,7 +4,6 @@ model Chen_Test "Test case for Chen correlation heat transfer model"
   extends TRANSFORM.Icons.Example;
   inner System_TP system(momentumDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
   TRANSFORM.Fluid.Pipes_Obsolete.StraightPipeOLD pipe(
     use_HeatTransfer=true,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
@@ -22,7 +21,6 @@ model Chen_Test "Test case for Chen correlation heat transfer model"
         TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.TwoPhase.Chen,
     h_a_start=Source.h)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Modelica.Fluid.Sources.Boundary_ph Sink(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     nPorts=1,
@@ -48,7 +46,6 @@ equation
     annotation (Line(points={{-40,0},{-10,0}},         color={0,127,255}));
   connect(pipe.port_b, Sink.ports[1])
     annotation (Line(points={{10,0},{40,0}},       color={0,127,255}));
-
   connect(step.y, prescribedHeatFlow.Q_flow)
     annotation (Line(points={{-19,50},{0,50},{0,40}}, color={0,0,127}));
   connect(prescribedHeatFlow.port, pipe.heatPorts)

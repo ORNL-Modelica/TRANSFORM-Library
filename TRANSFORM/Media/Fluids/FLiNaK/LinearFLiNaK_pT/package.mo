@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Fluids.FLiNaK;
 package LinearFLiNaK_pT "FLiNaK | LiF-NaF-KF 46.5%-11.5%-42% | Linear compressibility"
-
 // beta_const adjusted till density matched. kappa left alone
 // references are based on 800K
 // assumed specific enthalpy at 273.15 is zero
@@ -19,7 +18,6 @@ package LinearFLiNaK_pT "FLiNaK | LiF-NaF-KF 46.5%-11.5%-42% | Linear compressib
     T_default = 800);
 
 redeclare function extends dynamicViscosity "Dynamic viscosity"
-
 algorithm
   eta := Utilities.eta_T(state.T);
   annotation(Inline=true);

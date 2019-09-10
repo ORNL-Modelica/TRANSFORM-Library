@@ -1,18 +1,13 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.Examples;
 model Traditional_topcap
   import TRANSFORM;
-
   extends TRANSFORM.Icons.Example;
   //parameter Real Vfrac_liquid = 0.5;
-
   TRANSFORM.Units.NonDim Vfrac_liquid=variableVfrac_liquid.y;
   parameter SI.Length r_1 = 1;
   parameter SI.Length r_2 = 1.5;
-
   parameter SI.Length h_1 = 1;
-
   final parameter SI.Volume V = pi*r_1^2*h_1 + 2/3*pi*r_2^3;
-
   TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.Traditional_topcap
     traditional_topcap(
     Vfrac_liquid=Vfrac_liquid,
@@ -22,7 +17,6 @@ model Traditional_topcap
     h_1=h_1,
     r_2=r_2)
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
-
   Modelica.Blocks.Sources.Sine variableVfrac_liquid(
     freqHz=0.5,
     amplitude=0.9,

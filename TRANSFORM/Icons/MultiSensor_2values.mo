@@ -1,7 +1,6 @@
 within TRANSFORM.Icons;
 partial class MultiSensor_2values
   "Icon representing a measurement device"
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(

@@ -1,10 +1,8 @@
 within TRANSFORM.Media.Fluids.FLiBe;
 package ConstantPropertyLiquidFLiBe "FLiBe: Simple LiF-BeF2 medium (incompressible, constant data)"
-
   /*
 Properties have been calculated based on a weighted average basis between T_min and T_max
 */
-
   constant Modelica.Media.Interfaces.Types.Basic.FluidConstants[1]
     simpleFLiBeConstants(
     each chemicalFormula="LiFBeF2",

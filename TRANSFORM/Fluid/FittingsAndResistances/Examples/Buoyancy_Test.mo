@@ -1,11 +1,8 @@
 within TRANSFORM.Fluid.FittingsAndResistances.Examples;
 model Buoyancy_Test
   import TRANSFORM;
-
   extends TRANSFORM.Icons.Example;
-
 package Medium = Modelica.Media.IdealGases.SingleGases.He;
-
   TRANSFORM.Fluid.FittingsAndResistances.Buoyancy_specifyFriction
     userSpecified_f(
     f=0.0379830506,

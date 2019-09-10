@@ -1,42 +1,32 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow;
 function Nu_Turbulent_Local_Developed
   "Nusselt Number | Single phase | Turbulent | Local | Internal | Fully Developed"
-
   input SI.ReynoldsNumber Re "Reynolds Number";
   input SI.PrandtlNumber Pr "Prandtl Number";
   input SI.Length x "Position of local heat transfer calculation";
   input SI.Length dimension
     "Characteristic dimension (e.g., hydraulic diameter)";
   input SI.Height roughness=2.5e-5 "Average height of surface asperities";
-
   output SI.NusseltNumber Nu "Nusselt number";
-
 protected
   Real Xi_smooth "Friction factor - S1:Eq. G1-27";
   SI.NusseltNumber Nu_smooth "Smooth pipe Nusselt number  - S1:Eq. G1-28";
-
   Real Xi_rough "Friction factor - S2:Eq. 5-65";
   SI.NusseltNumber Nu_rough "Rough pipe Nusselt number  - S2:Eq. 5-84";
-
   SI.ReynoldsNumber Re_int = max(2300,Re) "Internal Re to avoid illegal mathematical operations";
-
 algorithm
-
   Xi_smooth := (1.8*Modelica.Math.log10(Re_int) - 1.5)^(-2);
   Nu_smooth := 0.125*Xi_smooth*Re_int*Pr/(1 + 12.7*(0.125*Xi_smooth)^0.5*(Pr^(2/3)
      - 1));
-
   Xi_rough := (-2.0*Modelica.Math.log10(2*roughness/(7.54*dimension) - 5.02/Re_int*
     Modelica.Math.log10(2*roughness/(7.54*dimension) + 13/Re_int)))^(-2);
   Nu_rough := 0.125*Xi_rough*(Re_int - 1000)*Pr/(1 + 12.7*(0.125*Xi_rough)^0.5*(Pr^
     (2/3) - 1))*(1 + (dimension/x)^(2/3)/3);
-
   Nu := TRANSFORM.Math.spliceTanh(
     Nu_rough,
     Nu_smooth,
     roughness - 0.0001,
     0.00001);
-
   annotation (Documentation(info="<html>
 <p>Local heat transfer model for fully developed laminar and turbulent flow in circular pipes.</p>
 <ul>

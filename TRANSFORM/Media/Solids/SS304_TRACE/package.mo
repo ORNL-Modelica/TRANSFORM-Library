@@ -1,8 +1,6 @@
 ﻿within TRANSFORM.Media.Solids;
 package SS304_TRACE "SS304: Stainless steel 304 from TRACE"
-
   // Reference 12-4 (304 stainless steel): J. C. Spanner, editor, “Nuclear Systems Materials Handbook—Vol. 1 Design Data,” Hanford Engineering Development Laboratory report TID-26666 (1976).
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="SS304",
     T_min=Modelica.SIunits.Conversions.from_degC(0),
@@ -16,8 +14,10 @@ package SS304_TRACE "SS304: Stainless steel 304 from TRACE"
 
   redeclare function extends density
     "Density"
+protected
+    Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
-    d := 7984 - 2.651e-1*state.T - 1.158e-4*state.T^2;
+    d := 7984 - 2.651e-1*T - 1.158e-4*T^2;
   end density;
 
   redeclare function extends thermalConductivity

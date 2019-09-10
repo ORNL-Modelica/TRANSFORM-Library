@@ -1,48 +1,38 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
 model ConvectionMedia
   "Mass element for mass convection with Media models"
-
   replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
     annotation (choicesAllMatching=true);
-
   parameter Integer n=1 "Number of mass transfer segments";
-
   parameter Integer nC = 1 "Number of substances";
-
   input Medium.ThermodynamicState[n] states=Medium.setState_pTX(fill(1e5, n),
       fill(Medium.T_default, n)) "Thermodynamic state of fluid at port_b"
     annotation (Dialog(group="Inputs"));
   input SI.Temperature Ts_wall[n] "Wall temperature"
     annotation (Dialog(group="Inputs"));
-
   input SI.MassFlowRate m_flows[n]=zeros(n) "Mass flow rate"
     annotation (Dialog(group="Inputs"));
-
   input SI.Diameter dimensions[n]=fill(1, n)
     "Characteristic dimension (e.g. hydraulic diameter)"
     annotation (Dialog(group="Inputs"));
-
   input SI.Area crossAreas[n]=fill(1, n) "Cross sectional flow area"
     annotation (Dialog(group="Inputs"));
   input SI.Length dlengths[n]=fill(1, n)
     "Characteristic length of mass transfer segment"
     annotation (Dialog(group="Inputs"));
-
   input SI.Area surfaceAreas[n]=dimensions ./ dlengths
     "Surface area for mass transfer"
     annotation (Dialog(group="Inputs"));
   input SI.Height roughnesses[n]=fill(2.5e-5, n)
     "Average height of surface asperities"
     annotation (Dialog(group="Inputs"));
-
   replaceable model MassTransferCoeff =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.MassTransfer.Models.Ideal
     constrainedby
     TRANSFORM.HeatAndMassTransfer.ClosureRelations.MassTransfer.Models.PartialMassTransfer
     "Coefficient of mass transfer" annotation (Dialog(group="Closure Models",
         enable=not IdealHeatTransfer), choicesAllMatching=true);
-
   MassTransferCoeff massTransferCoeff(
     redeclare final package Medium = Medium,
     final nMT=n,
@@ -57,24 +47,19 @@ model ConvectionMedia
     final dlengths=dlengths,
     final roughnesses=roughnesses) annotation (Placement(transformation(extent={
             {-36,84},{-24,96}}, rotation=0)));
-
   SI.MolarFlowRate n_flows[n,nC] "Mole flow rate from port_a -> port_b";
   SI.Concentration dCs[n,nC] "= port_a.C - port_b.C";
   Units.DiffusionResistance R[n,nC] "Thermal resistance";
-
   Interfaces.MolePort_Flow port_a[n](each nC=nC) annotation (Placement(
         transformation(extent={{-80,-10},{-60,10}}),  iconTransformation(extent=
            {{-80,-10},{-60,10}})));
   Interfaces.MolePort_Flow port_b[n](each nC=nC) annotation (Placement(
         transformation(extent={{60,-10},{80,10}}), iconTransformation(extent={{60,
             -10},{80,10}})));
-
 equation
-
   port_a.n_flow = n_flows;
   port_b.n_flow = -n_flows;
   dCs =port_a.C - port_b.C;
-
   if massTransferCoeff.flagIdeal == 1 then
     port_a.C = port_b.C;
   else
@@ -82,13 +67,11 @@ equation
       n_flows[i,:] = massTransferCoeff.alphasM[i,:]  .* surfaceAreas[i] .* dCs[i,:];
     end for;
   end if;
-
   for i in 1:n loop
     for j in 1:nC loop
       R[i,j] = 1./min(Modelica.Constants.eps,massTransferCoeff.alphasM[i,j] .* surfaceAreas[i]);
     end for;
   end for;
-
   annotation (
     defaultComponentName="convection",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),

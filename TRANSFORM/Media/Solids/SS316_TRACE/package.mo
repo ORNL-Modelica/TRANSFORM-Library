@@ -1,8 +1,6 @@
 ﻿within TRANSFORM.Media.Solids;
 package SS316_TRACE "SS316: Stainless steel 316 from TRACE"
-
   // Reference 12-5 (316 stainless steel): “Properties for LMFBR Safety Analysis,” Argonne National Laboratory report ANL-CEN-RSD-76-1 (1976).
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="SS316",
     T_min=Modelica.SIunits.Conversions.from_degC(0),
@@ -16,8 +14,10 @@ package SS316_TRACE "SS316: Stainless steel 316 from TRACE"
 
   redeclare function extends density
     "Density"
+protected
+    Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
-    d := 8084 - 4.209e-1*state.T - 3.894e-5*state.T^2;
+    d := 8084 - 4.209e-1*T - 3.894e-5*T^2;
   end density;
 
   redeclare function extends thermalConductivity

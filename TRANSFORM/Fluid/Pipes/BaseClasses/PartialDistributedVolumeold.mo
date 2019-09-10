@@ -4,17 +4,13 @@ partial model PartialDistributedVolumeold
   import Modelica.Fluid.Types.Dynamics;
   import Modelica.Media.Interfaces.Choices.IndependentVariables;
   import TRANSFORM.Math.fillArray_1D;
-
   replaceable package Medium = Modelica.Media.Water.StandardWater
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium properties"
     annotation (choicesAllMatching=true);
-
   parameter Integer nV(min=1) = 1 "Number of discrete volumes";
-
   // Inputs provided to the volume model
   input SI.Volume Vs[nV](min=0) "Discretized volumes"
     annotation (Dialog(group="Inputs"));
-
   // Initialization
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
@@ -27,7 +23,6 @@ partial model PartialDistributedVolumeold
   parameter Dynamics traceDynamics=massDynamics
     "Formulation of trace substance balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-
   parameter SI.AbsolutePressure[nV] ps_start=fill(Medium.p_default, nV) "Pressure"
     annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
   parameter Boolean use_Ts_start=true "Use T_start if true, otherwise h_start"
@@ -56,7 +51,6 @@ partial model PartialDistributedVolumeold
       tab="Initialization",
       group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
-
   Medium.BaseProperties[nV] mediums(
     each preferredMediumStates=true,
     p(start=ps_start),
@@ -66,48 +60,39 @@ partial model PartialDistributedVolumeold
           hs_start[i],
           Xs_start[i, 1:Medium.nXi]) for i in 1:nV}),
     Xi(start=Xs_start[:, 1:Medium.nXi]));
-
   // Total quantities
   SI.Mass ms[nV] "Mass";
   SI.Energy Us[nV] "Internal energy";
   SI.Mass mXis[nV,Medium.nXi] "Species mass";
   SIadd.ExtraPropertyExtrinsic mCs[nV,Medium.nC] "Trace substance extrinsic value";
-
   // C has the additional parameter because it is not included in the medium
   // i.e.,Xi has medium[:].Xi but there is no variable medium[:].C
   SIadd.ExtraProperty Cs[nV,Medium.nC](each stateSelect=StateSelect.prefer, start=Cs_start)
     "Trace substance mass-specific value";
-
   // Mass Balance
   SI.MassFlowRate mb_flows[nV]
     "Mass flow rate across volume interfaces (e.g., enthalpy flow, diffusion)";
   SI.MassFlowRate mb_volumes[nV]
     "Mass flow rate source/sinks within volumes";
-
   // Energy Balance
   SI.HeatFlowRate Ub_flows[nV]
     "Energy sources across volume interfaces (e.g., thermal diffusion)";
   SI.HeatFlowRate Ub_volumes[nV]
     "Energy source/sinks within volumes (e.g., ohmic heating, external convection)";
-
   // Species Balance
   SI.MassFlowRate mXib_flows[nV,Medium.nXi]
   "Species mass flow rates across volume interfaces";
   SI.MassFlowRate mXib_volumes[nV,Medium.nXi]
   "Species mass flow rates source/sinks within volumes";
-
   // Trace Balance
   SIadd.ExtraPropertyFlowRate mCb_flows[nV,Medium.nC]
     "Trace flow rate across volume interfaces (e.g., diffusion)";
   SIadd.ExtraPropertyFlowRate mCb_volumes[nV,Medium.nC]
     "Trace flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
-
 protected
   parameter Boolean initialize_p=not Medium.singleState
     "= true to set up initial equations for pressure";
-
 initial equation
-
   // Mass Balance
   if massDynamics == Dynamics.FixedInitial then
     if initialize_p then
@@ -118,7 +103,6 @@ initial equation
       der(mediums.p) =zeros(nV);
     end if;
   end if;
-
   // Energy Balance
   if energyDynamics == Dynamics.FixedInitial then
     /*
@@ -149,25 +133,21 @@ initial equation
       der(mediums.T) =zeros(nV);
     end if;
   end if;
-
   // Species Balance
   if substanceDynamics == Dynamics.FixedInitial then
     mediums.Xi = Xs_start[:, 1:Medium.nXi];
   elseif substanceDynamics == Dynamics.SteadyStateInitial then
     der(mediums.Xi) =zeros(nV, Medium.nXi);
   end if;
-
   // Trace Balance
   if traceDynamics == Dynamics.FixedInitial then
     Cs = Cs_start;
   elseif traceDynamics == Dynamics.SteadyStateInitial then
     der(mCs) =zeros(nV, Medium.nC);
   end if;
-
 equation
   assert(not (energyDynamics <> Dynamics.SteadyState and massDynamics ==
     Dynamics.SteadyState) or Medium.singleState, "Bad combination of dynamics options and Medium not conserving mass if fluidVolumes are fixed.");
-
   // Total Quantities
   for i in 1:nV loop
     ms[i] = Vs[i]*mediums[i].d;
@@ -175,7 +155,6 @@ equation
     mXis[i, :] = ms[i]*mediums[i].Xi;
     mCs[i, :] = ms[i].*Cs [i, :];
   end for;
-
   // Mass Balance
   if massDynamics == Dynamics.SteadyState then
     for i in 1:nV loop
@@ -186,7 +165,6 @@ equation
       der(ms[i]) = mb_flows[i] + mb_volumes[i];
     end for;
   end if;
-
   // Energy Balance
   if energyDynamics == Dynamics.SteadyState then
     for i in 1:nV loop
@@ -197,7 +175,6 @@ equation
       der(Us[i]) = Ub_flows[i] + Ub_volumes[i];
     end for;
   end if;
-
   // Species Balance
   if substanceDynamics == Dynamics.SteadyState then
     for i in 1:nV loop
@@ -208,7 +185,6 @@ equation
       der(mXis[i, :]) =mXib_flows [i, :] +mXib_volumes [i, :];
     end for;
   end if;
-
   // Trace Balance
   if traceDynamics == Dynamics.SteadyState then
     for i in 1:nV loop
@@ -219,7 +195,6 @@ equation
       der(mCs[i, :]) =mCb_flows [i, :] +mCb_volumes [i, :];
     end for;
   end if;
-
   annotation (Documentation(info="<html>
 <p>The following boundary flow and source terms are part of the energy balance and must be specified in an extending class: </p>
 <ul>

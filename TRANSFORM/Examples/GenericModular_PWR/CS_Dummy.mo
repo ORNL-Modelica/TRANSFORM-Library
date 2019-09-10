@@ -1,8 +1,6 @@
 within TRANSFORM.Examples.GenericModular_PWR;
 model CS_Dummy
-
   extends BaseClasses.Partial_ControlSystem;
-
   Modelica.Blocks.Sources.RealExpression Reactivity_CR
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
   Modelica.Blocks.Sources.RealExpression M_flow_steam(y=data.m_flow_steam)
@@ -10,7 +8,6 @@ model CS_Dummy
   Data.Data_GenericModule data
     annotation (Placement(transformation(extent={{-10,-88},{10,-68}})));
 equation
-
   connect(actuatorBus.reactivity_CR, Reactivity_CR.y) annotation (Line(
       points={{30.1,-99.9},{50,-99.9},{50,-40},{11,-40}},
       color={111,216,99},

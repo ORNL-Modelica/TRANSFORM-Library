@@ -8,13 +8,11 @@ model PointKinetics_vs_ApproximateOneGroup
     x={Pratio_exp},
     x_reference={Pratio_ref})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-
   parameter Real Beta = 0.0075;
   parameter Real alpha = 1;
   parameter Real lambda = 0.08;
   parameter Real rho0 = 0.0025;
   parameter Real Lambda = 1e-4;
-
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_powerBased kinetics(
     Q_nominal=1e9,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -25,17 +23,13 @@ model PointKinetics_vs_ApproximateOneGroup
         alphas={alpha},
         Beta=Beta),
     Lambda_start=Lambda,
-    rhos_input=rho0)
+    rho_input=rho0)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
-
   Real Pratio_ref "Reference power to nominal power ratio";
   Real Pratio_exp "Reactor kinetics model power to nominal power ratio";
-
 equation
   Pratio_ref = Beta/(Beta - rho0)*exp(time*Lambda*rho0/(Beta - rho0)) - rho0/(Beta - rho0)*exp(time*(rho0 - Beta)/Lambda);
-
-  Pratio_exp =kinetics.Q_fission_total/kinetics.Q_nominal;
-
+  Pratio_exp =kinetics.Q_fission/kinetics.Q_nominal;
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}})),

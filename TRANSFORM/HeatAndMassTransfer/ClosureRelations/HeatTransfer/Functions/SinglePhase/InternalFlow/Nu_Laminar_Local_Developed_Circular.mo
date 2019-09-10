@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.InternalFlow;
 function Nu_Laminar_Local_Developed_Circular
   "Nusselt Number | Single phase | Laminar | Local | Circular | Internal | Fully Developed"
-
   input SI.ReynoldsNumber Re "Reynolds Number";
   input SI.PrandtlNumber Pr "Prandtl Number";
   input SI.Length x "Position of local heat transfer calculation";
@@ -9,34 +8,26 @@ function Nu_Laminar_Local_Developed_Circular
     "Characteristic dimension (e.g., hydraulic diameter)";
   input Boolean constantTwall=true
     "= true for constant wall temperature correlation else constant heat flux";
-
   output SI.NusseltNumber Nu "Nusselt number";
-
 protected
   Real Nu_T1=3.66 "S1:Eq. G1-1";
   Real Nu_T2 "S1:Eq. G1-2";
-
   Real Nu_H1=4.354 "S1:Eq. G1-14";
   Real Nu_H2 "S1:Eq. G1-15";
-
   SI.NusseltNumber Nu_T
     "Constant wall temperature Nusselt number - S1:Eq. G1-3";
   SI.NusseltNumber Nu_H
     "Constant heat flux Nusselt number  - S1:Eq. G1-16";
 algorithm
-
   Nu_T2 := 1.077*(Re*Pr*dimension/x)^(1/3);
   Nu_T := (Nu_T1^3 + 0.7^3 + (Nu_T2 - 0.7)^3)^(1/3);
-
   Nu_H2 := 1.302*(Re*Pr*dimension/x)^(1/3);
   Nu_H := (Nu_H1^3 + 1 + (Nu_H2 - 1)^3)^(1/3);
-
   if constantTwall then
     Nu := Nu_T;
   else
     Nu := Nu_H;
   end if;
-
   annotation (Documentation(info="<html>
 <p>Local heat transfer model for fully developed laminar and turbulent flow in circular pipes.</p>
 <ul>

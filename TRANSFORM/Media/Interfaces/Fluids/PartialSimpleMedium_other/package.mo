@@ -1,10 +1,8 @@
 within TRANSFORM.Media.Interfaces.Fluids;
 partial package PartialSimpleMedium_other "Medium model with linear dependency of u, h from temperature."
-
   extends Modelica.Media.Interfaces.PartialPureSubstance(final ThermoStates=
         Modelica.Media.Interfaces.Choices.IndependentVariables.pT, final
       singleState=true);
-
   // Coefficents are of form y = c[1]*x + c[2] where x is value specified (e.g., T - cp_T_coef)
   constant Real cp_T_coef[2]={0,cp_const}
     "Specific heat capacity at constant pressure coefficients";
@@ -18,7 +16,6 @@ partial package PartialSimpleMedium_other "Medium model with linear dependency o
   constant Real lambda_T_coef[2]={0,lambda_const}
     "Thermal conductivity coefficients";
   constant Real a_T_coef[2]={0,a_const} "Velocity of sound coefficients";
-
   constant SpecificHeatCapacity cp_const
     "Constant specific heat capacity at constant pressure";
   constant SpecificHeatCapacity cv_const
@@ -31,7 +28,6 @@ partial package PartialSimpleMedium_other "Medium model with linear dependency o
   constant Temperature T_max "Maximum temperature valid for medium model";
   constant Temperature T0=reference_T "Zero enthalpy temperature";
   constant MolarMass MM_const "Molar mass";
-
   constant FluidConstants[nS] fluidConstants "Fluid constants";
 
   redeclare record extends ThermodynamicState "Thermodynamic state"
@@ -50,7 +46,6 @@ Temperature T (= " + String(T) + " K) is not
 in the allowed range (" + String(T_min) + " K <= T <= " + String(T_max) + " K)
 required from medium model \"" + mediumName + "\".
 ");
-
     // h = cp_const*(T-T0);
     h = specificEnthalpy_pTX(
         p,
@@ -63,7 +58,6 @@ required from medium model \"" + mediumName + "\".
     MM = MM_const;
     state.T = T;
     state.p = p;
-
     // h = specificEnthalpy_pT(
     //       p,
     //       T,
@@ -72,10 +66,8 @@ required from medium model \"" + mediumName + "\".
     //       p,
     //       T,
     //       Region);
-
     u = h;
     // - p/d;
-
     annotation (Documentation(info="<html>
 <p>
 This is the most simple incompressible medium model, where
@@ -155,7 +147,6 @@ Note that the (small) influence of the pressure term p/d is neglected.
 
   redeclare function extends dynamicViscosity
     "Return dynamic viscosity"
-
   algorithm
     eta := dynamicViscosity_T(state.T);
     //     eta := eta_const;
@@ -164,7 +155,6 @@ Note that the (small) influence of the pressure term p/d is neglected.
 
   redeclare function extends thermalConductivity
     "Return thermal conductivity"
-
   algorithm
     lambda := thermalConductivity_T(state.T);
     //     lambda := lambda_const;
@@ -172,21 +162,18 @@ Note that the (small) influence of the pressure term p/d is neglected.
   end thermalConductivity;
 
   redeclare function extends pressure "Return pressure"
-
   algorithm
     p := state.p;
     annotation (Inline=true);
   end pressure;
 
   redeclare function extends temperature "Return temperature"
-
   algorithm
     T := state.T;
     annotation (Inline=true);
   end temperature;
 
   redeclare function extends density "Return density"
-
   algorithm
     d := density_T(state.T);
     //     d := d_const;
@@ -195,7 +182,6 @@ Note that the (small) influence of the pressure term p/d is neglected.
 
   redeclare function extends specificEnthalpy
     "Return specific enthalpy"
-
   algorithm
     h := specificHeatCapacityCp_T(state.T)*(state.T - T0);
     //h := cp_const*(state.T - T0);
@@ -204,7 +190,6 @@ Note that the (small) influence of the pressure term p/d is neglected.
 
   redeclare function extends specificHeatCapacityCp
     "Return specific heat capacity at constant pressure"
-
   algorithm
     cp := specificHeatCapacityCp_T(state.T);
     //cp = cp_const;
@@ -213,7 +198,6 @@ Note that the (small) influence of the pressure term p/d is neglected.
 
   redeclare function extends specificHeatCapacityCv
     "Return specific heat capacity at constant volume"
-
   algorithm
     cv := specificHeatCapacityCv_T(state.T);
     //     cv := cv_const;
@@ -222,7 +206,6 @@ Note that the (small) influence of the pressure term p/d is neglected.
 
   redeclare function extends isentropicExponent
     "Return isentropic exponent"
-
   algorithm
     gamma := specificHeatCapacityCp_T(state.T)/specificHeatCapacityCv_T(state.T);
     //     gamma := cp_const/cv_const;
@@ -231,7 +214,6 @@ Note that the (small) influence of the pressure term p/d is neglected.
 
   redeclare function extends velocityOfSound
     "Return velocity of sound"
-
   algorithm
     a := velocityOfSound_T(state.T);
     //     a := a_const;
@@ -365,18 +347,4 @@ Note that the (small) influence of the pressure term p/d is neglected.
     annotation (Inline=true);
   end molarMass;
   // Added linear relationships
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 end PartialSimpleMedium_other;

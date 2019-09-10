@@ -1,13 +1,11 @@
 within TRANSFORM.Math;
 function isMonotonic "Returns true if the argument is a monotonic sequence"
   extends TRANSFORM.Icons.Function;
-
   input Real x[:] "Sequence to be tested";
   input Boolean strict=false "Set to true to test for strict monotonicity";
   output Boolean monotonic "True if x is monotonic increasing or decreasing";
 protected
   Integer n=size(x, 1) "Number of data points";
-
 algorithm
   if n == 1 then
     monotonic := true;
@@ -45,7 +43,6 @@ algorithm
     end if;
     // strict
   end if;
-
   annotation (Documentation(info="<html>
 <p>
 This function returns <code>true</code> if its argument is

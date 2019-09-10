@@ -2,26 +2,22 @@ within TRANSFORM.Nuclear.ReactorKinetics.Examples;
 model PointKinetics_Drift_Test_sine
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   replaceable package Medium =
       TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT (
   extraPropertiesNames=core_kinetics.summary_data.extraPropertiesNames,
   C_nominal=core_kinetics.summary_data.C_nominal);
-
   parameter SI.Length H = 3.4;
   parameter SI.Length L = 6.296;
   parameter SI.Velocity v=0.4772;
   parameter SI.Length Ds[core.nV] = {sqrt(4*m_flow/rhos[i]/v/Modelica.Constants.pi) for i in 1:core.nV};
   parameter SI.Length Ds1[loop_.nV] = {sqrt(4*m_flow/rhos1[i]/v/Modelica.Constants.pi) for i in 1:loop_.nV};
   parameter SI.MassFlowRate m_flow = 1;
-
   parameter SI.Temperature[core.nV] Tsr = linspace(300+273.15,500+273.15,core.nV);
   parameter SI.Temperature[loop_.nV] Tsr1 = linspace(500+273.15,300+273.15,loop_.nV);
   parameter SI.Pressure[core.nV] ps = 1e5*ones(core.nV);
   parameter SI.Pressure[loop_.nV] ps1 = 1e5*ones(loop_.nV);
   parameter SI.Density[core.nV] rhos = Medium.density_pT(ps,Tsr);
   parameter SI.Density[loop_.nV] rhos1 = Medium.density_pT(ps1,Tsr1);
-
   SIadd.ExtraPropertyFlowRate[loop_.nV,core_kinetics.summary_data.nC] mC_gens_pipe1={{
       -core_kinetics.summary_data.lambdas[j]*loop_.mCs[i, j]*loop_.nParallel +
       mC_gens_pipe1_PtoD[i, j] for j in 1:core_kinetics.summary_data.nC} for i in 1:
@@ -31,7 +27,6 @@ model PointKinetics_Drift_Test_sine
        .* loop_.nParallel .* core_kinetics.summary_data.parents[j, k] for k in 1:
       core_kinetics.summary_data.nC}) for j in 1:core_kinetics.summary_data.nC} for i in 1:
       loop_.nV};
-
   SI.Temperature[core.nV] Ts=core.mediums.T;
   SI.Temperature[loop_.nV] Ts1=loop_.mediums.T;
   SI.Power[core.nV] Q_gens=core_kinetics.Qs;
@@ -40,7 +35,6 @@ model PointKinetics_Drift_Test_sine
   SI.Power Power_gamma=sum(core_kinetics.fissionProducts.Qs_far);
   SI.Power Power_DH = Power_beta + Power_gamma;
   SI.Power Power_total = Power_DH + Power;
-
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT back_to_core(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -76,7 +70,6 @@ model PointKinetics_Drift_Test_sine
         dlengths=fill(H/core.nV, core.nV),
         nV=10))
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface           loop_(
     redeclare package Medium = Medium,
     m_flow_a_start=1,
@@ -96,15 +89,12 @@ model PointKinetics_Drift_Test_sine
     T_a_start=773.15,
     T_b_start=573.15)
     annotation (Placement(transformation(extent={{6,-10},{26,10}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow_multi heat_rejection(
       nPorts=loop_.nV, Q_flow=fill(-5e4, heat_rejection.nPorts))
     annotation (Placement(transformation(extent={{46,10},{26,30}})));
-
   Fluid.Sensors.TraceSubstancesTwoPort_multi Concentration_Measure(redeclare
       package Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
-
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external
     core_kinetics(
     nV=core.nV,
@@ -122,16 +112,13 @@ model PointKinetics_Drift_Test_sine
     alphas_feedback={-1e-4},
     vals_feedback={core.summary.T_effective},
     vals_feedback_reference={400 + 273.15},
-    SF_Qs_fission=sin(Modelica.Constants.pi/H*core.summary.xpos)/sum(sin(
+    SF_Q_fission=sin(Modelica.Constants.pi/H*core.summary.xpos)/sum(sin(
         Modelica.Constants.pi/H*core.summary.xpos)))
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
-
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={core_kinetics.Qs[
         6],core.mCs[6, 3],sum(core_kinetics.Qs_decay[6, :])})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-
 equation
-
   connect(core_inlet.ports[1], core.port_a)
     annotation (Line(points={{-36,0},{-26,0}}, color={0,127,255}));
   connect(core.port_b,loop_. port_a)
@@ -142,9 +129,8 @@ equation
     annotation (Line(points={{26,0},{36,0}}, color={0,127,255}));
   connect(Concentration_Measure.port_b, back_to_core.ports[1])
     annotation (Line(points={{56,0},{66,0}}, color={0,127,255}));
-  connect(Concentration_Measure.C, core_inlet.C_in) annotation (Line(points={{
-          46,-11},{46,-20},{-60,-20},{-60,-8},{-56,-8}}, color={0,0,127}));
-
+  connect(Concentration_Measure.C, core_inlet.C_in) annotation (Line(points={{46,-3.6},
+          {46,-20},{-60,-20},{-60,-8},{-56,-8}},         color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=100000000, __Dymola_NumberOfIntervals=10000));

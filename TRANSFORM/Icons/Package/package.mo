@@ -1,6 +1,5 @@
 within TRANSFORM.Icons;
 partial package Package "Icon for standard packages"
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           lineColor={200,200,200},

@@ -1,10 +1,8 @@
 within TRANSFORM.Examples.GenericModular_PWR.Examples;
 model Test
   extends Modelica.Icons.Example;
-
   GenericModule PHS
     annotation (Placement(transformation(extent={{-40,-42},{40,38}})));
-
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT sink(
     nPorts=1,
     p=PHS.port_b_nominal.p,

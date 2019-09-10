@@ -1,6 +1,6 @@
 within TRANSFORM.Math;
 function regRoot_cinterp_der
-  extends Modelica.Icons.Function;
+  extends TRANSFORM.Icons.Function;
   input Real x "Root argument";
   input Real deltax=0.01 "Interpolation interval near 0";
   input Real dx "Derivative of argument";
@@ -29,5 +29,4 @@ algorithm
     C1 := 0.5/sqrtdeltax - 3.0*C3*deltax2;
     dy := dx*(C1 + 3*C3*x*x);
   end if;
-
 end regRoot_cinterp_der;

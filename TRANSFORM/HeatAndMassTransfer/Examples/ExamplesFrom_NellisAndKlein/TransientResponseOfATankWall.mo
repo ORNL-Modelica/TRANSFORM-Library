@@ -3,7 +3,6 @@ model TransientResponseOfATankWall
   "Example 3.3-1 Transient response of a tank wall pp. 351-354"
   import TRANSFORM;
   extends Icons.Example;
-
   Modelica.Blocks.Sources.Constant alpha_fluid(each k=5000)
     "heat transfer coefficient"
     annotation (Placement(transformation(extent={{-54,84},{-46,92}})));
@@ -85,7 +84,6 @@ model TransientResponseOfATankWall
   Modelica.Blocks.Sources.Constant alpha_gas(each k=100)
     "heat transfer coefficient"
     annotation (Placement(transformation(extent={{-40,84},{-32,92}})));
-
   UserInteraction.Outputs.SpatialPlot wallTemperature(
     minX=0,
     maxX=0.8,

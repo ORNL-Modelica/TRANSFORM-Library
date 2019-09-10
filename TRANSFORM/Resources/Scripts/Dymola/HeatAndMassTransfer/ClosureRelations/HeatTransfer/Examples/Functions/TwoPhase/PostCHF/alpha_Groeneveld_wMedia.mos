@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Examples.Functions.TwoPhase.PostCHF.alpha_Groeneveld_wMedia",resultFile="alpha_Groeneveld_wMedia");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

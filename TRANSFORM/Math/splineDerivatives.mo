@@ -1,7 +1,6 @@
 within TRANSFORM.Math;
 function splineDerivatives  "Function to compute the derivatives for cubic hermite spline interpolation"
   extends TRANSFORM.Icons.Function;
-
   input Real x[:] "Support point, strict monotone increasing";
   input Real y[size(x, 1)] "Function values at x";
   input Boolean ensureMonotonicity=isMonotonic(y, strict=false)
@@ -13,7 +12,6 @@ protected
   Real alpha "Coefficient to ensure monotonicity";
   Real beta "Coefficient to ensure monotonicity";
   Real tau "Coefficient to ensure monotonicity";
-
 algorithm
   if (n>1) then
     assert(x[1] < x[n], "x must be strictly increasing.
@@ -27,7 +25,6 @@ algorithm
         "If ensureMonotonicity=true, y-values must be monontone increasing or decreasing.");
     end if;
   end if;
-
   // Compute derivatives at the support points
   if n == 1 then
     // only one data point
@@ -45,11 +42,9 @@ algorithm
     // End points use one-sided derivatives
     d[1] := delta[1];
     d[n] := delta[n - 1];
-
     for i in 2:n - 1 loop
       d[i] := (delta[i - 1] + delta[i])/2;
     end for;
-
   end if;
   // Ensure monotonicity
   if n > 2 and ensureMonotonicity then

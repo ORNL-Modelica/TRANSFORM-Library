@@ -1,12 +1,8 @@
 within TRANSFORM.Fluid.Valves;
 model StopValve
-
   extends TRANSFORM.Fluid.Valves.BaseClasses.PartialTwoPort(final allowFlowReversal=checkValve);
-
   parameter Boolean stopValve=true "Flow stopped";
-
 equation
-
   if checkValve then
     port_a.m_flow = 0;
     port_b.m_flow = 0;
@@ -14,7 +10,6 @@ equation
     port_a.p = port_b.p;
     port_a.m_flow + port_b.m_flow = 0;
   end if;
-
   // Stream variables balance
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
@@ -22,7 +17,6 @@ equation
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
   port_a.C_outflow = inStream(port_b.C_outflow);
   port_b.C_outflow = inStream(port_a.C_outflow);
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(
           points={{-100,50},{100,-50},{100,50},{0,0},{-100,-50},{-100,50}},

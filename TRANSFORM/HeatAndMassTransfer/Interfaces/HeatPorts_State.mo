@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Interfaces;
 connector HeatPorts_State
   "Generic connector for vectors of ports defining state/non-flow variable (e.g., heat flow rate - Q_flow). Vector dimensions must be added after dragging."
-
   extends HeatPort;
   annotation (defaultComponentName="heatPorts",
        Icon(coordinateSystem(

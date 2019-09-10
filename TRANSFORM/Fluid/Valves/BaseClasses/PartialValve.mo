@@ -1,12 +1,10 @@
 within TRANSFORM.Fluid.Valves.BaseClasses;
 partial model PartialValve "Base model for valves"
-
   import TRANSFORM.Fluid.Types.CvTypes;
   extends TRANSFORM.Fluid.Valves.BaseClasses.PartialTwoPortTransport(
     dp_start = dp_nominal,
     m_flow_small = 1e-4*m_flow_nominal,
     m_flow_start = m_flow_nominal);
-
   parameter Modelica.Fluid.Types.CvTypes CvData=Modelica.Fluid.Types.CvTypes.OpPoint
     "Selection of flow coefficient"
    annotation(Dialog(group = "Flow Coefficient"));
@@ -33,7 +31,6 @@ partial model PartialValve "Base model for valves"
   parameter Real opening_nominal(min=0,max=1)=1 "Nominal opening"
   annotation(Dialog(group="Nominal operating point",
                     enable = (CvData==Modelica.Fluid.Types.CvTypes.OpPoint)));
-
   parameter Boolean filteredOpening=false
     "= true, if opening is filtered with a 2nd order CriticalDamping filter"
     annotation(Dialog(group="Filtered opening"),choices(checkBox=true));
@@ -45,22 +42,18 @@ partial model PartialValve "Base model for valves"
     annotation(Dialog(group="Filtered opening",enable=filteredOpening));
   parameter Boolean checkValve=false "Reverse flow stopped"
     annotation(Dialog(tab="Assumptions"));
-
   replaceable function valveCharacteristic =
       TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.linear
     constrainedby
     TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.baseFun
     "Inherent flow characteristic"
     annotation(choicesAllMatching=true);
-
   parameter SI.Pressure dp_small=dp_nominal/m_flow_nominal*m_flow_small
     "Regularisation of zero flow"
    annotation(Dialog(tab="Advanced"));
-
 public
   constant SI.Area Kv2Av = 27.7e-6 "Conversion factor";
   constant SI.Area Cv2Av = 24.0e-6 "Conversion factor";
-
   Modelica.Blocks.Interfaces.RealInput opening(min=0, max=1)
     "Valve position in the range 0..1"
                                    annotation (Placement(transformation(
@@ -70,24 +63,19 @@ public
         extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,80})));
-
   Modelica.Blocks.Interfaces.RealOutput opening_filtered if filteredOpening
     "Filtered valve position in the range 0..1"
     annotation (Placement(transformation(extent={{60,40},{80,60}}),
         iconTransformation(extent={{60,50},{80,70}})));
-
   Modelica.Blocks.Continuous.Filter filter(order=2, f_cut=5/(2*Modelica.Constants.pi
         *riseTime)) if filteredOpening
     annotation (Placement(transformation(extent={{34,44},{48,58}})));
-
 protected
   Modelica.Blocks.Interfaces.RealOutput opening_actual
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
-
 block MinLimiter "Limit the signal above a threshold"
  parameter Real uMin=0 "Lower limit of input signal";
   extends Modelica.Blocks.Interfaces.SISO;
-
 equation
   y = smooth(0, noEvent( if u < uMin then uMin else u));
   annotation (
@@ -154,7 +142,6 @@ y=uMin is passed as output.
       lineColor={128,128,128},
       textString="uMax")}));
 end MinLimiter;
-
   MinLimiter minLimiter(uMin=leakageOpening)
     annotation (Placement(transformation(extent={{10,44},{24,58}})));
 initial equation
@@ -163,22 +150,18 @@ initial equation
   elseif CvData == CvTypes.Cv then
     Av = Cv*Cv2Av "Unit conversion";
   end if;
-
 equation
   // Isenthalpic state transformation (no storage and no loss of energy)
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
-
   connect(filter.y, opening_filtered) annotation (Line(
       points={{48.7,51},{60,51},{60,50},{70,50}},
       color={0,0,127}));
-
   if filteredOpening then
      connect(filter.y, opening_actual);
   else
      connect(opening, opening_actual);
   end if;
-
   connect(minLimiter.y, filter.u) annotation (Line(
       points={{24.7,51},{32.6,51}},
       color={0,0,127}));

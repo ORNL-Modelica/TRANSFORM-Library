@@ -1,52 +1,39 @@
 within TRANSFORM.HeatAndMassTransfer.Volumes;
 model Volume_Closed
-
   extends TRANSFORM.Icons.UnderConstruction;
-
   import Modelica.Fluid.Types.Dynamics;
-
   parameter Dynamics massDynamics=Dynamics.DynamicFreeInitial
     "Formulation of mass balances"
     annotation (Dialog(tab="Assumptions", group="Dynamics"));
   parameter SI.AbsolutePressure p_start = 1e5 "Pressure"
     annotation (Dialog(tab="Initialization",group="Start Value: Pressure"));
-
   input SI.Volume V "Volume" annotation(Dialog(group="Inputs"));
   input SI.Temperature T "Temperature" annotation(Dialog(group="Inputs"));
   input SI.MolarFlowRate n_gen = 0 "Internal mole generation" annotation(Dialog(group="Inputs"));
-
   SI.Concentration C "Concentration";
   Units.Mole n "Moles in volume";
-
  SI.AbsolutePressure p(stateSelect=StateSelect.prefer,start=p_start) "Pressure";
-
   Interfaces.MolePort_State port "Flow across boundary" annotation (Placement(
         transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent=
            {{-10,-110},{10,-90}})));
-
 initial equation
   if massDynamics == Dynamics.SteadyStateInitial then
     der(n) = 0;
   elseif massDynamics == Dynamics.FixedInitial then
     p = p_start;
   end if;
-
 equation
-
   // Total Quantities
   C = p/(Modelica.Constants.R*T);
   n = C*V;
-
  // Mass Balance
  if massDynamics == Dynamics.SteadyState then
      0  =port.n_flow  + n_gen;
  else
      der(n)  =port.n_flow  + n_gen;
  end if;
-
   // Port Definitions
   port.C = C;
-
   annotation (defaultComponentName="volume",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(

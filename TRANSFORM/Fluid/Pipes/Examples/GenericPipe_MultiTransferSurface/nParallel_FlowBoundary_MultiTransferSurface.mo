@@ -1,11 +1,8 @@
 within TRANSFORM.Fluid.Pipes.Examples.GenericPipe_MultiTransferSurface;
 model nParallel_FlowBoundary_MultiTransferSurface
   import TRANSFORM;
-
   extends TRANSFORM.Icons.Example;
-
   package Medium=Modelica.Media.Water.StandardWater(extraPropertiesNames={"Tritium","blah"});
-
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface pipe_single(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare package Medium = Medium,
@@ -26,7 +23,6 @@ model nParallel_FlowBoundary_MultiTransferSurface
         alphaM0=fill(1, pipe_single.traceMassTransfer.nC),
         iC={1}))
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-
   Utilities.Visualizers.displayReal boundaryQ_p(val=pipe_single.port_a.p)
     annotation (Placement(transformation(extent={{-52,84},{-32,104}})));
   Utilities.Visualizers.displayReal boundaryT_p(val=pipe_single.port_b.p)
@@ -98,7 +94,6 @@ model nParallel_FlowBoundary_MultiTransferSurface
         alphaM0=fill(1, pipe_nParallel.traceMassTransfer.nC),
         iC={1}))
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
-
   Utilities.Visualizers.displayReal boundaryQ_p1(val=pipe_nParallel.port_a.p)
     annotation (Placement(transformation(extent={{-50,-16},{-30,4}})));
   Utilities.Visualizers.displayReal boundaryT_p1(val=pipe_nParallel.port_b.p)

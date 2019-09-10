@@ -21,7 +21,6 @@ model FuelTest "Representative nuclear fuel element"
     length=1,
     Tref=1173.15)
     annotation (Placement(transformation(extent={{-80,-27},{-34,27}})));
-
   Cylinder_FD Gap(
     r_inner=Fuel.r_outer,
     r_outer=0.0055,
@@ -44,7 +43,6 @@ model FuelTest "Representative nuclear fuel element"
     length=Fuel.length,
     Tref=823.15)
     annotation (Placement(transformation(extent={{-36,-27},{10,27}})));
-
   Cylinder_FD Cladding(
     r_inner=Gap.r_outer,
     r_outer=0.007,
@@ -67,7 +65,6 @@ model FuelTest "Representative nuclear fuel element"
     length=Fuel.length,
     Tref=573.15)
     annotation (Placement(transformation(extent={{12,-27},{58,27}})));
-
   BoundaryConditions.Adiabatic_FD adiabatic_FD(nNodes=Fuel.nR)
     annotation (Placement(transformation(extent={{-88,50},{-68,70}})));
   BoundaryConditions.Adiabatic_FD adiabatic_FD1(nNodes=Fuel.nR)

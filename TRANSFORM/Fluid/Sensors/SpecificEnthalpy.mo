@@ -6,15 +6,12 @@ model SpecificEnthalpy "Ideal one port specific enthalpy sensor"
         TRANSFORM.Units.Conversions.Functions.SpecificEnergy_J_kg.to_J_kg
       constrainedby
       TRANSFORM.Units.Conversions.Functions.SpecificEnergy_J_kg.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
       final unit="J/kg") "Specific enthalpy in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
         iconTransformation(extent={{50,-10},{70,10}})));
-
 equation
   h_out = inStream(port.h_outflow);
-
   annotation (defaultComponentName="sensor_h",Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Text(

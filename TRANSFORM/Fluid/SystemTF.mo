@@ -1,13 +1,10 @@
 within TRANSFORM.Fluid;
 model SystemTF
   "Fluid system properties and default values (ambient, flow direction, initialization)"
-
   import TRANSFORM.Types.Dynamics;
-
   replaceable package Medium = Modelica.Media.Water.StandardWater
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium properties"
     annotation (choicesAllMatching=true);
-
   parameter Modelica.SIunits.AbsolutePressure p_ambient=101325
     "Default ambient pressure"
     annotation(Dialog(group="Environment"));
@@ -20,11 +17,9 @@ model SystemTF
   input Modelica.SIunits.Acceleration g_n=Modelica.Constants.g_n
     "Constant gravity acceleration"
     annotation(Dialog(group="Environment"));
-
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Advanced"), Evaluate=true);
-
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
@@ -39,7 +34,6 @@ model SystemTF
   parameter Dynamics momentumDynamics=Dynamics.SteadyState
     "Formulation of momentum balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-
   parameter SI.AbsolutePressure p_start=Medium.p_default "Pressure" annotation (
      Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
   parameter Boolean use_T_start=true "Use T_start if true, otherwise h_start"
@@ -66,19 +60,15 @@ model SystemTF
       tab="Initialization",
       group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
-
   parameter SI.MassFlowRate m_flow_start = 0 "Mass flow rate"
     annotation (Dialog(tab="Initialization", group="Start Value: Mass Flow Rate"));
-
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
-
   parameter Boolean showColors = false "Toggle dynamic color display"  annotation(Dialog(tab="Visualization",group="Color Coding"));
   input Real val_min = 293.15 "val <= val_min is mapped to colorMap[1,:]" annotation(Dialog(tab="Visualization",group="Color Coding",enable=showColors));
   input Real val_max = 373.15
                              "val >= val_max is mapped to colorMap[end,:]" annotation(Dialog(tab="Visualization",group="Color Coding",enable=showColors));
-
   annotation (
     defaultComponentName="systemTF",
     defaultComponentPrefixes="inner",

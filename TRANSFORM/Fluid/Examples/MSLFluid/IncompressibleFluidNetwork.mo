@@ -2,22 +2,17 @@ within TRANSFORM.Fluid.Examples.MSLFluid;
 model IncompressibleFluidNetwork
   "Multi-way connections of pipes and incompressible medium model"
   extends TRANSFORM.Icons.Example;
-
   parameter Modelica.Fluid.Types.ModelStructure pipeModelStructure=Modelica.Fluid.Types.ModelStructure.av_vb;
   //parameter Types.ModelStructure pipeModelStructure = Modelica.Fluid.Types.ModelStructure.a_v_b;
-
   replaceable package Medium =
       Modelica.Media.Incompressible.Examples.Glycol47
     constrainedby Modelica.Media.Interfaces.PartialMedium;
-
   //replaceable package Medium =
   //    Modelica.Media.Water.StandardWaterOnePhase
   //  constrainedby Modelica.Media.Interfaces.PartialMedium;
-
   import Modelica.Fluid.Types.Dynamics;
   parameter Dynamics systemMassDynamics = if Medium.singleState then Dynamics.SteadyState else Dynamics.SteadyStateInitial;
   parameter Boolean filteredValveOpening = not Medium.singleState;
-
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT source(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -38,7 +33,6 @@ model IncompressibleFluidNetwork
     exposeState_a=true,
     exposeState_b=true)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-
   Pipes.GenericPipe_MultiTransferSurface                pipe2(
     redeclare package Medium = Medium,
     redeclare model Geometry =
@@ -57,7 +51,6 @@ model IncompressibleFluidNetwork
         origin={-50,20},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-
   Pipes.GenericPipe_MultiTransferSurface                pipe3(
     redeclare package Medium = Medium, redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -75,7 +68,6 @@ model IncompressibleFluidNetwork
         origin={-50,-20},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-
   Pipes.GenericPipe_MultiTransferSurface                pipe4(
     redeclare package Medium = Medium,
     redeclare model Geometry =
@@ -91,7 +83,6 @@ model IncompressibleFluidNetwork
     exposeState_a=true,
     exposeState_b=true)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-
   Pipes.GenericPipe_MultiTransferSurface pipe6(
     redeclare package Medium = Medium,
         redeclare model Geometry =
@@ -107,7 +98,6 @@ model IncompressibleFluidNetwork
     exposeState_a=true,
     exposeState_b=true)
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-
   TRANSFORM.Fluid.Valves.ValveIncompressible valve1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -139,7 +129,6 @@ model IncompressibleFluidNetwork
     exposeState_a=true,
     exposeState_b=true)
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-
   TRANSFORM.Fluid.Valves.ValveIncompressible valve3(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
@@ -190,7 +179,6 @@ model IncompressibleFluidNetwork
         origin={10,10},
         extent={{-10,10},{10,-10}},
         rotation=270)));
-
   Pipes.GenericPipe_MultiTransferSurface pipe9(
     redeclare package Medium = Medium,
     redeclare model Geometry =
@@ -206,7 +194,6 @@ model IncompressibleFluidNetwork
     exposeState_a=true,
     exposeState_b=true)
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-
   Pipes.GenericPipe_MultiTransferSurface pipe10(
     redeclare package Medium = Medium,
     redeclare model Geometry =
@@ -222,7 +209,6 @@ model IncompressibleFluidNetwork
     exposeState_a=true,
     exposeState_b=true)
     annotation (Placement(transformation(extent={{20,-30},{40,-10}})));
-
   Pipes.GenericPipe_MultiTransferSurface pipe5(
     redeclare package Medium = Medium,
     redeclare model Geometry =
@@ -238,7 +224,6 @@ model IncompressibleFluidNetwork
     exposeState_a=true,
     exposeState_b=true)
     annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow heat8[pipe8.geometry.nV](
      each use_port=true)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
@@ -257,7 +242,6 @@ model IncompressibleFluidNetwork
     exposeState_a=true,
     exposeState_b=true)
     annotation (Placement(transformation(extent={{54,0},{74,20}})));
-
   Utilities.ErrorAnalysis.UnitTests unitTests(
     printResult=false,
     n=2,

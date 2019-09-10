@@ -1,12 +1,9 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX;
 model STHX_BellDelaware
   "Shell and tube heat exchanger model using: tube-side: MSL dynamic pipe model; shell-side: Bell Delaware dP and heat transfer method"
-
   import Modelica.Constants.pi;
   outer Modelica.Fluid.System system "System wide properties";
-
   parameter Real nParallel = 1 "# of identical parallel STHXs";
-
   replaceable package Medium_tube =
       Modelica.Media.Interfaces.PartialMedium "Tube side medium"
     annotation (__Dymola_choicesAllMatching=true,Dialog(group="Tube Parameters"));
@@ -15,7 +12,6 @@ model STHX_BellDelaware
                                               "Tube wall material"
                          annotation (
      __Dymola_choicesAllMatching=true,Dialog(group="Tube Parameters"));
-
   replaceable package Medium_shell =
       Modelica.Media.Interfaces.PartialMedium "Shell side medium"
     annotation (__Dymola_choicesAllMatching=true,Dialog(group="Shell Parameters"));
@@ -24,7 +20,6 @@ model STHX_BellDelaware
   parameter Real np=0
     "Gas specific exponential correction factor (e.g., air = 0; N2 = 0.12)"
     annotation(Dialog(group="Shell Parameters"));
-
   parameter SI.Length height_a_shell=0
     "Shell Elevation at port_a: Reference value only. No impact on calculations."
     annotation (Dialog(group="Shell Parameters"), Evaluate=true);
@@ -37,7 +32,6 @@ model STHX_BellDelaware
   parameter SI.Length dheight_entryPipe_b=0
     "Shell Height(port_b) - Height(shell outlet nozzle midpoint)"
     annotation (Dialog(group="Shell Parameters"), Evaluate=true);
-
   Modelica.Fluid.Interfaces.FluidPort_a port_a_tube(redeclare package Medium =
         Medium_tube)
     annotation (Placement(transformation(extent={{-70,-110},{-50,-90}}),
@@ -46,7 +40,6 @@ model STHX_BellDelaware
         Medium_tube)
     annotation (Placement(transformation(extent={{-70,90},{-50,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
-
   Modelica.Fluid.Interfaces.FluidPort_a port_a_shell(redeclare package Medium =
         Medium_shell)
     annotation (Placement(transformation(extent={{50,90},{70,110}}),
@@ -55,7 +48,6 @@ model STHX_BellDelaware
         Medium_shell)
     annotation (Placement(transformation(extent={{50,-110},{70,-90}}),
         iconTransformation(extent={{45,-110},{65,-90}})));
-
   // General Shell Parameters
   parameter Boolean counterCurrent=true
     "Swap temperature and flux vector order"
@@ -70,7 +62,6 @@ model STHX_BellDelaware
  annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
   final parameter Real n_T = n_tubes + n_bs
     "Total # of tubes (including blind and support)";
-
   parameter SI.Length DB=D_i "Tube bundle diameter"
 annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
   parameter SI.Length D_BE = DB
@@ -82,7 +73,6 @@ annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
 annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
   parameter Real nes "# of shortest connections connecting neighboring tubes"
 annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
-
   // Cross Flow Section Parameters
   parameter SI.Length D_i "Inside shell diameter"
   annotation(Dialog(tab="Shell Side Part 1",group="Cross Flow Section Parameters"));
@@ -90,7 +80,6 @@ annotation(Dialog(tab="Shell Side Part 1",group="General Shell Parameters"));
 annotation(Dialog(tab="Shell Side Part 1",group="Cross Flow Section Parameters"));
   parameter Real n_MRE "# of main resistances in end cross flow path"
 annotation(Dialog(tab="Shell Side Part 1",group="Cross Flow Section Parameters"));
-
   // Window Section Parameters
   parameter Real n_W_tubes
     "Total # of heat transfer tubes in both the upper and lower window"
@@ -100,12 +89,10 @@ annotation(Dialog(tab="Shell Side Part 1",group="Window Section Parameters"));
 annotation(Dialog(tab="Shell Side Part 1",group="Window Section Parameters"));
   final parameter Real n_W(max=n_T) = n_W_tubes + n_W_bs
     "Total # of tubes in both the upper and lower window (including blind and support)";
-
   parameter Real n_RW "# of tube rows in a window section"
 annotation(Dialog(tab="Shell Side Part 1",group="Window Section Parameters"));
   parameter Real n_s=0 "# of pairs of sealing strips"
 annotation(Dialog(tab="Shell Side Part 1",group="Window Section Parameters"));
-
   // Baffle Parameters
   parameter Integer nb(min=2)=2 "# of baffles"
 annotation(Dialog(tab="Shell Side Part 2",group="Baffle Parameters"));
@@ -127,10 +114,8 @@ annotation(Dialog(tab="Shell Side Part 2",group="Baffle Parameters"));
   parameter SI.Length S_E_b=S
     "port b baffle spacing between the heat exchanger sheets and adjacent baffles"
 annotation(Dialog(tab="Shell Side Part 2",group="Baffle Parameters"));
-
   parameter SI.Length th_B = 0 "Baffle thickness"
 annotation(Dialog(tab="Shell Side Part 2",group="Baffle Parameters"));
-
   // Nozzle and Entry Parameters
   parameter SI.Length d_N_a "Nozzle a diameter"
 annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"));
@@ -146,7 +131,6 @@ annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"))
   parameter SI.Height roughness_entryPipe_b=2.5e-5
     "Avg. height of surface asperities"
     annotation(Dialog(tab="Shell Side Part 2",group="Entry/Exit Region Parameters"));
-
   // General Tube Parameters
   parameter Real nPasses=1 "Number of tube passes through the shell"
     annotation (Dialog(group="Tube Parameters"));
@@ -158,14 +142,12 @@ annotation (Dialog(group="Tube Parameters"));
   parameter SI.Height roughness_tube=2.5e-5
     "Average height of the inner tube surface asperities"
     annotation (Dialog(group="Tube Parameters"));
-
   parameter SI.Length height_a_tube=0
     "Tube Elevation at port_a: Reference value only. No impact on calculations."
     annotation (Dialog(group="Tube Parameters"), Evaluate=true);
   parameter SI.Length dheight_tube=0
     "Tube Height(port_b) - Height(port_a)"
     annotation (Dialog(group="Tube Parameters"), Evaluate=true);
-
   replaceable model FlowModel_tube =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
     constrainedby
@@ -178,7 +160,6 @@ annotation (Dialog(group="Tube Parameters"));
     TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.PartialHeatTransfer_setT
     "Tube side heat transfer coefficient model"
     annotation (choicesAllMatching=true,Dialog(group="Tube Parameters"));
-
   // Assumptions Tab Parameters
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -192,7 +173,6 @@ annotation (Dialog(group="Tube Parameters"));
   parameter Modelica.Fluid.Types.Dynamics momentumDynamics_shell=system.momentumDynamics
     "Formulation of momentum balances"
     annotation (Dialog(tab="Assumptions", group="Shell Dynamics"));
-
   parameter Modelica.Fluid.Types.Dynamics energyDynamics_tube=system.energyDynamics
     "Formulation of energy balances"
     annotation (Dialog(tab="Assumptions", group="Tube Dynamics"));
@@ -202,11 +182,9 @@ annotation (Dialog(group="Tube Parameters"));
   parameter Modelica.Fluid.Types.Dynamics momentumDynamics_tube=system.momentumDynamics
     "Formulation of momentum balances"
     annotation (Dialog(tab="Assumptions", group="Tube Dynamics"));
-
   parameter Modelica.Fluid.Types.Dynamics energyDynamics_wall=system.energyDynamics
     "Formulation of energy balances"
     annotation (Dialog(tab="Assumptions", group="Tube Wall Dynamics"));
-
   // Initialization Tab Shell Parameters
   parameter SI.AbsolutePressure p_a_start_shell=system.p_start
     "Pressure at port a" annotation (Dialog(tab="Shell Initialization",group="Start Value: Pressure"));
@@ -216,7 +194,6 @@ annotation (Dialog(group="Tube Parameters"));
     linspace(p_a_start_shell,p_b_start_shell,nNodes_Total)
     "Pressures {port_a,...,port_b}"
     annotation(Dialog(tab = "Shell Initialization",group="Start Value: Pressure"));
-
   parameter Boolean use_Ts_start_shell=true
     "Use T_start if true, otherwise h_start"
     annotation (Dialog(tab="Shell Initialization",group="Start Value: Temperature"));
@@ -233,7 +210,6 @@ annotation (Dialog(group="Tube Parameters"));
         hs_start_shell[i],
         X_start_shell) for i in 1:nNodes_Total} "Temperatures {a,...,b}"
     annotation(Evaluate=true, Dialog(tab = "Shell Initialization",group="Start Value: Temperature", enable = use_Ts_start_shell));
-
   parameter Modelica.Media.Interfaces.Types.SpecificEnthalpy h_a_start_shell=
       Medium_shell.specificEnthalpy_pTX(
       shell.p_a_start,
@@ -256,7 +232,6 @@ annotation (Dialog(group="Tube Parameters"));
       cat(1,fill(h_a_start_shell,nNodes_entryPipe_a+nNodes_nozzle),linspace(h_a_start_shell,h_b_start_shell,nNodes_intTotal),fill(h_b_start_shell,nNodes_entryPipe_b+nNodes_nozzle))
     "Specific enthalpies {a,...,b}"
     annotation(Evaluate=true, Dialog(tab = "Shell Initialization",group="Start Value: Specific Enthalpy", enable = not use_Ts_start_shell));
-
   final parameter Modelica.Media.Interfaces.Types.MassFraction X_start_shell[Medium_shell.nX]=
       Medium_shell.X_default "Mass fractions m_i/m"
       annotation (Dialog(tab="Shell Initialization",group="Start Value: Mass Fractions"));
@@ -265,7 +240,6 @@ annotation (Dialog(group="Tube Parameters"));
       annotation (Dialog(tab="Shell Initialization",group="Start Value: Trace Substances"));
   parameter SI.MassFlowRate m_flow_start_shell=system.m_flow_start
     "Mass flow rate" annotation (Dialog(tab="Shell Initialization",group="Start Value: Mass Flow Rate"));
-
   // Initialization Tab Tube Parameters
   parameter Modelica.Media.Interfaces.Types.AbsolutePressure p_a_start_tube=
       system.p_start "Pressure at port a"
@@ -280,11 +254,9 @@ annotation (Dialog(group="Tube Parameters"));
       tube.nV) else {(tube.p_a_start + tube.p_b_start)/2}
     "Pressures {port_a,...,port_b}"
     annotation (Dialog(tab = "Tube Initialization",group="Start Value: Absolute Pressure"));
-
   parameter Boolean use_Ts_start_tube=true
     "Use T_start if true, otherwise h_start"
     annotation (Dialog(tab = "Tube Initialization",group="Start Value: Temperature"));
-
   parameter Modelica.Media.Interfaces.Types.Temperature T_a_start_tube=system.T_start
     "Temperature at port a" annotation (Dialog(tab = "Tube Initialization",group="Start Value: Temperature", enable = use_Ts_start_tube));
   parameter Modelica.Media.Interfaces.Types.Temperature T_b_start_tube=tube.T_a_start
@@ -299,7 +271,6 @@ annotation (Dialog(group="Tube Parameters"));
       tube.hs_start[i],
       tube.Xs_start) for i in 1:tube.nV} "Temperatures {port_a,...,port_b}"
     annotation(Evaluate=true, Dialog(tab = "Tube Initialization",group="Start Value: Temperature", enable = use_Ts_start_tube));
-
   parameter Modelica.Media.Interfaces.Types.SpecificEnthalpy h_a_start_tube=
       Medium_tube.specificEnthalpy_pTX(tube.p_a_start, tube.T_a_start,tube.Xs_start)
     "Specific enthalpy at port a" annotation (Dialog(tab = "Tube Initialization",group="Start Value: Specific Enthalpy", enable = not use_Ts_start_tube));
@@ -316,15 +287,12 @@ annotation (Dialog(group="Tube Parameters"));
       tube.nV) else {(tube.h_a_start + tube.h_b_start)/2}
     "Specific enthalpies {port_a,...,port_b}"
     annotation (Evaluate=true, Dialog(tab = "Tube Initialization",group="Start Value: Specific Enthalpy", enable = not use_Ts_start_tube));
-
   parameter Modelica.Media.Interfaces.Types.MassFraction Xs_start_tube[Medium_tube.nX]=
      Medium_tube.X_default "Mass fractions m_i/m"
     annotation (Dialog(tab="Tube Initialization",group="Start Value: Mass Fractions", enable=Medium_tube.nXi > 0));
-
   parameter Modelica.Media.Interfaces.Types.ExtraProperty Cs_start_tube[Medium_tube.nC]=
      fill(0, Medium_tube.nC) "Trace substances"
     annotation (Dialog(tab="Tube Initialization",group="Start Value: Trace Substances", enable=Medium_tube.nC > 0));
-
   parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate
     m_flow_a_start_tube=system.m_flow_start "Mass flow rate at port_a"
     annotation (Dialog(tab = "Tube Initialization",group="Start Value: Mass Flow Rate"));
@@ -337,7 +305,6 @@ annotation (Dialog(group="Tube Parameters"));
       -tube.m_flow_b_start,
       tube.nV + 1) "Mass flow rates {port_a,...,port_b}"
     annotation (Evaluate=true, Dialog(tab = "Tube Initialization",group="Start Value: Mass Flow Rate"));
-
   // Advanced Parameters
   parameter Integer nNodes_entryPipe_a(min=1)=1
     "Number of discrete flow volumes in entryPipe_a"
@@ -362,12 +329,10 @@ annotation (Dialog(group="Tube Parameters"));
   parameter Modelica.Fluid.Types.ModelStructure modelStructure_tube=Modelica.Fluid.Types.ModelStructure.av_b
     "Set ports as flow or volume models"
     annotation (Dialog(tab="Advanced"));
-
   final parameter Integer nNodes_intTotal = nNodes_endCross + (nb-1)*(nNodes_window+nNodes_centerCross) + nNodes_window + nNodes_endCross
     "Total number of nodes internal to the shell (i.e., not including nozzles and entry pipes)";
   final parameter Integer nNodes_Total = nNodes_entryPipe_a +  nNodes_nozzle + nNodes_intTotal +  nNodes_nozzle + nNodes_entryPipe_b
     "Total number of nodes in the shell-side (i.e., including nozzles and entry pipes)";
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface
                                        tube(
     use_HeatTransfer=true,
@@ -408,7 +373,6 @@ annotation (Dialog(group="Tube Parameters"));
         extent={{-22,22},{22,-22}},
         rotation=90,
         origin={-60,0})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylinder_FD
     tubewall(
     redeclare package material = Tube_Material,
@@ -440,30 +404,25 @@ annotation (Dialog(group="Tube Parameters"));
         nNodes_entryPipe_b)]}],
     energyDynamics=energyDynamics_wall)
     annotation (Placement(transformation(extent={{-22,-22},{22,22}})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions.Adiabatic_FD
     adiabatic_FD(nNodes=tubewall.nR) annotation (Placement(transformation(
         extent={{-5,-5},{5,5}},
         rotation=90,
         origin={0,-27})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions.Adiabatic_FD
     adiabatic_FD1(nNodes=tubewall.nR) annotation (Placement(transformation(
         extent={{5,-5},{-5,5}},
         rotation=90,
         origin={0,27})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Interfaces.ScalePower
     scalePower_WallToTube(nParallel=integer(tube.nParallel), nNodes=tube.nV)
     annotation (Placement(transformation(extent={{-20,-10},{-40,10}})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Interfaces.ScalePower
     scalePower_WallToShell(
     nParallel=integer(tube.nParallel),
     counterCurrent=counterCurrent,
     nNodes=tube.nV)
     annotation (Placement(transformation(extent={{26,-10},{46,10}})));
-
   BaseClasses.STHX_ShellSide_BellDelaware shell(
     redeclare package Medium = Medium_shell,
     toggleStaggered=toggleStaggered,
@@ -526,28 +485,22 @@ annotation (Dialog(group="Tube Parameters"));
         extent={{31,-32},{-31,32}},
         rotation=90,
         origin={60,-1})));
-
   // Estimate of U and UA
   SI.TemperatureDifference DT1_output "Temperature Difference 1 of LMTD";
   SI.TemperatureDifference DT2_output "Temperature Difference 2 of LMTD";
   SI.TemperatureDifference LMTD_output "Log Mean Temperature Difference";
-
   SI.CoefficientOfHeatTransfer alphas_tubeAvg_output
     "Average tube side heat transfer coefficient";
-
   SI.ThermalResistance R_tube_output "Tube side thermal resistivity";
-
   SI.ThermalConductance UA_output "U*Area_heatTransfer";
   SI.Area surfaceArea_total_output
     "Total heat transfer area scaled by # of STHX. Based on outer tube diameter, d_o.";
   SI.CoefficientOfHeatTransfer Uoverall_output
     "Overall heat transfer coefficientOverall heat transfer coeffient based on the outside surface area";
-
   SI.CoefficientOfHeatTransfer[shell.nNodes_intTotal] alphas_tube_output
     "per Node tube side heat transfer coefficient";
   SI.Temperature[shell.nNodes_intTotal] Ts_medium_tube_output
     "Tube side wall temperature";
-
 algorithm
   if counterCurrent then
     DT1_output :=shell.endCross_a.mediums[1].T - tube.mediums[shell.nNodes_intTotal].T;
@@ -556,23 +509,16 @@ algorithm
     DT1_output :=shell.endCross_a.mediums[1].T - tube.mediums[1].T;
     DT2_output :=shell.endCross_b.mediums[shell.nNodes_endCross].T - tube.mediums[shell.nNodes_intTotal].T;
   end if;
-
   LMTD_output :=smooth(1, if abs(DT1_output - DT2_output) <= 1e-4 then 0
                    else (DT1_output - DT2_output)/log(DT1_output/DT2_output));
-
   alphas_tubeAvg_output :=sum(alphas_tube_output)/shell.nNodes_intTotal;
-
   R_tube_output :=1/(alphas_tubeAvg_output*pi*sum(tube.dimensions)/nNodes_intTotal*sum(tube.lengths));
-
   UA_output := 1/(R_tube_output + tubewall.solutionMethod.R_cond_radial + shell.R_conv_output);
   surfaceArea_total_output :=shell.surfaceArea_total_output*nParallel;
   Uoverall_output :=UA_output/surfaceArea_total_output;
-
 equation
-
   alphas_tube_output = tube.heatTransfer.alphas;
   Ts_medium_tube_output = tube.mediums.T;
-
   connect(adiabatic_FD1.port, tubewall.heatPorts_top)
     annotation (Line(points={{0,22},{0,13.42}}, color={191,0,0}));
   connect(adiabatic_FD.port, tubewall.heatPorts_bottom)
@@ -583,7 +529,6 @@ equation
           {-60,-100}}, color={0,127,255}));
   connect(scalePower_WallToTube.heatPorts_a, tubewall.heatPorts_inner)
     annotation (Line(points={{-20,0},{-12.98,0}}, color={127,0,0}));
-
   connect(tubewall.heatPorts_outer, scalePower_WallToShell.heatPorts_a)
     annotation (Line(points={{12.98,0},{19.49,0},{26,0}}, color={127,0,0}));
   connect(scalePower_WallToShell.heatPorts_b, shell.heatPorts_a)

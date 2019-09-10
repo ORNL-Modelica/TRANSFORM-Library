@@ -19,7 +19,6 @@ extends TRANSFORM.Media.Interfaces.Fluids.PartialLinearFluid(
   T_default=800);
 
 redeclare function extends dynamicViscosity "Dynamic viscosity"
-
 algorithm
   eta :=Utilities_9999Li7.eta_T(state.T);
   annotation(Inline=true);

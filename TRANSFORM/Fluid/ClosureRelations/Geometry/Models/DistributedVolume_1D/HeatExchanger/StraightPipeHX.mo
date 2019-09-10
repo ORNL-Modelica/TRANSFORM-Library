@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger;
 model StraightPipeHX
-
   extends GenericHX(
     final dimensions_shell=fill(dimension_shell, nV),
     final crossAreas_shell=fill(crossArea_shell, nV),
@@ -22,7 +21,6 @@ model StraightPipeHX
             1:nSurfaces_tube}),
     final ths_wall = fill(th_wall,nV),
     drs=fill(th_wall/nR,nR,nV));
-
   // Shell Side
   input SI.Length dimension_shell=4*crossArea_shell/perimeter_shell
     "Characteristic dimension (e.g., hydraulic diameter)"
@@ -40,14 +38,12 @@ model StraightPipeHX
     annotation (Dialog(tab="Shell Side", group="Inputs"));
   input SI.Area surfaceArea_shell[nSurfaces_shell]={if i == 1 then pi*D_o_tube*length_tube*nTubes else 0 for i in 1:nSurfaces_shell} "Outer surface area"
     annotation (Dialog(tab="Shell Side", group="Inputs"));
-
   // Static head
   input SI.Angle angle_shell=0.0 "Vertical angle from the horizontal  (-pi/2 < x <= pi/2)"
     annotation (Dialog(tab="Shell Side", group="Inputs Elevation"));
   input SI.Length dheight_shell= length_shell*sin(angle_shell)
     "Height(port_b) - Height(port_a) distributed by flow segment"
     annotation (Dialog(tab="Shell Side", group="Inputs Elevation"));
-
   // Tube Side
   input SI.Length dimension_tube=4*crossArea_tube/perimeter_tube
     "Characteristic dimension (e.g., hydraulic diameter)"
@@ -64,19 +60,15 @@ model StraightPipeHX
     annotation (Dialog(tab="Tube Side", group="Inputs"));
   input SI.Area surfaceArea_tube[nSurfaces_tube]={if i ==1 then perimeter_tube*length_tube else 0 for i in 1:nSurfaces_tube} "Inner surface area"
     annotation (Dialog(tab="Tube Side", group="Inputs"));
-
   // Static head
   input SI.Angle angle_tube=0.0 "Vertical angle from the horizontal  (-pi/2 < x <= pi/2)"
     annotation (Dialog(tab="Tube Side", group="Inputs Elevation"));
   input SI.Length dheight_tube= length_tube*sin(angle_tube)
     "Height(port_b) - Height(port_a) distributed by flow segment"
     annotation (Dialog(tab="Tube Side", group="Inputs Elevation"));
-
   input SI.Length th_wall=0.001 "Tube wall thickness"
     annotation (Dialog(tab="Tube Side",group="Inputs: Tube Wall"));
-
   SI.Length dimension_tube_outer = sum(dimensions_tube_outer)/nV "Tube outer diameter";
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end StraightPipeHX;

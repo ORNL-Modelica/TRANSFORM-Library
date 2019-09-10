@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.Valves.BaseClasses;
 model PartialValveBase
-
     import Modelica.Fluid.Types.CvTypes;
   parameter CvTypes CvData=CvTypes.OpPoint
     "Selection of flow coefficient"
@@ -9,7 +8,6 @@ model PartialValveBase
                                    annotation (Dialog(enable=CvData ==
           Modelica.Fluid.Types.CvTypes.Av,
         group="Flow coefficient"));
-
   parameter Real Kv(unit="m3/h") = 0 "Kv (metric) flow coefficient" annotation (
      Dialog(enable=CvData == Modelica.Fluid.Types.CvTypes.Kv,
         group="Flow coefficient"));
@@ -31,16 +29,12 @@ model PartialValveBase
     Modelica.Fluid.Valves.BaseClasses.ValveCharacteristics.baseFun
     "Inherent flow characteristic"
     annotation(choicesAllMatching=true);
-
     constant Real Kv2Av = sqrt(998.56)/3600/sqrt(1e5) "Conversion factor";
     constant Real Cv2Av = sqrt(998.56)*3.7854/1000/60/sqrt(1e5/14.5037) "Conversion factor";
-
 protected
     parameter SI.VolumeFlowRate Av_internal(fixed=false,start=0)
     "Av (metric) flow coefficient";
-
 initial equation
-
   if  CvData == CvTypes.Av then
     Av_internal = Av;
   elseif CvData == CvTypes.Kv then
@@ -52,7 +46,6 @@ initial equation
   elseif CvData == CvTypes.OpPoint then
     Av_internal = m_flow_nom/sqrt(d_nom*dp_nom);
   end if;
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialValveBase;

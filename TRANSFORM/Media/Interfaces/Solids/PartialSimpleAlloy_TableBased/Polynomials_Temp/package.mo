@@ -2,17 +2,6 @@ within TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased;
 package Polynomials_Temp "Temporary Functions operating on polynomials (including polynomial fitting); only to be used in Modelica.Media.Incompressible.TableBased"
 extends Modelica.Icons.Package;
 
-
-
-
-
-
-
-
-
-
-
-
 annotation (Documentation(info="<html>
 <p>
 This package contains functions to operate on polynomials,

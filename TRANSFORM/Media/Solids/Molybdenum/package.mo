@@ -1,62 +1,46 @@
 within TRANSFORM.Media.Solids;
-package Molybdenum "Pure natural Molybdenum"
+package Molybdenum "Mo: Molybdenum"
+  //Properties from The TPRC Data Series 1971
+  // Vol 4 is Specific Heat
+  // Vol 1 is Thermal Conductivity
+  // Cp data located on pages 135-139 (used data from series 11 and 7)
+  // k data is located on pages 223-229 (recommended values on pg 229)
+   extends Interfaces.Solids.PartialSimpleAlloy_SplineBased(
+     mediumName="Molybdenum",
+     T_min=13.23,
+     T_max=2800.,
+     T_reference=1.,
+     tableDensity=[0.,10220.; 3000.,10220.],
+     tableHeatCapacity=[1.,0.; 13.23,0.795; 14.14,0.913; 14.38,0.942; 15.27,1.089;
+     16.1,1.256; 16.61,1.357; 16.71,1.373; 18.34, 1.721; 19.24,1.968; 19.39,1.997;
+     19.46,2.018; 21.3,2.629; 23.16,3.442; 26.81,5.472; 31.13,9.01; 35.98,14.537;
+     40.77,21.713; 46.62,32.339; 51.85,43.208; 57.56,55.768; 62.6,67.031;
+     67.52,77.707; 68.42,79.8; 73.46,90.895; 73.53,90.812; 80.61,105.465;
+     86.23,116.728; 91.57,127.53; 96.69,136.071; 102.73,144.989; 108.36,152.693;
+     113.27,160.061; 118.39,166.007; 125.51, 174.338; 131.14,179.865; 136.73,185.685;
+     142.22, 191.044; 149.98,197.073; 155.8,202.139; 161.44,205.069; 166.97,208.838;
+     174.57,212.313; 180.88,215.285; 186.74,218.258; 192.37,220.854; 200.32,224.036;
+     201.57,224.873; 202.37,224.999; 202.63,226.59; 207.25,227.092; 208.03,226.841;
+     212.53,229.018; 212.74,229.437; 215.86,230.19; 218.05,231.572; 221.86,232.786;
+     225.64,234; 227.59,234.042; 231.42,236.052; 235.29,236.805; 236.95,237.894;
+     241.36,238.689; 244.84,238.648; 247.05,239.485; 250.64,241.16; 256.22, 242.206;
+     256.31,242.248; 262.57,243.337; 264.8,243.546; 268.3,244.384; 270.89,244.718;
+     300,248.277; 400,260; 500,263.35; 600,267.537; 700,272.142; 800,276.329;
+     900,282.609; 1000,288.052; 1100,294.332; 1200,301.868; 1300,309.823;
+     1400,319.872; 1500,329.082; 1600,339.968; 1700,350.854; 1800,363.414;
+     1900,375.137; 2000,388.535; 2100,404.026; 2200,418.68; 2300,435.427;
+     2400,456.361; 2500,481.482; 2600,510.79; 2700,544.284; 2800,581.965; 2860,607.086],
+     tableConductivity=[0.0,0.0; 1.0,14.6; 2.0,29.2; 3.0,43.8; 4.0,58.4; 5.0,73.0;
+     6.0,87.6; 7.0,102.0; 8.0,117.0; 9.0,131.0; 10.0,145.0; 11.0,160.0; 12.0,174.0;
+     13.0,188.0; 14.0,201.0; 15.0,215.0; 16.0,228.0; 18.0,253.0; 20.0,277.0;
+     25.0,325.0; 30.0,355.0; 35.0,362.0; 40.0,351.0; 45.0,326.0; 50.0,300.0;
+     60.0,269.0; 70.0,230.0; 80.0,209.0; 90.0,192.0; 100.0,179.0; 150.0,149.0;
+     200.0,143.0; 250.0,140.0; 273.2,139.0; 300.0,138.0; 350.0,136.0; 400.0,134.0;
+     500.0,130.0; 600.0,126.0; 700.0,122.0; 800.0,118.0; 900.0,115.0; 1000.0,112.0;
+     1100.0,108.0; 1200.0,105.0; 1300.0,102.0; 1400.0,99.6; 1500.0,97.0; 1600.0,94.6;
+     1700.0,92.5; 1800.0,90.7; 1900.0,89.3; 2000.0,88.3; 2200.0,85.8; 2400.0,84.0;
+     2600.0,82.5; 2800.0,81.3]);
 
-//cp from Chase, M.W., Jr., NIST-JANAF Themochemical Tables, Fourth Edition, J. Phys. Chem. Ref. Data, Monograph 9, 1998, 1-1951.
-//https://webbook.nist.gov/cgi/cbook.cgi?ID=C7440337&Units=SI&Mask=2#Thermo-Condensed
-
-//lambda from https://ntrs.nasa.gov/search.jsp?R=19670013537
-
-  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
-    mediumName="Molybdenum",
-    T_min=Modelica.SIunits.Conversions.from_degC(0),
-    T_max=2896,
-    MM_const=0.09596);
-    constant Modelica.SIunits.Temperature trans = 1900;
-    constant Real A[2] = {24.72736,  1231.192};
-    constant Real B[2] = { 3.960425, -963.4246};
-    constant Real C[2] = {-1.270706,  283.7292};
-    constant Real D[2] = { 1.153065,  -28.04100};
-    constant Real E[2] = {-0.170246, -712.2047};
-    constant Real F[2] = {-8.110684,-1485.529};
-    constant Real G[2] = {56.43379,   573.7854};
-    constant Real H[2] = { 0.000000,    0.000000};
-    constant Real a = 158.59;
-    constant Real b = -52.16;
-    constant Real c = 6.05;
-
-  redeclare function extends specificEnthalpy
-    "Specific enthalpy"
-protected
-            Real t = state.T/1000;
-            SI.SpecificEnthalpy h_lo, h_hi;
-  algorithm
-    h_lo := A[1]*t + B[1]/2*t^2 + C[1]/3*t^3 + D[1]/4*t^4 - E[1]/t + F[1] - H[1];
-    h_hi := A[2]*t + B[2]/2*t^2 + C[2]/3*t^3 + D[2]/4*t^4 - E[2]/t + F[2] - H[2];
-    h := h_reference + TRANSFORM.Math.spliceTanh(h_hi,h_lo,state.T-trans,100)/MM_const;
-  end specificEnthalpy;
-
-  redeclare function extends density
-    "Density"
-  algorithm
-    d := 10220;
-  end density;
-
-  redeclare function extends thermalConductivity
-    "Thermal conductivity"
-protected
-    Real t = state.T/1000;
-  algorithm
-    lambda := a + b*t + c*t^2;
-  end thermalConductivity;
-
-  redeclare function extends specificHeatCapacityCp
-    "Specific heat capacity"
-protected
-            Real t = state.T/1000;
-            SI.SpecificHeatCapacity cp_lo, cp_hi;
-  algorithm
-    cp_lo :=A[1] + B[1]*t + C[1]*t^2 + D[1]*t^3 + E[1]/t^2;
-    cp_hi :=A[2] + B[2]*t + C[2]*t^2 + D[2]*t^3 + E[2]/t^2;
-    cp := TRANSFORM.Math.spliceTanh(cp_hi,cp_lo,state.T-trans,100)/MM_const;
-  end specificHeatCapacityCp;
+  annotation (Documentation(info="<html>
+</html>"));
 end Molybdenum;

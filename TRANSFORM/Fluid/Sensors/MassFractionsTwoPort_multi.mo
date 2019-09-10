@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.Sensors;
 model MassFractionsTwoPort_multi "Ideal two port sensor for species"
-
   parameter Integer iDisplay = 1 "Index of trace substance to display (for GUI only)";
-
   extends BaseClasses.PartialTwoPortSensor;
   extends BaseClasses.PartialMultiSensor_1values(final var=if Medium.nXi < 1 then 0 else Xi[iDisplay],
       redeclare replaceable function iconUnit =
@@ -18,9 +16,7 @@ model MassFractionsTwoPort_multi "Ideal two port sensor for species"
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={0,36})));
-
 equation
-
   if allowFlowReversal then
     for i in 1:Medium.nXi loop
      Xi[i] = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.Xi_outflow[i], port_a.Xi_outflow[i], m_flow_small);
@@ -30,7 +26,6 @@ equation
      Xi[i] = port_b.Xi_outflow[i];
     end for;
   end if;
-
   annotation (
     defaultComponentName="sensor_Xi",
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

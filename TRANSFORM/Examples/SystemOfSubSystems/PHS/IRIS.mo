@@ -1,7 +1,6 @@
 within TRANSFORM.Examples.SystemOfSubSystems.PHS;
 model IRIS
   import TRANSFORM;
-
   extends BaseClasses.Partial_SubSystem_A(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     allowFlowReversal=system.allowFlowReversal,
@@ -13,10 +12,8 @@ model IRIS
       m_flow=502.8),
     port_b_nominal(p=5.8e6, T=591),
     redeclare Data.IRIS_PHS data);
-
   package Medium_PHTS = Modelica.Media.Water.StandardWater
     "Primary heat transport system medium" annotation (Dialog(enable=false));
-
   TRANSFORM.Nuclear.CoreSubchannels.Regions_3    coreSubchannel(
     Ts_start_3(displayUnit="K") = [{coreSubchannel.Ts_start_2[end, 1]},{
       coreSubchannel.Ts_start_2[end, 2]},{coreSubchannel.Ts_start_2[end, 3]},{
@@ -74,7 +71,6 @@ model IRIS
         extent={{-7,-6},{7,6}},
         rotation=90,
         origin={-60,-58})));
-
   Fluid.Pipes.GenericPipe_MultiTransferSurface
                                 Core_OutletPlenum(
     redeclare package Medium = Medium_PHTS,
@@ -241,7 +237,6 @@ model IRIS
         Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     rho_wall=7000)
     annotation (Placement(transformation(extent={{-34,70},{-22,84}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.Temperature Temp_walLiquid(
                                                                         T=298.15)
     annotation (Placement(transformation(extent={{-10,73},{-18,81}})));
@@ -371,14 +366,12 @@ model IRIS
         extent={{6,6},{-6,-6}},
         rotation=0,
         origin={74,-40})));
-
   Fluid.Sensors.Temperature          T_Core_Inlet(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-68,-68},{-76,-76}})));
   Fluid.Sensors.Temperature          T_Core_Outlet(redeclare package Medium =
         Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-68,-48},{-76,-40}})));
-
   Modelica.Blocks.Sources.RealExpression p_pressurizer(y=pressurizer.drum2Phase.p)
     "pressurizer pressure"
     annotation (Placement(transformation(extent={{-96,128},{-84,140}})));
@@ -407,7 +400,6 @@ model IRIS
     p_a_start(displayUnit="bar") = 15500000,
     use_port=true)
     annotation (Placement(transformation(extent={{8,42},{28,62}})));
-
   Fluid.Pipes.parallelFlow nFlow(redeclare package Medium = Medium, nParallel=8)
     annotation (Placement(transformation(extent={{-4,48},{2,56}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance ToHeader_PressureDrop1(
@@ -476,14 +468,12 @@ model IRIS
         extent={{13,11},{-13,-11}},
         rotation=-90,
         origin={52,1})));
-
   Blocks.RealExpression CR_reactivity
     annotation (Placement(transformation(extent={{-54,128},{-42,140}})));
   Modelica.Blocks.Sources.RealExpression Q_total(y=coreSubchannel.kinetics.Q_total)
     "total thermal power"
     annotation (Placement(transformation(extent={{-76,118},{-64,130}})));
 equation
-
   connect(LowerRiser.port_a,Core_OutletPlenum. port_b)
     annotation (Line(points={{-60,-6},{-60,-14}}, color={0,127,255}));
   connect(UpperRiser.port_a,LowerRiser. port_b)
@@ -536,12 +526,12 @@ equation
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(sensorBus.PHS.T_Core_Inlet, T_Core_Inlet.T) annotation (Line(
-      points={{-29.9,100.1},{-70,100.1},{-98,100.1},{-98,-72},{-76.4,-72}},
+      points={{-29.9,100.1},{-70,100.1},{-98,100.1},{-98,-72},{-74.4,-72}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(sensorBus.PHS.T_Core_Outlet, T_Core_Outlet.T) annotation (Line(
-      points={{-29.9,100.1},{-98,100.1},{-98,-44},{-76.4,-44}},
+      points={{-29.9,100.1},{-98,100.1},{-98,-44},{-74.4,-44}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
@@ -605,7 +595,6 @@ equation
       color={111,216,99},
       pattern=LinePattern.Dash,
       thickness=0.5));
-
   annotation (
     defaultComponentName="PHS",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

@@ -1,20 +1,16 @@
 within TRANSFORM.Nuclear.PowerProfiles;
 model GenericPowerProfile
   "Transalets a total power input to user defined power profile (or shape)"
-
   parameter Integer nNodes = 4 "# of discrete volumes";
   parameter Units.NonDim Q_shape[nNodes]=1/nNodes*ones(nNodes)
     "Fractional power profile. Note: sum(Q_shape) = 1";
-
   Modelica.Blocks.Interfaces.RealInput Q_total "Total input power"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput[nNodes] Q_totalshaped
     "Total power shaped to desired power profile"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
 equation
   Q_totalshaped = Q_total*Q_shape;
-
   annotation (defaultComponentName = "powerProfile",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),

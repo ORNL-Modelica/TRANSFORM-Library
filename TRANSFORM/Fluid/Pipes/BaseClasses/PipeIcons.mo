@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.Pipes.BaseClasses;
 partial model PipeIcons
-
   parameter Integer figure=1 "Index for Icon figure" annotation (choices(
       choice=1 "Pipe",
       choice=2 "Annulus",

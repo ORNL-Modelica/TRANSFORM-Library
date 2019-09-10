@@ -3,15 +3,11 @@ model SteamWater_HCSG
   "Evaporation of a subcooled inlet water stream to superheated steam (helical coil tube side) and subcooled water (shell side)"
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   import SI = Modelica.SIunits;
   import TRANSFORM.Units.Conversions.Functions;
-
   package Medium = Modelica.Media.Water.StandardWater;
-
   parameter SI.Temperature tube_inlet_T = Medium.temperature_ph(tube_outlet.p,tube_inlet.h);
   parameter SI.Temperature tube_outlet_T = Medium.temperature_ph(tube_outlet.p,tube_outlet.h);
-
   Modelica.Fluid.Sources.Boundary_ph tube_outlet(
     p(displayUnit="MPa") = 5800000,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
@@ -79,7 +75,6 @@ model SteamWater_HCSG
             1.25*(STHX.geometry.dimension_tube + 2*STHX.geometry.th_wall)) for
             j in 1:STHX.shell.heatTransfer.nSurfaces} for i in 1:STHX.geometry.nV}))
     annotation (Placement(transformation(extent={{-23,-20},{19,20}})));
-
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
     y1={STHX.tube.mediums[i].T for i in 1:STHX.geometry.nV},
     y2={STHX.shell.mediums[i].T for i in 1:STHX.geometry.nV},

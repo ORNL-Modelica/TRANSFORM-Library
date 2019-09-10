@@ -6,7 +6,6 @@ model HeatFlowRate "Ideal sensor for heat flow rate"
          TRANSFORM.Units.Conversions.Functions.Power_W.to_W
        constrainedby
       TRANSFORM.Units.Conversions.Functions.Power_W.BaseClasses.to);
-
    Modelica.Blocks.Interfaces.RealOutput Q_flow(quantity="HeatFlowRate",
                                                 final unit="W")
      "Heat flow rate from port_a to port_b" annotation (Placement(
@@ -14,7 +13,6 @@ model HeatFlowRate "Ideal sensor for heat flow rate"
          origin={0,110},
          extent={{10,-10},{-10,10}},
          rotation=270)));
-
 equation
    Q_flow = port_a.Q_flow;
 annotation (

@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Utilities.Visualizers.PlotMap.Examples.PlotMap_2_points_withTrace_Test",stopTime=100,resultFile="PlotMap_2_points_withTrace_Test");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

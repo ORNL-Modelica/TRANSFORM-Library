@@ -1,20 +1,15 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.Examples;
 model Integral
   import TRANSFORM;
-
   extends TRANSFORM.Icons.Example;
   //parameter Real Vfrac_liquid = 0.5;
-
   TRANSFORM.Units.NonDim Vfrac_liquid=variableVfrac_liquid.y;
   parameter SI.Length r_1 = 1.25;
   parameter SI.Length r_2 = 1.5;
   parameter SI.Length r_3 = 1.5;
-
   parameter SI.Length h_1 = 1.25;
   parameter SI.Length h_2 = 0.75;
-
   final parameter SI.Volume V = pi*r_1^2*h_1 + pi*r_2^2*h_2 + 2/3*pi*r_3^3;
-
   TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.Integral integral(
     Vfrac_liquid=Vfrac_liquid,
     V_liquid=V*Vfrac_liquid,
@@ -25,7 +20,6 @@ model Integral
     h_2=h_2,
     r_3=r_3)
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
-
   Modelica.Blocks.Sources.Sine variableVfrac_liquid(
     freqHz=0.5,
     amplitude=0.9,

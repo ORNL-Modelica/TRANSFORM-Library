@@ -6,7 +6,6 @@ model RelativePressure "Ideal relative pressure sensor"
         TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_Pa
       constrainedby
       TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to);
-
   Modelica.Blocks.Interfaces.RealOutput p_rel(final quantity="Pressure",
                                               final unit="Pa",
                                               displayUnit="bar")
@@ -18,7 +17,6 @@ model RelativePressure "Ideal relative pressure sensor"
         rotation=90,
         origin={0,36})));
 equation
-
   // Relative pressure
   p_rel = port_a.p - port_b.p;
   annotation (

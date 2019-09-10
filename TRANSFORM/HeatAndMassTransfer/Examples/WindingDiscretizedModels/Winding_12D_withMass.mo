@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.Examples.WindingDiscretizedModels;
 model Winding_12D_withMass
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   DiscritizedModels.HMTransfer_2D winding(
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_28_5_d_7990_cp_500,
@@ -62,7 +61,6 @@ model Winding_12D_withMass
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic bound_outer[
     nNodes_2.k]
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-
   Utilities.Visualizers.displayReal display(use_port=true)
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Modelica.Blocks.Sources.RealExpression T_max(y=
@@ -85,7 +83,6 @@ model Winding_12D_withMass
     minY=45,
     maxY=55) "X - Axial Location (m) | T - Temperature (C) - Top Boundary"
     annotation (Placement(transformation(extent={{62,-76},{104,-36}})));
-
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.Concentration
     T_inf_inner1[nNodes_2.k](each C={1})
     annotation (Placement(transformation(extent={{-80,-32},{-60,-12}})));
@@ -132,7 +129,6 @@ model Winding_12D_withMass
     maxY=1)
     "X - Axial Location (m) | C - Concentration (mol/m3) - Bottom Boundary"
     annotation (Placement(transformation(extent={{-136,-76},{-94,-36}})));
-
      Real xval[nNodes_1.k] = abs(winding.geometry.cs_1[:, 1]);
   Real yval[nNodes_1.k]=
       TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(winding.materials[
@@ -141,12 +137,10 @@ model Winding_12D_withMass
   Real yval2[nNodes_1.k]=
       TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(winding.materials[
       :, nNodes_2.k].T);
-
   Real mxval[nNodes_1.k] = abs(winding.geometry.cs_1[:, 1]);
  Real myval[nNodes_1.k] = winding.Cs[:, 1,1];
  Real mxval2[nNodes_1.k] = abs(winding.geometry.cs_1[:, nNodes_2.k]);
  Real myval2[nNodes_1.k] = winding.Cs[:, nNodes_2.k,1];
-
   Utilities.Visualizers.displayReal display1(
                                             use_port=true, precision=4)
     annotation (Placement(transformation(extent={{-10,-92},{10,-72}})));
@@ -155,7 +149,6 @@ model Winding_12D_withMass
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={winding.Cs[2, 3,
         1]}) annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   connect(T_max.y, display.u)
     annotation (Line(points={{-21.2,-60},{-11.5,-60}}, color={0,0,127}));
   connect(T_inf_inner.port, convection_inner.port_b)

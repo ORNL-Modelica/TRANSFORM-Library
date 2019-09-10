@@ -7,16 +7,13 @@ block LimPIDold
   extends Modelica.Blocks.Interfaces.SVcontrol;
   output Real controlError = u_s - u_m
     "Control error (set point - measurement)";
-
   parameter .Modelica.Blocks.Types.SimpleController controllerType=
          .Modelica.Blocks.Types.SimpleController.PID "Type of controller";
   parameter Boolean with_FF=false "enable feed-forward input signal"
     annotation (Evaluate=true);
   parameter Boolean derMeas = true "=true avoid derivative kick" annotation(Evaluate=true,Dialog(enable=controllerType==.Modelica.Blocks.Types.SimpleController.PD or
                                 controllerType==.Modelica.Blocks.Types.SimpleController.PID));
-
   parameter Real k = 1 "Controller gain: +/- for direct/reverse acting" annotation(Dialog(group="Parameters: Tuning Controls"));
-
   parameter SI.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block" annotation (Dialog(group="Parameters: Tuning Controls",enable=
           controllerType == .Modelica.Blocks.Types.SimpleController.PI or
@@ -24,15 +21,11 @@ block LimPIDold
   parameter SI.Time Td(min=0)=0.1 "Time constant of Derivative block"
     annotation (Dialog(group="Parameters: Tuning Controls",enable=controllerType == .Modelica.Blocks.Types.SimpleController.PD
            or controllerType == .Modelica.Blocks.Types.SimpleController.PID));
-
   parameter Real yb = 0 "Output bias. May improve simulation";
-
   parameter Real k_s= 1 "Setpoint input scaling: k_s*u_s. May improve simulation";
   parameter Real k_m= 1 "Measurement input scaling: k_m*u_m. May improve simulation";
-
   parameter Real yMax(start=1)=Modelica.Constants.inf "Upper limit of output";
   parameter Real yMin=-yMax "Lower limit of output";
-
   parameter Real wp(min=0) = 1
     "Set-point weight for Proportional block (0..1)" annotation(Dialog(group="Parameters: Tuning Controls"));
   parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
@@ -69,7 +62,6 @@ block LimPIDold
           "Initialization"));
   parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
-
   Modelica.Blocks.Math.Add addP(k1=wp, k2=-1)
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
   Modelica.Blocks.Math.Add addD(k1=wd, k2=-1) if with_D
@@ -135,7 +127,6 @@ public
                                                           rotation=0)));
   Modelica.Blocks.Math.Add3 addFF
     annotation (Placement(transformation(extent={{50,-5},{60,5}})));
-
   Modelica.Blocks.Math.Gain gain_u_s(k=k_s)
     annotation (Placement(transformation(extent={{-96,-6},{-84,6}})));
   Modelica.Blocks.Math.Gain gain_u_m(k=k_m) annotation (Placement(
@@ -166,7 +157,6 @@ equation
     "After initialization, the output y (=" + String(y) +
     ") is outside of the limits of yMin (=" + String(yMin) + ") and yMax (=" +
     String(yMax) + ")");
-
   connect(addP.y, P.u) annotation (Line(points={{-49,50},{-42,50}}, color={0,
           0,127}));
   connect(addI.y, I.u) annotation (Line(points={{-49,-50},{-42,-50}}, color={

@@ -1,30 +1,24 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.SinglePhase;
 model LocalPipeFlowHeatTransfer
   "LocalPipeFlowHeatTransfer: Laminar and turbulent forced convection in pipes, local coefficients"
-
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.PartialHeatTransfer_setQ_flows;
-
   SI.NusseltNumber[nHT] Nus "Nusselt number";
   SI.ReynoldsNumber[nHT] Res "Reynolds number";
   SI.PrandtlNumber[nHT] Prs "Prandtl number";
-
 protected
   Real[nHT] Nus_turb "Nusselt number for turbulent flow";
   Real[nHT] Nus_lam "Nusselt number for laminar flow";
   Real Nu_1 = 3.66;
   Real[nHT] Nus_2;
   Real[nHT] Xis;
-
 equation
-
   Prs = Medium.prandtlNumber(states);
   Res = TRANSFORM.Utilities.CharacteristicNumbers.ReynoldsNumber_m_flow(
     m_flow=m_flows/nParallel,
     mu=mediums1.mu,
     D=dimensions,
     A=crossAreas);
-
   for i in 1:nHT loop
    Nus_turb[i]=smooth(0,(Xis[i]/8)*abs(Res[i])*Prs[i]/(1+12.7*(Xis[i]/8)^0.5*(Prs[i]^(2/3)-1))*(1+1/3*(dimensions[i]/lengths[i]/(if m_flows[i]>=0 then (i-0.5) else (nHT-i+0.5)))^(2/3)));
    Xis[i]=(1.8*Modelica.Math.log10(max(1e-10,Res[i]))-1.5)^(-2);
@@ -36,7 +30,6 @@ equation
       D=dimensions[i],
       lambda=mediums1[i].lambda);
   end for;
-
   annotation (Documentation(info="<html>
 <p>
 Heat transfer model for laminar and turbulent flow in pipes. Range of validity:

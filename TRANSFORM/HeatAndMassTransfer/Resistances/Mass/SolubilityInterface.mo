@@ -1,6 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
 model SolubilityInterface
-
   parameter Integer nC=1 "Number of substances";
   parameter Real nb[nC]=fill(1, nC)
     "Exponential of (C/kb)^nb (i.e., if Sievert than nb = 2)";
@@ -10,20 +9,15 @@ model SolubilityInterface
   input Real Kb[nC]=fill(1, nC)
     "port b solubility coefficient (i.e., Henry/Sievert)"
     annotation (Dialog(group="Inputs"));
-
   Interfaces.MolePort_State port_a(nC=nC) annotation (Placement(transformation(
           extent={{-80,-10},{-60,10}}), iconTransformation(extent={{-80,-10},{-60,
             10}})));
   Interfaces.MolePort_State port_b(nC=nC) annotation (Placement(transformation(
           extent={{60,-10},{80,10}}), iconTransformation(extent={{60,-10},{80,
             10}})));
-
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-
 equation
-
   port_a.n_flow + port_b.n_flow = zeros(nC);
-
   for i in 1:nC loop
     if nb[i] == 1 then
       port_a.C[i]/Ka[i] = port_b.C[i]/Kb[i];
@@ -31,7 +25,6 @@ equation
       port_a.C[i]/Ka[i] = (port_b.C[i]/Kb[i])^nb[i];
     end if;
   end for;
-
   annotation (
     defaultComponentName="interface",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

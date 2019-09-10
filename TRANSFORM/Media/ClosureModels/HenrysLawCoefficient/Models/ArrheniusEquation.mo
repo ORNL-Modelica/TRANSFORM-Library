@@ -1,36 +1,26 @@
 within TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models;
 model ArrheniusEquation "Arrhenius equation y = A*exp(-(Ea/RT)^b)"
-
   extends PartialHenrysLawCoefficient;
-
   parameter Boolean use_RecordData=true "=true then use predefined data";
-
   parameter Integer iTable[nC]=fill(1, nC)
     "Index of pre-defined values in data table: See Info page."
     annotation (Dialog(enable=use_RecordData));
-
   parameter TRANSFORM.Units.HenrysLawCoefficient kH0=0 "Pre-exponential factor"
     annotation (Dialog(enable=not use_RecordData));
   parameter TRANSFORM.Units.HenrysLawCoefficient kHs0[nC]=fill(kH0, nC)
     "if non-uniform then set" annotation (Dialog(enable=not use_RecordData));
-
   parameter SI.MolarEnergy Ea=0 "Activation energy"
     annotation (Dialog(enable=not use_RecordData));
   parameter SI.MolarEnergy Eas[nC]=fill(Ea, nC) "if non-uniform then set"
     annotation (Dialog(enable=not use_RecordData));
-
   parameter SI.MolarHeatCapacity R=Modelica.Constants.R
     "Universal gas constant";
-
   parameter Real beta=1.0 "Correction factor";
   parameter Real betas[nC]=fill(beta, nC) "if non-uniform then set";
-
   TRANSFORM.Blocks.DataTable data(table=[3.98e-07,-34400])
     "Col 1 = kH0; Col 2 = Ea"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
 equation
-
   if use_RecordData then
     for i in 1:nC loop
       kHs[i] = data.table[iTable[i], 1]*exp(-(data.table[iTable[i], 2]/(R*T))^
@@ -41,7 +31,6 @@ equation
       kHs[i] = kHs0[i]*exp(-(Eas[i]/(R*T))^betas[i]);
     end for;
   end if;
-
   annotation (defaultComponentName="henrysLawCoeff",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

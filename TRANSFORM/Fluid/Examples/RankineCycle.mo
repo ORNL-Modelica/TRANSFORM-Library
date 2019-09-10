@@ -1,14 +1,12 @@
 within TRANSFORM.Fluid.Examples;
 model RankineCycle
   extends TRANSFORM.Icons.Example;
-
   package Medium = Modelica.Media.Water.StandardWater "Working fluid";
   parameter SI.MassFlowRate m_flow = 100 "Flow rate in cycle";
   parameter SI.Pressure p_steam = 8.6e6 "Steam pressure";
   parameter SI.Temperature T_steam = SI.Conversions.from_degC(500) "Steam temperature";
   parameter SI.Pressure p_condenser = 1e4 "Condenser pressure";
   parameter SI.PressureDifference dp_pump = p_steam - p_condenser;
-
   Modelica.Mechanics.Rotational.Sensors.PowerSensor powerSensor
     annotation (Placement(transformation(extent={{24,50},{44,30}})));
   Electrical.Sources.FrequencySource boundary(f=60)
@@ -76,24 +74,20 @@ model RankineCycle
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-50})));
-
 SI.Power Q_totalTh "Total thermal power";
 SI.Efficiency eta_overall "Overall Rankine efficiency";
-
   Utilities.ErrorAnalysis.UnitTests unitTests(
     n=1,
     printResult=false,
     x={pump.medium.p})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
-
   Q_totalTh = massFlowRate.m_flow*(specificEnthalpy_out.h_out - specificEnthalpy_in.h_out);
   eta_overall =boundary.port.W/Q_totalTh;
-
   connect(steamTurbine.shaft_b, powerSensor.flange_a)
     annotation (Line(points={{20,40},{20,40},{24,40}}, color={0,0,0}));
   connect(steamTurbine.portLP, condenser.port_a)
-    annotation (Line(points={{17,30},{17,-11},{53,-11}},
+    annotation (Line(points={{20,46},{20,-11},{53,-11}},
                                                        color={0,127,255}));
   connect(Thot_setPoint.port, boiler.heatPort)
     annotation (Line(points={{-60,-8},{-60,-2}}, color={191,0,0}));

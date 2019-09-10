@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Examples;
 model Winding
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   Cylinder_FD Winding(
     r_inner=0.01,
     r_outer=0.02,
@@ -24,7 +23,6 @@ model Winding
     nR=10,
     nZ=20)
     annotation (Placement(transformation(extent={{-34,-56},{46,34}})));
-
   BoundaryConditions.Convection_constantArea_2DCyl convection_top(
     nNodes=Winding.nR,
     alphas=400*ones(Winding.nR),
@@ -34,17 +32,13 @@ model Winding
         extent={{-10,-15},{10,15}},
         rotation=90,
         origin={6,59})));
-
   BoundaryConditions.FixedTemperature_FD fixedTemperature_FD2(nNodes=
         Winding.nR, T(displayUnit="K") = 320*ones(Winding.nR))
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
-
   BoundaryConditions.Adiabatic_FD adiabatic_bottom(nNodes=Winding.nR)
     annotation (Placement(transformation(extent={{-26,-80},{-6,-60}})));
-
   BoundaryConditions.Adiabatic_FD adiabatic_outer(nNodes=Winding.nZ)
     annotation (Placement(transformation(extent={{88,-21},{68,-1}})));
-
   BoundaryConditions.Convection_constantArea_2DCyl convection_inner(
     nNodes=Winding.nZ,
     alphas=400*ones(Winding.nZ),
@@ -53,15 +47,12 @@ model Winding
     r_outer=Winding.r_outer,
     length=Winding.length)
     annotation (Placement(transformation(extent={{-36,-22},{-56,-2}})));
-
   BoundaryConditions.FixedTemperature_FD fixedTemperature_FD(nNodes=Winding.nZ,
       T(displayUnit="K") = 320*ones(Winding.nZ))
     annotation (Placement(transformation(extent={{-90,-22},{-70,-2}})));
-
   Modelica.Blocks.Sources.Constant const[Winding.nR,Winding.nZ](k=6e5*ones(
         Winding.nR, Winding.nZ))
     annotation (Placement(transformation(extent={{-62,20},{-42,40}})));
-
   Utilities.Visualizers.displayReal display(use_port=true)
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
   Modelica.Blocks.Sources.RealExpression T_max(y=

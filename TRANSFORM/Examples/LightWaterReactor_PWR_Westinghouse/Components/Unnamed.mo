@@ -1,6 +1,5 @@
 within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Components;
 model Unnamed
-
   replaceable package Medium =
       Modelica.Media.Water.StandardWater                          constrainedby
     Modelica.Media.Interfaces.PartialTwoPhaseMedium annotation(choicesAllMatching);
@@ -9,7 +8,6 @@ model Unnamed
  parameter Real circulationRatio=2.9 "Circulation ratio for feed water" annotation(Dialog(group="Inputs"));
  final parameter Modelica.SIunits.Area Aheat_calc_outerTubes=1838*60*conversion_feet_to_m*3.141*1.25*conversion_inch_to_m;
   Real drum_level_percentage=drum.geometry.level_meas_percentage "Drum level percentage";
-
   Fluid.Volumes.BoilerDrum
                      drum(
     portPosition_downcomer=-drum.geometry.length/2,
@@ -29,7 +27,6 @@ model Unnamed
     alpha_external=10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(extent={{-20,-14},{20,26}}, rotation=0)));
-
   Fluid.Valves.ValveCompressible MSIValve(
     m_flow_nominal=nominalData.m_flow_feedWater_nominal,
     p_nominal=nominalData.p_boiler_nominal,

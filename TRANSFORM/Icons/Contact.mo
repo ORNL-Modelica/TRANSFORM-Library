@@ -1,6 +1,5 @@
 within TRANSFORM.Icons;
 partial class Contact "Icon for contact information"
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

@@ -1,19 +1,12 @@
 within TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head;
 partial model PartialFlowChar
   "Base class for pump flow characteristics. Extending class solves for head."
-
   extends PartialCharacteristic;
-
   input Boolean checkValve "=true then no reverse flow" annotation (Dialog(tab="Internal Interface",group="Inputs"));
-
   parameter SI.Height head_nominal "Nominal head" annotation (Dialog(tab="Internal Interface",group="Nominal Operating Parameters"));
-
   SI.Height head "Pump pressure head";
-
 equation
-
   affinityLaw = (N/N_nominal)^2*(diameter/diameter_nominal)^2;
-
   annotation (defaultComponentName="flowCurve",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                              Ellipse(

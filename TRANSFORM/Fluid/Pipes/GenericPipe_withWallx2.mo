@@ -3,11 +3,8 @@ model GenericPipe_withWallx2
   import Modelica.Fluid.Types.Dynamics;
   import TRANSFORM.Math.linspace_2Dedge;
   import TRANSFORM.Math.linspaceRepeat_2Dedge;
-
   outer TRANSFORM.Fluid.SystemTF systemTF;
-
   //extends TRANSFORM.Fluid.Pipes.ClosureModels.Geometry.PipeWithWallIcons;
-
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wallx2.StraightPipe
@@ -15,31 +12,23 @@ model GenericPipe_withWallx2
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wallx2.PartialPipeWithWall
                                                                                       "Geometry"
     annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-
   Geometry geometry
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
-
   extends BaseClasses.GenericPipe_Record_multiSurface(
     final nV=pipe.geometry.nV,
     use_HeatTransfer=true);
-
   replaceable package Material =
       TRANSFORM.Media.Solids.SS316                     constrainedby
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
-
   replaceable package Material_2 =
       Material                     constrainedby
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
-
   parameter Boolean counterCurrent=false "Swap wall vector order";
-
   parameter Boolean use_HeatTransferOuter=false "= true to use outer wall heat port" annotation (Dialog(group="Heat Transfer"));
-
   final parameter Integer nVs[3](min=1) = {geometry.nR,geometry.nZ,geometry.nR_2}
     "Number of discrete volumes";
-
   // Initialization: Wall
   parameter Dynamics energyDynamics_wall=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
@@ -63,7 +52,6 @@ model GenericPipe_withWallx2
         group="Start Value: Temperature"));
   parameter SI.Temperature T_b2_start=T_a2_start "Temperature at port b2"
     annotation (Dialog(tab="Initialization: Wall", group="Start Value: Temperature"));
-
   // Initialization: Wall_2
   parameter Dynamics energyDynamics_wall_2=energyDynamics_wall
     "Formulation of energy balances"
@@ -87,26 +75,22 @@ model GenericPipe_withWallx2
         group="Start Value: Temperature"));
   parameter SI.Temperature T_b2_start_2=T_a2_start_2 "Temperature at port b2"
     annotation (Dialog(tab="Initialization: Wall", group="Start Value: Temperature"));
-
   // Advanced
   parameter Boolean exposeState_outerWall=false
     "=true, T is calculated at outer wall else Q_flow" annotation (Dialog(group=
          "Model Structure", tab="Advanced"));
-
   replaceable model InternalHeatModel_wall =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
     constrainedby
     TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
     "Internal heat generation" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
-
   replaceable model InternalHeatModel_wall_2 =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
     constrainedby
     TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
     "Internal heat generation" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
-
   GenericPipe_MultiTransferSurface
               pipe(
     nParallel=nParallel,
@@ -164,7 +148,7 @@ model GenericPipe_withWallx2
         length_z=sum(geometry.dlengths),
         drs=geometry.drs,
         dzs=geometry.dzs,
-        r_inner=0.5*sum(geometry.dimensions)/geometry.nV),
+        r_inner=geometry.r_inner),
     exposeState_a2=exposeState_a,
     exposeState_b2=exposeState_b,
     exposeState_a1=if pipe.heatTransfer.flagIdeal == 1 then false else true,
@@ -179,7 +163,6 @@ model GenericPipe_withWallx2
   Interfaces.FluidPort_Flow port_b(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_a[geometry.nR]
     annotation (Placement(transformation(extent={{-60,-44},{-40,-24}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_b[geometry.nR]
@@ -200,12 +183,10 @@ model GenericPipe_withWallx2
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_inner[
     geometry.nZ] if                                                    not use_HeatTransfer
     annotation (Placement(transformation(extent={{60,-62},{40,-42}})));
-
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=pipe.summary.T_effective);
-
   HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_add[geometry.nZ,
     geometry.nSurfaces - 1] if geometry.nSurfaces > 1
     annotation (Placement(transformation(extent={{20,-80},{40,-60}}),
@@ -237,7 +218,6 @@ model GenericPipe_withWallx2
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,10})));
-
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_a1[geometry.nR_2]
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_b1[geometry.nR_2]
@@ -245,9 +225,7 @@ model GenericPipe_withWallx2
   HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_addWall[geometry.nV] if use_heatPort_addWall "Additional heat source/sink between wall and insulation" annotation (Placement(
         transformation(extent={{20,-26},{40,-6}}),  iconTransformation(extent={{
             20,22},{40,42}})));
-
   parameter Boolean use_heatPort_addWall = false "=true for additional source/sink for heat between wall and insulation" annotation(Dialog(group="Heat Transfer"));
-
   HeatAndMassTransfer.Resistances.Heat.Contact contact[geometry.nZ](surfaceArea=
        wall.geometry.crossAreas_1[end, :], Rc_pp=Rc_pps + dRc_pps) if
                                                             not idealContact
@@ -260,7 +238,6 @@ model GenericPipe_withWallx2
     "Area specific contact resistance" annotation(Dialog(tab="Advanced"));
   input SI.ThermalInsulance dRc_pps[geometry.nZ]=zeros(geometry.nZ) "change in Rc_pps" annotation(Dialog(group="Inputs",tab="Advanced"));
   final parameter Boolean idealContact = if sum(Rc_pps) < Modelica.Constants.eps then true else false;
-
 equation
   connect(port_a, pipe.port_a) annotation (Line(
       points={{-100,0},{-60,0},{-60,-80},{-10,-80}},
@@ -302,7 +279,6 @@ equation
           0},{-20,10},{-10,10}}, color={191,0,0}));
   connect(heatPorts_addWall, wall.port_b1) annotation (Line(points={{30,-16},{20,
           -16},{20,-24},{0,-24}}, color={191,0,0}));
-
   if idealContact then
   connect(wall.port_b1, wall_2.port_a1)
     annotation (Line(points={{0,-24},{0,0}}, color={191,0,0}));
@@ -312,7 +288,6 @@ equation
   connect(contact.port_a, wall.port_b1)
     annotation (Line(points={{0,-19},{0,-24}}, color={191,0,0}));
   end if;
-
   annotation (defaultComponentName="pipe",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Ellipse(
@@ -339,7 +314,7 @@ equation
           extent={{-90,40},{90,-40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
+          fillColor=DynamicSelect({0,127,255}, if showColors then dynColor else {0,127,255})),
         Ellipse(
           extent={{-65,5},{-55,-5}},
           lineColor={0,0,0},

@@ -2,28 +2,23 @@ within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.
 function m_flow_of_dp_fric
   "Calculate mass flow rate as a function of pressure drop"
   extends Modelica.Icons.Function;
-
   //input records
   input dp_IN_con IN_con "Input record for function dp_overall_MFLOW"
     annotation (Dialog(group="Constant inputs"));
   input dp_IN_var IN_var "Input record for function dp_overall_MFLOW"
     annotation (Dialog(group="Variable inputs"));
-
   input SI.Pressure dp_fric
     "Pressure loss due to friction (dp = port_a.p - port_b.p)";
   input SI.ReynoldsNumber Re1 "Boundary between laminar regime and transition";
   input SI.ReynoldsNumber Re2
     "Boundary between transition and turbulent regime";
   input Real Delta "Relative IN_con.roughness";
-
   //Outputs
   output SI.MassFlowRate m_flow;
   output Real dm_flow_ddp_fric "Derivative of mass flow rate with dp_fric";
-
 protected
   function interpolateInRegion2_withDerivative
     "Interpolation in log-log space using a cubic Hermite polynomial, where x=log10(lambda2), y=log10(Re)"
-
     input Real lambda2 "Known independent variable";
     input SI.ReynoldsNumber Re1
       "Boundary between laminar regime and transition";
@@ -41,7 +36,6 @@ protected
     Real y1=Modelica.Math.log10(
                   Re1);
     Real y1d=1;
-
     // Point lg(lambda2(Re2)) with derivative at lg(Re2)
     Real aux2=Delta/3.7 + 5.74/Re2^0.9;
     Real aux3=Modelica.Math.log10(
@@ -55,7 +49,6 @@ protected
     Real y2=Modelica.Math.log10(
                   aux5);
     Real y2d=0.5 + (2.51/log(10))/(aux5*aux4);
-
     // Point of interest in transformed space
     Real x=Modelica.Math.log10(
                  lambda2);
@@ -71,15 +64,12 @@ protected
         y2,
         y1d,
         y2d);
-
     // Return value
     Re := 10^y;
-
     // Derivative of return value
     dRe_ddp := Re/abs(dp_fric)*dy_dx;
     annotation (smoothOrder=1);
   end interpolateInRegion2_withDerivative;
-
   Real diameter = 0.5*(IN_con.diameter_a+IN_con.diameter_b) "Average diameter";
   Real crossArea = 0.5*(IN_con.crossArea_a+IN_con.crossArea_b)
     "Average cross area";
@@ -90,14 +80,12 @@ protected
   Real dRe_ddp "dRe/ddp";
   Real aux1;
   Real aux2;
-
   SI.DynamicViscosity mu_lsat "Upstream liquid viscosity";
   SI.Density rho_lsat "Upstream liquid density";
   SI.DynamicViscosity mu_vsat "Upstream vapor viscosity";
   SI.Density rho_vsat "Upstream vapor density";
   SIadd.NonDim x_abs "Upstream absolute quality";
   Real phi2 "Two-phase modifier";
-
 algorithm
   // Determine upstream density and upstream viscosity
   if dp_fric >= 0 then
@@ -117,19 +105,14 @@ algorithm
     mu_vsat  := IN_var.mu_vsat_b;
     x_abs := IN_var.x_abs_b;
   end if;
-
   phi2 := TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Utilities.TwoPhaseFrictionMultiplier(x_abs,mu_lsat,mu_vsat,rho_lsat,rho_vsat);
-
   // Positive mass flow rate
     lambda2 := abs(dp_fric)*2*diameter^3*rho/(IN_con.length*mu*mu)/phi2
       "Known as lambda2=f(dp)";
-
    aux1:=(2*diameter^3*rho)/(IN_con.length*mu^2)/phi2;
-
   // Determine Re and dRe/ddp under the assumption of laminar flow
   Re := lambda2/64 "Hagen-Poiseuille";
   dRe_ddp := aux1/64 "Hagen-Poiseuille";
-
   // Modify Re, if turbulent flow
   if Re > Re1 then
     Re := -2*sqrt(lambda2)*Modelica.Math.log10(2.51/sqrt(lambda2) + 0.27*Delta)
@@ -140,7 +123,6 @@ algorithm
       (Re, dRe_ddp) := interpolateInRegion2_withDerivative(lambda2, Re1, Re2, Delta, dp_fric);
     end if;
   end if;
-
   // Determine mass flow rate
   m_flow := crossArea/diameter*mu*(if dp_fric >= 0 then Re else -Re);
   // Determine derivative of mass flow rate with dp_fric

@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids;
 package UO2 "UO2: Thermodynamic properties for unirradiated uranium dioxide"
-
   /*
 UO2 Thermal conductivity, density, and heat capacity
 
@@ -16,13 +15,11 @@ h => pg 18 eq 4.1
     mediumName="UO2",
     T_min=273.15,
     T_max=3120);
-
   constant Real c1(unit="J/(kg.K)") = 302.27;
   constant Real c2(unit="J/(kg.K2)") = 8.463e-3;
   constant Real c3(unit="J/kg") = 8.741e7;
   constant Real theta(unit="K") = 548.68;
   constant Real Ea(unit="K") = 18531.7;
-
   constant SI.Density d_273=10970 "Density of 100% UO2";
   constant Units.NonDim porosity = 0.05 "Fuel porosity (d_TD - d)/d_td";
 
@@ -34,20 +31,21 @@ h => pg 18 eq 4.1
   end specificEnthalpy;
 
   redeclare function extends density "Density"
+protected
+     Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
     d := TRANSFORM.Math.spliceTanh(
-        (1-porosity)*d_273*(9.9672e-1 + 1.179e-5*state.T - 2.429e-9*state.T^2 + 1.219e-12
-        *state.T^3)^(-3),
-        (1-porosity)*d_273*(9.9734e-1 + 9.802e-6*state.T - 2.705e-10*state.T^2 + 4.391e-13
-        *state.T^3)^(-3),
-        state.T - 923,
+        (1-porosity)*d_273*(9.9672e-1 + 1.179e-5*T - 2.429e-9*T^2 + 1.219e-12
+        *T^3)^(-3),
+        (1-porosity)*d_273*(9.9734e-1 + 9.802e-6*T - 2.705e-10*T^2 + 4.391e-13
+        *T^3)^(-3),
+        T - 923,
         1);
         annotation(smoothOrder=1);
   end density;
 
   redeclare function extends thermalConductivity
     "Thermal conductivity"
-
     /*
   Units.nonDim B  burnupin at. % (1 at. % = 9.375 MWd/kgU)
   Units.nonDim omega = 1.09/(B^3.265)+0.0643*sqrt(state.T/B);

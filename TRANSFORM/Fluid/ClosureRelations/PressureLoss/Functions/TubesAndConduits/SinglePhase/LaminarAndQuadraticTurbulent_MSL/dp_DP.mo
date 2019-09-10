@@ -3,9 +3,7 @@ function dp_DP
   "Return pressure loss dp as function of mass flow rate m_flow, i.e., dp = f(m_flow), due to wall friction"
   import Modelica.Math.log10;
   import Modelica.Constants.pi;
-
   extends Modelica.Icons.Function;
-
    //input records
    input dp_IN_con IN_con "Input record for function dp_overall_DP"
      annotation (Dialog(group="Constant inputs"));
@@ -15,23 +13,19 @@ function dp_DP
      annotation (Dialog(group="Input"));
    input SI.MassFlowRate m_flow_small=0.01
      "Regularization of zero flow if |m_flow| < m_flow_small (dummy if use_m_flow_small = false)";
-
    //Outputs
    output SI.Pressure DP "Output for function dp_overall_DP";
-
 protected
   SI.Length diameter = 0.5*(IN_con.diameter_a+IN_con.diameter_b);
   SI.Area crossArea = 0.5*(IN_con.crossArea_a+IN_con.crossArea_b);
   SI.Height roughness = 0.5*(IN_con.roughness_a+IN_con.roughness_b);
   SI.ReynoldsNumber Re_turbulent = 4000 "Turbulent flow if Re >= Re_turbulent";
-
   Real zeta;
   Real k0;
   Real k;
   Real yd0 "Derivative of dp = f(m_flow) at zero";
   SI.MassFlowRate m_flow_turbulent
     "The turbulent region is: |m_flow| >= m_flow_turbulent";
-
 algorithm
 /*
 Turbulent region:

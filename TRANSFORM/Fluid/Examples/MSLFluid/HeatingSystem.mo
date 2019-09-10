@@ -4,7 +4,6 @@ model HeatingSystem "Simple model of a heating system"
    replaceable package Medium =
       Modelica.Media.Water.StandardWater
      constrainedby Modelica.Media.Interfaces.PartialMedium;
-
   Modelica.Fluid.Vessels.OpenTank tank(
     redeclare package Medium = Medium,
     crossArea=0.01,
@@ -70,7 +69,6 @@ Pipes.GenericPipe_MultiTransferSurface
     redeclare model HeatTransfer =
         ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal)
     annotation (Placement(transformation(extent={{30,10},{50,30}})));
-
 Pipes.GenericPipe_MultiTransferSurface
                   radiator(
     redeclare package Medium = Medium,
@@ -88,7 +86,6 @@ Pipes.GenericPipe_MultiTransferSurface
     redeclare model HeatTransfer =
         ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal)
     annotation (Placement(transformation(extent={{20,-80},{0,-60}})));
-
 protected
   Modelica.Blocks.Interfaces.RealOutput T_forward
     annotation (Placement(transformation(extent={{74,34},{86,46}})));
@@ -127,7 +124,6 @@ Pipes.GenericPipe_MultiTransferSurface
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={80,-20})));
-
   Utilities.ErrorAnalysis.UnitTests unitTests(
     name="HeatingSystem_T",
     errorExpected=2,
@@ -402,16 +398,16 @@ Pipes.GenericPipe_MultiTransferSurface
     annotation (Placement(transformation(extent={{-50,10},{-30,30}})));
 equation
 tankLevel = tank.level;
-  connect(sensor_m_flow.m_flow, m_flow)         annotation (Line(points={{-10,31},
-          {-10,40},{0,40}},                     color={0,0,127}));
+  connect(sensor_m_flow.m_flow, m_flow)         annotation (Line(points={{-10,
+          23.6},{-10,40},{0,40}},               color={0,0,127}));
   connect(sensor_m_flow.port_b, heater.port_a)
                                             annotation (Line(points={{0,20},{0,
           20},{30,20}},
                     color={0,127,255}));
   connect(T_ambient.port, wall.port_a)                       annotation (Line(
         points={{0,-20},{10,-20},{10,-40}}, color={191,0,0}));
-  connect(sensor_T_forward.T, T_forward)     annotation (Line(points={{71,40},
-          {80,40}},                             color={0,0,127}));
+  connect(sensor_T_forward.T, T_forward)     annotation (Line(points={{66,40},{
+          80,40}},                              color={0,0,127}));
   connect(radiator.port_a, valve.port_b) annotation (Line(points={{20,-70},{20,
           -70},{40,-70}},           color={0,127,255}));
   connect(sensor_T_return.port, radiator.port_b)
@@ -421,7 +417,7 @@ tankLevel = tank.level;
       points={{40.7,-20},{50,-20},{50,-62}},
       color={0,0,127}));
   connect(sensor_T_return.T, T_return)        annotation (Line(
-      points={{-41,-50},{-52,-50}},
+      points={{-36,-50},{-52,-50}},
       color={0,0,127}));
   connect(sensor_T_forward.port, heater.port_b)
                                               annotation (Line(

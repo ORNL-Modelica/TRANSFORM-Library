@@ -4,6 +4,10 @@ SystemOfSubSystems
 LightWaterSmallModularReactor
 LightWaterReactor_PWR_Westinghouse
 GenericModular_PWR
+SodiumFastReactor
+MoltenSaltReactor
+SupercriticalCO2
+CIET_Facility
 Interfaces
 Utilities
 BaseClasses

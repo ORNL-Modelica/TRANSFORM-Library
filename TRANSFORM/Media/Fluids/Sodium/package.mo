@@ -1,8 +1,6 @@
 within TRANSFORM.Media.Fluids;
 package Sodium
-
   extends Modelica.Icons.VariantsPackage;
-
 constant Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants[1]
   sodiumConstants(
   each chemicalFormula="Na",
@@ -20,9 +18,4 @@ constant Modelica.Media.Interfaces.Types.TwoPhase.FluidConstants[1]
   each acentricFactor=0.344,
   each dipoleMoment=1.8,
   each hasCriticalData=true);
-
-
-
-
-
 end Sodium;

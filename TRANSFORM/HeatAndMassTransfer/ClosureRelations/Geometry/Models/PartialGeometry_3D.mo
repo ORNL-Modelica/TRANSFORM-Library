@@ -1,20 +1,15 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 partial model PartialGeometry_3D
-
   parameter Integer figure=1 "Index for Icon figure" annotation (choices(
       choice=1 "Plane",
       choice=2 "Cylinder",
       choice=3 "Sphere"));
-
   parameter Integer ns[3](min=1) = {1,1,1}
     "Number of nodes in each dimension {1,2,3}";
-
   final parameter Integer n_total=ns[1]*ns[2]*ns[3] "Total number of nodes";
-
   parameter Boolean closedDim_1[ns[2],ns[3]](fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
   parameter Boolean closedDim_2[ns[1],ns[3]](fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
   parameter Boolean closedDim_3[ns[1],ns[2]](fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
-
   output SI.Volume Vs[ns[1],ns[2],ns[3]] "Unit volumes" annotation (Dialog(
       tab="Internal Interface",
       group="Outputs",
@@ -52,21 +47,17 @@ partial model PartialGeometry_3D
       tab="Internal Interface",
       group="Outputs",
       enable=false));
-
   SI.Volume V_total=sum(Vs) "Total volume of component";
-
   SI.Length cs_1[ns[1],ns[2],ns[3]]
     "Unit cell centers dimension-1 cartesian coordinate";
   SI.Length cs_2[ns[1],ns[2],ns[3]]
     "Unit cell centers dimension-2 cartesian coordinate";
   SI.Length cs_3[ns[1],ns[2],ns[3]]
     "Unit cell centers dimension-3 cartesian coordinate";
-
   annotation (
     defaultComponentName="geometry",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={
               {-116,-100},{116,100}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/Geometry_genericVolume.jpg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
-
 end PartialGeometry_3D;

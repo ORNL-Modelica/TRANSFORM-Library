@@ -1,8 +1,6 @@
 within TRANSFORM.Media.Solids;
 package HT9 "HT9: Material properties for HT9 a series 400 type stainless steel"
-
   // Fits are taken from aksteel.com for 400 steel. This is close.
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="HT9",
     T_min=Modelica.SIunits.Conversions.from_degC(0),

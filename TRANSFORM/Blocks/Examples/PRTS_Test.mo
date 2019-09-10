@@ -1,7 +1,6 @@
 within TRANSFORM.Blocks.Examples;
 model PRTS_Test
   extends TRANSFORM.Icons.Example;
-
   Noise.PRTS sequencer(
     freqHz=10,
     startTime=0.5,

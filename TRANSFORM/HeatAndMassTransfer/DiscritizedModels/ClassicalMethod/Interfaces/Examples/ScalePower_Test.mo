@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Interface
 model ScalePower_Test "Verification of ScalePower component"
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   ScalePower scalePower_Right(nParallel=10)
     annotation (Placement(transformation(extent={{-22,10},{32,70}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow

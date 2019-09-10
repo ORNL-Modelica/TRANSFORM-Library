@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.FittingsAndResistances.Examples;
 model SharpEdgedAdaptor
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.Fluid.FittingsAndResistances.SharpEdgedAdaptor from_dp(redeclare
       package Medium = Modelica.Media.Air.DryAirNasa, dimensions_ab={
         dimension_a.y,0.01})

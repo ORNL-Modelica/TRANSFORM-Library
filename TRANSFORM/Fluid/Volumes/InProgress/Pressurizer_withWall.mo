@@ -1,24 +1,18 @@
 within TRANSFORM.Fluid.Volumes.InProgress;
 model Pressurizer_withWall
-
   import Modelica.Fluid.Types;
   import Modelica.Fluid.Types.Dynamics;
-
   outer Modelica.Fluid.System system "System properties";
-
   replaceable package Medium = Modelica.Media.Water.StandardWater
     constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium
     "Medium in the component"
      annotation(choicesAllMatching=true);
-
   /* General */
   parameter SI.Volume V_total "Total volume (liquid + vapor)" annotation(Dialog(group="Geometry"));
-
   replaceable model DrumType =
     TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.PartialDrumType
     "1. Select model 2. Set parameters (Total volume must match V_total)"
     annotation(choicesAllMatching=true, Dialog(group="Geometry"));
-
   /* Constitutive/Closure Models*/
   replaceable model BulkEvaporation =
       TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.ConstantTimeDelay
@@ -26,21 +20,18 @@ model Pressurizer_withWall
     TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.PartialMassTransfer
     "Vapor bubble transport from liquid to vapor phase" annotation (
       choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   replaceable model BulkCondensation =
       TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.ConstantTimeDelay
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.PartialMassTransfer
     "Liquid droplet transport from vapor to liquid phase" annotation (
       choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   replaceable model HeatTransfer_WL =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.Ideal
     constrainedby
     TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.PartialHeatTransfer_setT
     "Wall-liquid heat transfer coefficient" annotation (choicesAllMatching=true,
       Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   replaceable model HeatTransfer_WV =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.Ideal
     constrainedby
@@ -52,7 +43,6 @@ model Pressurizer_withWall
         group="Closure Models: 1. Select Model 2. Set parameters"));
   parameter Real alphaM0(unit="kg/(s.m2.K)")=0 "Vapor-Liquid coefficient of mass transfer"
     annotation (Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
-
   /* Assumptions */
   parameter Boolean allowFlowReversal=system.allowFlowReversal
     "= true to allow flow reversal, false restrics to design direction"
@@ -66,7 +56,6 @@ model Pressurizer_withWall
   parameter Types.Dynamics energyDynamics_wall=system.energyDynamics
     "Formulation of energy balance for the wall"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-
   /* Initialization */
   parameter Real Vfrac_liquid_start=0.5
     "Initial fraction of volume in the liquid phase"
@@ -79,7 +68,6 @@ model Pressurizer_withWall
   parameter SI.SpecificEnthalpy h_vapor_start=Medium.dewEnthalpy(Medium.setSat_p(p_start))
     "Vapour specific enthalpy start value"
     annotation (Dialog(tab="Initialization"));
-
   TRANSFORM.Fluid.Volumes.InProgress.Pressurizer drum2Phase(
     Vfrac_liquid_start=Vfrac_liquid_start,
     p_start=p_start,
@@ -96,7 +84,6 @@ model Pressurizer_withWall
     energyDynamics=energyDynamics,
     massDynamics=massDynamics)
     annotation (Placement(transformation(extent={{-26,-30},{26,30}})));
-
   Modelica.Fluid.Interfaces.FluidPort_b sprayPort(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-70,90},{-50,110}})));
@@ -106,15 +93,12 @@ model Pressurizer_withWall
   Modelica.Fluid.Interfaces.FluidPort_b surgePort(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a liquidHeater
     annotation (Placement(transformation(extent={{-110,-50},{-90,-30}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a vaporHeater
     annotation (Placement(transformation(extent={{-110,30},{-90,50}})));
-
   parameter SI.Length r_inner "Inner radius of pressurizer wall" annotation(Dialog(tab="Wall Properties"));
   parameter SI.Length r_outer "Outer radius of pressurizer wall" annotation(Dialog(tab="Wall Properties"));
-
   parameter SI.Temperature T_start=Medium.saturationTemperature_sat(Medium.setSat_p(p_start)) annotation(Dialog(tab="Wall Properties"));
   HeatAndMassTransfer.Volumes.SimpleWall wall_WV(
     th=r_outer - r_inner,
@@ -147,12 +131,10 @@ equation
           60},{15.6,60},{15.6,30}}, color={0,127,255}));
   connect(surgePort, drum2Phase.surgePort) annotation (Line(points={{0,-100},{0,
           -29.7},{-0.26,-29.7}}, color={0,127,255}));
-
   connect(drum2Phase.vaporHeater, vaporHeater) annotation (Line(points={{-26,12},
           {-26,12},{-60,12},{-60,40},{-100,40}}, color={191,0,0}));
   connect(drum2Phase.liquidHeater, liquidHeater) annotation (Line(points={{-26,-12},
           {-60,-12},{-60,-40},{-100,-40}}, color={191,0,0}));
-
   connect(drum2Phase.heatPort_WV, wall_WV.port_a)
     annotation (Line(points={{26,12},{50,12},{50,12}}, color={191,0,0}));
   connect(drum2Phase.heatPort_WL, wall_WL.port_a)

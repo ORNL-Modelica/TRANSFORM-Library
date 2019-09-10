@@ -1,10 +1,8 @@
 within TRANSFORM.Media.Fluids.PbLi;
 package ConstantPropertyLiquidPbLi "PbLi: Simple liquid lead-lithium medium (incompressible, constant data)"
-
   /*
 Properties have been calculated at 470C (743K)
 */
-
   constant Modelica.Media.Interfaces.Types.Basic.FluidConstants[1]
     simplePbLiConstants(
     each chemicalFormula="PbLi",

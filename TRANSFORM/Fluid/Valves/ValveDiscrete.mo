@@ -17,11 +17,9 @@ model ValveDiscrete "Valve for water/steam flows with linear pressure drop"
     "Remaining opening if closed, causing small leakage flow";
 equation
   m_flow = if open then 1*k*dp else opening_min*k*dp;
-
   // Isenthalpic state transformation (no storage and no loss of energy)
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
-
 annotation (
   Icon(coordinateSystem(
         preserveAspectRatio=false,

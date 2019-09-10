@@ -4,7 +4,6 @@ model DittusBoelter_Test
   extends TRANSFORM.Icons.Example;
   inner System_TP system(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-
   Pipes_Obsolete.StraightPipeOLD pipe(
     use_HeatTransfer=true,
     modelStructure=Modelica.Fluid.Types.ModelStructure.av_b,
@@ -20,7 +19,6 @@ model DittusBoelter_Test
     T_a_start=Source.T,
     T_b_start=Sink.T)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-
   Modelica.Fluid.Sources.Boundary_pT Sink(
     nPorts=1,
     p=100000,
@@ -49,7 +47,6 @@ equation
     annotation (Line(points={{-40,0},{-10,0}},         color={0,127,255}));
   connect(pipe.port_b, Sink.ports[1])
     annotation (Line(points={{10,0},{40,0}},       color={0,127,255}));
-
   connect(const.y, convection.Gc)
     annotation (Line(points={{-39,40},{-10,40}}, color={0,0,127}));
   connect(convection.solid, pipe.heatPorts)

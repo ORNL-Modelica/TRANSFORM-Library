@@ -1,10 +1,9 @@
 ﻿within TRANSFORM.Media.ExternalMedia.CoolProp;
 package Hydrogen "Hydrogen | Two Phase | Cool Prop"
   //Surface tension from Mulero, A., Cachadiña, I. & Parra, M. I. Recommended Correlations for the Surface Tension of Common Fluids. Journal of Physical and Chemical Reference Data 41, 043105 (2012).
-
   extends ExternalMedia.Media.CoolPropMedium(
     mediumName = "Hydrogen",
-    substanceNames = {"hydrogen"},
+    substanceNames = {"hydrogen|enable_BICUBIC=1"},
     ThermoStates = Modelica.Media.Interfaces.Choices.IndependentVariables.ph,
     SpecificEnthalpy(start=2e5));
 

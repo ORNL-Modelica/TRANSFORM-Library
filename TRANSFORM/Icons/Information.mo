@@ -1,6 +1,5 @@
 within TRANSFORM.Icons;
 partial class Information "Icon for general information packages"
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Ellipse(
           lineColor={75,138,73},

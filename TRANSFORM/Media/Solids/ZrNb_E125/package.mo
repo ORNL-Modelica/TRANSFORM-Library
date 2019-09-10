@@ -1,6 +1,5 @@
 within TRANSFORM.Media.Solids;
 package ZrNb_E125 "ZircAlloy: Thermodynamic properties for ZrNb_E125"
-
   /*
 Zirconium-niobium (2.5%) alloy type N-2.5 (E-125).
 
@@ -11,7 +10,6 @@ lambda => pg. 158 eq. 6.22
 d => pg. 158 eq. 6.20
 cp => pg 158 eq. 6.21
 */
-
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="ZrNb_E125",
     T_min=1,
@@ -25,8 +23,10 @@ cp => pg 158 eq. 6.21
 
   redeclare function extends density
     "Density"
+protected
+    Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
-    d := 6657 - 0.2861*state.T;
+    d := 6657 - 0.2861*T;
   end density;
 
   redeclare function extends thermalConductivity

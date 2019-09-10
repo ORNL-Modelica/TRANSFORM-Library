@@ -7,16 +7,13 @@ block LimPID
   extends Modelica.Blocks.Interfaces.SVcontrol;
   output Real controlError = u_s - u_m
     "Control error (set point - measurement)";
-
   parameter SimpleController controllerType=
          SimpleController.PID "Type of controller";
   parameter Boolean with_FF=false "enable feed-forward input signal"
     annotation (Evaluate=true);
   parameter Boolean derMeas = true "=true avoid derivative kick" annotation(Evaluate=true,Dialog(enable=controllerType==SimpleController.PD or
                                 controllerType==SimpleController.PID));
-
   parameter Real k = 1 "Controller gain: +/- for direct/reverse acting" annotation(Dialog(group="Parameters: Tuning Controls"));
-
   parameter SI.Time Ti(min=Modelica.Constants.small)=0.5
     "Time constant of Integrator block" annotation (Dialog(group="Parameters: Tuning Controls",enable=
           controllerType == SimpleController.PI or
@@ -24,16 +21,12 @@ block LimPID
   parameter SI.Time Td(min=0)=0.1 "Time constant of Derivative block"
     annotation (Dialog(group="Parameters: Tuning Controls",enable=controllerType == SimpleController.PD
            or controllerType == SimpleController.PID));
-
   parameter Real yb = 0 "Output bias. May improve simulation";
-
   parameter Real k_s= 1 "Setpoint input scaling: k_s*u_s. May improve simulation";
   parameter Real k_m= 1 "Measurement input scaling: k_m*u_m. May improve simulation";
   parameter Real k_ff= 1 "Measurement input scaling: k_ff*u_ff. May improve simulation" annotation(Dialog(enable=with_FF));
-
   parameter Real yMax(start=1)=Modelica.Constants.inf "Upper limit of output";
   parameter Real yMin=-yMax "Lower limit of output";
-
   parameter Real wp(min=0) = 1
     "Set-point weight for Proportional block (0..1)" annotation(Dialog(group="Parameters: Tuning Controls"));
   parameter Real wd(min=0) = 0 "Set-point weight for Derivative block (0..1)"
@@ -74,19 +67,16 @@ block LimPID
     "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == TRANSFORM.Types.Reset.Parameter"
     annotation(Dialog(enable=reset == TRANSFORM.Types.Reset.Parameter,
                       group="Integrator reset"));
-
   Modelica.Blocks.Interfaces.BooleanInput trigger if
        reset <> TRANSFORM.Types.Reset.Disabled
     "Resets the controller output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
-
   Modelica.Blocks.Interfaces.RealInput y_reset_in if
        reset == TRANSFORM.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = TRANSFORM.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-
   Modelica.Blocks.Math.Add addP(k1=wp, k2=-1)
     annotation (Placement(transformation(extent={{-70,40},{-50,60}})));
   Modelica.Blocks.Math.Add addD(k1=wd, k2=-1) if with_D
@@ -102,7 +92,6 @@ block LimPID
     reset=if reset == TRANSFORM.Types.Reset.Disabled then reset else TRANSFORM.Types.Reset.Input,
     y_reset=y_reset) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-
   Modelica.Blocks.Continuous.Derivative D(
     k=Td/unitTime,
     T=max([Td/Nd,1.e-14]),
@@ -147,7 +136,6 @@ block LimPID
                                                           rotation=0)));
   Modelica.Blocks.Math.Add3 addFF
     annotation (Placement(transformation(extent={{50,-5},{60,5}})));
-
   Modelica.Blocks.Math.Gain gain_u_s(k=k_s)
     annotation (Placement(transformation(extent={{-96,-6},{-84,6}})));
   Modelica.Blocks.Math.Gain gain_u_m(k=k_m) annotation (Placement(
@@ -175,7 +163,6 @@ protected
        reset <> TRANSFORM.Types.Reset.Disabled
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
-
 public
   Modelica.Blocks.Math.Gain gain_u_ff(k=k_ff) if with_FF
     annotation (Placement(transformation(extent={{-96,74},{-84,86}})));
@@ -183,7 +170,6 @@ initial equation
   if initType==InitPID.InitialOutput then
      y = y_start;
   end if;
-
 equation
   assert(yMax >= yMin, "LimPID: Limits must be consistent. However, yMax (=" +
     String(yMax) + ") < yMin (=" + String(yMin) + ")");
@@ -192,14 +178,11 @@ equation
       y_start) + ") is outside of the limits of yMin (=" + String(yMin) +
       ") and yMax (=" + String(yMax) + ")");
   end if;
-
   // Equations for conditional connectors
   connect(y_reset_in, y_reset_internal);
-
   if reset <> TRANSFORM.Types.Reset.Input then
     y_reset_internal = y_reset;
   end if;
-
   connect(addP.y, P.u) annotation (Line(points={{-49,50},{-42,50}}, color={0,
           0,127}));
   connect(addI.y, I.u) annotation (Line(points={{-49,-50},{-42,-50}}, color={

@@ -2,12 +2,10 @@ within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.SinglePhase;
 model Grimson_FlowAcrossTubeBundels "Grimson: Flow Across Tube Bundels"
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
-
   parameter Boolean tubesAligned=false "true if aligned else staggered";
   parameter SI.Length D "Diameter of tubes in tube bank";
   parameter SI.Length S_T "Transverse (within same row) tube pitch";
   parameter SI.Length S_L "Longitudinal (between rows) tube pitch";
-
   Modelica.Blocks.Sources.RealExpression R_T(y=S_T/D) "Ratio of S_T/D"
     annotation (Placement(transformation(extent={{-90,-54},{-70,-34}})));
   Modelica.Blocks.Sources.RealExpression R_L(y=S_L/D) "Ratio of S_L/D"
@@ -32,22 +30,18 @@ model Grimson_FlowAcrossTubeBundels "Grimson: Flow Across Tube Bundels"
         1.500,0.451,0.460,0.452,0.488; 2.000,0.404,0.416,0.482,0.449; 3.000,0.310,
         0.356,0.440,0.428]) "Staggered contant"
     annotation (Placement(transformation(extent={{-40,-54},{-20,-34}})));
-
 protected
   Units.NonDim A "Maximum velocity correction factor";
   SI.Length S_D = (S_L^2+0.25*S_T^2)^(0.5) "Shortest distance between tube centers of neighboring tube rows";
   Units.NonDim C_1 "Interpolated constant";
   Units.NonDim m "Interpolated constant";
   SI.ReynoldsNumber[nHT] Res_Dmax "Corrected reynolds number based on tube diameter";
-
 equation
-
   if tubesAligned or S_D >= 0.5*(S_T+D) then
     A = S_T/(S_T - D);
   else
     A = 0.5*S_T/(S_D - D);
   end if;
-
   if tubesAligned then
     C_1 = C_1a.y;
     m = m_a.y;
@@ -55,7 +49,6 @@ equation
     C_1 = C_1s.y;
     m = m_s.y;
   end if;
-
   for i in 1:nHT loop
     Res_Dmax[i] = A*Res[i]*D/dimensions[i];
     Nus[i] = 1.13*C_1*Res_Dmax[i]^m*Prs[i]^(1/3);
@@ -64,7 +57,6 @@ equation
        D=D,
        lambda=lambdas[i]);
   end for;
-
   connect(R_L.y, C_1a.u1) annotation (Line(points={{-69,-16},{-60,-16},{-60,16},
           {-42,16}}, color={0,0,127}));
   connect(m_a.u1, C_1a.u1) annotation (Line(points={{-42,-10},{-60,-10},{-60,16},

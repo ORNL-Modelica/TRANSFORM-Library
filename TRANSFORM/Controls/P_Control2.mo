@@ -1,17 +1,12 @@
 within TRANSFORM.Controls;
 model P_Control2 "Proportional controller: y = yb + Kc*e"
-
   extends Modelica.Blocks.Interfaces.SVcontrol;
-
   parameter Boolean directActing = true "=false reverse acting" annotation(Evaluate=true);
   parameter Real k(unit="1")=1 "Error gain";
   parameter Real yb = 0 "Output bias";
-
   parameter Real k_s= 1 "Scaling factor for setpoint: set = k_s*u_s";
   parameter Real k_m= 1 "Scaling factor for measurment: meas = k_m*u_m";
-
   final parameter Real Kc = k*(if directActing then +1 else -1);
-
   Modelica.Blocks.Math.Gain P(k=Kc) "Proportional part of PID controller"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Math.Gain gain_u_s(k=k_s)

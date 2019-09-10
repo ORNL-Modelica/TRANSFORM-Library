@@ -1,12 +1,9 @@
 within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse;
 model CS_v2 "Core: Tavg | Boiler Level: dT_avg"
-
   extends BaseClasses.Partial_ControlSystem;
-
   parameter SI.Time delayStart_SGpump=0 "Delay SG recirc pump control";
   parameter SI.Time delayStart_CR=0 "Delay control rod reactivity control";
   parameter SI.Time delayStart_PZRheater=0 "Delay pressurizer heater control";
-
   Modelica.Blocks.Sources.Clock clock(offset=0, startTime=0)
     annotation (Placement(transformation(extent={{-170,60},{-150,80}})));
   Modelica.Blocks.Logical.Greater greater5
@@ -68,12 +65,10 @@ model CS_v2 "Core: Tavg | Boiler Level: dT_avg"
   Modelica.Blocks.Math.Gain FWpump(k=1)
     annotation (Placement(transformation(extent={{180,-90},{200,-70}})));
 equation
-
   connect(delay_CR.y, greater5.u2) annotation (Line(points={{-149,110},{-144,110},
           {-144,98},{-132,98}}, color={0,0,127}));
   connect(clock.y, greater5.u1) annotation (Line(points={{-149,70},{-144,70},{-144,
           90},{-132,90}},         color={0,0,127}));
-
   connect(delay_SGpump.y, greater.u2) annotation (Line(points={{-149,30},{-142,30},
           {-142,42},{-132,42}}, color={0,0,127}));
   connect(greater.u1, greater5.u1) annotation (Line(points={{-132,50},{-144,50},
@@ -119,7 +114,6 @@ equation
       color={111,216,99},
       pattern=LinePattern.Dash,
       thickness=0.5));
-
   connect(greater5.y, switch_CR.u2) annotation (Line(points={{-109,90},{-58,90},
           {-58,140},{-12,140}},color={255,0,255}));
   connect(dT_core_nominal.y, switch_SGpump.u3) annotation (Line(points={{-29,30},

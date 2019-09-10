@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Math.Examples.spliceSigmoid",stopTime=10,resultFile="spliceSigmoid");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

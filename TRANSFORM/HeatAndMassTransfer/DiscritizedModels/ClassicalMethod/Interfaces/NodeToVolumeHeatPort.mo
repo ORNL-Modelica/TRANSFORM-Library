@@ -1,11 +1,8 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Interfaces;
 model NodeToVolumeHeatPort "Converts nodal heat port to volume heat port"
-
   parameter Integer nNodes(min=3)
     "# nodes (axial or radial) in finite difference";
-
   final parameter Integer nV=nNodes - 1;
-
   Modelica.Fluid.Interfaces.HeatPorts_a heatPorts_FD[nNodes]
     "Finite difference connector" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -22,18 +19,15 @@ model NodeToVolumeHeatPort "Converts nodal heat port to volume heat port"
         extent={{-40,-10},{40,10}},
         rotation=-90,
         origin={100,0})));
-
 equation
   heatPorts_DynP[1].Q_flow + heatPorts_FD[1].Q_flow + 0.5*heatPorts_FD[2].Q_flow = 0;
   for i in 2:nV - 1 loop
     heatPorts_DynP[i].Q_flow + 0.5*(heatPorts_FD[i].Q_flow + heatPorts_FD[i+1].Q_flow) = 0;
   end for;
   heatPorts_DynP[nV].Q_flow + 0.5*heatPorts_FD[nV].Q_flow + heatPorts_FD[nV+1].Q_flow = 0;
-
   for i in 1:nV loop
     heatPorts_DynP[i].T = 0.5*(heatPorts_FD[i].T + heatPorts_FD[i+1].T);
   end for;
-
   0.5*heatPorts_DynP[1].Q_flow + heatPorts_FD[1].Q_flow = 0;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Icon(coordinateSystem(preserveAspectRatio=false,

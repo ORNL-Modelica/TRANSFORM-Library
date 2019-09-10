@@ -1,6 +1,5 @@
 within TRANSFORM.Icons;
 partial package InternalPackage "Icon for an internal package (indicating that the package should not be directly utilized by user)"
-
 annotation (
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
           100}}), graphics={

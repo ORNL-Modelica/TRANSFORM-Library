@@ -1,9 +1,7 @@
 within TRANSFORM.Nuclear.FuelModels;
 model Regions_2_FD2DCyl
   "2D Cylindrical Finite Difference model with two solid media regions"
-
   parameter Real nParallel=1 "# of parallel components";
-
   replaceable package Material_1 =
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                               "Region 1 material"
@@ -12,11 +10,9 @@ model Regions_2_FD2DCyl
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                               "Region 2 material"
   annotation (choicesAllMatching=true);
-
   parameter Integer nZ=4 "# of discrete axial volumes";
   parameter Integer nR_1=3 "# nodes in region 1 radial direction";
   parameter Integer nR_2=3 "# nodes in region 2 radial direction";
-
   input SI.Length length "Length of axial dimension"
     annotation (Dialog(group="Inputs"));
   input SI.Length zs[nZ]=linspace(
@@ -39,11 +35,9 @@ model Regions_2_FD2DCyl
       r_2_outer,
       nR_2) "Region 2 radial positions"
     annotation (Dialog(group="Inputs"));
-
   /* Assumptions */
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Formulation of energy balances" annotation(Dialog(tab="Advanced",group="Dynamics"));
-
   /* Initialization */
   parameter SI.Temperature T_start_1=Material_1.T_default
     annotation (Dialog(tab="Initialization"));
@@ -58,7 +52,6 @@ model Regions_2_FD2DCyl
       T_start_2,
       nR_2 - 1,
       nZ)] annotation (Dialog(tab="Initialization"));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylinder_FD
     region_1(
     use_q_ppp=true,
@@ -75,7 +68,6 @@ model Regions_2_FD2DCyl
     redeclare model SolutionMethod_FD =
         HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.SolutionMethods.AxVolCentered_2D)
     annotation (Placement(transformation(extent={{-53,-17},{-21,17}})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions.Adiabatic_FD
     adiabatic_FD(nNodes=region_1.nR) annotation (Placement(transformation(
         extent={{-5,-4},{5,4}},
@@ -86,7 +78,6 @@ model Regions_2_FD2DCyl
         extent={{-5,-4},{5,4}},
         rotation=90,
         origin={-37,-22})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions.Adiabatic_FD
     adiabatic_FD6(nNodes=region_1.nZ)
     annotation (Placement(transformation(extent={{-62,-4},{-52,4}})));
@@ -116,7 +107,6 @@ model Regions_2_FD2DCyl
         extent={{-35,-10},{35,10}},
         rotation=-90,
         origin={102,1})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions.Adiabatic_FD
     adiabatic_FD2(nNodes=region_2.nR)
                                      annotation (Placement(transformation(
@@ -140,7 +130,6 @@ model Regions_2_FD2DCyl
     use_q_ppp=false,
     redeclare package Material = Material_2)
     annotation (Placement(transformation(extent={{-17,-17},{15,17}})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions.Adiabatic_FD
     adiabatic_FD3(nNodes=region_2.nR) annotation (Placement(transformation(
         extent={{-5,-4},{5,4}},

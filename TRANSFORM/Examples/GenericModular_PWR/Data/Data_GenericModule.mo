@@ -1,33 +1,25 @@
 within TRANSFORM.Examples.GenericModular_PWR.Data;
 model Data_GenericModule
-
   extends BaseClasses.Record_Data;
-
-  import TRANSFORM.Units.Conversions.Functions.Distance_m.from_inch;
-
+  import from_inch =
+         TRANSFORM.Units.Conversions.Functions.Distance_m.from_in;
   // Source 1 (s1):
   // Systems Summary of a Westinghouse Pressurized Water Reactor Nuclear Power Plant
   // 1984, Westinghouse Electric Corporation
   // http://www4.ncsu.edu/~doster/NE405/Manuals/PWR_Manual.pdf
-
   // Data from Source 1 (d*s1): 4-Loop basis
   // (d1s1) = Table 1-1 (pg. 3): Principal data for current Westinghouse NSSS Models
   // (d2s1) = Table 2-1 (pg. 14): Typical reactor core parameters (4-Loop Plant)
   // (d3s1) = Table 2-2 (pg. 19): Fuel rod parameters
   // (d4s1) = Table 3.1-1 (pg. --): Fuel rod parameters
-
   //Source 2: https://aris.iaea.org/PDF/NuScale.pdf
-
   //Source 3: https://doi.org/10.1016/j.desal.2014.02.023
-
   package Medium = Modelica.Media.Water.StandardWater;
   parameter Real nModules=12;
-
   //per module
   parameter SI.Power Q_total=160e6 "Total thermal output";
   parameter SI.Power Q_total_el=45e6 "Total electrical output";
   parameter Real eta=Q_total_el/Q_total "Net efficiency";
-
   parameter SI.Pressure p=12.76e6;
   parameter SI.Temperature T_hot=325 + 273.15 "estimate";
   parameter SI.Temperature T_cold=Medium.temperature_ph(p, h_cold);
@@ -36,13 +28,10 @@ model Data_GenericModule
   parameter SI.SpecificEnthalpy h_hot=Medium.specificEnthalpy_pT(p, T_hot);
   parameter SI.SpecificEnthalpy h_cold=h_hot - Q_total/m_flow;
   parameter SI.MassFlowRate m_flow=700 "rough estimate from normalizing IRIS and rounded down";
-
   parameter SI.Length d_reactorVessel_outer=2.75;
   parameter SI.Length length_reactorVessel=20;
-
   parameter SI.Length length_inletPlenum=2;
   parameter SI.Length d_inletPlenum=d_reactorVessel_outer;
-
   parameter SI.Length length_core=2;
   parameter SI.Length d_core=1.5;
   parameter String Material_fuel="Uranium Oxide" "Fuel pellet material";
@@ -56,16 +45,12 @@ model Data_GenericModule
   parameter TRANSFORM.Units.NonDim nRodFuel_assembly=264 "# of fuel rods per assembly (d3s1)";
   parameter TRANSFORM.Units.NonDim nRodNonFuel_assembly=sizeAssembly^2 - 264 "# of non-fuel rods per assembly (d3s1)";
   parameter TRANSFORM.Units.NonDim nAssembly=floor(Modelica.Constants.pi*d_core^2/4/(pitch_fuelRod*sizeAssembly)^2);
-
   parameter SI.Length length_outletPlenum=3;
   parameter SI.Length d_outletPlenum=2;
-
   parameter SI.Length length_hotLeg=10.5;
   parameter SI.Length d_hotLeg=1.4;
-
   parameter SI.Length length_pressurizer=2.5;
   parameter SI.Length d_pressurizer=d_reactorVessel_outer;
-
   parameter SI.Length length_steamGenerator=5.5;
   parameter SI.Length d_steamGenerator_tube_outer=from_inch(0.5);
   parameter SI.Length th_steamGenerator_tube=from_inch(0.083) "Sch 10/20";
@@ -85,25 +70,20 @@ model Data_GenericModule
   //Solution for max tubes, min length
   //parameter Real nTubes_steamGenerator= floor(Modelica.Constants.pi*(d_steamGenerator_shell_outer^2/4 - d_steamGenerator_shell_inner^2/4)/(Modelica.Constants.pi*d_steamGenerator_tube_outer^2/4)/nPasses) "for single pass (maximum nTubes)";
   //parameter Real length_steamGenerator_tube = length_steamGenerator*nPasses "for max nTubes";
-
   parameter SI.Length length_coldLeg=12;
   parameter SI.Length d_coldLeg_inner=d_outletPlenum;
   parameter SI.Length d_coldLeg_outer=d_reactorVessel_outer;
   parameter SI.Length d_coldLeg=4*Modelica.Constants.pi*(d_coldLeg_outer^2/4 - d_coldLeg_inner^2/4)/Modelica.Constants.pi/(d_coldLeg_outer + d_coldLeg_inner);
-
   final parameter SI.Length lengths[2]={length_inletPlenum + length_core + length_outletPlenum + length_hotLeg,length_steamGenerator + length_coldLeg};
-
   parameter SI.Pressure p_steam = 3.5e6;
   parameter SI.Temperature T_steam_hot = 300+273.15;
   parameter SI.Temperature T_steam_cold=200+273.15;
   parameter SI.SpecificEnthalpy h_steam_hot=Medium.specificEnthalpy_pT(p_steam, T_steam_hot);
   parameter SI.SpecificEnthalpy h_steam_cold=Medium.specificEnthalpy_pT(p_steam, T_steam_cold);
   parameter SI.MassFlowRate m_flow_steam = Q_total/(h_steam_hot-h_steam_cold);
-
 equation
   assert(abs(lengths[1] - lengths[2]) <= Modelica.Constants.eps, "Hot/cold leg lengths must be equal");
   assert(abs(length_reactorVessel - lengths[1] - length_pressurizer) <= Modelica.Constants.eps, "Hot leg and pressurizer must be equal to reactor vessel length");
-
   annotation (
     defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(

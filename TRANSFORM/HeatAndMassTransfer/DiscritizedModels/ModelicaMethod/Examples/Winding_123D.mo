@@ -2,7 +2,6 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ModelicaMethod.Examples;
 model Winding_123D
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ModelicaMethod.Conduction_123D
     winding(
     use_dim3=true,
@@ -64,7 +63,6 @@ model Winding_123D
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic bound_outer[
     nNodes_2.k,nNodes_3.k]
     annotation (Placement(transformation(extent={{60,-10},{40,10}})));
-
   Real hA_val_inner[nNodes_2.k,nNodes_3.k];
   Real hA_val_top[nNodes_1.k,nNodes_2.k];
   Modelica.Blocks.Sources.RealExpression Vs[nNodes_1.k,nNodes_2.k,nNodes_3.k](
@@ -81,19 +79,16 @@ model Winding_123D
         TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(winding.unitCell.T)))
     annotation (Placement(transformation(extent={{-38,-66},{-22,-54}})));
 equation
-
 for j in 1:nNodes_2.k loop
   for k in 1:nNodes_3.k loop
     hA_val_inner[j,k] = 400*winding.geometry.crossAreas_1[1, j, k];
   end for;
 end for;
-
 for i in 1:nNodes_1.k loop
   for j in 1:nNodes_2.k loop
     hA_val_top[i,j] = 400*winding.geometry.crossAreas_3[i, j, nNodes_3.k];
   end for;
 end for;
-
   connect(hA_inner.y, convection_inner.Gc)
     annotation (Line(points={{-49,20},{-40,20},{-40,10}}, color={0,0,127}));
   connect(T_inf_inner.port, convection_inner.fluid)

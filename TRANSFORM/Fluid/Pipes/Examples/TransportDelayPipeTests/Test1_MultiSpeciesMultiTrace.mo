@@ -1,13 +1,10 @@
 within TRANSFORM.Fluid.Pipes.Examples.TransportDelayPipeTests;
 model Test1_MultiSpeciesMultiTrace
-
   extends Icons.Example;
-
   //package Medium=Modelica.Media.Air.MoistAir(extraPropertiesNames={"A"});
   //package Medium=Modelica.Media.Water.StandardWater(extraPropertiesNames={"A","B"});
   package Medium =
       Modelica.Media.IdealGases.MixtureGases.SimpleNaturalGas (          extraPropertiesNames={"A","B"});
-
   TransportDelayPipe transportDelayPipe(
     redeclare package Medium = Medium,
     length=10,
@@ -60,7 +57,6 @@ equation
           {-74,14}},            color={0,0,127}));
   connect(add1.y, boundary1.m_flow_in) annotation (Line(points={{-51,8},{-50,8},
           {-38,8}},                  color={0,0,127}));
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=10));

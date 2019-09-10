@@ -1,25 +1,19 @@
 within TRANSFORM.Fluid.TraceComponents;
 model TraceDecayAdsorberBed
-
   import TRANSFORM.Units.Conversions.Functions.Time_s.from_hr;
   import TRANSFORM.Math.linspace_1D;
   import Modelica.Fluid.Types.Dynamics;
-
   Interfaces.FluidPort_Flow  port_a(redeclare package Medium = Medium,
   m_flow(min=0))
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
   Interfaces.FluidPort_Flow port_b(redeclare package Medium = Medium,
   m_flow(max=0))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-
   replaceable package Medium = Modelica.Media.IdealGases.SingleGases.He (
         extraPropertiesNames={"dummy"}) constrainedby
     Modelica.Media.Interfaces.PartialMedium "Medium properties" annotation (
       choicesAllMatching=true);
-
   parameter Integer nV=1 "# of volumes";
-
   input SIadd.InverseTime lambdas[Medium.nC]=fill(1e-3, Medium.nC)
     "Decay constant of trace substances"
     annotation (Dialog(group="Inputs"));
@@ -28,7 +22,6 @@ model TraceDecayAdsorberBed
     annotation (Dialog(group="Inputs"));
   input SI.Energy Qs_decay[Medium.nC]=fill(1, Medium.nC)
     "Energy released per decay" annotation (Dialog(group="Inputs"));
-
   parameter Boolean use_tau=true
     "=true to specify reference resident time else based on carbon mass";
   parameter Integer iC=1
@@ -39,27 +32,22 @@ model TraceDecayAdsorberBed
     annotation (Dialog(group="Inputs", enable=use_tau));
   input SI.Mass mAdsorber=V_flow*tau_res/K[iC] "Specify total mass of adsorber"
     annotation (Dialog(group="Inputs", enable=not use_tau));
-
   input Units.HydraulicResistance R = 1 "Hydraulic resistance across adsorber bed" annotation(Dialog(group="Inputs"));
   parameter Real[Medium.nC,Medium.nC] parents = fill(0,Medium.nC,Medium.nC) "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
-
 //   input SI.PressureDifference dp=1
 //     "Pressure drop across adsorber bed (dp = port_a.p - port_b.p)"
 //     annotation (Dialog(group="Inputs"));
-
   input SI.Density d_adsorber=500 "Density of adsorber bed"
     annotation (Dialog(group="Inputs"));
   input SI.SpecificHeatCapacity cp_adsorber=1000
     "Specific heat capacity of adsorber bed"
     annotation (Dialog(group="Inputs"));
-
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
 //   parameter Dynamics traceDynamics=energyDynamics
 //     "Formulation of trace substance balances"
 //     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
-
   parameter SI.Temperature Ts_start[nV]=linspace_1D(
       T_a_start,
       T_b_start,
@@ -69,7 +57,6 @@ model TraceDecayAdsorberBed
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_b_start=T_a_start "Temperature at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-
   SIadd.ExtraPropertyFlowRate mC_flows[nV + 1,Medium.nC]
     "Trace substance flow rate between volumes";
   SIadd.ExtraPropertyFlowRate mCs_decay[nV,Medium.nC]
@@ -77,7 +64,6 @@ model TraceDecayAdsorberBed
   SI.HeatFlowRate Qs_perC[nV,Medium.nC]
     "Heat released from decay per volume per substance";
   SI.HeatFlowRate Qs[nV] "Heat released from decay per volume";
-
   SI.PressureDifference dp "Pressure drop across adsorber bed (dp = port_a.p - port_b.p)";
   Medium.ThermodynamicState state_a "Thermodynamic state at port_a";
   Medium.ThermodynamicState state_b "Thermodynamic state at port_b";
@@ -85,24 +71,18 @@ model TraceDecayAdsorberBed
   SI.VolumeFlowRate V_flow=m_flow/Medium.density(state_a);
   SI.Time taus[Medium.nC]=K .* mAdsorber ./ V_flow;
   SI.Temperature Ts_adsorber[nV](start=Ts_start) "Temperature of adsorber";
-
   SI.EnthalpyFlowRate H_flows[nV + 1]
     "Enthalpy flow rate across volumes due to fluid flow";
   SI.Pressure ps[nV] "Pressure of volumes";
-
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-
   parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced"),Evaluate=true);
   HeatAndMassTransfer.Interfaces.HeatPort_State[nV] heatPorts(T=Ts_adsorber, Q_flow=
         Q_flows_internal) if use_HeatPort
     annotation (Placement(transformation(extent={{-10,50},{10,70}}),
         iconTransformation(extent={{-10,40},{10,60}})));
-
   //SIadd.ExtraPropertyExtrinsic mCs[nV,Medium.nC] "Trace substance extrinsic value";
-
 protected
   SI.HeatFlowRate[nV] Q_flows_internal;
-
 initial equation
   // Energy Balance
   if energyDynamics == Dynamics.FixedInitial then
@@ -110,13 +90,10 @@ initial equation
   elseif energyDynamics == Dynamics.SteadyStateInitial then
     der(Ts_adsorber)=zeros(nV);
   end if;
-
 equation
-
   if not use_HeatPort then
     Q_flows_internal = zeros(nV);
   end if;
-
   //Cout = Cin.*exp(-lambdas.*mCarbon.*K./V_flow); //Basic equation
   mC_flows[1, :] = m_flow*actualStream(port_a.C_outflow);
   for i in 2:nV + 1 loop
@@ -124,16 +101,13 @@ equation
       mC_flows[i, j] = mC_flows[i - 1, j] .* exp(-lambdas[j]*taus[j]/nV) + sum(mCs_decay[i-1,:].*parents[j,:]);
     end for;
   end for;
-
   for i in 1:nV loop
     //der(mCs[i,:]) = mCs_decay[i, :]; to get accumulation of products use this with factor to who being born
     mCs_decay[i, :] = mC_flows[i, :] - mC_flows[i + 1, :];
     Qs_perC[i, :] = mCs_decay[i, :] .* Qs_decay;
     Qs[i] = sum(Qs_perC[i, :]);
   end for;
-
   ps = {port_a.p - (i-0.5)*dp/nV for i in 1:nV};
-
   H_flows[1] = semiLinear(
     port_a.m_flow,
     inStream(port_a.h_outflow),
@@ -148,7 +122,6 @@ equation
     port_b.m_flow,
     inStream(port_b.h_outflow),
     Medium.specificEnthalpy_pT(ps[nV], Ts_adsorber[nV]));
-
   // Energy Balance
   if energyDynamics == Dynamics.SteadyState then
     for i in 1:nV loop
@@ -160,21 +133,17 @@ equation
       Qs[i] + Q_flows_internal[i];
     end for;
   end if;
-
   port_a.m_flow*R = dp;
   port_a.m_flow + port_b.m_flow = 0;
   port_b.p = port_a.p - dp;
-
   state_a = Medium.setState_phX(
     port_a.p,
     inStream(port_a.h_outflow),
     inStream(port_a.Xi_outflow));
-
   state_b = Medium.setState_phX(
     port_b.p,
     inStream(port_b.h_outflow),
     inStream(port_b.Xi_outflow));
-
   // Stream variables balance
   port_a.h_outflow = Medium.specificEnthalpy_pT(port_a.p, Ts_adsorber[1]);
   port_b.h_outflow = Medium.specificEnthalpy_pT(port_b.p, Ts_adsorber[nV]);
@@ -182,7 +151,6 @@ equation
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
   port_a.C_outflow = mC_flows[1, :] ./ m_flow;
   port_b.C_outflow = mC_flows[nV + 1, :] ./ m_flow;
-
   annotation (
     defaultComponentName="adsorberBed",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={

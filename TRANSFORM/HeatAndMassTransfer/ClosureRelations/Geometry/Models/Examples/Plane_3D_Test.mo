@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Examples;
 model Plane_3D_Test
   extends Icons.Example;
-
   Plane_3D geometry(
     nX=3,
     nY=1,

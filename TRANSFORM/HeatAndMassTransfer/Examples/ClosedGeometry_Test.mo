@@ -1,12 +1,9 @@
 within TRANSFORM.HeatAndMassTransfer.Examples;
 model ClosedGeometry_Test
-
   extends TRANSFORM.Icons.Example;
-
   SI.Temperature Ts_1D[conduction_1D.geometry.nTheta]=conduction_1D.materials.T;
   SI.Temperature Ts_2D[conduction_2D.geometry.nTheta]=conduction_2D.materials[1,:].T;
   SI.Temperature Ts_3D[conduction_3D.geometry.nTheta]=conduction_3D.materials[1,:,1].T;
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_2D conduction_2D(
     redeclare model InternalHeatModel =
         TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
@@ -38,7 +35,6 @@ model ClosedGeometry_Test
         r_outer=0.01,
         nTheta=8))
     annotation (Placement(transformation(extent={{-10,42},{10,62}})));
-
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_3D conduction_3D(
     redeclare package Material = TRANSFORM.Media.Solids.UO2,
     redeclare model Geometry =

@@ -1,14 +1,11 @@
 within TRANSFORM.Fluid.Pipes;
 model GenericPipe_withWallAndInsulation
   import Modelica.Fluid.Types.Dynamics;
-
   outer TRANSFORM.Fluid.SystemTF systemTF;
-
 input SI.Length ths_wall[pipe.geometry.nV] annotation(Dialog(group="Inputs"));
 input SI.Length ths_insulation[pipe.geometry.nV] annotation(Dialog(group="Inputs"));
 input SI.Temperature Ts_ambient[pipe.geometry.nV]=fill(293.15,pipe.geometry.nV) "Ambient temperature" annotation(Dialog(group="Inputs"));
 input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pipe.geometry.nV) annotation(Dialog(group="Inputs"));
-
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
@@ -16,24 +13,19 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
                                                                                       "Geometry"
     annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-
   Geometry geometry
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
-
   extends BaseClasses.GenericPipe_Record_multiSurface(
     final nV=pipe.geometry.nV,
     use_HeatTransfer=true);
-
   replaceable package Material_wall =
       TRANSFORM.Media.Solids.SS316                     constrainedby
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
-
   replaceable package Material_insulation =
       TRANSFORM.Media.Solids.FiberGlassGeneric                    constrainedby
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
-
   // Initialization: Wall
   parameter Dynamics energyDynamics_wall=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
@@ -41,13 +33,11 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
   parameter Dynamics energyDynamics_insulation=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Dialog(tab="Initialization: Wall", group="Dynamics"));
-
   parameter SI.Temperature T_wall_start=Medium.T_default
     "Wall temperature" annotation (Dialog(tab="Initialization: Wall",
         group="Start Value: Temperature"));
   parameter SI.Temperature T_insulation_start=T_wall_start "Insulation temperature"
     annotation (Dialog(tab="Initialization: Wall", group="Start Value: Temperature"));
-
   GenericPipe_MultiTransferSurface
               pipe(
     nParallel=nParallel,
@@ -93,21 +83,19 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
   Interfaces.FluidPort_Flow port_b(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=pipe.summary.T_effective);
-
   parameter Boolean use_heatPort_addWall = false "=true for additional source/sink for heat between wall and insulation" annotation(Dialog(group="Heat Transfer"));
-
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder wall[pipe.geometry.nV](
     length=pipe.geometry.dlengths,
-    r_inner=0.5*pipe.geometry.dimensions,
+    r_inner={pipe.geometry.surfaceAreas[i, 1]/(pipe.geometry.dlengths[i]*2*
+        Modelica.Constants.pi) for i in 1:pipe.geometry.nV},
     redeclare package Material = Material_wall,
     each energyDynamics=energyDynamics_wall,
     each T_start=T_wall_start,
-    r_outer=ths_wall + 0.5*pipe.geometry.dimensions,
+    r_outer=ths_wall + wall.r_inner,
     each exposeState_a=true,
     Q_gen=Q_gen)     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -150,7 +138,6 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
         transformation(extent={{20,-46},{40,-26}}), iconTransformation(extent={{
             20,22},{40,42}})));
   input SI.HeatFlowRate Q_gen[geometry.nV]=zeros(geometry.nV) "Wall internal heat generation" annotation(Dialog(group="Inputs"));
-
 equation
   connect(port_a, pipe.port_a) annotation (Line(
       points={{-100,0},{-60,0},{-60,-80},{-10,-80}},
@@ -192,7 +179,7 @@ equation
           extent={{-90,40},{90,-40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
+          fillColor=DynamicSelect({0,127,255}, if showColors then dynColor else {0,127,255})),
         Ellipse(
           extent={{-65,5},{-55,-5}},
           lineColor={0,0,0},

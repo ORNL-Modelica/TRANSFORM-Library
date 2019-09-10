@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Examples;
 model TestFlow1D2phChen "Test case for Flow1D2phChen"
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-
   package Medium = Modelica.Media.Water.WaterIF97_ph;
   import Modelica.Constants.*;
   // number of Nodes
@@ -21,7 +20,6 @@ model TestFlow1D2phChen "Test case for Flow1D2phChen"
   parameter SI.Area Apipe=pi*rpipe^2;
   // friction factor
   parameter Real Cfpipe=0.005;
-
   ThermoPower.Water.ValveLin valve(Kv=0.05/60e5, redeclare package Medium =
         Modelica.Media.Water.StandardWater)      annotation (Placement(
         transformation(extent={{30,-70},{50,-50}}, rotation=0)));
@@ -45,7 +43,6 @@ model TestFlow1D2phChen "Test case for Flow1D2phChen"
            {{0,70},{20,90}}, rotation=0)));
   Modelica.Blocks.Sources.Constant DT(k=5) annotation (Placement(
         transformation(extent={{-36,60},{-16,80}}, rotation=0)));
-
   inner System_TP system(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
@@ -83,7 +80,6 @@ model TestFlow1D2phChen "Test case for Flow1D2phChen"
                                      annotation (Placement(transformation(
           extent={{70,-70},{90,-50}}, rotation=0)));
 equation
-
   connect(xValve.y, valve.cmd) annotation (Line(points={{31,-30},{40,-30},{
           40,-52}}, color={0,0,127}));
   connect(DT.y, Add2.u2) annotation (Line(points={{-15,70},{-8,70},{-8,74},

@@ -1,6 +1,5 @@
 within TRANSFORM.Icons;
 partial model Example "Icon for runnable examples"
-
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
         Ellipse(lineColor = {75,138,73},
                 fillColor={255,255,255},

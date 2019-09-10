@@ -2,41 +2,36 @@ within TRANSFORM.Fluid.Volumes.InProgress.Verification.MIT_LowPressure_Experimen
 model InsurgeToHotWall
   "Experiment described in 3.4.4 and Appendix C Insurge to the Hot Wall Experiment by Kim (1984)"
   extends Icons.Example;
-
   // Experiment Parameters
   package Medium = Modelica.Media.Water.StandardWater "Medium in component";
   constant SI.Length mainTank_d_inner=
-      Units.Conversions.Functions.Distance_m.from_inch(7.625)
+      Units.Conversions.Functions.Distance_m.from_in(7.625)
     "Inner diameter of the main (primary) tank";
   constant SI.Length mainTank_d_outer=
-      Units.Conversions.Functions.Distance_m.from_inch(8.625)
+      Units.Conversions.Functions.Distance_m.from_in(8.625)
     "Outer diameter of the main (primary) tank";
   constant SI.Length mainTank_th = 0.5*(mainTank_d_outer - mainTank_d_inner) "Wall thickness of thee main (primary) tank";
   constant SI.Length mainTank_height=
-      Units.Conversions.Functions.Distance_m.from_inch(45)
+      Units.Conversions.Functions.Distance_m.from_in(45)
     "Internal height of the main (primary) tank";
   constant SI.Volume mainTank_V = mainTank_height*0.25*pi*mainTank_d_inner^2 "Empty volume of the main (primary) tank (excludes ~negligible port/level indicator volumes)";
   constant SI.Volume wall_V = 0.25*pi*(mainTank_d_outer^2 - mainTank_d_inner^2)*mainTank_height "Wall volume";
-
   // Experiment Initial Conditions
   constant SI.Height mainTank_level_start=
-      Units.Conversions.Functions.Distance_m.from_inch(11.0)
+      Units.Conversions.Functions.Distance_m.from_in(11.0)
     "Initial liquid level (empty = 0)";
   constant SI.Pressure mainTank_p_start=
       Units.Conversions.Functions.Pressure_Pa.from_psi(113.7)
     "Initial pressure of main (primary) tank";
   constant SI.Temperature insurge_T = SI.Conversions.from_degF(78) "Insurge water temperature";
-
   constant SI.Height mainTank_level_beforeInsurge_start=
-      Units.Conversions.Functions.Distance_m.from_inch(10.4)
+      Units.Conversions.Functions.Distance_m.from_in(10.4)
     "Liquid level before insurge (empty = 0)";
   constant SI.Pressure mainTank_p_beforeInsurge_start=
       Units.Conversions.Functions.Pressure_Pa.from_psi(86.4)
     "pressure of main (primary) tank before insurge";
-
   constant Units.NonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
   constant Units.NonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
-
   constant SI.Temperature wall_Tavg = SI.Conversions.from_degF(300) "Average wall temperature";
   constant SI.ThermalConductivity wall_lambda=
       TRANSFORM.Media.Solids.SS316.thermalConductivity_T(wall_Tavg)
@@ -46,15 +41,13 @@ model InsurgeToHotWall
     "Wall specific heat capacity";
   constant SI.Density wall_rho=TRANSFORM.Media.Solids.SS316.density_T(wall_Tavg)
     "Wall density";
-
   // Experiment Final Conditions
   constant SI.Height mainTank_level_final=
-      Units.Conversions.Functions.Distance_m.from_inch(35)
+      Units.Conversions.Functions.Distance_m.from_in(35)
     "Final liquid level (empty = 0)";
   constant SI.Pressure mainTank_p_final=
       Units.Conversions.Functions.Pressure_Pa.from_psi(123.5)
     "Final pressure of main (primary) tank";
-
   Modelica.Blocks.Sources.TimeTable data_m_flow(table=[0,0; 30,0; 60.62491523,0;
         61.01983887,0.189333682; 61.43302512,0.454831731; 67.87527918,
         0.430313189; 74.02758168,0.415679011; 82.4245408,0.393215569;
@@ -63,9 +56,7 @@ model InsurgeToHotWall
         110.8733532,-0.12053175; 111.5347994,-0.047307642; 111.8166939,0; 130,0;
         150,0]) "time (s) vs insurge m_flow (kg/s) from experiment: Figure C.1"
     annotation (Placement(transformation(extent={{-80,-62},{-60,-42}})));
-
   Real p_exp "Experimentally measured pressure in psia";
-
   // Models
   Modelica.Fluid.Sources.MassFlowSource_h spray(nPorts=1, redeclare package
       Medium = Medium)
@@ -99,7 +90,6 @@ model InsurgeToHotWall
     redeclare model MassTransfer_VL =
         Volumes.ClosureModels.MassTransfer.PhaseInterface.GasKineticTheory)
     annotation (Placement(transformation(extent={{-24,-26},{24,26}})));
-
     //G=2*pi*wall_lambda*0.5*mainTank_height/Modelica.Math.log(mainTank_d_outer/mainTank_d_inner)
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow heaterVapor
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
@@ -157,9 +147,7 @@ model InsurgeToHotWall
     "time (s) vs centerline temperature (K) at 40\" from experiment: Figure C.17"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
-
  p_exp =TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_psi(data_pressure.y);
-
   connect(insurge.ports[1], pressurizer.surgePort) annotation (Line(points={{-28,-60},
           {-14,-60},{0,-60},{0,-26}},      color={0,127,255}));
   connect(spray.ports[1], pressurizer.sprayPort) annotation (Line(points={{-28,60},

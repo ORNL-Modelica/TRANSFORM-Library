@@ -1,13 +1,11 @@
 within TRANSFORM.Blocks;
 block TimerTotal
   "Timer measuring total time that the Boolean input is true"
-
   extends Modelica.Blocks.Icons.PartialBooleanBlock;
   Modelica.Blocks.Interfaces.BooleanInput u "Connector of Boolean input signal"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
 protected
   discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
   discrete Modelica.SIunits.Time y_last "y output instant when u became false";
@@ -18,11 +16,9 @@ equation
   when u then
     entryTime = time;
   end when;
-
   when not u then
     y_last = pre(y);
   end when;
-
   y = if u then time - entryTime + y_last else y_last;
   annotation (
     Icon(
