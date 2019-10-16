@@ -6,3 +6,4 @@ bicubic_eval_deriv_xx
 bicubic_eval_deriv_yy
 bicubic_eval_deriv_xy
 bicubic_eval_deriv_xy_alt
+bicubic_eval_deriv_xy_dt
