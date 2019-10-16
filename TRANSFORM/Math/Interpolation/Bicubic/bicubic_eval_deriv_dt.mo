@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Interpolation.Bicubic;
-function bicubic_eval_deriv_xy_dt
+function bicubic_eval_deriv_dt
   "Bicubic (2D) interpolation for table derivative wrt time. Throws error outside of table range."
   extends TRANSFORM.Icons.Function;
   input String tablesPath
@@ -14,4 +14,4 @@ algorithm
   z :=TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_deriv_x(tablesPath,x,y)*dx
  + TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_deriv_y(tablesPath,x,y)*dy;
 
-end bicubic_eval_deriv_xy_dt;
+end bicubic_eval_deriv_dt;
