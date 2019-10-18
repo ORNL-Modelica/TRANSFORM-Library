@@ -27,6 +27,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
       TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_deriv_y "Interpolation method selection for derivative wrt y";
   constant String tablePath="modelica://TRANSFORM/Resources/data/lookupTables/"
        + mediumName + (if inputChoice == InputChoice.pT then "/pT/" else "/error/");
+
   constant String tablePath_p=Modelica.Utilities.Files.loadResource(tablePath + "p.csv") "Pressure";
   constant String tablePath_T=Modelica.Utilities.Files.loadResource(tablePath + "T.csv") "Temperature";
   constant String tablePath_h=Modelica.Utilities.Files.loadResource(tablePath + "h.csv") "Specific enthalpy";
@@ -146,7 +147,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   replaceable function getMolarMass
     output MolarMass MM "molar mass";
   algorithm
-    MM :=0.01;
+    MM :=0.01;//todo
   end getMolarMass;
 
   redeclare replaceable function setState_ph

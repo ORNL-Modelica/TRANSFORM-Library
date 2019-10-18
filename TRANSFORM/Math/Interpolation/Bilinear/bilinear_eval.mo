@@ -11,5 +11,5 @@ external"C" z = bilinear_eval(
     IncludeDirectory="modelica://TRANSFORM/Resources/Include",
     LibraryDirectory="modelica://TRANSFORM/Resources/Library");
 
-annotation (derivative(zeroDerivative=x)=bilinear_eval_deriv_y,derivative(zeroDerivative=y)=bilinear_eval_deriv_x,derivative(order=2)=bilinear_eval_deriv_xy_alt);
+annotation (derivative(zeroDerivative=tablesPath)=bilinear_eval_deriv_dt);
 end bilinear_eval;

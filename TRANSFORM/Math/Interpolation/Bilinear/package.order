@@ -1,5 +1,6 @@
 bilinear_eval
 bilinear_eval_extrap
+bilinear_eval_deriv_dt
 bilinear_eval_deriv_x
 bilinear_eval_deriv_y
 bilinear_eval_deriv_xx
