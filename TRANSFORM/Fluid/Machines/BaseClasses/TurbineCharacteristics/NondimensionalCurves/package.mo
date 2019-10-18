@@ -1,0 +1,3 @@
+within TRANSFORM.Fluid.Machines.BaseClasses.TurbineCharacteristics;
+package NondimensionalCurves
+end NondimensionalCurves;
