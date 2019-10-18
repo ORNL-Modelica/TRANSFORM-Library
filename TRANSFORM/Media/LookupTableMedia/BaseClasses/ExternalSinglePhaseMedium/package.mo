@@ -4,13 +4,16 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
 
   extends TRANSFORM.Media.Interfaces.Fluids.PartialSinglePhaseMedium(
       ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.pT,
-      singleState=false, fluidConstants={externalFluidConstants});
+      singleState=false, fluidConstants={externalFluidConstants},
+      redeclare record FluidConstants =
+        TRANSFORM.Media.LookupTableMedia.BaseClasses.Common.FluidConstants);
   constant FluidConstants externalFluidConstants=FluidConstants(
       iupacName="unknown",
       casRegistryNumber="unknown",
       chemicalFormula="unknown",
       structureFormula="unknown",
-      molarMass=getMolarMass());
+      molarMass=getMolarMass(),
+      criticalPressure=getCriticalPressure());
   constant SI.Temperature T_min = 0;
   constant SI.Temperature T_max = 1e9;
 
@@ -149,6 +152,10 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   algorithm
     MM :=0.01;//todo
   end getMolarMass;
+
+  replaceable function getCriticalPressure
+    output AbsolutePressure criticalPressure "critical pressure";
+  end getCriticalPressure;
 
   redeclare replaceable function setState_ph
     "Return thermodynamic state record from p and h"
