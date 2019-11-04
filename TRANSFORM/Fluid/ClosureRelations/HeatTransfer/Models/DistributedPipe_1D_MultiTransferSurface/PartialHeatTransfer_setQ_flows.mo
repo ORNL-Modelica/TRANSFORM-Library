@@ -29,8 +29,8 @@ equation
     for i in 1:nHT loop
       for j in 1:nSurfaces loop
         Q_flows_radHT[i, j] = (Ts_wall[i, j] - Ts_fluid[i])*(surfaceAreas[i, j]
-          *sigma*epsilons[i, j]*(Ts_wall[i, j]^2 - Ts_fluid[i]^2)*(Ts_wall[i, j]
-           - Ts_fluid[i]));
+          *sigma*epsilons[i, j]*(Ts_wall[i, j]^2 + Ts_fluid[i]^2)*(Ts_wall[i, j]
+           + Ts_fluid[i]));
       end for;
     end for;
   else
@@ -39,6 +39,10 @@ equation
   for i in 1:nHT loop
     for j in 1:nSurfaces loop
       //Below is rearranged to avoid division by zero
+      // if use_fins then:
+      // else
+      //   UA[i,j] = 1/(Rs_add[i,j] + 1/(alphas[i, j]*surfaceAreas[i, j]));
+      // end if;
       UA[i,j] = 1/(Rs_add[i,j] + 1/(alphas[i, j]*surfaceAreas[i, j]));
       //UA[i,j] = (alphas[i, j]*surfaceAreas[i, j])/(1 + alphas[i, j]*surfaceAreas[i, j]*Rs_add[i,j]);
       Q_flows[i, j] = CFs[i, j]*UA[i, j]*(Ts_wall[i, j]
