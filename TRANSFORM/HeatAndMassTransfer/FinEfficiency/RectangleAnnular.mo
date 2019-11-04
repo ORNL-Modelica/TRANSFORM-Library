@@ -11,7 +11,7 @@ model RectangleAnnular
   input SI.Length th "Fin thickness" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
   input Units.NonDim mr_inner = sqrt(2*alpha/(lambda*th))*r_inner "Non-dimensional r_inner fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
   input Units.NonDim mr_outer = sqrt(2*alpha/(lambda*th))*r_outer "Non-dimensional r_outer fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
-  SI.Area surfaceArea= 2^Modelica.Constants.pi*(r_outer^2 - r_inner^2);
+  SI.Area surfaceArea= 2*Modelica.Constants.pi*(r_outer^2 - r_inner^2);
 algorithm
   eta :=2*mr_inner/(mr_outer^2 - mr_inner^2)*(GSLfsf.bessel_Kn(1,mr_inner)*GSLfsf.bessel_In(1,mr_outer) - GSLfsf.bessel_In(1,mr_inner)*GSLfsf.bessel_Kn(1,mr_outer))/(GSLfsf.bessel_In(0,mr_inner)*GSLfsf.bessel_Kn(1,mr_outer) + GSLfsf.bessel_Kn(0,mr_inner)*GSLfsf.bessel_In(1,mr_outer));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
