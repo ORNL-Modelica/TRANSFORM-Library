@@ -28,9 +28,7 @@ equation
   if use_RadHT then
     for i in 1:nHT loop
       for j in 1:nSurfaces loop
-        Q_flows_radHT[i, j] = (Ts_wall[i, j] - Ts_fluid[i])*(surfaceAreas[i, j]
-          *sigma*epsilons[i, j]*(Ts_wall[i, j]^2 + Ts_fluid[i]^2)*(Ts_wall[i, j]
-           + Ts_fluid[i]));
+        Q_flows_radHT[i, j] = sigma*epsilons[i, j]*surfaceAreas[i, j]*(Ts_wall[i, j] - Ts_fluid[i])*(Ts_wall[i, j]^2 + Ts_fluid[i]^2)*(Ts_wall[i, j]+ Ts_fluid[i]);
       end for;
     end for;
   else

@@ -9,8 +9,8 @@ model SpineRectangular
   input SI.Length L "Fin length" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
   input Units.NonDim mL = sqrt(2*alpha/(lambda*D))*L "Non-dimensional fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
   SI.Area surfaceArea= Modelica.Constants.pi*D*L;
-algorithm
-  eta :=Modelica.Math.tanh(mL)/mL;
+equation
+  eta = Modelica.Math.tanh(mL)/mL;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/SpineRectangular.jpg")}),
