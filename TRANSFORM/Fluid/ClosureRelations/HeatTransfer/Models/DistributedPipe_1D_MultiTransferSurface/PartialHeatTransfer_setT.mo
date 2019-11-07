@@ -29,13 +29,11 @@ partial model PartialHeatTransfer_setT "Base model"
   parameter SI.Temperature Ts_start[nHT] annotation (Dialog(tab="Internal Interface", group="Initialization"));
   parameter SI.ReynoldsNumber Re_lam(max=Re_turb) = 2300 "Laminar transition Reynolds number" annotation(Dialog(tab="Advanced"));
   parameter SI.ReynoldsNumber Re_turb(min=Re_lam) = 4000 "Turbulent transition Reynolds number" annotation(Dialog(tab="Advanced"));
-  input Units.NonDim CF=1.0 "Correction Factor: Q = CF*alpha*A*dT" annotation(Dialog(tab=
-          "Advanced"));
+  input Units.NonDim CF=1.0 "Correction Factor: Q = CF*alpha*A*dT" annotation(Dialog(tab="Advanced",group="Inputs"));
   input Units.NonDim CFs[nHT,nSurfaces]=fill(
       CF,
       nHT,
-      nSurfaces) "if non-uniform then set"  annotation(Dialog(tab=
-          "Advanced"));
+      nSurfaces) "if non-uniform then set"  annotation(Dialog(tab="Advanced",group="Inputs"));
   //parameter Boolean use_Ts_film = false "=true for Ts_film = 0.5*(Ts_wall + Ts_fluid) else Ts_fluid" annotation(Dialog(tab="Advanced"));
   SI.Temperature Ts_fluid[nHT] = Medium.temperature(states) "Fluid temperature";
   SI.Temperature Ts_wall[nHT,nSurfaces] = heatPorts.T "Wall temperature";

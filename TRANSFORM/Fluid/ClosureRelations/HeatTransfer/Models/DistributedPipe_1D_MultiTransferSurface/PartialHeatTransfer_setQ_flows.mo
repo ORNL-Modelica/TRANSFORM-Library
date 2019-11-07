@@ -3,7 +3,7 @@ partial model PartialHeatTransfer_setQ_flows
   extends PartialHeatTransfer_setT(final flagIdeal=0);
   import Modelica.Constants.sigma;
   parameter Boolean use_RadHT=false "=true to turn on radiative heat transfer"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true,Dialog(tab="Advanced",group="Inputs"));
   input SI.Emissivity epsilon=1 "Emissivity"
     annotation (Dialog(tab="Advanced",group="Inputs", enable=use_RadHT));
   input SI.Emissivity epsilons[nHT,nSurfaces]=fill(
@@ -28,9 +28,7 @@ equation
   if use_RadHT then
     for i in 1:nHT loop
       for j in 1:nSurfaces loop
-        Q_flows_radHT[i, j] = (Ts_wall[i, j] - Ts_fluid[i])*(surfaceAreas[i, j]
-          *sigma*epsilons[i, j]*(Ts_wall[i, j]^2 - Ts_fluid[i]^2)*(Ts_wall[i, j]
-           - Ts_fluid[i]));
+        Q_flows_radHT[i, j] = sigma*epsilons[i, j]*surfaceAreas[i, j]*(Ts_wall[i, j] - Ts_fluid[i])*(Ts_wall[i, j]^2 + Ts_fluid[i]^2)*(Ts_wall[i, j]+ Ts_fluid[i]);
       end for;
     end for;
   else
@@ -39,6 +37,10 @@ equation
   for i in 1:nHT loop
     for j in 1:nSurfaces loop
       //Below is rearranged to avoid division by zero
+      // if use_fins then:
+      // else
+      //   UA[i,j] = 1/(Rs_add[i,j] + 1/(alphas[i, j]*surfaceAreas[i, j]));
+      // end if;
       UA[i,j] = 1/(Rs_add[i,j] + 1/(alphas[i, j]*surfaceAreas[i, j]));
       //UA[i,j] = (alphas[i, j]*surfaceAreas[i, j])/(1 + alphas[i, j]*surfaceAreas[i, j]*Rs_add[i,j]);
       Q_flows[i, j] = CFs[i, j]*UA[i, j]*(Ts_wall[i, j]
