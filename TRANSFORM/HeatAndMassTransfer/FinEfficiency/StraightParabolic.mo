@@ -13,7 +13,7 @@ model StraightParabolic
   SI.Area surfaceArea=W*(c1*L + L^2/th*log(th/L + c1));
 equation
   eta = 2/(sqrt(4*(mL)^2+1)+1);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="finEfficiency",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/StraightParabolic.jpg")}),
                                                                  Diagram(

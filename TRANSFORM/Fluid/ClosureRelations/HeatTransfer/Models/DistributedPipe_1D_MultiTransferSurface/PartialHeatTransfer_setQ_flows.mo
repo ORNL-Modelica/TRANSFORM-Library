@@ -3,7 +3,7 @@ partial model PartialHeatTransfer_setQ_flows
   extends PartialHeatTransfer_setT(final flagIdeal=0);
   import Modelica.Constants.sigma;
   parameter Boolean use_RadHT=false "=true to turn on radiative heat transfer"
-    annotation (Evaluate=true);
+    annotation (Evaluate=true,Dialog(tab="Advanced",group="Inputs"));
   input SI.Emissivity epsilon=1 "Emissivity"
     annotation (Dialog(tab="Advanced",group="Inputs", enable=use_RadHT));
   input SI.Emissivity epsilons[nHT,nSurfaces]=fill(

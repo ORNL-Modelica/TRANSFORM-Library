@@ -12,7 +12,7 @@ model StraightTriangular
   SI.Area surfaceArea = 2*W^sqrt(L^2 + (0.5*th)^2);
 equation
   eta = Math.BesselI(1,2,2*mL)/(mL*Math.BesselI(0,2*mL));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="finEfficiency",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/StraightTriangular.jpg")}),
                                                                  Diagram(

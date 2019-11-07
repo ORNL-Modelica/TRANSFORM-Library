@@ -12,7 +12,7 @@ model StraightRectangular
   SI.Area surfaceArea = 2*W*L;
 equation
   eta = Modelica.Math.tanh(mL)/mL;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="finEfficiency",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/StraightRectangular.jpg")}),
                                                                  Diagram(

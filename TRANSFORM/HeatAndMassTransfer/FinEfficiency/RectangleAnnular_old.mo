@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.FinEfficiency;
-model RectangleAnnular
-  import GSL = TRANSFORM.Math.GNU_ScientificLibrary.Functions.specfunc;
+model RectangleAnnular_old
+  import GSL = GNU_ScientificLibrary.Functions.specfunc;
   extends
     TRANSFORM.HeatAndMassTransfer.FinEfficiency.BaseClasses.PartialFinEfficiency;
   parameter Boolean use_NonDimensional = false;
@@ -20,7 +20,7 @@ model RectangleAnnular
   SI.Area surfaceArea_total = surfaceArea+surfaceArea_pitch-surfaceArea_base;
   SI.Efficiency eta_overall "Efficiency of an array of fins";
 
-algorithm
+equation
   eta :=2*mr_inner/(mr_outer^2 - mr_inner^2)*(GSL.bessel_Kn(1, mr_inner)*
     GSL.bessel_In(1, mr_outer) - GSL.bessel_In(1, mr_inner)*GSL.bessel_Kn(1,
     mr_outer))/(GSL.bessel_In(0, mr_inner)*GSL.bessel_Kn(1, mr_outer) +
@@ -32,4 +32,4 @@ algorithm
               "modelica://TRANSFORM/Resources/Images/Icons/RectangularAnnular.jpg")}),
                                                                  Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end RectangleAnnular;
+end RectangleAnnular_old;

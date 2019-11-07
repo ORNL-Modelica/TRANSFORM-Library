@@ -11,7 +11,7 @@ model SpineRectangular
   SI.Area surfaceArea= Modelica.Constants.pi*D*L;
 equation
   eta = Modelica.Math.tanh(mL)/mL;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="finEfficiency",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/SpineRectangular.jpg")}),
                                                                  Diagram(

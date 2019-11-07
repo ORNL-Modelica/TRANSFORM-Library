@@ -19,7 +19,7 @@ equation
   else
     eta = (tanh(mL) + mL*AR_tip)/(mL*(1 + mL*AR_tip*tanh(mL))*(1 + AR_tip));
   end if;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (defaultComponentName="finEfficiency",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(
           extent={{-100,-100},{100,100}},
           fileName=
