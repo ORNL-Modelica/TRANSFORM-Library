@@ -148,7 +148,7 @@ model GenericPipe_withWallx2
         length_z=sum(geometry.dlengths),
         drs=geometry.drs,
         dzs=geometry.dzs,
-        r_inner=0.5*sum(geometry.dimensions)/geometry.nV),
+        r_inner=geometry.r_inner),
     exposeState_a2=exposeState_a,
     exposeState_b2=exposeState_b,
     exposeState_a1=if pipe.heatTransfer.flagIdeal == 1 then false else true,
@@ -314,7 +314,7 @@ equation
           extent={{-90,40},{90,-40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
+          fillColor=DynamicSelect({0,127,255}, if showColors then dynColor else {0,127,255})),
         Ellipse(
           extent={{-65,5},{-55,-5}},
           lineColor={0,0,0},

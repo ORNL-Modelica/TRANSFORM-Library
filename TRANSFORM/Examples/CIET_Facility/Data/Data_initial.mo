@@ -1,5 +1,5 @@
 within TRANSFORM.Examples.CIET_Facility.Data;
-model Data_Basic
+model Data_initial
   extends TRANSFORM.Icons.Record;
   parameter Integer index_13 = 1 annotation(Dialog(tab="Indices"));
   parameter Integer index_14 = 2 annotation(Dialog(tab="Indices"));
@@ -67,4 +67,4 @@ model Data_Basic
   annotation (defaultComponentName="data",
   Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Data_Basic;
+end Data_initial;

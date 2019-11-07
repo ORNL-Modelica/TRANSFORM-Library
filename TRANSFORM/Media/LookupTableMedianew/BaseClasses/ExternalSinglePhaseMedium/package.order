@@ -16,6 +16,7 @@ tablePath_d
 tablePath_lambda
 tablePath_mu
 tablePath_s
+tablesPath_pT_T
 tablesPath_pT_h
 tablesPath_pT_a
 tablesPath_pT_cp
@@ -36,6 +37,7 @@ tablePath_ph_lambda
 tablePath_ph_mu
 tablePath_ph_s
 tablesPath_ph_T
+tablesPath_ph_h
 tablesPath_ph_a
 tablesPath_ph_cp
 tablesPath_ph_cv
@@ -55,6 +57,7 @@ tablePath_ps_lambda
 tablePath_ps_mu
 tablePath_ps_s
 tablesPath_ps_T
+tablesPath_ps_h
 tablesPath_ps_a
 tablesPath_ps_cp
 tablesPath_ps_cv

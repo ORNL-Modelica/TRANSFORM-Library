@@ -1,3 +1,4 @@
+simulateModel("TRANSFORM.Examples.CIET_Facility.Examples.CIET_nureth",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="CIET_nureth");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.BatemanEquations_Test",stopTime=1000,numberOfIntervals=1000,resultFile="BatemanEquations_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
@@ -16,6 +17,7 @@ simulateModel("TRANSFORM.Controls.Examples.LimPID_HysteresisTimer_Test",stopTime
 simulateModel("TRANSFORM.Controls.Examples.LimPID_Hysteresis_Test",stopTime=86400,tolerance=1e-6,resultFile="LimPID_Hysteresis_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_withReset_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_withReset_Test");
+simulateModel("TRANSFORM.Examples.CIET_Facility.Examples.CIET_nureth",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="CIET_nureth");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.BatemanEquations_Test",stopTime=1000,numberOfIntervals=1000,resultFile="BatemanEquations_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_Test");
@@ -29,7 +31,6 @@ simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.IncompressibleFluidNetwork",sto
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.InverseParameterization",outputInterval=0.001,stopTime=10,resultFile="InverseParameterization");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.PumpingSystem",outputInterval=0.4,stopTime=2000,tolerance=1e-006,resultFile="PumpingSystem");
 simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.RoomCO2WithControls",stopTime=86400,tolerance=1e-006,method="Esdirk45a",resultFile="RoomCO2WithControls");
-simulateModel("TRANSFORM.Fluid.Examples.SteamRankine_BalanceOfPlant.SystemVariableHeatLoad",stopTime=25000,tolerance=1e-005,resultFile="SystemVariableHeatLoad");
 simulateModel("TRANSFORM.Fluid.Examples.TritiumExamples.HumTest",stopTime=100,resultFile="HumTest");
 simulateModel("TRANSFORM.Fluid.Examples.TritiumExamples.PbLiTest2",stopTime=100,resultFile="PbLiTest2");
 simulateModel("TRANSFORM.Fluid.Examples.NaturalCirculation",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="NaturalCirculation");
@@ -51,7 +52,6 @@ simulateModel("TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Examples.Lum
 simulateModel("TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Examples.Utilities.TwoPhaseFrictionMultiplier",numberOfIntervals=100,resultFile="TwoPhaseFrictionMultiplier");
 simulateModel("TRANSFORM.Fluid.Machines.Examples.PumpTests.Pump_Controlled_Test",stopTime=10,tolerance=1e-006,resultFile="Pump_Controlled_Test");
 simulateModel("TRANSFORM.Fluid.Machines.Examples.PumpTests.Pump_Mechanical_Test",stopTime=10,tolerance=1e-006,resultFile="Pump_Mechanical_Test");
-simulateModel("TRANSFORM.Fluid.Machines.Examples.PumpTests.Pump_Test",stopTime=10,tolerance=1e-006,resultFile="Pump_Test");
 simulateModel("TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests.RankineCycle_Example8_1",numberOfIntervals=100,resultFile="RankineCycle_Example8_1");
 simulateModel("TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests.RankineCycle_Example8_12",numberOfIntervals=100,resultFile="RankineCycle_Example8_12");
 simulateModel("TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests.SteamTurbineStodola_Test",stopTime=10,resultFile="SteamTurbineStodola_Test");

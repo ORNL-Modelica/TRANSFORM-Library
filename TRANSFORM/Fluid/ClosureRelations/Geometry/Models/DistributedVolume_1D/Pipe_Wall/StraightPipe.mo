@@ -6,6 +6,7 @@ model StraightPipe
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe;
   extends PartialPipeWithWall(
     final nZ=nV,
+    r_inner = surfaceArea[1]/(length*2*Modelica.Constants.pi),
     final ths_wall=fill(th_wall, nZ),
     final drs=transpose(fillArray_1D(dr, nZ)),
     final dzs=fillArray_1D(dlengths, nR));

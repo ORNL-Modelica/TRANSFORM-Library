@@ -1,5 +1,6 @@
 bicubic_eval
 bicubic_eval_extrap
+bicubic_eval_deriv_dt
 bicubic_eval_deriv_x
 bicubic_eval_deriv_y
 bicubic_eval_deriv_xx

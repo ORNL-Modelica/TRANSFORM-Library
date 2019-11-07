@@ -2,7 +2,7 @@ from pymodelica import compile_fmu
 from pyfmi import load_fmu
 
 libPath = r'C:\Users\vmg\Documents\Modelica\TRANSFORM-Library/TRANSFORM'
-modelName = 'TRANSFORM.Fluid.Machines.Examples.PumpTests.Pump_Test'
+modelName = 'TRANSFORM.Examples.CIET_Facility.Examples.CIET_nureth'
 
 fmu = compile_fmu(modelName,libPath,target='cs')
 model = load_fmu(fmu)
