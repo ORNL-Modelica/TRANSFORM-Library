@@ -33,8 +33,6 @@ model SteamTurbine
   final parameter SI.Area Kt(fixed=false) "Flow area coefficient";
 initial equation
   if use_NominalInlet then
-    //     Kt = m_flow_nom*sqrt(p_inlet/Medium.density_pT(p_inlet,T_nom))/
-    //          sqrt(p_inlet^2-p_outlet^2);
     if use_T_nominal then
       Kt = m_flow_nominal/(sqrt(p_inlet_nominal*Medium.density(
         Medium.setState_pTX(
