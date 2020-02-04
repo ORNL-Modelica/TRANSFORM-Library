@@ -11,7 +11,7 @@ Wiki2PDF:
     # Details of your self-hosted Gitlab's installation? 
     # Considering "https://foo.bar/" GITLAB_DOMAIN is "foo.bar".
     #GITLAB_DOMAIN: "foo.bar"
-    GITLAB_DOMAIN: "gitlab.com"
+    GITLAB_DOMAIN: "code.ornl.gov"
     
     # Considering "https://foo.bar/" GITLAB_SCHEME is "https".
     #GITLAB_SCHEME: "http"
