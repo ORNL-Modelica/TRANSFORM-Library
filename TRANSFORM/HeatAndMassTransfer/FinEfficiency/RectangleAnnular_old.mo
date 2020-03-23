@@ -21,11 +21,11 @@ model RectangleAnnular_old
   SI.Efficiency eta_overall "Efficiency of an array of fins";
 
 equation
-  eta :=2*mr_inner/(mr_outer^2 - mr_inner^2)*(GSL.bessel_Kn(1, mr_inner)*
+  eta = 2*mr_inner/(mr_outer^2 - mr_inner^2)*(GSL.bessel_Kn(1, mr_inner)*
     GSL.bessel_In(1, mr_outer) - GSL.bessel_In(1, mr_inner)*GSL.bessel_Kn(1,
     mr_outer))/(GSL.bessel_In(0, mr_inner)*GSL.bessel_Kn(1, mr_outer) +
     GSL.bessel_Kn(0, mr_inner)*GSL.bessel_In(1, mr_outer));
-  eta_overall :=1 - surfaceArea/surfaceArea_total*(1 - eta);
+  eta_overall = 1 - surfaceArea/surfaceArea_total*(1 - eta);
 
   annotation (defaultComponentName="finEfficiency",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName=
