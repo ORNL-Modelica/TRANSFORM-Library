@@ -34,6 +34,7 @@ extends TRANSFORM.Icons.UnderConstruction;
 equation
 
 a_tan = Modelica.Math.atan2(n,v);
+
 theta = Modelica.Constants.pi + a_tan;
 n2v2 = n^2+v^2;
 

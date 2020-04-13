@@ -10,9 +10,9 @@ model StraightRectangular
   input SI.Length W "Fin width" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
   input Units.NonDim mL = sqrt(2*alpha/(lambda*th))*L "Non-dimensional fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
   SI.Area surfaceArea = 2*W*L;
-algorithm
-  eta :=Modelica.Math.tanh(mL)/mL;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+equation
+  eta = Modelica.Math.tanh(mL)/mL;
+  annotation (defaultComponentName="finEfficiency",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/StraightRectangular.jpg")}),
                                                                  Diagram(

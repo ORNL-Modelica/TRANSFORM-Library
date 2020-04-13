@@ -69,7 +69,7 @@ partial package PartialMedium "Partial medium properties (base package of all me
       "Mass fractions (= (component mass)/total mass  m_i/m)";
     SpecificInternalEnergy u "Specific internal energy of medium";
     SpecificHeatCapacity R "Gas constant (of mixture if applicable)";
-    MolarMass MM "Molar mass (of mixture or single fluid)";
+    SI.MolarMass MM "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "Thermodynamic state record for optional functions";
     parameter Boolean preferredMediumStates=false
@@ -478,7 +478,7 @@ kappa is defined as - 1/v * der(v,p), with v = 1/d at constant temperature T.
     "Return the molar mass of the medium"
     extends Modelica.Icons.Function;
     input ThermodynamicState state "Thermodynamic state record";
-    output MolarMass MM "Mixture molar mass";
+    output SI.MolarMass MM "Mixture molar mass";
   end molarMass;
 
   replaceable function specificEnthalpy_pTX

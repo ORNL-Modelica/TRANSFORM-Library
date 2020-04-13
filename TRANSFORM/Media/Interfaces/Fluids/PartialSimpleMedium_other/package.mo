@@ -27,7 +27,7 @@ partial package PartialSimpleMedium_other "Medium model with linear dependency o
   constant Temperature T_min "Minimum temperature valid for medium model";
   constant Temperature T_max "Maximum temperature valid for medium model";
   constant Temperature T0=reference_T "Zero enthalpy temperature";
-  constant MolarMass MM_const "Molar mass";
+  constant SI.MolarMass MM_const "Molar mass";
   constant FluidConstants[nS] fluidConstants "Fluid constants";
 
   redeclare record extends ThermodynamicState "Thermodynamic state"
