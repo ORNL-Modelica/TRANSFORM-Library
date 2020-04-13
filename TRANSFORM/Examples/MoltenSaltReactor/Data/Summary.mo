@@ -110,8 +110,7 @@ record Summary
   input SI.Length th_tube_PHX "thickness tube PHX" annotation(Dialog(tab="PFL",group="PHX"));
   input SI.Length length_tube_PHX "length tube PHX" annotation(Dialog(tab="PFL",group="PHX"));
   input SI.Length tube_pitch_PHX "tube pitch PHX" annotation(Dialog(tab="PFL",group="PHX"));
-  input SI.CoefficientOfHeatTransfer alpha_tube_PHX "heat transfer coefficient"
-                                                                                annotation(Dialog(tab="PFL",group="PHX"));
+  input SI.CoefficientOfHeatTransfer alpha_tube_PHX "heat transfer coefficient" annotation(Dialog(tab="PFL",group="PHX"));
   input SI.Area surfaceArea_tube_PHX "surfaceArea tube PHX" annotation(Dialog(tab="PFL",group="PHX"));
   input SI.Mass m_tube_PHX "salt mass tube PHX" annotation(Dialog(tab="PFL",group="PHX"));
   input SI.Volume volume_tube_PHX = m_tube_PHX/d_PFL "salt volume tube PHX" annotation(Dialog(tab="PFL",group="PHX"));
@@ -162,8 +161,7 @@ record Summary
   input SI.Length th_tube_SHX "thickness tube SHX" annotation(Dialog(tab="PCL",group="SHX"));
   input SI.Length length_tube_SHX "length tube SHX" annotation(Dialog(tab="PCL",group="SHX"));
   input SI.Length tube_pitch_SHX "tube pitch SHX" annotation(Dialog(tab="PCL",group="SHX"));
-  input SI.CoefficientOfHeatTransfer alpha_tube_SHX "heat transfer coefficient"
-                                                                                annotation(Dialog(tab="PCL",group="SHX"));
+  input SI.CoefficientOfHeatTransfer alpha_tube_SHX "heat transfer coefficient" annotation(Dialog(tab="PCL",group="SHX"));
   input SI.Area surfaceArea_tube_SHX "surfaceArea tube SHX" annotation(Dialog(tab="PCL",group="SHX"));
   input SI.Mass m_tube_SHX "salt mass tube SHX" annotation(Dialog(tab="PCL",group="SHX"));
   input SI.Volume volume_tube_SHX = m_tube_SHX/d_BOP "salt volume tube SHX" annotation(Dialog(tab="PCL",group="SHX"));

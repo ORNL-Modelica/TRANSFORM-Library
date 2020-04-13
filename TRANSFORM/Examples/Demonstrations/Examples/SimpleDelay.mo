@@ -3,7 +3,6 @@ model SimpleDelay
 
   extends Icons.Example;
 
-
   parameter Real tau = 0.01;
 
   Real y_delay;

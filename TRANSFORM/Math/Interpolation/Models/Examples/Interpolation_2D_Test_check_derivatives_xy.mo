@@ -25,7 +25,6 @@ equation
  dyy = Bicubic.bicubic_eval_deriv_yy(lookupTables_2D.tablesPath, ramp1.y, ramp.y);
  dxy = Bicubic.bicubic_eval_deriv_xy(lookupTables_2D.tablesPath, ramp1.y, ramp.y);
 
-
   connect(ramp.y, lookupTables_2D.u2) annotation (Line(points={{-39,-20},{-26,-20},
           {-26,-6},{-12,-6}}, color={0,0,127}));
   connect(ramp1.y, lookupTables_2D.u1) annotation (Line(points={{-39,20},{-26,20},
