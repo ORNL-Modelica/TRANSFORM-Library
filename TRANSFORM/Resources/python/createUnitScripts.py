@@ -64,7 +64,7 @@ def query_yes_no(question, default="no"):
  
     while 1:
         sys.stdout.write(question + prompt)
-        choice = raw_input().lower()
+        choice = input().lower()
         if default is not None and choice == '':
             return default
         elif choice in valid.keys():
@@ -96,7 +96,7 @@ def cleanupRefResults(unitTests,folderName,folderNameRefResults,simEnv):
         if f not in unitTests_RefResName:
             while True:
                 try:
-                    ans = raw_input('File below was not found:\n{}\n###Confirm deletion [y/n]'.format(f))
+                    ans = input('File below was not found:\n{}\n###Confirm deletion [y/n]'.format(f))
                 except ValueError:
                     print("Invalid response. Please enter 'y' or 'n'")
                     continue
@@ -197,7 +197,7 @@ for item in test_list:
                                 if 'NumberOfIntervals' in val:
                                     if not val.split('=')[1] == 0:
                                         exp_list['NumberOfIntervals'] = val.split('=')[1]
-                                        if val.split('=')[1] < 100:
+                                        if int(val.split('=')[1]) < 100:
                                             print('Buildingspy requires NumberOfIntervals >= 100. Revise simulation conditions for: {}'.format(item))
                                         break
                                 else:
@@ -288,7 +288,7 @@ for item in test_list:
                     for num, val in enumerate(x_list, 1):
                         mosfil.write('createPlot(id={}, y={{"{}"}}, grid=true);\n'.format(num, val))
                 else:
-                    for i in xrange(n):
+                    for i in range(n):
                         mosfil.write('createPlot(id={}, y={{"unitTests.x[{}]"}}, grid=true);\n'.format(i+1, i+1))
                         
             with open(os.path.join(mosPath_jMod, modelName + '.py'), 'w') as mosfil:

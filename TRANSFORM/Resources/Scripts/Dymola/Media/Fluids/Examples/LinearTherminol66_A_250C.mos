@@ -1,4 +1,4 @@
-simulateModel("TRANSFORM.Fluid.Examples.NaturalCirculation",stopTime=1000,numberOfIntervals=1000,method="Esdirk45a",resultFile="NaturalCirculation");
+simulateModel("TRANSFORM.Media.Fluids.Examples.LinearTherminol66_A_250C",resultFile="LinearTherminol66_A_250C");
 
 createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
 createPlot(id=2, y={"unitTests.x[2]"}, grid=true);

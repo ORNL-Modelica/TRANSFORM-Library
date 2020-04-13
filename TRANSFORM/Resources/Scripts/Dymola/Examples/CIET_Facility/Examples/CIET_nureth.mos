@@ -1,3 +1,3 @@
-simulateModel("TRANSFORM.Examples.CIET_Facility.Examples.CIET_nureth",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="CIET_nureth");
+simulateModel("TRANSFORM.Examples.CIET_Facility.Examples.CIET_nureth",stopTime=10000,numberOfIntervals=1000,method="Esdirk45a",resultFile="CIET_nureth");
 
 createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
