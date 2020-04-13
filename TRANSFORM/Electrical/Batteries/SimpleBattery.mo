@@ -143,5 +143,11 @@ equation
         Line(points={{50,30},{70,30}}, color={0,0,127}),
         Line(points={{60,20},{60,40}}, color={0,0,127}),
         Line(points={{60,-40},{60,-20}}, color={0,0,127})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>A simple, logical battery which stores and discharges electricity.</p>
+<p><br>The input signal (W_setpoint) drives the battery attempt to charge or discharge.</p>
+<p>- W_setpoint = Negative | Mode = Discharge (port.W = negative)</p>
+<p>- W_setpoint = Positive | Mode = Charge (port.W = positive)</p>
+</html>"));
 end SimpleBattery;

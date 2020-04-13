@@ -40,4 +40,4 @@ Contributions in the form of Pull Requests are always welcome.
 Prior to issuing a pull request, make sure your code follows the style guide and coding conventions.
 
 ## Citation
-Greenwood, M. S.: TRANSFORM - TRANsient Simulation Framework of Reconfigurable Models. Computer Software. https://github.com/ORNL-Modelica/TRANSFORM-Library. 07 Nov. 2017. Web. Oak Ridge National Laboratory. doi:10.11578/dc.20171109.1.
+Greenwood, M. S.. TRANSFORM - TRANsient Simulation Framework of Reconfigurable Models. Computer Software. https://github.com/ORNL-Modelica/TRANSFORM-Library. USDOE. 26 Sep. 2017. Web. doi:10.11578/dc.20171025.2022.
