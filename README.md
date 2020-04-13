@@ -9,10 +9,6 @@ A Modelica based library for modeling thermal hydraulic energy systems and other
 
 As library is in its beta stage, library may change often with compatability breaking changes. Thought you should know!
 
-## Getting Started
-
-- To use download or clone the repository and Load/Open in your favorite Modelica development environment.
-
 ### Check that the Library is working
 
 - To test that the library is working, run the appropriate `runAll_*.mos` script. This will simulate all the examples which are included in the regression tests.
