@@ -13,12 +13,6 @@ As library is in its beta stage, library may change often with compatability bre
 
 - To use download or clone the repository and Load/Open in your favorite Modelica development environment.
 
-### Prerequisites
-
-This library has been tested with:
-
-- Dymola 2018FD01, 2019
-
 ### Check that the Library is working
 
 - To test that the library is working, run the appropriate `runAll_*.mos` script. This will simulate all the examples which are included in the regression tests.
