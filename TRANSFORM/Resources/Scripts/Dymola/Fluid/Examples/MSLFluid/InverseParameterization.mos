@@ -1,3 +1,3 @@
-simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.InverseParameterization",stopTime=10,outputInterval=0.001,resultFile="InverseParameterization");
+simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.InverseParameterization",outputInterval=0.001,stopTime=10,resultFile="InverseParameterization");
 
 createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

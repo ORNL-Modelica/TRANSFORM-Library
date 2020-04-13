@@ -1,4 +1,4 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.Examples.TwoPhase.NucleateBoiling.alpha_Chen_FvsInvXtt",numberOfIntervals=1000,method="Dassl",resultFile="alpha_Chen_FvsInvXtt");
+simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.Examples.TwoPhase.NucleateBoiling.alpha_Chen_FvsInvXtt",method="Dassl",numberOfIntervals=1000,resultFile="alpha_Chen_FvsInvXtt");
 
 createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
 createPlot(id=2, y={"unitTests.x[2]"}, grid=true);

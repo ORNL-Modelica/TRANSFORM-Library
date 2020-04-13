@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Electrical.Examples.SimpleBattery_Test",stopTime=10000,numberOfIntervals=10000,method="Dassl",resultFile="SimpleBattery_Test");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -1,4 +1,4 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_9_1_TemperatureSensorMounting",numberOfIntervals=100,method="Dassl",resultFile="Example_1_9_1_TemperatureSensorMounting");
+simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_9_1_TemperatureSensorMounting",method="Dassl",numberOfIntervals=100,resultFile="Example_1_9_1_TemperatureSensorMounting");
 
 createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
 createPlot(id=2, y={"unitTests.x[2]"}, grid=true);

@@ -1,3 +1,3 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_8_1_PipeInARoof.part_a_UseExtendedSurface",stopTime=10,numberOfIntervals=100,method="Dassl",resultFile="part_a_UseExtendedSurface");
+simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_8_1_PipeInARoof.part_a_UseExtendedSurface",stopTime=10,method="Dassl",numberOfIntervals=100,resultFile="part_a_UseExtendedSurface");
 
 createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
