@@ -23,14 +23,19 @@ model MSDR_noBOP
 //   SI.Length drs[reflA_upperG.geometry.nR,reflA_upperG.geometry.nZ]={{rs[i+1,j] - rs[i,j] for j in 1:reflA_upperG.geometry.nZ} for i in 1:reflA_upperG.geometry.nR};
   // Initialization
   import Modelica.Constants.N_A;
-  parameter SIadd.ExtraProperty[kinetics.summary_data.data_TR.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0} "atoms/kg fluid";
-parameter SI.MassFraction Li7_enrichment = 0.99995 "mass fraction Li-7 enrichment in flibe.  Baseline is 99.995%";
+  parameter SIadd.ExtraProperty[kinetics.summary_data.data_TR.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0}
+    "atoms/kg fluid";
+parameter SI.MassFraction Li7_enrichment = 0.99995
+    "mass fraction Li-7 enrichment in flibe.  Baseline is 99.995%";
 parameter SI.MoleFraction MMFrac_LiF = 0.67 "Mole fraction of LiF";
-parameter SI.MolarMass Flibe_MM = 0.0328931 "Molar mass of flibe [kg/mol] from doing 0.67*MM_LiF + 0.33*MM_BeF2";
+parameter SI.MolarMass Flibe_MM = 0.0328931
+    "Molar mass of flibe [kg/mol] from doing 0.67*MM_LiF + 0.33*MM_BeF2";
 parameter SI.MolarMass Li7_MM = 0.00701600455 "[kg/mol]";
 parameter SI.MolarMass Li6_MM = 0.006015122795 "[kg/mol]";
-parameter SI.MoleFraction Li7_molefrac = (Li7_enrichment/Li7_MM)/((Li7_enrichment/Li7_MM)+((1.0-Li7_enrichment)/Li6_MM)) "Mole fraction of lithium in flibe that is Li-7";
-parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lithium in flibe that is Li-6";
+parameter SI.MoleFraction Li7_molefrac = (Li7_enrichment/Li7_MM)/((Li7_enrichment/Li7_MM)+((1.0-Li7_enrichment)/Li6_MM))
+    "Mole fraction of lithium in flibe that is Li-7";
+parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
+    "Mole fraction of lithium in flibe that is Li-6";
   parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_tee_inlet=cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
@@ -108,11 +113,13 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
 //   SI.Temperature Tref_fuelCellG[fuelCell.geometry.nV] = {TRANSFORM.Math.Sigmoid(fuelCell.summary.xpos_norm[i], 0.5, fuelCell.geometry.nV)*(data_RCTR.T_outlet_core-data_RCTR.T_inlet_core) + data_RCTR.T_inlet_core+1 for i in 1:fuelCell.geometry.nV};
 //   SI.Temperature Tref_core[fuelCell.geometry.nV,kinetics.nFeedback] = {{if j == 1 then Tref_fuelCell[i] else Tref_fuelCellG[i] for j in 1:kinetics.nFeedback} for i in 1:fuelCell.geometry.nV};
   // Gathered info
-  SI.Power Qt_total = sum(kinetics.Qs) "Total thermal power output (from primary fission)";
+  SI.Power Qt_total = sum(kinetics.Qs)
+    "Total thermal power output (from primary fission)";
   SI.Temperature Ts[fuelCell.geometry.nV] = fuelCell.mediums.T;
   SI.Temperature Tst[PHX.geometry.nV] = PHX.tube.mediums.T;
   SI.Temperature Tss[PHX.geometry.nV] = PHX.shell.mediums.T;
-  SI.Temperature Ts_loop[1+reflA_lower.nV+fuelCell.nV+reflA_upper.nV+1+pipeToPHX_PFL.nV+PHX.tube.nV+pipeFromPHX_PFL.nV+1] = cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
+  SI.Temperature Ts_loop[1 + reflA_lower.nV + fuelCell.nV + reflA_upper.nV + 1
+     + pipeToPHX_PFL.nV + PHX.tube.nV + pipeFromPHX_PFL.nV + 1] =                                                           cat(1,{plenum_lower.medium.T},reflA_lower.mediums.T,fuelCell.mediums.T,reflA_upper.mediums.T,
   {plenum_upper.medium.T},pipeToPHX_PFL.mediums.T,PHX.tube.mediums.T,pipeFromPHX_PFL.mediums.T,{tee_inlet.medium.T});
   // Decay Heat Calculations: PFL
   SI.Power Qs_gen_tee_inlet=sum({(kinetics.summary_data.w_near_decay[j] +
@@ -197,7 +204,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac "Mole fraction of lith
   SIadd.ExtraPropertyFlowRate[PHX.tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube_PtoD = {{sum({kinetics.summary_data.lambdas[k].*PHX.tube.mCs[i,k].*PHX.tube.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:PHX.tube.nV};
   SIadd.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeFromPHX_PFL_PtoD = {{sum({kinetics.summary_data.lambdas[k].*pipeFromPHX_PFL.mCs[i,k].*pipeFromPHX_PFL.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:pipeFromPHX_PFL.nV};
   // TraceSubstance Calculations: Off-Gas and Drain Tank
-  SI.MassFlowRate m_flow_toDrainTank = data_OFFGAS.V_flow_sep_salt_total*Medium_PFL.density_ph(pump_PFL.port_b.p, pump_PFL.port_b.h_outflow) "Mass flow rate of salt to drain tank (+)";
+  SI.MassFlowRate m_flow_toDrainTank = data_OFFGAS.V_flow_sep_salt_total*Medium_PFL.density_ph(pump_PFL.port_b.p, pump_PFL.port_b.h_outflow)
+    "Mass flow rate of salt to drain tank (+)";
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_gas=-kinetics.summary_data.lambdas.*drainTank_gas.mC + mC_gen_drainTank_gas_PtoD;
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_liquid=-kinetics.summary_data.lambdas.*drainTank_liquid.mC + mC_gen_drainTank_liquid_PtoD;
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_flows_fromOG = abs(pump_OffGas_bypass.port_b.m_flow).*pump_OffGas_bypass.port_b.C_outflow+abs(pump_OffGas_adsorberBed.port_b.m_flow).*pump_OffGas_adsorberBed.port_b.C_outflow;

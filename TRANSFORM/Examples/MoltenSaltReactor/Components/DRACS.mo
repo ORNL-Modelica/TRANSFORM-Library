@@ -211,8 +211,7 @@ model DRACS
         iconTransformation(extent={{90,-70},{110,-50}})));
   HeatAndMassTransfer.Resistances.Heat.Convection convection_outer_drainTank[2](
     surfaceArea=surfaceAreas_thimble, alpha=alphas_drainTank,
-    each showName=false)
-    "thimble_outer_drainTank.surfaceArea_outer"
+    each showName=false) "thimble_outer_drainTank.surfaceArea_outer"
     annotation (Placement(transformation(extent={{104,-70},{124,-50}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Collector collector(n=2, showName=
        false)
