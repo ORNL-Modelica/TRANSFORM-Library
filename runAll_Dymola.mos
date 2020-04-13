@@ -17,6 +17,7 @@ simulateModel("TRANSFORM.Controls.Examples.LimPID_HysteresisTimer_Test",stopTime
 simulateModel("TRANSFORM.Controls.Examples.LimPID_Hysteresis_Test",stopTime=86400,tolerance=1e-6,resultFile="LimPID_Hysteresis_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_Test");
 simulateModel("TRANSFORM.Controls.Examples.LimPID_withReset_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_withReset_Test");
+simulateModel("TRANSFORM.Electrical.Examples.SimpleBattery_Test",stopTime=10000,method="Dassl",numberOfIntervals=10000,resultFile="SimpleBattery_Test");
 simulateModel("TRANSFORM.Examples.CIET_Facility.Examples.CIET_nureth",stopTime=10000,method="Esdirk45a",numberOfIntervals=1000,resultFile="CIET_nureth");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.BatemanEquations_Test",stopTime=1000,numberOfIntervals=1000,resultFile="BatemanEquations_Test");
 simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
@@ -206,6 +207,7 @@ simulateModel("TRANSFORM.Media.Fluids.Examples.LinearFLiBe_pT",resultFile="Linea
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearKClMGCl2_67_33_pT",resultFile="LinearKClMGCl2_67_33_pT");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearNaClKClMgCl2_30_20_50_pT",resultFile="LinearNaClKClMgCl2_30_20_50_pT");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearNaK_22_78",resultFile="LinearNaK_22_78");
+simulateModel("TRANSFORM.Media.Fluids.Examples.LinearTherminol66_A_250C",resultFile="LinearTherminol66_A_250C");
 simulateModel("TRANSFORM.Media.Fluids.Examples.LinearWaterHot_pT",resultFile="LinearWaterHot_pT");
 simulateModel("TRANSFORM.Media.Solids.Examples.Hastelloy_N_Haynes",resultFile="Hastelloy_N_Haynes");
 simulateModel("TRANSFORM.Media.Solids.Examples.Inconel690",resultFile="Inconel690");
