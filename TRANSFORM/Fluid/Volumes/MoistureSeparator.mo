@@ -45,7 +45,8 @@ equation
   port_Liquid.Xi_outflow = medium.Xi;
   port_Liquid.C_outflow = C;
 
-  port_b.h_outflow = h_lsat + eta_sep*(h_vsat - h_lsat);
+  port_b.h_outflow = (medium.h-(1-x_abs)*eta_sep*h_lsat)/(1-(1-x_abs)*eta_sep);
+  // port_b.h_outflow = h_lsat + eta_sep*(h_vsat - h_lsat); // <- old simple version
   port_b.Xi_outflow = medium.Xi;
   port_b.p = medium.p;
   port_b.C_outflow = C;
@@ -57,5 +58,12 @@ equation
 
   enthalpy_usedfor_inlet = actualStream(port_a.h_outflow);
 
-  annotation (defaultComponentName="separator");
+  annotation (defaultComponentName="separator", Documentation(info="<html>
+<p>Model updated to avoid breakdowns in situations where x_abs &gt; eta_sep in previous model. </p>
+<p>Model based on the equations m_steam_in + m_steam_out + m_liq = dm/dt = 0 at steady state and m_steam_in*h_steam_in + m_steam_out*h_steam_out + m_liq*h_liq = m*du/dt = 0 at steady state. </p>
+<p>Eta_sep is now defined as the fraction of liquid present removed by the moisture separator. Given this definition and h_liq = h_f, the expression for h_steam_out is found based on current moisture separator properties and the mass flow rate of liquid. </p>
+<p>The system tends towards equilibrium at x_abs = (h_steam_in - h_f)/(h_g-h_f). </p>
+</html>", revisions="<html>
+<p>2020-04 | Daniel Mikkelson (dmmikkel@ncsu.edu, daniel.mikkelson@inl.gov)</p>
+</html>"));
 end MoistureSeparator;
