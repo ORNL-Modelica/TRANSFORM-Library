@@ -1,5 +1,5 @@
-within TRANSFORM.Math.Scratch.Easing.Cubic;
-function easeOut
+within TRANSFORM.Math.Scratch.Easing.Circ;
+function easeIn
   extends TRANSFORM.Icons.Function;
   input Real pos "Returned value for x-deltax >= 0";
   input Real neg "Returned value for x+deltax <= 0";
@@ -17,9 +17,9 @@ algorithm
   elseif scaledX >= 0.999999999 then
     y_int := 1;
   else
-    y_int := -(-scaledX+1)^3/8+1;
+    y_int := 1 - sqrt(1 - 0.25*(scaledX+1)^2);
   end if;
   y := pos*y_int + (1 - y_int)*neg;
 
   annotation (smoothOrder=1);
-end easeOut;
+end easeIn;
