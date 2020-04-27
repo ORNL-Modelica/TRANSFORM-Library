@@ -11,3 +11,4 @@ OffTimer
 IntegratorWithReset
 ShapeFactor
 SmoothTransition
+LinearDependency
