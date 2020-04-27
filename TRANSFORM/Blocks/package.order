@@ -1,4 +1,6 @@
 Examples
+Sources
+Noise
 RealExpression
 DataTable
 DataTable_Inputs
@@ -7,7 +9,5 @@ StringTable
 TimerTotal
 OffTimer
 IntegratorWithReset
-Noise
 ShapeFactor
 SmoothTransition
-ExponentialDecay
