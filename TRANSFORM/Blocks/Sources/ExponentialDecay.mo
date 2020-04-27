@@ -1,4 +1,4 @@
-within TRANSFORM.Blocks;
+within TRANSFORM.Blocks.Sources;
 model ExponentialDecay "Generate a exponential decay signal"
   parameter SI.DecayConstant lambda=1 "Decay constant";
   parameter Real offset=0 "Offset of output signal";
