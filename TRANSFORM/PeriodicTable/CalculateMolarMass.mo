@@ -1,39 +1,42 @@
 within TRANSFORM.PeriodicTable;
 function CalculateMolarMass
 
-  input String symbol="LiF2";
-  output Real molarMass;
+  input String chemicalFormula="" "Chemical formula (e.g., 'C6H6'";
+  output SI.MolarMass molarMass "Molar mass";
+
 protected
-  Integer n=Modelica.Utilities.Strings.length(symbol);
-  Integer sym_index;
-  Integer index=1;
-  String sym;
-  TRANSFORM.PeriodicTable.SimpleTable periodicTable;
-  Integer multiplier;
+  Integer n=Modelica.Utilities.Strings.length(chemicalFormula)
+    "Number of characters chemical formula";
+  Integer atomicNumber "Atomic number of identified element";
+  Integer index=1 "Index within chemicalFormula";
+  String symbol "Element symbol";
+  TRANSFORM.PeriodicTable.SimpleTable periodicTable
+    "Periodic table of elements";
+  Integer multiplier "Multiplier for identified element";
 algorithm
 
   molarMass := 0;
 
   while index <= n loop
-    sym_index := 0;
+    atomicNumber := 0;
 
     if index < n then
-      sym := Modelica.Utilities.Strings.substring(
-        symbol,
+      symbol := Modelica.Utilities.Strings.substring(
+        chemicalFormula,
         index,
         index + 1);
-      sym_index := TRANSFORM.Utilities.Strings.index(sym, TRANSFORM.PeriodicTable.SimpleTable.symbol);
+      atomicNumber := TRANSFORM.Utilities.Strings.index(symbol, TRANSFORM.PeriodicTable.SimpleTable.symbolbol);
     end if;
 
-    if sym_index == 0 then
-      sym := Modelica.Utilities.Strings.substring(
-        symbol,
+    if atomicNumber == 0 then
+      symbol := Modelica.Utilities.Strings.substring(
+        chemicalFormula,
         index,
         index);
-      sym_index := TRANSFORM.Utilities.Strings.index(sym, TRANSFORM.PeriodicTable.SimpleTable.symbol);
+      atomicNumber := TRANSFORM.Utilities.Strings.index(symbol, TRANSFORM.PeriodicTable.SimpleTable.symbolbol);
 
-      if sym_index == 0 then
-        assert(false, "Unknown symbol");
+      if atomicNumber == 0 then
+        assert(false, "Unknown chemicalFormula");
       else
         index := index + 1;
       end if;
@@ -42,13 +45,14 @@ algorithm
     end if;
 
     (index,multiplier) := Modelica.Utilities.Strings.Advanced.scanInteger(
-      symbol, startIndex=index);
+      chemicalFormula, startIndex=index);
 
-    molarMass := molarMass + periodicTable.MM[sym_index]*(if multiplier == 0
+    molarMass := molarMass + periodicTable.MM[atomicNumber]*(if multiplier == 0
        then 1 else multiplier);
-//     Modelica.Utilities.Streams.print(String(sym_index));
-//     Modelica.Utilities.Streams.print(String(multiplier));
 
   end while;
-  annotation ();
+  annotation (Documentation(info="<html>
+<p>Returns the molar mass (kg/mol) of a chemical formula.</p>
+<p>For example, calling the function with &quot;CF3CH2F&quot; returns 0.102031066 kg/mol.</p>
+</html>"));
 end CalculateMolarMass;
