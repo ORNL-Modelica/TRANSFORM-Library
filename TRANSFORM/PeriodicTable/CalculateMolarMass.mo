@@ -25,7 +25,7 @@ algorithm
         chemicalFormula,
         index,
         index + 1);
-      atomicNumber := TRANSFORM.Utilities.Strings.index(symbol, TRANSFORM.PeriodicTable.SimpleTable.symbolbol);
+      atomicNumber := TRANSFORM.Utilities.Strings.index(symbol, TRANSFORM.PeriodicTable.SimpleTable.symbol);
     end if;
 
     if atomicNumber == 0 then
@@ -33,7 +33,7 @@ algorithm
         chemicalFormula,
         index,
         index);
-      atomicNumber := TRANSFORM.Utilities.Strings.index(symbol, TRANSFORM.PeriodicTable.SimpleTable.symbolbol);
+      atomicNumber := TRANSFORM.Utilities.Strings.index(symbol, TRANSFORM.PeriodicTable.SimpleTable.symbol);
 
       if atomicNumber == 0 then
         assert(false, "Unknown chemicalFormula");
