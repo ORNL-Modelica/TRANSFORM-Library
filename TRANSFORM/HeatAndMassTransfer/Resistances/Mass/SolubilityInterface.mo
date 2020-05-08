@@ -37,5 +37,12 @@ equation
           textString="%name",
           visible=showName,
           lineColor={0,0,255})}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Implementation of an interfacial solubility calculation to properly account for concentration gradients.</p>
+<p>For example,</p>
+<p>For a liquid-gas system there is the liquid-gas interface where the concentration at that interface is different than the bulk concentrations based upon the solubility of the species as determined by a law such as Henry&apos;s law which states that the concentration can be related to the partial pressure.</p>
+<p>C_i/K_H = P_i</p>
+<p>So the concentration changes across the interface for use in mass balance equations depends therefore on the stated type of relation on either side.</p>
+</html>"));
 end SolubilityInterface;
