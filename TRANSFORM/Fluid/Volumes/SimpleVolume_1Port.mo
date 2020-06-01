@@ -21,8 +21,8 @@ model SimpleVolume_1Port
   parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced",group="Heat Transfer"),Evaluate=true);
   input SI.HeatFlowRate Q_gen=0 "Internal heat generation" annotation(Dialog(tab="Advanced",group="Heat Transfer"));
   parameter Boolean use_TraceMassPort = false "=true to toggle trace mass port" annotation(Dialog(tab="Advanced",group="Trace Mass Transfer"),Evaluate=true);
-  parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
-    "Trace substances molar mass"
+  parameter Real MMs[Medium.nC]=fill(1, Medium.nC)
+    "Conversion from fluid mass-specific value to moles (e.g., molar mass [kg/mol] or Avogadro's number [atoms/mol])"
     annotation (Dialog(tab="Advanced",group="Trace Mass Transfer", enable=use_TraceMassPort));
   input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
     annotation (Dialog(tab="Advanced",group="Trace Mass Transfer"));

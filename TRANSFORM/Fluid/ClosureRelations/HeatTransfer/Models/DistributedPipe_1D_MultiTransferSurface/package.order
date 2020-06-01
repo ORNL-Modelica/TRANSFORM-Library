@@ -7,6 +7,7 @@ Ideal
 Alphas
 Nus
 Nus_SinglePhase_2Region
+Nus_SinglePhase_2Region_modelbased
 Alphas_TwoPhase_3Region
 Alphas_TwoPhase_5Region
 Alphas_TwoPhase_4Region
@@ -14,3 +15,4 @@ FlowAcrossTubeBundles_Grimison
 Alphas_TwoPhase_3Region_CHFtransition
 Nus_DittusBoelter_Simple
 Nus_McCartyWolf_Simple
+BaseClasses
