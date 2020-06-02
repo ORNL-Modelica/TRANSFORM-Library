@@ -12,6 +12,14 @@ model Nus_SinglePhase_2Region_modelbased
       for i in 1:nSurfaces}) "Thermal conductivity for calculation of alpha"
     annotation (Dialog(group="Inputs"));
 
+  input SI.DynamicViscosity[nHT,nSurfaces] mu=transpose({mediaProps.mu
+      for i in 1:nSurfaces}) "Dynamic viscosity for calculation of alpha"
+    annotation (Dialog(group="Inputs"));
+
+  input SI.Temperature[nHT,nSurfaces] T=transpose({mediaProps.T
+      for i in 1:nSurfaces}) "Bulk temperature for calculation of alpha"
+    annotation (Dialog(group="Inputs"));
+
   replaceable model Nus_lam =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.BaseClasses.Nu_Laminar
     constrainedby
@@ -28,13 +36,21 @@ model Nus_SinglePhase_2Region_modelbased
     Re = {{Res[i] for j in 1:nSurfaces} for i in 1:nHT},
     Pr = {{Prs[i] for j in 1:nSurfaces} for i in 1:nHT},
     L_char = L_char,
-    lambda = lambda);
+    lambda = lambda,
+    mu = mu,
+    T = T,
+    T_wall = Ts_wall,
+    mu_wall = mus_wall);
 
   Nus_turb nus_turb[nHT,nSurfaces](
     Re = {{Res[i] for j in 1:nSurfaces} for i in 1:nHT},
     Pr = {{Prs[i] for j in 1:nSurfaces} for i in 1:nHT},
     L_char = L_char,
-    lambda = lambda);
+    lambda = lambda,
+    mu = mu,
+    T = T,
+    T_wall = Ts_wall,
+    mu_wall = mus_wall);
 
 equation
   for i in 1:nHT loop

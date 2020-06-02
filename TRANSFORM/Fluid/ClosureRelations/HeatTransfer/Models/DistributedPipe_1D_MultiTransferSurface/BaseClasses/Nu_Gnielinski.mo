@@ -1,15 +1,11 @@
 within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.BaseClasses;
-model Nu_DittusBoelter "Dittus-Boelter"
+model Nu_Gnielinski "Gnielinski"
   extends PartialHeatTransferCorrelation;
-
-  input Real A = 0.023 "Multiplication value" annotation(Dialog(group="Inputs"));
-  input Real a = 0.8 "Exponent to Reynolds number" annotation(Dialog(group="Inputs"));
-  input Real b = 0.4 "Exponent to Prandtl number" annotation(Dialog(group="Inputs"));
-
+  Real f = (0.79*log(Re)-1.64)^(-2);
 equation
-  Nu = A*Re^a*Pr^b;
+  Nu = (f/8)*(Re-1000)*Pr/(1+12.7*(f/8)^0.5*(Pr^(2/3)-1));
   alpha = Nu*lambda/L_char;
 
   annotation (defaultComponentName="heatTransfer",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end Nu_DittusBoelter;
+end Nu_Gnielinski;

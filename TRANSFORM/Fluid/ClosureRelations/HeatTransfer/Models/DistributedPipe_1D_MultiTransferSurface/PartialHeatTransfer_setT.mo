@@ -55,6 +55,8 @@ partial model PartialHeatTransfer_setT "Base model"
   SI.CoefficientOfHeatTransfer alphas[nHT,nSurfaces] "Coefficient of heat transfer";
   SI.NusseltNumber Nus[nHT,nSurfaces] "Nusselt number";
   SI.HeatFlowRate Q_flows[nHT,nSurfaces] = heatPorts.Q_flow/nParallel "Heat flow rate";
+  Medium.ThermodynamicState states_wall[nHT,nSurfaces] = Medium.setState_pTX(transpose({Medium.pressure(states) for i in 1:nSurfaces}), Ts_wall, Medium.X_default);
+  SI.DynamicViscosity mus_wall[nHT,nSurfaces] = Medium.dynamicViscosity(states_wall);
   HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts[nHT,nSurfaces] annotation (Placement(
         transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{
             90,-10},{110,10}})));

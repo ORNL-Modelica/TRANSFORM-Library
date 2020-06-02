@@ -7,6 +7,11 @@ partial model PartialHeatTransferCorrelation
   input SI.PrandtlNumber Pr "Prandtl number" annotation(Dialog(tab="Internal Interface",group="Inputs"));
   input SI.Length L_char annotation(Dialog(tab="Internal Interface",group="Inputs"));
   input SI.ThermalConductivity lambda annotation(Dialog(tab="Internal Interface",group="Inputs"));
+  input SI.DynamicViscosity mu "Fluid viscosity" annotation(Dialog(tab="Internal Interface",group="Inputs"));
+  input SI.DynamicViscosity mu_wall "Fluid viscosity at wall temperature" annotation(Dialog(tab="Internal Interface",group="Inputs"));
+  input SI.Temperature T "Fluid temperature" annotation(Dialog(tab="Internal Interface",group="Inputs"));
+  input SI.Temperature T_wall "Wall temperature" annotation(Dialog(tab="Internal Interface",group="Inputs"));
+
 
   output SI.CoefficientOfHeatTransfer alpha "Coefficient of heat transfer" annotation(Dialog(tab="Internal Interface",group="Outputs"));
   output SI.NusseltNumber Nu "Nusselt number" annotation(Dialog(tab="Internal Interface",group="Outputs"));
