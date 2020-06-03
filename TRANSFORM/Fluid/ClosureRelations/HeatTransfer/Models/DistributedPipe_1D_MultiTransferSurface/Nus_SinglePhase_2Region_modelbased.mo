@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_M
 model Nus_SinglePhase_2Region_modelBased
   "Specify Nus | Single Phase | 2 Region"
   extends PartialSinglePhase_modelBased;
-  extends TRANSFORM.Icons.UnderConstruction;
 
   input SI.Length[nHT,nSurfaces] L_char=transpose({dimensions for i in 1:
       nSurfaces}) "Characteristic dimension for calculation of alpha"

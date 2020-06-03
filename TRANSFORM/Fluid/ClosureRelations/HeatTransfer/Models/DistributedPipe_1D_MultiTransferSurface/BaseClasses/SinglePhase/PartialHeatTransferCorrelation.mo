@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.BaseClasses.SinglePhase;
 partial model PartialHeatTransferCorrelation
 
-  extends TRANSFORM.Icons.UnderConstruction;
+  extends TRANSFORM.Icons.NusseltNumber;
 
   replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
