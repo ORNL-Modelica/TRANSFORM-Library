@@ -18,7 +18,7 @@ model check_Nus_SinglePhase_2Region_F1D_modelBased
   parameter SI.Area surfaceAreas[nHT,nSurfaces] = {{1/nSurfaces*Modelica.Constants.pi*dimensions[i]*dlengths[i] for j in 1:nSurfaces} for i in 1:nHT}
     "Surface area for heat transfer";
   parameter Integer nSurfaces=2 "Number of heat transfer surfaces";
-  TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region_modelbased
+  TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region_modelBased
     heatTransfer(
     redeclare package Medium = Medium,
     states=states,
@@ -31,10 +31,10 @@ model check_Nus_SinglePhase_2Region_F1D_modelBased
     nSurfaces=nSurfaces,
     surfaceAreas=surfaceAreas,
     Ts_start=T,
-    redeclare model Nus_turb =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.BaseClasses.Nu_SiederTate)
+    redeclare model Nus_region2 =
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.BaseClasses.SinglePhase.Nu_SiederTate)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.Ramp      v(
+  Modelica.Blocks.Sources.Ramp v(
     height=99.999,
     duration=1,
     offset=0.001)

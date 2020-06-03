@@ -2,12 +2,13 @@ PartialHeatTransfer_setT
 PartialHeatTransfer_setQ_flows
 PartialIdeal
 PartialSinglePhase
+PartialSinglePhase_modelBased
 PartialTwoPhase
 Ideal
 Alphas
 Nus
 Nus_SinglePhase_2Region
-Nus_SinglePhase_2Region_modelbased
+Nus_SinglePhase_2Region_modelBased
 Alphas_TwoPhase_3Region
 Alphas_TwoPhase_5Region
 Alphas_TwoPhase_4Region
