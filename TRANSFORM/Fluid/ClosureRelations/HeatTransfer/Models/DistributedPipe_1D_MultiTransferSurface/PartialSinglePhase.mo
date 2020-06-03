@@ -9,6 +9,7 @@ extends PartialHeatTransfer_setQ_flows;
 //       Medium =
 //         Medium, state=states_film) "Film fluid properties"
 //     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+
 equation
   m_flows =vs .* mediaProps.d .* crossAreas;
   Res =mediaProps.d .* dimensions .* abs(vs) ./ mediaProps.mu;

@@ -1,17 +1,20 @@
 within TRANSFORM.Media;
 model BaseProperties1Phase
-  replaceable package Medium = Modelica.Media.Air.MoistAir
-   constrainedby Modelica.Media.Interfaces.PartialMedium
-                                                    "Medium in component"
-   annotation(choicesAllMatching=true);
+   replaceable package Medium = Modelica.Media.Air.MoistAir
+    constrainedby Modelica.Media.Interfaces.PartialMedium
+                                                     "Medium in component"
+    annotation(choicesAllMatching=true);
   input Medium.ThermodynamicState state "Medium state" annotation(Dialog(group="Inputs"));
-  SI.SpecificEnthalpy h "Fluid specific enthalpy";
-  SI.Density d "Fluid density";
-  SI.Temperature T "Fluid temperature";
-  SI.Pressure p "Fluid pressure";
-  Medium.DynamicViscosity mu "Dynamic viscosity";
-  Medium.ThermalConductivity lambda "Thermal conductivity";
-  Medium.SpecificHeatCapacity cp "Specific heat capacity";
+
+//   extends MediaProps;
+
+   SI.SpecificEnthalpy h "Fluid specific enthalpy";
+   SI.Density d "Fluid density";
+   SI.Temperature T "Fluid temperature";
+   SI.Pressure p "Fluid pressure";
+   Medium.DynamicViscosity mu "Dynamic viscosity";
+   Medium.ThermalConductivity lambda "Thermal conductivity";
+   Medium.SpecificHeatCapacity cp "Specific heat capacity";
 equation
      h = Medium.specificEnthalpy(state);
      d = Medium.density(state);
