@@ -128,7 +128,8 @@ model GenericPipe_withWallx2
     useInnerPortProperties=useInnerPortProperties,
     useLumpedPressure=useLumpedPressure,
     lumpPressureAt=lumpPressureAt,
-    redeclare model Geometry = Geometry)
+    redeclare model Geometry = Geometry,
+    calc_Wb=calc_Wb)
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   HeatAndMassTransfer.DiscritizedModels.Conduction_2D wall(
     redeclare package Material = Material,

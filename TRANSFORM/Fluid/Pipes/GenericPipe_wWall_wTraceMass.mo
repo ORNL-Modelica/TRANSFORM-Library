@@ -156,7 +156,8 @@ model GenericPipe_wWall_wTraceMass
     useInnerPortProperties=useInnerPortProperties,
     useLumpedPressure=useLumpedPressure,
     lumpPressureAt=lumpPressureAt,
-    redeclare model Geometry = Geometry)
+    redeclare model Geometry = Geometry,
+    calc_Wb=calc_Wb)
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   HeatAndMassTransfer.DiscritizedModels.HMTransfer_2D wall(
     nC=nC,
