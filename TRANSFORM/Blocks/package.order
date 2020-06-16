@@ -2,6 +2,7 @@ Examples
 Sources
 Noise
 Tables
+Logical
 RealExpression
 DataTable
 DataTable_Inputs
@@ -13,4 +14,3 @@ IntegratorWithReset
 ShapeFactor
 SmoothTransition
 LinearDependency
-Logical
