@@ -1,17 +1,46 @@
 within TRANSFORM.Blocks.Logical;
 block Latch
-  "Latches Boolean input to be True forever once it is True for the first time"
-  extends Modelica.Blocks.Interfaces.partialBooleanSISO;
+  "Latches output based on input and trigger"
+  extends Modelica.Blocks.Interfaces.SISO;
+
+  Real c "Value when trigger is activated";
+  Real dy "Difference from latch value when activated";
+
+  Modelica.Blocks.Interfaces.BooleanInput trigger "Latch trigger"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+
 equation
-  y = u or pre(y);
+
+  y = u - (if trigger then dy else 0);
+
+  dy = u - c;
+
+  when trigger then
+    c = pre(u);
+  end when;
+
   annotation (
-    defaultComponentName="latch1",
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Text(
-          extent={{-90,40},{90,-40}},
-          textString="latch",
-          lineColor={0,0,0})}),
+    defaultComponentName="latch",
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
+        graphics={
+        Line(points={{54,40},{88,40}}),
+        Line(points={{-88,-68},{84,-68}}, color={192,192,192}),
+        Polygon(
+          points={{92,-68},{70,-60},{70,-76},{92,-68}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-78,70},{-78,-78}}, color={192,192,192}),
+        Polygon(
+          points={{-78,92},{-86,70},{-70,70},{-78,92}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-78,-68},{-60,-68},{-36,-36},{-16,-36},{8,0},{28,0},{54,40}}),
+        Line(points={{-78,14},{-60,14},{-60,-14},{-36,-14},{-36,14},{-16,14},{-16,
+              -14},{8,-14},{8,14},{28,14},{28,-14},{54,-14},{54,14},{88,14}},
+            color={255,0,255})}),
     Documentation(info="<html>
-<p>The output is <b>true</b> if at input has ever been <b>true</b>, otherwise the output is <b>false</b>. </p>
+<p>The output follows the input when the trigger is false and holds constant at the previous input value when the trigger is true.</p>
 </html>"));
 end Latch;
