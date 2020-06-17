@@ -3,9 +3,6 @@ block Latch
   "Latches Boolean input to be True forever once it is True for the first time"
   extends Modelica.Blocks.Interfaces.partialBooleanSISO;
 
-  Real c "Value when trigger is activated";
-  Real dy "Difference from latch value when activated";
-
 equation
   y = u or pre(y);
 
