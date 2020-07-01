@@ -7,6 +7,9 @@ block LatchHold "Latches output based on input and trigger"
   Modelica.Blocks.Interfaces.BooleanInput trigger "Latch trigger"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
+initial equation
+  y=u;
+
 equation
 
   y = if trigger then c else u;
