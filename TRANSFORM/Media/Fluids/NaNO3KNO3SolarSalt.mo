@@ -49,7 +49,7 @@ extends Modelica.Icons.VariantsPackage;
       input SI.Temperature T;
       output SI.Density d;
     algorithm
-      d:= 2263.628 - 0.636*(T-273.15);
+      d:= 2263.628 - 0.636*(T);
     end d_T;
 
     function eta_T
