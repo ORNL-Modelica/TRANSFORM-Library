@@ -14,18 +14,19 @@ model EasingRamp_Test
     annotation(Dialog(groupImage="modelica://Modelica/Resources/Images/Blocks/Sources/Ramp.png"));
   parameter Modelica.SIunits.Time duration(min=0.0, start=2)=2
     "Duration of ramp (= 0.0 gives a Step)";
-  extends Modelica.Blocks.Interfaces.SignalSource;
+  extends Modelica.Blocks.Interfaces.SignalSource(startTime=0.2,offset=2);
 
-parameter Real radius = 0.1;
+parameter Real radius= 1.0;
 //Real yi(start=0.5*radius);
 Real xi(start=0.5*radius);
 Real m;
-Real y;
+
 Real b;
 Real dy;
 equation
-//   y1 = m*time+b;
-//   y2 = -sqrt(radius^2-time^2)+radius;
+// y1 = m*time+b;
+// y2plus = sqrt(radius^2-time^2)+radius;
+// y2neg = -sqrt(radius^2-time^2)+radius;
 
   // BC 1 | dy1/dx(x=xi) = dy2/dx(x=xi)
   m = xi/sqrt(radius^2-xi^2);
@@ -36,7 +37,13 @@ equation
   // BC 3 | y1(x=duration/2) = height/2
   0.5*height = m*0.5*duration + b;
 
-y = if time<=0 then 0 elseif time <= xi then -sqrt(radius^2-time^2)+radius elseif time >=duration-xi then sqrt(radius^2-(time-duration)^2)+height-radius else  m*time+b;
+y = offset +
+(if time<=startTime then 0
+ elseif
+       time <= startTime + xi then -sqrt(radius^2-(time-startTime)^2)+radius
+ elseif
+       time >=startTime+duration-xi then sqrt(radius^2-(time-startTime-duration)^2)+(height-radius)
+ else m*(time-startTime)+b);
 dy=der(y);
 
   annotation (

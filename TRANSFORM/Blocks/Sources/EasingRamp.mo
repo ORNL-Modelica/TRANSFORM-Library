@@ -7,8 +7,7 @@ block EasingRamp "Generate ramp signal"
   extends Modelica.Blocks.Interfaces.SignalSource;
 
   parameter Real deltax=0.1;
-  parameter SI.Time x0=0;
-  parameter SI.Time x1=1;
+  parameter Real f = 1.0;
 
   Real y_ramp;
   //Real dy_easeIn;
@@ -20,27 +19,28 @@ block EasingRamp "Generate ramp signal"
 
 equation
 
-  //y_easeIn = TRANSFORM.Math.Easing.Circ.easeIn(
-  y_easeIn = TRANSFORM.Math.spliceTanh(
+
+
+  y_easeIn = TRANSFORM.Math.Easing.Cubic.easeIn(
     pos=y_ramp,
     neg=0,
-    x=time - (startTime+x0),
+    x=time - startTime,
     deltax=deltax);
   //dy_easeIn = der(y_easeIn);
 
-  //y_easeOut = TRANSFORM.Math.Easing.Circ.easeOut(
-y_easeOut = TRANSFORM.Math.spliceTanh(
+  y_easeOut = TRANSFORM.Math.Easing.Cubic.easeOut(
     pos=height,
     neg=y_ramp,
-    x=time - (startTime+x1),
+    x=time - (startTime+duration),
     deltax=deltax);
   //dy_easeOut = der(y_easeOut);
 
   y_ramp = (if time < startTime then 0 else if time < (startTime +
-    duration) then (time - startTime)*height/duration else height);
+    duration) then (time - startTime)*height/duration*f else height);
 
-  y = offset + (if time < startTime+x0+deltax then y_easeIn else if time > startTime+x1-deltax then y_easeOut else y_ramp);
+  y = offset + (if time < startTime+deltax then y_easeIn else if time > startTime+duration-deltax then y_easeOut else y_ramp);
 
+  dy = (if time < startTime then 0 else if time > startTime+duration then 0 else y_ramp);
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=true,

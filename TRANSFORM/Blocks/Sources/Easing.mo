@@ -38,9 +38,6 @@ equation
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-147,-152},{153,-112}},
-          textString="freqHz=%freqHz"),
         Line(
           points={{-80,-20},{-16,-20},{4,60},{62,60}},
           color={0,0,0},
