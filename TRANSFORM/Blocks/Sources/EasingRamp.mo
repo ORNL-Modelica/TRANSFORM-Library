@@ -17,6 +17,7 @@ protected
 
 initial equation
 
+  // This bounding was determined by setting the circle equation y(x=d/2)=h/2 and solving for r for h<=d. h>d was found by inspection
   if height > duration then
     radius = curvature*0.5*duration;
   else
