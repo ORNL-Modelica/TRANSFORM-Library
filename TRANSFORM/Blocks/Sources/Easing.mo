@@ -9,7 +9,7 @@ model Easing
   parameter Real pos "Returned value after transition";
   parameter Real neg "Returned value before transition";
   parameter SI.Time dt=1
-    "Region around transition time with spline interpolation";
+    "Region around transition time (+/-dt) with spline interpolationt";
 
   extends Modelica.Blocks.Interfaces.SignalSource;
 
