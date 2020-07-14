@@ -5,11 +5,9 @@ block EasingRamp "Generate ramp signal with smooth curves in/out of ramp"
     "Duration of ramp (= 0.0 gives a Step)";
   extends Modelica.Blocks.Interfaces.SignalSource;
 
-  parameter Real curvature(
-    min=0.0,
-    max=1.0) = 0.5 "Fraction of maximum possible corner curvature from 0 to 1";
+  parameter Real curvature = 0.5 "Fraction of maximum possible corner curvature from 0 to <1.0. Can go higher if use_RampSlope=true";
 
-  parameter Boolean use_RampSlope=false
+  parameter Boolean use_RampSlope(fixed=true)=false
     "=true to hold slope = height/duration (i.e., shifts start to before startTime)";
 
 protected
@@ -25,9 +23,9 @@ initial equation
 
   // This bounding was determined by setting the circle equation y(x=d/2)=h/2 and solving for r for h<=d. h>d was found by inspection
   if height > duration then
-    radius = curvature*0.5*duration;
+    radius = curvature*0.5*(duration);
   else
-    radius = curvature*0.25*(duration^2/height + height);
+    radius = curvature*((0.5*duration)^2/height + 0.25*height);
   end if;
 
   if radius < Modelica.Constants.eps then
@@ -35,6 +33,7 @@ initial equation
     xi = 0;
     b = 0;
     s = 0;
+
   elseif use_RampSlope then
     b = 0;
     m = height/duration;
@@ -64,7 +63,6 @@ equation
     // Identical to Modelica.Blocks.Sources.Ramp
     y = offset + (if time < startTime then 0 else if time < (startTime +
       duration) then (time - startTime)*height/duration else height);
-
   else
     y = offset + (if time <= startTime + s then 0 elseif time <= startTime + xi
        then -sqrt(radius^2 - (time - startTime - s)^2) + radius elseif time <=
