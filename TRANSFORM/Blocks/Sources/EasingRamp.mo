@@ -1,46 +1,58 @@
 within TRANSFORM.Blocks.Sources;
-block EasingRamp "Generate ramp signal"
-  parameter Real height=1 "Height of ramps"
-    annotation(Dialog(groupImage="modelica://Modelica/Resources/Images/Blocks/Sources/Ramp.png"));
-  parameter Modelica.SIunits.Time duration(min=0.0, start=2)
-    "Duration of ramp (= 0.0 gives a Step)";
+block EasingRamp "Generate ramp signal with smooth curves in/out of ramp"
+  parameter Real height=1 "Height of ramps" annotation (Dialog(groupImage="modelica://Modelica/Resources/Images/Blocks/Sources/Ramp.png"));
+  parameter Modelica.SIunits.Time duration(
+    min=0.0,
+    start=2) "Duration of ramp (= 0.0 gives a Step)";
   extends Modelica.Blocks.Interfaces.SignalSource;
 
-  parameter Real deltax=0.1;
-  parameter Real f = 1.0;
+  parameter Real curvature(min=0.0,max=1.0)=0.5;
 
-  Real y_ramp;
-  //Real dy_easeIn;
-  //Real dy_easeOut;
+protected
+  final parameter Real xi(fixed=false, start=0.5*radius);
+  final parameter Real m(fixed=false, start=height/duration);
 
-  Real y_easeIn;
-  Real y_easeOut;
+  final parameter Real b(fixed=false, start=0);
+  final parameter Real radius(fixed=false);
 
+initial equation
+
+  if height > duration then
+    radius = curvature*0.5*duration;
+  else
+    radius = curvature*0.25*(duration^2/height + height);
+  end if;
+
+  if radius < Modelica.Constants.eps then
+    m = height/duration;
+    xi = 0;
+    b = 0;
+  else
+    // BC 1 | dy1/dx(x=xi) = dy2/dx(x=xi)
+    m = xi/sqrt(radius^2 - xi^2);
+
+    // BC 2 | y1(x=xi) = y2(x=xi)
+    m*xi + b = -sqrt(radius^2 - xi^2) + radius;
+
+    // BC 3 | y1(x=duration/2) = height/2
+    0.5*height = m*0.5*duration + b;
+  end if;
 
 equation
 
+  if radius < Modelica.Constants.eps then
+    // Identical to Modelica.Blocks.Sources.Ramp
+    y = offset + (if time < startTime then 0 else if time < (startTime +
+      duration) then (time - startTime)*height/duration else height);
 
+  else
+    y = offset + (if time <= startTime then 0 elseif time <= startTime + xi
+       then -sqrt(radius^2 - (time - startTime)^2) + radius elseif time <=
+      startTime + duration - xi then m*(time - startTime) + b elseif time <=
+      startTime + duration then sqrt(radius^2 - (time - startTime - duration)^2)
+       + (height - radius) else height);
+  end if;
 
-  y_easeIn = TRANSFORM.Math.Easing.Cubic.easeIn(
-    pos=y_ramp,
-    neg=0,
-    x=time - startTime,
-    deltax=deltax);
-  //dy_easeIn = der(y_easeIn);
-
-  y_easeOut = TRANSFORM.Math.Easing.Cubic.easeOut(
-    pos=height,
-    neg=y_ramp,
-    x=time - (startTime+duration),
-    deltax=deltax);
-  //dy_easeOut = der(y_easeOut);
-
-  y_ramp = (if time < startTime then 0 else if time < (startTime +
-    duration) then (time - startTime)*height/duration*f else height);
-
-  y = offset + (if time < startTime+deltax then y_easeIn else if time > startTime+duration-deltax then y_easeOut else y_ramp);
-
-  dy = (if time < startTime then 0 else if time > startTime+duration then 0 else y_ramp);
   annotation (
     Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -57,11 +69,23 @@ equation
           lineColor={192,192,192},
           fillColor={192,192,192},
           fillPattern=FillPattern.Solid),
-        Line(points={{-80,-70},{-40,-70},{31,38}}),
         Text(
           extent={{-150,-150},{150,-110}},
           textString="duration=%duration"),
-        Line(points={{31,38},{86,38}})}),
+        Line(points={{31,38},{86,38}}),
+        Line(
+          points={{-40,-70},{-22,-70},{-14,-46}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{32,38},{12,38},{6,16}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(
+          points={{6,16},{-14,-46}},
+          color={0,0,0},
+          smooth=Smooth.Bezier),
+        Line(points={{-81,-70},{-40,-70}})}),
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}}), graphics={
@@ -71,10 +95,6 @@ equation
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Line(points={{-80,68},{-80,-80}}, color={95,95,95}),
-        Line(
-          points={{-80,-20},{-20,-20},{50,50}},
-          color={0,0,255},
-          thickness=0.5),
         Line(points={{-90,-70},{82,-70}}, color={95,95,95}),
         Polygon(
           points={{90,-70},{68,-64},{68,-76},{90,-70}},
@@ -108,7 +128,7 @@ equation
           textString="time"),
         Line(points={{-20,-20},{-20,-70}}, color={95,95,95}),
         Line(
-          points={{-19,-20},{50,-20}},
+          points={{-17,-20},{52,-20}},
           color={95,95,95}),
         Line(
           points={{50,50},{101,50}},
@@ -142,19 +162,32 @@ equation
           textString="height"),
         Text(
           extent={{-2,-21},{37,-33}},
-          textString="duration")}),
+          textString="duration"),
+        Line(
+          points={{-20,-20},{-2,-20},{6,-6}},
+          color={0,0,255},
+          smooth=Smooth.Bezier,
+          thickness=0.5),
+        Line(points={{0,20}}, color={28,108,200}),
+        Line(
+          points={{26,36},{34,50},{50,50}},
+          color={0,0,255},
+          smooth=Smooth.Bezier,
+          thickness=0.5),
+        Line(
+          points={{6,-6},{26,36}},
+          color={0,0,255},
+          smooth=Smooth.Bezier,
+          thickness=0.5),
+        Line(
+          points={{-80,-20},{-20,-20}},
+          color={0,0,255},
+          thickness=0.5)}),
     Documentation(info="<html>
-<p>
-The Real output y is a ramp signal:
-</p>
-
-<p>
-<img src=\"modelica://Modelica/Resources/Images/Blocks/Sources/Ramp.png\"
-     alt=\"Ramp.png\">
-</p>
-
-<p>
-If parameter duration is set to 0.0, the limiting case of a Step signal is achieved.
-</p>
+<p>The Real output y is a ramp signal with circular easing into and out of the ramp: </p>
+<p><img src=\"modelica://Modelica/Resources/Images/Blocks/Sources/Ramp.png\" alt=\"Ramp.png\"/> </p>
+<p>If parameter duration is set to 0.0, the limiting case of a Step signal is achieved. </p>
+<p>If curvature is set to 0.0 then the exact behavior of Modelica.Blocks.Sources.Ramp is achieved.</p>
+<p>If curvature is set to 1.0 then the there is circular easing into and out of the change in height with no linear ramp.</p>
 </html>"));
 end EasingRamp;
