@@ -2,7 +2,8 @@ within TRANSFORM.Blocks.Examples;
 model LatchHold_Test
   extends TRANSFORM.Icons.Example;
 
-  Logical.Latch latch
+  Logical.LatchHold
+                latch
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(
     width=50,

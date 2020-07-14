@@ -3,16 +3,16 @@ block LatchHold "Latches output based on input and trigger"
   extends Modelica.Blocks.Interfaces.SISO;
 
   Real c "Value when trigger is activated";
-  Real dy "Difference from latch value when activated";
 
   Modelica.Blocks.Interfaces.BooleanInput trigger "Latch trigger"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
 
+initial equation
+  y=u;
+
 equation
 
-  y = u - (if trigger then dy else 0);
-
-  dy = u - c;
+  y = if trigger then c else u;
 
   when trigger then
     c = pre(u);
