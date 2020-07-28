@@ -15,7 +15,8 @@ extends TRANSFORM.Icons.UnderConstruction;
   parameter SI.Efficiency eta_nominal = 0.8 "Rated or design efficiency";
 
   Modelica.Blocks.Tables.CombiTable1D h_table(                                                                           table=
-        nonDimCurve.table_h, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+        nonDimCurve.table_h,
+    smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Tables.CombiTable1D beta_table(                                                                           table=
@@ -33,7 +34,7 @@ extends TRANSFORM.Icons.UnderConstruction;
     NonDimCurve nonDimCurve;
 equation
 
-a_tan = Modelica.Math.atan2(n,v);
+a_tan = Modelica.Math.atan2(v,n);
 
 theta = Modelica.Constants.pi + a_tan;
 n2v2 = n^2+v^2;
