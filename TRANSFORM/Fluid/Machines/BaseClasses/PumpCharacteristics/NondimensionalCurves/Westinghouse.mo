@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves;
-model Westinghouse "Westinghouse pump extracted from TRACE manuals"
+model Westinghouse "Westinghouse pump converted from TRACE manuals"
+  //https://www.nrc.gov/docs/ML0717/ML071720510.pdf pg 149-150 figures 2-65 and 2-67
   extends PartialNonDimCurve(table_h=[0.000000,-0.1600; 0.099669,-0.1188;
   0.197396,-0.0577; 0.273009, 0.0000; 0.380506, 0.0776; 0.540420, 0.2279;
   0.610726, 0.2819; 0.674741, 0.3049; 0.721655, 0.3043; 0.785398, 0.2950;

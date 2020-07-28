@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets;
-model LOFT "LOFT pump extracted from TRACE manuals"
+model LOFT "LOFT pump"
+  //https://www.nrc.gov/docs/ML0702/ML070250396.pdf Fig 97 pg 161
   extends PartialHomoSet(
   table_BAN=[ 0.00, 0.60; 0.10, 0.61; 0.20, 0.63; 0.60, 0.83; 1.00, 1.00],
   table_BAD=[-1.00, 2.00;-0.80, 1.40;-0.70, 1.20;-0.60, 1.03;-0.40, 0.80;-0.20, 0.66;-0.10, 0.61; 0.00, 0.60],

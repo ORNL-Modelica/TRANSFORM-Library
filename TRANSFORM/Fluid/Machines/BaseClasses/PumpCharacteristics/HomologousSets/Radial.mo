@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets;
 model Radial
+  "Example Radial style pump (converted from source)"
   extends PartialHomoSet(
   table_BAN=[0,0.539726027; 0.222147028,0.608219178; 0.454467063,
       0.712328767; 0.698935764,0.832876712; 1,0.95890411],

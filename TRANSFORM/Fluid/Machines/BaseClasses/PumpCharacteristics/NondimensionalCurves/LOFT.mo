@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves;
-model LOFT "LOFT pump extracted from TRACE manuals"
+model LOFT "LOFT pump converted"
+  //https://www.nrc.gov/docs/ML0702/ML070250396.pdf Fig 97 pg 161
   extends PartialNonDimCurve(table_h=[0.000000, 0.2400; 0.371856, 0.2864;
   0.380506, 0.2328; 0.554996, 0.3467; 0.732815, 0.4586; 0.785398, 0.5000;
   0.811034, 0.4888; 0.908370, 0.5160; 1.107149, 0.6640; 1.570796, 0.9300;

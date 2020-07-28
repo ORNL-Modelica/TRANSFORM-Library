@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets;
-model Semiscale "Semiscale pump extracted from TRACE manuals"
+model Semiscale "Semiscale pump"
+  //https://www.osti.gov/servlets/purl/7349779 Fig 27 pg 197
   extends PartialHomoSet(
   table_BAN=[ 0.00, 0.540; 0.20, 0.590; 0.40, 0.650; 0.60, 0.770; 0.800, 0.950; 0.90, 0.980; 0.95, 0.96; 1.00, 0.87],
   table_BAD=[-1.00, 0.620;-0.80, 0.680;-0.60, 0.530;-0.40, 0.460;-0.200, 0.490; 0.00, 0.540],

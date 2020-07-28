@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves;
-model Semiscale "Semiscale pump extracted from TRACE manuals"
+model Semiscale "Semiscale pump converted"
+  //https://www.osti.gov/servlets/purl/7349779 Fig 27 pg 197
   extends PartialNonDimCurve(table_h=[0.000000, 0.9750; 0.463648, 1.0800;
   0.785398, 0.9750; 1.030377, 0.7537; 1.190290, 0.6897; 1.373401, 0.6971;
   1.570796, 0.7250; 1.768192, 0.7452; 1.951303, 0.7155; 2.111216, 0.6985;

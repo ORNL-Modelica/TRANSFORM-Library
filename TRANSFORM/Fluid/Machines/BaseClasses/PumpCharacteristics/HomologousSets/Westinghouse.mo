@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets;
 model Westinghouse "Westinghouse pump extracted from TRACE manuals"
+  //https://www.nrc.gov/docs/ML0717/ML071720510.pdf pg 149-150 figures 2-65 and 2-67
   extends PartialHomoSet(
   table_BAN=[ 0.00, 1.01; 0.10, 0.96; 0.20, 0.92; 0.30, 0.90; 0.40, 0.89; 0.50, 0.91; 0.70, 0.99; 0.80, 1.02; 0.90, 1.02; 1.00, 1.00],
   table_BAD=[-1.00, 2.98;-0.82, 2.40;-0.60, 1.87;-0.46, 1.60;-0.34, 1.40;-0.20, 1.21;-0.10, 1.10; 0.00, 1.01],

@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves;
-model Bingham "Bingham pump extracted from TRACE manuals"
+model Bingham "Bingham pump converted from TRACE manuals"
+  //https://www.nrc.gov/docs/ML0717/ML071720510.pdf pg 148-149 figures 2-61 and 2-63
   extends PartialNonDimCurve(table_h=[0.000000, -0.1000; 0.148890, 0.0489;
    0.336675, 0.1782; 0.502843, 0.2303; 0.610726, 0.2685; 0.710271, 0.3449;
    0.764993, 0.4163; 0.780373, 0.4545; 0.785398, 0.5000; 0.927295, 0.5632;

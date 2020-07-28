@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets;
 model Bingham "Bingham pump extracted from TRACE manuals"
+  //https://www.nrc.gov/docs/ML0717/ML071720510.pdf pg 148-149 figures 2-61 and 2-63
   extends PartialHomoSet(
   table_BAN=[ 0.00, 0.80; 0.23, 0.80; 0.35, 0.87; 0.50, 0.93; 0.60, 0.95; 0.80, 0.96; 1.00, 1.00],
   table_BAD=[-1.00, 2.50;-0.80, 2.00;-0.60, 1.45;-0.46, 1.15;-0.30, 0.95;-0.13, 0.80; 0.00, 0.80],
