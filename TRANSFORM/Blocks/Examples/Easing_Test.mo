@@ -17,6 +17,8 @@ model Easing_Test
     offset=1,
     startTime=5)
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+  Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={easing.y,easing1.y})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
