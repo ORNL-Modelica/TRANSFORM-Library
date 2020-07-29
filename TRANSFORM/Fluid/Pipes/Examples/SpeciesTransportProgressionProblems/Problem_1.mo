@@ -6,7 +6,7 @@ model Problem_1 "Single species decay"
            "a", nC), C_nominal=fill(1.0, nC));
 
   constant Integer nC=1;
-  parameter Integer nV=2;
+  parameter Integer nV=10;
   parameter SI.Length length=0.100;
   parameter SI.Length dimension=0.01;
   parameter SI.Temperature T_a_start=293.15;

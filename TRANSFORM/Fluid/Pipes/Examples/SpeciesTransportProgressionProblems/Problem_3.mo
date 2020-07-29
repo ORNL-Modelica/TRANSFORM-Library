@@ -2,6 +2,7 @@ within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems;
 model Problem_3
   "Single species drift with decay non-uniform concentration"
   extends TRANSFORM.Icons.Example;
+  extends TRANSFORM.Icons.UnderConstruction;
 
   package Medium = Modelica.Media.Water.StandardWater (extraPropertiesNames=fill(
            "a", nC), C_nominal=fill(1.0, nC));
@@ -10,20 +11,23 @@ model Problem_3
   parameter Integer nV=10;
   parameter SI.Length length=0.100;
   parameter SI.Length dimension=0.01;
+  parameter SI.Temperature T_a_start=293.15;
+  parameter SI.Pressure p_a_start=1e5;
 
   parameter SI.Velocity v=0.02;
-  final parameter SI.MassFlowRate m_flow = Medium.density_pT(1e5,293.15)*Modelica.Constants.pi*dimension^2/4*v;
+  final parameter SI.MassFlowRate m_flow = Medium.density_pT(p_a_start,T_a_start)*Modelica.Constants.pi*dimension^2/4*v;
 
   parameter TRANSFORM.Units.InverseTime lambda_i[nC]=fill(0.1, nC);
-  parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=ones(nV, nC);
+  parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=10*ones(nV, nC);
   parameter SIadd.ExtraPropertyConcentration C_i_w_start[nV,nC]=zeros(nV, nC);
 
   final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/
-      Medium.density_pT(pipe.p_a_start, pipe.T_a_start) for j in 1:nC} for i in 1
+      Medium.density_pT(p_a_start, T_a_start) for j in 1:nC} for i in 1
       :nV};
   SI.Length x[nV]=pipe.summary.xpos;
 
   SIadd.ExtraPropertyConcentration C_i[nV,nC];
+  SIadd.ExtraPropertyConcentration C_i_w[nV,nC];
   SIadd.ExtraPropertyConcentration C_i_analytical[nV,nC];
   SIadd.ExtraPropertyConcentration C_i_w_analytical[nV,nC];
 
@@ -33,8 +37,8 @@ model Problem_3
   Pipes.GenericPipe_MultiTransferSurface pipe(
     redeclare package Medium = Medium,
     Cs_start=Cs_start,
-    p_a_start=100000,
-    T_a_start=293.15,
+    p_a_start=p_a_start,
+    T_a_start=T_a_start,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (
@@ -48,14 +52,14 @@ model Problem_3
   BoundaryConditions.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     m_flow=m_flow,
-    T=293.15,
+    T=T_a_start,
     C=Cs_start[1, :],
     nPorts=1) annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   BoundaryConditions.Boundary_pT boundary1(
     redeclare package Medium = Medium,
-    p=100000,
-    T=293.15,
+    p=p_a_start,
+    T=T_a_start,
     nPorts=1) annotation (Placement(transformation(extent={{60,-10},{40,10}})));
 
 equation
@@ -64,6 +68,7 @@ equation
   for j in 1:nV loop
     for i in 1:nC loop
       C_i[j, i] = pipe.Cs[j, i]*pipe.mediums[j].d;
+      der(C_i_w[j,i]) = lambda_i[i]*C_i[j, i];
     end for;
   end for;
 
