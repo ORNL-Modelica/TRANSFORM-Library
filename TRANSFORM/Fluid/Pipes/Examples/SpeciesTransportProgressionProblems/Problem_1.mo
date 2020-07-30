@@ -26,6 +26,7 @@ model Problem_1 "Single species decay"
 
   Pipes.GenericPipe_MultiTransferSurface pipe(
     redeclare package Medium = Medium,
+    showName=false,
     Cs_start=Cs_start,
     p_a_start=p_a_start,
     T_a_start=T_a_start,
@@ -41,11 +42,13 @@ model Problem_1 "Single species decay"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   BoundaryConditions.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
+    showName=false,
     T=T_a_start,
     nPorts=1) annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   BoundaryConditions.Boundary_pT boundary1(
     redeclare package Medium = Medium,
+    showName=false,
     p=p_a_start,
     T=T_a_start,
     nPorts=1) annotation (Placement(transformation(extent={{60,-10},{40,10}})));
@@ -75,7 +78,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=100,
+      StopTime=20,
       __Dymola_NumberOfIntervals=400,
       __Dymola_Algorithm="Dassl"));
 end Problem_1;

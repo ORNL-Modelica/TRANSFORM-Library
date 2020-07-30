@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems;
 model Problem_3
   "Single species drift with decay non-uniform concentration"
   extends TRANSFORM.Icons.Example;
-  extends TRANSFORM.Icons.UnderConstruction;
 
   package Medium = Modelica.Media.Water.StandardWater (extraPropertiesNames=fill(
            "a", nC), C_nominal=fill(1.0, nC));
@@ -77,12 +76,12 @@ equation
     if x[j] < v*time then
       for i in 1:nC loop
         C_i_analytical[j, i] = C_i_start[j, i]*exp(-lambda_i[i]*x[j]/v);
-        C_i_w_analytical[j,i] = C_i_start[j, i]*(1-exp(-lambda_i[i]*x[j]/v)+lambda_i[i]*exp(-lambda_i[i]*x[j]/v)*(time-x[j]/v));
+        C_i_w_analytical[j,i] = C_i_start[j, i]*(1+(lambda_i[i]*(time-x[j]/v)-1)*exp(-lambda_i[i]*x[j]/v));
       end for;
     else
       for i in 1:nC loop
         C_i_analytical[j, i] = C_i_start[j, i]*exp(-lambda_i[i]*time);
-        C_i_w_analytical[j,i] = C_i_start[j, i]*(1-exp(-lambda_i[i]*x[j]/v));
+        C_i_w_analytical[j,i] = C_i_start[j, i]*(1-exp(-lambda_i[i]*time));
       end for;
     end if;
   end for;
