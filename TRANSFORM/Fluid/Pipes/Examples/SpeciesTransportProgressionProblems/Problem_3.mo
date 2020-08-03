@@ -17,7 +17,7 @@ model Problem_3
   final parameter SI.MassFlowRate m_flow = Medium.density_pT(p_a_start,T_a_start)*Modelica.Constants.pi*dimension^2/4*v;
 
   parameter TRANSFORM.Units.InverseTime lambda_i[nC]=fill(0.1, nC);
-  parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=10*ones(nV, nC);
+  parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=1000*ones(nV, nC);
   parameter SIadd.ExtraPropertyConcentration C_i_w_start[nV,nC]=zeros(nV, nC);
 
   final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/
@@ -85,6 +85,7 @@ equation
       end for;
     end if;
   end for;
+
 
   connect(boundary.ports[1], pipe.port_a)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));

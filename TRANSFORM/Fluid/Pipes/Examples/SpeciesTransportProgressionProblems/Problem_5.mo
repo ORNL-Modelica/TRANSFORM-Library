@@ -1,6 +1,7 @@
 within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems;
-model Problem_2 "Single species drift with decay"
+model Problem_5 "Single Species Drift w/ DepositionSingle species drift with decay non-uniform concentration"
   extends TRANSFORM.Icons.Example;
+  extends TRANSFORM.Icons.UnderConstruction;
 
   package Medium = Modelica.Media.Water.StandardWater (extraPropertiesNames=fill(
            "a", nC), C_nominal=fill(1.0, nC));
@@ -17,6 +18,11 @@ model Problem_2 "Single species drift with decay"
 
   parameter TRANSFORM.Units.InverseTime lambda_i[nC]=fill(0.1, nC);
   parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=1000*ones(nV, nC);
+  parameter SIadd.ExtraPropertyConcentration C_i_w_start[nV,nC]=zeros(nV, nC);
+
+  parameter Real a1 = 0.1*100;
+  parameter Real a2 = -500;
+  parameter Real T = 900;
 
   final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/
       Medium.density_pT(p_a_start, T_a_start) for j in 1:nC} for i in 1
@@ -24,9 +30,11 @@ model Problem_2 "Single species drift with decay"
   SI.Length x[nV]=pipe.summary.xpos;
 
   SIadd.ExtraPropertyConcentration C_i[nV,nC];
+  //SIadd.ExtraPropertyConcentration C_i_w[nV,nC];
   SIadd.ExtraPropertyConcentration C_i_analytical[nV,nC];
+  //SIadd.ExtraPropertyConcentration C_i_w_analytical[nV,nC];
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{-lambda_i[j]*pipe.mCs[i, j]*pipe.nParallel
+  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{-a1/100^2*exp(a2/T)*Medium.density_pT(pipe.mediums[j].d,pipe.mediums[j].T)
       for j in 1:nC} for i in 1:nV};
 
   Pipes.GenericPipe_MultiTransferSurface pipe(
@@ -63,6 +71,7 @@ equation
   for j in 1:nV loop
     for i in 1:nC loop
       C_i[j, i] = pipe.Cs[j, i]*pipe.mediums[j].d;
+      //der(C_i_w[j,i]) = a1*exp(a2/T);
     end for;
   end for;
 
@@ -70,14 +79,21 @@ equation
   for j in 1:nV loop
     if x[j] < v*time then
       for i in 1:nC loop
-        C_i_analytical[j, i] = C_i_start[j, i]*exp(-lambda_i[i]*x[j]/v);
+        C_i_analytical[j, i] = (C_i_start[j, i]*v - a1*exp(a2/T)*time*v + C_i_start[1, i]*v -
+                               C_i_start[j, i]*v + a1*exp(a2/T)*time*v - a1*exp(a2/T)*x[j])/v;
+        //C_i_w_analytical[j,i] = C_i_start[j, i]*(1+(lambda_i[i]*(time-x[j]/v)-1)*exp(-lambda_i[i]*x[j]/v));
       end for;
     else
       for i in 1:nC loop
-        C_i_analytical[j, i] = C_i_start[j, i]*exp(-lambda_i[i]*time);
+        C_i_analytical[j, i] = (C_i_start[j, i]*v - a1*exp(a2/T)*time*v)/v;
+       //C_i_w_analytical[j,i] = C_i_start[j, i]*(1-exp(-lambda_i[i]*time));
       end for;
     end if;
   end for;
+
+
+
+
 
   connect(boundary.ports[1], pipe.port_a)
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
@@ -91,4 +107,4 @@ equation
       __Dymola_NumberOfIntervals=400,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"));
-end Problem_2;
+end Problem_5;

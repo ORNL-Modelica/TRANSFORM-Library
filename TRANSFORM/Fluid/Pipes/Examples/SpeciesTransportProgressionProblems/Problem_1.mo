@@ -13,7 +13,7 @@ model Problem_1 "Single species decay"
   parameter SI.Pressure p_a_start=1e5;
 
   parameter TRANSFORM.Units.InverseTime lambda_i[nC]=fill(0.1, nC);
-  parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=10*ones(nV, nC);
+  parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=1000*ones(nV, nC);
 
   final parameter SIadd.ExtraProperty Cs_start[nV,nC] = {{C_i_start[i, j]/Medium.density_pT(p_a_start, T_a_start) for j in 1:nC} for i in 1:nV};
   SI.Length x[nV]=pipe.summary.xpos;
