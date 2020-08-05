@@ -34,11 +34,15 @@ import NonSI = Modelica.SIunits.Conversions.NonSIunits;
 
   NonSI.AngularVelocity_rpm N(start=N_nominal) "Shaft rotational speed";
 
-  SI.Temperature T_inlet=Medium.temperature(state_a);
-  SI.Pressure p_inlet=port_a.p;
-  SI.Density d_inlet=Medium.density(state_a);
+  SI.Temperature T_a = Medium.temperature(state_a);
+  SI.Pressure p_a = port_a.p;
+  SI.Density d_a = Medium.density(state_a);
+  SI.Temperature T_b = Medium.temperature(state_b);
+  SI.Pressure p_b = port_b.p;
+  SI.Density d_b = Medium.density(state_b);
 
-  SI.VolumeFlowRate V_flow;
+  SI.VolumeFlowRate V_flow_a;
+  SI.VolumeFlowRate V_flow_b;
   SI.Height head;
 
   SI.Power Q_mech "Mechanical power added to system (i.e., pumping power)";
@@ -49,13 +53,11 @@ import NonSI = Modelica.SIunits.Conversions.NonSIunits;
 
   SI.Acceleration g_n = Modelica.Constants.g_n;
 
-  Medium.ThermodynamicState state_b;
 equation
-  state_b = Medium.setState_phX(port_b.p,
-    inStream(port_b.h_outflow),
-    inStream(port_b.Xi_outflow));
 
-  V_flow=m_flow/d_inlet;
+
+  m_flow = d_a*V_flow_a;
+  m_flow = d_b*V_flow_b;
 
   // Mechanical shaft power
   W = Q_mech;
@@ -63,9 +65,9 @@ equation
 
   // Mechanical boundary conditions
   tau = shaft.tau;
-  shaft.phi = phi;
+  phi = shaft.phi;
   der(phi) = omega;
 
-  port_b.p/Medium.density(state_b) - port_a.p/d_inlet = g_n*head;
+  dp = d_a*g_n*head;
 
 end PartialTurboPump;
