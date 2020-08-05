@@ -8,22 +8,32 @@ model Problem_3
 
   constant Integer nC=1;
   parameter Integer nV=10;
-  parameter SI.Length length=0.100;
+  parameter SI.Length length=1.0;
   parameter SI.Length dimension=0.01;
-  parameter SI.Temperature T_a_start=293.15;
-  parameter SI.Pressure p_a_start=1e5;
+  parameter SI.Temperature T_start=20 + 273.15;
+  parameter SI.Pressure p_start=1e5;
 
   parameter SI.Velocity v=0.02;
-  final parameter SI.MassFlowRate m_flow = Medium.density_pT(p_a_start,T_a_start)*Modelica.Constants.pi*dimension^2/4*v;
+  final parameter SI.MassFlowRate m_flow=Medium.density_pT(p_start, T_start)*Modelica.Constants.pi*dimension^2/4
+      *v;
 
   parameter TRANSFORM.Units.InverseTime lambda_i[nC]=fill(0.1, nC);
   parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=1000*ones(nV, nC);
+  parameter SIadd.ExtraPropertyConcentration C_i_inlet[nC]=1000*ones(nC);
   parameter SIadd.ExtraPropertyConcentration C_i_w_start[nV,nC]=zeros(nV, nC);
 
-  final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/
-      Medium.density_pT(p_a_start, T_a_start) for j in 1:nC} for i in 1
-      :nV};
-  SI.Length x[nV]=pipe.summary.xpos;
+  // Convert from volume based to mass based
+  final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/Medium.density_pT(p_start, T_start)
+      for j in 1:nC} for i in 1:nV};
+  final parameter SIadd.ExtraProperty Cs_inlet[nC]={C_i_inlet[j]/Medium.density_pT(p_start, T_start) for j in 1:
+      nC};
+
+  // Pipe cell centers are a shifted from linspace in the pipe due to volume centered geometry
+  //parameter SI.Length x[nV]={if i == 1 then 0.5*length/nV else x[i - 1] + length/nV for i in 1:nV};
+   parameter SI.Length x[nV]=linspace(
+       0,
+       length,
+       nV);
 
   SIadd.ExtraPropertyConcentration C_i[nV,nC];
   SIadd.ExtraPropertyConcentration C_i_w[nV,nC];
@@ -36,8 +46,9 @@ model Problem_3
   Pipes.GenericPipe_MultiTransferSurface pipe(
     redeclare package Medium = Medium,
     Cs_start=Cs_start,
-    p_a_start=p_a_start,
-    T_a_start=T_a_start,
+    p_a_start=p_start,
+    T_a_start=T_start,
+    m_flow_a_start=m_flow,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
         (
@@ -46,19 +57,18 @@ model Problem_3
         nV=nV),
     redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens))
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+        (mC_gens=mC_gens)) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   BoundaryConditions.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     m_flow=m_flow,
-    T=T_a_start,
-    C=Cs_start[1, :],
+    T=T_start,
+    C=Cs_inlet,
     nPorts=1) annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
   BoundaryConditions.Boundary_pT boundary1(
     redeclare package Medium = Medium,
-    p=p_a_start,
-    T=T_a_start,
+    p=p_start,
+    T=T_start,
     nPorts=1) annotation (Placement(transformation(extent={{60,-10},{40,10}})));
 
 equation
@@ -75,13 +85,13 @@ equation
   for j in 1:nV loop
     if x[j] < v*time then
       for i in 1:nC loop
-        C_i_analytical[j, i] = C_i_start[j, i]*exp(-lambda_i[i]*x[j]/v);
-        C_i_w_analytical[j,i] = C_i_start[j, i]*(1+(lambda_i[i]*(time-x[j]/v)-1)*exp(-lambda_i[i]*x[j]/v));
+        C_i_analytical[j, i] = C_i_inlet[i]*exp(-lambda_i[i]*x[j]/v);
+        C_i_w_analytical[j,i] = C_i_w_start[j,i] + C_i_start[j, i]*(1-exp(-lambda_i[i]*x[j]/v)) + C_i_inlet[i]*lambda_i[i]*(time-x[j]/v)*exp(-lambda_i[i]*x[j]/v);
       end for;
     else
       for i in 1:nC loop
         C_i_analytical[j, i] = C_i_start[j, i]*exp(-lambda_i[i]*time);
-        C_i_w_analytical[j,i] = C_i_start[j, i]*(1-exp(-lambda_i[i]*time));
+        C_i_w_analytical[j,i] = C_i_w_start[j,i] + C_i_start[j, i]*(1-exp(-lambda_i[i]*time));
       end for;
     end if;
   end for;

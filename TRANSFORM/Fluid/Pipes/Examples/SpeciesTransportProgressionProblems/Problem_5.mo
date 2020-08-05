@@ -3,6 +3,9 @@ model Problem_5 "Single Species Drift w/ DepositionSingle species drift with dec
   extends TRANSFORM.Icons.Example;
   extends TRANSFORM.Icons.UnderConstruction;
 
+  // Seems ok but scaling is messed up if nV changes. unit issues too?
+  // need to add Ci_w still
+
   package Medium = Modelica.Media.Water.StandardWater (extraPropertiesNames=fill(
            "a", nC), C_nominal=fill(1.0, nC));
 
@@ -30,9 +33,9 @@ model Problem_5 "Single Species Drift w/ DepositionSingle species drift with dec
   SI.Length x[nV]=pipe.summary.xpos;
 
   SIadd.ExtraPropertyConcentration C_i[nV,nC];
-  //SIadd.ExtraPropertyConcentration C_i_w[nV,nC];
+  SIadd.ExtraPropertyConcentration C_i_w[nV,nC];
   SIadd.ExtraPropertyConcentration C_i_analytical[nV,nC];
-  //SIadd.ExtraPropertyConcentration C_i_w_analytical[nV,nC];
+  SIadd.ExtraPropertyConcentration C_i_w_analytical[nV,nC];
 
   SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{-a1/100^2*exp(a2/T)*Medium.density_pT(pipe.mediums[j].d,pipe.mediums[j].T)
       for j in 1:nC} for i in 1:nV};
@@ -71,7 +74,7 @@ equation
   for j in 1:nV loop
     for i in 1:nC loop
       C_i[j, i] = pipe.Cs[j, i]*pipe.mediums[j].d;
-      //der(C_i_w[j,i]) = a1*exp(a2/T);
+      der(C_i_w[j,i]) = a1*exp(a2/T);
     end for;
   end for;
 
@@ -79,18 +82,23 @@ equation
   for j in 1:nV loop
     if x[j] < v*time then
       for i in 1:nC loop
+        //Heavyside = 1
         C_i_analytical[j, i] = (C_i_start[j, i]*v - a1*exp(a2/T)*time*v + C_i_start[1, i]*v -
                                C_i_start[j, i]*v + a1*exp(a2/T)*time*v - a1*exp(a2/T)*x[j])/v;
-        //C_i_w_analytical[j,i] = C_i_start[j, i]*(1+(lambda_i[i]*(time-x[j]/v)-1)*exp(-lambda_i[i]*x[j]/v));
       end for;
     else
       for i in 1:nC loop
         C_i_analytical[j, i] = (C_i_start[j, i]*v - a1*exp(a2/T)*time*v)/v;
-       //C_i_w_analytical[j,i] = C_i_start[j, i]*(1-exp(-lambda_i[i]*time));
+
       end for;
     end if;
   end for;
 
+  for j in 1:nV loop
+    for i in 1:nC loop
+      C_i_w_analytical[j,i] = a1*exp(a2/T)*time;
+    end for;
+  end for;
 
 
 
