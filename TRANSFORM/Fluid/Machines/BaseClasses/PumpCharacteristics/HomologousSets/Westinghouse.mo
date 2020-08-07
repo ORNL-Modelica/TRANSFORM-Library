@@ -17,7 +17,9 @@ model Westinghouse "Westinghouse pump extracted from TRACE manuals"
   table_HVN=[ 0.00,-0.96; 0.10,-0.90; 0.20,-0.81; 0.30,-0.70; 0.40,-0.54; 0.53,-0.30; 0.65, 0.00; 0.80, 0.37; 1.00, 1.00],
   table_HVD=[-1.00, 3.55;-0.89, 3.20;-0.74, 2.80;-0.60, 2.47;-0.46, 2.20;-0.20, 1.73; 0.00, 1.40],
   table_HVR=[-1.00, 0.00; 0.00,-0.96],
-  table_HVT=[ 0.00, 1.40; 0.37, 0.80; 0.43, 0.74; 0.50, 0.68; 0.58, 0.64; 0.64, 0.62; 0.70, 0.61; 1.00, 0.59]);
+  table_HVT=[ 0.00, 1.40; 0.37, 0.80; 0.43, 0.74; 0.50, 0.68; 0.58, 0.64; 0.64, 0.62; 0.70, 0.61; 1.00, 0.59],
+  tCCF = table_BAN[end,2],
+  hCCF = table_HAN[end,2]);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Westinghouse;

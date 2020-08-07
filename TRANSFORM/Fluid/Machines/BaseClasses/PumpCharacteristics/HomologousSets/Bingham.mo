@@ -17,7 +17,9 @@ model Bingham "Bingham pump extracted from TRACE manuals"
   table_HVN=[ 0.00,-1.02; 0.10,-0.90; 0.37,-0.50; 0.50,-0.25; 0.80, 0.40; 0.85, 0.60; 1.00, 1.00],
   table_HVD=[-1.00, 2.50;-0.90, 2.28;-0.63, 2.00;-0.55, 1.74;-0.50, 1.68;-0.42, 1.60;-0.15, 1.40; 0.00, 1.30],
   table_HVR=[-1.00,-2.00;-0.75,-1.94;-0.50,-1.80;-0.12,-1.20; 0.00,-1.02],
-  table_HVT=[ 0.00, 1.30; 0.30, 1.10; 0.50, 1.00; 0.75, 0.88; 1.00, 1.00]);
+  table_HVT=[ 0.00, 1.30; 0.30, 1.10; 0.50, 1.00; 0.75, 0.88; 1.00, 1.00],
+  tCCF = table_BAN[end,2],
+  hCCF = table_HAN[end,2]);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Bingham;
