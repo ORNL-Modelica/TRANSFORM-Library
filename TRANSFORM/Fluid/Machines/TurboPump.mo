@@ -17,6 +17,7 @@ extends TRANSFORM.Icons.UnderConstruction;
   parameter SI.Efficiency eta_nominal = 0.8 "Rated or design efficiency";
   SI.Efficiency eta_actual;
   SI.Efficiency eta_curve;
+  Integer region;
 
   Modelica.Blocks.Tables.CombiTable1D h_table(                                                                           table=
         nonDimCurve.table_h,
@@ -50,17 +51,19 @@ alpha = N/N_nominal;
 h = head/head_nominal;
 
 theta = h_table.u[1];
-h/alpha2v2 = h_table.y[1];
+h/alpha2v2 = h_table.y[1]/nonDimCurve.hCCF;
 
 beta = tau/tau_nominal;
 
 theta = beta_table.u[1];
-beta/alpha2v2 = beta_table.y[1];
+beta/alpha2v2 = beta_table.y[1]/nonDimCurve.tCCF;
 
 gamma = d_a/d_nominal;
 
 eta_actual*tau*omega = V_flow_a*dp;
 eta_curve*alpha*beta = v*h*gamma*eta_nominal;
+
+region = integer(a_tan*4/Modelica.Constants.pi)+1;
 
     annotation (Placement(transformation(extent={{-98,82},{-82,98}})),
               Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
