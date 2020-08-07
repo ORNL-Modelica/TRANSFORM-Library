@@ -114,27 +114,23 @@ equation
         C_i_loop_analytical[j, i] = C_i_start[j, i]*exp(-lambda_i[i]*time);
       end for;
     end if;
-    if x[j] < v*time then
-      for i in 1:nC loop
-        C_i_analytical[j, i] = (C_i_loop_analytical[end, i]-(beta_i[i]*phi_0*(Modelica.Constants.pi*v*(exp(lambda_i[i]*x[j]/v)*cos(
-          Modelica.Constants.pi*x[j])-1) - exp(lambda_i[i]*x[j]/v)*sin(Modelica.Constants.pi*x[j])*lambda_i[i]))
-          /(Modelica.Constants.pi^2*v^2 + lambda_i[i]^2))*exp(-lambda_i[i]*x[j]/v);
-      end for;
-    else
-      for i in 1:nC loop
-        C_i_analytical[j, i] = (beta_i[i]*phi_0*(Modelica.Constants.pi*v*exp(-time*lambda_i[i])*(cos(Modelica.Constants.pi*(time*v - x[j])) -
-          cos(Modelica.Constants.pi*x[j])) + exp(-time*lambda_i[i])*(sin(Modelica.Constants.pi*(time*v - x[j])) +
-          sin(Modelica.Constants.pi*x[j]))*lambda_i[i]))/(
-          Modelica.Constants.pi^2*v^2 + lambda_i[i]^2);
-      end for;
-    end if;
+if x[j] < v*time then
+       for i in 1:nC loop
+         C_i_analytical[j, i] = (C_i_loop_analytical[end, i]-(beta_i[i]*phi_0*(Modelica.Constants.pi*v*(exp(lambda_i[i]*x[j]/v)*cos(
+           Modelica.Constants.pi*x[j])-1) - exp(lambda_i[i]*x[j]/v)*sin(Modelica.Constants.pi*x[j])*lambda_i[i]))
+           /(Modelica.Constants.pi^2*v^2 + lambda_i[i]^2))*exp(-lambda_i[i]*x[j]/v);
+       end for;
+     else
+       for i in 1:nC loop
+         C_i_analytical[j, i] = (beta_i[i]*phi_0*(Modelica.Constants.pi*v*exp(-time*lambda_i[i])*(cos(Modelica.Constants.pi*(time*v - x[j])) -
+           cos(Modelica.Constants.pi*x[j])) + exp(-time*lambda_i[i])*(sin(Modelica.Constants.pi*(time*v - x[j])) +
+           sin(Modelica.Constants.pi*x[j]))*lambda_i[i]))/(
+           Modelica.Constants.pi^2*v^2 + lambda_i[i]^2);
+       end for;
+     end if;
 
   end for;
-  //
-  // (beta_i[i]*(Modelica.Constants.pi*v*(exp(((length+length_loop)*lambda_i[i])/v) - exp(((x[j] + (length+length_loop))*lambda_i[i])/v)*cos(Modelica.Constants.pi*x[j])) +
-  //      exp(((x[j] + (length+length_loop))*lambda_i[i])/v)*sin(Modelica.Constants.pi*x[j])*lambda_i[i])*phi_0 +
-  //    (Modelica.Constants.pi^2*v^2 + lambda_i[i]^2)*Subscript[C, i, coreOutlet))/(exp(((x[j] + (length+length_loop))*lambda_i[i])/v)*
-  //    (Modelica.Constants.pi^2*v^2 + lambda_i[i]^2))
+
 
 
   connect(boundary.ports[1], pipe.port_a) annotation (Line(points={{-48,0},{-30,0}}, color={0,127,255}));
