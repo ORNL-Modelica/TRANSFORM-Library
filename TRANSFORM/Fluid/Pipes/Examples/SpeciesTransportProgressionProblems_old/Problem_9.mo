@@ -1,5 +1,6 @@
-within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems;
-model Problem_12 "Uranium Isotope Transitions"
+within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems_old;
+model Problem_9
+  "Iodine Decay to Xenon with Bubble Transport and Growth"
   extends TRANSFORM.Icons.Example;
   extends TRANSFORM.Icons.UnderConstruction;
 
@@ -10,4 +11,4 @@ model Problem_12 "Uranium Isotope Transitions"
       StopTime=20,
       __Dymola_NumberOfIntervals=400,
       __Dymola_Algorithm="Dassl"));
-end Problem_12;
+end Problem_9;

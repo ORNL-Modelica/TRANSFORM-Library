@@ -1,10 +1,9 @@
-within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems;
+within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems_old;
 model Problem_10
   "Uranium Isotopes Decay"
 
-  // basic and analytical should be working. pipe model is not...
   extends TRANSFORM.Icons.Example;
-  extends TRANSFORM.Icons.UnderConstruction;
+
   package Medium = Modelica.Media.Water.StandardWater (extraPropertiesNames=fill("dummy", nC), C_nominal=fill(1.0,
           nC));
 
@@ -26,7 +25,7 @@ model Problem_10
       nC);
 
   final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/Medium.density_pT(p_start, T_start)
-      for j in 1:nC} for i in 1:nV};
+       for j in 1:nC} for i in 1:nV};
 
   // Pipe cell centers are a shifted from linspace in the pipe due to volume centered geometry
   parameter SI.Length x[nV]={if i == 1 then 0.5*length/nV else x[i - 1] + length/nV for i in 1:nV};
@@ -39,8 +38,8 @@ model Problem_10
   SIadd.ExtraPropertyConcentration C_i_basic[nV,nC](start=C_i_start);
   SIadd.ExtraPropertyConcentration C_i_analytical[nV,nC];
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{sum({lambda_ij[j, k]*pipe.mCs[i, j] for k in 1:nC})*pipe.nParallel
-      for j in 1:nC} for i in 1:nV};
+  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{sum({lambda_ij[i, j]*pipe.mCs[k, j] for j in 1:nC})*pipe.nParallel
+      for i in 1:nC} for k in 1:nV};
 
   Pipes.GenericPipe_MultiTransferSurface pipe(
     redeclare package Medium = Medium,
@@ -131,7 +130,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=4320000,
+      StopTime=4320,
       __Dymola_NumberOfIntervals=6000,
       __Dymola_Algorithm="Dassl"));
 end Problem_10;

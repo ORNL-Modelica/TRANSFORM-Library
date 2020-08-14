@@ -1,5 +1,5 @@
-within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems;
-model Problem_11 "Uranium Isotopes Drift w/ Decay"
+within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems_old;
+model Problem_12 "Uranium Isotope Transitions"
   extends TRANSFORM.Icons.Example;
   extends TRANSFORM.Icons.UnderConstruction;
 
@@ -10,4 +10,4 @@ model Problem_11 "Uranium Isotopes Drift w/ Decay"
       StopTime=20,
       __Dymola_NumberOfIntervals=400,
       __Dymola_Algorithm="Dassl"));
-end Problem_11;
+end Problem_12;

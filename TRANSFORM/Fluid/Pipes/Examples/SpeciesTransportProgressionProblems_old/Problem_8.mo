@@ -1,6 +1,5 @@
-within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems;
-model Problem_9
-  "Iodine Decay to Xenon with Bubble Transport and Growth"
+within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems_old;
+model Problem_8 "I-135 Decay to Xe-135 with Non-uniform concentrations"
   extends TRANSFORM.Icons.Example;
   extends TRANSFORM.Icons.UnderConstruction;
 
@@ -11,4 +10,4 @@ model Problem_9
       StopTime=20,
       __Dymola_NumberOfIntervals=400,
       __Dymola_Algorithm="Dassl"));
-end Problem_9;
+end Problem_8;

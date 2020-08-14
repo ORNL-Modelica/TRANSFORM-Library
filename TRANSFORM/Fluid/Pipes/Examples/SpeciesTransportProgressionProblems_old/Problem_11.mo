@@ -1,5 +1,5 @@
-within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems;
-model Problem_8 "I-135 Decay to Xe-135 with Non-uniform concentrations"
+within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems_old;
+model Problem_11 "Uranium Isotopes Drift w/ Decay"
   extends TRANSFORM.Icons.Example;
   extends TRANSFORM.Icons.UnderConstruction;
 
@@ -10,4 +10,4 @@ model Problem_8 "I-135 Decay to Xe-135 with Non-uniform concentrations"
       StopTime=20,
       __Dymola_NumberOfIntervals=400,
       __Dymola_Algorithm="Dassl"));
-end Problem_8;
+end Problem_11;
