@@ -1,4 +1,4 @@
-within TRANSFORM.Media.IdealGases;
+within TRANSFORM.Media.IdealGases.MixtureGases;
 package HeXe "Helium xenon mixture (Change reference_X to customize)"
   //To get a known molar mass (MM_X) here is how to set X (X is the He fraction, 1-X is the Xe fraction):
   //X = MM_He/MM_X * (MM_Xe-MM_X)/(MM_Xe-MM_He)

@@ -5,7 +5,8 @@ model HeXeAlternate "Test of HeXe using alternate mixture"
   parameter SI.Temperature[n] Ts = {500,2000,5000};
   parameter SI.Pressure[n] ps = fill(1e5,3);
   replaceable package Medium =
-      TRANSFORM.Media.IdealGases.HeXe(reference_X={0.25,0.75});
+      TRANSFORM.Media.IdealGases.MixtureGases.HeXe (
+                                      reference_X={0.25,0.75});
   Medium.BaseProperties mediums[n];
   SI.DynamicViscosity eta[n] = Medium.dynamicViscosity(mediums.state);
   SI.ThermalConductivity lambda[n] = Medium.thermalConductivity(mediums.state);

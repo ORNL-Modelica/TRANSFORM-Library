@@ -5,7 +5,7 @@ model HeXe "Test of HeXe using default mixture"
   parameter SI.Temperature[n] Ts = {500,2000,5000};
   parameter SI.Pressure[n] ps = fill(1e5,3);
   replaceable package Medium =
-      TRANSFORM.Media.IdealGases.HeXe;
+      TRANSFORM.Media.IdealGases.MixtureGases.HeXe;
   Medium.BaseProperties mediums[n];
   SI.DynamicViscosity eta[n] = Medium.dynamicViscosity(mediums.state);
   SI.ThermalConductivity lambda[n] = Medium.thermalConductivity(mediums.state);
