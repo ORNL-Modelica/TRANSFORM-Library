@@ -20,6 +20,8 @@ partial model PartialProgressionProblemCore
 
   final parameter SI.MassFlowRate m_flow=Medium.density_pT(p_start, T_start)*
       Modelica.Constants.pi*dimension^2/4*v;
+  final parameter SI.Time t_half[nC]={log(2)/lambda_i[i] for i in 1:nC};
+  SI.Time t_residence = if pipe.m_flows[1] < Modelica.Constants.eps then Modelica.Constants.inf else pipe.ms[1]/pipe.m_flows[1];
 
   // Convert from volume based to mass based
   final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/
@@ -29,7 +31,27 @@ partial model PartialProgressionProblemCore
 
   SIadd.ExtraPropertyConcentration C_i[nV,nC];
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{-lambda_i[j]*pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in 1:nV};
+  parameter Boolean use_generation = false;
+  parameter Boolean use_PtoD = false;
+  parameter Boolean use_capture = false;
+  parameter Real parents[nC,nC]=if nC == 4 then
+ {{0.0,0.0,0.0,0.0},
+  {1.0,0.0,0.0,0.0},
+  {0.0,1.0,0.0,0.0},
+  {0.0,0.0,1.0,0.0}} else fill(0,nC,nC)
+    "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
+
+  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{mC_decay[i, j]
+  + (if use_generation then mC_generation[i, j] else 0)
+  + (if use_PtoD then mC_gens_PtoD[i, j] else 0)
+  + (if use_capture then mC_gens_capture[i, j] else 0)
+  for j in 1:nC} for i in 1:nV};
+
+  SIadd.ExtraPropertyFlowRate[nV,nC] mC_decay = {{-lambda_i[j]*pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in 1:nV};
+  Real[nV] mC_generationShape = {sin(Modelica.Constants.pi*pipe.summary.xpos_norm[i]) for i in 1:nV};
+  SIadd.ExtraPropertyFlowRate[nV,nC] mC_generation = {{0.01*mC_generationShape[i] for j in 1:nC} for i in 1:nV};
+  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_PtoD={{sum({lambda_i[k]*pipe.mCs[i, k]*pipe.nParallel*parents[j, k] for k in 1:nC}) for j in 1:nC} for i in 1:nV};
+  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_capture={{-0.01*mC_generationShape[i]* pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in 1:nV};
 
   Pipes.GenericPipe_MultiTransferSurface pipe(
     redeclare package Medium = Medium,
@@ -83,7 +105,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=100,
+      StopTime=50,
       __Dymola_NumberOfIntervals=1000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"));
