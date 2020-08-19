@@ -14,8 +14,6 @@ extends TRANSFORM.Icons.UnderConstruction;
   final parameter SI.Torque tau_nominal = Modelica.Constants.g_n*d_nominal*
       head_nominal*V_flow_nominal/(eta_nominal*omega_nominal)
     "Rated or design torque";
-  final parameter SI.AngularVelocity omega_nominal = N_nominal*2*Modelica.Constants.pi
-      /60;
   parameter SI.Efficiency eta_nominal = 0.8 "Rated or design efficiency";
   SI.Efficiency eta_actual;
   SI.Efficiency eta_curve;

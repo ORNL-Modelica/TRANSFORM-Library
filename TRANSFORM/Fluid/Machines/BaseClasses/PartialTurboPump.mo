@@ -2,12 +2,12 @@ within TRANSFORM.Fluid.Machines.BaseClasses;
 partial model PartialTurboPump
   extends PartialPump_Simple;
 extends TRANSFORM.Icons.UnderConstruction;
-import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+
   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft annotation (Placement(
         transformation(extent={{-10,50},{10,70}}, rotation=0),
         iconTransformation(extent={{-10,50},{10,70}})));
 
-  parameter NonSI.AngularVelocity_rpm N_nominal=1500 "Pump speed"
+  parameter SI.AngularVelocity omega_nominal=1500 "Pump speed"
     annotation (Dialog(group="Nominal Conditions: Single pump basis"));
   parameter SI.Length diameter_nominal=0.1524 "Impeller diameter"
     annotation (Dialog(group="Nominal Conditions: Single pump basis"));
@@ -32,24 +32,22 @@ import NonSI = Modelica.SIunits.Conversions.NonSIunits;
   final parameter SI.Height head_start=(p_b_start - p_a_start)/Modelica.Constants.g_n
       /d_start;
 
-  NonSI.AngularVelocity_rpm N(start=N_nominal) "Shaft rotational speed";
+  SI.AngularVelocity omega(start=omega_nominal) "Shaft rotational speed";
 
   SI.Temperature T_a = Medium.temperature(state_a);
   SI.Pressure p_a = port_a.p;
   SI.Density d_a = Medium.density(state_a);
-  SI.Temperature T_b = Medium.temperature(state_b);
+  //SI.Temperature T_b = Medium.temperature(state_b);
   SI.Pressure p_b = port_b.p;
-  SI.Density d_b = Medium.density(state_b);
+  //SI.Density d_b = Medium.density(state_b);
 
   SI.VolumeFlowRate V_flow_a;
-  SI.VolumeFlowRate V_flow_b;
+  //SI.VolumeFlowRate V_flow_b;
   SI.Height head;
 
   SI.Power Q_mech "Mechanical power added to system (i.e., pumping power)";
   SI.Angle phi "Shaft rotation angle";
   SI.Torque tau;
-  SI.AngularVelocity omega=N*2*Modelica.Constants.pi/60
-    "Shaft angular velocity";
 
   SI.Acceleration g_n = Modelica.Constants.g_n;
 
@@ -57,7 +55,7 @@ equation
 
 
   m_flow = d_a*V_flow_a;
-  m_flow = d_b*V_flow_b;
+  //m_flow = d_b*V_flow_b;
 
   // Mechanical shaft power
   W = Q_mech;

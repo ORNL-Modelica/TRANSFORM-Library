@@ -10,7 +10,7 @@ model waterTankPumpTest
     p_b_start(displayUnit="bar") = 1100000,
     T_a_start=303.15,
     m_flow_start=1,
-    N_nominal(displayUnit="rev/min") = 20000,
+    omega_nominal(displayUnit="rpm") = 2199.1148575129,
     m_flow_nominal=50,
     eta_nominal=1)
     annotation (Placement(transformation(extent={{10,10},{-10,-10}})));

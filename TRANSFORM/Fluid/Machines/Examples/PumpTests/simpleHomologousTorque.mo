@@ -10,7 +10,7 @@ model simpleHomologousTorque
     p_b_start(displayUnit="kPa") = 5000000,
     T_a_start=573.15,
     m_flow_start=3.2,
-    N_nominal(displayUnit="rev/min") = 21000,
+    omega_nominal(displayUnit="rpm") = 2199.1148575129,
     m_flow_nominal=3.2,
     eta_nominal=1)
     annotation (Placement(transformation(extent={{10,90},{-10,70}})));
@@ -64,7 +64,7 @@ model simpleHomologousTorque
     p_b_start(displayUnit="kPa") = circulator.p_b_start,
     T_a_start=circulator.T_a_start,
     m_flow_start=circulator.m_flow_start,
-    N_nominal(displayUnit="rev/min") = circulator.N_nominal,
+    omega_nominal=circulator.omega_nominal,
     m_flow_nominal=circulator.m_flow_nominal,
     eta_nominal=circulator.eta_nominal)
     annotation (Placement(transformation(extent={{10,-90},{-10,-70}})));
