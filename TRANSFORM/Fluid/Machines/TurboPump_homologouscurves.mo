@@ -9,17 +9,19 @@ extends TRANSFORM.Icons.UnderConstruction;
   SIadd.NonDim alpha;
   SIadd.NonDim h;
   SIadd.NonDim beta;
+  SIadd.NonDim gamma;
 
-  final parameter SI.Torque tau_nominal=Modelica.Constants.g_n*d_nominal*
+  final parameter SI.Torque tau_nominal = Modelica.Constants.g_n*d_nominal*
       head_nominal*V_flow_nominal/(eta_nominal*omega_nominal)
     "Rated or design torque";
-  final parameter SI.AngularVelocity omega_nominal=N_nominal*2*Modelica.Constants.pi
-      /60;
-  parameter SI.Efficiency eta_nominal=0.8 "Rated or design efficiency";
+  parameter SI.Efficiency eta_nominal = 0.8 "Rated or design efficiency";
+  SI.Efficiency eta_actual;
+  SI.Efficiency eta_curve;
+  Integer region;
 
   replaceable model
     HomoSet =
-      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets.Semiscale
+      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets.Radial
                                                                                                      constrainedby
     TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets.PartialHomoSet
                                                                                                                                                                                                             annotation(choicesAllMatching=true);
@@ -43,9 +45,11 @@ extends TRANSFORM.Icons.UnderConstruction;
   Modelica.Blocks.Tables.CombiTable1D HAN(table=homoSet.table_HAN)
     annotation (Placement(transformation(extent={{-50,-74},{-70,-54}})));
 
-  Modelica.Blocks.Sources.RealExpression alpha_v(y=alpha/max(1e-6, v))
+  Modelica.Blocks.Sources.RealExpression alpha_v(y=sign(v)*alpha/max(1e-6, abs(
+        v)))
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Modelica.Blocks.Sources.RealExpression v_alpha(y=v/max(1e-6, alpha))
+  Modelica.Blocks.Sources.RealExpression v_alpha(y=sign(alpha)*v/max(1e-6, abs(
+        alpha)))
     annotation (Placement(transformation(extent={{10,-64},{-10,-44}})));
   Modelica.Blocks.Tables.CombiTable1D BVN(table=homoSet.table_BVN)
     annotation (Placement(transformation(extent={{50,-14},{70,6}})));
@@ -66,40 +70,54 @@ extends TRANSFORM.Icons.UnderConstruction;
 
 equation
 
-  v = V_flow/V_flow_nominal;
+  v = V_flow_a/V_flow_nominal;
   alpha = omega/omega_nominal;
   h = head/head_nominal;
   beta = tau/tau_nominal;
 
-  if alpha > 0 and v >= 0 and v/alpha <= 1 then
-    h/alpha^2 = HAN.y[1];
-    beta/alpha^2 = BAN.y[1];
-  elseif alpha >= 0 and v >= 0 and v/alpha > 1 then
-    h/v^2 = HVN.y[1];
-    beta/v^2 = BVN.y[1];
-  elseif alpha > 0 and v < 0 and v/alpha >= -1 then
-    h/alpha^2 = HAD.y[1];
-    beta/alpha^2 = BAD.y[1];
-  elseif alpha >= 0 and v < 0 and v/alpha < -1 then
-    h/v^2 = HVD.y[1];
-    beta/v^2 = BVD.y[1];
-  elseif alpha < 0 and v <= 0 and v/alpha <= 1 then
-    h/alpha^2 = HAT.y[1];
-    beta/alpha^2 = BAT.y[1];
-  elseif alpha < 0 and v <= 0 and v/alpha > 1 then
-    h/v^2 = HVT.y[1];
-    beta/v^2 = BVT.y[1];
-  elseif alpha < 0 and v > 0 and v/alpha >= -1 then
-    h/alpha^2 = HAR.y[1];
-    beta/alpha^2 = BAR.y[1];
-  elseif alpha < 0 and v > 0 and v/alpha < -1 then
-    h/v^2 = HVR.y[1];
-    beta/v^2 = BVR.y[1];
+  if alpha >= 0 and v >= 0 and v < alpha then
+    h/alpha^2 = HAN.y[1]/homoSet.hCCF;
+    beta/alpha^2 = BAN.y[1]/homoSet.tCCF;
+    region = 1;
+  elseif alpha >= 0 and v >= 0 and v >= alpha then
+    h/v^2 = HVN.y[1]/homoSet.hCCF;
+    beta/v^2 = BVN.y[1]/homoSet.tCCF;
+    region = 2;
+  elseif alpha >= 0 and v < 0 and abs(v) < alpha then
+    h/alpha^2 = HAD.y[1]/homoSet.hCCF;
+    beta/alpha^2 = BAD.y[1]/homoSet.tCCF;
+    region = 8;
+  elseif alpha >= 0 and v < 0 and abs(v) >= alpha then
+    h/v^2 = HVD.y[1]/homoSet.hCCF;
+    beta/v^2 = BVD.y[1]/homoSet.tCCF;
+    region = 7;
+  elseif alpha < 0 and v < 0 and abs(v) < abs(alpha) then
+    h/alpha^2 = HAT.y[1]/homoSet.hCCF;
+    beta/alpha^2 = BAT.y[1]/homoSet.tCCF;
+    region = 5;
+  elseif alpha < 0 and v < 0 and abs(v) >= alpha then
+    h/v^2 = HVT.y[1]/homoSet.hCCF;
+    beta/v^2 = BVT.y[1]/homoSet.tCCF;
+    region = 6;
+  elseif alpha < 0 and v >= 0 and v < abs(alpha) then
+    h/alpha^2 = HAR.y[1]/homoSet.hCCF;
+    beta/alpha^2 = BAR.y[1]/homoSet.tCCF;
+    region = 4;
+  elseif alpha < 0 and v >= 0 and v >= abs(alpha) then
+    h/v^2 = HVR.y[1]/homoSet.hCCF;
+    beta/v^2 = BVR.y[1]/homoSet.tCCF;
+    region = 3;
   else
     h = 0; //Dummy
     beta = 0; //Dummy
+    region = 0;
     assert(false,"Unknown condition");
   end if;
+
+  gamma = d_a/d_nominal;
+
+  eta_actual*tau*omega = V_flow_a*dp;
+  eta_curve*alpha*beta = v*h*gamma*eta_nominal;
 
   connect(alpha_v.y, HVD.u[1])
     annotation (Line(points={{11,-40},{14,-40},{14,-64},{18,-64}},

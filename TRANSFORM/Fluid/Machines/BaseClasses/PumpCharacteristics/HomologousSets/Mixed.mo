@@ -193,7 +193,9 @@ model Mixed
               0.643, 0.204;
               0.749, 0.200;
               0.867, 0.167;
-              1.000, 0.055]);
+              1.000, 0.055],
+  tCCF = table_BAN[end,2],
+  hCCF = table_HAN[end,2]);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Mixed;

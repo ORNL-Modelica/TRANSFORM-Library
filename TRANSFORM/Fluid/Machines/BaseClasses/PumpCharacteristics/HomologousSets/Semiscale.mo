@@ -1,6 +1,7 @@
 within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets;
 model Semiscale "Semiscale pump"
   //https://www.osti.gov/servlets/purl/7349779 Fig 27 pg 197
+  //DOI: 10.2172/7349779
   extends PartialHomoSet(
   table_BAN=[ 0.00, 0.540; 0.20, 0.590; 0.40, 0.650; 0.60, 0.770; 0.800, 0.950; 0.90, 0.980; 0.95, 0.96; 1.00, 0.87],
   table_BAD=[-1.00, 0.620;-0.80, 0.680;-0.60, 0.530;-0.40, 0.460;-0.200, 0.490; 0.00, 0.540],
@@ -17,7 +18,9 @@ model Semiscale "Semiscale pump"
   table_HVN=[ 0.00,-0.350; 0.10,-0.320; 0.30,-0.200; 0.40,-0.140; 0.500, 0.000; 0.80, 0.545; 1.00, 1.00],
   table_HVD=[-1.00, 1.500;-0.80, 1.150;-0.60, 0.950;-0.40, 0.830;-0.200, 0.775; 0.00, 0.725],
   table_HVR=[-1.00, 0.175;-0.75,-0.150;-0.55,-0.300;-0.40,-0.380;-0.275,-0.400;-0.10,-0.380; 0.00,-0.35],
-  table_HVT=[ 0.00, 0.725; 0.20, 0.725; 0.40, 0.800; 0.60, 1.025; 1.000, 1.950]);
+  table_HVT=[ 0.00, 0.725; 0.20, 0.725; 0.40, 0.800; 0.60, 1.025; 1.000, 1.950],
+  tCCF = table_BAN[end,2],
+  hCCF = table_HAN[end,2]);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Semiscale;
