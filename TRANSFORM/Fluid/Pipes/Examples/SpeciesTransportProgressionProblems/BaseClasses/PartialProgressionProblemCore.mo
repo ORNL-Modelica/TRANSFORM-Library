@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems.BaseCl
 partial model PartialProgressionProblemCore
   extends TRANSFORM.Icons.Example;
 
-  package Medium = Modelica.Media.Water.StandardWater (extraPropertiesNames=
+  package Medium = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_9999Li7_pT(extraPropertiesNames=
           fill("dummy", nC), C_nominal=fill(1.0, nC));
 
   constant Integer nC=1;
@@ -49,9 +49,11 @@ partial model PartialProgressionProblemCore
 
   SIadd.ExtraPropertyFlowRate[nV,nC] mC_decay = {{-lambda_i[j]*pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in 1:nV};
   Real[nV] mC_generationShape = {sin(Modelica.Constants.pi*pipe.summary.xpos_norm[i]) for i in 1:nV};
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_generation = {{0.01*mC_generationShape[i] for j in 1:nC} for i in 1:nV};
+  //Real[nV] mC_captureShape = {sum({sin(k*Modelica.Constants.pi*pipe.summary.xpos_norm[i])/k for k in 1:100}) for i in 1:nV};
+  Real[nV] mC_captureShape = {sum({-sin(k*Modelica.Constants.pi*(pipe.summary.xpos_norm[i]+1))/k for k in 1:100}) for i in 1:nV};
+  SIadd.ExtraPropertyFlowRate[nV,nC] mC_generation = {{0.0005*mC_generationShape[i] for j in 1:nC} for i in 1:nV};
   SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_PtoD={{sum({lambda_i[k]*pipe.mCs[i, k]*pipe.nParallel*parents[j, k] for k in 1:nC}) for j in 1:nC} for i in 1:nV};
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_capture={{-0.01*mC_generationShape[i]* pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in 1:nV};
+  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_capture={{-0.1*mC_captureShape[i]* pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in 1:nV};
 
   Pipes.GenericPipe_MultiTransferSurface pipe(
     redeclare package Medium = Medium,
@@ -105,7 +107,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=50,
+      StopTime=40,
       __Dymola_NumberOfIntervals=1000,
       Tolerance=1e-06,
       __Dymola_Algorithm="Dassl"));
