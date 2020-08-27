@@ -67,14 +67,15 @@ partial model PartialPump_Simple
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Advanced"), Evaluate=true);
 
-  SI.Efficiency eta_is "Isentropic or aerodynamic efficiency";
+  //SI.Efficiency eta_is "Isentropic or aerodynamic efficiency";
   Medium.ThermodynamicState state_a;
+  //Medium.ThermodynamicState state_b;
   SI.PressureDifference dp "Pressure change";
   SI.MassFlowRate m_flow(start=m_flow_start) "Mass flow rate";
-  Medium.SpecificEnthalpy dh_ideal "Ideal enthalpy change";
+  //Medium.SpecificEnthalpy dh_ideal "Ideal enthalpy change";
   Medium.SpecificEnthalpy dh "Actual enthalpy change";
   SI.Power W "Pumping power required";
-  SI.Power W_ideal=dh_ideal*m_flow "Ideal pumping power required";
+  //SI.Power W_ideal=dh_ideal*m_flow "Ideal pumping power required";
   SI.Power Ub "Energy balance";
 
 equation
@@ -83,6 +84,10 @@ equation
     port_a.p,
     inStream(port_a.h_outflow),
     inStream(port_a.Xi_outflow));
+  //state_b = Medium.setState_phX(
+  //  port_b.p,
+  //  inStream(port_b.h_outflow),
+  //  inStream(port_b.Xi_outflow));
 
   // Pressure relations
   dp = port_b.p - port_a.p;
@@ -91,8 +96,8 @@ equation
   port_a.m_flow + port_b.m_flow = 0;
 
   // Enthalpy relations
-  dh_ideal = dp/Medium.density(state_a);
-  dh*eta_is = dh_ideal;
+  //dh_ideal = dp/Medium.density(state_a);
+  //dh*eta_is = dh_ideal;
 
   // Energy balace
   Ub = port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*

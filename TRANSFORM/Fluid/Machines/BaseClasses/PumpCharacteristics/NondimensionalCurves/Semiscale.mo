@@ -23,7 +23,8 @@ model Semiscale "Semiscale pump converted"
   4.037648, 0.4329; 4.171969, 0.3382; 4.331883, 0.1897; 4.514993, 0.0192;
   4.712389,-0.1500; 4.909785,-0.2981; 5.092895,-0.4483; 5.252808,-0.5809;
   5.387130,-0.6829; 5.497787,-0.7200; 5.608444,-0.7622; 5.742766,-0.7941;
-  5.902679,-0.7931; 6.085790,-0.7404; 6.283185,-0.6300]);
+  5.902679,-0.7931; 6.085790,-0.7404; 6.283185,-0.6300],
+  tCCF = 0.87);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Semiscale;

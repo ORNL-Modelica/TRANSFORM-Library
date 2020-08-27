@@ -32,6 +32,10 @@ partial model PartialHomoSet
   "Reverse Head h/alpha^2 vs v/alpha";
   parameter Real table_HVR[:,:]
   "Reverse Head h/v^2 vs alpha/v";
+  parameter Real tCCF=1.0
+  "Torque curve correction factor";
+  parameter Real hCCF=1.0
+  "Head curve correction factor";
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

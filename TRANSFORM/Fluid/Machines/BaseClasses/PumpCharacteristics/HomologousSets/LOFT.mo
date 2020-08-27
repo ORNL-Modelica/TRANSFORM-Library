@@ -17,7 +17,9 @@ model LOFT "LOFT pump"
   table_HVN=[ 0.00,-0.68; 0.20,-0.51; 0.40,-0.28; 0.60, 0.00; 0.70, 0.18; 0.80, 0.40; 1.00, 1.00],
   table_HVD=[-1.00, 2.44;-0.83, 2.00;-0.70, 1.70;-0.65, 1.60;-0.45, 1.32;-0.17, 1.10; 0.00, 0.93],
   table_HVR=[-1.00,-1.00;-0.40,-0.88;-0.30,-0.83; 0.00,-0.68],
-  table_HVT=[ 0.00, 0.93; 0.50, 0.83; 0.78, 0.83; 0.95, 0.93; 1.00, 1.00]);
+  table_HVT=[ 0.00, 0.93; 0.50, 0.83; 0.78, 0.83; 0.95, 0.93; 1.00, 1.00],
+  tCCF = table_BAN[end,2],
+  hCCF = table_HAN[end,2]);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end LOFT;
