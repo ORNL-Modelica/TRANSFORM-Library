@@ -1,4 +1,4 @@
-within TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
+within TRANSFORM.Media.Interfaces.Solids.Polynomials_Temp;
 function derivativeValue_der "Time derivative of derivative of polynomial"
   extends Modelica.Icons.Function;
   input Real p[:]

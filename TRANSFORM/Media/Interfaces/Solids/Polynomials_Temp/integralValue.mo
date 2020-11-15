@@ -1,4 +1,4 @@
-within TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
+within TRANSFORM.Media.Interfaces.Solids.Polynomials_Temp;
 function integralValue "Integral of polynomial p(u) from u_low to u_high"
   extends Modelica.Icons.Function;
   input Real p[:] "Polynomial coefficients";

@@ -1,4 +1,4 @@
-within TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
+within TRANSFORM.Media.Interfaces.Solids.Polynomials_Temp;
 function integral "Indefinite integral of polynomial p(u)"
   extends Modelica.Icons.Function;
   input Real p1[:]
