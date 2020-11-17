@@ -1,13 +1,14 @@
 within TRANSFORM.Mechanics.Rotational.Sources;
 model VariableSpeed "Variable speed, not dependent on torque"
   extends Modelica.Mechanics.Rotational.Interfaces.PartialTorque;
+  import TRANSFORM.Units.Conversions.Functions.AngularVelocity_rad_s.from_rpm;
 
   parameter Boolean use_port=false "=true then use input port"
     annotation (
     Evaluate=true,
     HideResult=true,
     choices(checkBox=true));
-  parameter Modelica.SIunits.AngularVelocity w_fixed "Fixed speed"
+  parameter Modelica.SIunits.AngularVelocity w_fixed = from_rpm(1500) "Fixed speed"
     annotation (Dialog(enable=not use_port));
 
   Modelica.Blocks.Interfaces.RealInput w_ext(unit="rad/s") if use_port
