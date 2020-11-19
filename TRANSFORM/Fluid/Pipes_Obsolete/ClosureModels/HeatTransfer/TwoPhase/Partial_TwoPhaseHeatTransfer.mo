@@ -3,7 +3,7 @@ partial model Partial_TwoPhaseHeatTransfer
   "Partial two phase heat transfer model"
   extends
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer(
-      redeclare replaceable package Medium =
+      replaceable package Medium =
         Modelica.Media.Water.StandardWater
       constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium);
   Units.NonDim x_th[nHT] "Thermodynmic quality";

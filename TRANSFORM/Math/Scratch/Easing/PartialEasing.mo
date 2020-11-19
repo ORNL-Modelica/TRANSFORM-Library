@@ -1,5 +1,5 @@
 within TRANSFORM.Math.Scratch.Easing;
-partial function PartialEasing
+function PartialEasing
   extends TRANSFORM.Icons.Function;
   input Real pos "Returned value for x-deltax >= 0";
   input Real neg "Returned value for x+deltax <= 0";
@@ -7,4 +7,25 @@ partial function PartialEasing
   input Real deltax=1 "Region around x with spline interpolation";
 
   output Real y;
+protected
+  Real scaledX1;
+  Real y_int;
+
+algorithm
+
+  scaledX1 := x/deltax + 0.5;
+
+  if scaledX1 <= 0.0 then
+    y_int := 0.0;
+  elseif scaledX1 >= 1.0 then
+    y_int := 1.0;
+  else
+    if scaledX1 < 0.5 then
+      y_int := (scaledX1)^3/2;
+    else
+      y_int := 1 - ((1 - scaledX1))^3/2;
+    end if;
+  end if;
+
+  y := pos*y_int + (1 - y_int)*neg;
 end PartialEasing;

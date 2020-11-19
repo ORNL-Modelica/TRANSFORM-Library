@@ -128,8 +128,7 @@ model GenericPipe_withWallx2
     useInnerPortProperties=useInnerPortProperties,
     useLumpedPressure=useLumpedPressure,
     lumpPressureAt=lumpPressureAt,
-    redeclare model Geometry = Geometry,
-    calc_Wb=calc_Wb)
+    redeclare model Geometry = Geometry)
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   HeatAndMassTransfer.DiscritizedModels.Conduction_2D wall(
     redeclare package Material = Material,
@@ -149,7 +148,7 @@ model GenericPipe_withWallx2
         length_z=sum(geometry.dlengths),
         drs=geometry.drs,
         dzs=geometry.dzs,
-        r_inner=geometry.r_inner),
+        r_inner=0.5*sum(geometry.dimensions)/geometry.nV),
     exposeState_a2=exposeState_a,
     exposeState_b2=exposeState_b,
     exposeState_a1=if pipe.heatTransfer.flagIdeal == 1 then false else true,

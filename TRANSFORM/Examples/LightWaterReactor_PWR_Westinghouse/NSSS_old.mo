@@ -2,7 +2,7 @@ within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse;
 model NSSS_old "Nuclear steam supply system"
   import TRANSFORM;
   extends BaseClasses.Partial_SubSystem_A(
-    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    replaceable package Medium = Modelica.Media.Water.StandardWater,
     allowFlowReversal=system.allowFlowReversal,
     redeclare replaceable CS_Default CS,
     redeclare replaceable ED_Default ED,

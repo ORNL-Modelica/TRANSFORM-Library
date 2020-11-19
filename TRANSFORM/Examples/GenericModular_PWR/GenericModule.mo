@@ -4,7 +4,7 @@ model GenericModule
     redeclare replaceable CS_Dummy CS,
     redeclare replaceable ED_Dummy ED,
     redeclare Data.Data_GenericModule data,
-   redeclare package Medium = Modelica.Media.Water.StandardWater,
+   replaceable package Medium = Modelica.Media.Water.StandardWater,
    port_a_nominal(
      p=dataInitial.p_start_STHX_tube[1],
      h=data.h_steam_cold,

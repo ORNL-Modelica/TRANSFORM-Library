@@ -1,20 +1,11 @@
 within TRANSFORM.Math.Scratch.Easing.Cubic;
 function easeInOut
-  extends PartialEasing;
-
-protected
-  Real scaledX =  x/deltax;
-  Real y_int;
-
+  input Real t;
+  output Real result;
 algorithm
-  if scaledX <= -0.999999999 then
-    y_int := 0;
-  elseif scaledX >= 0.999999999 then
-    y_int := 1;
+  if t < 0.5 then
+    result :=easeIn(t)/2;
   else
-    y_int := if scaledX < 0.0 then (scaledX+1)^3/2 else -(-scaledX+1)^3/2+1;
+    result := 1 - (1-t)^3/2;
   end if;
-  y := pos*y_int + (1 - y_int)*neg;
-
-  annotation (smoothOrder=1);
 end easeInOut;

@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Valves;
 model StopValve
-  extends TRANSFORM.Fluid.Valves.BaseClasses.PartialTwoPort(final allowFlowReversal=stopValve);
+  extends TRANSFORM.Fluid.Valves.BaseClasses.PartialTwoPort(final allowFlowReversal=checkValve);
   parameter Boolean stopValve=true "Flow stopped";
 equation
   if checkValve then

@@ -42,5 +42,6 @@ package Molybdenum "Mo: Molybdenum"
      2600.0,82.5; 2800.0,81.3]);
 
   annotation (Documentation(info="<html>
+<p>Source: http://www.specialmetals.com/assets/documents/alloys/inconel/inconel-alloy-690.pdf</p>
 </html>"));
 end Molybdenum;

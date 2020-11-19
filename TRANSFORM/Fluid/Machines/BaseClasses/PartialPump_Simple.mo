@@ -69,7 +69,6 @@ partial model PartialPump_Simple
 
   SI.Efficiency eta_is "Isentropic or aerodynamic efficiency";
   Medium.ThermodynamicState state_a;
-  Medium.ThermodynamicState state_b;
   SI.PressureDifference dp "Pressure change";
   SI.MassFlowRate m_flow(start=m_flow_start) "Mass flow rate";
   Medium.SpecificEnthalpy dh_ideal "Ideal enthalpy change";
@@ -84,10 +83,6 @@ equation
     port_a.p,
     inStream(port_a.h_outflow),
     inStream(port_a.Xi_outflow));
-  state_b = Medium.setState_phX(
-    port_b.p,
-    inStream(port_b.h_outflow),
-    inStream(port_b.Xi_outflow));
 
   // Pressure relations
   dp = port_b.p - port_a.p;

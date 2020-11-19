@@ -26,9 +26,8 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   replaceable function Method_dy =
       TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_deriv_y "Interpolation method selection for derivative wrt y";
   constant String tablePath="modelica://TRANSFORM/Resources/data/lookupTables/"
-       + mediumName + "/pT/";
-  // constant String tablePath="modelica://TRANSFORM/Resources/data/lookupTables/"
-  //      + mediumName + (if inputChoice == InputChoice.pT then "/pT/" else "/error/");
+       + mediumName + (if inputChoice == InputChoice.pT then "/pT/" else "/error/");
+
   constant String tablePath_p=Modelica.Utilities.Files.loadResource(tablePath + "p.csv") "Pressure";
   constant String tablePath_T=Modelica.Utilities.Files.loadResource(tablePath + "T.csv") "Temperature";
   constant String tablePath_h=Modelica.Utilities.Files.loadResource(tablePath + "h.csv") "Specific enthalpy";
@@ -39,11 +38,6 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   constant String tablePath_lambda=Modelica.Utilities.Files.loadResource(tablePath + "k.csv") "Thermal conductivity";
   constant String tablePath_mu=Modelica.Utilities.Files.loadResource(tablePath + "mu.csv") "Dynamic viscosity";
   constant String tablePath_s=Modelica.Utilities.Files.loadResource(tablePath + "s.csv") "Specific entropy";
-
-  constant String tablesPath_pT_T=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_p,tablePath_T,tablePath_T},
-      "|",
-      3);
   constant String tablesPath_pT_h=TRANSFORM.Utilities.Strings.concatenate(
       {tablePath_p,tablePath_T,tablePath_h},
       "|",
@@ -78,9 +72,8 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
       3);
 
   constant String tablePath_ph="modelica://TRANSFORM/Resources/data/lookupTables/"
-       + mediumName + "/ph/";
-  // constant String tablePath_ph="modelica://TRANSFORM/Resources/data/lookupTables/"
-  //      + mediumName + (if inputChoice == InputChoice.pT then "/ph/" else "/error/");
+       + mediumName + (if inputChoice == InputChoice.pT then "/ph/" else "/error/");
+
   constant String tablePath_ph_p=Modelica.Utilities.Files.loadResource(tablePath_ph + "p.csv") "Pressure";
   constant String tablePath_ph_T=Modelica.Utilities.Files.loadResource(tablePath_ph + "T.csv") "Temperature";
   constant String tablePath_ph_h=Modelica.Utilities.Files.loadResource(tablePath_ph + "h.csv") "Specific enthalpy";
@@ -93,46 +86,41 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   constant String tablePath_ph_s=Modelica.Utilities.Files.loadResource(tablePath_ph + "s.csv") "Specific entropy";
 
   constant String tablesPath_ph_T=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ph_p,tablePath_ph_h,tablePath_ph_T},
-      "|",
-      3);
-  constant String tablesPath_ph_h=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ph_p,tablePath_ph_h,tablePath_ph_h},
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_h},
       "|",
       3);
   constant String tablesPath_ph_a=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ph_p,tablePath_ph_h,tablePath_ph_a},
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_a},
       "|",
       3);
   constant String tablesPath_ph_cp=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ph_p,tablePath_ph_h,tablePath_ph_cp},
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_cp},
       "|",
       3);
   constant String tablesPath_ph_cv=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ph_p,tablePath_ph_h,tablePath_ph_cv},
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_cv},
       "|",
       3);
    constant String tablesPath_ph_d=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ph_p,tablePath_ph_h,tablePath_ph_d},
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_d},
       "|",
       3);
   constant String tablesPath_ph_lambda=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ph_p,tablePath_ph_h,tablePath_ph_lambda},
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_lambda},
       "|",
       3);
   constant String tablesPath_ph_mu=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ph_p,tablePath_ph_h,tablePath_ph_mu},
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_mu},
       "|",
       3);
   constant String tablesPath_ph_s=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ph_p,tablePath_ph_h,tablePath_ph_s},
+      {tablePath_ph_p,tablePath_ph_T,tablePath_ph_s},
       "|",
       3);
 
   constant String tablePath_ps="modelica://TRANSFORM/Resources/data/lookupTables/"
-       + mediumName + "/ps/";
-  // constant String tablePath_ps="modelica://TRANSFORM/Resources/data/lookupTables/"
-  //      + mediumName + (if inputChoice == InputChoice.pT then "/ps/" else "/error/");
+       + mediumName + (if inputChoice == InputChoice.pT then "/ph/" else "/error/");
+
   constant String tablePath_ps_p=Modelica.Utilities.Files.loadResource(tablePath_ps + "p.csv") "Pressure";
   constant String tablePath_ps_T=Modelica.Utilities.Files.loadResource(tablePath_ps + "T.csv") "Temperature";
   constant String tablePath_ps_h=Modelica.Utilities.Files.loadResource(tablePath_ps + "h.csv") "Specific enthalpy";
@@ -145,46 +133,42 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   constant String tablePath_ps_s=Modelica.Utilities.Files.loadResource(tablePath_ps + "s.csv") "Specific entropy";
 
   constant String tablesPath_ps_T=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ps_p,tablePath_ps_s,tablePath_ps_T},
-      "|",
-      3);
-  constant String tablesPath_ps_h=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ps_p,tablePath_ps_s,tablePath_ps_h},
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_h},
       "|",
       3);
   constant String tablesPath_ps_a=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ps_p,tablePath_ps_s,tablePath_ps_a},
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_a},
       "|",
       3);
   constant String tablesPath_ps_cp=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ps_p,tablePath_ps_s,tablePath_ps_cp},
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_cp},
       "|",
       3);
   constant String tablesPath_ps_cv=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ps_p,tablePath_ps_s,tablePath_ps_cv},
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_cv},
       "|",
       3);
    constant String tablesPath_ps_d=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ps_p,tablePath_ps_s,tablePath_ps_d},
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_d},
       "|",
       3);
   constant String tablesPath_ps_lambda=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ps_p,tablePath_ps_s,tablePath_ps_lambda},
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_lambda},
       "|",
       3);
   constant String tablesPath_ps_mu=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ps_p,tablePath_ps_s,tablePath_ps_mu},
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_mu},
       "|",
       3);
   constant String tablesPath_ps_s=TRANSFORM.Utilities.Strings.concatenate(
-      {tablePath_ps_p,tablePath_ps_s,tablePath_ps_s},
+      {tablePath_ps_p,tablePath_ps_T,tablePath_ps_s},
       "|",
       3);
 
   redeclare record extends ThermodynamicState
     AbsolutePressure p "pressure";
     Temperature T "temperature";
-    SpecificEnthalpy h "specific enthalpy";
+    //     SpecificEnthalpy h "specific enthalpy";
     //     Density d "Density";
   end ThermodynamicState;
 
@@ -210,19 +194,19 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   equation
     MM = externalFluidConstants.molarMass;
     R = Modelica.Constants.R/MM;
-    if (basePropertiesInputChoice == InputChoice.ph) then
+    // if (basePropertiesInputChoice == InputChoice.ph) then
     //   // Compute the state record (including the unique ID)
-     state = setState_ph(p, h);
-     // Compute the remaining variables.
-     // It is not possible to use the standard functions like
-     // d = density(state), because differentiation for index
-     // reduction and change of state variables would not be supported
-     // density_ph(), which has an appropriate derivative annotation,
-     // is used instead. The implementation of density_ph() uses
-     // setState with the same inputs, so there's no actual overhead
-     d = density_ph(p, h);
-     s = specificEntropy_ph(p, h);
-     T = temperature_ph(p, h);
+    //   state = setState_ph(p, h, phaseInput);
+    //   // Compute the remaining variables.
+    //   // It is not possible to use the standard functions like
+    //   // d = density(state), because differentiation for index
+    //   // reduction and change of state variables would not be supported
+    //   // density_ph(), which has an appropriate derivative annotation,
+    //   // is used instead. The implementation of density_ph() uses
+    //   // setState with the same inputs, so there's no actual overhead
+    //   d = density_ph(p, h, phaseInput);
+    //   s = specificEntropy_ph(p, h, phaseInput);
+    //   T = temperature_ph(p, h, phaseInput);
     // elseif (basePropertiesInputChoice == InputChoice.dT) then
     //   state = setState_dT(d, T, phaseInput);
     //   h = specificEnthalpy(state);
@@ -244,7 +228,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     //   p = pressure(state);
     //   T = temperature(state);
     // end if;
-    elseif (basePropertiesInputChoice == InputChoice.pT) then
+    if (basePropertiesInputChoice == InputChoice.pT) then
       state = setState_pT(p, T);
       d = density(state);
       h = specificEnthalpy_pT(p,T);//specificEnthalpy(state);
@@ -257,7 +241,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   replaceable function getMolarMass
     output MolarMass MM "molar mass";
   algorithm
-    MM :=0.01; //todo
+    MM :=0.01;
   end getMolarMass;
 
   redeclare replaceable function setState_ph
@@ -270,9 +254,9 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     state :=ThermodynamicState(p=p,T=Method(
          tablesPath_ph_T,
          p,
-         h),h=h);
+         h));
 
-   // annotation(Inline=true,smoothOrder=3);
+    annotation(Inline=true,smoothOrder=3);
   end setState_ph;
 
   redeclare replaceable function setState_pT
@@ -284,11 +268,11 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   algorithm
     state := ThermodynamicState(
       p=p,
-      T=T,
-       h=Method(
-          tablesPath_pT_h,
-          p,
-          T));
+      T=T);
+    //       h=Method(
+    //          tablesPath_pT_h,
+    //          p,
+    //          T));
   end setState_pT;
 
   redeclare replaceable function setState_dT
@@ -311,12 +295,8 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     state :=ThermodynamicState(p=p,T=Method(
          tablesPath_ps_T,
          p,
-         s),
-         h=Method(
-          tablesPath_ps_h,
-          p,
-          s));
-   // annotation(Inline=true,smoothOrder=3);
+         s));
+    annotation(Inline=true,smoothOrder=3);
   end setState_ps;
 
   replaceable function setState_hs
@@ -369,7 +349,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     input SpecificEnthalpy h "Specific enthalpy";
     output Density d "Density";
   algorithm
-    d :=Method(tablesPath_ph_d,p, h);
+    assert(false,"This function is not yet supported");
     annotation (Inline=true);
   end density_ph;
 
@@ -383,8 +363,8 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     input Real h_der "time derivative of specific enthalpy";
     output Real d_der "time derivative of density";
   algorithm
-    d_der := p_der*density_derp_h(state=state)
-           + h_der*density_derh_p(state=state);
+    d_der := p_der*density_derp_h(state=state) + h_der*density_derh_p(state=
+      state);
     annotation (Inline=true);
   end density_ph_der;
 
@@ -395,10 +375,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     input SpecificEnthalpy h "Specific enthalpy";
     output Temperature T "Temperature";
   algorithm
-    T :=Method(
-        tablesPath_ph_T,
-        p,
-        h);
+    assert(false,"This function is not yet supported");
     annotation (Inline=true, inverse(h=specificEnthalpy_pT(p=p, T=T)));
   end temperature_ph;
 
@@ -409,10 +386,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
     input SpecificEnthalpy h "Specific enthalpy";
     output SpecificEntropy s "specific entropy";
   algorithm
-    s :=Method(
-        tablesPath_ph_s,
-        p,
-        h);
+    assert(false,"This function is not yet supported");
     annotation (Inline=true, inverse(h=specificEnthalpy_ps(p=p, s=s)));
   end specificEntropy_ph;
 
@@ -712,11 +686,10 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
   redeclare replaceable function extends specificEnthalpy
     "Return specific enthalpy from state"
   algorithm
-    //     h := Method(
-    //         tablesPath_pT_h,
-    //         state.p,
-    //         state.T);
-   h := state.h;
+    h := Method(
+        tablesPath_pT_h,
+        state.p,
+        state.T);//state.h;
     annotation (Inline=true);
   end specificEnthalpy;
 

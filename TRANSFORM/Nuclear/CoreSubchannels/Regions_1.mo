@@ -19,6 +19,9 @@ model Regions_1
   replaceable package Material_1 =
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy
       annotation (choicesAllMatching=true);
+  replaceable package Material_2 =
+      TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      annotation (choicesAllMatching=true);
   replaceable model Geometry =
       ClosureRelations.Geometry.Models.CoreSubchannels.Generic
     constrainedby ClosureRelations.Geometry.Models.CoreSubchannels.Generic

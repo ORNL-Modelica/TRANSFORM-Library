@@ -6,7 +6,7 @@ record SimpleTable
       73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,
       98,99,100,101,102,103,104,105,106,107,108,109,110,111,112}
     "Atomic number";
-  constant String symbol[:]={"H","He","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si",
+  constant String symbol[:]={"He","H","Li","Be","B","C","N","O","F","Ne","Na","Mg","Al","Si",
       "P","S","Cl","Ar","K","Ca","Sc","Ti","V","Cr","Mn","Fe","Co","Ni","Cu","Zn","Ga","Ge",
       "As","Se","Br","Kr","Rb","Sr","Y","Zr","Nb","Mo","Tc","Ru","Rh","Pd","Ag","Cd","In",
       "Sn","Sb","Te","I","Xe","Cs","Ba","La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy",

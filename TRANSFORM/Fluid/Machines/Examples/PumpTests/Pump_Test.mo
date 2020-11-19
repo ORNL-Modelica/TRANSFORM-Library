@@ -1,6 +1,5 @@
 within TRANSFORM.Fluid.Machines.Examples.PumpTests;
 model Pump_Test
-  extends TRANSFORM.Icons.ObsoleteModel;
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   TRANSFORM.Fluid.BoundaryConditions.Boundary_ph Source(
@@ -46,12 +45,14 @@ model Pump_Test
     redeclare model FlowChar =
         TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve
         (V_flow_curve={0,0.001,0.0015}, head_curve={60,30,0}),
-    checkValve=false,
+    checkValve=true,
     exposeState_a=false,
     exposeState_b=true,
     p_a_start=100000,
     p_b_start=688484)
     annotation (Placement(transformation(extent={{-44,-10},{-24,10}})));
+  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(x={ValveLin.port_a.p})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(Ramp1.y, SinkP.p_in)
     annotation (Line(points={{79,10},{66,10},{66,8},{52,8}}, color={0,0,127}));
@@ -67,8 +68,5 @@ equation
       thickness=0.5));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(
-      StopTime=10,
-      Tolerance=1e-06,
-      __Dymola_Algorithm="Dassl"));
+    experiment(StopTime=10, Tolerance=1e-006));
 end Pump_Test;

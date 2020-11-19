@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.PhaseInterfac
 partial model PartialPhaseInterface
   "Mass flow rate at the vapor-liquid interface. Positive is into the liquid."
   extends PartialMassTransfer(
-     final flagIdeal=0, redeclare replaceable package Medium =
+     final flagIdeal=0, replaceable package Medium =
         Modelica.Media.Water.StandardWater constrainedby
       Modelica.Media.Interfaces.PartialTwoPhaseMedium,
       final state=state_liquid);

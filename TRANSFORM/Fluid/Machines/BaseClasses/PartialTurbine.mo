@@ -122,10 +122,10 @@ equation
   dh = eta_is*dh_ideal;
   dh = h_in - h_out;
   // Mechanical shaft power output
-  Q_mech = -eta_mech*omega*tau;
+  Q_mech = eta_mech*omega*tau;
   // Energy balace
   Ub =port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*actualStream(
-    port_b.h_outflow) - Q_mech;
+    port_b.h_outflow) + Q_mech;
   //    if energyDynamics == Dynamics.SteadyState then
   0 = Ub;
   //    else

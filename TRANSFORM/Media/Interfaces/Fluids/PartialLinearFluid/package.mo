@@ -9,7 +9,7 @@ partial package PartialLinearFluid "Generic pure liquid model with constant cp, 
     "Thermal expansion coefficient at constant pressure";
   constant SI.IsothermalCompressibility kappa_const
     "Isothermal compressibility";
-  constant SI.MolarMass MM_const "Molar mass";
+  constant MolarMass MM_const "Molar mass";
   constant Density reference_d "Density in reference conditions";
   constant SpecificEnthalpy reference_h
     "Specific enthalpy in reference conditions";

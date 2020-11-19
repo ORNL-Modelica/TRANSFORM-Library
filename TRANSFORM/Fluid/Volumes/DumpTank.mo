@@ -89,8 +89,8 @@ model DumpTank "Expansion tank with cover gas"
     annotation (Dialog(tab="Advanced", group="Heat Transfer"));
   parameter Boolean use_TraceMassPort=false "=true to toggle trace mass port"
     annotation (Dialog(tab="Advanced", group="Trace Mass Transfer"), Evaluate=true);
-  parameter Real MMs[Medium.nC]=fill(1, Medium.nC)
-    "Conversion from fluid mass-specific value to moles (e.g., molar mass [kg/mol] or Avogadro's number [atoms/mol])" annotation (Dialog(
+  parameter SI.MolarMass MMs[Medium.nC]=fill(1, Medium.nC)
+    "Trace substances molar mass" annotation (Dialog(
       tab="Advanced",
       group="Trace Mass Transfer",
       enable=use_TraceMassPort));

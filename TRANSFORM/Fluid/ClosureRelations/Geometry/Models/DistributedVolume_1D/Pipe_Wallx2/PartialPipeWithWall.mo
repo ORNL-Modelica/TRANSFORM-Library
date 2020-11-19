@@ -3,8 +3,6 @@ partial model PartialPipeWithWall
   parameter Integer nR(min=1) = 1 "Number of nodes in wall r-direction";
   parameter Integer nR_2(min=1) = 1 "Number of nodes in wall r-direction";
   parameter Integer nZ(min=1) = 1 "Number of nodes in z-direction";
-  input SI.Length r_inner "Wall inner radius"
-    annotation (Dialog(group="Inputs: Wall"));
   input SI.Length ths_wall[nZ] "Specify wall thickness or drs"
     annotation (Dialog(group="Inputs: Wall"));
   input SI.Length ths_wall_2[nZ]=ths_wall "Specify wall thickness or drs"

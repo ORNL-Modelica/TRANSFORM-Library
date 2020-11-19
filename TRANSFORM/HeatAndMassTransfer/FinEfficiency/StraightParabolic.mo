@@ -11,9 +11,9 @@ model StraightParabolic
   input Units.NonDim mL = sqrt(2*alpha/(lambda*th))*L "Non-dimensional fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
   Units.NonDim c1 = sqrt(1+(th/L)^2);
   SI.Area surfaceArea=W*(c1*L + L^2/th*log(th/L + c1));
-equation
-  eta = 2/(sqrt(4*(mL)^2+1)+1);
-  annotation (defaultComponentName="finEfficiency",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+algorithm
+  eta :=2/(sqrt(4*(mL)^2+1)+1);
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/StraightParabolic.jpg")}),
                                                                  Diagram(

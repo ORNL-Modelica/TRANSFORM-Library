@@ -11,4 +11,5 @@ external"C" z = bicubic_eval_deriv_y(
     IncludeDirectory="modelica://TRANSFORM/Resources/Include",
     LibraryDirectory="modelica://TRANSFORM/Resources/Library");
 
+annotation (derivative(zeroDerivative=y)=bicubic_eval_deriv_xy,derivative(zeroDerivative=x)=bicubic_eval_deriv_yy);
 end bicubic_eval_deriv_y;

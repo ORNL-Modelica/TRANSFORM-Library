@@ -6,7 +6,6 @@ model GenericPipe
     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe;
   extends PartialPipeWithWall(
     final nZ=nV,
-    r_inner=sum(surfaceAreas[1,:])/(sum(dlengths)/nZ*2*Modelica.Constants.pi),
     ths_wall=fill(0.01, nZ),
     drs=fillArray_1D(ths_wall/nR, nR),
     dzs=fillArray_1D(dlengths, nR));

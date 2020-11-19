@@ -27,7 +27,6 @@ tablesPath_pT_s
 ThermodynamicState
 BaseProperties
 getMolarMass
-getCriticalPressure
 setState_ph
 T_ph
 setState_pT

@@ -2,7 +2,7 @@ within TRANSFORM.Examples.SystemOfSubSystems.PHS;
 model IRIS
   import TRANSFORM;
   extends BaseClasses.Partial_SubSystem_A(
-    redeclare package Medium = Modelica.Media.Water.StandardWater,
+    replaceable package Medium = Modelica.Media.Water.StandardWater,
     allowFlowReversal=system.allowFlowReversal,
     redeclare replaceable CS_Default CS,
     redeclare replaceable ED_Default ED,
@@ -526,12 +526,12 @@ equation
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(sensorBus.PHS.T_Core_Inlet, T_Core_Inlet.T) annotation (Line(
-      points={{-29.9,100.1},{-70,100.1},{-98,100.1},{-98,-72},{-74.4,-72}},
+      points={{-29.9,100.1},{-70,100.1},{-98,100.1},{-98,-72},{-76.4,-72}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));
   connect(sensorBus.PHS.T_Core_Outlet, T_Core_Outlet.T) annotation (Line(
-      points={{-29.9,100.1},{-98,100.1},{-98,-44},{-74.4,-44}},
+      points={{-29.9,100.1},{-98,100.1},{-98,-44},{-76.4,-44}},
       color={239,82,82},
       pattern=LinePattern.Dash,
       thickness=0.5));

@@ -38,8 +38,8 @@ model Unnamed
         Medium.saturationTemperature(nominalData.p_start_boiler) + 1,
         Medium.X_default)) "Main Steam Isolation Valve"
     annotation (Placement(transformation(extent={{0,46},{20,66}}, rotation=0)));
-  TRANSFORM_Examples.SteamRankine_BalanceOfPlant.Components.PumpSimple
-    circulationPump(
+  Fluid.Examples.SteamRankine_BalanceOfPlant.Components.PumpSimple
+                                                          circulationPump(
     V=0.2,
     h_start=900e3,
     use_N_input=true,

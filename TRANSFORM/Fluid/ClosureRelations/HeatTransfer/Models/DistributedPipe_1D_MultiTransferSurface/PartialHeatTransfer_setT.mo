@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface;
 partial model PartialHeatTransfer_setT "Base model"
   parameter Real nParallel=1 "Number of parallel components" annotation(Dialog(tab="Internal Interface"));
-
+//Modelica.Media.Air.MoistAir
   replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby
     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
     annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
@@ -29,14 +29,13 @@ partial model PartialHeatTransfer_setT "Base model"
   parameter SI.Temperature Ts_start[nHT] annotation (Dialog(tab="Internal Interface", group="Initialization"));
   parameter SI.ReynoldsNumber Re_lam(max=Re_turb) = 2300 "Laminar transition Reynolds number" annotation(Dialog(tab="Advanced"));
   parameter SI.ReynoldsNumber Re_turb(min=Re_lam) = 4000 "Turbulent transition Reynolds number" annotation(Dialog(tab="Advanced"));
-  input Units.NonDim CF=1.0 "Correction Factor: Q = CF*alpha*A*dT" annotation(Dialog(tab="Advanced",group="Inputs"));
-  input Units.NonDim CFs[nHT,nSurfaces]=fill(
+  parameter Units.NonDim CF=1.0 "Correction Factor: Q = CF*alpha*A*dT" annotation(Dialog(tab=
+          "Advanced"));
+  parameter Units.NonDim CFs[nHT,nSurfaces]=fill(
       CF,
       nHT,
-      nSurfaces) "if non-uniform then set"  annotation(Dialog(tab="Advanced",group="Inputs"));
-
-  Medium.ThermodynamicState states_wall[nHT,nSurfaces] = Medium.setState_pTX(transpose({Medium.pressure(states) for i in 1:nSurfaces}), Ts_wall, Medium.X_default);
-
+      nSurfaces) "if non-uniform then set"  annotation(Dialog(tab=
+          "Advanced"));
   //parameter Boolean use_Ts_film = false "=true for Ts_film = 0.5*(Ts_wall + Ts_fluid) else Ts_fluid" annotation(Dialog(tab="Advanced"));
   SI.Temperature Ts_fluid[nHT] = Medium.temperature(states) "Fluid temperature";
   SI.Temperature Ts_wall[nHT,nSurfaces] = heatPorts.T "Wall temperature";
@@ -58,7 +57,6 @@ partial model PartialHeatTransfer_setT "Base model"
   SI.CoefficientOfHeatTransfer alphas[nHT,nSurfaces] "Coefficient of heat transfer";
   SI.NusseltNumber Nus[nHT,nSurfaces] "Nusselt number";
   SI.HeatFlowRate Q_flows[nHT,nSurfaces] = heatPorts.Q_flow/nParallel "Heat flow rate";
-
   HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts[nHT,nSurfaces] annotation (Placement(
         transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{
             90,-10},{110,10}})));

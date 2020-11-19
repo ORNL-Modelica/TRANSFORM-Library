@@ -75,8 +75,7 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
     useInnerPortProperties=useInnerPortProperties,
     useLumpedPressure=useLumpedPressure,
     lumpPressureAt=lumpPressureAt,
-    redeclare model Geometry = Geometry,
-    calc_Wb=calc_Wb)
+    redeclare model Geometry = Geometry)
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
@@ -91,12 +90,11 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
   parameter Boolean use_heatPort_addWall = false "=true for additional source/sink for heat between wall and insulation" annotation(Dialog(group="Heat Transfer"));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder wall[pipe.geometry.nV](
     length=pipe.geometry.dlengths,
-    r_inner={pipe.geometry.surfaceAreas[i, 1]/(pipe.geometry.dlengths[i]*2*
-        Modelica.Constants.pi) for i in 1:pipe.geometry.nV},
+    r_inner=0.5*pipe.geometry.dimensions,
     redeclare package Material = Material_wall,
     each energyDynamics=energyDynamics_wall,
     each T_start=T_wall_start,
-    r_outer=ths_wall + wall.r_inner,
+    r_outer=ths_wall + 0.5*pipe.geometry.dimensions,
     each exposeState_a=true,
     Q_gen=Q_gen)     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

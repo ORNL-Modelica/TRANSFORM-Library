@@ -41,11 +41,7 @@ Real p_ratio "port_b.p/port_a.p pressure ratio";
 initial equation
   if use_NominalInlet then
     if use_T_nominal then
-      Kt = m_flow_nominal/(sqrt(p_inlet_nominal*Medium.density(
-        Medium.setState_pTX(
-        p_inlet_nominal,
-        T_nominal,
-        Medium.reference_X)))*
+      Kt = m_flow_nominal/(sqrt(T_nominal/Modelica.Constants.R)*
         Modelica.Fluid.Utilities.regRoot2(1 - (p_outlet_nominal/p_inlet_nominal)
         ^2));
     else

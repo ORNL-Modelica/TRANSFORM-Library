@@ -14,9 +14,10 @@ model Interpolation_2D_Test_check_derivatives_y
     offset=100)
     annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
 
-Real dy;
+Real dy,d2y;
 equation
   dy = der(lookupTables_2D.y);
+  d2y = der(dy);
 
   connect(const.y, lookupTables_2D.u1) annotation (Line(points={{-39,20},{-26,20},
           {-26,6},{-12,6}}, color={0,0,127}));
