@@ -5,7 +5,7 @@ A Modelica based library for modeling thermal hydraulic energy systems and other
 
 ## Check out the TRANSFORM demo reel to get excited!
 
-[![TRANSFORMDemo](http://img.youtube.com/vi/esUoh9zBK-M/0.jpg)](http://www.youtube.com/watch?v=esUoh9zBK-Mt)
+[![TRANSFORMDemo](http://img.youtube.com/vi/esUoh9zBK-M/0.jpg)](https://youtu.be/lEhW7kK8ypw)
 
 ## Version - BETA
 
