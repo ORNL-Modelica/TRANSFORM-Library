@@ -68,7 +68,7 @@ partial package PartialMedium "Partial medium properties (base package of all me
     MassFraction[nX] X(start=reference_X)
       "Mass fractions (= (component mass)/total mass  m_i/m)";
     SpecificInternalEnergy u "Specific internal energy of medium";
-    SpecificHeatCapacity R "Gas constant (of mixture if applicable)";
+    SpecificHeatCapacity R_s "Gas constant (of mixture if applicable)";
     SI.MolarMass MM "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "Thermodynamic state record for optional functions";
@@ -77,10 +77,10 @@ partial package PartialMedium "Partial medium properties (base package of all me
       annotation (Evaluate=true, Dialog(tab="Advanced"));
     parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
-  Modelica.Units.NonSI.Temperature_degC T_degC=
-      Modelica.Units.Conversions.to_degC(T) "Temperature of medium in [degC]";
-  Modelica.Units.NonSI.Pressure_bar p_bar=Modelica.Units.Conversions.to_bar(p)
-    "Absolute pressure of medium in [bar]";
+    Modelica.Units.NonSI.Temperature_degC T_degC=
+        Modelica.Units.Conversions.to_degC(T) "Temperature of medium in [degC]";
+    Modelica.Units.NonSI.Pressure_bar p_bar=Modelica.Units.Conversions.to_bar(p)
+      "Absolute pressure of medium in [bar]";
     // Local connector definition, used for equation balancing check
     connector InputAbsolutePressure = input SI.AbsolutePressure
       "Pressure as input signal connector";
