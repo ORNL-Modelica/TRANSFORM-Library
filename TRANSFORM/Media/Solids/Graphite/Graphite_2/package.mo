@@ -1,9 +1,9 @@
 within TRANSFORM.Media.Solids.Graphite;
 package Graphite_2 "Graphite | fluence = 0.5e25 [n/m2]"
-  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
-    mediumName="Graphite",
-    T_min=Modelica.SIunits.Conversions.from_degC(0),
-    T_max=Modelica.SIunits.Conversions.from_degC(1500));
+extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
+  mediumName="Graphite",
+  T_min=Modelica.Units.Conversions.from_degC(0),
+  T_max=Modelica.Units.Conversions.from_degC(1500));
   constant Real c1(unit="J/(kg.K)") = -143.9883;
   constant Real c2(unit="J/(kg.K2)") = 3.6677;
   constant Real c3(unit="J/(kg.K3)") = -0.0022;

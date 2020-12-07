@@ -18,18 +18,18 @@ extends TRANSFORM.Icons.UnderConstruction;
   SI.Efficiency eta_curve;
   Integer region;
 
-  Modelica.Blocks.Tables.CombiTable1D h_table(                                                                           table=
-        nonDimCurve.table_h,
+  Modelica.Blocks.Tables.CombiTable1Dv h_table(
+    table=nonDimCurve.table_h,
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Tables.CombiTable1D beta_table(                                                                           table=
-        nonDimCurve.table_beta, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+  Modelica.Blocks.Tables.CombiTable1Dv beta_table(
+    table=nonDimCurve.table_beta,
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
-  replaceable model
-    NonDimCurve =
+  replaceable model NonDimCurve =
       TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves.Radial
                                                                                                      constrainedby
     TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves.PartialNonDimCurve

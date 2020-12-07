@@ -33,9 +33,9 @@ model CompressibleValve2_Test2
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={50,0})));
-  Modelica.Blocks.Sources.Sine     positionValve(
+  Modelica.Blocks.Sources.Sine positionValve(
     amplitude=0.49,
-    freqHz=1/10,
+    f=1/10,
     offset=0.5,
     startTime=0.5)
     annotation (Placement(transformation(extent={{-90,58},{-70,78}})));

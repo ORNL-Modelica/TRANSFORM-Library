@@ -23,7 +23,8 @@ model InsurgeToHotWall
   constant SI.Pressure mainTank_p_start=
       Units.Conversions.Functions.Pressure_Pa.from_psi(113.7)
     "Initial pressure of main (primary) tank";
-  constant SI.Temperature insurge_T = SI.Conversions.from_degF(78) "Insurge water temperature";
+  constant SI.Temperature insurge_T = Modelica.Units.Conversions.from_degF(
+                                                               78) "Insurge water temperature";
   constant SI.Height mainTank_level_beforeInsurge_start=
       Units.Conversions.Functions.Distance_m.from_in(10.4)
     "Liquid level before insurge (empty = 0)";
@@ -32,7 +33,8 @@ model InsurgeToHotWall
     "pressure of main (primary) tank before insurge";
   constant Units.NonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
   constant Units.NonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
-  constant SI.Temperature wall_Tavg = SI.Conversions.from_degF(300) "Average wall temperature";
+  constant SI.Temperature wall_Tavg = Modelica.Units.Conversions.from_degF(
+                                                               300) "Average wall temperature";
   constant SI.ThermalConductivity wall_lambda=
       TRANSFORM.Media.Solids.SS316.thermalConductivity_T(wall_Tavg)
     "Wall thermalconductivity";

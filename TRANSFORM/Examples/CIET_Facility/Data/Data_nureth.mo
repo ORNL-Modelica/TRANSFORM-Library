@@ -20,19 +20,20 @@ model Data_nureth
   parameter Integer index_15 = 15 annotation(Dialog(tab="Indices"));
   parameter Integer index_16 = 16 annotation(Dialog(tab="Indices"));
 
-  parameter Modelica.SIunits.Length roughness=1.5e-5;
+  parameter Modelica.Units.SI.Length roughness=1.5e-5;
 
-  parameter Modelica.SIunits.Temperature T_cold_primary=80 + 273.15;
-  parameter Modelica.SIunits.Temperature T_hot_primary=101 + 273.15;
+  parameter Modelica.Units.SI.Temperature T_cold_primary=80 + 273.15;
+  parameter Modelica.Units.SI.Temperature T_hot_primary=101 + 273.15;
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_primary=0.18;
-  parameter Modelica.SIunits.Pressure p_primary=1.0133e5;
+  parameter Modelica.Units.SI.MassFlowRate m_flow_primary=0.18;
+  parameter Modelica.Units.SI.Pressure p_primary=1.0133e5;
 
-  parameter Modelica.SIunits.Area tank1_crossArea=0.25*Modelica.Constants.pi*0.0254*(12.39)^2;
-  parameter Modelica.SIunits.Area tank1_length=0.0254*(11.75);
+  parameter Modelica.Units.SI.Area tank1_crossArea=0.25*Modelica.Constants.pi*
+      0.0254*(12.39)^2;
+  parameter Modelica.Units.SI.Area tank1_length=0.0254*(11.75);
 
-  parameter Modelica.SIunits.Temperature T_ambient=294.770; //was 298.15 294.770;
-  parameter Modelica.SIunits.Temperature T_ctah=80+273.15;
+  parameter Modelica.Units.SI.Temperature T_ambient=294.770;//was 298.15 294.770;
+  parameter Modelica.Units.SI.Temperature T_ctah=80 + 273.15;
 
   Blocks.DataTable pipes(table=[10,2.01780,33.6888,0.0278638,0.0006097763,
         5.6,1.50E+05,1.50E+05,325,325,0.00304546,0.0508; 3,0.69868,

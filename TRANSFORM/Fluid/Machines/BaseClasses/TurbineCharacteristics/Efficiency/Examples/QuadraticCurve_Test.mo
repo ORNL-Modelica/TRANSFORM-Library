@@ -3,7 +3,7 @@ model QuadraticCurve_Test
   import TRANSFORM;
   extends Icons.Example;
 
-  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+  import         Modelica.Units.NonSI;
 
   package Medium = Modelica.Media.Water.StandardWater;
 

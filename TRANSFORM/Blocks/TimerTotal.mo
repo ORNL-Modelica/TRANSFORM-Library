@@ -7,8 +7,8 @@ block TimerTotal
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
-  discrete Modelica.SIunits.Time y_last "y output instant when u became false";
+  discrete Modelica.Units.SI.Time entryTime "Time instant when u became true";
+  discrete Modelica.Units.SI.Time y_last "y output instant when u became false";
 initial equation
   pre(entryTime) = 0;
   pre(y) = 0;

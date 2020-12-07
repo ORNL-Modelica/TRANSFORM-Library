@@ -3,7 +3,7 @@ model Turbine_SinglePhase_Mechanical
   extends TRANSFORM.Fluid.Machines.BaseClasses.PartialTurbine(final eta_is=1.0,
       eta_mech=1.0);
 extends TRANSFORM.Icons.UnderConstruction;
-  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+  import         Modelica.Units.NonSI;
 
   replaceable model FlowChar =
       TRANSFORM.Fluid.Machines.BaseClasses.TurbineCharacteristics.Flow.HyperbolicTangent

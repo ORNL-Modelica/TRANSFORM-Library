@@ -8,8 +8,8 @@ model VariableSpeed "Variable speed, not dependent on torque"
     Evaluate=true,
     HideResult=true,
     choices(checkBox=true));
-  parameter Modelica.SIunits.AngularVelocity w_fixed = from_rpm(1500) "Fixed speed"
-    annotation (Dialog(enable=not use_port));
+  parameter Modelica.Units.SI.AngularVelocity w_fixed=from_rpm(1500)
+    "Fixed speed" annotation (Dialog(enable=not use_port));
 
   Modelica.Blocks.Interfaces.RealInput w_ext(unit="rad/s") if use_port
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),

@@ -3,13 +3,13 @@ model PlotMap_2points_Test
   extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.Sine y_coordinate(
     amplitude=3000,
-    freqHz=1/10,
+    f=1/10,
     offset=3000,
     startTime=10)
     annotation (Placement(transformation(extent={{10,-80},{30,-60}})));
   Modelica.Blocks.Sources.Sine x_coordinate(
     amplitude=750,
-    freqHz=1/10,
+    f=1/10,
     phase=1.5707963267949,
     offset=750,
     startTime=10)

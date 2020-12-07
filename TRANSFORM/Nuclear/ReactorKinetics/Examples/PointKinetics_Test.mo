@@ -4,13 +4,13 @@ model PointKinetics_Test
   extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.Sine Teff_Fuel(
     amplitude=5,
-    freqHz=0.002,
+    f=0.002,
     startTime=1e4,
     offset=1000)
     annotation (Placement(transformation(extent={{-100,-10},{-80,10}})));
   Modelica.Blocks.Sources.Sine Teff_Coolant(
     amplitude=10,
-    freqHz=0.01,
+    f=0.01,
     startTime=1e4,
     phase=0.5235987755983,
     offset=500)

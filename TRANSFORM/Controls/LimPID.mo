@@ -1,7 +1,8 @@
 within TRANSFORM.Controls;
 block LimPID
   "P, PI, PD, and PID controller with limited output, anti-windup compensation, setpoint weighting, feed forward, and reset"
-  import Modelica.Blocks.Types.InitPID;
+  import InitPID =
+         Modelica.Blocks.Types.Init;
   import Modelica.Blocks.Types.Init;
   import Modelica.Blocks.Types.SimpleController;
   extends Modelica.Blocks.Interfaces.SVcontrol;
@@ -41,10 +42,9 @@ block LimPID
        annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==SimpleController.PD or
                                 controllerType==SimpleController.PID));
   // Initialization
-  parameter .Modelica.Blocks.Types.InitPID initType= .Modelica.Blocks.Types.InitPID.NoInit
+  parameter .Modelica.Blocks.Types.Init initType=.Modelica.Blocks.Types.Init.NoInit
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-                                     annotation(Evaluate=true,
-      Dialog(tab="Initialization"));
+    annotation (Evaluate=true, Dialog(tab="Initialization"));
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
     annotation (Dialog(tab="Initialization",
@@ -56,7 +56,7 @@ block LimPID
                          enable=controllerType==SimpleController.PD or
                                 controllerType==SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == .Modelica.Blocks.Types.InitPID.InitialOutput, tab=
+    annotation(Dialog(enable=initType == .Modelica.Blocks.Types.Init.InitialOutput,    tab=
           "Initialization"));
   parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));
@@ -83,21 +83,22 @@ block LimPID
     annotation (Placement(transformation(extent={{-70,-10},{-50,10}})));
   Modelica.Blocks.Math.Gain P(k=1)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Blocks.IntegratorWithReset            I(
+  Blocks.IntegratorWithReset I(
     k=unitTime/Ti,
     y_start=xi_start,
     initType=if initType == InitPID.SteadyState then Init.SteadyState else if
-        initType == InitPID.InitialState or initType == InitPID.DoNotUse_InitialIntegratorState
+        initType == InitPID.InitialState or initType == InitPID.InitialState
          then Init.InitialState else Init.NoInit,
     reset=if reset == TRANSFORM.Types.Reset.Disabled then reset else TRANSFORM.Types.Reset.Input,
+
     y_reset=y_reset) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Continuous.Derivative D(
     k=Td/unitTime,
     T=max([Td/Nd,1.e-14]),
     x_start=xd_start,
-    initType=if initType == InitPID.SteadyState or initType == InitPID.InitialOutput
-         then Init.SteadyState else if initType == InitPID.InitialState then
+    initType=if initType ==InitPID.SteadyState  or initType ==InitPID.InitialOutput
+         then Init.SteadyState else if initType ==InitPID.InitialState  then
         Init.InitialState else Init.NoInit) if with_D
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Math.Gain gainPID(k=k)
@@ -173,7 +174,7 @@ initial equation
 equation
   assert(yMax >= yMin, "LimPID: Limits must be consistent. However, yMax (=" +
     String(yMax) + ") < yMin (=" + String(yMin) + ")");
-  if initType == InitPID.InitialOutput and (y_start < yMin or y_start > yMax) then
+  if initType ==InitPID.InitialOutput  and (y_start < yMin or y_start > yMax) then
     Modelica.Utilities.Streams.error("LimPID: Start value y_start (=" + String(
       y_start) + ") is outside of the limits of yMin (=" + String(yMin) +
       ") and yMax (=" + String(yMax) + ")");

@@ -7,9 +7,11 @@ model check_interpolate2D
   Real z_int;
  Utilities.ErrorAnalysis.UnitTests unitTests(x={z_int})
    annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Modelica.Blocks.Sources.Sine xi(amplitude=10, freqHz=1/10)
+  Modelica.Blocks.Sources.Sine xi(amplitude=10, f=1/10)
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
-  Modelica.Blocks.Sources.Sine yi(amplitude=10, freqHz=1/10,
+  Modelica.Blocks.Sources.Sine yi(
+    amplitude=10,
+    f=1/10,
     phase=3.1415926535898)
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 equation

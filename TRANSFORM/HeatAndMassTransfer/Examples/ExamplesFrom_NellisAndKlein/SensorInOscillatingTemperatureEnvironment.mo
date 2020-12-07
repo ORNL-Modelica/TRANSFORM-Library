@@ -30,7 +30,7 @@ model SensorInOscillatingTemperatureEnvironment
     "initial plastic disk temperature"
     annotation (Placement(transformation(extent={{-84,84},{-76,92}})));
   Modelica.Blocks.Sources.Sine Tinf(
-    freqHz=0.5,
+    f=0.5,
     offset=Units.Conversions.Functions.Temperature_K.from_degC(320),
     amplitude=50) "ambient temperature"
     annotation (Placement(transformation(extent={{-84,70},{-76,78}})));

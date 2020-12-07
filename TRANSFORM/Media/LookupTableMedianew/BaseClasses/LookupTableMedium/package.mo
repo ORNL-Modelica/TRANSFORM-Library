@@ -1,7 +1,7 @@
 within TRANSFORM.Media.LookupTableMedianew.BaseClasses;
 package LookupTableMedium "Medium package accessing the lookup table solver"
   extends
-    TRANSFORM.Media.LookupTableMedianew.BaseClasses.ExternalSinglePhaseMedium;
+  TRANSFORM.Media.LookupTableMedianew.BaseClasses.ExternalSinglePhaseMedium;
 
   redeclare replaceable function extends isentropicEnthalpy
 protected

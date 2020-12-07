@@ -54,7 +54,7 @@ required from medium model \"" + mediumName + "\".
     //u = specificHeatCapacityCv_T(T)*(T - T0);
     // u=cv_const*(T - T0);
     d = density_T(T);
-    R = 0;
+  R_s = 0;
     MM = MM_const;
     state.T = T;
     state.p = p;

@@ -25,7 +25,7 @@ partial package PartialMedium "Partial medium properties (base package of all me
     "Default mass fractions of medium";
   constant AbsolutePressure p_default=101325
     "Default value for pressure of medium (for initialization)";
-  constant Temperature T_default=Modelica.SIunits.Conversions.from_degC(20)
+  constant Temperature T_default=Modelica.Units.Conversions.from_degC(  20)
     "Default value for temperature of medium (for initialization)";
   constant SpecificEnthalpy h_default=specificEnthalpy_pTX(
           p_default,
@@ -77,12 +77,10 @@ partial package PartialMedium "Partial medium properties (base package of all me
       annotation (Evaluate=true, Dialog(tab="Advanced"));
     parameter Boolean standardOrderComponents=true
       "If true, and reducedX = true, the last element of X will be computed from the other ones";
-    SI.Conversions.NonSIunits.Temperature_degC T_degC=
-        Modelica.SIunits.Conversions.to_degC(T)
-      "Temperature of medium in [degC]";
-    SI.Conversions.NonSIunits.Pressure_bar p_bar=
-        Modelica.SIunits.Conversions.to_bar(p)
-      "Absolute pressure of medium in [bar]";
+  Modelica.Units.NonSI.Temperature_degC T_degC=
+      Modelica.Units.Conversions.to_degC(T) "Temperature of medium in [degC]";
+  Modelica.Units.NonSI.Pressure_bar p_bar=Modelica.Units.Conversions.to_bar(p)
+    "Absolute pressure of medium in [bar]";
     // Local connector definition, used for equation balancing check
     connector InputAbsolutePressure = input SI.AbsolutePressure
       "Pressure as input signal connector";

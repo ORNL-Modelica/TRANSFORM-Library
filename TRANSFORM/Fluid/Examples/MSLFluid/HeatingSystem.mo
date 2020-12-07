@@ -12,14 +12,14 @@ model HeatingSystem "Simple model of a heating system"
     nPorts=2,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     use_HeatTransfer=true,
-    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter=
-        0.01),Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter=
-        0.01)},
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter=0.01),
+        Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter=0.01)},
     redeclare model HeatTransfer =
         Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (k=10),
+
     ports(each p(start=1e5)),
-    T_start=Modelica.SIunits.Conversions.from_degC(20))
-              annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    T_start=Modelica.Units.Conversions.from_degC(20))
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   TRANSFORM.Fluid.Valves.ValveIncompressible valve(
     redeclare package Medium = Medium,
     CvData=Modelica.Fluid.Types.CvTypes.OpPoint,
@@ -381,7 +381,7 @@ Pipes.GenericPipe_MultiTransferSurface
     redeclare package Medium = Medium,
     N_nominal=1500,
     use_T_start=true,
-    T_start=Modelica.SIunits.Conversions.from_degC(40),
+    T_start=Modelica.Units.Conversions.from_degC(40),
     m_flow_start=0.01,
     m_flow_nominal=0.01,
     V=0,

@@ -10,7 +10,7 @@ model Pump_wShaft
 equation
   phi = shaft.phi;
   omega = der(phi);
-  N = max(1e-3,Modelica.SIunits.Conversions.to_rpm(omega));
+  N =max(1e-3, Modelica.Units.Conversions.to_rpm(omega));
   W = omega*shaft.tau;
   annotation (defaultComponentName="pump",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,

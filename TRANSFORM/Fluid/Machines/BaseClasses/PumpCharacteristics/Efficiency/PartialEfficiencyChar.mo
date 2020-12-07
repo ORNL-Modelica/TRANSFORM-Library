@@ -10,7 +10,7 @@ partial model PartialEfficiencyChar
   input Medium.ThermodynamicState state "Thermodynamic state"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
-  input SI.Conversions.NonSIunits.AngularVelocity_rpm N "Pump speed"
+  input Modelica.Units.NonSI.AngularVelocity_rpm N "Pump speed"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Length diameter "Impeller Diameter"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
@@ -18,8 +18,9 @@ partial model PartialEfficiencyChar
   parameter SI.VolumeFlowRate V_flow_start
     annotation (Dialog(tab="Internal Interface", group="Initialization"));
 
-  parameter SI.Conversions.NonSIunits.AngularVelocity_rpm N_nominal
-    "Pump speed" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal "Pump speed"
+    annotation (Dialog(tab="Internal Interface", group=
+          "Nominal Operating Parameters"));
   parameter SI.Length diameter_nominal "Impeller Diameter" annotation (Dialog(
         tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.VolumeFlowRate V_flow_nominal "Nominal volumetric flow rate"

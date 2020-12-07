@@ -10,7 +10,7 @@ model V_flow_quadraticCurve_Test
   constant SI.Height[3] head_curve = {2*head_nominal,head_nominal,0} "Pump head for three operating points";
   SI.VolumeFlowRate V_flow "Pump pressure head";
   Modelica.Blocks.Sources.Sine head(
-    freqHz=1/10,
+    f=1/10,
     startTime=10,
     amplitude=2*head_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

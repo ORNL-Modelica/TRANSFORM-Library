@@ -3,12 +3,12 @@ package Beryllium "Pure natural Beryllium"
 //cp from Chase, M.W., Jr., NIST-JANAF Themochemical Tables, Fourth Edition, J. Phys. Chem. Ref. Data, Monograph 9, 1998, 1-1951.
 //https://webbook.nist.gov/cgi/cbook.cgi?ID=C7440417&Units=SI&Mask=2#Thermo-Condensed
 //lambda from my imagination
-  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
-    mediumName="Beryllium",
-    T_min=Modelica.SIunits.Conversions.from_degC(-273),
-    T_max=1560,
-    MM_const=0.009012182);
-    constant Modelica.SIunits.Temperature trans = 1527;
+extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
+  mediumName="Beryllium",
+  T_min=Modelica.Units.Conversions.from_degC(-273),
+  T_max=1560,
+  MM_const=0.009012182);
+constant Modelica.Units.SI.Temperature trans=1527;
     constant Real A[2] = { 21.20694,  30.00037};
     constant Real B[2] = {  5.688190, -0.000396};
     constant Real C[2] = {  0.968019,  0.000169};

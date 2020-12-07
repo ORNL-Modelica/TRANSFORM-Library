@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.SolutionMethods;
 model AxVolCentered_2D
   "2-D Axial/Radial | Axially Volume Centered | 2nd Order Central Finite Difference"
-  import SI = Modelica.SIunits;
+  import      Modelica.Units.SI;
   import Modelica.Constants.pi;
   extends BaseClasses.Partial_FDCond_Cylinder;
   SI.Length[nR - 1] dr={rs[i + 1] - rs[i] for i in 1:nR - 1}

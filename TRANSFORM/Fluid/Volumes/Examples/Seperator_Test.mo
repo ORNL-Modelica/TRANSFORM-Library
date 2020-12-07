@@ -49,7 +49,7 @@ model Seperator_Test
       Medium = Modelica.Media.Water.StandardWater, R=1)
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1/10,
+    f=1/10,
     startTime=1,
     offset=1e5,
     amplitude=0.5e4)
@@ -68,11 +68,10 @@ model Seperator_Test
     use_m_flow_in=true,
     h=2e6) annotation (Placement(transformation(extent={{40,-18},{20,2}})));
   Modelica.Blocks.Sources.Sine sine1(
-    freqHz=1/10,
+    f=1/10,
     startTime=1,
     amplitude=200,
-    offset=100)
-    annotation (Placement(transformation(extent={{90,-20},{70,0}})));
+    offset=100) annotation (Placement(transformation(extent={{90,-20},{70,0}})));
   BoundaryConditions.Boundary_ph sinkLiquid1(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     use_p_in=false,

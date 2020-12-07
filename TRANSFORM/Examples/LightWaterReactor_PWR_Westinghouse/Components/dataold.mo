@@ -32,33 +32,35 @@ record dataold
   // Mass-flow
   parameter SI.MassFlowRate m_flow_feedWater_nominal=m_flow_steam_nominal
     "Nominal feed water mass flow rate" annotation (Dialog(group="Flow"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nom_circulation=
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nom_circulation=
       m_flow_feedWater_nominal*1.1 "Nominal boiler circulation flow rate"
     annotation (Evaluate=true, Dialog(group="Flow"));
   // Temperature
-  parameter Modelica.SIunits.Temperature T_nom_feedWater=T_feedwater_nominal
+  parameter Modelica.Units.SI.Temperature T_nom_feedWater=T_feedwater_nominal
     "Nominal feed water temperature" annotation (Dialog(group="Flow"));
   // Pressure
-  parameter Modelica.SIunits.Pressure p_start_boiler=p_boiler_nominal
+  parameter Modelica.Units.SI.Pressure p_start_boiler=p_boiler_nominal
     "Start value boiler pressure"
     annotation (Evaluate=true, Dialog(group="Pressure"));
-  parameter Modelica.SIunits.PressureDifference dp_start_riser=dp_riser_nominal
-    "Start value frictional pressure drop riser tubes"
+  parameter Modelica.Units.SI.PressureDifference dp_start_riser=
+      dp_riser_nominal "Start value frictional pressure drop riser tubes"
     annotation (Evaluate=true, Dialog(group="Pressure drop"));
   // Mass-flow
-  parameter Modelica.SIunits.MassFlowRate m_flow_start_feedWater=
+  parameter Modelica.Units.SI.MassFlowRate m_flow_start_feedWater=
       m_flow_feedWater_nominal "Start value  feed water mass flow rate"
     annotation (Dialog(group="Flow"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_start_circulation=m_flow_nom_circulation
-    "Start value boiler circulation flow rate" annotation(Evaluate=true,Dialog(group="Flow"));
+  parameter Modelica.Units.SI.MassFlowRate m_flow_start_circulation=
+      m_flow_nom_circulation "Start value boiler circulation flow rate"
+    annotation (Evaluate=true, Dialog(group="Flow"));
   // Level
-  parameter Modelica.SIunits.Length boiler_level_start=0 "Level start value"
-    annotation(Evaluate=true,Dialog(group="Level"));
+  parameter Modelica.Units.SI.Length boiler_level_start=0 "Level start value"
+    annotation (Evaluate=true, Dialog(group="Level"));
   // Riser vapor quality
-  parameter Modelica.SIunits.MassFraction riser_vaporQuality_start_out=0.83 "Riser outlet vapor quality"
-    annotation(Evaluate=true,Dialog(group="Vapor quality"));
+  parameter Modelica.Units.SI.MassFraction riser_vaporQuality_start_out=0.83
+    "Riser outlet vapor quality"
+    annotation (Evaluate=true, Dialog(group="Vapor quality"));
  // Temperature
-  parameter Modelica.SIunits.Temperature T_SG_water_inlet=T_SG_inlet_nominal
+  parameter Modelica.Units.SI.Temperature T_SG_water_inlet=T_SG_inlet_nominal
     "Steam generator inlet water temperature"
     annotation (Evaluate=true, Dialog(group="Temperature"));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

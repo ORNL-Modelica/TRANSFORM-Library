@@ -1,9 +1,9 @@
 within TRANSFORM.Media.Solids;
 package AlloyN "AlloyN: Material properties for Alloy-N (R)"
-  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
-    mediumName="alloyN",
-    T_min=Modelica.SIunits.Conversions.from_degC(0),
-    T_max=Modelica.SIunits.Conversions.from_degC(1500));
+extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
+  mediumName="alloyN",
+  T_min=Modelica.Units.Conversions.from_degC(0),
+  T_max=Modelica.Units.Conversions.from_degC(1500));
 
   redeclare function extends specificEnthalpy
     "Specific enthalpy"

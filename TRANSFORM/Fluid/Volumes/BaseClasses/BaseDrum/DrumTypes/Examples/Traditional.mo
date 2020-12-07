@@ -18,7 +18,7 @@ model Traditional
     r_3=r_3)
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
   Modelica.Blocks.Sources.Sine variableVfrac_liquid(
-    freqHz=0.5,
+    f=0.5,
     offset=0.05,
     amplitude=0.9)
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));

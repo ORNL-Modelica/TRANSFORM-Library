@@ -17,7 +17,7 @@ model CheckValve_Test
     p=100000,
     T=293.15) annotation (Placement(transformation(extent={{60,-10},{40,10}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1,
+    f=1,
     amplitude=1e5,
     offset=2e5,
     phase=3.1415926535898)

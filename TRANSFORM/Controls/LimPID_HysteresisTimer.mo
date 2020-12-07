@@ -1,7 +1,8 @@
 within TRANSFORM.Controls;
 model LimPID_HysteresisTimer
   "PID controller with anti-windup, hysteresis and timer to prevent short cycling"
-  import Modelica.Blocks.Types.InitPID;
+  import InitPID =
+         Modelica.Blocks.Types.Init;
   import Modelica.Blocks.Types.Init;
   import Modelica.Blocks.Types.SimpleController;
   extends Modelica.Blocks.Interfaces.SVcontrol;
@@ -36,10 +37,9 @@ model LimPID_HysteresisTimer
        annotation(Dialog(group="Parameters: Tuning Controls",enable=controllerType==SimpleController.PD or
                                 controllerType==SimpleController.PID));
   // Initialization
-  parameter .Modelica.Blocks.Types.InitPID initType= .Modelica.Blocks.Types.InitPID.NoInit
+  parameter .Modelica.Blocks.Types.Init initType=.Modelica.Blocks.Types.Init.NoInit
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
-                                     annotation(Evaluate=true,
-      Dialog(tab="Initialization"));
+    annotation (Evaluate=true, Dialog(tab="Initialization"));
   parameter Real xi_start=0
     "Initial or guess value value for integrator output (= integrator state)"
     annotation (Dialog(tab="Initialization",
@@ -51,7 +51,7 @@ model LimPID_HysteresisTimer
                          enable=controllerType==SimpleController.PD or
                                 controllerType==SimpleController.PID));
   parameter Real y_start=0 "Initial value of output"
-    annotation(Dialog(enable=initType == .Modelica.Blocks.Types.InitPID.InitialOutput, tab=
+    annotation(Dialog(enable=initType == .Modelica.Blocks.Types.Init.InitialOutput,    tab=
           "Initialization"));
   parameter Boolean strict=false "= true, if strict limits with noEvent(..)"
     annotation (Evaluate=true, choices(checkBox=true), Dialog(tab="Advanced"));

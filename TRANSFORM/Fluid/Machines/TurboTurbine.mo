@@ -14,11 +14,11 @@ extends TRANSFORM.Icons.UnderConstruction;
   final parameter SI.AngularVelocity omega_nominal = N_nominal*2*Modelica.Constants.pi/60;
   parameter SI.Efficiency eta_nominal = 0.8 "Rated or design efficiency";
 
-  Modelica.Blocks.Tables.CombiTable1D h_table(                                                                           table=
-        nonDimCurve.table_h, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+  Modelica.Blocks.Tables.CombiTable1Dv h_table(table=nonDimCurve.table_h,
+      smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Tables.CombiTable1D beta_table(                                                                           table=
-        nonDimCurve.table_beta, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+  Modelica.Blocks.Tables.CombiTable1Dv beta_table(table=nonDimCurve.table_beta,
+      smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
   replaceable model NonDimCurve =

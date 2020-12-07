@@ -8,12 +8,13 @@ partial model PartialFlowChar2
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   SI.VolumeFlowRate V_flow(start=V_flow_start) "Flow rate";
 
-  input SI.Conversions.NonSIunits.AngularVelocity_rpm N "Pump speed"
+  input Modelica.Units.NonSI.AngularVelocity_rpm N "Pump speed"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Length diameter "Impeller Diameter"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
-  parameter SI.Conversions.NonSIunits.AngularVelocity_rpm N_nominal
-    "Pump speed" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal "Pump speed"
+    annotation (Dialog(tab="Internal Interface", group=
+          "Nominal Operating Parameters"));
   parameter SI.Length diameter_nominal "Impeller Diameter" annotation (Dialog(
         tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.VolumeFlowRate V_flow_nominal "Nominal volumetric flow rate"

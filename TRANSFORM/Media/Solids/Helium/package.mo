@@ -13,10 +13,10 @@ k => regression from pg 57 table (units in table are wrong, off by 1000)
 rho => regression from pg 57 table
 cp => pg 56
 */
-  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
-    mediumName="He",
-    T_min=Modelica.SIunits.Conversions.from_degC(0),
-    T_max=Modelica.SIunits.Conversions.from_degC(1500));
+extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
+  mediumName="He",
+  T_min=Modelica.Units.Conversions.from_degC(0),
+  T_max=Modelica.Units.Conversions.from_degC(1500));
 
   redeclare function extends specificEnthalpy
     "Specific enthalpy"
