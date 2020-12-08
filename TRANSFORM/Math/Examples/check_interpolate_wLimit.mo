@@ -9,7 +9,6 @@ model check_interpolate_wLimit
   Modelica.Blocks.Sources.Sine xi(amplitude=10, f=1/10)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  y_int = interpolate_wLimit(x, y, xi.y, 1, true)
-  annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
+  y_int = interpolate_wLimit(x, y, xi.y, 1, true);
   annotation (experiment(StopTime=10));
 end check_interpolate_wLimit;
