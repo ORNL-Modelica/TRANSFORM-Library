@@ -25,7 +25,7 @@ model getOpening_ValveIncompressible_Test
   Modelica.Blocks.Sources.Constant const(k=80e5)
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1,
+    f=1,
     offset=0,
     amplitude=1e5)
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));

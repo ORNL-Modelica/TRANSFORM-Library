@@ -1,7 +1,7 @@
 within TRANSFORM.Utilities.Diagnostics.BaseClasses;
 block PartialInputCheck "Assert when condition is violated"
   extends Modelica.Blocks.Icons.Block;
-  parameter Modelica.SIunits.Time startTime = 0
+  parameter Modelica.Units.SI.Time startTime=0
     "Start time for activating the assert";
   parameter Real threshold(min=0) = 1E-2
     "Threshold for equality comparison";
@@ -11,7 +11,8 @@ block PartialInputCheck "Assert when condition is violated"
   Modelica.Blocks.Interfaces.RealInput u2 "Value to check"
        annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
 protected
-  parameter Modelica.SIunits.Time t0( fixed=false) "Simulation start time";
+  parameter Modelica.Units.SI.Time t0(fixed=false)
+    "Simulation start time";
 initial equation
   t0 = time + startTime;
   annotation (Icon(graphics={Text(

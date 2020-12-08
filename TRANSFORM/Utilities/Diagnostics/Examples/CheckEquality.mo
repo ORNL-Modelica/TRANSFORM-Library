@@ -5,8 +5,7 @@ model CheckEquality
     annotation (Placement(transformation(extent={{20,-4},{40,16}})));
   Modelica.Blocks.Sources.Constant con(k=0.1) "Input"
     annotation (Placement(transformation(extent={{-60,16},{-40,36}})));
-  Modelica.Blocks.Sources.Sine sin1(freqHz=1, amplitude=0.03)
-    "Input"
+  Modelica.Blocks.Sources.Sine sin1(f=1, amplitude=0.03) "Input"
     annotation (Placement(transformation(extent={{-60,-24},{-40,-4}})));
   Modelica.Blocks.Math.Add add "Adder to offset the sin input signal"
     annotation (Placement(transformation(extent={{-20,-14},{0,6}})));

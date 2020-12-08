@@ -58,7 +58,7 @@ model Condenser2
   SI.MassFlowRate m_flow "Total mass flowrate";
   SI.Temperature Tcool_in "Cooling water inlet temperature";
   SI.Temperature Tcool_out "Cooling water outlet temperature";
-  SI.Conversions.NonSIunits.Temperature_degC dT_lm
+  Modelica.Units.NonSI.Temperature_degC dT_lm
     "Log mean temperature difference, water side";
   Interfaces.FluidPort_State portSteamFeed(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}),

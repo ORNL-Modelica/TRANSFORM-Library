@@ -3,21 +3,20 @@ model Groeneveld2006LUT_withKs
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.Sine G(
-    freqHz=1/10,
+    f=1/10,
     offset=4000,
-    amplitude=5000)
-              "mass flux [kg/(m2.s)]"
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
+    amplitude=5000) "mass flux [kg/(m2.s)]" annotation (Placement(
+        transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Blocks.Sources.Sine x(
     amplitude=0.75,
-    freqHz=1,
-    offset=0.25)  "thermodynamic quality"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+    f=1,
+    offset=0.25) "thermodynamic quality" annotation (Placement(
+        transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Sources.Sine P(
     amplitude=10.5e6,
     offset=10.55e6,
-    freqHz=10)     "pressure [Pa]"
-    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
+    f=10) "pressure [Pa]" annotation (Placement(transformation(
+          extent={{-60,20},{-40,40}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=4, x={G.y,x.y,P.y,q.y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Utilities.Groeneveld2006LUT

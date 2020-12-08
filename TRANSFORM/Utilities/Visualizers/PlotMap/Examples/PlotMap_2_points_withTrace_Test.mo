@@ -1,23 +1,21 @@
 within TRANSFORM.Utilities.Visualizers.PlotMap.Examples;
 model PlotMap_2_points_withTrace_Test
   extends TRANSFORM.Icons.Example;
-  Modelica.Blocks.Sources.ExpSine
-                               y_coordinate(
+  Modelica.Blocks.Sources.ExpSine y_coordinate(
     amplitude=3000,
-    freqHz=1/10,
+    f=1/10,
     damping=0.05,
     offset=3000,
-    startTime=10)
-    annotation (Placement(transformation(extent={{10,-80},{30,-60}})));
-  Modelica.Blocks.Sources.ExpSine
-                               x_coordinate(
+    startTime=10) annotation (Placement(transformation(extent={{10,-80},
+            {30,-60}})));
+  Modelica.Blocks.Sources.ExpSine x_coordinate(
     amplitude=750,
-    freqHz=1/10,
+    f=1/10,
     phase=1.5707963267949,
     damping=0.05,
     offset=750,
-    startTime=10)
-    annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
+    startTime=10) annotation (Placement(transformation(extent={{-30,-80},
+            {-10,-60}})));
   PlotMap_2D_2points_withTrace map(
     x_scale={0,1500},
     y_scale={0,6000},

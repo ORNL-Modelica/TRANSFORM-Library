@@ -7,7 +7,7 @@ model SimpleDelay
 
   Real y_delay;
 
-  Modelica.Blocks.Sources.Sine sine(freqHz=1/10, startTime=10)
+  Modelica.Blocks.Sources.Sine sine(f=1/10, startTime=10)
     annotation (Placement(transformation(extent={{-62,4},{-42,24}})));
 
 equation

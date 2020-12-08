@@ -7,7 +7,7 @@ package UN "UN: Uranium Mononitride"
   //10.1016/0022-3115(90)90374-Y
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="UN",
-    T_min=Modelica.SIunits.Conversions.from_degC(-273),
+    T_min=Modelica.Units.Conversions.from_degC(-273),
     T_max=3170,
     MM_const=0.252,
     use_constantDensity=true,

@@ -1,14 +1,14 @@
 within TRANSFORM.Mechanics;
 model SimpleMotor
   "A simple model of an electrical dc motor (based on DriveLib model)."
-  parameter Modelica.SIunits.Resistance Rm=10 "Motor Resistance";
-  parameter Modelica.SIunits.Inductance Lm=1 "Motor Inductance";
+  parameter Modelica.Units.SI.Resistance Rm=10 "Motor Resistance";
+  parameter Modelica.Units.SI.Inductance Lm=1 "Motor Inductance";
   parameter Real kT=1 "Torque Constant";
-  parameter Modelica.SIunits.Inertia Jm=10 "Motor Inertia";
+  parameter Modelica.Units.SI.Inertia Jm=10 "Motor Inertia";
   parameter Real dm(
     final unit="N.m.s/rad",
     final min=0) = 0 "Damping constant";
-  Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm n;
+  Modelica.Units.NonSI.AngularVelocity_rpm n;
   Modelica.Electrical.Analog.Sources.SignalVoltage Vs annotation (Placement(
         transformation(
         origin={-70,0},
@@ -20,8 +20,8 @@ model SimpleMotor
         transformation(extent={{-60,30},{-40,50}}, rotation=0)));
   Modelica.Electrical.Analog.Basic.Inductor L(L=Lm) annotation (Placement(
         transformation(extent={{-20,30},{0,50}}, rotation=0)));
-  Modelica.Electrical.Analog.Basic.EMF emf(k=kT) annotation (Placement(
-        transformation(extent={{0,-10},{20,10}}, rotation=0)));
+  Modelica.Electrical.Analog.Basic.RotationalEMF emf(k=kT) annotation (
+      Placement(transformation(extent={{0,-10},{20,10}}, rotation=0)));
   Modelica.Blocks.Interfaces.RealInput inPort annotation (Placement(
         transformation(extent={{-108,-10},{-90,10}}, rotation=0)));
   Modelica.Mechanics.Rotational.Components.Inertia J(J=Jm) annotation (
@@ -36,7 +36,7 @@ model SimpleMotor
         extent={{-10,-10},{10,10}},
         rotation=90)));
 equation
-  n = Modelica.SIunits.Conversions.to_rpm(J.w);
+  n =Modelica.Units.Conversions.to_rpm(J.w);
   connect(R.n, L.p) annotation (Line(points={{-40,40},{-20,40}}));
   connect(L.n, emf.p) annotation (Line(points={{0,40},{10,40},{10,10}}));
   connect(emf.flange, J.flange_a) annotation (Line(points={{20,0},{48,0}}));

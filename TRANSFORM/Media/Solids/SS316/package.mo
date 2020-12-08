@@ -3,8 +3,8 @@ package SS316 "SS316: Stainless steel 316"
   // Fits are taken from aksteel.com for 316 steel.
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="SS316",
-    T_min=Modelica.SIunits.Conversions.from_degC(0),
-    T_max=Modelica.SIunits.Conversions.from_degC(1500));
+    T_min=Modelica.Units.Conversions.from_degC(0),
+    T_max=Modelica.Units.Conversions.from_degC(1500));
 
   redeclare function extends specificEnthalpy
     "Specific enthalpy"

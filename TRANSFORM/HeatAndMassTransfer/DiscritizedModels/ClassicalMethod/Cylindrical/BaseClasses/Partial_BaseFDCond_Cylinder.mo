@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.BaseClasses;
 partial model Partial_BaseFDCond_Cylinder
-  import SI = Modelica.SIunits;
+  import      Modelica.Units.SI;
   /* General */
   replaceable package Material =
       TRANSFORM.Media.Solids.SS316                     constrainedby

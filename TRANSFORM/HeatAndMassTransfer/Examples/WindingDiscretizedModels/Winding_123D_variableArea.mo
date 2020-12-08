@@ -67,18 +67,18 @@ model Winding_123D_variableArea
     annotation (Placement(transformation(extent={{-38,-66},{-22,-54}})));
   Modelica.Blocks.Sources.Sine r_inner(
     offset=0.01,
-    freqHz=1/50,
+    f=1/50,
     amplitude=0.005)
     annotation (Placement(transformation(extent={{-100,70},{-90,80}})));
   Modelica.Blocks.Sources.Sine r_outer(
     offset=0.02,
-    freqHz=1/50,
+    f=1/50,
     amplitude=0.005,
     startTime=10)
     annotation (Placement(transformation(extent={{-100,52},{-90,62}})));
   Modelica.Blocks.Sources.Sine length_z(
     offset=0.03,
-    freqHz=1/50,
+    f=1/50,
     amplitude=0.01,
     startTime=20)
     annotation (Placement(transformation(extent={{-100,34},{-90,44}})));

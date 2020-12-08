@@ -3,8 +3,8 @@ package SS316_TRACE "SS316: Stainless steel 316 from TRACE"
   // Reference 12-5 (316 stainless steel): “Properties for LMFBR Safety Analysis,” Argonne National Laboratory report ANL-CEN-RSD-76-1 (1976).
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="SS316",
-    T_min=Modelica.SIunits.Conversions.from_degC(0),
-    T_max=Modelica.SIunits.Conversions.from_degC(3000));
+    T_min=Modelica.Units.Conversions.from_degC(0),
+    T_max=Modelica.Units.Conversions.from_degC(3000));
 
   redeclare function extends specificEnthalpy
     "Specific enthalpy"

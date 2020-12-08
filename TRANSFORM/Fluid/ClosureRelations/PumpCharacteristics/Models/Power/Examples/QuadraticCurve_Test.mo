@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power.Example
 model QuadraticCurve_Test
   import TRANSFORM;
   extends Icons.Example;
-import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+import         Modelica.Units.NonSI;
   package Medium = Modelica.Media.Water.StandardWater;
   constant SI.Pressure p = 5e5 "Pressure";
   constant SI.Temperature T = 300 "Temperature";

@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Machines;
 model Compressor_SinglePhase_Map2
   extends BaseClasses.PartialCompressor(eta_mech=1.0);
 extends TRANSFORM.Icons.UnderConstruction;
-  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+  import         Modelica.Units.NonSI;
 
   parameter NonSI.AngularVelocity_rpm N_nominal=1500 "Pump speed";
 
@@ -49,15 +49,15 @@ extends TRANSFORM.Icons.UnderConstruction;
   Real Rline(start=integer(size(pressureChar, 1)/2))
     "Arbitraty defined lines on compressor map. Also known as beta (Source 1 - 5.2.5)";
 
-  Modelica.Blocks.Tables.CombiTable2D efficiencyIsentropic_RLineN(table=
+  Modelica.Blocks.Tables.CombiTable2Ds efficiencyIsentropic_RLineN(table=
         efficiencyChar, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Isentropic or aerodynamic efficiency"
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));
-  Modelica.Blocks.Tables.CombiTable2D massFlowRate_RLineN(table=flowChar,
+  Modelica.Blocks.Tables.CombiTable2Ds massFlowRate_RLineN(table=flowChar,
       smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Tables.CombiTable2D pressureRatio_RLineN(table=pressureChar,
-      smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+  Modelica.Blocks.Tables.CombiTable2Ds pressureRatio_RLineN(table=
+        pressureChar, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 equation

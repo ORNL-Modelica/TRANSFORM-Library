@@ -3,8 +3,8 @@ package SS304_TRACE "SS304: Stainless steel 304 from TRACE"
   // Reference 12-4 (304 stainless steel): J. C. Spanner, editor, “Nuclear Systems Materials Handbook—Vol. 1 Design Data,” Hanford Engineering Development Laboratory report TID-26666 (1976).
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="SS304",
-    T_min=Modelica.SIunits.Conversions.from_degC(0),
-    T_max=Modelica.SIunits.Conversions.from_degC(3000));
+    T_min=Modelica.Units.Conversions.from_degC(0),
+    T_max=Modelica.Units.Conversions.from_degC(3000));
 
   redeclare function extends specificEnthalpy
     "Specific enthalpy"

@@ -19,7 +19,7 @@ model IRIS_Default_Teststandalone
     annotation (Placement(transformation(extent={{69,-24},{57,-12}})));
   Modelica.Blocks.Sources.Sine sine(
     startTime=100,
-    freqHz=1/1000,
+    f=1/1000,
     amplitude=20e5,
     offset=PHS.port_b_nominal.p)
     annotation (Placement(transformation(extent={{100,6},{80,26}})));

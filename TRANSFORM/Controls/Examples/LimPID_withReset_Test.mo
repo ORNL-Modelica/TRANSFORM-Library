@@ -1,7 +1,7 @@
 within TRANSFORM.Controls.Examples;
 model LimPID_withReset_Test
   extends TRANSFORM.Icons.Example;
-  Modelica.Blocks.Sources.Sine setPoi(freqHz=1) "Set point signal"
+  Modelica.Blocks.Sources.Sine setPoi(f=1) "Set point signal"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   LimPID limPID_parameter(
     yMax=1,
@@ -11,15 +11,16 @@ model LimPID_withReset_Test
     Td=10,
     k=0.2,
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
-    initType=Modelica.Blocks.Types.InitPID.InitialOutput,
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0.3,
     reset=TRANSFORM.Types.Reset.Parameter,
-    derMeas=false) "PID controller with integrator reset to a parameter value"
+    derMeas=false)
+    "PID controller with integrator reset to a parameter value"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.Constant mea(k=0.5) "Measured signal"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   LimPID limPID(
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     Td=10,
     k=1,
     Ti=1,
@@ -43,16 +44,17 @@ model LimPID_withReset_Test
     k=0.2,
     Ti=20,
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
-    initType=Modelica.Blocks.Types.InitPID.InitialOutput,
+    initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0.3,
     reset=TRANSFORM.Types.Reset.Input,
-    derMeas=false) "PID controller with integrator reset to an input value"
+    derMeas=false)
+    "PID controller with integrator reset to an input value"
     annotation (Placement(transformation(extent={{20,-82},{40,-62}})));
   Modelica.Blocks.Sources.Constant conRes(k=0.9)
     "Signal to which integrator will be reset to"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Modelica.Blocks.Continuous.LimPID limPID_original(
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     Td=10,
     k=1,
     Ti=1,

@@ -3,9 +3,9 @@ partial package PartialSimpleAlloy "Material properties based on tables"
   extends TRANSFORM.Media.Interfaces.Solids.PartialAlloy(Temperature(min=T_min,
         max=T_max),T_density=0.5*(T_min+T_max));
   // Constants to be set in actual Medium
-  constant Modelica.SIunits.Temperature T_min
+  constant Modelica.Units.SI.Temperature T_min
     "Minimum temperature valid for medium model";
-  constant Modelica.SIunits.Temperature T_max
+  constant Modelica.Units.SI.Temperature T_max
     "Maximum temperature valid for medium model";
   constant SI.MolarMass MM_const=0.1 "Molar mass";
 

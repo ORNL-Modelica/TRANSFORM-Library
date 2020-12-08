@@ -67,7 +67,7 @@ model Condenserold
   SI.MassFlowRate m_flow "Total mass flowrate";
   SI.Temperature Tcool_in "Cooling water inlet temperature";
   SI.Temperature Tcool_out "Cooling water outlet temperature";
-  SI.Conversions.NonSIunits.Temperature_degC dT_lm
+  Modelica.Units.NonSI.Temperature_degC dT_lm
     "Log mean temperature difference, water side";
   TRANSFORM.HeatAndMassTransfer.Volumes.SimpleWall tubeWall(
     T_start=Twall_start,

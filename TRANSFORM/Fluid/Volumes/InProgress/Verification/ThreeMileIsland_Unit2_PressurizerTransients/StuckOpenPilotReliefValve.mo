@@ -4,7 +4,8 @@ model StuckOpenPilotReliefValve
   extends Icons.Example;
   // Experiment Initial Conditions
   constant SI.Height level_start = 2.65 "Initial liquid level (empty = 0)";
-  constant SI.Pressure p_start = SI.Conversions.from_bar(151.3) "Initial pressure";
+  constant SI.Pressure p_start = Modelica.Units.Conversions.from_bar(
+                                                         151.3) "Initial pressure";
   constant SI.Temperature T_start = 616 "Initial temperature";
   Real p_exp "Experimentally measured pressure in psia";
   // Models

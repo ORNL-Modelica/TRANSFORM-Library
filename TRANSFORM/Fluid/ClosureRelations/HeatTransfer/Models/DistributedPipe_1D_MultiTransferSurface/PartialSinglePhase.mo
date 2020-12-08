@@ -1,8 +1,8 @@
 within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface;
 partial model PartialSinglePhase
 extends PartialHeatTransfer_setQ_flows;
-  TRANSFORM.Media.BaseProperties1Phase[nHT] mediaProps(redeclare package Medium =
-        Medium, state=states) "Bulk fluid properties"
+  TRANSFORM.Media.BaseProperties1Phase[nHT] mediaProps(redeclare package Medium
+      = Medium, state=states) "Bulk fluid properties"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 //   TRANSFORM.Media.BaseProperties1Phase[nHT,nSurfaces] mediums_film(redeclare
 //       package

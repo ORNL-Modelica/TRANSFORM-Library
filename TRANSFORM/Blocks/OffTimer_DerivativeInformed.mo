@@ -13,7 +13,8 @@ model OffTimer_DerivativeInformed
   Modelica.Blocks.Interfaces.RealInput s
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 protected
-  discrete Modelica.SIunits.Time entryTime "Time instant when u became true";
+  discrete Modelica.Units.SI.Time entryTime
+    "Time instant when u became true";
 initial equation
   pre(entryTime) = time;
 equation

@@ -10,7 +10,8 @@ package Hydrogen "Hydrogen | Two Phase | Cool Prop"
     redeclare replaceable function surfaceTension
     extends Modelica.Icons.Function;
     input SaturationProperties sat "saturation point";
-    output Modelica.SIunits.SurfaceTension sigma "Surface tension in SI units";
+    output Modelica.Units.SI.SurfaceTension sigma
+      "Surface tension in SI units";
     constant Real s[3] = {-1.4165, 0.746383, 0.675625};
     constant Real n[3] = {0.63882, 0.659804, 0.619149};
     constant Real Tc=33.145;

@@ -1,26 +1,22 @@
 within TRANSFORM.Media.LookupTableMedia.BaseClasses.ExternalSinglePhaseMedium;
-function T_ps "Compute temperature from pressure and specific enthalpy"
+function T_ps "Compute temperature from pressure and specific entropy"
   extends Modelica.Icons.Function;
 
   input AbsolutePressure p "Pressure";
   input SpecificEntropy s "Specific entropy";
   output Temperature T "Temperature";
+
 protected
-  package Internal
-    "Solve h(T) for T with given h (use only indirectly via temperature_phX)"
-    extends Modelica.Media.Common.OneNonLinearEquation;
+ function f_nonlinear
+   extends Modelica.Math.Nonlinear.Interfaces.partialScalarFunction;
+   input AbsolutePressure p "Pressure";
+   input Temperature T "Temperature";
+ algorithm
+   y := specificEntropy_pT(p,T);
+ end f_nonlinear;
 
-    redeclare record extends f_nonlinear_Data
-      "Superfluous record, fix later when better structure of inverse functions exists"
-        constant Real[5] dummy = {1,2,3,4,5};
-    end f_nonlinear_Data;
-
-    redeclare function extends f_nonlinear "P is smuggled in via vector"
-    algorithm
-      y := specificEntropy_pT(p,x);
-    end f_nonlinear;
-
-  end Internal;
 algorithm
- T := Internal.solve(s, T_min, T_max, p, {1}, Internal.f_nonlinear_Data());
+
+T := Modelica.Math.Nonlinear.solveOneNonlinearEquation(
+          function f_nonlinear(p=p,T=T), T_min, T_max);
 end T_ps;

@@ -17,7 +17,8 @@ model Generator "Generates power from shaft to electrical power connector"
   SI.AngularVelocity omega_m(start=2*Modelica.Constants.pi*
         f_start/nPoles) "Angular velocity of the shaft";
   SI.AngularVelocity omega_e "Angular velocity of the e.m.f. rotating frame";
-  SI.Conversions.NonSIunits.AngularVelocity_rpm shaft_rpm = SI.Conversions.to_rpm(omega_m) "Shaft rotational speed";
+  Modelica.Units.NonSI.AngularVelocity_rpm shaft_rpm=
+      Modelica.Units.Conversions.to_rpm(omega_m) "Shaft rotational speed";
   SI.Frequency f "Electrical frequency";
   Interfaces.ElectricalPowerPort_Flow port annotation (Placement(transformation(
           extent={{90,-10},{110,10}}, rotation=0), iconTransformation(extent={{90,-10},

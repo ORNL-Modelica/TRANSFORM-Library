@@ -3,9 +3,12 @@ model getOpening_ValveIncompressible
   "Reverse calculate the valve input (opening) required to reach a certain mass flow rate"
  extends Modelica.Blocks.Interfaces.SO;
  extends TRANSFORM.Fluid.Valves.BaseClasses.PartialValveBase;
- input Modelica.SIunits.Pressure dp "Pressure drop" annotation(Dialog(group="Inputs"));
- input Modelica.SIunits.MassFlowRate m_flow_ref "Reference mass flow" annotation(Dialog(group="Inputs"));
- input Modelica.SIunits.Density d=d_nom "Density" annotation(Dialog(group="Inputs"));
+  input Modelica.Units.SI.Pressure dp "Pressure drop"
+    annotation (Dialog(group="Inputs"));
+  input Modelica.Units.SI.MassFlowRate m_flow_ref "Reference mass flow"
+    annotation (Dialog(group="Inputs"));
+  input Modelica.Units.SI.Density d=d_nom "Density"
+    annotation (Dialog(group="Inputs"));
   Real z "Normalized pressure drop";
   Real sqrtz "Root of normalized pressure drop";
 equation

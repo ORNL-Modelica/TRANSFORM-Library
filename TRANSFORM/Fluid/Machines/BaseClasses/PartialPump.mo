@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses;
 partial model PartialPump "Base model for centrifugal pumps"
-  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+  import         Modelica.Units.NonSI;
   import Modelica.Constants;
   Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium, m_flow(
         min=if checkValve then 0 else -Modelica.Constants.inf))

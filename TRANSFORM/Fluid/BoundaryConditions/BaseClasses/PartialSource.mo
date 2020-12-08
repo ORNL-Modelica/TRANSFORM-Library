@@ -25,8 +25,7 @@ each ports[i] of boundary shall at most be connected to one component.
 If two or more connections are present, ideal mixing takes
 place with these connections, which is usually not the intention
 of the modeller. Increase nPorts to add an additional port.
-");
-     ports[i].p          = medium.p;
+");  ports[i].p          = medium.p;
      ports[i].h_outflow  = medium.h;
      ports[i].Xi_outflow = medium.Xi;
   end for;

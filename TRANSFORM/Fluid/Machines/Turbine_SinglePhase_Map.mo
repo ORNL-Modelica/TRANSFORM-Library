@@ -3,7 +3,7 @@ model Turbine_SinglePhase_Map
   extends BaseClasses.PartialTurbine(final eta_is=efficiencyIsentropic_PRN.y,
       eta_mech=1.0);
 extends TRANSFORM.Icons.UnderConstruction;
-  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+  import         Modelica.Units.NonSI;
 
   parameter NonSI.AngularVelocity_rpm N_nominal=1500 "Pump speed";
 
@@ -20,11 +20,11 @@ extends TRANSFORM.Icons.UnderConstruction;
     input Real scale_u2 = 1.0 "Scaling value for tableVar u2: input = var*scale" annotation(Dialog(group="Inputs"));
     input Real scale_y = 1.0 "Scaling value for tableVar y: var = output*scale" annotation(Dialog(group="Inputs"));
 
-  Modelica.Blocks.Tables.CombiTable2D efficiencyIsentropic_PRN(table=
+  Modelica.Blocks.Tables.CombiTable2Ds efficiencyIsentropic_PRN(table=
         efficiencyChar, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Isentropic or aerodynamic efficiency"
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
-  Modelica.Blocks.Tables.CombiTable2D massFlowRate_PRN(table=flowChar,
+  Modelica.Blocks.Tables.CombiTable2Ds massFlowRate_PRN(table=flowChar,
       smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
 
