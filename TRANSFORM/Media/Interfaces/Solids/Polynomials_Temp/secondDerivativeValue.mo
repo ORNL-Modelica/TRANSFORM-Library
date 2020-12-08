@@ -1,4 +1,4 @@
-within TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
+within TRANSFORM.Media.Interfaces.Solids.Polynomials_Temp;
 function secondDerivativeValue
   "Value of 2nd derivative of polynomial at abscissa value u"
   extends Modelica.Icons.Function;

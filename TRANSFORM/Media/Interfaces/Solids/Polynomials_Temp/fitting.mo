@@ -1,4 +1,4 @@
-within TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
+within TRANSFORM.Media.Interfaces.Solids.Polynomials_Temp;
 function fitting
   "Computes the coefficients of a polynomial that fits a set of data points in a least-squares sense"
   extends Modelica.Icons.Function;
