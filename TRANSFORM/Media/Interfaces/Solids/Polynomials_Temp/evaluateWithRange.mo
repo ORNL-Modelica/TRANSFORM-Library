@@ -1,4 +1,4 @@
-within TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy_TableBased.Polynomials_Temp;
+within TRANSFORM.Media.Interfaces.Solids.Polynomials_Temp;
 function evaluateWithRange
   "Evaluate polynomial at a given abscissa value with linear extrapolation outside of the defined range"
   extends Modelica.Icons.Function;
