@@ -302,8 +302,7 @@ model GenericDistributed_HX_Rwall
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Shell Side",
-      enable=if useLumpedPressure_shell and modelStructure_shell <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure_shell and not exposeState_a_shell and not exposeState_b_shell then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties_shell=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Shell Side"), Evaluate=true);
@@ -323,8 +322,7 @@ model GenericDistributed_HX_Rwall
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Tube Side",
-      enable=if useLumpedPressure_tube and modelStructure_tube <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure_tube and exposeState_a_tube and not exposeState_b_tube then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties_tube=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Tube Side"), Evaluate=true);
