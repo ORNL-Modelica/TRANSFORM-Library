@@ -23,6 +23,7 @@ extends TRANSFORM.Icons.UnderConstruction;
     smoothness=Modelica.Blocks.Types.Smoothness.MonotoneContinuousDerivative1,
     extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+
   Modelica.Blocks.Tables.CombiTable1Dv beta_table(
     table=nonDimCurve.table_beta,
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,

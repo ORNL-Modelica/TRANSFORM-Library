@@ -43,8 +43,8 @@ extends TRANSFORM.Icons.UnderConstruction;
   Modelica.Blocks.Tables.CombiTable2Ds massFlowRate_RLineN(table=flowChar,
       smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Tables.CombiTable2Ds pressureRatio_RLineN(table=pressureChar,
-      smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+  Modelica.Blocks.Tables.CombiTable2Ds pressureRatio_RLineN(table=
+        pressureChar, smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
 
 equation

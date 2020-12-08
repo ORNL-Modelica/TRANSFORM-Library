@@ -12,8 +12,8 @@ model head_quadraticCurve_Test
   Modelica.Blocks.Sources.Sine V_flow(
     amplitude=2,
     f=1/10,
-    startTime=10)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    startTime=10) annotation (Placement(transformation(extent={{
+            -10,-10},{10,10}})));
 equation
   head = head_quadraticCurve(V_flow.y, V_flow_curve, head_curve);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

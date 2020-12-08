@@ -3,10 +3,10 @@ package Hastelloy_N_Haynes "Hastelloy-N from Haynes International"
 
   // http://www.haynesintl.com/alloys/alloy-portfolio_/Corrosion-resistant-Alloys/hastelloy-n-alloy/physical-properties 
 
-extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
-  mediumName="Alloy_N",
-  T_min=Modelica.Units.Conversions.from_degC(0),
-  T_max=Modelica.Units.Conversions.from_degC(1500));
+  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
+    mediumName="Alloy_N",
+    T_min=Modelica.Units.Conversions.from_degC(0),
+    T_max=Modelica.Units.Conversions.from_degC(1500));
 
   redeclare function extends specificEnthalpy
     "Specific enthalpy"

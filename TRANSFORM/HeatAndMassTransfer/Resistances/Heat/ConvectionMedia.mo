@@ -45,7 +45,8 @@ model ConvectionMedia
             {{-36,84},{-24,96}}, rotation=0)));
   Modelica.Units.SI.HeatFlowRate Q_flows[n]
     "Heat flow rate from solid -> fluid";
-  Modelica.Units.SI.TemperatureDifference dTs[n] "= port_a.T - port_b.T";
+  Modelica.Units.SI.TemperatureDifference dTs[n]
+    "= port_a.T - port_b.T";
   SI.ThermalResistance R[n] "Thermal resistance";
   Interfaces.HeatPort_Flow port_a[n] annotation (Placement(transformation(
           extent={{-80,-10},{-60,10}}), iconTransformation(extent={{-80,-10},{-60,

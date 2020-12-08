@@ -61,7 +61,8 @@ model CS_Tavg_CR_P_withLag
     initType=Modelica.Blocks.Types.Init.SteadyState,
     yMax=1e-2,
     Ti=0.25,
-    k=1e-3) annotation (Placement(transformation(extent={{70,90},{90,110}})));
+    k=1e-3)
+    annotation (Placement(transformation(extent={{70,90},{90,110}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{-90,260},{-70,280}})));
   Modelica.Blocks.Math.Division T_avg_meas
@@ -75,7 +76,8 @@ model CS_Tavg_CR_P_withLag
     initType=Modelica.Blocks.Types.Init.SteadyState,
     Ti=500,
     k=30,
-    yMax=400) annotation (Placement(transformation(extent={{30,220},{50,240}})));
+    yMax=400)
+    annotation (Placement(transformation(extent={{30,220},{50,240}})));
   Modelica.Blocks.Logical.Switch switch_T_avg
     annotation (Placement(transformation(extent={{-10,220},{10,240}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(k=1, T=25)

@@ -13,10 +13,12 @@ parameter Boolean isVolCentered = false
 parameter Boolean isInner = false
     "Indicate appropriate convection edge (inner or outer)"
     annotation(Dialog(enable=isAxial),Evaluate=true);
-  input Modelica.Units.SI.Length r_inner=1 "Inner radius" annotation (Dialog(
-        group="Inputs", enable=(if not isAxial then true else isInner)));
-  input Modelica.Units.SI.Length r_outer=1 "Outer radius" annotation (Dialog(
-        group="Inputs", enable=(if not isAxial then true else not isInner)));
+  input Modelica.Units.SI.Length r_inner=1 "Inner radius" annotation (
+     Dialog(group="Inputs", enable=(if not isAxial then true else
+          isInner)));
+  input Modelica.Units.SI.Length r_outer=1 "Outer radius" annotation (
+     Dialog(group="Inputs", enable=(if not isAxial then true else
+          not isInner)));
   input Modelica.Units.SI.Length length=1 "Axial length"
     annotation (Dialog(group="Inputs", enable=isAxial));
   Modelica.Units.SI.Area A;

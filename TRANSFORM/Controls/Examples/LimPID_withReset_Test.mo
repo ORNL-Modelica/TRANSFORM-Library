@@ -14,7 +14,8 @@ model LimPID_withReset_Test
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0.3,
     reset=TRANSFORM.Types.Reset.Parameter,
-    derMeas=false) "PID controller with integrator reset to a parameter value"
+    derMeas=false)
+    "PID controller with integrator reset to a parameter value"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.Constant mea(k=0.5) "Measured signal"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
@@ -46,7 +47,8 @@ model LimPID_withReset_Test
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0.3,
     reset=TRANSFORM.Types.Reset.Input,
-    derMeas=false) "PID controller with integrator reset to an input value"
+    derMeas=false)
+    "PID controller with integrator reset to an input value"
     annotation (Placement(transformation(extent={{20,-82},{40,-62}})));
   Modelica.Blocks.Sources.Constant conRes(k=0.9)
     "Signal to which integrator will be reset to"

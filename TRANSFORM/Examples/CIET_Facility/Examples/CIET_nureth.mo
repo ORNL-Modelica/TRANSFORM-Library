@@ -33,24 +33,27 @@ model CIET_nureth "Final model of the CIET facility"
 
   package Medium = TRANSFORM.Media.Fluids.DOWTHERM.LinearDOWTHERM_A_95C;
   package Material_wall = TRANSFORM.Media.Solids.SS304_TRACE;
-  package Material_insulation = TRANSFORM.Media.Solids.FiberGlassGeneric;
+  package Material_insulation =
+      TRANSFORM.Media.Solids.FiberGlassGeneric;
 
   // Modelica.SIunits.Power Q_heater_fluid=-sum(wall_6.port_a.Q_flow);
   // Modelica.SIunits.Power Q_heater_ambient=-sum(wall_6.port_b.Q_flow);
 
-  Modelica.Units.SI.Power Q_insulation=sum(S7.boundary.port.Q_flow) + sum(S8.boundary.port.Q_flow)
-       + sum(S9.boundary.port.Q_flow) + sum(S10.boundary.port.Q_flow) + sum(S12.boundary.port.Q_flow)
-       + sum(S13.boundary.port.Q_flow) + sum(S14.boundary.port.Q_flow) + sum(
+  Modelica.Units.SI.Power Q_insulation=sum(S7.boundary.port.Q_flow) +
+      sum(S8.boundary.port.Q_flow) + sum(S9.boundary.port.Q_flow) + sum(
+       S10.boundary.port.Q_flow) + sum(S12.boundary.port.Q_flow) + sum(
+      S13.boundary.port.Q_flow) + sum(S14.boundary.port.Q_flow) + sum(
       S15.boundary.port.Q_flow) + sum(S1.boundary.port.Q_flow) + sum(S2.boundary.port.Q_flow)
-       + sum(S3.boundary.port.Q_flow) + sum(S4.boundary.port.Q_flow) + sum(S5.boundary.port.Q_flow);
+       + sum(S3.boundary.port.Q_flow) + sum(S4.boundary.port.Q_flow) +
+      sum(S5.boundary.port.Q_flow);
 
   Modelica.Units.SI.Power Q_H2C=sum(S7.boundary.port.Q_flow) + sum(S8.boundary.port.Q_flow)
        + sum(S9.boundary.port.Q_flow) + sum(S10.boundary.port.Q_flow);
 
   Modelica.Units.SI.Power Q_C2H=sum(S12.boundary.port.Q_flow) + sum(S13.boundary.port.Q_flow)
-       + sum(S14.boundary.port.Q_flow) + sum(S15.boundary.port.Q_flow) + sum(S1.boundary.port.Q_flow)
-       + sum(S2.boundary.port.Q_flow) + sum(S3.boundary.port.Q_flow) + sum(S4.boundary.port.Q_flow)
-       + sum(S5.boundary.port.Q_flow);
+       + sum(S14.boundary.port.Q_flow) + sum(S15.boundary.port.Q_flow) +
+      sum(S1.boundary.port.Q_flow) + sum(S2.boundary.port.Q_flow) + sum(
+       S3.boundary.port.Q_flow) + sum(S4.boundary.port.Q_flow) + sum(S5.boundary.port.Q_flow);
 
   Modelica.Units.SI.Power Q_ctah=sum(S11.heatPorts.Q_flow);
 
@@ -208,7 +211,8 @@ model CIET_nureth "Final model of the CIET facility"
     T_b_start=data.pipes.table[data.index_11, 10],
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Ideal,
-    redeclare package Material = TRANSFORM.Media.Solids.Copper.OFHC_RRR200,
+    redeclare package Material =
+        TRANSFORM.Media.Solids.Copper.OFHC_RRR200,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
         (

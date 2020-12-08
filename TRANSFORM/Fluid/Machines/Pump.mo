@@ -10,8 +10,8 @@ model Pump "Centrifugal pump with ideally controlled speed"
     annotation (Dialog(group="Inputs Control Setting"));
   input Modelica.Units.NonSI.AngularVelocity_rpm N_input=N_nominal
     "Set rotational speed" annotation (Dialog(group="Inputs Control Setting",
-        enable=if controlType == "RPM" and use_port == false then true else
-          false));
+        enable=if controlType == "RPM" and use_port == false then true
+           else false));
   input SI.MassFlowRate m_flow_input=m_flow_nominal "Set per pump mass flow rate" annotation (Dialog(group="Inputs Control Setting",
         enable=if controlType == "m_flow" and use_port == false then true else false));
   input SI.Pressure p_input=p_b_start "Set pressure" annotation (Dialog(group="Inputs Control Setting",

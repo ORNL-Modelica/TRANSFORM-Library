@@ -12,8 +12,8 @@ model power_quadraticCurve_Test
   Modelica.Blocks.Sources.Sine V_flow(
     amplitude=2,
     f=1/10,
-    startTime=10)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+    startTime=10) annotation (Placement(transformation(extent={{
+            -10,-10},{10,10}})));
 equation
   (W,cs) = Power.power_quadraticCurve(
     V_flow.y,

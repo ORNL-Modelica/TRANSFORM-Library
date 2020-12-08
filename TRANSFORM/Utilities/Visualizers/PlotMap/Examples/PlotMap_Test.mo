@@ -5,15 +5,15 @@ model PlotMap_Test
     amplitude=3000,
     f=1/10,
     offset=3000,
-    startTime=10)
-    annotation (Placement(transformation(extent={{10,-80},{30,-60}})));
+    startTime=10) annotation (Placement(transformation(extent={{10,-80},
+            {30,-60}})));
   Modelica.Blocks.Sources.Sine x_coordinate(
     amplitude=750,
     f=1/10,
     phase=1.5707963267949,
     offset=750,
-    startTime=10)
-    annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
+    startTime=10) annotation (Placement(transformation(extent={{-30,-80},
+            {-10,-60}})));
   TRANSFORM.Utilities.Visualizers.PlotMap.PlotMap_2D_Example map_example(x=
         x_coordinate.y, y=y_coordinate.y)
     annotation (Placement(transformation(extent={{-100,-40},{-20,40}})));

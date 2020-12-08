@@ -26,8 +26,9 @@ model TurbineTypeCompare
     p_b_start=outletPressure,
     T_b_start=outletTemperature,
     T_nominal=inletTemperature,
-    redeclare model Eta_wetSteam = BaseClasses.WetSteamEfficiency.eta_Constant
-        (eta_nominal=efficiency),
+    redeclare model Eta_wetSteam =
+        BaseClasses.WetSteamEfficiency.eta_Constant (
+         eta_nominal=efficiency),
     p_a_start=inletPressure,
     T_a_start=inletTemperature,
     m_flow_start=massFlowRate,

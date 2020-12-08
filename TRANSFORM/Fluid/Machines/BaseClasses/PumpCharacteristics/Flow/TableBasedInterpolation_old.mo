@@ -7,8 +7,8 @@ model TableBasedInterpolation_old
        0,
        2);
 
-  Modelica.Blocks.Tables.CombiTable1Dv FlowChar(table=flowChar, smoothness=
-        Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+  Modelica.Blocks.Tables.CombiTable1Dv FlowChar(table=flowChar,
+      smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

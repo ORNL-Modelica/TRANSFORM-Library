@@ -1,10 +1,10 @@
 within TRANSFORM.Media.Solids;
 package YSZ "YSZ: Yttria stabilized zirconia"
-extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
-  mediumName="YSZ",
-  T_min=Modelica.Units.Conversions.from_degC(-273),
-  T_max=3000,
-  MM_const=0.093129);
+  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
+    mediumName="YSZ",
+    T_min=Modelica.Units.Conversions.from_degC(-273),
+    T_max=3000,
+    MM_const=0.093129);
 
   redeclare function extends specificEnthalpy
     "Specific enthalpy"

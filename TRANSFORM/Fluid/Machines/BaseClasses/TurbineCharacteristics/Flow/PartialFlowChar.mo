@@ -2,7 +2,8 @@ within TRANSFORM.Fluid.Machines.BaseClasses.TurbineCharacteristics.Flow;
 partial model PartialFlowChar
   "Base class for turbine flow characteristics. Extending class solves for m_flow."
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (Dialog(tab="Internal Interface"));
 
   input SIadd.NonDim PR annotation (Dialog(tab="Internal Interface", group="Inputs"));
@@ -12,9 +13,9 @@ partial model PartialFlowChar
   input Modelica.Units.NonSI.AngularVelocity_rpm N "Turbine speed"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal "Pump speed"
-    annotation (Dialog(tab="Internal Interface", group=
-          "Nominal Operating Parameters"));
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal
+    "Pump speed" annotation (Dialog(tab="Internal Interface", group=
+         "Nominal Operating Parameters"));
   parameter SI.MassFlowRate m_flow_nominal "Mass flow rate" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.Temperature T_nominal "Inlet temperature" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.Pressure p_nominal "Inlet pressure" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));

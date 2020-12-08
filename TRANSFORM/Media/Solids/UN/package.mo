@@ -5,13 +5,13 @@ package UN "UN: Uranium Mononitride"
   //10.1016/0022-3115(90)90374-W
   //10.1016/0022-3115(90)90374-X
   //10.1016/0022-3115(90)90374-Y
-extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
-  mediumName="UN",
-  T_min=Modelica.Units.Conversions.from_degC(-273),
-  T_max=3170,
-  MM_const=0.252,
-  use_constantDensity=true,
-  T_density=1000);
+  extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
+    mediumName="UN",
+    T_min=Modelica.Units.Conversions.from_degC(-273),
+    T_max=3170,
+    MM_const=0.252,
+    use_constantDensity=true,
+    T_density=1000);
     constant Real theta(unit="K") = 365.7;
     constant Real porosity = 0;
     constant Real h0 = 8183.64;

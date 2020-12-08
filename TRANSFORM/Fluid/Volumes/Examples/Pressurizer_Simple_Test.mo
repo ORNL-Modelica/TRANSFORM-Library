@@ -25,8 +25,8 @@ model Pressurizer_Simple_Test
     nperiod=1,
     startTime=500)
     annotation (Placement(transformation(extent={{-100,26},{-80,46}})));
-  Modelica.Blocks.Sources.Sine sine(amplitude=1, f=1/100)
-    annotation (Placement(transformation(extent={{-102,-40},{-82,-20}})));
+  Modelica.Blocks.Sources.Sine sine(amplitude=1, f=1/100) annotation (
+      Placement(transformation(extent={{-102,-40},{-82,-20}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x={pressurizer.p})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation

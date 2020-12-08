@@ -13,8 +13,8 @@ model SimpleBattery "Simple battery based on block controller logic"
   parameter SI.Power dischargePower_max=Modelica.Constants.inf
     "Maximum discharge power";
   parameter SI.Power dischargePower_min=0 "Minimum discharge power";
-  final parameter Modelica.Units.NonSI.Energy_Wh capacity_usable=capacity_max
-       - capacity_min "Maximum usable capacity";
+  final parameter Modelica.Units.NonSI.Energy_Wh capacity_usable=
+      capacity_max - capacity_min "Maximum usable capacity";
   final parameter SI.Energy E_start=Modelica.Units.Conversions.from_Wh(
                                                            capacity_usable)*
       capacityFrac_start + E_min "Start energy";

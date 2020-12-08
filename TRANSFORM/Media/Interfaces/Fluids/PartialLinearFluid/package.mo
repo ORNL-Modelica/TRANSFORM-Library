@@ -38,7 +38,7 @@ partial package PartialLinearFluid "Generic pure liquid model with constant cp, 
     p = state.p;
     T = state.T;
     MM = MM_const;
-  R_s = 8.3144/MM;
+    R_s = 8.3144/MM;
   end BaseProperties;
 
   redeclare function extends setState_pTX

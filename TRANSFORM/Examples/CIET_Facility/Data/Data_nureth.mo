@@ -28,8 +28,8 @@ model Data_nureth
   parameter Modelica.Units.SI.MassFlowRate m_flow_primary=0.18;
   parameter Modelica.Units.SI.Pressure p_primary=1.0133e5;
 
-  parameter Modelica.Units.SI.Area tank1_crossArea=0.25*Modelica.Constants.pi*
-      0.0254*(12.39)^2;
+  parameter Modelica.Units.SI.Area tank1_crossArea=0.25*Modelica.Constants.pi
+      *0.0254*(12.39)^2;
   parameter Modelica.Units.SI.Area tank1_length=0.0254*(11.75);
 
   parameter Modelica.Units.SI.Temperature T_ambient=294.770;//was 298.15 294.770;

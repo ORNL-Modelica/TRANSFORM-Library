@@ -29,10 +29,10 @@ partial model PartialTwoPortTransport
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
   Modelica.Units.SI.VolumeFlowRate V_flow=m_flow/
       Modelica.Fluid.Utilities.regStep(
-      m_flow,
-      Medium.density(state_a),
-      Medium.density(state_b),
-      m_flow_small) if             show_V_flow
+              m_flow,
+              Medium.density(state_a),
+              Medium.density(state_b),
+              m_flow_small) if     show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
   Medium.Temperature port_a_T=
       Modelica.Fluid.Utilities.regStep(port_a.m_flow,

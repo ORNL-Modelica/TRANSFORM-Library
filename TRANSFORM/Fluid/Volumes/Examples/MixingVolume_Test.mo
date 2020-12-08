@@ -69,7 +69,8 @@ model MixingVolume_Test
     f=1/10,
     startTime=1,
     amplitude=200,
-    offset=100) annotation (Placement(transformation(extent={{90,-20},{70,0}})));
+    offset=100)
+    annotation (Placement(transformation(extent={{90,-20},{70,0}})));
 equation
   connect(resistance.port_b, sink.ports[1])
     annotation (Line(points={{37,20},{60,20}}, color={0,127,255}));

@@ -16,9 +16,9 @@ partial model PartialPowerChar
   input SI.Length diameter "Impeller Diameter" annotation(Dialog(tab="Internal Interface",group="Inputs"));
   parameter SI.MassFlowRate m_flow_nominal "Mass flow rate" annotation(Dialog(tab="Internal Interface",group="Nominal Operating Parameters:"));
   parameter SI.Density rho_nominal "Density" annotation(Dialog(tab="Internal Interface",group="Nominal Operating Parameters:"));
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal "Pump speed"
-    annotation (Dialog(tab="Internal Interface", group=
-          "Nominal Operating Parameters:"));
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal
+    "Pump speed" annotation (Dialog(tab="Internal Interface",
+        group="Nominal Operating Parameters:"));
   parameter SI.Length diameter_nominal "Impeller Diameter" annotation(Dialog(tab="Internal Interface",group="Nominal Operating Parameters:"));
   parameter SI.PressureDifference dp_nominal "Nominal pressure gain" annotation(Dialog(tab="Internal Interface",group="Nominal Operating Parameters:"));
   final parameter SI.VolumeFlowRate V_flow_nominal = m_flow_nominal/rho_nominal "Volumetri flow rate";

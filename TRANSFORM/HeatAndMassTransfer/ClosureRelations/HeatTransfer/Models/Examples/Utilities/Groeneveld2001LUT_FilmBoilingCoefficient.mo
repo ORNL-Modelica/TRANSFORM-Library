@@ -16,26 +16,26 @@ model Groeneveld2001LUT_FilmBoilingCoefficient
   Modelica.Blocks.Sources.Sine G(
     amplitude=4000,
     f=1/10,
-    offset=4000) "mass flux [kg/(m2.s)]"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
+    offset=4000) "mass flux [kg/(m2.s)]" annotation (Placement(
+        transformation(extent={{-60,10},{-40,30}})));
   Modelica.Blocks.Sources.Sine x(
     amplitude=0.75,
     offset=0.25,
-    f=2) "thermodynamic quality"
-    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
+    f=2) "thermodynamic quality" annotation (Placement(
+        transformation(extent={{-60,-60},{-40,-40}})));
   Modelica.Blocks.Sources.Sine P(
     amplitude=10.5e6,
     offset=10.55e6,
-    f=10) "pressure [Pa]"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    f=10) "pressure [Pa]" annotation (Placement(transformation(
+          extent={{-60,40},{-40,60}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=5, x={x.y,dT.y,G.y,P.y,
         alpha.y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Modelica.Blocks.Sources.Sine dT(
     offset=600,
     f=1,
-    amplitude=650) "T_wall - T_sat"
-    annotation (Placement(transformation(extent={{-60,-30},{-40,-10}})));
+    amplitude=650) "T_wall - T_sat" annotation (Placement(
+        transformation(extent={{-60,-30},{-40,-10}})));
 algorithm
 equation
   connect(x.y, alpha.u[1]) annotation (Line(points={{-39,-50},{-20,-50},{-20,

@@ -2,7 +2,8 @@ within TRANSFORM.Fluid.Machines.BaseClasses.TurbineCharacteristics.Efficiency;
 partial model PartialEfficiencyChar
   "Base class for pump efficiency characteristics."
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (Dialog(tab="Internal Interface"));
 
   input SI.VolumeFlowRate V_flow
@@ -18,9 +19,9 @@ partial model PartialEfficiencyChar
   parameter SI.VolumeFlowRate V_flow_start
     annotation (Dialog(tab="Internal Interface", group="Initialization"));
 
-  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal "Pump speed"
-    annotation (Dialog(tab="Internal Interface", group=
-          "Nominal Operating Parameters"));
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal
+    "Pump speed" annotation (Dialog(tab="Internal Interface", group=
+         "Nominal Operating Parameters"));
   parameter SI.Length diameter_nominal "Impeller Diameter" annotation (Dialog(
         tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.VolumeFlowRate V_flow_nominal "Nominal volumetric flow rate"

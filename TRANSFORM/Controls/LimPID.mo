@@ -86,11 +86,11 @@ block LimPID
   Blocks.IntegratorWithReset I(
     k=unitTime/Ti,
     y_start=xi_start,
-    initType=if initType == InitPID.SteadyState then Init.SteadyState else if
-        initType == InitPID.InitialState or initType == InitPID.InitialState
+    initType=if initType == InitPID.SteadyState then Init.SteadyState else
+        if initType == InitPID.InitialState or initType == InitPID.InitialState
          then Init.InitialState else Init.NoInit,
-    reset=if reset == TRANSFORM.Types.Reset.Disabled then reset else TRANSFORM.Types.Reset.Input,
-
+    reset=if reset == TRANSFORM.Types.Reset.Disabled then reset else
+        TRANSFORM.Types.Reset.Input,
     y_reset=y_reset) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Continuous.Derivative D(

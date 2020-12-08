@@ -23,14 +23,14 @@ Medium_2.ThermodynamicState state_b_2;
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a1(redeclare package Medium =
         Medium_1) annotation (Placement(transformation(extent={{-110,-50},{-90,-30}}),
         iconTransformation(extent={{-110,-50},{-90,-30}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_State port_b1(redeclare package Medium =
-        Medium_1) annotation (Placement(transformation(extent={{90,-50},{110,-30}}),
+  TRANSFORM.Fluid.Interfaces.FluidPort_State port_b1(redeclare package Medium
+      = Medium_1) annotation (Placement(transformation(extent={{90,-50},{110,-30}}),
         iconTransformation(extent={{90,-50},{110,-30}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a2(redeclare package Medium =
         Medium_2) annotation (Placement(transformation(extent={{-110,30},{-90,50}}),
         iconTransformation(extent={{-110,30},{-90,50}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_State port_b2(redeclare package Medium =
-        Medium_2) annotation (Placement(transformation(extent={{90,30},{110,50}}),
+  TRANSFORM.Fluid.Interfaces.FluidPort_State port_b2(redeclare package Medium
+      = Medium_2) annotation (Placement(transformation(extent={{90,30},{110,50}}),
         iconTransformation(extent={{90,30},{110,50}})));
   TRANSFORM.Fluid.Volumes.SimpleVolume volume1(redeclare package Medium =
         Medium_1, use_HeatPort=true)

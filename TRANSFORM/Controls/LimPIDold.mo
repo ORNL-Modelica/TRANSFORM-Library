@@ -71,8 +71,8 @@ block LimPIDold
   Modelica.Blocks.Continuous.Integrator I(
     k=unitTime/Ti,
     y_start=xi_start,
-    initType=if initType == InitPID.SteadyState then Init.SteadyState else if
-        initType == InitPID.InitialState or initType == InitPID.InitialState
+    initType=if initType == InitPID.SteadyState then Init.SteadyState else
+        if initType == InitPID.InitialState or initType == InitPID.InitialState
          then Init.InitialState else Init.NoInit) if with_I
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Modelica.Blocks.Continuous.Derivative D(

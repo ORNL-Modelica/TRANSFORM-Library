@@ -13,7 +13,8 @@ model PhaseSeparation_TerminalVelocity_Test
     n] phaseSeparationHypothesis(
     redeclare package Medium = Medium,
     state=states,
-    each Ac=Ac)
+    V_fluid=1,
+    L_c=1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

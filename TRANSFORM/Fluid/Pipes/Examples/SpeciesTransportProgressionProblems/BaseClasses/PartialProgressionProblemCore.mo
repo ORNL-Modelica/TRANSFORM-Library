@@ -2,7 +2,8 @@ within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems.BaseCl
 partial model PartialProgressionProblemCore
   extends TRANSFORM.Icons.Example;
 
-  package Medium = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_9999Li7_pT(extraPropertiesNames=
+  package Medium =
+      TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_9999Li7_pT (            extraPropertiesNames=
           fill("dummy", nC), C_nominal=fill(1.0, nC));
 
   constant Integer nC=1;

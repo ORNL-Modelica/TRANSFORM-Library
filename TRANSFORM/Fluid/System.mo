@@ -45,8 +45,8 @@ model System
   parameter Boolean use_eps_Re = false
     "= true to determine turbulent region automatically using Reynolds number"
     annotation(Evaluate=true, Dialog(tab = "Advanced"));
-  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=if use_eps_Re then 1
-       else 1e2*m_flow_small "Default nominal mass flow rate"
+  parameter Modelica.Units.SI.MassFlowRate m_flow_nominal=if use_eps_Re
+       then 1 else 1e2*m_flow_small "Default nominal mass flow rate"
     annotation (Dialog(tab="Advanced", enable=use_eps_Re));
   parameter Real eps_m_flow(min=0) = 1e-4
     "Regularization of zero flow for |m_flow| < eps_m_flow*m_flow_nominal"
