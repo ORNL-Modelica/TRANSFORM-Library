@@ -301,8 +301,7 @@ model Regions_1
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Coolant",
-      enable=if useLumpedPressure and modelStructure <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure and not exposeState_a and not exposeState_b then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Coolant"), Evaluate=true);

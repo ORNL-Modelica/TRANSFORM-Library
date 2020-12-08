@@ -4,7 +4,6 @@ model Regions_2
   import TRANSFORM;
   import TRANSFORM.Math.linspace_1D;
   import TRANSFORM.Math.linspaceRepeat_1D;
-  import Modelica.Fluid.Types.ModelStructure;
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
@@ -309,8 +308,7 @@ model Regions_2
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Coolant",
-      enable=if useLumpedPressure and modelStructure <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure and not exposeState_a and not exposeState_b then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Coolant"), Evaluate=true);
