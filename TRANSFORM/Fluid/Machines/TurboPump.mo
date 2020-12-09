@@ -2,7 +2,6 @@ within TRANSFORM.Fluid.Machines;
 model TurboPump
 
   extends BaseClasses.PartialTurboPump;
-extends TRANSFORM.Icons.UnderConstruction;
   SI.Angle theta;
   SIadd.NonDim v;
   SIadd.NonDim alpha;
@@ -65,7 +64,6 @@ eta_curve*alpha*beta = v*h*gamma*eta_nominal;
 
 region = integer(a_tan*4/Modelica.Constants.pi)+1;
 
-    annotation (Placement(transformation(extent={{-98,82},{-82,98}})),
-              Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+    annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end TurboPump;

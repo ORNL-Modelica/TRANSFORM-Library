@@ -3,8 +3,6 @@ model TurboPump_homologouscurves
 
   extends BaseClasses.PartialTurboPump;
 
-extends TRANSFORM.Icons.UnderConstruction;
-
   SIadd.NonDim v;
   SIadd.NonDim alpha;
   SIadd.NonDim h;
