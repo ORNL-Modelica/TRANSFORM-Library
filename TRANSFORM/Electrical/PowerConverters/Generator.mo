@@ -39,7 +39,7 @@ equation
     Q_loss = J*der(omega_m)*omega_m;
   else
     Q_loss = 0;
-  end if annotation (Diagram);
+  end if;
   Q_mech = Q_elec/eta + Q_loss "Energy balance";
   // Boundary Conditions
   f =port.f;
