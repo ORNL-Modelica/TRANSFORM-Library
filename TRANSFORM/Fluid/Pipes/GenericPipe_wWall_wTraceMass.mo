@@ -17,6 +17,8 @@ model GenericPipe_wWall_wTraceMass
     final nV=pipe.geometry.nV,
     use_HeatTransfer=true,
     use_TraceMassTransfer=true);
+  input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
+    annotation (Dialog(tab="Advanced", group="Inputs"));
   replaceable package Material = TRANSFORM.Media.Solids.SS316 constrainedby
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                             "Wall material properties"
