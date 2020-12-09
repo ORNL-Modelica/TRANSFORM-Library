@@ -32,9 +32,7 @@ equation
   port_b.Xi_outflow = Medium.X_default[1:Medium.nXi];
   port_a.C_outflow  = zeros(Medium.nC);
   port_b.C_outflow  = zeros(Medium.nC);
- annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0),
-        iconTransformation(extent={{110,-10},{90,10}})),
-    Icon(graphics={
+ annotation (Icon(graphics={
         Text(
           extent={{-149,-68},{151,-108}},
           lineColor={0,0,255},
