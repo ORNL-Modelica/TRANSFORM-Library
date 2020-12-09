@@ -8,8 +8,8 @@ import Modelica.Math;
 
 annotation (
     uses(
-    ModelicaServices(version="3.2.2"),
-    Complex(version="3.2.3"),
+    ModelicaServices(version="4.0.0"),
+    Complex(version="4.0.0"),
     SDF(version="0.4.1"),
       Modelica(version="4.0.0"),
       UserInteraction(version="0.70")),
