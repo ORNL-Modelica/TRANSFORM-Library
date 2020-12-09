@@ -7,14 +7,15 @@ import Modelica.Constants.pi;
 import Modelica.Math;
 
 annotation (
-    uses(
+  uses(
     ModelicaServices(version="4.0.0"),
     Complex(version="4.0.0"),
-    SDF(version="0.4.1"),
-      Modelica(version="4.0.0"),
-      UserInteraction(version="0.70")),
-    version="0.5",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+    SDF(version="0.4.2"),
+    Modelica(version="4.0.0"),
+    UserInteraction(version="0.70")),
+  version="0.5",
+  conversion(from(version=0.4, script="modelica://TRANSFORM/Resources/Scripts/ConvertFromTRANSFORM_0.4.mos")),
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 </html>"));
 end TRANSFORM;
