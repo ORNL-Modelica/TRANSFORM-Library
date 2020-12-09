@@ -2,7 +2,6 @@ UnitVolume
 UnitVolume_wTraceMass
 UnitVolume_withMedia
 UnitVolume_wTraceMass_withMedia
-Volume_Closed
 SimpleWall
 SimpleWall_noMedia
 SimpleWall_Cylinder

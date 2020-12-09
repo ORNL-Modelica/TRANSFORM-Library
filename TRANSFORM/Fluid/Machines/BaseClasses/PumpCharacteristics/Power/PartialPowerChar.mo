@@ -24,8 +24,8 @@ partial model PartialPowerChar
         tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.VolumeFlowRate V_flow_nominal "Nominal volumetric flow rate"
     annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
-  parameter SI.Density d_nominal "Nominal density"
-    annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
+   parameter SI.Density d_nominal "Nominal density"
+     annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
 
   parameter SI.Power W_nominal "Power consumption" annotation (Dialog(
         tab="Internal Interface", group="Nominal Operating Parameters"));

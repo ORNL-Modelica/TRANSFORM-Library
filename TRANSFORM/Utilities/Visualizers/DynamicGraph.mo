@@ -38,9 +38,9 @@ protected
   final parameter Real x[nPoints]=linspace(
       1,
       100,
-      nPoints) "x-positions of line points" annotation (Hide=false);
-  Real y[nPoints] "y-positions of line points" annotation (Hide=false);
-  Real f "Horizontal position of the cover-rectangle" annotation (Hide=false);
+      nPoints) "x-positions of line points";
+  Real y[nPoints] "y-positions of line points";
+  Real f "Horizontal position of the cover-rectangle";
   Real u_int "Value to be displayed";
   Real u_aux "Auxilliary variable";
 initial equation

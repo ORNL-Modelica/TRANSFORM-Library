@@ -2,8 +2,8 @@ within TRANSFORM.Fluid.Valves.Examples;
 model CompressibleValve2_Test
   extends TRANSFORM.Icons.Example;
   replaceable package Medium =
-      TRANSFORM.Media.ExternalMedia.CoolProp.Hydrogen;
-  ExternalMedia.Media.BaseClasses.ExternalTwoPhaseMedium.ThermodynamicState state_x = Medium.setState_ph(valveCompressible2.port_a.p,valveCompressible2.port_a.h_outflow);
+      Modelica.Media.IdealGases.SingleGases.He;
+  Medium.ThermodynamicState state_x = Medium.setState_ph(valveCompressible2.port_a.p,valveCompressible2.port_a.h_outflow);
   Real gamma = Medium.specificHeatCapacityCp(state_x)/Medium.specificHeatCapacityCv(state_x);
   Real xReal = (2/(gamma+1))^(gamma/(gamma-1));
   TRANSFORM.Fluid.Valves.ValveCompressible2 valveCompressible2(

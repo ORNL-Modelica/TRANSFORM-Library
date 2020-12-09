@@ -21,5 +21,5 @@ equation
     tablesPath,
     u1,
     u2);
-  annotation (defaultcomponentName="interpolate");
+  annotation (defaultComponentName="interpolate");
 end Interpolation_2D;

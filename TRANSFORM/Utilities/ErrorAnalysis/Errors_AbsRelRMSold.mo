@@ -1,7 +1,7 @@
 within TRANSFORM.Utilities.ErrorAnalysis;
 model Errors_AbsRelRMSold "Calculation of absolute, relative, and rms errors"
   extends TRANSFORM.Icons.ObsoleteModel;
-parameter Integer n "Length of variable vector";
+parameter Integer n(min=1) "Length of variable vector";
 parameter Real errorExpected = 1e-6 "if Error_rms < errorExpected then test = Passed";
 parameter Real tolerance = 100 "eps = tolerance*MachineError to avoid division by 0";
 input Real[n] x_1 "Values of first variable" annotation(Dialog(group="Inputs"));

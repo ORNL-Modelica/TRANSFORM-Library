@@ -42,7 +42,6 @@ partial model Partial_BaseFDCond_Cylinder
     use_q_ppp "Volumetric heat generation" annotation (Placement(transformation(
           extent={{-130,45},{-100,75}}), iconTransformation(
         extent={{-6,-6},{6,6}},
-        rotate,
         rotation=-45,
         origin={-40,40})));
   Modelica.Fluid.Interfaces.HeatPorts_a[nZ] heatPorts_inner(T(start=

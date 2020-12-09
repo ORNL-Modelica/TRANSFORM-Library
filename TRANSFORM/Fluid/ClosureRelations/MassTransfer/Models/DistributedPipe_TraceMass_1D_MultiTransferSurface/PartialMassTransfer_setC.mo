@@ -35,7 +35,7 @@ partial model PartialMassTransfer_setC "Base model"
     "Initial Trace substance mass-specific value"
     annotation (Dialog(tab="Internal Interface", group="Initialization"));
   parameter Integer iC[:]= {i for i in 1:Medium.nC}
-    "Fluid index of transfered substances from fluid to massPort. This sets nC in traceMassTransfer." annotation(Evalutate=true);
+    "Fluid index of transfered substances from fluid to massPort. This sets nC in traceMassTransfer." annotation(Evaluate=true);
   final parameter Integer nC = size(iC,1);
   parameter Real MMs[nC]=fill(1, nC)
     "Conversion from fluid mass-specific value to moles (e.g., molar mass [kg/mol] or Avogadro's number [atoms/mol])";

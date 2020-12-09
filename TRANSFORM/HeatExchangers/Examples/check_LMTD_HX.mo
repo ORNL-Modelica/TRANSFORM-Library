@@ -8,7 +8,7 @@ extends TRANSFORM.Icons.Example;
     nPorts=1) annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T boundary_a1(
     redeclare package Medium =
-        TRANSFORM.Media.ExternalMedia.CoolProp.Helium,
+        Modelica.Media.IdealGases.SingleGases.He,
     m_flow=0.38,
     T=698.15,
     nPorts=1)
@@ -20,7 +20,7 @@ extends TRANSFORM.Icons.Example;
     nPorts=1) annotation (Placement(transformation(extent={{60,10},{40,30}})));
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_b1(
     redeclare package Medium =
-        TRANSFORM.Media.ExternalMedia.CoolProp.Helium,
+        Modelica.Media.IdealGases.SingleGases.He,
     p=6000000,
     T=573.15,
     nPorts=1) annotation (Placement(transformation(extent={{60,-30},{40,-10}})));

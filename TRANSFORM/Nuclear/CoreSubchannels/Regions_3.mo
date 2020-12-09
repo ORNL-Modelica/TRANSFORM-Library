@@ -4,14 +4,12 @@ model Regions_3
   import TRANSFORM;
   import TRANSFORM.Math.linspace_1D;
   import TRANSFORM.Math.linspaceRepeat_1D;
-  import Modelica.Fluid.Types.ModelStructure;
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium,m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium
-      =                                                                          Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow    port_b(redeclare package Medium = Medium,m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (
       Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},
             {110,10}})));
   parameter Real nParallel=1 "Number of identical parallel coolant channels";
@@ -322,8 +320,7 @@ model Regions_3
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Coolant",
-      enable=if useLumpedPressure and modelStructure <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure and not exposeState_a and not exposeState_b then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Coolant"), Evaluate=true);

@@ -15,7 +15,6 @@ model check_interpolate2D
     phase=3.1415926535898)
     annotation (Placement(transformation(extent={{10,-10},{30,10}})));
 equation
-  z_int = interpolate2D(x, y, z, xi.y, yi.y, true)
-  annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
+  z_int = interpolate2D(x, y, z, xi.y, yi.y, true);
   annotation (experiment(StopTime=10));
 end check_interpolate2D;

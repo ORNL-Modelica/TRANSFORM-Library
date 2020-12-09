@@ -13,6 +13,7 @@ model QuadraticCurve_Test
 
   parameter NonSI.AngularVelocity_rpm N_nominal = N.offset "Pump speed";
   parameter SI.Length diameter_nominal = diameter.offset "Impeller diameter";
+  parameter SI.Density d_nominal = Medium.density(state);
 
   parameter SI.VolumeFlowRate V_flow_start=V_flow.offset;
   parameter SI.VolumeFlowRate V_flow_nominal=V_flow.offset;
@@ -30,6 +31,7 @@ model QuadraticCurve_Test
     final N_nominal=N_nominal,
     final diameter_nominal=diameter_nominal,
     V_flow_nominal=V_flow_nominal,
+    d_nominal=d_nominal,
     W_nominal=W_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Trapezoid N(
