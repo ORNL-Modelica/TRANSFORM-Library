@@ -3,7 +3,7 @@ package ParaHydrogen "ParaHydrogen | Two Phase | Cool Prop"
   //Surface tension from Mulero, A., Cachadiña, I. & Parra, M. I. Recommended Correlations for the Surface Tension of Common Fluids. Journal of Physical and Chemical Reference Data 41, 043105 (2012).
   extends ExternalMedia.Media.CoolPropMedium(
     mediumName = "ParaHydrogen",
-    substanceNames = {"parahydrogen|enable_BICUBIC=1"},
+    substanceNames = {"parahydrogen"},
     ThermoStates = Modelica.Media.Interfaces.Choices.IndependentVariables.ph,
     SpecificEnthalpy(start=2e5));
 
@@ -11,13 +11,13 @@ package ParaHydrogen "ParaHydrogen | Two Phase | Cool Prop"
     extends Modelica.Icons.Function;
     input SaturationProperties sat "saturation point";
     output Modelica.SIunits.SurfaceTension sigma "Surface tension in SI units";
-    constant Real s[3] = {-1.4165, 0.746383, 0.675625};
-    constant Real n[3] = {0.63882, 0.659804, 0.619149};
-    constant Real Tc=33.145;
+    constant Real s[1] = {0.005314};
+    constant Real n[1] = {1.060};
+    constant Real Tc=32.938;
 protected
       Real t = sat.Tsat/Tc;
     algorithm
-    sigma := sum(s[i]*(1-t)^n[i] for i in 1:3);
+    sigma := sum(s[i]*(1-t)^n[i] for i in 1:1);
     annotation (Inline=true);
     end surfaceTension;
 end ParaHydrogen;
