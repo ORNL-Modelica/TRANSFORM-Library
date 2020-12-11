@@ -3,11 +3,11 @@ model TurbineTypeCompare
   "Compares the result of the two phase and single phase turbines for a simple case (should give identical results)"
   extends TRANSFORM.Icons.Example;
   replaceable package Medium=Modelica.Media.Water.StandardWater;
-  parameter Modelica.SIunits.Pressure inletPressure = 10e6;
-  parameter Modelica.SIunits.Temperature inletTemperature = 1000;
-  parameter Modelica.SIunits.Pressure outletPressure = 8e6;
-  parameter Modelica.SIunits.Temperature outletTemperature = 964.7;
-  parameter Modelica.SIunits.MassFlowRate massFlowRate=10;
+  parameter Modelica.Units.SI.Pressure inletPressure=10e6;
+  parameter Modelica.Units.SI.Temperature inletTemperature=1000;
+  parameter Modelica.Units.SI.Pressure outletPressure=8e6;
+  parameter Modelica.Units.SI.Temperature outletTemperature=964.7;
+  parameter Modelica.Units.SI.MassFlowRate massFlowRate=10;
   parameter Real efficiency = 0.75;
 
   Turbine_SinglePhase_Stodola                          turbine_singlePhase(
@@ -26,8 +26,9 @@ model TurbineTypeCompare
     p_b_start=outletPressure,
     T_b_start=outletTemperature,
     T_nominal=inletTemperature,
-    redeclare model Eta_wetSteam = BaseClasses.WetSteamEfficiency.eta_Constant
-        (eta_nominal=efficiency),
+    redeclare model Eta_wetSteam =
+        BaseClasses.WetSteamEfficiency.eta_Constant (
+         eta_nominal=efficiency),
     p_a_start=inletPressure,
     T_a_start=inletTemperature,
     m_flow_start=massFlowRate,

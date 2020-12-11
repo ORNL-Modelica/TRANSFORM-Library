@@ -12,7 +12,7 @@ model IncompressibleLithium
   SI.DynamicViscosity eta_exp[n] = {0.0006337235,0.000257527,0.00019011452};
   SI.ThermalConductivity lambda_exp[n] = {44.256348,57.141937,71.45926};
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(
-    n=9,
+    n=6,
     x=cat(
         1,
         eta,

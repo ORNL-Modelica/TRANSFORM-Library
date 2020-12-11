@@ -12,5 +12,5 @@ equation
     x=time-5,
     deltax=1);
     dy = der(y);
-  annotation (experiment(StopTime=10),__Dymola_experimentSetupOutput);
+  annotation (experiment(StopTime=10));
 end check_spliceTanh;

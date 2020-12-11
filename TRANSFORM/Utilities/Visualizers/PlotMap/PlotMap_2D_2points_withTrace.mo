@@ -27,10 +27,10 @@ model PlotMap_2D_2points_withTrace
   parameter LinePattern pattern_2=LinePattern.DashDot "Line type" annotation (
       choicesAllMatching=true, Dialog(tab="Tracing", group="Effects"));
 
-   parameter Modelica.SIunits.Time t_start=0 "Start time of display"
-     annotation (Dialog(tab="Tracing"));
-   parameter Modelica.SIunits.Time t_end=1 "End time of display"
-     annotation (Dialog(tab="Tracing"));
+  parameter Modelica.Units.SI.Time t_start=0 "Start time of display"
+    annotation (Dialog(tab="Tracing"));
+  parameter Modelica.Units.SI.Time t_end=1 "End time of display"
+    annotation (Dialog(tab="Tracing"));
 
    parameter String plotControl="Frequency" annotation (choices(choice="Frequency",
          choice="Time interval"), Dialog(tab="Tracing"));

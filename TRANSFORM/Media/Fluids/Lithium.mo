@@ -27,7 +27,7 @@ Properties have been calculated based on a weighted average basis between T_min 
       T0=298.15,
       MM_const=0.0694,
       T_default = 800,
-      fluidConstants=simpleSodiumConstants);
+      fluidConstants=simpleLithiumConstants);
 
     annotation (Documentation(info="<html>
 

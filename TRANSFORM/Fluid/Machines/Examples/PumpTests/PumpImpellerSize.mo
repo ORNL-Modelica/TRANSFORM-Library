@@ -8,7 +8,7 @@ model PumpImpellerSize
   parameter SI.Height head_nominal = TRANSFORM.Units.Conversions.Functions.Distance_m.from_ft(24);
   parameter SI.VolumeFlowRate V_flow_nominal = TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.from_gpm(370);
   parameter SI.Length diameter_nominal = TRANSFORM.Units.Conversions.Functions.Distance_m.from_in(8.25);
-  parameter SI.Conversions.NonSIunits.AngularVelocity_rpm N_nominal = 1160;
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal=1160;
 
   parameter SI.Length diameter = TRANSFORM.Units.Conversions.Functions.Distance_m.from_in(12.75);
 

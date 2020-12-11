@@ -6,7 +6,7 @@ model check_clamp
   Real y;
   Utilities.ErrorAnalysis.UnitTests unitTests(x={y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Modelica.Blocks.Sources.Sine x(freqHz=1/10)
+  Modelica.Blocks.Sources.Sine x(f=1/10)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   y = clamp(x.y,min,max);

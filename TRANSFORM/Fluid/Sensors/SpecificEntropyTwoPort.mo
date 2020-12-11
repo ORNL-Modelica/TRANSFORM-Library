@@ -5,7 +5,7 @@ model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.to_J_kgK
       constrainedby
-      TRANSFORM.Units.Conversions.Functions.SpecificEntropy_J_kgK.BaseClasses.to);
+      TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")
     "Specific entropy of the passing fluid"

@@ -15,7 +15,7 @@ model PI_Control2 "Proportional controller: y = yb + Kc*e"
   parameter Real xi_start=0 "Initial or guess value of error integral (state)"
     annotation (Dialog(group="Initialization"));
   parameter Real y_start=0 "Initial value of output" annotation (Dialog(enable=
-          initType == Init.SteadyState or initType == Init.InitialOutput, group=
+          initType == Modelica.Blocks.Types.Init.SteadyState or initType == Modelica.Blocks.Types.Init.InitialOutput, group=
          "Initialization"));
   constant SI.Time unitTime=1  annotation(HideResult=true);
   final parameter Real Kc = k*(if directActing then +1 else -1);

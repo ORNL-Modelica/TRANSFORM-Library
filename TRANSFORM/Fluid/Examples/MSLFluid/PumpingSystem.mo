@@ -9,10 +9,10 @@ model PumpingSystem "Model of a pumping system for drinking water"
   TRANSFORM.Fluid.BoundaryConditions.FixedBoundary source(
     nPorts=1,
     use_T=true,
-    T=Modelica.SIunits.Conversions.from_degC(20),
+    T=Modelica.Units.Conversions.from_degC(20),
     p=system.p_ambient,
-    redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+    redeclare package Medium = Medium) annotation (Placement(
+        transformation(extent={{-100,-80},{-80,-60}})));
   Modelica.Fluid.Pipes.StaticPipe pipe(
     allowFlowReversal=true,
     length=100,
@@ -43,17 +43,19 @@ model PumpingSystem "Model of a pumping system for drinking water"
     p_b_start=600000)
     annotation (Placement(transformation(extent={{-68,-80},{-48,-60}})));
   Modelica.Fluid.Vessels.OpenTank reservoir(
-    T_start=Modelica.SIunits.Conversions.from_degC(20),
+    T_start=Modelica.Units.Conversions.from_degC(20),
     use_portsData=true,
     crossArea=50,
     level_start=2.2,
     height=3,
     nPorts=3,
-    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter=0.3),
+    portsData={Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(
+        diameter=0.3),
         Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter=0.3),
         Modelica.Fluid.Vessels.BaseClasses.VesselPortsData(diameter=0.01)},
     redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-20,-16},{0,4}})));
+
   TRANSFORM.Fluid.Valves.ValveLinear userValve(
     allowFlowReversal=false,
     dp_nominal=200000,

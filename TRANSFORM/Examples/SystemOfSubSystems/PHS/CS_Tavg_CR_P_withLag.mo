@@ -13,7 +13,7 @@ model CS_Tavg_CR_P_withLag "Control on Tavg (pump speed), Q_total (control rod r
     annotation (Placement(transformation(extent={{150,180},{170,200}})));
   Modelica.Blocks.Sources.Constant CR_nominal(k=0)
     annotation (Placement(transformation(extent={{110,30},{130,50}})));
-  Modelica.Blocks.Sources.Clock clock(offset=0, startTime=0)
+  Modelica.Blocks.Sources.ContinuousClock clock(offset=0, startTime=0)
     annotation (Placement(transformation(extent={{-260,140},{-240,160}})));
   Modelica.Blocks.Logical.Greater greater5
     annotation (Placement(transformation(extent={{-220,180},{-200,160}})));
@@ -58,10 +58,11 @@ model CS_Tavg_CR_P_withLag "Control on Tavg (pump speed), Q_total (control rod r
         origin={40,110})));
   Modelica.Blocks.Continuous.LimPID PID_CR(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    initType=Modelica.Blocks.Types.InitPID.SteadyState,
+    initType=Modelica.Blocks.Types.Init.SteadyState,
     yMax=1e-2,
     Ti=0.25,
-    k=1e-3) annotation (Placement(transformation(extent={{70,90},{90,110}})));
+    k=1e-3)
+    annotation (Placement(transformation(extent={{70,90},{90,110}})));
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{-90,260},{-70,280}})));
   Modelica.Blocks.Math.Division T_avg_meas
@@ -72,10 +73,11 @@ model CS_Tavg_CR_P_withLag "Control on Tavg (pump speed), Q_total (control rod r
     annotation (Placement(transformation(extent={{-50,200},{-30,220}})));
   Modelica.Blocks.Continuous.LimPID PID_pump(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    initType=Modelica.Blocks.Types.InitPID.SteadyState,
+    initType=Modelica.Blocks.Types.Init.SteadyState,
     Ti=500,
     k=30,
-    yMax=400) annotation (Placement(transformation(extent={{30,220},{50,240}})));
+    yMax=400)
+    annotation (Placement(transformation(extent={{30,220},{50,240}})));
   Modelica.Blocks.Logical.Switch switch_T_avg
     annotation (Placement(transformation(extent={{-10,220},{10,240}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(k=1, T=25)

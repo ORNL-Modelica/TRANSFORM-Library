@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Machines.BaseClasses;
 partial model PartialTurboPump
   extends PartialPump_Simple;
-extends TRANSFORM.Icons.UnderConstruction;
 
   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft annotation (Placement(
         transformation(extent={{-10,50},{10,70}}, rotation=0),

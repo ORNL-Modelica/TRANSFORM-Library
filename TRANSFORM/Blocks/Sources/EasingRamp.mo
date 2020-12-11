@@ -1,8 +1,8 @@
 within TRANSFORM.Blocks.Sources;
 block EasingRamp "Generate ramp signal with smooth curves in/out of ramp"
   parameter Real height=1 "Height of ramps" annotation (Evaluate=false,Dialog(groupImage="modelica://Modelica/Resources/Images/Blocks/Sources/Ramp.png"));
-  parameter Modelica.SIunits.Time duration(min=0.0, start=2)
-    "Duration of ramp (= 0.0 gives a Step)" annotation(Evaluate=false);
+  parameter Modelica.Units.SI.Time duration(min=0.0, start=2)
+    "Duration of ramp (= 0.0 gives a Step)" annotation (Evaluate=false);
   extends Modelica.Blocks.Interfaces.SignalSource;
 
   parameter Real curvature = 0.5 "Fraction of maximum possible corner curvature from 0 to <1.0. Can go higher if use_RampSlope=true";

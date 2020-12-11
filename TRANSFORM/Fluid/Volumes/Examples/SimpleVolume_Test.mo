@@ -42,7 +42,7 @@ model SimpleVolume_Test
       Medium = Modelica.Media.Water.StandardWater, R=1)
     annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1/10,
+    f=1/10,
     startTime=1,
     offset=1e5,
     amplitude=0.5e4)

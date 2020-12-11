@@ -1,7 +1,7 @@
 within TRANSFORM.HeatExchangers;
 model LMTD_HX "Log mean temperature difference heat exchanger"
   replaceable package Medium_1 =
-      TRANSFORM.Media.ExternalMedia.CoolProp.Helium
+      Modelica.Media.IdealGases.SingleGases.He
     constrainedby Modelica.Media.Interfaces.PartialMedium annotation (
       choicesAllMatching=true);
   replaceable package Medium_2 = Modelica.Media.Air.DryAirNasa constrainedby

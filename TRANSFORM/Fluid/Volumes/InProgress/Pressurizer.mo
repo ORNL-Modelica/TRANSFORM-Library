@@ -4,7 +4,8 @@ model Pressurizer
   extends TRANSFORM.Fluid.Volumes.InProgress.PartialDrum2Phase2Volume;
   /* General */
   replaceable model DrumType =
-      TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.PartialDrumType
+      TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.SimpleCylinder constrainedby
+    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.PartialDrumType
     "1. Select model 2. Set parameters (Total volume must match V_total)"
     annotation (choicesAllMatching=true, Dialog(group="Geometry"));
   DrumType drumType(
@@ -59,7 +60,7 @@ model Pressurizer
     final v=0,
     final state=state_liquid,
     final crossArea=drumType.crossArea_liquid,
-    final surfaceArea=drumType.surfaceArea_WL,
+    final surfaceAreas={drumType.surfaceArea_WL},
     final dimension=V_liquid/drumType.crossArea_liquid,
     final nParallel=1) annotation (Placement(transformation(extent={{64,-46},{76,
             -34}}, rotation=0)));
@@ -74,7 +75,7 @@ model Pressurizer
     final v=0,
     final state=state_vapor,
     final crossArea=drumType.crossArea_vapor,
-    final surfaceArea=drumType.surfaceArea_WL,
+    final surfaceAreas={drumType.surfaceArea_WL},
     final dimension=V_vapor/drumType.crossArea_vapor,
     final nParallel=1) annotation (Placement(transformation(extent={{64,46},{76,
             34}}, rotation=0)));
@@ -227,7 +228,7 @@ equation
   W_eBulk = bulkEvaporation.m_flow;
   W_cBulk = bulkCondensation.m_flow;
   W_vl = massTransfer_VL.m_flow;
-  Q_vl = heatTransfer_VL.Q_flow;
+  Q_vl = heatTransfer_VL.Q_flows[1];
   Q_wl = heatPort_WL.Q_flow;
   Q_wv = heatPort_WV.Q_flow;
   // Spray Port physics. Flow into liquid is defined as positive direction.

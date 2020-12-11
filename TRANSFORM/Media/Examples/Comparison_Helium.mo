@@ -10,14 +10,13 @@ model Comparison_Helium
   Modelica.Blocks.Sources.Constant ps[4](k=linspace(1e5,20e5,4))
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Ramp Ts[4](
-    height=10,
-    duration=1,
-    offset=25 + 273.15)
+    each height=10,
+    each duration=1,
+    each offset=25 + 273.15)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
   mediums.p =ps.y;
   mediums.T =Ts.y;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    __Dymola_Commands(file="../../../Dymola/plotsco2.mos" "plotsco2"));
+        coordinateSystem(preserveAspectRatio=false)));
 end Comparison_Helium;

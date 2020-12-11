@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Pipes.Examples.RELAPComparison;
 model HeatedPipe_Transients
   extends TRANSFORM.Icons.Example;
-  import SI = Modelica.SIunits;
+  import      Modelica.Units.SI;
   import SIadd = TRANSFORM.Units;
   package Medium = Modelica.Media.Water.StandardWater;
   parameter Integer iTest = 3 "Set test number to change test run" annotation(Evaluate=false);

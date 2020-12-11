@@ -68,3 +68,5 @@ PerformanceCurve
 psi
 quadratic
 inverseQuadratic
+hypergeometric2F1
+pochhammer

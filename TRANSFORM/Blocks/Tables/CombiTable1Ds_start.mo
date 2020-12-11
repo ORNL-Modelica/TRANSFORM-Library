@@ -59,9 +59,10 @@ protected
         smoothness,
         extrapolation,
         if tableOnFile then verboseRead else false) "External table object";
-  function readTableData =
-    Modelica.Blocks.Tables.Internal.readTable1DData "Read table data from text or MATLAB MAT-file";
-                           // No longer used, but kept for backward compatibility
+//   function readTableData =
+//     ObsoleteModelica4.Blocks.Tables.Internal.readTable1DData
+//                                                     "Read table data from text or MATLAB MAT-file";
+//                            // No longer used, but kept for backward compatibility
 initial equation
   if tableOnFile then
     assert(tableName <> "NoName",

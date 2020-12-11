@@ -3,7 +3,7 @@ function ccubicRoots
   "Analytical solution for the roots of a cubic equation (a*x^3+b*x^2+c*x+d=0)"
   //http://mathforcollege.com/nm/mws/gen/03nle/mws_gen_nle_bck_exactcubic.pdf
   import TRANSFORM.Math.ComplexMath.csqrt;
-  import Modelica.ComplexMath.'abs';
+  import 'abs' = Modelica.ComplexMath.abs;
   input Real a;
   input Real b;
   input Real c;

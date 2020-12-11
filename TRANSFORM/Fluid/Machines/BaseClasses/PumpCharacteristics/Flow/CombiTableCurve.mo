@@ -7,9 +7,9 @@ model CombiTableCurve "CombiTable interpolation: V_flow = f(head)"
        0,
        2);
 
-   Modelica.Blocks.Tables.CombiTable1D FlowChar(table=flowChar, smoothness=
-         Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  Modelica.Blocks.Tables.CombiTable1Dv FlowChar(table=flowChar,
+      smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
 

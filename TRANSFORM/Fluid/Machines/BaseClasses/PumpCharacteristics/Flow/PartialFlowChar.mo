@@ -2,14 +2,15 @@ within TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Flow;
 partial model PartialFlowChar
   "Base class for pump flow characteristics. Extending class solves for head."
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (Dialog(tab="Internal Interface"));
 
   input SI.PressureDifference dp annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input Medium.ThermodynamicState state "Thermodynamic state"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
-  input SI.Conversions.NonSIunits.AngularVelocity_rpm N "Pump speed"
+  input Modelica.Units.NonSI.AngularVelocity_rpm N "Pump speed"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Length diameter "Impeller Diameter"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
@@ -17,8 +18,9 @@ partial model PartialFlowChar
   parameter SI.VolumeFlowRate V_flow_start annotation (Dialog(tab="Internal Interface", group="Initialization"));
   parameter SI.Height head_start annotation (Dialog(tab="Internal Interface", group="Initialization"));
 
-  parameter SI.Conversions.NonSIunits.AngularVelocity_rpm N_nominal
-    "Pump speed" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal
+    "Pump speed" annotation (Dialog(tab="Internal Interface", group=
+         "Nominal Operating Parameters"));
   parameter SI.Length diameter_nominal "Impeller Diameter" annotation (Dialog(
         tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.VolumeFlowRate V_flow_nominal "Nominal volumetric flow rate"

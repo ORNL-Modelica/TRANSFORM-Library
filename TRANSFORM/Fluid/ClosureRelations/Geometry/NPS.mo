@@ -1,11 +1,14 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry;
 package NPS
   partial model PartialNPSrecord
-    parameter Modelica.SIunits.Length d_o "Outside diameter";
-    parameter Modelica.SIunits.Length th_wall "Wall thickness";
-    final parameter Modelica.SIunits.Length dimension = d_o-2*th_wall "Inside diameter";
-    final parameter Modelica.SIunits.Length perimeter = Modelica.Constants.pi*dimension "Wetted perimeter";
-    final parameter Modelica.SIunits.Area crossArea = Modelica.Constants.pi/4*dimension^2 "Cross area";
+    parameter Modelica.Units.SI.Length d_o "Outside diameter";
+    parameter Modelica.Units.SI.Length th_wall "Wall thickness";
+    final parameter Modelica.Units.SI.Length dimension=d_o - 2*th_wall
+      "Inside diameter";
+    final parameter Modelica.Units.SI.Length perimeter=Modelica.Constants.pi
+        *dimension "Wetted perimeter";
+    final parameter Modelica.Units.SI.Area crossArea=Modelica.Constants.pi
+        /4*dimension^2 "Cross area";
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end PartialNPSrecord;

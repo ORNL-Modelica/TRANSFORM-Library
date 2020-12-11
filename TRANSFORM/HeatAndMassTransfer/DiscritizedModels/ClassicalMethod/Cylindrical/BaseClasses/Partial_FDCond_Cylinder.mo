@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.BaseClasses;
 partial model Partial_FDCond_Cylinder "BaseClass for 2D Cylindrical FD"
-  import SI = Modelica.SIunits;
+  import      Modelica.Units.SI;
   import Modelica.Fluid.Types.Dynamics;
   import Modelica.Constants.pi;
   extends

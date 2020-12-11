@@ -3,8 +3,6 @@ model TurboPump_homologouscurves
 
   extends BaseClasses.PartialTurboPump;
 
-extends TRANSFORM.Icons.UnderConstruction;
-
   SIadd.NonDim v;
   SIadd.NonDim alpha;
   SIadd.NonDim h;
@@ -19,8 +17,7 @@ extends TRANSFORM.Icons.UnderConstruction;
   SI.Efficiency eta_curve;
   Integer region;
 
-  replaceable model
-    HomoSet =
+  replaceable model HomoSet =
       TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets.Radial
                                                                                                      constrainedby
     TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets.PartialHomoSet
@@ -28,21 +25,21 @@ extends TRANSFORM.Icons.UnderConstruction;
 
     HomoSet homoSet;
 
-  Modelica.Blocks.Tables.CombiTable1D HVN(table=homoSet.table_BAN)
+  Modelica.Blocks.Tables.CombiTable1Dv HVN(table=homoSet.table_BAN)
     annotation (Placement(transformation(extent={{50,-74},{70,-54}})));
-  Modelica.Blocks.Tables.CombiTable1D HAD(table=homoSet.table_HAD)
+  Modelica.Blocks.Tables.CombiTable1Dv HAD(table=homoSet.table_HAD)
     annotation (Placement(transformation(extent={{-20,-74},{-40,-54}})));
-  Modelica.Blocks.Tables.CombiTable1D HVD(table=homoSet.table_HVD)
+  Modelica.Blocks.Tables.CombiTable1Dv HVD(table=homoSet.table_HVD)
     annotation (Placement(transformation(extent={{20,-74},{40,-54}})));
-  Modelica.Blocks.Tables.CombiTable1D HAT(table=homoSet.table_HAT)
+  Modelica.Blocks.Tables.CombiTable1Dv HAT(table=homoSet.table_HAT)
     annotation (Placement(transformation(extent={{-20,-100},{-40,-80}})));
-  Modelica.Blocks.Tables.CombiTable1D HVR(table=homoSet.table_HVR)
+  Modelica.Blocks.Tables.CombiTable1Dv HVR(table=homoSet.table_HVR)
     annotation (Placement(transformation(extent={{50,-100},{70,-80}})));
-  Modelica.Blocks.Tables.CombiTable1D HAR(table=homoSet.table_HAR)
+  Modelica.Blocks.Tables.CombiTable1Dv HAR(table=homoSet.table_HAR)
     annotation (Placement(transformation(extent={{-50,-100},{-70,-80}})));
-  Modelica.Blocks.Tables.CombiTable1D HVT(table=homoSet.table_HVT)
+  Modelica.Blocks.Tables.CombiTable1Dv HVT(table=homoSet.table_HVT)
     annotation (Placement(transformation(extent={{20,-100},{40,-80}})));
-  Modelica.Blocks.Tables.CombiTable1D HAN(table=homoSet.table_HAN)
+  Modelica.Blocks.Tables.CombiTable1Dv HAN(table=homoSet.table_HAN)
     annotation (Placement(transformation(extent={{-50,-74},{-70,-54}})));
 
   Modelica.Blocks.Sources.RealExpression alpha_v(y=sign(v)*alpha/max(1e-6, abs(
@@ -51,21 +48,21 @@ extends TRANSFORM.Icons.UnderConstruction;
   Modelica.Blocks.Sources.RealExpression v_alpha(y=sign(alpha)*v/max(1e-6, abs(
         alpha)))
     annotation (Placement(transformation(extent={{10,-64},{-10,-44}})));
-  Modelica.Blocks.Tables.CombiTable1D BVN(table=homoSet.table_BVN)
+  Modelica.Blocks.Tables.CombiTable1Dv BVN(table=homoSet.table_BVN)
     annotation (Placement(transformation(extent={{50,-14},{70,6}})));
-  Modelica.Blocks.Tables.CombiTable1D BAD(table=homoSet.table_BAD)
+  Modelica.Blocks.Tables.CombiTable1Dv BAD(table=homoSet.table_BAD)
     annotation (Placement(transformation(extent={{-20,-14},{-40,6}})));
-  Modelica.Blocks.Tables.CombiTable1D BVD(table=homoSet.table_BVD)
+  Modelica.Blocks.Tables.CombiTable1Dv BVD(table=homoSet.table_BVD)
     annotation (Placement(transformation(extent={{20,-14},{40,6}})));
-  Modelica.Blocks.Tables.CombiTable1D BAT(table=homoSet.table_BAT)
+  Modelica.Blocks.Tables.CombiTable1Dv BAT(table=homoSet.table_BAT)
     annotation (Placement(transformation(extent={{-20,-40},{-40,-20}})));
-  Modelica.Blocks.Tables.CombiTable1D BVR(table=homoSet.table_BVR)
+  Modelica.Blocks.Tables.CombiTable1Dv BVR(table=homoSet.table_BVR)
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
-  Modelica.Blocks.Tables.CombiTable1D BAR(table=homoSet.table_BAR)
+  Modelica.Blocks.Tables.CombiTable1Dv BAR(table=homoSet.table_BAR)
     annotation (Placement(transformation(extent={{-50,-40},{-70,-20}})));
-  Modelica.Blocks.Tables.CombiTable1D BVT(table=homoSet.table_BVT)
+  Modelica.Blocks.Tables.CombiTable1Dv BVT(table=homoSet.table_BVT)
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Modelica.Blocks.Tables.CombiTable1D BAN(table=homoSet.table_BAN)
+  Modelica.Blocks.Tables.CombiTable1Dv BAN(table=homoSet.table_BAN)
     annotation (Placement(transformation(extent={{-50,-14},{-70,6}})));
 
 equation

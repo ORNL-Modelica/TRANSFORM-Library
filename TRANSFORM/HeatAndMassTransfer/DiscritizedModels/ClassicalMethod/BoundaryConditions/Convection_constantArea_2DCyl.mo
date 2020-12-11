@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryC
 model Convection_constantArea_2DCyl
   "Convection boundary condition for finite difference between port_a and port_b for Cylindrical Coordinates"
 parameter Integer nNodes(min=2) "# of nodal points";
-input Modelica.SIunits.CoefficientOfHeatTransfer alphas[nNodes]
+  input Modelica.Units.SI.CoefficientOfHeatTransfer alphas[nNodes]
     "Convection heat transfer coefficient";
 parameter Boolean isAxial = true
     "Specify the convection axis (axial or radial)"
@@ -13,13 +13,18 @@ parameter Boolean isVolCentered = false
 parameter Boolean isInner = false
     "Indicate appropriate convection edge (inner or outer)"
     annotation(Dialog(enable=isAxial),Evaluate=true);
-input Modelica.SIunits.Length r_inner = 1 "Inner radius" annotation(Dialog(group="Inputs",enable = (if not isAxial then true else isInner)));
-input Modelica.SIunits.Length r_outer = 1 "Outer radius" annotation(Dialog(group="Inputs",enable=(if not isAxial then true else not isInner)));
-input Modelica.SIunits.Length length = 1 "Axial length" annotation(Dialog(group="Inputs",enable=isAxial));
-Modelica.SIunits.Area A;
-Modelica.SIunits.Area A_node[nNodes];
-Modelica.SIunits.Length dxr;
-Modelica.SIunits.Length[nNodes] xr;
+  input Modelica.Units.SI.Length r_inner=1 "Inner radius" annotation (
+     Dialog(group="Inputs", enable=(if not isAxial then true else
+          isInner)));
+  input Modelica.Units.SI.Length r_outer=1 "Outer radius" annotation (
+     Dialog(group="Inputs", enable=(if not isAxial then true else
+          not isInner)));
+  input Modelica.Units.SI.Length length=1 "Axial length"
+    annotation (Dialog(group="Inputs", enable=isAxial));
+  Modelica.Units.SI.Area A;
+  Modelica.Units.SI.Area A_node[nNodes];
+  Modelica.Units.SI.Length dxr;
+  Modelica.Units.SI.Length[nNodes] xr;
 Modelica.Fluid.Interfaces.HeatPorts_a port_a[nNodes] annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

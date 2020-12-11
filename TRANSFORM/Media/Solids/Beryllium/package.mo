@@ -5,10 +5,10 @@ package Beryllium "Pure natural Beryllium"
 //lambda from my imagination
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="Beryllium",
-    T_min=Modelica.SIunits.Conversions.from_degC(-273),
+    T_min=Modelica.Units.Conversions.from_degC(-273),
     T_max=1560,
     MM_const=0.009012182);
-    constant Modelica.SIunits.Temperature trans = 1527;
+  constant Modelica.Units.SI.Temperature trans=1527;
     constant Real A[2] = { 21.20694,  30.00037};
     constant Real B[2] = {  5.688190, -0.000396};
     constant Real C[2] = {  0.968019,  0.000169};

@@ -318,8 +318,7 @@ model GenericDistributed_HX_withMass
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Shell Side",
-      enable=if useLumpedPressure_shell and modelStructure_shell <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure_shell and exposeState_a_shell and not exposeState_b_shell then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties_shell=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Shell Side"), Evaluate=true);
@@ -339,8 +338,7 @@ model GenericDistributed_HX_withMass
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Tube Side",
-      enable=if useLumpedPressure_tube and modelStructure_tube <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure_tube and exposeState_a_tube and not exposeState_b_tube then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties_tube=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Tube Side"), Evaluate=true);
@@ -521,7 +519,7 @@ model GenericDistributed_HX_withMass
         i, 1]*tube.geometry.surfaceAreas[i, 1] for i in 1:tube.nV})*tube.nParallel
         /tube.nV))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  parameter Integer nC=0 "Number of trace substances transfered through wall. Currently nC must be <= min(Medium_tube.nC,Medium_shell.nC)" annotation(Dialog(tab="Trace Mass Transfer"),Evalutate=true);
+  parameter Integer nC=0 "Number of trace substances transfered through wall. Currently nC must be <= min(Medium_tube.nC,Medium_shell.nC)" annotation(Dialog(tab="Trace Mass Transfer"),Evaluate=true);
   parameter Boolean use_TraceMassTransfer_shell=false
     "= true to use the TraceMassTransfer model"
      annotation (Dialog(tab="Trace Mass Transfer",group="Shell"));

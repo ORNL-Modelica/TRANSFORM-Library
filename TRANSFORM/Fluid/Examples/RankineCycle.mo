@@ -4,7 +4,8 @@ model RankineCycle
   package Medium = Modelica.Media.Water.StandardWater "Working fluid";
   parameter SI.MassFlowRate m_flow = 100 "Flow rate in cycle";
   parameter SI.Pressure p_steam = 8.6e6 "Steam pressure";
-  parameter SI.Temperature T_steam = SI.Conversions.from_degC(500) "Steam temperature";
+  parameter SI.Temperature T_steam = Modelica.Units.Conversions.from_degC(
+                                                              500) "Steam temperature";
   parameter SI.Pressure p_condenser = 1e4 "Condenser pressure";
   parameter SI.PressureDifference dp_pump = p_steam - p_condenser;
   Modelica.Mechanics.Rotational.Sensors.PowerSensor powerSensor

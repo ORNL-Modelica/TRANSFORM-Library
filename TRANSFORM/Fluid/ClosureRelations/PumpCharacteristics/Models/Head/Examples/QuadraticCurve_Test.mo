@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.Examples
 model QuadraticCurve_Test
   import TRANSFORM;
   extends Icons.Example;
-  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+  import         Modelica.Units.NonSI;
   package Medium = Modelica.Media.Water.StandardWater;
   constant SI.Pressure p = 5e5 "Pressure";
   constant SI.Temperature T = 300 "Temperature";
@@ -21,18 +21,15 @@ model QuadraticCurve_Test
     quadraticCurve(
     redeclare package Medium = Medium,
     state=state,
-    m_flow=m_flow.y,
+    V_flow=m_flow.y/rho_nominal,
     N=N.y,
     diameter=diameter.y,
     final N_nominal=N_nominal,
     final diameter_nominal=diameter_nominal,
-    final rho_nominal=rho_nominal,
-    final m_flow_nominal=m_flow_nominal,
-    final dp_nominal=dp_nominal,
-    final p_a_start=p_a_start,
-    final p_b_start=p_b_start,
-    final h_start=h_start,
-    final m_flow_start=m_flow_start)
+    final V_flow_nominal=m_flow_nominal/rho_nominal,
+    final head_nominal=dp_nominal/rho_nominal/Modelica.Constants.g_n,
+    final V_flow_start=m_flow_start/rho_nominal,
+    final checkValve=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Trapezoid m_flow(
     rising=5,

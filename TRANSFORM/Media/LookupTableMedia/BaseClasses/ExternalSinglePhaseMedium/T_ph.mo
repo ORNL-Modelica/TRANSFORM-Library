@@ -4,23 +4,20 @@ function T_ph "Compute temperature from pressure and specific enthalpy"
   input AbsolutePressure p "Pressure";
   input SpecificEnthalpy h "Specific enthalpy";
   output Temperature T "Temperature";
+
 protected
-  package Internal
-    "Solve h(T) for T with given h (use only indirectly via temperature_phX)"
-    extends Modelica.Media.Common.OneNonLinearEquation;
+ function f_nonlinear
+   extends Modelica.Math.Nonlinear.Interfaces.partialScalarFunction;
+   input AbsolutePressure p "Pressure";
+   input Temperature T "Temperature";
+ algorithm
+   y := specificEnthalpy_pT(p,T);
+ end f_nonlinear;
 
-    redeclare record extends f_nonlinear_Data
-      "Superfluous record, fix later when better structure of inverse functions exists"
-        constant Real[5] dummy = {1,2,3,4,5};
-    end f_nonlinear_Data;
-
-    redeclare function extends f_nonlinear "P is smuggled in via vector"
-    algorithm
-      y := specificEnthalpy_pT(p,x);
-    end f_nonlinear;
-
-  end Internal;
 algorithm
- T := Internal.solve(h, T_min, T_max, p, {1}, Internal.f_nonlinear_Data());
+
+T := Modelica.Math.Nonlinear.solveOneNonlinearEquation(
+          function f_nonlinear(p=p,T=T), T_min, T_max);
+
   annotation(Inline=false, LateInline=true, inverse(h=specificEnthalpy_pT(p,T)));
 end T_ph;

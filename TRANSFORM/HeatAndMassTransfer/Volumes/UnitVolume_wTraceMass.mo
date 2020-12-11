@@ -29,9 +29,9 @@ equation
   nCs = V.*C;
   // Trace Balance
   if traceDynamics == Dynamics.SteadyState then
-    zeros(nC) = portM.n_flow + nC_gen;
+    zeros(nC) = portM.n_flow/nParallel + nC_gen;
   else
-    der(nCs_scaled)  = (portM.n_flow + nC_gen)./C_nominal;
+    der(nCs_scaled)  = (portM.n_flow/nParallel + nC_gen)./C_nominal;
     nCs = nCs_scaled.*C_nominal;
   end if;
   // Port Definitions

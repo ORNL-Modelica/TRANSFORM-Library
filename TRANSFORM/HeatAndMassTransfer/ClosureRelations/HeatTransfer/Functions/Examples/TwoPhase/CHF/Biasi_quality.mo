@@ -18,7 +18,7 @@ model Biasi_quality
         Medium, state=state)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
-  x_CHF = TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.CHF.Biasi_quality(G, p, L_B, D_htd, h_lv)
+  x_CHF = TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.CHF.Biasi_quality(G, p, L_B, D_htd, h_lv);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Biasi_quality;

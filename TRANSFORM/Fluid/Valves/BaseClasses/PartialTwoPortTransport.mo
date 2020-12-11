@@ -25,14 +25,15 @@ partial model PartialTwoPortTransport
   Medium.MassFlowRate m_flow(
      min=if allowFlowReversal then -Modelica.Constants.inf else 0,
      start = m_flow_start) "Mass flow rate in design flow direction";
-  Modelica.SIunits.Pressure dp(start=dp_start)
-      "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-  Modelica.SIunits.VolumeFlowRate V_flow=
-      m_flow/Modelica.Fluid.Utilities.regStep(m_flow,
-                  Medium.density(state_a),
-                  Medium.density(state_b),
-                  m_flow_small) if show_V_flow
-      "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
+  Modelica.Units.SI.Pressure dp(start=dp_start)
+    "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
+  Modelica.Units.SI.VolumeFlowRate V_flow=m_flow/
+      Modelica.Fluid.Utilities.regStep(
+              m_flow,
+              Medium.density(state_a),
+              Medium.density(state_b),
+              m_flow_small) if     show_V_flow
+    "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
   Medium.Temperature port_a_T=
       Modelica.Fluid.Utilities.regStep(port_a.m_flow,
                   Medium.temperature(state_a),

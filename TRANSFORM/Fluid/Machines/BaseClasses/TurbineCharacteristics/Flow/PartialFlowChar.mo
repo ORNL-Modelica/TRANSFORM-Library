@@ -2,18 +2,20 @@ within TRANSFORM.Fluid.Machines.BaseClasses.TurbineCharacteristics.Flow;
 partial model PartialFlowChar
   "Base class for turbine flow characteristics. Extending class solves for m_flow."
 
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (Dialog(tab="Internal Interface"));
 
   input SIadd.NonDim PR annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input Medium.ThermodynamicState state "Inlet thermodynamic state"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
-  input SI.Conversions.NonSIunits.AngularVelocity_rpm N "Turbine speed"
+  input Modelica.Units.NonSI.AngularVelocity_rpm N "Turbine speed"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
-  parameter SI.Conversions.NonSIunits.AngularVelocity_rpm N_nominal
-    "Pump speed" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
+  parameter Modelica.Units.NonSI.AngularVelocity_rpm N_nominal
+    "Pump speed" annotation (Dialog(tab="Internal Interface", group=
+         "Nominal Operating Parameters"));
   parameter SI.MassFlowRate m_flow_nominal "Mass flow rate" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.Temperature T_nominal "Inlet temperature" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.Pressure p_nominal "Inlet pressure" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
@@ -28,7 +30,8 @@ partial model PartialFlowChar
   SI.Pressure p_inlet = Medium.pressure(state);
 
   SI.MassFlowRate m_flow_c = m_flow*sqrt(T_inlet/T_ref)/p_inlet/p_ref "Referred or corrected mass flow rate";
-  SI.Conversions.NonSIunits.AngularVelocity_rpm N_c = N/sqrt(T_inlet/T_ref) "Referred or corrected speed";
+  Modelica.Units.NonSI.AngularVelocity_rpm N_c=N/sqrt(T_inlet/T_ref)
+    "Referred or corrected speed";
 
   SI.MassFlowRate m_flow;
 
