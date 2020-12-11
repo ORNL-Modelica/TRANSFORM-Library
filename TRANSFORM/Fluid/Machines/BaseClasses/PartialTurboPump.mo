@@ -34,9 +34,9 @@ extends TRANSFORM.Icons.UnderConstruction;
 
   SI.AngularVelocity omega(start=omega_nominal) "Shaft rotational speed";
 
-  SI.Temperature T_a = Medium.temperature(state_a);
+  //SI.Temperature T_a = Medium.temperature(state_a);
   SI.Pressure p_a = port_a.p;
-  SI.Density d_a = Medium.density(state_a);
+  SI.Density d_a = Medium.density_ph(port_a.p,inStream(port_a.h_outflow));  //Medium.density(state_a);
   //SI.Temperature T_b = Medium.temperature(state_b);
   SI.Pressure p_b = port_b.p;
   //SI.Density d_b = Medium.density(state_b);
