@@ -1,6 +1,6 @@
 within TRANSFORM.HeatExchangers;
 model UAdT_lm
-  parameter String calcType = "U" "Variable to be calculated" annotation(choices(choice="U",choice="surfaceArea"));
+  parameter String calcType = "U" "Variable to be calculated" annotation(choices(choice="U",choice="surfaceArea",choice="UA"));
   parameter Boolean counterCurrent = true "Specify if HX is counter (true) or parallel (false) current";
   input SI.Temperature Ts_h[2] "Hot side temperature {inlet, outlet}" annotation(Dialog(group="Inputs"));
   input SI.Temperature Ts_c[2] "Cold side temperature {inlet, outlet}" annotation(Dialog(group="Inputs"));
@@ -15,11 +15,16 @@ model UAdT_lm
 equation
   if calcType == "U" then
     surfaceArea = surfaceArea_input;
+    UA = U*surfaceArea;
   elseif calcType == "surfaceArea" then
     U = U_input;
+    UA = U*surfaceArea;
+  elseif calcType == "UA" then
+    U = -1;
+    surfaceArea = -1;
   end if;
-  abs(Q_flow) = U*surfaceArea*dT_lm;
-  UA = U*surfaceArea;
+  abs(Q_flow) = UA*dT_lm;
+
   dT_lm = (dTs[2] - dTs[1])/log(dTs[2]/dTs[1]);
   // or (dTs[1] -  dTs[2])/log(dTs[1]/ dTs[2]);
   if counterCurrent then
