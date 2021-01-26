@@ -1,22 +1,10 @@
-within TRANSFORM.Media.Fluids.Therminol_66;
+﻿within TRANSFORM.Media.Fluids.Therminol_66;
 package TableBasedTherminol66
-
-
-  // mediumName="Linear Therminol 66",
-  // constantJacobian=false,
-  // reference_p=1e5,
-  // reference_T=250 + 273.15,
-  // reference_d=Utilities_Therminol_66.d_T(reference_T),
-  // reference_h=Utilities_Therminol_66.cp_T(reference_T)*(reference_T - 273.15),
-  // reference_s=0,
-  // beta_const=8.77e-4,
-  // kappa_const=2.89e-10,
-  // cp_const=Utilities_Therminol_66.cp_T(reference_T),
-  // MM_const=0.252,
-  // T_default=250 + 273.15);
+// “DOWTHERM A Heat Transfer Fluid Product Technical Data.” 1997. Dow Chemical Company. http://msdssearch.dow.com/PublishedLiteratureDOWCOM/dh_0030/0901b803800303cd.pdf.
 
   extends TRANSFORM.Media.Interfaces.Fluids.TableBased(
-    mediumName="Glycol-Water 47%",
+    mediumName="Therminol 66",
+    MM_const=0.252,
     T_min=Modelica.Units.Conversions.from_degC(0),
     T_max=Modelica.Units.Conversions.from_degC(380),
     TinK=false,
