@@ -1,15 +1,15 @@
-within TRANSFORM.Nuclear.ReactorKinetics.DriftFluxModels.Reactivity;
-model FissionProducts_externalBalance_sparseMatrix
+within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity;
+model FissionProducts_external_sparseMatrix
   "FissionProducts using external trace balance (e.g., fluid volumes)"
   import Modelica.Fluid.Types.Dynamics;
   // Fission products
   parameter Integer nV=1 "# of discrete volumes";
   replaceable record Data =
-      DriftFluxModels.Data.FissionProducts.fissionProducts_TeIXeU
-    constrainedby DriftFluxModels.Data.FissionProducts.PartialFissionProduct
+      SparseMatrix.Data.FissionProducts.fissionProducts_0 constrainedby
+    SparseMatrix.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   Data data;
-  parameter Integer nC=data.nC "# of fission products";
+  final parameter Integer nC=data.nC "# of fission products";
 
   input TRANSFORM.Units.NonDim nu_bar=2.4 "Neutrons per fission"
     annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
@@ -37,7 +37,7 @@ model FissionProducts_externalBalance_sparseMatrix
     annotation (Dialog(tab="Outputs", enable=false));
   parameter Boolean use_noGen=false
     "=true to set mC_gen = 0 for indices in i_noGen" annotation (Evaluate=true);
-  parameter Integer i_noGen[:]={0};
+  parameter Integer i_noGen[:]={0} "Index of fission product to be held constant";
 
 equation
   for i in 1:nV loop
@@ -73,4 +73,4 @@ equation
   annotation (defaultComponentName="fissionProducts", Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/BatemanEquations.jpg")}));
-end FissionProducts_externalBalance_sparseMatrix;
+end FissionProducts_external_sparseMatrix;

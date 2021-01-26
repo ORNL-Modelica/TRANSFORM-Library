@@ -1,8 +1,8 @@
 within TRANSFORM.Nuclear.ReactorKinetics;
-package DriftFluxModels
+package SparseMatrix
 
   import Modelica.Units.SI;
   import SIadd = TRANSFORM.Units;
 
 annotation ();
-end DriftFluxModels;
+end SparseMatrix;

@@ -105,7 +105,7 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
   SI.Power Q_decay=sum(Qs_decay_V) "Total decay-heat";
   SIadd.NonDim eta=Q_decay/max(1, Q_fission)
     "Ratio of decay heat to fisson power";
-  DriftFluxModels.Reactivity.FissionProducts_externalBalance_withDecayHeat_sparseMatrix
+  TRANSFORM.Nuclear.ReactorKinetics.DriftFluxModels.Reactivity.FissionProducts_external_withDecayHeat_sparseMatrix
     fissionProducts(
     nV=nV,
     nC=nFP,
@@ -124,7 +124,7 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable record Data_FP =
-      DriftFluxModels.Data.FissionProducts.fissionProducts_TeIXeU
+      DriftFluxModels.Data.FissionProducts.fissionProducts_0
     constrainedby DriftFluxModels.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   final parameter Integer nFP=fissionProducts.data.nC "# of fission products"

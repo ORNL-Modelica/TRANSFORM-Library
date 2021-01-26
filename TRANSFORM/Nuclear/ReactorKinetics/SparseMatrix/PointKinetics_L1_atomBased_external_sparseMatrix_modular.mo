@@ -1,4 +1,4 @@
-within TRANSFORM.Nuclear.ReactorKinetics.DriftFluxModels;
+within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix;
 model PointKinetics_L1_atomBased_external_sparseMatrix_modular
   import TRANSFORM;
   import TRANSFORM.Types.Dynamics;
@@ -92,8 +92,8 @@ model PointKinetics_L1_atomBased_external_sparseMatrix_modular
 
   // Fission Product
   replaceable record Data_FP =
-      DriftFluxModels.Data.FissionProducts.fissionProducts_0
-    constrainedby DriftFluxModels.Data.FissionProducts.PartialFissionProduct
+      SparseMatrix.Data.FissionProducts.fissionProducts_0 constrainedby
+    SparseMatrix.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
 
   input SI.Area dsigmasA[nFP]=fill(0, nFP)
@@ -139,7 +139,7 @@ model PointKinetics_L1_atomBased_external_sparseMatrix_modular
     SigmaF=SigmaF)
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  TRANSFORM.Nuclear.ReactorKinetics.DriftFluxModels.Reactivity.FissionProducts_external_withDecayHeat_sparseMatrix
+  TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.FissionProducts_external_withDecayHeat_sparseMatrix
     fissionProducts(
     nV=nV,
     nu_bar=nu_bar,

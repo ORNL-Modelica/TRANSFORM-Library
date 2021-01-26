@@ -1,8 +1,6 @@
-within TRANSFORM.Nuclear.ReactorKinetics.DriftFluxModels.Reactivity;
-model FissionProducts_externalBalance_withDecayHeat_sparseMatrix
-
-  extends
-    DriftFluxModels.Reactivity.FissionProducts_externalBalance_sparseMatrix;
+within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity;
+model FissionProducts_withDecayHeat_sparseMatrix
+  extends FissionProducts_sparseMatrix;
   final parameter SI.Energy w_near_decay_start[nC]=data.w_near_decay
     "Energy released per decay of each fission product [J/decay] (near field - e.g., beta)"
     annotation (Dialog(tab="Initialization", group="Decay-Heat"));
@@ -19,31 +17,30 @@ model FissionProducts_externalBalance_withDecayHeat_sparseMatrix
     "Energy released per decay of each fission product [J/decay] (near field - e.g., beta)";
   SI.Energy w_far_decay[nC]=w_far_decay_start+dw_far_decay
     "Energy released per decay of each fission product [J/decay] (far field - e.g., gamma)";
-  output SI.Power Qs_near[nV]
+  output SI.Power Qs_near
     "Near field (e.g, beta) power released from fission product decay"
     annotation (Dialog(
       tab="Outputs",
       group="Decay-Heat",
       enable=false));
-  output SI.Power Qs_far[nV]
+  output SI.Power Qs_far
     "Far field (e.g., gamma) power released from fission product decay"
     annotation (Dialog(
       tab="Outputs",
       group="Decay-Heat",
       enable=false));
 protected
-  SI.Power Qs_near_i[nV,nC]
-    "Near field (e.g, beta) power released from fission product decay (per species per volume)";
-  SI.Power Qs_far_i[nV,nC]
-    "Far field (e.g., gamma) power released from fission product decay (per species per volume)";
+  SI.Power Qs_near_i[nC]
+    "Near field (e.g, beta) power released from fission product decay (per species)";
+  SI.Power Qs_far_i[nC]
+    "Far field (e.g., gamma) power released from fission product decay (per species)";
 equation
   // Decay power from fission product decay
-  Qs_near_i ={{w_near_decay[j]*data.lambdas[j]*mCs[i, j] for j in 1:nC} for i in 1:
-    nV};
-  Qs_far_i ={{w_far_decay[j]*data.lambdas[j]*mCs[i, j] for j in 1:nC} for i in 1:nV};
-  Qs_near = {sum(Qs_near_i[i, :]) for i in 1:nV};
-  Qs_far = {sum(Qs_far_i[i, :]) for i in 1:nV};
+  Qs_near_i ={w_near_decay[j]*data.lambdas[j]*mCs[j] for j in 1:nC};
+  Qs_far_i ={w_far_decay[j]*data.lambdas[j]*mCs[j] for j in 1:nC};
+  Qs_near = sum(Qs_near_i[:]);
+  Qs_far = sum(Qs_far_i[:]);
   annotation (defaultComponentName="fissionProducts",
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})));
-end FissionProducts_externalBalance_withDecayHeat_sparseMatrix;
+end FissionProducts_withDecayHeat_sparseMatrix;
