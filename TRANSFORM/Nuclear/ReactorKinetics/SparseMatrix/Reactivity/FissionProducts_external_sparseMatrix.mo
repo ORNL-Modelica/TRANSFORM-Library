@@ -4,9 +4,8 @@ model FissionProducts_external_sparseMatrix
   import Modelica.Fluid.Types.Dynamics;
   // Fission products
   parameter Integer nV=1 "# of discrete volumes";
-  replaceable record Data =
-      SparseMatrix.Data.FissionProducts.fissionProducts_0 constrainedby
-    SparseMatrix.Data.FissionProducts.PartialFissionProduct
+  replaceable record Data = SparseMatrix.Data.FissionProducts.fissionProducts_0
+    constrainedby SparseMatrix.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   Data data;
   final parameter Integer nC=data.nC "# of fission products";
@@ -37,7 +36,13 @@ model FissionProducts_external_sparseMatrix
     annotation (Dialog(tab="Outputs", enable=false));
   parameter Boolean use_noGen=false
     "=true to set mC_gen = 0 for indices in i_noGen" annotation (Evaluate=true);
-  parameter Integer i_noGen[:]={0} "Index of fission product to be held constant";
+  parameter Integer i_noGen[:]={0}
+    "Index of fission product to be held constant";
+
+  parameter Integer l_lambdas_count_sum[nC]={sum(data.l_lambdas_count[1:j - 1])
+      for j in 1:nC} annotation (Evaluate=true);
+  parameter Integer f_sigmasA_count_sum[nC]={sum(data.f_sigmasA_count[1:j - 1])
+      for j in 1:nC} annotation (Evaluate=true);
 
 equation
   for i in 1:nV loop
@@ -48,22 +53,21 @@ equation
         if TRANSFORM.Math.exists(j, i_noGen) then
           mC_gens[i, j] = 0.0;
         else
-          mC_gens[i, j] = sum({data.l_lambdas[sum(data.l_lambdas_count[1:j - 1])
-             + k]*mCs[i, data.l_lambdas_col[sum(data.l_lambdas_count[1:j - 1]) +
-            k]] for k in 1:data.l_lambdas_count[j]}) - data.lambdas[j]*mCs[i, j]
-             + sum({data.f_sigmasA[sum(data.f_sigmasA_count[1:j - 1]) + k]*mCs[
-            i, data.f_sigmasA_col[sum(data.f_sigmasA_count[1:j - 1]) + k]] for
-            k in 1:data.f_sigmasA_count[j]})*phi[i] - data.sigmasA[j]*mCs[i, j]*
-            phi[i];
+          mC_gens[i, j] = sum({data.l_lambdas[l_lambdas_count_sum[j] + k]*mCs[i,
+            data.l_lambdas_col[l_lambdas_count_sum[j] + k]] for k in 1:data.l_lambdas_count[
+            j]}) - data.lambdas[j]*mCs[i, j] + sum({data.f_sigmasA[
+            f_sigmasA_count_sum[j] + k]*mCs[i, data.f_sigmasA_col[
+            f_sigmasA_count_sum[j] + k]] for k in 1:data.f_sigmasA_count[j]})*
+            phi[i] - data.sigmasA[j]*mCs[i, j]*phi[i];
         end if;
       else
         // exactly as above just repeated
-        mC_gens[i, j] = sum({data.l_lambdas[sum(data.l_lambdas_count[1:j - 1]) +
-          k]*mCs[i, data.l_lambdas_col[sum(data.l_lambdas_count[1:j - 1]) + k]]
-          for k in 1:data.l_lambdas_count[j]}) - data.lambdas[j]*mCs[i, j] +
-          sum({data.f_sigmasA[sum(data.f_sigmasA_count[1:j - 1]) + k]*mCs[i,
-          data.f_sigmasA_col[sum(data.f_sigmasA_count[1:j - 1]) + k]] for k in 1
-          :data.f_sigmasA_count[j]})*phi[i] - data.sigmasA[j]*mCs[i, j]*phi[i];
+        mC_gens[i, j] = sum({data.l_lambdas[l_lambdas_count_sum[j] + k]*mCs[i,
+          data.l_lambdas_col[l_lambdas_count_sum[j] + k]] for k in 1:data.l_lambdas_count[
+          j]}) - data.lambdas[j]*mCs[i, j] + sum({data.f_sigmasA[
+          f_sigmasA_count_sum[j] + k]*mCs[i, data.f_sigmasA_col[
+          f_sigmasA_count_sum[j] + k]] for k in 1:data.f_sigmasA_count[j]})*phi[
+          i] - data.sigmasA[j]*mCs[i, j]*phi[i];
       end if;
       rhos[i, j] = -data.sigmasA[j]*mCs[i, j]/(nu_bar*SigmaF)/Vs[i]*
         SF_Q_fission[i];
