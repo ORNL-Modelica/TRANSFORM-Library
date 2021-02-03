@@ -111,7 +111,7 @@ model PointKinetics_L1_atomBased_external_sparseMatrix_modular
 
   parameter Boolean use_noGen=false
     "=true to set mC_gen = 0 for fission product indices in i_noGen" annotation (Evaluate=true);
-  parameter Integer i_noGen[:]={0} "Index based fission products only";
+  parameter Integer i_noGen[:]=fissionProducts.data.actinideIndex "Index of fission product to be held constant";
 
   PointKinetics_L1_atomBased_external_modular kinetics(
     nV=nV,

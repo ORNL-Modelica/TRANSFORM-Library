@@ -2,6 +2,7 @@ within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts;
 record fissionProducts_0
   extends PartialFissionProduct(
     extraPropertiesNames=fill("", 0),
+    actinideIndex = {0},
     C_nominal=fill(1e26, nC),
     lambdas=fill(0, nC),
     l_lambdas_col={0},

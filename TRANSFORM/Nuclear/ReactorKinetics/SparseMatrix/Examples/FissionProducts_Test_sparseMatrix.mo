@@ -28,7 +28,6 @@ model FissionProducts_Test_sparseMatrix
     traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_TeIXeU,
-
     use_noGen=true,
     i_noGen=i_noGen)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

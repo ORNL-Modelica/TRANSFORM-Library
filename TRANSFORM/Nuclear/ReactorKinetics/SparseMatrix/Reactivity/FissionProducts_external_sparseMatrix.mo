@@ -8,7 +8,7 @@ model FissionProducts_external_sparseMatrix
     constrainedby SparseMatrix.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   Data data;
-  final parameter Integer nC=data.nC "# of fission products";
+  constant Integer nC=data.nC "# of fission products";
 
   input TRANSFORM.Units.NonDim nu_bar=2.4 "Neutrons per fission"
     annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
@@ -36,7 +36,7 @@ model FissionProducts_external_sparseMatrix
     annotation (Dialog(tab="Outputs", enable=false));
   parameter Boolean use_noGen=false
     "=true to set mC_gen = 0 for indices in i_noGen" annotation (Evaluate=true);
-  parameter Integer i_noGen[:]={0}
+  parameter Integer i_noGen[:]=data.actinideIndex
     "Index of fission product to be held constant";
 
   parameter Integer l_lambdas_count_sum[nC]={sum(data.l_lambdas_count[1:j - 1])

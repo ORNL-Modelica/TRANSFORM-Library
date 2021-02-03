@@ -26,9 +26,16 @@ model PointKinetics_Drift_Test_flat_sparseMatrix
 //  parameter Integer i_noGen[:]={1009};
 
   //Comment/Uncomment as a block - SMALL DATA
-   record Data_FP = SparseMatrix.Data.FissionProducts.fissionProducts_TeIXeU;
-   parameter Real mCs_start[6+4]=cat(1,fill(0,6),{0,0,0,1.43e24});
-   parameter Integer i_noGen[:]={4};
+    record Data_FP = SparseMatrix.Data.FissionProducts.fissionProducts_TeIXeU;
+    parameter Real mCs_start_FP[core_kinetics.fissionProducts.data.nC] = {if TRANSFORM.Math.exists(i, core_kinetics.fissionProducts.data.actinideIndex) then 1.43e24 else 0  for i in 1:core_kinetics.fissionProducts.data.nC};
+    parameter Real mCs_start[6+core_kinetics.fissionProducts.data.nC]=cat(1,fill(0,6),mCs_start_FP);
+    parameter Integer i_noGen[:]=core_kinetics.fissionProducts.data.actinideIndex;
+
+  //Comment/Uncomment as a block - MEDIUM DATA
+//  record Data_FP = fissionProducts_268;
+//  parameter Real mCs_start_FP[core_kinetics.fissionProducts.data.nC] = {if TRANSFORM.Math.exists(i, core_kinetics.fissionProducts.data.actinideIndex) then 1e30 else 0  for i in 1:core_kinetics.fissionProducts.data.nC};
+//  parameter Real mCs_start[6+core_kinetics.fissionProducts.data.nC] = cat(1,fill(0,6),mCs_start_FP);
+//  parameter Integer i_noGen[:]=core_kinetics.fissionProducts.data.actinideIndex;
 
 public
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT back_to_core(
