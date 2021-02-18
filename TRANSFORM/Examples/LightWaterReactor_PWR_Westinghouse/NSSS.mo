@@ -349,8 +349,8 @@ model NSSS "Nuclear steam supply system"
         extent={{-6,6},{6,-6}},
         rotation=0,
         origin={2,52})));
-  Fluid.FittingsAndResistances.SpecifiedResistance res_coldLeg(redeclare
-      package Medium = Medium_PHTS, R=1*p_units/data.m_flow_nominal)
+  Fluid.FittingsAndResistances.SpecifiedResistance res_coldLeg(redeclare package
+              Medium = Medium_PHTS, R=1*p_units/data.m_flow_nominal)
     annotation (Placement(transformation(
         origin={0,-22.5},
         extent={{-5.5,-5},{5.5,5}},
@@ -371,8 +371,8 @@ public
         extent={{-5.5,-5},{5.5,5}},
         rotation=180)));
   Fluid.Machines.Pump_SimpleMassFlow
-                      pump(m_flow_nominal=data.m_flow_nominal, redeclare
-      package Medium = Medium)
+                      pump(m_flow_nominal=data.m_flow_nominal, redeclare package
+              Medium = Medium)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={4,-42})));
