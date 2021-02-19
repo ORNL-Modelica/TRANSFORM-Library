@@ -144,16 +144,11 @@ model PointKinetics_L1_powerBased_sparseMatrix
         nDH} else Es_start) "Energy of the decay-heat precursor group";
   TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.FissionProducts_sparseMatrix
                                                                fissionProducts(
-    nu_bar=nu_bar,
-    w_f=w_f,
-    SigmaF=SigmaF,
     use_noGen=use_noGen,
     i_noGen=i_noGen,
     nC_add=nC_add,
     Q_fission=Q_fission,
-    V=V,
     mCs_add=mCs_add,
-    Vs_add=Vs_add,
     traceDynamics=fissionProductDynamics,
     redeclare record Data = Data_FP,
     Q_fission_start=Q_fission_start,
@@ -161,22 +156,22 @@ model PointKinetics_L1_powerBased_sparseMatrix
     sigmasA_add=sigmasA_add)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable record Data_FP =
-      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_0
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_null
     constrainedby
     TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true,Dialog(tab="Fission Products"));
   final parameter Integer nFP=fissionProducts.data.nC "# of fission products";
 
-  input TRANSFORM.Units.NonDim nu_bar=2.4 "Neutrons per fission"
-    annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
-  input SI.Energy w_f=200e6*1.6022e-19 "Energy released per fission"
-    annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
-  input SI.MacroscopicCrossSection SigmaF=1
-    "Macroscopic fission cross-section of fissile material"
-    annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
-
-  input SI.Volume V=0.1 "Volume for fisson product concentration basis"
-    annotation (Dialog(tab="Fission Products",group="Inputs"));
+//   input TRANSFORM.Units.NonDim nu_bar=2.4 "Neutrons per fission"
+//     annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
+//   input SI.Energy w_f=200e6*1.6022e-19 "Energy released per fission"
+//     annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
+//   input SI.MacroscopicCrossSection SigmaF=1
+//     "Macroscopic fission cross-section of fissile material"
+//     annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
+//
+//   input SI.Volume V=0.1 "Volume for fisson product concentration basis"
+//     annotation (Dialog(tab="Fission Products",group="Inputs"));
   parameter SIadd.ExtraPropertyExtrinsic mCs_start_FP[nFP]=zeros(nFP) "Number of fission product atoms per group per volume"
      annotation (Dialog(tab="Fission Products",group="Initialization"));
 
@@ -188,8 +183,8 @@ model PointKinetics_L1_powerBased_sparseMatrix
     "# of additional substances (i.e., trace fluid substances)"  annotation (Dialog(tab="Fission Products",group="Inputs: Additional Reactivity"));
   input SIadd.ExtraPropertyExtrinsic mCs_add[nC_add]=fill(0, nC_add)
     "Number of atoms"  annotation (Evaluate=true,Dialog(tab="Fission Products",group="Inputs: Additional Reactivity"));
-  input SI.Volume Vs_add=0.1 "Volume for fisson product concentration basis"
-    annotation (Dialog(tab="Fission Products",group="Inputs: Additional Reactivity"));
+//   input SI.Volume Vs_add=0.1 "Volume for fisson product concentration basis"
+//     annotation (Dialog(tab="Fission Products",group="Inputs: Additional Reactivity"));
   input SI.Area sigmasA_add[nC_add]=fill(0, nC_add)
     "Microscopic absorption cross-section for reactivity feedback"
     annotation (Dialog(tab="Fission Products",group="Inputs: Additional Reactivity"));
@@ -202,6 +197,8 @@ model PointKinetics_L1_powerBased_sparseMatrix
     "=true to set mC_gen = 0 for indices in i_noGen" annotation (Evaluate=true,Dialog(tab="Fission Products",group="Advanced"));
   parameter Integer i_noGen[:]=fissionProducts.data.actinideIndex "Index of fission product to be held constant" annotation (Evaluate=true,Dialog(tab="Fission Products",group="Advanced"));
 
+//   parameter SI.Area sigmaF=SIadd.Conversions.Functions.Area_m2.from_barn(1) "Micrscopic fission cross-section of fissile material" annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
+// input Real nAtomsF = 1 annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
 initial equation
   (Cs_start_history,Es_start_history) =
     TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_powerBased_powerHistory(

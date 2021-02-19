@@ -4,7 +4,8 @@ model FissionProducts_external_sparseMatrix
   import Modelica.Fluid.Types.Dynamics;
   // Fission products
   parameter Integer nV=1 "# of discrete volumes";
-  replaceable record Data = SparseMatrix.Data.FissionProducts.fissionProducts_0
+  replaceable record Data =
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_null
     constrainedby SparseMatrix.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   Data data;

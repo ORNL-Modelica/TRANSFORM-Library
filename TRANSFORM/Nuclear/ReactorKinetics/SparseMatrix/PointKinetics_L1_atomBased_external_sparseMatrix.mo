@@ -124,7 +124,8 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
   replaceable record Data_FP =
-      SparseMatrix.Data.FissionProducts.fissionProducts_0 constrainedby
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_null
+                                                          constrainedby
     SparseMatrix.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   constant Integer nFP=fissionProducts.data.nC "# of fission products"

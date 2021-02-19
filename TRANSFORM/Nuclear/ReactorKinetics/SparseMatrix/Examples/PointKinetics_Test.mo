@@ -34,7 +34,6 @@ model PointKinetics_Test
     vals_feedback_reference={Teff_Fuel.offset,Teff_Coolant.offset},
     redeclare record Data_FP =
         TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_TeIXeU,
-
     mCs_start_FP=mCs_start_FP,
     toggle_ReactivityFP=false,
     use_noGen=true)

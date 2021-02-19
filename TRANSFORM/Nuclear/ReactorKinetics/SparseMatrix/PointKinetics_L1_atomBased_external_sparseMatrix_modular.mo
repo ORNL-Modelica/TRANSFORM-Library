@@ -92,7 +92,8 @@ model PointKinetics_L1_atomBased_external_sparseMatrix_modular
 
   // Fission Product
   replaceable record Data_FP =
-      SparseMatrix.Data.FissionProducts.fissionProducts_0 constrainedby
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_null
+                                                          constrainedby
     SparseMatrix.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
 

@@ -5,7 +5,8 @@ model Initial_FissionProducts_Test
 
   // Fission products
   replaceable record Data =
-      SparseMatrix.Data.FissionProducts.fissionProducts_0 constrainedby
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_null
+                                                          constrainedby
     SparseMatrix.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   Data data;
