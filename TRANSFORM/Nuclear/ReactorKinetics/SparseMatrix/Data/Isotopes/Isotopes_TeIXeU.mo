@@ -7,7 +7,7 @@ record Isotopes_TeIXeU
     molarMass={0.1276,0.135918,0.13490723,0.23504393},
     actinideIndex = {4},
     lambdas={log(2)/19,log(2)/23760,log(2)/32760,0},
-    sigmasA=1e-28*{0,0,2.6e6,698.9},
+    sigmasA=1e-28*{0,0,2.6e6,6.3688965},
     w_c=fill(0,nC),
     sigmasF=1e-28*{1.218},
     w_f=1.6022e-13*{200},

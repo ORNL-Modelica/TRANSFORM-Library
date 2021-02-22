@@ -13,12 +13,12 @@ model Isotopes_sparseMatrix
 
 extends TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.PartialReactivity;
 
-   parameter SI.Power Q_fission_start=1e6
-     "Power determined from kinetics. Does not include decay heat"
-     annotation (Dialog(tab="Initialization"));
-   input SI.Power Q_fission=Q_fission_start
-     "Power determined from kinetics. Does not include decay heat"
-     annotation (Dialog(group="Inputs"));
+//    parameter SI.Power Q_fission_start=1e6
+//      "Power determined from kinetics. Does not include decay heat"
+//      annotation (Dialog(tab="Initialization"));
+//    input SI.Power Q_fission=Q_fission_start
+//      "Power determined from kinetics. Does not include decay heat"
+//      annotation (Dialog(group="Inputs"));
 
    parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=zeros(nC)
      "Number of isotope atoms per group"
@@ -54,7 +54,7 @@ extends TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.PartialReactiv
 
   parameter Boolean use_noGen=false
     "=true to set mC_gen = 0 for indices in i_noGen" annotation (Evaluate=true);
-  parameter Integer i_noGen[:]=data.actinideIndex "Index of isotopes to be held constant";
+  parameter Integer i_noGen[:]=data.actinideIndex "Index of isotopes to be held constant if use_noGen";
 
 //   parameter Integer nC_add=0
 //     "# of additional substances (i.e., trace fluid substances)" annotation (Dialog(tab="Additional Reactivity"));
@@ -117,7 +117,7 @@ equation
           data.f_sigmasA_count[1:j - 1]) + k]] for k in 1:data.f_sigmasA_count[
           j]})*phi - data.sigmasA[j]*mCs[j]*phi;
     end if;
-    rhos[j] = -data.sigmasA[j]*mCs[j]/sum(data.nus[1]*data.sigmasF[k]*mCs[data.actinideIndex[k]] for k in 1:data.nA);//SigmaF)/V;
+    rhos[j] = -data.sigmasA[j]*mCs[j]/sum(data.nus[1]*data.sigmasF[k]*mCs[data.actinideIndex[k]] for k in 1:data.nA);
   end for;
   // Additional substances from another source
   for j in 1:nC_add loop

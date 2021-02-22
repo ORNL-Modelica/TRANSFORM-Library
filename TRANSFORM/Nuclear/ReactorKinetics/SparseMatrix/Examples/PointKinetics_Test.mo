@@ -15,7 +15,7 @@ model PointKinetics_Test
     phase=0.5235987755983,
     offset=500) annotation (Placement(transformation(extent={{-100,-50},
             {-80,-30}})));
-  Modelica.Blocks.Sources.Constant ControlRod_Reactivity(k=0.0025)
+  Modelica.Blocks.Sources.Constant ControlRod_Reactivity(k=0)
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.PointKinetics_L1_powerBased_sparseMatrix
     kinetics(
@@ -32,18 +32,18 @@ model PointKinetics_Test
     alphas_feedback={-2.5e-5,-20e-5},
     vals_feedback={Teff_Fuel.y,Teff_Coolant.y},
     vals_feedback_reference={Teff_Fuel.offset,Teff_Coolant.offset},
-    redeclare record Data_FP =
-        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
+    redeclare model Reactivity =
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes_sparseMatrix
+        (
+        redeclare record Data =
+            TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
 
-    mCs_start_FP=mCs_start_FP,
-    toggle_ReactivityFP=false,
-    use_noGen=true)
+        mCs_start=mCs_start_FP,
+        use_noGen=true),
+    toggle_Reactivity=false)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 
-  Utilities.ErrorAnalysis.UnitTests unitTests(x={kinetics.Q_fission})
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
-
-      parameter Real mCs_start_FP[kinetics.fissionProducts.data.nC] = {if TRANSFORM.Math.exists(i, kinetics.fissionProducts.data.actinideIndex) then 1.43e24 else 0  for i in 1:kinetics.fissionProducts.data.nC};
+  parameter Real mCs_start_FP[kinetics.reactivity.data.nC] = {if TRANSFORM.Math.exists(i, kinetics.reactivity.data.actinideIndex) then 1.43e24 else 0  for i in 1:kinetics.reactivity.data.nC};
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

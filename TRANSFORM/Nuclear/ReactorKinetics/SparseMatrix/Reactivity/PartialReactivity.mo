@@ -10,13 +10,13 @@ partial model PartialReactivity
 
   constant Integer nC=data.nC "# of istotopes";
 
-//   parameter SI.Power Q_fission_start=1e6
-//     "Power determined from kinetics. Does not include decay heat"
-//     annotation (Dialog(tab="Initialization"));
-//   input SI.Power Q_fission=Q_fission_start
-//     "Power determined from kinetics. Does not include decay heat"
-//     annotation (Dialog(group="Inputs"));
-//
+   parameter SI.Power Q_fission_start=1e6
+     "Power determined from kinetics. Does not include decay heat"
+     annotation (Dialog(tab="Internal Interface",group="Initialization"));
+   input SI.Power Q_fission=Q_fission_start
+     "Power determined from kinetics. Does not include decay heat"
+     annotation (Dialog(tab="Internal Interface",group="Inputs"));
+
 //   parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=zeros(nC)
 //     "Number of isotope atoms per group"
 //     annotation (Dialog(tab="Initialization"));
@@ -34,17 +34,17 @@ partial model PartialReactivity
     annotation (Dialog(tab="Additional Reactivity",group="Inputs"));
 
   output SIadd.NonDim rhos[nC] "Reactivity feedback (not including rhos_add)"
-    annotation (Dialog(tab="Outputs", enable=false));
+    annotation (Dialog(tab="Internal Interface",group="Outputs", enable=false));
   output SIadd.ExtraPropertyFlowRate[nC_add] mC_gens_add
     "Generation rate of additional substances [atoms/s] (e.g., Boron in fluid)"
     annotation (Dialog(
-      group="Additional Reactivity",
-      tab="Outputs",
+      tab="Internal Interface",
+      group="Outputs",
       enable=false));
   output SIadd.NonDim rhos_add[nC_add]
     "Additional subtances reactivity feedback" annotation (Dialog(
-      group="Additional Reactivity",
-      tab="Outputs",
+      tab="Internal Interface",
+      group="Outputs",
       enable=false));
 
 

@@ -28,8 +28,7 @@ model PointKinetics_L1_powerBased_sparseMatrix
   input TRANSFORM.Units.NonDim rho_input=0 "External Reactivity"
     annotation (Dialog(group="Inputs"));
   // Reactivity Feedback
-  parameter Integer nFeedback=0
-    "# of reactivity feedbacks (alpha*(val-val_ref)"
+  parameter Integer nFeedback=0 "# of reactivity feedbacks (alpha*(val-val_ref)"
     annotation (Dialog(tab="Kinetics", group="Inputs: Reactivity Feedback"));
   input Real alphas_feedback[nFeedback]=fill(0, nFeedback)
     "Reactivity feedback coefficient (e.g., temperature [1/K])"
@@ -43,16 +42,16 @@ model PointKinetics_L1_powerBased_sparseMatrix
   // Neutron Kinetics
   final parameter Integer nC=data.nC "# of delayed-neutron precursors groups";
   input Units.InverseTime dlambdas[nC]=fill(0, nC)
-    "Change in decay constants for each precursor group" annotation (Dialog(tab=
-         "Parameter Change", group="Inputs: Neutron Kinetics"));
+    "Change in decay constants for each precursor group" annotation (Dialog(tab="Parameter Change",
+        group="Inputs: Neutron Kinetics"));
   input Units.NonDim dalphas[nC]=fill(0, nC)
-    "Change in normalized precursor fractions [betas = alphas*Beta]"
-    annotation (Dialog(tab="Parameter Change", group="Inputs: Neutron Kinetics"));
+    "Change in normalized precursor fractions [betas = alphas*Beta]" annotation (
+     Dialog(tab="Parameter Change", group="Inputs: Neutron Kinetics"));
   input TRANSFORM.Units.NonDim dBeta=0
     "Change in effective delayed neutron fraction [e.g., Beta = sum(beta_i)]"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Neutron Kinetics"));
-  input SI.Time dLambda=0 "Change in prompt neutron generation time"
-    annotation (Dialog(tab="Parameter Change", group="Inputs: Neutron Kinetics"));
+  input SI.Time dLambda=0 "Change in prompt neutron generation time" annotation (
+     Dialog(tab="Parameter Change", group="Inputs: Neutron Kinetics"));
   Units.InverseTime lambdas[nC]=lambdas_start + dlambdas
     "Decay constants for each precursor group";
   Units.NonDim alphas[nC]=alphas_start + dalphas
@@ -92,15 +91,13 @@ model PointKinetics_L1_powerBased_sparseMatrix
     "Effective energy fraction"
     annotation (Dialog(tab="Kinetics", group="Decay-Heat"));
   parameter SI.Power Q_fission_start=Q_nominal/(1 + sum(efs_dh_start))
-    "Initial reactor fission power"
-    annotation (Dialog(tab="Initialization"));
-  parameter SI.Power[nC] Cs_start={betas_start[j]/(lambdas_start[j]*
-      Lambda_start)*Q_fission_start for j in 1:nC}
+    "Initial reactor fission power" annotation (Dialog(tab="Initialization"));
+  parameter SI.Power[nC] Cs_start={betas_start[j]/(lambdas_start[j]*Lambda_start)
+      *Q_fission_start for j in 1:nC}
     "Power of the initial delayed-neutron precursor concentrations"
     annotation (Dialog(tab="Initialization", enable=not use_history));
   parameter SI.Energy Es_start[nDH]={Q_fission_start*efs_dh_start[j]/
-      lambdas_dh_start[j] for j in 1:nDH}
-    "Initial decay heat group energy"
+      lambdas_dh_start[j] for j in 1:nDH} "Initial decay heat group energy"
     annotation (Dialog(tab="Initialization", enable=not use_history));
   parameter Boolean use_history=false "=true to provide power history"
     annotation (Dialog(tab="Kinetics", group="Decay-Heat"));
@@ -111,8 +108,8 @@ model PointKinetics_L1_powerBased_sparseMatrix
       tab="Kinetics",
       group="Decay-Heat",
       enable=use_history));
-  parameter Boolean includeDH=false
-    "=true if power history includes decay heat" annotation (Dialog(
+  parameter Boolean includeDH=false "=true if power history includes decay heat"
+    annotation (Dialog(
       tab="Kinetics",
       group="Decay-Heat",
       enable=use_history));
@@ -142,48 +139,20 @@ model PointKinetics_L1_powerBased_sparseMatrix
          else Cs_start) "Power of the delayed-neutron precursor concentration";
   SI.Energy Es[nDH](start=if use_history then {Es_start_history[j] for j in 1:
         nDH} else Es_start) "Energy of the decay-heat precursor group";
-  TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes_sparseMatrix
-    fissionProducts(
-    use_noGen=use_noGen,
-    i_noGen=i_noGen,
-    nC_add=nC_add,
-    Q_fission=Q_fission,
-    mCs_add=mCs_add,
-    traceDynamics=isotopeDynamics,
-    redeclare record Data = Data_FP,
-    Q_fission_start=Q_fission_start,
-    mCs_start=mCs_start_FP,
-    sigmasA_add=sigmasA_add)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  replaceable record Data_FP =
-      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_null
+
+  parameter Boolean toggle_Reactivity=true
+    "=true to include additional reactivity model feedback"
+    annotation (Dialog(group="Additional Reactivity"));
+
+  replaceable model Reactivity =
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes_sparseMatrix
     constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
-    "Fission Product Data" annotation (choicesAllMatching=true,Dialog(tab="Isotope"));
-  final parameter Integer nFP=fissionProducts.data.nC "# of isotopes";
-
-  parameter SIadd.ExtraPropertyExtrinsic mCs_start_FP[nFP]=zeros(nFP) "Number of isotope atoms per group per volume"
-     annotation (Dialog(tab="Isotope",group="Initialization"));
-
-  parameter Dynamics isotopeDynamics=traceDynamics
-    "Formulation of isotope balances"
-    annotation (Evaluate=true, Dialog(tab="Isotope", group="Advanced"));
-
-  parameter Integer nC_add=0
-    "# of additional substances (i.e., trace fluid substances)"  annotation (Dialog(tab="Isotope",group="Inputs: Additional Reactivity"));
-  input SIadd.ExtraPropertyExtrinsic mCs_add[nC_add]=fill(0, nC_add)
-    "Number of atoms"  annotation (Evaluate=true,Dialog(tab="Isotope",group="Inputs: Additional Reactivity"));
-  input SI.Area sigmasA_add[nC_add]=fill(0, nC_add)
-    "Microscopic absorption cross-section for reactivity feedback"
-    annotation (Dialog(tab="Isotope",group="Inputs: Additional Reactivity"));
-
-  parameter Boolean toggle_ReactivityFP=true
-    "=true to include isotope reactivity feedback"
-    annotation (Dialog(tab="Isotope",group="Advanced"));
-
-  parameter Boolean use_noGen=false
-    "=true to set mC_gen = 0 for indices in i_noGen" annotation (Evaluate=true,Dialog(tab="Isotope",group="Advanced"));
-  parameter Integer i_noGen[:]=fissionProducts.data.actinideIndex "Index of isotope to be held constant" annotation (Evaluate=true,Dialog(tab="Isotope",group="Advanced"));
+    TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.PartialReactivity
+    "Additional reactivity contributions" annotation (choicesAllMatching=true,
+      Dialog(group="Additional Reactivity"));
+  Reactivity reactivity(final Q_fission=Q_fission, final Q_fission_start=
+        Q_fission_start)
+    annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
 
 initial equation
   (Cs_start_history,Es_start_history) =
@@ -198,7 +167,7 @@ initial equation
     includeDH=includeDH);
   if not specifyPower then
     if energyDynamics == Dynamics.FixedInitial then
-      Q_fission =Q_fission_start;
+      Q_fission = Q_fission_start;
     elseif energyDynamics == Dynamics.SteadyStateInitial then
       der(Q_fission) = 0;
     end if;
@@ -224,8 +193,9 @@ initial equation
 equation
   rhos_feedback = {alphas_feedback[j]*(vals_feedback[j] -
     vals_feedback_reference[j]) for j in 1:nFeedback};
-  rho = rho_input + sum(rhos_feedback[:]) + (if toggle_ReactivityFP then + sum(fissionProducts.rhos[:]) else 0) + sum(
-    fissionProducts.rhos_add[:]);
+  rho = rho_input + sum(rhos_feedback[:]) + (if toggle_Reactivity then +sum(
+    reactivity.rhos[:]) else 0) + sum(reactivity.rhos_add[:]);
+  // this old line is retained to show the autocorrection for negative reactivity that may be a good idea to add
   // rho = rho_input + sum(rhos_feedback[:]) + (if toggle_ReactivityFP then -sum(
   //   fissionProducts.rhos_start) + sum(fissionProducts.rhos[:]) else 0) + sum(
   //   fissionProducts.rhos_add[:]);
@@ -233,27 +203,27 @@ equation
     Q_fission = Q_fission_input;
   else
     if energyDynamics == Dynamics.SteadyState then
-      0 =(rho - Beta)/Lambda*Q_fission + sum(lambdas .* Cs[:]) + Q_external/
+      0 = (rho - Beta)/Lambda*Q_fission + sum(lambdas .* Cs[:]) + Q_external/
         Lambda;
     else
-      der(Q_fission) =(rho - Beta)/Lambda*Q_fission + sum(lambdas .* Cs[:]) +
+      der(Q_fission) = (rho - Beta)/Lambda*Q_fission + sum(lambdas .* Cs[:]) +
         Q_external/Lambda;
     end if;
   end if;
   if traceDynamics == Dynamics.SteadyState then
-    zeros(nC) =betas ./ Lambda*Q_fission - lambdas .* Cs[:];
+    zeros(nC) = betas ./ Lambda*Q_fission - lambdas .* Cs[:];
   else
-    der(Cs[:]) =betas ./ Lambda*Q_fission - lambdas .* Cs[:];
+    der(Cs[:]) = betas ./ Lambda*Q_fission - lambdas .* Cs[:];
   end if;
-  Qs_decay[:] =lambdas_dh .* Es[:];
+  Qs_decay[:] = lambdas_dh .* Es[:];
   Q_total = Q_fission + sum(Qs_decay[:]);
   if decayheatDynamics == Dynamics.SteadyState then
     for j in 1:nDH loop
-      0 =efs_dh[j]*Q_fission - lambdas_dh[j]*Es[j];
+      0 = efs_dh[j]*Q_fission - lambdas_dh[j]*Es[j];
     end for;
   else
     for j in 1:nDH loop
-      der(Es[j]) =efs_dh[j]*Q_fission - lambdas_dh[j]*Es[j];
+      der(Es[j]) = efs_dh[j]*Q_fission - lambdas_dh[j]*Es[j];
     end for;
   end if;
   annotation (

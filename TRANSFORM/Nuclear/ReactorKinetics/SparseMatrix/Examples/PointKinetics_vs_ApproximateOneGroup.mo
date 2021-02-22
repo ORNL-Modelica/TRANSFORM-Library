@@ -3,11 +3,6 @@ model PointKinetics_vs_ApproximateOneGroup
   "Point kinetics model vs a textbook approximate solution using one effective delayed group"
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-  Utilities.ErrorAnalysis.UnitTests           unitTests(
-    n=1,
-    x={Pratio_exp},
-    x_reference={Pratio_ref})
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
   parameter Real Beta = 0.0075;
   parameter Real alpha = 1;
   parameter Real lambda = 0.08;
@@ -25,19 +20,21 @@ model PointKinetics_vs_ApproximateOneGroup
         Beta=Beta),
     Lambda_start=Lambda,
     rho_input=rho0,
-    redeclare record Data_FP =
-        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
-
-    mCs_start_FP=mCs_start_FP,
-    toggle_ReactivityFP=false,
-    use_noGen=true)
+    toggle_Reactivity=false,
+    redeclare model Reactivity =
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes_sparseMatrix
+        (
+        redeclare record Data =
+            TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
+        mCs_start=mCs_start_FP,
+        use_noGen=true))
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
 
   Real Pratio_ref "Reference power to nominal power ratio";
   Real Pratio_exp "Reactor kinetics model power to nominal power ratio";
 
 
-  parameter Real mCs_start_FP[kinetics.fissionProducts.data.nC] = {if TRANSFORM.Math.exists(i, kinetics.fissionProducts.data.actinideIndex) then 1.43e24 else 0  for i in 1:kinetics.fissionProducts.data.nC};
+  parameter Real mCs_start_FP[kinetics.reactivity.data.nC] = {if TRANSFORM.Math.exists(i, kinetics.reactivity.data.actinideIndex) then 1.43e24 else 0  for i in 1:kinetics.reactivity.data.nC};
 
 equation
   Pratio_ref = Beta/(Beta - rho0)*exp(time*Lambda*rho0/(Beta - rho0)) - rho0/(Beta - rho0)*exp(time*(rho0 - Beta)/Lambda);
