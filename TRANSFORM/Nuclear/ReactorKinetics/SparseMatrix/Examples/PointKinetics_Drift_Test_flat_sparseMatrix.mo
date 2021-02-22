@@ -1,11 +1,13 @@
 within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Examples;
 model PointKinetics_Drift_Test_flat_sparseMatrix
+  extends TRANSFORM.Icons.UnderConstruction;
+
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   replaceable package Medium =
       TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT (
-  extraPropertiesNames=cat(1,core_kinetics.data.extraPropertiesNames,core_kinetics.fissionProducts.data.extraPropertiesNames),
-  C_nominal=cat(1,core_kinetics.data.C_nominal,core_kinetics.fissionProducts.data.C_nominal));
+  extraPropertiesNames=core_kinetics.extraPropertiesNames,
+  C_nominal=core_kinetics.C_nominal);
   parameter SI.Length H = 3.4;
   parameter SI.Length L = 6.296;
   parameter SI.Velocity v=0.4772;
@@ -26,17 +28,10 @@ model PointKinetics_Drift_Test_flat_sparseMatrix
 //  parameter Integer i_noGen[:]={1009};
 
   //Comment/Uncomment as a block - SMALL DATA
-    record Data_FP =
+  record Data_FP =
       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU;
-    parameter Real mCs_start_FP[core_kinetics.fissionProducts.data.nC] = {if TRANSFORM.Math.exists(i, core_kinetics.fissionProducts.data.actinideIndex) then 1.43e24 else 0  for i in 1:core_kinetics.fissionProducts.data.nC};
-    parameter Real mCs_start[6+core_kinetics.fissionProducts.data.nC]=cat(1,fill(0,6),mCs_start_FP);
-    parameter Integer i_noGen[:]=core_kinetics.fissionProducts.data.actinideIndex;
-
-  //Comment/Uncomment as a block - MEDIUM DATA
-//  record Data_FP = fissionProducts_268;
-//  parameter Real mCs_start_FP[core_kinetics.fissionProducts.data.nC] = {if TRANSFORM.Math.exists(i, core_kinetics.fissionProducts.data.actinideIndex) then 1e30 else 0  for i in 1:core_kinetics.fissionProducts.data.nC};
-//  parameter Real mCs_start[6+core_kinetics.fissionProducts.data.nC] = cat(1,fill(0,6),mCs_start_FP);
-//  parameter Integer i_noGen[:]=core_kinetics.fissionProducts.data.actinideIndex;
+  parameter Real mCs_start[6+4]=cat(1,fill(0,6),{0,0,0,1.43e24});
+  parameter Integer i_noGen[:]={4};
 
 public
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT back_to_core(
@@ -64,16 +59,13 @@ public
         dlengths=fill(H/core.nV, core.nV)),
     redeclare model InternalTraceGen =
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=cat(
-            2,
-            core_kinetics.mC_gens,
-            core_kinetics.fissionProducts.mC_gens)),
+        (mC_gens=core_kinetics.mC_gens_all),
     p_a_start=100000,
     T_a_start=573.15,
     T_b_start=773.15,
     redeclare model InternalHeatGen =
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens=core_kinetics.Qs + core_kinetics.fissionProducts.Qs_far))
+        (Q_gens=core_kinetics.Qs))
     annotation (Placement(transformation(extent={{-26,-10},{-6,10}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface loop_(
     redeclare package Medium = Medium,
@@ -104,41 +96,30 @@ public
       redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
 public
-  PointKinetics_L1_atomBased_external_sparseMatrix core_kinetics(
+  TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.PointKinetics_L1_atomBased_external_sparseMatrix
+                                                           core_kinetics(
     nV=core.nV,
     Q_nominal=5e4*core.nV,
     specifyPower=true,
     Q_fission_input=Q_fission.y,
-    Vs=core.Vs*core.nParallel,
-    redeclare record Data_FP = Data_FP,
-    mCs=core.mCs[:, iPG[1]:iPG[2]]*core.nParallel,
-    mCs_FP=core.mCs[:, iFP[1]:iFP[2]]*core.nParallel,
+    mCs_all=core.mCs*core.nParallel,
     nFeedback=1,
-    redeclare record Data =
-        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_FLiBeFueledSalt,
     alphas_feedback={-1e-4},
     vals_feedback={core.summary.T_effective},
     vals_feedback_reference={400 + 273.15},
-    SigmaF=26,
-    use_noGen=true,
-    i_noGen=i_noGen)
+    redeclare model Reactivity =
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Distributed.Isotopes_external_sparseMatrix
+        (redeclare record Data =
+            TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU))
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
 
-  constant Integer nC = core_kinetics.data.nC + core_kinetics.fissionProducts.data.nC;
-  constant Integer nPG = core_kinetics.data.nC;
-  constant Integer nFP = core_kinetics.fissionProducts.data.nC;
-
-  TRANSFORM.Units.ExtraPropertyFlowRate mC_gens_loop[loop_.nV,nC]=cat(
+  TRANSFORM.Units.ExtraPropertyFlowRate mC_gens_loop[loop_.nV,core_kinetics.nC+core_kinetics.reactivity.nC]=
+     cat(
       2,
       mC_gens_loop_PG,
       mC_gens_loop_FP);
-  TRANSFORM.Units.ExtraPropertyFlowRate mC_gens_loop_PG[loop_.nV,core_kinetics.data.nC];
-  TRANSFORM.Units.ExtraPropertyFlowRate mC_gens_loop_FP[loop_.nV,core_kinetics.fissionProducts.data.nC];
-
-  final constant Integer[2] iPG={1,core_kinetics.data.nC}
-    "First and last index of precursors groups";
-  final constant Integer[2] iFP={iPG[2] + 1,iPG[2] + core_kinetics.fissionProducts.data.nC}
-    "First and last index of fission products";
+  TRANSFORM.Units.ExtraPropertyFlowRate mC_gens_loop_PG[loop_.nV,core_kinetics.nC];
+  TRANSFORM.Units.ExtraPropertyFlowRate mC_gens_loop_FP[loop_.nV,core_kinetics.reactivity.nC];
 
   Modelica.Blocks.Sources.Step Q_fission(
     height=-5e4*core.nV/2,
@@ -148,19 +129,18 @@ public
 equation
 
   for i in 1:loop_.nV loop
-    for j in 1:core_kinetics.data.nC loop
+    for j in 1:core_kinetics.nC loop
       mC_gens_loop_PG[i, j] = -core_kinetics.data.lambdas[j]*loop_.mCs[i, j]*
         loop_.nParallel;
     end for;
-    for j in 1:core_kinetics.fissionProducts.data.nC loop
-      mC_gens_loop_FP[i, j] = sum({core_kinetics.fissionProducts.data.l_lambdas[
-        sum(core_kinetics.fissionProducts.data.l_lambdas_count[1:j - 1]) + k]*
-        loop_.mCs[i, core_kinetics.fissionProducts.data.l_lambdas_col[sum(
-        core_kinetics.fissionProducts.data.l_lambdas_count[1:j - 1]) + k] + nPG]
-        *loop_.nParallel for k in 1:core_kinetics.fissionProducts.data.l_lambdas_count[
-        j]}) - core_kinetics.fissionProducts.data.lambdas[j]*loop_.mCs[i, j +
-        nPG]*loop_.nParallel;
-
+    for j in 1:core_kinetics.reactivity.nC loop
+      mC_gens_loop_FP[i, j] = sum({core_kinetics.reactivity.data.l_lambdas[
+        sum(core_kinetics.reactivity.data.l_lambdas_count[1:j - 1]) + k]*
+        loop_.mCs[i, core_kinetics.reactivity.data.l_lambdas_col[sum(
+        core_kinetics.reactivity.data.l_lambdas_count[1:j - 1]) + k] +
+        core_kinetics.nC]*loop_.nParallel for k in 1:core_kinetics.reactivity.data.l_lambdas_count[
+        j]}) - core_kinetics.reactivity.data.lambdas[j]*loop_.mCs[i, j +
+        core_kinetics.nC]*loop_.nParallel;
     end for;
   end for;
 

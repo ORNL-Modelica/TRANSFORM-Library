@@ -1,7 +1,8 @@
 within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Distributed;
 partial model PartialIsotopesExternal
 
-  parameter Integer nV=1 "# of discrete volumes";
+  parameter Integer nV=1 "# of discrete volumes"
+annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_null

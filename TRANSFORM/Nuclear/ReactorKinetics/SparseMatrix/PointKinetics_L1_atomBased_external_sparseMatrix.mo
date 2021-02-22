@@ -4,6 +4,9 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
   import TRANSFORM.Types.Dynamics;
   import TRANSFORM.Math.fillArray_1D;
 
+  constant String[:] extraPropertiesNames=cat(1,data.extraPropertiesNames,reactivity.data.extraPropertiesNames) "Names of groups";
+  constant Real C_nominal[nC+reactivity.nC]=cat(1,data.C_nominal,reactivity.data.C_nominal) "Default for the nominal values for the extra properties";
+
   parameter Integer nV=1 "# of discrete volumes";
   parameter SI.Power Q_nominal=1e6
     "Total nominal reactor power (fission + decay)";
@@ -25,7 +28,7 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
   input TRANSFORM.Units.NonDim rho_input=0 "External Reactivity"
     annotation (Dialog(group="Inputs"));
 
-  input SIadd.ExtraPropertyExtrinsic[nV,nC+reactivity.nC] mCs_all
+  input SIadd.ExtraPropertyExtrinsic[nV,nC + reactivity.nC] mCs_all
     "# of tracked substances atoms in each volume | index order is 1) precursors 2) isotopes"
     annotation (Dialog(group="Inputs"));
 
@@ -49,7 +52,7 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
     "Reference value for reactivity feedback (e.g. fuel reference temperature)"
     annotation (Dialog(tab="Kinetics", group="Inputs: Reactivity Feedback"));
   // Neutron Kinetics
-  final parameter Integer nC=data.nC "# of delayed-neutron precursors groups";
+  constant Integer nC=data.nC "# of delayed-neutron precursors groups";
   input TRANSFORM.Units.InverseTime dlambdas[nC]=fill(0, nC)
     "Change in decay constants for each precursor group" annotation (Dialog(tab=
          "Parameter Change", group="Inputs: Neutron Kinetics"));
@@ -99,6 +102,7 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
   SI.Power Q_fission(start=Q_fission_start)
     "Fission power determined from kinetics";
 
+
     /// Need to figure out best way to deal with a conditional model for decay (connectors?)
 //   SI.Power Qs_decay_V[nV]={sum(reactivity.Qs_near_i[i, :]) for i in 1:nV}
 //     "Total decay-heat per volume";
@@ -116,16 +120,16 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
     TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Distributed.PartialIsotopesExternal
     "Additional reactivity contributions" annotation (choicesAllMatching=true,
       Dialog(group="Additional Reactivity"));
-  Reactivity reactivity(final Q_fission=Q_fission, final Q_fission_start=
+  Reactivity reactivity(
+    final nV=nV,        final Q_fission=Q_fission, final Q_fission_start=
         Q_fission_start,
-    SF_Q_fission=SF_Q_fission,
-    mCs=mCs_all[:,nC+1:end])
+    final SF_Q_fission=SF_Q_fission,
+    final mCs=mCs_all[:, nC + 1:end])
     annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
 
-  constant Integer nFP=reactivity.data.nC "# of fission products"
-    annotation (Dialog(tab="Kinetics"));
-
   SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens "Generation rate of neutron precursor groups [atoms/s]";
+  SIadd.ExtraPropertyExtrinsic[nV,nC+reactivity.nC] mC_gens_all=cat(2,mC_gens,reactivity.mC_gens)
+    "Generation rate of all trace substances [atoms/s]";
 
   input TRANSFORM.Units.NonDim SF_Q_fission[nV]=fill(1/nV, nV)
     "Shape factor for Q_fission, sum() = 1"                                                     annotation(Dialog(group=

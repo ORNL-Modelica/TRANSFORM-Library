@@ -1,6 +1,8 @@
 within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Examples;
 model PointKinetics_vs_ApproximateOneGroup
   "Point kinetics model vs a textbook approximate solution using one effective delayed group"
+
+  extends TRANSFORM.Icons.UnderConstruction;
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   parameter Real Beta = 0.0075;
@@ -26,7 +28,6 @@ model PointKinetics_vs_ApproximateOneGroup
         (
         redeclare record Data =
             TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
-
         mCs_start=mCs_start_FP,
         use_noGen=true))
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));
