@@ -14,7 +14,7 @@ model PointKinetics_vs_ApproximateOneGroup
   parameter Real rho0 = 0.0025;
   parameter Real Lambda = 1e-4;
   TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.PointKinetics_L1_powerBased_sparseMatrix
-                                                                kinetics(
+    kinetics(
     Q_nominal=1e9,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare record Data =
@@ -26,7 +26,8 @@ model PointKinetics_vs_ApproximateOneGroup
     Lambda_start=Lambda,
     rho_input=rho0,
     redeclare record Data_FP =
-        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_TeIXeU,
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
+
     mCs_start_FP=mCs_start_FP,
     toggle_ReactivityFP=false,
     use_noGen=true)

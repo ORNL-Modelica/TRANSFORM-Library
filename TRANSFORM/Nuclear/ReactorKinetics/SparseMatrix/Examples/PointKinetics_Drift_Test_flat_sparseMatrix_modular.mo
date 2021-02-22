@@ -26,7 +26,8 @@ model PointKinetics_Drift_Test_flat_sparseMatrix_modular
 //  parameter Integer i_noGen[:]={1009};
 
   //Comment/Uncomment as a block - SMALL DATA
-  record Data_FP = Data.FissionProducts.fissionProducts_TeIXeU;
+  record Data_FP =
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU;
   parameter Real mCs_start[6+4]=cat(1,fill(0,6),{0,0,0,1.43e24});
   parameter Integer i_noGen[:]={4};
 

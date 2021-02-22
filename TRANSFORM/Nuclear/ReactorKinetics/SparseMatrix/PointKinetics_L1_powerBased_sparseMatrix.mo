@@ -142,8 +142,8 @@ model PointKinetics_L1_powerBased_sparseMatrix
          else Cs_start) "Power of the delayed-neutron precursor concentration";
   SI.Energy Es[nDH](start=if use_history then {Es_start_history[j] for j in 1:
         nDH} else Es_start) "Energy of the decay-heat precursor group";
-  TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.FissionProducts_sparseMatrix
-                                                               fissionProducts(
+  TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes_sparseMatrix
+    fissionProducts(
     use_noGen=use_noGen,
     i_noGen=i_noGen,
     nC_add=nC_add,
@@ -156,9 +156,9 @@ model PointKinetics_L1_powerBased_sparseMatrix
     sigmasA_add=sigmasA_add)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable record Data_FP =
-      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_null
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_null
     constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.PartialFissionProduct
+    TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
     "Fission Product Data" annotation (choicesAllMatching=true,Dialog(tab="Fission Products"));
   final parameter Integer nFP=fissionProducts.data.nC "# of fission products";
 

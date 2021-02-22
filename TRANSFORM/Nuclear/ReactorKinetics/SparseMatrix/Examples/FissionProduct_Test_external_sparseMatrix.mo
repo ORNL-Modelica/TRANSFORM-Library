@@ -18,7 +18,8 @@ model FissionProduct_Test_external_sparseMatrix
   //   parameter Integer i_noGen[:]={1009};
 
   //Comment/Uncomment as a block - SMALL DATA
-  record Data = SparseMatrix.Data.FissionProducts.fissionProducts_TeIXeU;
+  record Data =
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU;
   parameter Real mCs_start[1,4]={{0,0,0,1.43e24}};
   parameter Integer i_noGen[:]={4};
 

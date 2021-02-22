@@ -1,6 +1,6 @@
 within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity;
 model FissionProducts_withDecayHeat_sparseMatrix
-  extends FissionProducts_sparseMatrix;
+  extends Isotopes_sparseMatrix;
   final parameter SI.Energy w_near_decay_start[nC]=data.w_near_decay
     "Energy released per decay of each fission product [J/decay] (near field - e.g., beta)"
     annotation (Dialog(tab="Initialization", group="Decay-Heat"));

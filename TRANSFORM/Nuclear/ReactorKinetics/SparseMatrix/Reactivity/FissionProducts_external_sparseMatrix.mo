@@ -5,8 +5,9 @@ model FissionProducts_external_sparseMatrix
   // Fission products
   parameter Integer nV=1 "# of discrete volumes";
   replaceable record Data =
-      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_null
-    constrainedby SparseMatrix.Data.FissionProducts.PartialFissionProduct
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_null
+    constrainedby
+    TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
     "Fission Product Data" annotation (choicesAllMatching=true);
   Data data;
   constant Integer nC=data.nC "# of fission products";

@@ -18,7 +18,7 @@ model PointKinetics_Test
   Modelica.Blocks.Sources.Constant ControlRod_Reactivity(k=0.0025)
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.PointKinetics_L1_powerBased_sparseMatrix
-                                                                kinetics(
+    kinetics(
     Q_nominal=1e9,
     Lambda_start=1e-3,
     nFeedback=2,
@@ -33,7 +33,8 @@ model PointKinetics_Test
     vals_feedback={Teff_Fuel.y,Teff_Coolant.y},
     vals_feedback_reference={Teff_Fuel.offset,Teff_Coolant.offset},
     redeclare record Data_FP =
-        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_TeIXeU,
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
+
     mCs_start_FP=mCs_start_FP,
     toggle_ReactivityFP=false,
     use_noGen=true)

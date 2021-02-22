@@ -9,7 +9,8 @@ model FissionProducts_Test_sparseMatrix
   //   parameter Integer i_noGen[:]={1009};
 
   //Comment/Uncomment as a block - SMALL DATA
-  record Data = SparseMatrix.Data.FissionProducts.fissionProducts_TeIXeU;
+  record Data =
+      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU;
   parameter Real mCs_start[4]={0,0,0,1.43e24};
   parameter Integer i_noGen[:]={4};
 
@@ -27,7 +28,8 @@ model FissionProducts_Test_sparseMatrix
     mCs_start=mCs_start,
     traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare record Data =
-        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.FissionProducts.fissionProducts_TeIXeU,
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
+
     use_noGen=true,
     i_noGen=i_noGen)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
