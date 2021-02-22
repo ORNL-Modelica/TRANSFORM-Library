@@ -149,7 +149,7 @@ model PointKinetics_L1_powerBased_sparseMatrix
     nC_add=nC_add,
     Q_fission=Q_fission,
     mCs_add=mCs_add,
-    traceDynamics=fissionProductDynamics,
+    traceDynamics=isotopeDynamics,
     redeclare record Data = Data_FP,
     Q_fission_start=Q_fission_start,
     mCs_start=mCs_start_FP,
@@ -159,46 +159,32 @@ model PointKinetics_L1_powerBased_sparseMatrix
       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_null
     constrainedby
     TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
-    "Fission Product Data" annotation (choicesAllMatching=true,Dialog(tab="Fission Products"));
-  final parameter Integer nFP=fissionProducts.data.nC "# of fission products";
+    "Fission Product Data" annotation (choicesAllMatching=true,Dialog(tab="Isotope"));
+  final parameter Integer nFP=fissionProducts.data.nC "# of isotopes";
 
-//   input TRANSFORM.Units.NonDim nu_bar=2.4 "Neutrons per fission"
-//     annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
-//   input SI.Energy w_f=200e6*1.6022e-19 "Energy released per fission"
-//     annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
-//   input SI.MacroscopicCrossSection SigmaF=1
-//     "Macroscopic fission cross-section of fissile material"
-//     annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
-//
-//   input SI.Volume V=0.1 "Volume for fisson product concentration basis"
-//     annotation (Dialog(tab="Fission Products",group="Inputs"));
-  parameter SIadd.ExtraPropertyExtrinsic mCs_start_FP[nFP]=zeros(nFP) "Number of fission product atoms per group per volume"
-     annotation (Dialog(tab="Fission Products",group="Initialization"));
+  parameter SIadd.ExtraPropertyExtrinsic mCs_start_FP[nFP]=zeros(nFP) "Number of isotope atoms per group per volume"
+     annotation (Dialog(tab="Isotope",group="Initialization"));
 
-  parameter Dynamics fissionProductDynamics=traceDynamics
-    "Formulation of fission product balances"
-    annotation (Evaluate=true, Dialog(tab="Fission Products", group="Advanced"));
+  parameter Dynamics isotopeDynamics=traceDynamics
+    "Formulation of isotope balances"
+    annotation (Evaluate=true, Dialog(tab="Isotope", group="Advanced"));
 
   parameter Integer nC_add=0
-    "# of additional substances (i.e., trace fluid substances)"  annotation (Dialog(tab="Fission Products",group="Inputs: Additional Reactivity"));
+    "# of additional substances (i.e., trace fluid substances)"  annotation (Dialog(tab="Isotope",group="Inputs: Additional Reactivity"));
   input SIadd.ExtraPropertyExtrinsic mCs_add[nC_add]=fill(0, nC_add)
-    "Number of atoms"  annotation (Evaluate=true,Dialog(tab="Fission Products",group="Inputs: Additional Reactivity"));
-//   input SI.Volume Vs_add=0.1 "Volume for fisson product concentration basis"
-//     annotation (Dialog(tab="Fission Products",group="Inputs: Additional Reactivity"));
+    "Number of atoms"  annotation (Evaluate=true,Dialog(tab="Isotope",group="Inputs: Additional Reactivity"));
   input SI.Area sigmasA_add[nC_add]=fill(0, nC_add)
     "Microscopic absorption cross-section for reactivity feedback"
-    annotation (Dialog(tab="Fission Products",group="Inputs: Additional Reactivity"));
+    annotation (Dialog(tab="Isotope",group="Inputs: Additional Reactivity"));
 
   parameter Boolean toggle_ReactivityFP=true
-    "=true to include fission product reacitivity feedback"
-    annotation (Dialog(tab="Fission Products",group="Advanced"));
+    "=true to include isotope reactivity feedback"
+    annotation (Dialog(tab="Isotope",group="Advanced"));
 
   parameter Boolean use_noGen=false
-    "=true to set mC_gen = 0 for indices in i_noGen" annotation (Evaluate=true,Dialog(tab="Fission Products",group="Advanced"));
-  parameter Integer i_noGen[:]=fissionProducts.data.actinideIndex "Index of fission product to be held constant" annotation (Evaluate=true,Dialog(tab="Fission Products",group="Advanced"));
+    "=true to set mC_gen = 0 for indices in i_noGen" annotation (Evaluate=true,Dialog(tab="Isotope",group="Advanced"));
+  parameter Integer i_noGen[:]=fissionProducts.data.actinideIndex "Index of isotope to be held constant" annotation (Evaluate=true,Dialog(tab="Isotope",group="Advanced"));
 
-//   parameter SI.Area sigmaF=SIadd.Conversions.Functions.Area_m2.from_barn(1) "Micrscopic fission cross-section of fissile material" annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
-// input Real nAtomsF = 1 annotation (Dialog(tab="Kinetics", group="Input: Fission Sources"));
 initial equation
   (Cs_start_history,Es_start_history) =
     TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_powerBased_powerHistory(

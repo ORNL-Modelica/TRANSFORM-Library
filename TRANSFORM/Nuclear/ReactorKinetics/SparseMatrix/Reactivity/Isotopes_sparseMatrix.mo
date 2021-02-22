@@ -2,25 +2,27 @@ within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity;
 model Isotopes_sparseMatrix
   import Modelica.Fluid.Types.Dynamics;
 
-  replaceable record Data =
-      TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_null
-                                                          constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
-    "Isotope Data" annotation (choicesAllMatching=true);
-  Data data;
+//   replaceable record Data =
+//       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_null
+//                                                           constrainedby
+//     TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
+//     "Isotope Data" annotation (choicesAllMatching=true);
+//   Data data;
+//
+//   constant Integer nC=data.nC "# of istotopes";
 
-  constant Integer nC=data.nC "# of istotopes";
+extends TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.PartialReactivity;
 
-  parameter SI.Power Q_fission_start=1e6
-    "Power determined from kinetics. Does not include decay heat"
-    annotation (Dialog(tab="Initialization"));
-  input SI.Power Q_fission=Q_fission_start
-    "Power determined from kinetics. Does not include decay heat"
-    annotation (Dialog(group="Inputs"));
+   parameter SI.Power Q_fission_start=1e6
+     "Power determined from kinetics. Does not include decay heat"
+     annotation (Dialog(tab="Initialization"));
+   input SI.Power Q_fission=Q_fission_start
+     "Power determined from kinetics. Does not include decay heat"
+     annotation (Dialog(group="Inputs"));
 
-  parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=zeros(nC)
-    "Number of isotope atoms per group"
-    annotation (Dialog(tab="Initialization"));
+   parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=zeros(nC)
+     "Number of isotope atoms per group"
+     annotation (Dialog(tab="Initialization"));
 
     //todo: steady-state calculation for start?
   //    parameter SIadd.ExtraPropertyExtrinsic mCs_start2[nC]=
@@ -38,9 +40,9 @@ model Isotopes_sparseMatrix
   //        mCs_guess=mCs_start) "Number of isotope atoms per group"
   //      annotation (Dialog(tab="Initialization"));
 
-  parameter Dynamics traceDynamics=Dynamics.DynamicFreeInitial
-    "Formulation of trace substance balances"
-    annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
+   parameter Dynamics traceDynamics=Dynamics.DynamicFreeInitial
+     "Formulation of trace substance balances"
+     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
 
   SIadd.NeutronFlux phi "Neutron flux";
   SIadd.ExtraPropertyFlowRate mC_gens[nC]
@@ -54,27 +56,29 @@ model Isotopes_sparseMatrix
     "=true to set mC_gen = 0 for indices in i_noGen" annotation (Evaluate=true);
   parameter Integer i_noGen[:]=data.actinideIndex "Index of isotopes to be held constant";
 
-  parameter Integer nC_add=0
-    "# of additional substances (i.e., trace fluid substances)" annotation (Dialog(tab="Additional Reactivity"));
+//   parameter Integer nC_add=0
+//     "# of additional substances (i.e., trace fluid substances)" annotation (Dialog(tab="Additional Reactivity"));
   input SIadd.ExtraPropertyExtrinsic mCs_add[nC_add]=fill(0, nC_add)
     "Number of atoms" annotation (Dialog(tab="Additional Reactivity",group="Inputs"));
   input SI.Area sigmasA_add[nC_add]=fill(0, nC_add)
     "Microscopic absorption cross-section for reactivity feedback"
     annotation (Dialog(tab="Additional Reactivity",group="Inputs"));
 
-  output SIadd.NonDim rhos[nC] "Isotope reactivity feedback"
-    annotation (Dialog(tab="Outputs", enable=false));
-  output SIadd.ExtraPropertyFlowRate[nC_add] mC_gens_add
-    "Generation rate of additional substances [atoms/s] (e.g., Boron in fluid)"
-    annotation (Dialog(
-      group="Additional Reactivity",
-      tab="Outputs",
-      enable=false));
-  output SIadd.NonDim rhos_add[nC_add]
-    "Additional subtances reactivity feedback" annotation (Dialog(
-      group="Additional Reactivity",
-      tab="Outputs",
-      enable=false));
+
+
+//   output SIadd.NonDim rhos[nC] "Isotope reactivity feedback"
+//     annotation (Dialog(tab="Outputs", enable=false));
+//   output SIadd.ExtraPropertyFlowRate[nC_add] mC_gens_add
+//     "Generation rate of additional substances [atoms/s] (e.g., Boron in fluid)"
+//     annotation (Dialog(
+//       group="Additional Reactivity",
+//       tab="Outputs",
+//       enable=false));
+//   output SIadd.NonDim rhos_add[nC_add]
+//     "Additional subtances reactivity feedback" annotation (Dialog(
+//       group="Additional Reactivity",
+//       tab="Outputs",
+//       enable=false));
 
 initial equation
   if traceDynamics == Dynamics.FixedInitial then
