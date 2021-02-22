@@ -1,8 +1,8 @@
-within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity;
+within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped;
 model Isotopes_sparseMatrix
 import Modelica.Fluid.Types.Dynamics;
 
-extends PartialReactivity;
+extends PartialIsotopes;
 
     //todo: steady-state calculation for start?
   //    parameter SIadd.ExtraPropertyExtrinsic mCs_start2[nC]=
@@ -53,9 +53,6 @@ equation
     rhos[j] = -data.sigmasA[j]*mCs[j]/sum(data.nus[1]*data.sigmasF[k]*mCs[data.actinideIndex[k]] for k in 1:data.nA);
   end for;
 
-
-
   annotation (defaultComponentName="reactivity", Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-          Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/BatemanEquations.jpg")}));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
 end Isotopes_sparseMatrix;

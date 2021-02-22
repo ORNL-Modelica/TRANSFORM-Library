@@ -140,7 +140,7 @@ model PointKinetics_L1_atomBased_external_sparseMatrix_modular
     SigmaF=SigmaF)
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
 
-  TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.FissionProducts_external_withDecayHeat_sparseMatrix
+  TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Distributed.Isotopes_external_withDecayHeat_sparseMatrix
     fissionProducts(
     nV=nV,
     nu_bar=nu_bar,

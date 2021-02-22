@@ -22,7 +22,7 @@ model FissionProducts_Test_sparseMatrix
       redeclare record Data =
         TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_TeIXe_U235)
     annotation (Placement(transformation(extent={{-10,20},{10,40}})));
-  TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes_withDecayHeat_sparseMatrix
+  TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_withDecayHeat_sparseMatrix
     fissionProducts_sparseMatrix(
     Q_fission=Q_fission.y,
     mCs_start=mCs_start,

@@ -1,6 +1,6 @@
-within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity;
+within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Distributed;
 model Isotopes_external_sparseMatrix
-  extends PartialReactivityDistributedExternal;
+  extends PartialIsotopesExternal;
 
   parameter Boolean use_noGen=false
     "=true to set mC_gen = 0 for indices in i_noGen" annotation (Evaluate=true);
@@ -41,6 +41,5 @@ equation
   end for;
 
   annotation (defaultComponentName="reactivity", Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
-          Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/BatemanEquations.jpg")}));
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}})));
 end Isotopes_external_sparseMatrix;

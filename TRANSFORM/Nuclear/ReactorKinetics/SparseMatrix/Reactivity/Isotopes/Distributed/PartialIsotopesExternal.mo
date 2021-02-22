@@ -1,5 +1,5 @@
-within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity;
-partial model PartialReactivityDistributedExternal
+within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Distributed;
+partial model PartialIsotopesExternal
 
   parameter Integer nV=1 "# of discrete volumes";
 
@@ -20,10 +20,10 @@ partial model PartialReactivityDistributedExternal
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SIadd.NonDim SF_Q_fission[nV]=fill(1/nV, nV)
     "Shape factor for Q_fission, sum() = 1"
-    annotation (Dialog(group="Shape Factors"));
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SIadd.ExtraPropertyExtrinsic[nV,nC] mCs={{0 for j in 1:nC} for i in 1:nV}
-    "Fission product number in each volume [atoms]"
-    annotation (Dialog(group="Inputs"));
+    "# of isotope atoms per volume [atoms]"
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   SIadd.NeutronFlux phi[nV] "Neutron flux";
   SIadd.ExtraPropertyFlowRate mC_gens[nV,nC]
@@ -36,6 +36,7 @@ equation
       data.actinideIndex[k]] for k in 1:data.nA);
   end for;
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/BatemanEquations.jpg")}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PartialReactivityDistributedExternal;
+end PartialIsotopesExternal;

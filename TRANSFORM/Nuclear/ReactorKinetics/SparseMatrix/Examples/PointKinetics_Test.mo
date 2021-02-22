@@ -33,7 +33,7 @@ model PointKinetics_Test
     vals_feedback={Teff_Fuel.y,Teff_Coolant.y},
     vals_feedback_reference={Teff_Fuel.offset,Teff_Coolant.offset},
     redeclare model Reactivity =
-        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes_sparseMatrix
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_sparseMatrix
         (
         redeclare record Data =
             TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,

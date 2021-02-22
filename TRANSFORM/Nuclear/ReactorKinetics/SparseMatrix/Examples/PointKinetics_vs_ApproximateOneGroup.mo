@@ -22,10 +22,11 @@ model PointKinetics_vs_ApproximateOneGroup
     rho_input=rho0,
     toggle_Reactivity=false,
     redeclare model Reactivity =
-        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes_sparseMatrix
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_sparseMatrix
         (
         redeclare record Data =
             TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
+
         mCs_start=mCs_start_FP,
         use_noGen=true))
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));

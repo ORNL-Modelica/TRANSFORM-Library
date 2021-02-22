@@ -1,4 +1,4 @@
-within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity;
+within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped;
 model Isotopes_withDecayHeat_sparseMatrix
   extends Isotopes_sparseMatrix;
   final parameter SI.Energy w_near_decay_start[nC]=data.w_near_decay

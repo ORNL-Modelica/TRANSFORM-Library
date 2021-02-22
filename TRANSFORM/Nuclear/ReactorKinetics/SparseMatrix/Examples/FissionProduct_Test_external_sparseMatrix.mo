@@ -3,7 +3,7 @@ model FissionProduct_Test_external_sparseMatrix
 
   extends TRANSFORM.Icons.Example;
 
-  Reactivity.FissionProducts_external_withDecayHeat_sparseMatrix
+  Reactivity.Isotopes.Distributed.Isotopes_external_withDecayHeat_sparseMatrix
     fissionProducts_sparseMatrix(
     redeclare record Data = Data,
     Q_fission=Q_fission.y,

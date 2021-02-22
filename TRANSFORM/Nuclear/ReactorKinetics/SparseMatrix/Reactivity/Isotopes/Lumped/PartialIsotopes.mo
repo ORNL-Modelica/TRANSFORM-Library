@@ -1,5 +1,5 @@
-within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity;
-partial model PartialReactivity
+within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped;
+partial model PartialIsotopes
 import Modelica.Fluid.Types.Dynamics;
 
   replaceable record Data =
@@ -28,7 +28,7 @@ import Modelica.Fluid.Types.Dynamics;
   parameter Integer nC_ext=0
     "# of externally tracked substances (e.g., boron as a trace substance)" annotation (Dialog(group="Inputs: External Substances"));
   input SIadd.ExtraPropertyExtrinsic mCs_ext[nC_ext]=fill(0, nC_ext)
-    "Number of atoms" annotation (Dialog(group="Inputs: External Substances"));
+    "# externally tracked atoms" annotation (Dialog(group="Inputs: External Substances"));
   input SI.Area sigmasA_ext[nC_ext]=fill(0, nC_ext)
     "Microscopic absorption cross-section for reactivity feedback"
     annotation (Dialog(group="Inputs: External Substances"));
@@ -73,6 +73,7 @@ equation
     rhos_ext[j] = -sigmasA_ext[j]*mCs_ext[j]/sum(data.nus[1]*data.sigmasF[k]*mCs[data.actinideIndex[k]] for k in 1:data.nA);
   end for;
 
-  annotation (defaultComponentName="reactivity",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (defaultComponentName="reactivity",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+          Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/BatemanEquations.jpg")}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
-end PartialReactivity;
+end PartialIsotopes;
