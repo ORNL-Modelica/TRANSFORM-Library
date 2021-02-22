@@ -40,7 +40,7 @@ equation
   Qs_far_i ={w_far_decay[j]*data.lambdas[j]*mCs[j] for j in 1:nC};
   Qs_near = sum(Qs_near_i[:]);
   Qs_far = sum(Qs_far_i[:]);
-  annotation (defaultComponentName="fissionProducts",
+  annotation (defaultComponentName="reactivity",
 Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})));
 end Isotopes_withDecayHeat_sparseMatrix;

@@ -1,7 +1,7 @@
 within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity;
-model FissionProducts_external_withDecayHeat_sparseMatrix
+model Isotopes_external_withDecayHeat_sparseMatrix
 
-  extends FissionProducts_external_sparseMatrix;
+  extends Isotopes_external_sparseMatrix;
   final parameter SI.Energy w_near_decay_start[nC]=data.w_near_decay
     "Energy released per decay of each fission product [J/decay] (near field - e.g., beta)"
     annotation (Dialog(tab="Initialization", group="Decay-Heat"));
@@ -42,7 +42,7 @@ equation
   Qs_far_i ={{w_far_decay[j]*data.lambdas[j]*mCs[i, j] for j in 1:nC} for i in 1:nV};
   Qs_near = {sum(Qs_near_i[i, :]) for i in 1:nV};
   Qs_far = {sum(Qs_far_i[i, :]) for i in 1:nV};
-  annotation (defaultComponentName="fissionProducts",
+  annotation (defaultComponentName="reactivity",
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}})));
-end FissionProducts_external_withDecayHeat_sparseMatrix;
+end Isotopes_external_withDecayHeat_sparseMatrix;
