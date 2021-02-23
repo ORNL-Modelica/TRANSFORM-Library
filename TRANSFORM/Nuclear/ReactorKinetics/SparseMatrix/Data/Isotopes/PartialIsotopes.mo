@@ -4,7 +4,7 @@ partial record PartialIsotopes
   constant String[:] extraPropertiesNames= fill("", 0) "Names of isotopes" annotation(Evaluate=true, HideArray=true);
 
   final constant Integer nC=size(extraPropertiesNames, 1) "# of isotopes (e.g., I/Xe)" annotation(Evaluate=true, HideArray=true);
-  parameter Real[nC] SIZZZAAA= fill(0, nC) annotation(Evaluate=true, HideArray=true);
+  parameter Integer[nC] SIZZZAAA= fill(0, nC) annotation(Evaluate=true, HideArray=true);
 
   constant Real C_nominal[nC] = fill(1e14,nC) "Default for the nominal values for the extra properties" annotation(Evaluate=true, HideArray=true);
   constant SI.MolarMass molarMass[nC] "Molar mass";
