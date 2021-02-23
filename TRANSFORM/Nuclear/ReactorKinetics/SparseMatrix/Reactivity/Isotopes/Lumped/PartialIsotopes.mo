@@ -1,34 +1,35 @@
 within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped;
 partial model PartialIsotopes
-import Modelica.Fluid.Types.Dynamics;
+  import Modelica.Fluid.Types.Dynamics;
 
   replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_null
-                                                          constrainedby
+    constrainedby
     TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
     "Data" annotation (choicesAllMatching=true);
   Data data;
 
   constant Integer nC=data.nC "# of istotopes";
 
-   parameter SI.Power Q_fission_start=1e6
-     "Power determined from kinetics. Does not include decay heat"
-     annotation (Dialog(tab="Internal Interface",group="Initialization"));
-   input SI.Power Q_fission=Q_fission_start
-     "Power determined from kinetics. Does not include decay heat"
-     annotation (Dialog(tab="Internal Interface",group="Inputs"));
+  parameter SI.Power Q_fission_start=1e6
+    "Power determined from kinetics. Does not include decay heat"
+    annotation (Dialog(tab="Internal Interface", group="Initialization"));
+  input SI.Power Q_fission=Q_fission_start
+    "Power determined from kinetics. Does not include decay heat"
+    annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
-   parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=zeros(nC)
-     "Number of isotope atoms per group"
-     annotation (Dialog(tab="Initialization"));
-   parameter Dynamics traceDynamics=Dynamics.DynamicFreeInitial
-     "Formulation of trace substance balances"
-     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
+  parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=zeros(nC)
+    "Number of isotope atoms per group" annotation (Dialog(tab="Initialization"));
+  parameter Dynamics traceDynamics=Dynamics.DynamicFreeInitial
+    "Formulation of trace substance balances"
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
 
   parameter Integer nC_ext=0
-    "# of externally tracked substances (e.g., boron as a trace substance)" annotation (Dialog(group="Inputs: External Substances"));
+    "# of externally tracked substances (e.g., boron as a trace substance)"
+    annotation (Dialog(group="Inputs: External Substances"));
   input SIadd.ExtraPropertyExtrinsic mCs_ext[nC_ext]=fill(0, nC_ext)
-    "# externally tracked atoms" annotation (Dialog(group="Inputs: External Substances"));
+    "# externally tracked atoms"
+    annotation (Dialog(group="Inputs: External Substances"));
   input SI.Area sigmasA_ext[nC_ext]=fill(0, nC_ext)
     "Microscopic absorption cross-section for reactivity feedback"
     annotation (Dialog(group="Inputs: External Substances"));
@@ -42,8 +43,15 @@ import Modelica.Fluid.Types.Dynamics;
 
   SIadd.ExtraPropertyFlowRate[nC_ext] mC_gens_ext
     "Generation rate of external substances [atoms/s]";
-  SIadd.NonDim rhos_ext[nC_ext]
-    "External subtances reactivity feedback";
+  SIadd.NonDim rhos_ext[nC_ext] "External subtances reactivity feedback";
+
+  SI.Power Q_near=0 "Near field (e.g, beta) power released from isotope decay";
+  SI.Power Q_far=0 "Far field (e.g., gamma) power released from isotope decay";
+
+
+  parameter SIadd.NonDim rhos_start[nC]=zeros(nC)
+    "Initial isotope reactivity feedback"
+    annotation (Dialog(tab="Internal Interface"), enable=false);
 
 protected
   SIadd.ExtraPropertyExtrinsic mCs_scaled[nC]
@@ -57,7 +65,8 @@ initial equation
   end if;
 equation
 
-  phi = Q_fission/sum(data.w_f[k]*data.sigmasF[k]*mCs[data.actinideIndex[k]]  for k in 1:data.nA);
+  phi = Q_fission/sum(data.w_f[k]*data.sigmasF[k]*mCs[data.actinideIndex[k]]
+    for k in 1:data.nA);
 
   // Mass Balance
   if traceDynamics == Dynamics.SteadyState then
@@ -70,10 +79,13 @@ equation
   // Externaly tracked substances
   for j in 1:nC_ext loop
     mC_gens_ext[j] = -sigmasA_ext[j]*mCs_ext[j]*phi;
-    rhos_ext[j] = -sigmasA_ext[j]*mCs_ext[j]/sum(data.nus[1]*data.sigmasF[k]*mCs[data.actinideIndex[k]] for k in 1:data.nA);
+    rhos_ext[j] = -sigmasA_ext[j]*mCs_ext[j]/sum(data.nus[1]*data.sigmasF[k]*mCs[
+      data.actinideIndex[k]] for k in 1:data.nA);
   end for;
 
-  annotation (defaultComponentName="reactivity",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
-          Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/BatemanEquations.jpg")}), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+  annotation (
+    defaultComponentName="reactivity",
+    Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{-100,
+              -100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/BatemanEquations.jpg")}),
+    Diagram(coordinateSystem(preserveAspectRatio=false)));
 end PartialIsotopes;

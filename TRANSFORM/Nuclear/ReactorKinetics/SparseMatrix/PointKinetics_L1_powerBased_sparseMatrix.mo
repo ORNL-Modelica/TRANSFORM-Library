@@ -142,7 +142,7 @@ model PointKinetics_L1_powerBased_sparseMatrix
 
   parameter Boolean toggle_Reactivity=true
     "=true to include additional reactivity model feedback"
-    annotation (Dialog(group="Additional Reactivity"));
+    annotation (Evaluate=true,Dialog(group="Additional Reactivity"));
 
   replaceable model Reactivity =
       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_sparseMatrix
@@ -191,14 +191,14 @@ initial equation
     der(Es) = fill(0, nDH);
   end if;
 equation
+
   rhos_feedback = {alphas_feedback[j]*(vals_feedback[j] -
     vals_feedback_reference[j]) for j in 1:nFeedback};
   rho = rho_input + sum(rhos_feedback[:]) + (if toggle_Reactivity then +sum(
     reactivity.rhos[:]) else 0) + sum(reactivity.rhos_ext[:]);
   // this old line is retained to show the autocorrection for negative reactivity that may be a good idea to add
-  // rho = rho_input + sum(rhos_feedback[:]) + (if toggle_ReactivityFP then -sum(
-  //   fissionProducts.rhos_start) + sum(fissionProducts.rhos[:]) else 0) + sum(
-  //   fissionProducts.rhos_add[:]);
+  //if toggle_Reactivity then -sum(reactivity.rhos_start[:]) + sum(reactivity.rhos[:]) else 0)
+
   if specifyPower then
     Q_fission = Q_fission_input;
   else

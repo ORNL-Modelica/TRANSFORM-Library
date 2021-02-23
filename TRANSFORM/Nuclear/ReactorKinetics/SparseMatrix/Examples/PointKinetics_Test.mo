@@ -39,6 +39,7 @@ model PointKinetics_Test
             TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
 
         mCs_start=mCs_start_FP,
+        traceDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
         use_noGen=true),
     toggle_Reactivity=false)
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));

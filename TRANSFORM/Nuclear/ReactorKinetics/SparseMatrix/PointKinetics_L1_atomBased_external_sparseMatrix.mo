@@ -112,7 +112,8 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
 
   parameter Boolean toggle_Reactivity=true
     "=true to include additional reactivity model feedback"
-    annotation (Dialog(group="Additional Reactivity"));
+    annotation (Evaluate=true,Dialog(group="Additional Reactivity"));
+  parameter Boolean includeDH = false "=true to include near decay heat in total power" annotation (Evaluate=true,Dialog(group="Additional Reactivity"));
 
   replaceable model Reactivity =
       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Distributed.Isotopes_external_sparseMatrix
@@ -169,7 +170,7 @@ equation
   mC_gens ={{betas[j]*nu_bar/w_f*Q_fission*
     SF_Q_fission[i] - lambdas[j]*mCs[i, j] for j in 1:nC} for i in 1:nV};
   for i in 1:nV loop
-    Qs[i] =Q_fission*SF_Q_fission[i];// + sum(Qs_decay_V);
+    Qs[i] =Q_fission*SF_Q_fission[i] + (if includeDH then reactivity.Qs_near[i] else 0);
   end for;
   annotation (
     defaultComponentName="kinetics",

@@ -2,7 +2,7 @@ within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped
 model Isotopes_sparseMatrix
 import Modelica.Fluid.Types.Dynamics;
 
-extends PartialIsotopes;
+extends PartialIsotopes(rhos_start = {-data.sigmasA[j]*mCs_start[j]/sum(data.nus[1]*data.sigmasF[k]*mCs_start[data.actinideIndex[k]] for k in 1:data.nA) for j in 1:nC});
 
     //todo: steady-state calculation for start?
   //    parameter SIadd.ExtraPropertyExtrinsic mCs_start2[nC]=

@@ -31,6 +31,11 @@ annotation (Dialog(tab="Internal Interface", group="Inputs"));
     "Generation rate of isotopes [atoms/s]";
   SIadd.NonDim rhos[nV,nC] "Reactivity feedback (not including rhos_ext)";
 
+  SI.Power Qs_near[nV] = zeros(nV)
+    "Near field (e.g, beta) power released from isotope decay";
+  SI.Power Qs_far[nV] = zeros(nV)
+    "Far field (e.g., gamma) power released from isotope decay";
+
 equation
   for i in 1:nV loop
     phi[i] = Q_fission*SF_Q_fission[i]/sum(data.w_f[k]*data.sigmasF[k]*mCs[i,
