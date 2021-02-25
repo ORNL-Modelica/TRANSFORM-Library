@@ -4,10 +4,11 @@ Sizing
 GenericDistributed_HX
 GenericDistributed_HX_Rwall
 GenericDistributed_HX_withMass
-LMTD_HX
+LMTD_HX_UA
+LMTD_HX_A
+LMTD_HX_Q
 UAdT_lm
 BellDelaware_STHX
 Utilities
 BaseClasses
 EffectivenessNTU_HX
-LMTD_HX_Area
