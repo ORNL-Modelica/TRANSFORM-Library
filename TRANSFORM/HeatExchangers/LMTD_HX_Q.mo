@@ -1,6 +1,6 @@
 within TRANSFORM.HeatExchangers;
 model LMTD_HX_Q
-  "Log mean temperature difference heat exchanger for determining heat transfer rate"
+  "Calculate Q using LMTD method"
   replaceable package Medium_1 = Modelica.Media.Interfaces.PartialMedium annotation (
       choicesAllMatching=true);
   replaceable package Medium_2 = Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
@@ -8,12 +8,9 @@ model LMTD_HX_Q
   // parallel flow not currently implmented
   parameter Boolean counterCurrent=true annotation(Evaluate=true, enable=false);
 
-  SI.Power Q_flow(start=1);
-  input SI.CoefficientOfHeatTransfer alpha_1 = 800 annotation(Dialog(group="Inputs"));
-  input SI.CoefficientOfHeatTransfer alpha_2 = 4000 annotation(Dialog(group="Inputs"));
-  SI.ThermalConductance UA;
+  SI.Power Q_flow(start=1e6);
+  parameter SI.ThermalConductance UA;
   SI.TemperatureDifference dT_LM;
-  parameter SI.Area surfaceArea;
 
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_a1(redeclare package Medium =
         Medium_1) annotation (Placement(transformation(extent={{-110,30},{-90,50}}),
@@ -23,15 +20,15 @@ model LMTD_HX_Q
         iconTransformation(extent={{90,30},{110,50}})));
   TRANSFORM.Fluid.Volumes.SimpleVolume volume1(redeclare package Medium =
         Medium_1, use_HeatPort=true)
-    annotation (Placement(transformation(extent={{-50,50},{-30,30}})));
+    annotation (Placement(transformation(extent={{-40,50},{-20,30}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance1(
       redeclare package Medium = Medium_1, R=1)
-    annotation (Placement(transformation(extent={{0,30},{20,50}})));
+    annotation (Placement(transformation(extent={{10,30},{30,50}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundary1(
       use_port=true) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={-40,70})));
+        origin={-30,70})));
   TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a1(redeclare package
       Medium = Medium_1)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
@@ -39,7 +36,7 @@ model LMTD_HX_Q
       Medium = Medium_1)
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
   Modelica.Blocks.Sources.RealExpression boundary1_input(y=-Q_flow)
-    annotation (Placement(transformation(extent={{0,70},{-20,90}})));
+    annotation (Placement(transformation(extent={{10,70},{-10,90}})));
   Fluid.Volumes.SimpleVolume           volume2(redeclare package Medium =
         Medium_2, use_HeatPort=true)
     annotation (Placement(transformation(extent={{40,-30},{20,-50}})));
@@ -69,22 +66,21 @@ equation
   Q_flow = UA*dT_LM;
   dT_LM = TRANSFORM.HeatExchangers.Utilities.Functions.logMean(sensor_T_a1.T -
     sensor_T_b1.T, sensor_T_b2.T - sensor_T_a2.T);
-  UA = 1/(1/(alpha_1*surfaceArea) + 1/(alpha_2*surfaceArea));
 
   connect(volume1.port_b, resistance1.port_a)
-    annotation (Line(points={{-34,40},{3,40}},   color={0,127,255}));
+    annotation (Line(points={{-24,40},{13,40}},  color={0,127,255}));
   connect(volume1.heatPort, boundary1.port)
-    annotation (Line(points={{-40,46},{-40,60}},   color={191,0,0}));
+    annotation (Line(points={{-30,46},{-30,60}},   color={191,0,0}));
   connect(port_a1, sensor_T_a1.port_a)
     annotation (Line(points={{-100,40},{-80,40}},   color={0,127,255}));
   connect(sensor_T_a1.port_b, volume1.port_a)
-    annotation (Line(points={{-60,40},{-46,40}},   color={0,127,255}));
+    annotation (Line(points={{-60,40},{-36,40}},   color={0,127,255}));
   connect(resistance1.port_b, sensor_T_b1.port_a)
-    annotation (Line(points={{17,40},{60,40}},   color={0,127,255}));
+    annotation (Line(points={{27,40},{60,40}},   color={0,127,255}));
   connect(sensor_T_b1.port_b, port_b1)
     annotation (Line(points={{80,40},{100,40}},   color={0,127,255}));
   connect(boundary1_input.y, boundary1.Q_flow_ext)
-    annotation (Line(points={{-21,80},{-40,80},{-40,74}},
+    annotation (Line(points={{-11,80},{-30,80},{-30,74}},
                                                         color={0,0,127}));
   connect(volume2.port_b,resistance2. port_a)
     annotation (Line(points={{24,-40},{-23,-40}},

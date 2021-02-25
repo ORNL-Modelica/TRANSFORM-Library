@@ -1,5 +1,5 @@
 within TRANSFORM.HeatExchangers;
-model LMTD_HX_UA "Log mean temperature difference heat exchanger"
+model LMTD_HX_UA "Calculate UA using LMTD method"
   replaceable package Medium_1 = Modelica.Media.Interfaces.PartialMedium annotation (
       choicesAllMatching=true);
   replaceable package Medium_2 = Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
@@ -119,7 +119,7 @@ equation
           fillPattern=FillPattern.Solid),
         Line(points={{-88,-40},{-60,-40},{-30,0},{0,-40},{30,0},{60,-40},{88,-40}},
             color={28,108,200}),
-        Line(points={{-88,42},{-30,42},{0,2},{30,42},{88,42}},     color={238,46,
+        Line(points={{-88,40},{-30,40},{0,0},{30,40},{88,40}},     color={238,46,
               47}),
         Text(
           extent={{-149,-68},{151,-108}},
