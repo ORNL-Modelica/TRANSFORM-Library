@@ -1,12 +1,9 @@
 within TRANSFORM.HeatExchangers;
 model LMTD_HX_A
   "Log mean temperature difference heat exchanger for determining surface area"
-  replaceable package Medium_1 =
-      Modelica.Media.IdealGases.SingleGases.He
-    constrainedby Modelica.Media.Interfaces.PartialMedium annotation (
+  replaceable package Medium_1 = Modelica.Media.Interfaces.PartialMedium annotation (
       choicesAllMatching=true);
-  replaceable package Medium_2 = Modelica.Media.Air.DryAirNasa constrainedby
-    Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
+  replaceable package Medium_2 = Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
 
   // parallel flow not currently implmented
   parameter Boolean counterCurrent=true annotation(Evaluate=true, enable=false);
