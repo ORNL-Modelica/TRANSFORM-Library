@@ -37,7 +37,6 @@ model PointKinetics_Test
         (
         redeclare record Data =
             TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
-
         mCs_start=mCs_start_FP,
         traceDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
         use_noGen=true),
