@@ -65,8 +65,8 @@ model RankineCycle
   TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_out(redeclare
       package Medium = Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
-  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_in(redeclare package
-              Medium =
+  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_in(redeclare
+      package Medium =
                Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-90,-67},{-70,-47}})));
   TRANSFORM.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package Medium =

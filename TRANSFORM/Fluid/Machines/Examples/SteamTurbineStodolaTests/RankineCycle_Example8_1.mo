@@ -54,8 +54,8 @@ model RankineCycle_Example8_1
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-40,-58})));
-  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_in(redeclare package
-              Medium =
+  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_in(redeclare
+      package Medium =
                Medium)
     annotation (Placement(transformation(extent={{-90,-75},{-70,-55}})));
   TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_out(redeclare
