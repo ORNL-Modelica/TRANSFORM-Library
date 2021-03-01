@@ -3,7 +3,7 @@ model Pressure "Ideal pressure sensor"
   extends BaseClasses.PartialAbsoluteSensor;
   extends BaseClasses.PartialMultiSensor_1values(final var=p,
       redeclare replaceable function iconUnit =
-        TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_Pa
+        TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_MPa
       constrainedby
       TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput p(
