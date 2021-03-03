@@ -8,6 +8,14 @@ partial model Partial_LMTD_HX
   // parallel flow not currently implmented
   parameter Boolean counterCurrent=true annotation (Evaluate=true, enable=false);
 
+  parameter SI.AbsolutePressure p_start_1=Medium_1.p_default "Pressure"
+    annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
+  parameter SI.AbsolutePressure p_start_2=Medium_2.p_default "Pressure"
+    annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
+  parameter SI.Temperature T_start_1=Medium_1.T_default "Temperature"
+    annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
+  parameter SI.Temperature T_start_2=Medium_2.T_default "Temperature"
+    annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.MassFlowRate m_flow_start1=0
     annotation (Dialog(tab="Initialization"));
   parameter SI.MassFlowRate m_flow_start2=0
@@ -38,7 +46,10 @@ partial model Partial_LMTD_HX
         transformation(extent={{-110,-50},{-90,-30}}), iconTransformation(
           extent={{-110,-50},{-90,-30}})));
   TRANSFORM.Fluid.Volumes.SimpleVolume volume1(redeclare package Medium =
-        Medium_1, use_HeatPort=true)
+        Medium_1,
+    p_start=p_start_1,
+    T_start=T_start_1,
+                  use_HeatPort=true)
     annotation (Placement(transformation(extent={{-40,50},{-20,30}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance1(
       redeclare package Medium = Medium_1, R=R_1)
@@ -49,7 +60,10 @@ partial model Partial_LMTD_HX
         rotation=90,
         origin={-30,70})));
   TRANSFORM.Fluid.Volumes.SimpleVolume volume2(redeclare package Medium =
-        Medium_2, use_HeatPort=true)
+        Medium_2,
+    p_start=p_start_2,
+    T_start=T_start_2,
+                  use_HeatPort=true)
     annotation (Placement(transformation(extent={{40,-30},{20,-50}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundary2(
       use_port=true) annotation (Placement(transformation(
