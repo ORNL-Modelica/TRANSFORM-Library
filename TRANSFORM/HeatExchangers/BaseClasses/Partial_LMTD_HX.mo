@@ -16,9 +16,9 @@ partial model Partial_LMTD_HX
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_start_2=Medium_2.T_default "Temperature"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.MassFlowRate m_flow_start1=0
+  parameter SI.MassFlowRate m_flow_start1=0 "Mass flow rate"
     annotation (Dialog(tab="Initialization"));
-  parameter SI.MassFlowRate m_flow_start2=0
+  parameter SI.MassFlowRate m_flow_start2=0 "Mass flow rate"
     annotation (Dialog(tab="Initialization"));
 
   SI.Power Q_flow;
@@ -49,6 +49,8 @@ partial model Partial_LMTD_HX
         Medium_1,
     p_start=p_start_1,
     T_start=T_start_1,
+    redeclare model Geometry =
+        Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume,
                   use_HeatPort=true)
     annotation (Placement(transformation(extent={{-40,50},{-20,30}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance1(
@@ -63,6 +65,8 @@ partial model Partial_LMTD_HX
         Medium_2,
     p_start=p_start_2,
     T_start=T_start_2,
+    redeclare model Geometry =
+        Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume,
                   use_HeatPort=true)
     annotation (Placement(transformation(extent={{40,-30},{20,-50}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundary2(

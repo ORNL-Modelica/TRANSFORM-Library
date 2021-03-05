@@ -9,7 +9,7 @@ model LMTD_HX_A "Calculate A using LMTD method"
   SI.Area surfaceArea(start=1e3);
 
 equation
-
+  Q_flow = Q_flow0;
   UA = 1/(1/(alpha_1*surfaceArea) + 1/(alpha_2*surfaceArea));
 
   annotation (defaultComponentName="lmtd_HX",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
