@@ -16,9 +16,9 @@ partial model Partial_LMTD_HX
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_start_2=Medium_2.T_default "Temperature"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.MassFlowRate m_flow_start1=0 "Mass flow rate"
+  parameter SI.MassFlowRate m_flow_start_1=0 "Mass flow rate"
     annotation (Dialog(tab="Initialization"));
-  parameter SI.MassFlowRate m_flow_start2=0 "Mass flow rate"
+  parameter SI.MassFlowRate m_flow_start_2=0 "Mass flow rate"
     annotation (Dialog(tab="Initialization"));
 
   SI.Power Q_flow;
@@ -27,54 +27,54 @@ partial model Partial_LMTD_HX
 
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_a1(
     redeclare package Medium = Medium_1,
-    m_flow(start=m_flow_start1),
-    p(start=volume1.p_start),
-    h_outflow(start=volume1.h_start)) annotation (Placement(transformation(
+    m_flow(start=m_flow_start_1),
+    p(start=volume_1.p_start),
+    h_outflow(start=volume_1.h_start)) annotation (Placement(transformation(
           extent={{-110,30},{-90,50}}), iconTransformation(extent={{-110,30},{-90,
             50}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b1(redeclare package Medium =
-        Medium_1, m_flow(start=-m_flow_start1)) annotation (Placement(
+        Medium_1, m_flow(start=-m_flow_start_1)) annotation (Placement(
         transformation(extent={{90,30},{110,50}}), iconTransformation(extent={{90,
             30},{110,50}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_a2(
     redeclare package Medium = Medium_2,
-    m_flow(start=m_flow_start2),
-    p(start=volume2.p_start)) annotation (Placement(transformation(extent={{90,-50},
-            {110,-30}}), iconTransformation(extent={{90,-50},{110,-30}})));
+    m_flow(start=m_flow_start_2),
+    p(start=volume_2.p_start)) annotation (Placement(transformation(extent={{90,
+            -50},{110,-30}}), iconTransformation(extent={{90,-50},{110,-30}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b2(redeclare package Medium =
-        Medium_2, m_flow(start=-m_flow_start2)) annotation (Placement(
+        Medium_2, m_flow(start=-m_flow_start_2)) annotation (Placement(
         transformation(extent={{-110,-50},{-90,-30}}), iconTransformation(
           extent={{-110,-50},{-90,-30}})));
-  TRANSFORM.Fluid.Volumes.SimpleVolume volume1(redeclare package Medium =
-        Medium_1,
+  TRANSFORM.Fluid.Volumes.SimpleVolume volume_1(
+    redeclare package Medium = Medium_1,
     p_start=p_start_1,
     T_start=T_start_1,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume,
-                  use_HeatPort=true)
+    use_HeatPort=true)
     annotation (Placement(transformation(extent={{-40,50},{-20,30}})));
-  TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance1(
-      redeclare package Medium = Medium_1, R=R_1)
+  Fluid.FittingsAndResistances.SpecifiedResistance resistance_1(redeclare
+      package Medium = Medium_1, R=R_1)
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundary1(
-      use_port=true) annotation (Placement(transformation(
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundary_1(use_port=
+        true) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-30,70})));
-  TRANSFORM.Fluid.Volumes.SimpleVolume volume2(redeclare package Medium =
-        Medium_2,
+  TRANSFORM.Fluid.Volumes.SimpleVolume volume_2(
+    redeclare package Medium = Medium_2,
     p_start=p_start_2,
     T_start=T_start_2,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume,
-                  use_HeatPort=true)
+    use_HeatPort=true)
     annotation (Placement(transformation(extent={{40,-30},{20,-50}})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundary2(
-      use_port=true) annotation (Placement(transformation(
+  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundary_2(use_port=
+        true) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={30,-10})));
-  TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance2(
+  TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_2(
       redeclare package Medium = Medium_2, R=R_2)
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a1(redeclare package
@@ -89,9 +89,9 @@ partial model Partial_LMTD_HX
   TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_b2(redeclare package
       Medium = Medium_2)
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
-  Modelica.Blocks.Sources.RealExpression boundary2_input(y=Q_flow)
+  Modelica.Blocks.Sources.RealExpression boundary_2_input(y=Q_flow)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Modelica.Blocks.Sources.RealExpression boundary1_input(y=-Q_flow)
+  Modelica.Blocks.Sources.RealExpression boundary_1_input(y=-Q_flow)
     annotation (Placement(transformation(extent={{10,70},{-10,90}})));
 
   input Units.HydraulicResistance R_1=1 "Hydraulic resistance"
@@ -105,33 +105,33 @@ equation
   dT_LM = TRANSFORM.HeatExchangers.Utilities.Functions.logMean(sensor_T_a1.T -
     sensor_T_b1.T, sensor_T_b2.T - sensor_T_a2.T);
 
-  connect(volume1.port_b, resistance1.port_a)
+  connect(volume_1.port_b, resistance_1.port_a)
     annotation (Line(points={{-24,40},{23,40}}, color={0,127,255}));
-  connect(volume1.heatPort, boundary1.port)
+  connect(volume_1.heatPort, boundary_1.port)
     annotation (Line(points={{-30,46},{-30,60}}, color={191,0,0}));
-  connect(volume2.port_b, resistance2.port_a)
+  connect(volume_2.port_b, resistance_2.port_a)
     annotation (Line(points={{24,-40},{-23,-40}}, color={0,127,255}));
-  connect(boundary2.port, volume2.heatPort)
+  connect(boundary_2.port, volume_2.heatPort)
     annotation (Line(points={{30,-20},{30,-34}}, color={191,0,0}));
   connect(port_a1, sensor_T_a1.port_a)
     annotation (Line(points={{-100,40},{-80,40}}, color={0,127,255}));
-  connect(sensor_T_a1.port_b, volume1.port_a)
+  connect(sensor_T_a1.port_b, volume_1.port_a)
     annotation (Line(points={{-60,40},{-36,40}}, color={0,127,255}));
-  connect(resistance1.port_b, sensor_T_b1.port_a)
+  connect(resistance_1.port_b, sensor_T_b1.port_a)
     annotation (Line(points={{37,40},{60,40}}, color={0,127,255}));
   connect(sensor_T_b1.port_b, port_b1)
     annotation (Line(points={{80,40},{100,40}}, color={0,127,255}));
   connect(port_a2, sensor_T_a2.port_a)
     annotation (Line(points={{100,-40},{80,-40}}, color={0,127,255}));
-  connect(sensor_T_a2.port_b, volume2.port_a)
+  connect(sensor_T_a2.port_b, volume_2.port_a)
     annotation (Line(points={{60,-40},{36,-40}}, color={0,127,255}));
-  connect(resistance2.port_b, sensor_T_b2.port_a)
+  connect(resistance_2.port_b, sensor_T_b2.port_a)
     annotation (Line(points={{-37,-40},{-60,-40}}, color={0,127,255}));
   connect(sensor_T_b2.port_b, port_b2)
     annotation (Line(points={{-80,-40},{-100,-40}}, color={0,127,255}));
-  connect(boundary2_input.y, boundary2.Q_flow_ext)
+  connect(boundary_2_input.y, boundary_2.Q_flow_ext)
     annotation (Line(points={{11,0},{30,0},{30,-6}}, color={0,0,127}));
-  connect(boundary1_input.y, boundary1.Q_flow_ext)
+  connect(boundary_1_input.y, boundary_1.Q_flow_ext)
     annotation (Line(points={{-11,80},{-30,80},{-30,74}}, color={0,0,127}));
   annotation (
     defaultComponentName="lmtd_HX",

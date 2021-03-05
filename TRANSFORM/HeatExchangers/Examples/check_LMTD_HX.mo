@@ -27,8 +27,8 @@ extends TRANSFORM.Icons.Example;
   TRANSFORM.HeatExchangers.LMTD_HX_A lmtd_HX(
     redeclare package Medium_1 = Modelica.Media.IdealGases.SingleGases.He,
     redeclare package Medium_2 = Modelica.Media.Air.DryAirNasa,
-    m_flow_start1=1,
-    m_flow_start2=1)
+    m_flow_start_1=1,
+    m_flow_start_2=1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(boundary_a1.ports[1], lmtd_HX.port_a1) annotation (Line(points={{-40,20},

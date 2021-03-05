@@ -200,8 +200,8 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_a1(
     redeclare package Medium = Medium_1,
     m_flow(start=m_flow_start_1),
-    p(start=volume1[1].p_start),
-    h_outflow(start=volume1[1].h_start)) annotation (Placement(transformation(
+    p(start=volume_1[1].p_start),
+    h_outflow(start=volume_1[1].h_start)) annotation (Placement(transformation(
           extent={{-110,30},{-90,50}}), iconTransformation(extent={{-110,30},{-90,
             50}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b1(redeclare package Medium =
@@ -211,15 +211,15 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_a2(
     redeclare package Medium = Medium_2,
     m_flow(start=m_flow_start_2),
-    p(start=volume2[1].p_start),
-    h_outflow(start=volume2[1].h_start)) annotation (Placement(transformation(
+    p(start=volume_2[1].p_start),
+    h_outflow(start=volume_2[1].h_start)) annotation (Placement(transformation(
           extent={{90,-50},{110,-30}}), iconTransformation(extent={{90,-50},{110,
             -30}})));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b2(redeclare package Medium =
         Medium_2, m_flow(start=-m_flow_start_2)) annotation (Placement(
         transformation(extent={{-110,-50},{-90,-30}}), iconTransformation(
           extent={{-110,-50},{-90,-30}})));
-  TRANSFORM.Fluid.Volumes.SimpleVolume volume1[nV](
+  TRANSFORM.Fluid.Volumes.SimpleVolume volume_1[nV](
     redeclare package Medium = Medium_1,
     p_start=ps_start_1,
     each use_T_start=false,
@@ -228,14 +228,14 @@ import TRANSFORM.Math.linspaceRepeat_1D;
     X_start=Xs_start_1,
     C_start=Cs_start_1,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (each V=
-            V_1/nV),
+        Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (
+          each V=V_1/nV),
     each use_HeatPort=true)
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
-  TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance1[nV](
+  TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_1[nV](
       redeclare package Medium = Medium_1, each R=R_1/nV)
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  TRANSFORM.Fluid.Volumes.SimpleVolume volume2[nV](
+  TRANSFORM.Fluid.Volumes.SimpleVolume volume_2[nV](
     redeclare package Medium = Medium_2,
     p_start=ps_start_2,
     each use_T_start=false,
@@ -244,11 +244,11 @@ import TRANSFORM.Math.linspaceRepeat_1D;
     X_start=Xs_start_2,
     C_start=Cs_start_2,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (each V=
-            V_2/nV),
+        Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (
+          each V=V_2/nV),
     each use_HeatPort=true)
     annotation (Placement(transformation(extent={{40,-30},{20,-50}})));
-  TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance2[nV](
+  TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_2[nV](
       redeclare package Medium = Medium_2, each R=R_2/nV)
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a1(redeclare package
@@ -263,40 +263,41 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_b2(redeclare package
       Medium = Medium_2)
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
-
+  HeatAndMassTransfer.Resistances.Heat.Specified_Resistance heatTransfer[nV](each R_val=
+       1/(UA/nV)) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   input Units.HydraulicResistance R_1=(p_a_start_1-p_b_start_1)/m_flow_start_1 "Hydraulic resistance"
     annotation (Dialog(group="Inputs"));
   input Units.HydraulicResistance R_2=(p_a_start_2-p_b_start_2)/m_flow_start_2  "Hydraulic resistance"
     annotation (Dialog(group="Inputs"));
 
-  HeatAndMassTransfer.Resistances.Heat.Specified_Resistance heatTransfer[nV](each R_val=
-       1/(UA/nV)) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  SI.Power Q_flow = sum(heatTransfer.port_a.Q_flow);
+
 equation
 
-  connect(heatTransfer.port_a,volume1.heatPort);
+  connect(heatTransfer.port_a, volume_1.heatPort);
   if counterCurrent then
       for i in 1:nV loop
-      connect(heatTransfer[i].port_b,volume2[nV-i+1].heatPort);
+      connect(heatTransfer[i].port_b, volume_2[nV - i + 1].heatPort);
       end for;
   else
-      connect(heatTransfer.port_b,volume2.heatPort);
+    connect(heatTransfer.port_b, volume_2.heatPort);
   end if;
 
-  connect(sensor_T_a1.port_b, volume1[1].port_a);
-  connect(volume1[1].port_b, resistance1[1].port_a);
+  connect(sensor_T_a1.port_b, volume_1[1].port_a);
+  connect(volume_1[1].port_b, resistance_1[1].port_a);
   for i in 2:nV loop
-   connect(resistance1[i-1].port_b, volume1[i].port_a);
-   connect(volume1[i].port_b, resistance1[i].port_a);
+    connect(resistance_1[i - 1].port_b, volume_1[i].port_a);
+    connect(volume_1[i].port_b, resistance_1[i].port_a);
   end for;
-  connect(resistance1[nV].port_b, sensor_T_b1.port_a);
+  connect(resistance_1[nV].port_b, sensor_T_b1.port_a);
 
-  connect(sensor_T_a2.port_b, volume2[1].port_a);
-  connect(volume2[1].port_b, resistance2[1].port_a);
+  connect(sensor_T_a2.port_b, volume_2[1].port_a);
+  connect(volume_2[1].port_b, resistance_2[1].port_a);
   for i in 2:nV loop
-   connect(resistance2[i-1].port_b, volume2[i].port_a);
-   connect(volume2[i].port_b, resistance2[i].port_a);
+    connect(resistance_2[i - 1].port_b, volume_2[i].port_a);
+    connect(volume_2[i].port_b, resistance_2[i].port_a);
   end for;
-  connect(resistance2[nV].port_b, sensor_T_b2.port_a);
+  connect(resistance_2[nV].port_b, sensor_T_b2.port_a);
 
   connect(port_a1, sensor_T_a1.port_a)
     annotation (Line(points={{-100,40},{-80,40}}, color={0,127,255}));
