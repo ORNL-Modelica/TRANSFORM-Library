@@ -221,6 +221,7 @@ import TRANSFORM.Math.linspaceRepeat_1D;
           extent={{-110,-50},{-90,-30}})));
   TRANSFORM.Fluid.Volumes.SimpleVolume volume_1[nV](
     redeclare package Medium = Medium_1,
+    each energyDynamics=energyDynamics_1,
     p_start=ps_start_1,
     each use_T_start=false,
     T_start=Ts_start_1,
@@ -237,6 +238,7 @@ import TRANSFORM.Math.linspaceRepeat_1D;
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   TRANSFORM.Fluid.Volumes.SimpleVolume volume_2[nV](
     redeclare package Medium = Medium_2,
+    each energyDynamics=energyDynamics_2,
     p_start=ps_start_2,
     each use_T_start=false,
     T_start=Ts_start_2,
@@ -272,6 +274,12 @@ import TRANSFORM.Math.linspaceRepeat_1D;
 
   SI.Power Q_flow = sum(heatTransfer.port_a.Q_flow);
 
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics_1=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
+    "Formulation of energy balances"
+    annotation (Dialog(tab="Advanced", group="Dynamics"));
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics_2=energyDynamics_1
+    "Formulation of energy balances"
+    annotation (Dialog(tab="Advanced", group="Dynamics"));
 equation
 
   connect(heatTransfer.port_a, volume_1.heatPort);
