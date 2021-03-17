@@ -1,5 +1,5 @@
 within TRANSFORM.HeatExchangers;
-model Simple_HX
+model Simple_HX_A
 import TRANSFORM.Math.linspace_1D;
 import TRANSFORM.Math.linspaceRepeat_1D;
 
@@ -16,11 +16,16 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   parameter SI.Volume V_1 "Fluid volume";
   parameter SI.Volume V_2 "Fluid volume";
 
-  parameter SI.ThermalConductance UA "Overall heat transfer coefficient";
+  parameter SI.Area surfaceArea "Total surface area";
+  parameter SI.CoefficientOfHeatTransfer alpha_1 "Heat transfer coefficient";
+  parameter SI.CoefficientOfHeatTransfer alpha_2 "Heat transfer coefficient";
+
   parameter SIadd.NonDim CF = if abs(T_a_start_1-T_b_start_1) <= Modelica.Constants.eps or abs(T_a_start_2-T_b_start_2) <= Modelica.Constants.eps then 1.0 else TRANSFORM.HeatExchangers.Utilities.Functions.logMean(T_a_start_1 -
     T_b_start_1, T_b_start_2 - T_a_start_2)/nV "Correction factor";
 
 // Initialization: Fluid 1
+
+
   parameter SI.AbsolutePressure[nV] ps_start_1=linspace_1D(
       p_a_start_1,
       p_b_start_1,
@@ -283,8 +288,9 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   parameter Modelica.Fluid.Types.Dynamics energyDynamics_2=energyDynamics_1
     "Formulation of energy balances"
     annotation (Dialog(tab="Advanced", group="Dynamics"));
-  input SI.ThermalResistance R_val=1/(UA/nV*CF) "Thermal resistance"
+  input SI.ThermalResistance R_val=(1/(alpha_1*surfaceArea/nV) + 1/(alpha_2*surfaceArea/nV))/CF "Thermal resistance"
     annotation (Dialog(group="Inputs"));
+
 equation
 
   connect(heatTransfer.port_a, volume_1.heatPort);
@@ -341,4 +347,4 @@ equation
 <p>Assumption:</p>
 <p>Side 1 is hot side (i.e,. if Q_flow &lt; 0 then heat is going from Side 1 to Side 2)</p>
 </html>"));
-end Simple_HX;
+end Simple_HX_A;
