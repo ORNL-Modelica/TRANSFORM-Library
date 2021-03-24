@@ -140,8 +140,8 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
 
 initial equation
   w_f_nu_bar=sum({reactivity.data.w_f[i]*reactivity.data.sigmasF[i]*
-      sum(reactivity.mCs[:, i]) for i in 1:reactivity.data.nA})/sum({reactivity.data.nus[
-      1]*reactivity.data.sigmasF[i]*sum(reactivity.mCs[:, i]) for i in 1:
+      sum(reactivity.mCs[:, reactivity.data.actinideIndex[i]]) for i in 1:reactivity.data.nA})/sum({reactivity.data.nus[
+      1]*reactivity.data.sigmasF[i]*sum(reactivity.mCs[:, reactivity.data.actinideIndex[i]]) for i in 1:
       reactivity.data.nA});
 
   if not specifyPower then
@@ -153,8 +153,8 @@ initial equation
   end if;
 equation
   w_f_nu_bar=sum({reactivity.data.w_f[i]*reactivity.data.sigmasF[i]*
-      sum(reactivity.mCs[:, i]) for i in 1:reactivity.data.nA})/sum({reactivity.data.nus[
-      1]*reactivity.data.sigmasF[i]*sum(reactivity.mCs[:, i]) for i in 1:
+      sum(reactivity.mCs[:, reactivity.data.actinideIndex[i]]) for i in 1:reactivity.data.nA})/sum({reactivity.data.nus[
+      1]*reactivity.data.sigmasF[i]*sum(reactivity.mCs[:, reactivity.data.actinideIndex[i]]) for i in 1:
       reactivity.data.nA});
 
   rhos_feedback = {alphas_feedback[j]*(vals_feedback[j] -

@@ -22,9 +22,12 @@ annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SIadd.NonDim SF_Q_fission[nV]=fill(1/nV, nV)
     "Shape factor for Q_fission, sum() = 1"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
-  input SIadd.ExtraPropertyExtrinsic[nV,nC] mCs={{0 for j in 1:nC} for i in 1:nV}
+  input SIadd.ExtraPropertyExtrinsic[nV,nC] mCs(start=mCs_start)={{0 for j in 1:nC} for i in 1:nV}
     "# of isotope atoms per volume [atoms]"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
+  parameter SIadd.ExtraPropertyExtrinsic[nV,nC] mCs_start=fill(0,nV,nC)
+    "# of isotope atoms per volume [atoms]"
+    annotation (Dialog(tab="Initialization"));
 
   SIadd.NeutronFlux phi[nV] "Neutron flux";
   SIadd.ExtraPropertyFlowRate mC_gens[nV,nC]
