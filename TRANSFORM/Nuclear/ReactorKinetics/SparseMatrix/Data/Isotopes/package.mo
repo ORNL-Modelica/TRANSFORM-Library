@@ -1,3 +1,3 @@
 within TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data;
-package FissionProducts
-end FissionProducts;
+package Isotopes
+end Isotopes;

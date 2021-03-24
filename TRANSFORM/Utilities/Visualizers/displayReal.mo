@@ -4,6 +4,8 @@ model displayReal "Real number display"
     annotation (choices(checkBox=true), Evaluate=true);
   input Real val=0.0 "Input variable" annotation (Dialog(enable=not use_port));
   parameter Integer precision(min=0) = 0 "Number of decimals displayed";
+  parameter String unitLabel="";
+
   Modelica.Blocks.Interfaces.RealInput u if use_port
     "Input displayed in diagram layer if use_port = true" annotation (
       HideResult=true, Placement(transformation(extent={{-130,-15},{-100,15}})));
@@ -24,7 +26,12 @@ equation
           fillPattern=FillPattern.Solid,
           borderPattern=BorderPattern.Sunken), Text(extent={{-100,-36},{100,36}},
             textString=DynamicSelect("0.0", String(y, format="1." +
-              String(precision) + "f")))}),
+              String(precision) + "f"))),
+        Text(
+          extent={{110,36},{260,-32}},
+          textColor={0,0,0},
+          textString=unitLabel,
+          horizontalAlignment=TextAlignment.Left)}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})));
 end displayReal;

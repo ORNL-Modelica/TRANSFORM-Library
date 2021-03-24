@@ -103,7 +103,7 @@ partial model PartialPump_nom
   SI.Density d_inlet=Medium.density(state_a);
 
   SI.VolumeFlowRate V_flow=flowChar.V_flow;
-  SI.Height head=flowChar.head;
+  SI.Height head(start=head_start)=flowChar.head;
 
 equation
 

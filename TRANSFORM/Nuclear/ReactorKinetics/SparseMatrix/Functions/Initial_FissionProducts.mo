@@ -3,7 +3,7 @@ function Initial_FissionProducts
 extends TRANSFORM.Icons.UnderConstruction;
   extends TRANSFORM.Icons.Function;
 
-  input Integer nC "# of fission products";
+  input Integer nC "# of isotopes";
   input SIadd.NeutronFlux phi "Neutron flux";
   input SIadd.InverseTime[nC] lambdas "Half-life of fission product";
   input Integer l_lambdas_col[:];

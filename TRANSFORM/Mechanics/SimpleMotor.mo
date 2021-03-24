@@ -46,7 +46,7 @@ equation
   connect(G.p, Vs.n) annotation (Line(points={{-70,-40},{-70,-10}}));
   connect(J.flange_b, flange_b) annotation (Line(points={{68,0},{100,0}}));
   connect(inPort, Vs.v)
-    annotation (Line(points={{-99,0},{-77,4.28626e-016}}));
+    annotation (Line(points={{-99,0},{-82,4.28626e-16}}));
   connect(Fixed.flange, Damper.flange_a)
     annotation (Line(points={{36,-42},{36,-32}}, color={0,0,0}));
   connect(Damper.flange_b, J.flange_a)
