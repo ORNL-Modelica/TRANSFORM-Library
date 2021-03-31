@@ -16,19 +16,21 @@ model EvaporatingPool_thermochimica
         // Species tracked in the salt
   constant String extraPropertiesNames_salt[:]={"Li","F","Na","K","Cs"};
   constant Integer nC_salt=size(extraPropertiesNames_salt, 1) "Number of species";
+  constant Integer atomicNumbers[nC_salt]={3,9,11,19,55};
 
   // Species tracked in the gas
-  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs"};
+  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs","F2"};
   constant Integer nC_gas=size(extraPropertiesNames_gas, 1) "Number of species";
+  constant Integer speciesIndex[nC_gas]={1,2,3,4,5,6,7,8,9,10,11};
 
   // Method to relate gas species to salt species
   constant Real relationMatrix[nC_salt,nC_gas]=
   {
-  {1,1,0,0,0,0,0,0,0,0},
-  {0,1,0,1,2,3,0,1,2,0},
-  {0,0,1,1,2,3,0,0,0,0},
-  {0,0,0,0,0,0,1,1,2,0},
-  {0,0,0,0,0,0,0,0,0,1}}
+  {1,1,0,0,0,0,0,0,0,0,0},
+  {0,1,0,1,2,3,0,1,2,0,2},
+  {0,0,1,1,2,3,0,0,0,0,0},
+  {0,0,0,0,0,0,1,1,2,0,0},
+  {0,0,0,0,0,0,0,0,0,1,0}}
     "Element (row) to species (column) molar relation matrix";
 
   parameter SI.MolarMass MM_i_salt[nC_salt]={TRANSFORM.PeriodicTable.CalculateMolarMass(extraPropertiesNames_salt[
@@ -49,16 +51,21 @@ model EvaporatingPool_thermochimica
   // mol/m3 fluid basis
   parameter SI.Concentration Cmolar_start_interface_gas[nC_salt]={headSpace.p_start*
       sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(
-      partialPressures_start.y_start[:].*relationMatrix[i,:]))/(Modelica.Constants.R*T_start_gas)
+      partialPressureThermochimica_start[:].*relationMatrix[i,:]))/(Modelica.Constants.R*T_start_gas)
       for i in 1:nC_salt};
 
   SI.Concentration Cmolar_interface_gas[nC_salt](start=Cmolar_start_interface_gas)=
        {headSpace.medium.p*
-    sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(partialPressures.y[
+    sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(partialPressureThermochimica[
     :].*relationMatrix[i,:]))/(Modelica.Constants.R*headSpace.medium.T) for i in 1:nC_salt};
 
   SI.Mass massC_released_gas[nC_salt] = headSpace.mC.*MM_i_salt*unit_mole*(if use_AtomBased then 1/Modelica.Constants.N_A else 1.0) "Mass of released gas species";
   SI.Mass massC_released_element[nC_salt] = headSpace.mC.*MM_i_salt*unit_mole*(if use_AtomBased then 1/Modelica.Constants.N_A else 1.0) "Mass of released element species";
+  Real partialPressureThermochimica[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T_start_salt,p_start_gas/1e5,C_salt,atomicNumbers,speciesIndex) "Thermochimica-derived partial pressures";
+  // parameter Real partialPressureThermochimica_start[nC_gas] = {1.9223796692112284E-009,4.7448009723068141E-011,2.6103184719810731E-003,1.0134830341333010E-011,2.0746589335375881E-012,7.7649191787908018E-016,3.9001757479873951E-002,3.4194313235742790E-009,2.4432891475408866E-010,0.13758085275506246} "Copied from Thermochimica";
+  parameter Real C_salt_initial[nC_salt] = {(moleFrac_start_salt[:]*relationMatrix_salt[i,:]) for i in 1:nC_salt};
+  parameter Real partialPressureThermochimica_start[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T_start_salt,p_start_gas/1e5,C_salt_initial,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";
+  Real F_surplus = 2*C_salt[2] - sum(C_salt);
 
   constant SIadd.Mole unit_mole = 1.0;
 
@@ -80,7 +87,7 @@ model EvaporatingPool_thermochimica
   parameter SI.Density rho = Medium_salt.density_pT(p_start_gas,T_start_salt);
   SIadd.Mole C_salt[nC_salt];
 
-  SI.Pressure p[nC_gas] = TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(partialPressures.y);
+  SI.Pressure p[nC_gas] = TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(partialPressureThermochimica);
   TRANSFORM.Fluid.Volumes.SimpleVolume_1Port headSpace(
     showName=false,
     redeclare package Medium = Medium_gas,
@@ -88,8 +95,8 @@ model EvaporatingPool_thermochimica
     T_start=T_start_gas,
     C_start=C_start_gas,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder
-        (length=length.y, crossArea=surfaceArea),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder (
+         length=length.y, crossArea=surfaceArea),
     use_HeatPort=true,
     use_TraceMassPort=true,
     MMs=if use_AtomBased then fill(Modelica.Constants.N_A, nC_salt) else fill(1.0,
@@ -151,7 +158,7 @@ model EvaporatingPool_thermochimica
         T_start_salt),
     use_HeatPort=true,
     use_TraceMassPort=true,
-    MMs=MM_salt)
+    MMs=MM_i_salt)
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Fluid.BoundaryConditions.MassFlowSource_T           boundary_salt(
     showName=false,
@@ -185,7 +192,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=10000,
+      StopTime=75,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Dassl"));
 end EvaporatingPool_thermochimica;
