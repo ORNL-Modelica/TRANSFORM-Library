@@ -13,7 +13,7 @@ model EvaporatingPool_thermochimica
 
   parameter SI.Area surfaceArea = Modelica.Constants.pi*1^2;
 
-        // Species tracked in the salt
+  // Species tracked in the salt
   constant String extraPropertiesNames_salt[:]={"Li","F","Na","K","Cs"};
   constant Integer nC_salt=size(extraPropertiesNames_salt, 1) "Number of species";
   constant Integer atomicNumbers[nC_salt]={3,9,11,19,55};
@@ -59,10 +59,7 @@ model EvaporatingPool_thermochimica
     sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(partialPressureThermochimica[
     :].*relationMatrix[i,:]))/(Modelica.Constants.R*headSpace.medium.T) for i in 1:nC_salt};
 
-  SI.Mass massC_released_gas[nC_salt] = headSpace.mC.*MM_i_salt*unit_mole*(if use_AtomBased then 1/Modelica.Constants.N_A else 1.0) "Mass of released gas species";
-  SI.Mass massC_released_element[nC_salt] = headSpace.mC.*MM_i_salt*unit_mole*(if use_AtomBased then 1/Modelica.Constants.N_A else 1.0) "Mass of released element species";
   Real partialPressureThermochimica[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T_start_salt,p_start_gas/1e5,C_salt,atomicNumbers,speciesIndex) "Thermochimica-derived partial pressures";
-  // parameter Real partialPressureThermochimica_start[nC_gas] = {1.9223796692112284E-009,4.7448009723068141E-011,2.6103184719810731E-003,1.0134830341333010E-011,2.0746589335375881E-012,7.7649191787908018E-016,3.9001757479873951E-002,3.4194313235742790E-009,2.4432891475408866E-010,0.13758085275506246} "Copied from Thermochimica";
   parameter Real C_salt_initial[nC_salt] = {(moleFrac_start_salt[:]*relationMatrix_salt[i,:]) for i in 1:nC_salt};
   parameter Real partialPressureThermochimica_start[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T_start_salt,p_start_gas/1e5,C_salt_initial,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";
   Real F_surplus = (2*C_salt[2] - sum(C_salt))/C_salt[2];
@@ -137,28 +134,21 @@ model EvaporatingPool_thermochimica
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,22})));
-  TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass.Concentration boundary(
-    showName=false,
-      nC=nC_salt, use_port=true) annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={50,-4})));
-  Modelica.Blocks.Sources.RealExpression BC_concentration[nC_salt](y=
-        Cmolar_interface_gas)
-    annotation (Placement(transformation(extent={{20,-60},{40,-40}})));
 
   Fluid.Volumes.ExpansionTank_1Port volumeSalt(
     redeclare package Medium = Medium_salt,
     A=surfaceArea,
-    p_surface=headSpace.port.p,
-    p_start=p_start_gas,
     level_start=V_salt/surfaceArea,
     use_T_start=false,
     T_start=T_start_salt,
     h_start=volumeSalt.Medium.specificEnthalpy_pT(volumeSalt.p_start,
         T_start_salt),
+    C_start={V_salt*rho/MM_salt*sum(moleFrac_start_salt[:].*relationMatrix_salt[i,:])
+                                                                                     for i in 1:nC_salt},
     use_HeatPort=true,
     use_TraceMassPort=true,
+    p_start=p_start_gas,
+    p_surface=headSpace.port.p,
     MMs=MM_i_salt)
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Fluid.BoundaryConditions.MassFlowSource_T           boundary_salt(
@@ -190,21 +180,19 @@ equation
     annotation (Line(points={{-40,40},{14,40}}, color={0,127,255}));
   connect(headSpace.heatPort, convection.port_b)
     annotation (Line(points={{20,34},{20,27}}, color={191,0,0}));
-  connect(boundary.port, convection_mass.port_a)
-    annotation (Line(points={{50,6},{50,15}}, color={0,140,72}));
-  connect(BC_concentration.y, boundary.C_ext)
-    annotation (Line(points={{41,-50},{50,-50},{50,-8}},  color={0,0,127}));
   connect(headSpace.traceMassPort, convection_mass.port_b)
     annotation (Line(points={{24,36},{50,36},{50,29}}, color={0,140,72}));
   connect(volumeSalt.heatPort, convection.port_a)
     annotation (Line(points={{8.4,-20},{20,-20},{20,13}}, color={191,0,0}));
   connect(boundary_salt.ports[1], volumeSalt.port)
     annotation (Line(points={{-40,-40},{0,-40},{0,-28.4}}, color={0,127,255}));
+  connect(convection_mass.port_a, volumeSalt.traceMassPort)
+    annotation (Line(points={{50,15},{50,-25.8},{6,-25.8}}, color={0,140,72}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=75,
-      __Dymola_NumberOfIntervals=5000,
+      __Dymola_NumberOfIntervals=500,
       __Dymola_Algorithm="Dassl"));
 end EvaporatingPool_thermochimica;

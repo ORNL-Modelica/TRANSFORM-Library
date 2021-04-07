@@ -81,13 +81,45 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
         iconTransformation(extent={{74,-10},{94,10}})));
   HeatAndMassTransfer.Interfaces.MolePort_State traceMassPort(
     nC=Medium.nC,
-    C=C .* Medium.density(state_liquid) ./ MMs,
+    C=Cmolar_interface_gas,
     n_flow=mC_flow_internal ./ MMs) if                                                                                            use_TraceMassPort
     annotation (Placement(transformation(extent={{50,-70},{70,-50}}),
         iconTransformation(extent={{50,-68},{70,-48}})));
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   parameter SI.Length dheight = 0 "Elevation change in addition to liquid level (e.g., pipe connected to port)";
+
+
+  // Species tracked in the gas
+  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs","F2"};
+  constant Integer nC_gas=size(extraPropertiesNames_gas, 1) "Number of species";
+  constant Integer speciesIndex[nC_gas]={1,2,3,4,5,6,7,8,9,10,11};
+  // Species tracked in the salt
+  constant String extraPropertiesNames_salt[:]={"Li","F","Na","K","Cs"};
+  constant Integer nC_salt=size(extraPropertiesNames_salt, 1) "Number of species";
+  constant Integer atomicNumbers[nC_salt]={3,9,11,19,55};
+
+  // Method to relate gas species to salt species
+  constant Real relationMatrix[nC_salt,nC_gas]=
+  {
+  {1,1,0,0,0,0,0,0,0,0,0},
+  {0,1,0,1,2,3,0,1,2,0,2},
+  {0,0,1,1,2,3,0,0,0,0,0},
+  {0,0,0,0,0,0,1,1,2,0,0},
+  {0,0,0,0,0,0,0,0,0,1,0}}
+    "Element (row) to species (column) molar relation matrix";
+  parameter Real partialPressureThermochimica_start[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T_start,p_start/1e5,C_start,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";
+  Real partialPressureThermochimica[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(Medium.temperature(state_liquid),Medium.pressure(state_liquid)/1e5,C,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";
+  parameter SI.Concentration Cmolar_start_interface_gas[nC_salt]={p_start*
+      sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(
+      partialPressureThermochimica_start[:].*relationMatrix[i,:]))/(Modelica.Constants.R*T_start)
+      for i in 1:nC_salt};
+  SI.Concentration Cmolar_interface_gas[nC_salt](start=Cmolar_start_interface_gas)=
+       {Medium.pressure(state_liquid)*
+    sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(partialPressureThermochimica[
+    :].*relationMatrix[i,:]))/(Modelica.Constants.R*Medium.temperature(state_liquid)) for i in 1:nC_salt};
+  Real F_surplus = (2*C[2] - sum(C))/C[2];
+  Real mc_der[nC_salt];
 protected
   SI.HeatFlowRate Q_flow_internal;
   SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
@@ -127,7 +159,7 @@ equation
   m = V*Medium.density(state_liquid);
   U = m*Medium.specificInternalEnergy(state_liquid);
   p - p_surface = Medium.density(state_liquid)*g_n*level;
-  mC = m*C;
+  mC = MMs.*C;
   if massDynamics == Dynamics.SteadyState then
     der(m) = 0;
     der(U) = 0;
@@ -150,9 +182,20 @@ equation
   for i in 1:Medium.nXi loop
     mXib[i] =port.m_flow*actualStream(port.Xi_outflow[i]);
   end for;
-  for i in 1:Medium.nC loop
-    mCb[i] =port.m_flow*actualStream(port.C_outflow[i]) + mC_gen[i] + mC_flow_internal[i];
-  end for;
+  when {F_surplus<0.001,F_surplus>-0.001} then
+          for i in 1:Medium.nC loop
+            mc_der[i] = port.m_flow*actualStream(port.C_outflow[i]) + mC_gen[i] + mC_flow_internal[i];
+          end for;
+        end when;
+        if F_surplus<0.001 and F_surplus>-0.001 then
+          for i in 1:Medium.nC loop
+            mCb[i] = mc_der[i];
+          end for;
+        else
+          for i in 1:Medium.nC loop
+            mCb[i] = port.m_flow*actualStream(port.C_outflow[i]) + mC_gen[i] + mC_flow_internal[i];
+          end for;
+        end if;
   port.h_outflow = h;
   port.p = p + Medium.density(state_liquid)*g_n*dheight;
   for i in 1:Medium.nXi loop
