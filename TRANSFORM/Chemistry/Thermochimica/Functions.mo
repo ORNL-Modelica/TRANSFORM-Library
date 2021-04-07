@@ -89,8 +89,18 @@ package Functions
       press,
       mass,
       elements);
+    TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(species,1) loop
       moleFraction[i] := TRANSFORM.Chemistry.Thermochimica.Functions.GetMoleFraction(species[i]);
     end for;
   end RunAndGetMoleFraction;
+
+  function PrintResults
+  external "FORTRAN 77" printresultstofile() annotation(Library={"thermochimica","gfortran"});
+  end PrintResults;
+
+  function SetPrintResultsMode
+  input Integer iMode;
+  external "FORTRAN 77" setprintresultsmode(iMode) annotation(Library={"thermochimica","gfortran"});
+  end SetPrintResultsMode;
 end Functions;
