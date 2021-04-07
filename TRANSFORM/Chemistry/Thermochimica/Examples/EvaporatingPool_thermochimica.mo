@@ -47,23 +47,7 @@ model EvaporatingPool_thermochimica
 
   parameter SIadd.ExtraProperty C_start_gas[nC_salt]=zeros(nC_salt) "Mass-Specific value";
 
-  // NOTE: Should this be salt or gas density?
-  // mol/m3 fluid basis
-  parameter SI.Concentration Cmolar_start_interface_gas[nC_salt]={headSpace.p_start*
-      sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(
-      partialPressureThermochimica_start[:].*relationMatrix[i,:]))/(Modelica.Constants.R*T_start_gas)
-      for i in 1:nC_salt};
-
-  SI.Concentration Cmolar_interface_gas[nC_salt](start=Cmolar_start_interface_gas)=
-       {headSpace.medium.p*
-    sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(partialPressureThermochimica[
-    :].*relationMatrix[i,:]))/(Modelica.Constants.R*headSpace.medium.T) for i in 1:nC_salt};
-
-  Real partialPressureThermochimica[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T_start_salt,p_start_gas/1e5,C_salt,atomicNumbers,speciesIndex) "Thermochimica-derived partial pressures";
   parameter Real C_salt_initial[nC_salt] = {(moleFrac_start_salt[:]*relationMatrix_salt[i,:]) for i in 1:nC_salt};
-  parameter Real partialPressureThermochimica_start[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T_start_salt,p_start_gas/1e5,C_salt_initial,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";
-  Real F_surplus = (2*C_salt[2] - sum(C_salt))/C_salt[2];
-  Real c_der[nC_salt];
 
   constant SIadd.Mole unit_mole = 1.0;
 
@@ -85,7 +69,6 @@ model EvaporatingPool_thermochimica
   parameter SI.Density rho = Medium_salt.density_pT(p_start_gas,T_start_salt);
   SIadd.Mole C_salt[nC_salt];
 
-  SI.Pressure p[nC_gas] = TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(partialPressureThermochimica);
   TRANSFORM.Fluid.Volumes.SimpleVolume_1Port headSpace(
     showName=false,
     redeclare package Medium = Medium_gas,
@@ -159,23 +142,9 @@ model EvaporatingPool_thermochimica
 initial equation
         for i in 1:nC_salt loop
           C_salt[i]=V_salt*rho/MM_salt*sum(moleFrac_start_salt[:].*relationMatrix_salt[i,:]);
-          c_der[i]=-convection_mass.port_a.n_flow[i];
         end for;
 equation
-        when {F_surplus<0.001,F_surplus>-0.001} then
-          for i in 1:nC_salt loop
-            c_der[i] =-convection_mass.port_a.n_flow[i];
-          end for;
-        end when;
-        if F_surplus<0.001 and F_surplus>-0.001 then
-          for i in 1:nC_salt loop
-            der(C_salt[i]) = c_der[i];
-          end for;
-        else
-          for i in 1:nC_salt loop
-            der(C_salt[i]) =-convection_mass.port_a.n_flow[i];
-          end for;
-        end if;
+        der(C_salt) =-convection_mass.port_a.n_flow;
   connect(boundary_gas.ports[1], headSpace.port)
     annotation (Line(points={{-40,40},{14,40}}, color={0,127,255}));
   connect(headSpace.heatPort, convection.port_b)
