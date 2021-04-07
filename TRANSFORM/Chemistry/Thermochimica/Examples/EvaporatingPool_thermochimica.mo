@@ -19,18 +19,18 @@ model EvaporatingPool_thermochimica
   constant Integer atomicNumbers[nC_salt]={3,9,11,19,55};
 
   // Species tracked in the gas
-  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs"};
+  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs","F2"};
   constant Integer nC_gas=size(extraPropertiesNames_gas, 1) "Number of species";
-  constant Integer speciesIndex[nC_gas]={1,2,3,4,5,6,7,8,9,10};
+  constant Integer speciesIndex[nC_gas]={1,2,3,4,5,6,7,8,9,10,11};
 
   // Method to relate gas species to salt species
   constant Real relationMatrix[nC_salt,nC_gas]=
   {
-  {1,1,0,0,0,0,0,0,0,0},
-  {0,1,0,1,2,3,0,1,2,0},
-  {0,0,1,1,2,3,0,0,0,0},
-  {0,0,0,0,0,0,1,1,2,0},
-  {0,0,0,0,0,0,0,0,0,1}}
+  {1,1,0,0,0,0,0,0,0,0,0},
+  {0,1,0,1,2,3,0,1,2,0,2},
+  {0,0,1,1,2,3,0,0,0,0,0},
+  {0,0,0,0,0,0,1,1,2,0,0},
+  {0,0,0,0,0,0,0,0,0,1,0}}
     "Element (row) to species (column) molar relation matrix";
 
   parameter SI.MolarMass MM_i_salt[nC_salt]={TRANSFORM.PeriodicTable.CalculateMolarMass(extraPropertiesNames_salt[
@@ -171,16 +171,21 @@ initial equation
           C_salt[i]=V_salt*rho/MM_salt*sum(moleFrac_start_salt[:].*relationMatrix_salt[i,:]);
           c_der[i]=-convection_mass.port_a.n_flow[i];
         end for;
-
 equation
-        when {F_surplus>0.001,F_surplus<-0.001} then
+        when {F_surplus<0.001,F_surplus>-0.001} then
           for i in 1:nC_salt loop
             c_der[i] =-convection_mass.port_a.n_flow[i];
           end for;
         end when;
-        for i in 1:nC_salt loop
-          der(C_salt[i]) = c_der[i];
-        end for;
+        if F_surplus<0.001 and F_surplus>-0.001 then
+          for i in 1:nC_salt loop
+            der(C_salt[i]) = c_der[i];
+          end for;
+        else
+          for i in 1:nC_salt loop
+            der(C_salt[i]) =-convection_mass.port_a.n_flow[i];
+          end for;
+        end if;
   connect(boundary_gas.ports[1], headSpace.port)
     annotation (Line(points={{-40,40},{14,40}}, color={0,127,255}));
   connect(headSpace.heatPort, convection.port_b)
@@ -200,6 +205,6 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=75,
-      __Dymola_NumberOfIntervals=500,
+      __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Dassl"));
 end EvaporatingPool_thermochimica;
