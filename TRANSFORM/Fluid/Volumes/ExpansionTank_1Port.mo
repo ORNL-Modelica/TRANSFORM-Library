@@ -91,9 +91,9 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
 
 
   // Species tracked in the gas
-  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs","F2"};
+  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs"};
   constant Integer nC_gas=size(extraPropertiesNames_gas, 1) "Number of species";
-  constant Integer speciesIndex[nC_gas]={1,2,3,4,5,6,7,8,9,10,11};
+  constant Integer speciesIndex[nC_gas]={1,2,3,4,5,6,7,8,9,10};
   // Species tracked in the salt
   constant String extraPropertiesNames_salt[:]={"Li","F","Na","K","Cs"};
   constant Integer nC_salt=size(extraPropertiesNames_salt, 1) "Number of species";
@@ -102,11 +102,11 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
   // Method to relate gas species to salt species
   constant Real relationMatrix[nC_salt,nC_gas]=
   {
-  {1,1,0,0,0,0,0,0,0,0,0},
-  {0,1,0,1,2,3,0,1,2,0,2},
-  {0,0,1,1,2,3,0,0,0,0,0},
-  {0,0,0,0,0,0,1,1,2,0,0},
-  {0,0,0,0,0,0,0,0,0,1,0}}
+  {1,1,0,0,0,0,0,0,0,0},
+  {0,1,0,1,2,3,0,1,2,0},
+  {0,0,1,1,2,3,0,0,0,0},
+  {0,0,0,0,0,0,1,1,2,0},
+  {0,0,0,0,0,0,0,0,0,1}}
     "Element (row) to species (column) molar relation matrix";
   parameter Real partialPressureThermochimica_start[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T_start,p_start/1e5,C_start,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";
   Real partialPressureThermochimica[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(Medium.temperature(state_liquid),Medium.pressure(state_liquid)/1e5,C,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";

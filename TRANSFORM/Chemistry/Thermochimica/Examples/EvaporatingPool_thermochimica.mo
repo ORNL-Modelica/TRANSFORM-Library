@@ -19,18 +19,18 @@ model EvaporatingPool_thermochimica
   constant Integer atomicNumbers[nC_salt]={3,9,11,19,55};
 
   // Species tracked in the gas
-  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs","F2"};
+  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs"};
   constant Integer nC_gas=size(extraPropertiesNames_gas, 1) "Number of species";
-  constant Integer speciesIndex[nC_gas]={1,2,3,4,5,6,7,8,9,10,11};
+  constant Integer speciesIndex[nC_gas]={1,2,3,4,5,6,7,8,9,10};
 
   // Method to relate gas species to salt species
   constant Real relationMatrix[nC_salt,nC_gas]=
   {
-  {1,1,0,0,0,0,0,0,0,0,0},
-  {0,1,0,1,2,3,0,1,2,0,2},
-  {0,0,1,1,2,3,0,0,0,0,0},
-  {0,0,0,0,0,0,1,1,2,0,0},
-  {0,0,0,0,0,0,0,0,0,1,0}}
+  {1,1,0,0,0,0,0,0,0,0},
+  {0,1,0,1,2,3,0,1,2,0},
+  {0,0,1,1,2,3,0,0,0,0},
+  {0,0,0,0,0,0,1,1,2,0},
+  {0,0,0,0,0,0,0,0,0,1}}
     "Element (row) to species (column) molar relation matrix";
 
   parameter SI.MolarMass MM_i_salt[nC_salt]={TRANSFORM.PeriodicTable.CalculateMolarMass(extraPropertiesNames_salt[
@@ -161,7 +161,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=75,
-      __Dymola_NumberOfIntervals=500,
+      StopTime=50,
+      __Dymola_NumberOfIntervals=25,
       __Dymola_Algorithm="Dassl"));
 end EvaporatingPool_thermochimica;
