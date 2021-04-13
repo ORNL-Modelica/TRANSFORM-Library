@@ -18,7 +18,7 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
       tab="Initialization",
       group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
-//   SIadd.ExtraProperty C[nC](stateSelect=StateSelect.prefer, start=C_start) "Trace substance mass-specific value";
+  parameter Real F_tolerance = 1e-3;
 
 
     // Species tracked in the gas
@@ -53,10 +53,10 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
   Real tempConcentration[nC_salt];
 equation
   port_a.n_flow + port_b.n_flow = zeros(nC);
-  when {F_surplus<0.001,F_surplus>-0.001} then
+  when {F_surplus<F_tolerance,F_surplus>-F_tolerance} then
     tempConcentration = Cmolar_interface_gas;
   end when;
-  if F_surplus<0.001 and F_surplus>-0.001 then
+  if F_surplus<F_tolerance and F_surplus>-F_tolerance then
     port_b.C = tempConcentration;
   else
     port_b.C = Cmolar_interface_gas;
