@@ -118,6 +118,19 @@ model EvaporatingPool_thermochimica
         rotation=90,
         origin={50,22})));
 
+
+  TRANSFORM.Chemistry.Thermochimica.Models.ThermochimicaOffgas offgas(
+    showName=false,
+    nC=nC_salt,
+    use_T_start=false,
+    T_start=T_start_salt,
+    C_start={V_salt*rho/MM_salt*sum(moleFrac_start_salt[:].*relationMatrix_salt[i,:])
+                                                                                   for i in 1:nC_salt},
+    p_start=p_start_gas) annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={34,-44})));
+
   Fluid.Volumes.ExpansionTank_1Port volumeSalt(
     redeclare package Medium = Medium_salt,
     A=surfaceArea,
@@ -155,8 +168,9 @@ equation
     annotation (Line(points={{8.4,-20},{20,-20},{20,13}}, color={191,0,0}));
   connect(boundary_salt.ports[1], volumeSalt.port)
     annotation (Line(points={{-40,-40},{0,-40},{0,-28.4}}, color={0,127,255}));
-  connect(convection_mass.port_a, volumeSalt.traceMassPort)
-    annotation (Line(points={{50,15},{50,-25.8},{6,-25.8}}, color={0,140,72}));
+  connect(volumeSalt.traceMassPort, offgas.port_a)
+    annotation (Line(points={{6,-25.8},{18,-25.8},{18,-44},{27,-44}}, color={0,140,72}));
+  connect(offgas.port_b, convection_mass.port_a) annotation (Line(points={{41,-44},{50,-44},{50,15}}, color={0,140,72}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
