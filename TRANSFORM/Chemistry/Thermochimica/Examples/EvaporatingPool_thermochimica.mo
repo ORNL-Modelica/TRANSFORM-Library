@@ -103,12 +103,10 @@ model EvaporatingPool_thermochimica
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,20})));
-  Modelica.Blocks.Sources.Pulse          saltTemperature(
-    amplitude=100,
+  Modelica.Blocks.Sources.Pulse saltHeatInput(
+    amplitude=2e6,
     period=9500,
-    offset=T_start_salt,
-    startTime=500)
-    annotation (Placement(transformation(extent={{-98,-82},{-78,-62}})));
+    startTime=500) annotation (Placement(transformation(extent={{-98,-82},{-78,-62}})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Mass.Convection convection_mass(
     showName=false,
     nC=nC_salt,
@@ -123,11 +121,7 @@ model EvaporatingPool_thermochimica
     T=volumeSalt.Medium.temperature(volumeSalt.state_liquid),
     p=volumeSalt.Medium.pressure(volumeSalt.state_liquid),
     showName=false,
-    nC=nC_salt,
-    use_T_start=false,
-    T_start=T_start_salt,
-    C_start=C_salt_initial,
-    p_start=p_start_gas) annotation (Placement(transformation(
+    nC=nC_salt) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-34})));
@@ -142,6 +136,7 @@ model EvaporatingPool_thermochimica
         T_start_salt),
     C_start=C_salt_initial,
     use_HeatPort=true,
+    Q_gen=saltHeatInput.y,
     use_TraceMassPort=true,
     p_start=p_start_gas,
     p_surface=headSpace.port.p)
@@ -172,7 +167,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=50,
-      __Dymola_NumberOfIntervals=25,
+      StopTime=10000,
+      __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Dassl"));
 end EvaporatingPool_thermochimica;
