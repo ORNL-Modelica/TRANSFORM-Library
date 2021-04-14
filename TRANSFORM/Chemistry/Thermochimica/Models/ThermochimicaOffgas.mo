@@ -12,17 +12,7 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
       annotation (Dialog(group="Inputs"));
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 
-  parameter Boolean use_T_start=false annotation (Dialog(tab="Initialization"));
-  parameter SI.Temperature T_start=293.15
-    annotation (Dialog(tab="Initialization",enable=use_T_start));
-  parameter SI.Pressure p_start = 1e5 annotation(Dialog(tab="Initialization"));
-  parameter SIadd.ExtraProperty C_start[nC]=fill(0,nC)
-    "Mass-Specific value" annotation (Dialog(
-      tab="Initialization",
-      group="Start Value: Trace Substances",
-      enable=Medium.nC > 0));
   parameter Real F_tolerance = 1e-3;
-
 
     // Species tracked in the gas
   constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs"};
@@ -42,11 +32,10 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
   {0,0,0,0,0,0,1,1,2,0},
   {0,0,0,0,0,0,0,0,0,1}}
     "Element (row) to species (column) molar relation matrix";
-  Real partialPressureThermochimica[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T,p,mass_port_a.C,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";
+  Real moleFractionGas[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T,p,mass_port_a.C,atomicNumbers,speciesIndex) "Thermochimica-derived mole fractions";
+  SI.Pressure partialPressureThermochimica[nC_gas] = p*moleFractionGas "Thermochimica-derived partial pressures";
   SI.Concentration Cmolar_interface_gas[nC_salt]=
-       {p*
-    sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(partialPressureThermochimica[
-    :].*relationMatrix[i,:]))/(Modelica.Constants.R*T) for i in 1:nC_salt};
+       {sum(partialPressureThermochimica[:].*relationMatrix[i,:])/(Modelica.Constants.R*T) for i in 1:nC_salt};
   Real F_surplus = (2*mass_port_a.C[2] - sum(mass_port_a.C))/mass_port_a.C[2]; // Need to write function to find F concentration
   Real tempConcentration[nC_salt];
 equation
