@@ -26,7 +26,7 @@ package Functions
   end ResetThermoAll;
 
   function SetStandardUnits
-    external "FORTRAN 77" setstandardunits() annotation(Library={"thermochimica","gfortran"});
+    external "FORTRAN 77" setmodelicaunits() annotation(Library={"thermochimica","gfortran"});
   end SetStandardUnits;
 
   function ParseMSTDB
@@ -89,7 +89,7 @@ package Functions
       press,
       mass,
       elements);
-    TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
+    //TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(species,1) loop
       moleFraction[i] := TRANSFORM.Chemistry.Thermochimica.Functions.GetMoleFraction(species[i]);
     end for;

@@ -42,14 +42,9 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
   {0,0,0,0,0,0,1,1,2,0},
   {0,0,0,0,0,0,0,0,0,1}}
     "Element (row) to species (column) molar relation matrix";
-//   parameter Real partialPressureThermochimica_start[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T_start,p_start/1e5,C_start,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";
-  Real partialPressureThermochimica[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T,p_start/1e5,mass_port_a.C,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";
-//   parameter SI.Concentration Cmolar_start_interface_gas[nC_salt]={p_start*
-//       sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(
-//       partialPressureThermochimica_start[:].*relationMatrix[i,:]))/(Modelica.Constants.R*T_start)
-//       for i in 1:nC_salt};
+  Real partialPressureThermochimica[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T,p,mass_port_a.C,atomicNumbers,speciesIndex) "Thermochimica-derived initial partial pressures";
   SI.Concentration Cmolar_interface_gas[nC_salt]=
-       {p_start*
+       {p*
     sum(TRANSFORM.Units.Conversions.Functions.Pressure_Pa.from_atm(partialPressureThermochimica[
     :].*relationMatrix[i,:]))/(Modelica.Constants.R*T) for i in 1:nC_salt};
   Real F_surplus = (2*mass_port_a.C[2] - sum(mass_port_a.C))/mass_port_a.C[2]; // Need to write function to find F concentration
