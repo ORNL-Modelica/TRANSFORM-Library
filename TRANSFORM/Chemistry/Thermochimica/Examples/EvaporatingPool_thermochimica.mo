@@ -47,8 +47,8 @@ model EvaporatingPool_thermochimica
 
   parameter SIadd.ExtraProperty C_start_gas[nC_salt]=zeros(nC_salt) "Mass-Specific value";
 
-  parameter Real C_salt_initial[nC_salt] = {(moleFrac_start_salt[:]*relationMatrix_salt[i,:]) for i in 1:nC_salt};
-
+  parameter SIadd.ExtraProperty C_salt_initial[nC_salt] = {1/MM_salt*sum(moleFrac_start_salt[:].*relationMatrix_salt[i,:])
+                                                                                   for i in 1:nC_salt};
   constant SIadd.Mole unit_mole = 1.0;
 
   constant String saltNames[:] = {"LiF","NaF","KF","Cs","F2"};
@@ -67,7 +67,7 @@ model EvaporatingPool_thermochimica
 
   parameter SI.Volume V_salt = 10;
   parameter SI.Density rho = Medium_salt.density_pT(p_start_gas,T_start_salt);
-  SIadd.Mole C_salt[nC_salt];
+//   SIadd.Mole C_salt[nC_salt];
 
   TRANSFORM.Fluid.Volumes.SimpleVolume_1Port headSpace(
     showName=false,
@@ -120,16 +120,17 @@ model EvaporatingPool_thermochimica
 
 
   TRANSFORM.Chemistry.Thermochimica.Models.ThermochimicaOffgas offgas(
+    T=volumeSalt.Medium.temperature(volumeSalt.state_liquid),
+    p=volumeSalt.Medium.pressure(volumeSalt.state_liquid),
     showName=false,
     nC=nC_salt,
     use_T_start=false,
     T_start=T_start_salt,
-    C_start={V_salt*rho/MM_salt*sum(moleFrac_start_salt[:].*relationMatrix_salt[i,:])
-                                                                                   for i in 1:nC_salt},
+    C_start=C_salt_initial,
     p_start=p_start_gas) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={34,-44})));
+        origin={40,-34})));
 
   Fluid.Volumes.ExpansionTank_1Port volumeSalt(
     redeclare package Medium = Medium_salt,
@@ -139,38 +140,34 @@ model EvaporatingPool_thermochimica
     T_start=T_start_salt,
     h_start=volumeSalt.Medium.specificEnthalpy_pT(volumeSalt.p_start,
         T_start_salt),
-    C_start={V_salt*rho/MM_salt*sum(moleFrac_start_salt[:].*relationMatrix_salt[i,:])
-                                                                                     for i in 1:nC_salt},
+    C_start=C_salt_initial,
     use_HeatPort=true,
     use_TraceMassPort=true,
     p_start=p_start_gas,
-    p_surface=headSpace.port.p,
-    MMs=MM_i_salt)
+    p_surface=headSpace.port.p)
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
   Fluid.BoundaryConditions.MassFlowSource_T           boundary_salt(
     showName=false,
     redeclare package Medium = Medium_salt,
     T=T_start_salt,
     nPorts=1) annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-initial equation
-        for i in 1:nC_salt loop
-          C_salt[i]=V_salt*rho/MM_salt*sum(moleFrac_start_salt[:].*relationMatrix_salt[i,:]);
-        end for;
+// initial equation
+//     C_salt=C_salt_initial;
 equation
-        der(C_salt) =-convection_mass.port_a.n_flow;
+//     der(C_salt) =-convection_mass.port_a.n_flow;
   connect(boundary_gas.ports[1], headSpace.port)
     annotation (Line(points={{-40,40},{14,40}}, color={0,127,255}));
   connect(headSpace.heatPort, convection.port_b)
     annotation (Line(points={{20,34},{20,27}}, color={191,0,0}));
   connect(headSpace.traceMassPort, convection_mass.port_b)
     annotation (Line(points={{24,36},{50,36},{50,29}}, color={0,140,72}));
-  connect(volumeSalt.heatPort, convection.port_a)
-    annotation (Line(points={{8.4,-20},{20,-20},{20,13}}, color={191,0,0}));
   connect(boundary_salt.ports[1], volumeSalt.port)
     annotation (Line(points={{-40,-40},{0,-40},{0,-28.4}}, color={0,127,255}));
-  connect(volumeSalt.traceMassPort, offgas.port_a)
-    annotation (Line(points={{6,-25.8},{18,-25.8},{18,-44},{27,-44}}, color={0,140,72}));
-  connect(offgas.port_b, convection_mass.port_a) annotation (Line(points={{41,-44},{50,-44},{50,15}}, color={0,140,72}));
+  connect(volumeSalt.traceMassPort, offgas.mass_port_a)
+    annotation (Line(points={{6,-26},{6,-39},{33,-39}},           color={0,140,72}));
+  connect(convection_mass.port_a, offgas.mass_port_b) annotation (Line(points={{50,15},{50,-20},{54,-20},{54,-39},{47,-39}},
+                                                                                                           color={0,140,72}));
+  connect(volumeSalt.heatPort, convection.port_a) annotation (Line(points={{8.4,-20},{20,-20},{20,13}}, color={191,0,0}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

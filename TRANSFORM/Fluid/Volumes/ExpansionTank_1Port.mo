@@ -84,7 +84,7 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
     C = C .* Medium.density(state_liquid) ./ MMs,
     n_flow=mC_flow_internal ./ MMs) if                                                                                            use_TraceMassPort
     annotation (Placement(transformation(extent={{50,-70},{70,-50}}),
-        iconTransformation(extent={{50,-68},{70,-48}})));
+        iconTransformation(extent={{50,-70},{70,-50}})));
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   parameter SI.Length dheight = 0 "Elevation change in addition to liquid level (e.g., pipe connected to port)";
