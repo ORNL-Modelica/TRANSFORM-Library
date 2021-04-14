@@ -128,7 +128,7 @@ equation
   m = V*Medium.density(state_liquid);
   U = m*Medium.specificInternalEnergy(state_liquid);
   p - p_surface = Medium.density(state_liquid)*g_n*level;
-  mC = MMs.*C;
+  mC = m*C;
   if massDynamics == Dynamics.SteadyState then
     der(m) = 0;
     der(U) = 0;
