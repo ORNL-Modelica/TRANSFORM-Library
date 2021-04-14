@@ -1,7 +1,7 @@
 within TRANSFORM.Chemistry.Thermochimica.Models;
 model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived partial pressures"
   parameter Integer nC "Number of substances";
-  HeatAndMassTransfer.Interfaces.MolePort_State mass_port_a(nC=nC) annotation (Placement(transformation(
+  HeatAndMassTransfer.Interfaces.MolePort_Flow  mass_port_a(nC=nC) annotation (Placement(transformation(
           extent={{-80,-60},{-60,-40}}),iconTransformation(extent={{-80,-60},{-60,-40}})));
   HeatAndMassTransfer.Interfaces.MolePort_State mass_port_b(nC=nC) annotation (Placement(transformation(
           extent={{60,-60},{80,-40}}),iconTransformation(extent={{60,-60},{80,-40}})));
