@@ -32,13 +32,19 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
   {0,0,0,0,0,0,1,1,2,0},
   {0,0,0,0,0,0,0,0,0,1}}
     "Element (row) to species (column) molar relation matrix";
-  Real moleFractionGas[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T,p,mass_port_a.C,atomicNumbers,speciesIndex) "Thermochimica-derived mole fractions";
+  Boolean init;
+  Real moleFractionGas[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T,p,mass_port_a.C,atomicNumbers,speciesIndex,init) "Thermochimica-derived mole fractions";
   SI.Pressure partialPressureThermochimica[nC_gas] = p*moleFractionGas "Thermochimica-derived partial pressures";
   SI.Concentration Cmolar_interface_gas[nC_salt]=
        {sum(partialPressureThermochimica[:].*relationMatrix[i,:])/(Modelica.Constants.R*T) for i in 1:nC_salt};
   Real F_surplus = (2*mass_port_a.C[2] - sum(mass_port_a.C))/mass_port_a.C[2]; // Need to write function to find F concentration
   Real tempConcentration[nC_salt];
 equation
+  if time > 1 then
+    init = false;
+  else
+    init = true;
+  end if;
   mass_port_a.n_flow + mass_port_b.n_flow = zeros(nC);
   when {F_surplus<F_tolerance,F_surplus>-F_tolerance} then
     tempConcentration = Cmolar_interface_gas;
