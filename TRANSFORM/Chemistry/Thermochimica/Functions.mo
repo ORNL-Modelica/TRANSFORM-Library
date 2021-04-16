@@ -19,7 +19,7 @@ package Functions
     TRANSFORM.Chemistry.Thermochimica.Functions.SetReinitRequested(reinit);
     TRANSFORM.Chemistry.Thermochimica.Functions.Thermochimica();
     TRANSFORM.Chemistry.Thermochimica.Functions.SaveReinitData();
-    TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
+  //    TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
   end RunThermochimica;
 
   function Thermochimica
@@ -87,8 +87,11 @@ package Functions
     input Real[:] mass;
     input Integer[:] elements;
     input Integer[:] species;
+    input String[:] phaseNames;
     input Boolean init;
-    output Real[size(species,1)] moleFraction;
+    output Real[size(species,1)+size(phaseNames,1)] moleFraction;
+  protected
+    Integer ierr;
   algorithm
     if init then
       TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica();
@@ -98,9 +101,12 @@ package Functions
       press,
       mass,
       elements,1);
-    // TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
+  //  TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(species,1) loop
       moleFraction[i] := TRANSFORM.Chemistry.Thermochimica.Functions.GetMoleFraction(species[i]);
+    end for;
+    for i in 1:size(phaseNames,1) loop
+      (moleFraction[size(species,1)+i],ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseNames[i]);
     end for;
   end RunAndGetMoleFraction;
 

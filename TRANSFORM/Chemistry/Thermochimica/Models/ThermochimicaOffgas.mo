@@ -33,8 +33,11 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
   {0,0,0,0,0,0,0,0,0,1}}
     "Element (row) to species (column) molar relation matrix";
   Boolean init;
-  Real moleFractionGas[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T,p,mass_port_a.C,atomicNumbers,speciesIndex,init) "Thermochimica-derived mole fractions";
-  Real molesGas = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMolesPhase(T,p,mass_port_a.C,atomicNumbers,init,"gas_ideal") "Thermochimica-derived mole fractions";
+  constant String phaseNames[:]={"gas_ideal","LIQUsoln"};
+  constant Integer nPhase=size(phaseNames, 1) "Number of phases";
+  Real placeholder[nC_gas+nPhase] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T,p,mass_port_a.C,atomicNumbers,speciesIndex,phaseNames,init) "Thermochimica-derived mole fractions";
+  Real moleFractionGas[nC_gas] = {placeholder[i] for i in 1:nC_gas};
+  Real molesPhases[nPhase] = {placeholder[nC_gas+i] for i in 1:nPhase};
   SI.Pressure partialPressureThermochimica[nC_gas] = p*moleFractionGas "Thermochimica-derived partial pressures";
   SI.Concentration Cmolar_interface_gas[nC_salt]=
        {sum(partialPressureThermochimica[:].*relationMatrix[i,:])/(Modelica.Constants.R*T) for i in 1:nC_salt};
