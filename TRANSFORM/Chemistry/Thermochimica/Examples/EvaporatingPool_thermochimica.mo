@@ -104,7 +104,7 @@ model EvaporatingPool_thermochimica
         rotation=90,
         origin={20,20})));
   Modelica.Blocks.Sources.Pulse saltHeatInput(
-    amplitude=2e6,
+    amplitude=8e6,
     period=9500,
     startTime=500) annotation (Placement(transformation(extent={{-98,-82},{-78,-62}})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Mass.Convection convection_mass(
@@ -147,6 +147,7 @@ model EvaporatingPool_thermochimica
     T=T_start_salt,
     nPorts=1) annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
 // initial equation
+//    TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica();
 //     C_salt=C_salt_initial;
 equation
 //     der(C_salt) =-convection_mass.port_a.n_flow;
@@ -167,7 +168,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=10000,
+      StopTime=2000,
       __Dymola_NumberOfIntervals=5000,
       __Dymola_Algorithm="Dassl"));
 end EvaporatingPool_thermochimica;

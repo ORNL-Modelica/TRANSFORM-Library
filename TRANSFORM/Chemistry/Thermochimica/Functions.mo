@@ -1,11 +1,14 @@
 within TRANSFORM.Chemistry.Thermochimica;
 package Functions
 
-  function runThermochimica
+  function RunThermochimica
     import Thermochimica;
     input Real temp, pres;
     input Real[:] mass;
     input Integer[:] elements;
+    input Integer reinit = 0;
+  protected
+    Integer ierr;
   algorithm
     TRANSFORM.Chemistry.Thermochimica.Functions.SetStandardUnits();
     TRANSFORM.Chemistry.Thermochimica.Functions.ResetThermo();
@@ -13,10 +16,11 @@ package Functions
     for i in 1:size(mass,1) loop
       TRANSFORM.Chemistry.Thermochimica.Functions.SetElementMass(elements[i],mass[i]);
     end for;
-    TRANSFORM.Chemistry.Thermochimica.Functions.SetReinitRequested(1);
+    TRANSFORM.Chemistry.Thermochimica.Functions.SetReinitRequested(reinit);
     TRANSFORM.Chemistry.Thermochimica.Functions.Thermochimica();
     TRANSFORM.Chemistry.Thermochimica.Functions.SaveReinitData();
-  end runThermochimica;
+    TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
+  end RunThermochimica;
 
   function Thermochimica
   external "FORTRAN 77" thermochimica() annotation(Library={"thermochimica","gfortran"});
@@ -52,7 +56,7 @@ package Functions
     input Integer[:] elements;
     output Real[size(mass,1)] mu;
   algorithm
-    TRANSFORM.Chemistry.Thermochimica.Functions.runThermochimica(
+    TRANSFORM.Chemistry.Thermochimica.Functions.RunThermochimica(
       temp,
       press,
       mass,
@@ -89,11 +93,11 @@ package Functions
     if init then
       TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica();
     end if;
-    TRANSFORM.Chemistry.Thermochimica.Functions.runThermochimica(
+    TRANSFORM.Chemistry.Thermochimica.Functions.RunThermochimica(
       temp,
       press,
       mass,
-      elements);
+      elements,1);
     // TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(species,1) loop
       moleFraction[i] := TRANSFORM.Chemistry.Thermochimica.Functions.GetMoleFraction(species[i]);
@@ -111,7 +115,7 @@ package Functions
 
   function CheckInfoC
     output Integer ierr;
-  external "C" checkinfothermo(ierr) annotation(Library={"thermoc"});
+  external "C" checkinfothermo_(ierr) annotation(Library={"thermoc"});
   end CheckInfoC;
 
   function SetReinitRequested
@@ -137,4 +141,34 @@ package Functions
     TRANSFORM.Chemistry.Thermochimica.Functions.ResetThermoAll();
     TRANSFORM.Chemistry.Thermochimica.Functions.ParseMSTDB();
   end InitThermochimica;
+
+  function GetMolesPhase
+    input String phaseName;
+    output Real molesPhase;
+    output Integer ierr;
+  external "C" GetSolnPhaseMol(phaseName,molesPhase,ierr) annotation(Library={"thermoc"});
+  end GetMolesPhase;
+
+  function RunAndGetMolesPhase
+    import runThermochimica;
+    input Real temp;
+    input Real press;
+    input Real[:] mass;
+    input Integer[:] elements;
+    input Boolean init;
+    input String phaseName;
+    output Real molesGas;
+  protected
+    Integer ierr;
+  algorithm
+    if init then
+      TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica();
+    end if;
+    TRANSFORM.Chemistry.Thermochimica.Functions.RunThermochimica(
+      temp,
+      press,
+      mass,
+      elements,1);
+    (molesGas,ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseName);
+  end RunAndGetMolesPhase;
 end Functions;

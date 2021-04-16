@@ -34,6 +34,7 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
     "Element (row) to species (column) molar relation matrix";
   Boolean init;
   Real moleFractionGas[nC_gas] = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(T,p,mass_port_a.C,atomicNumbers,speciesIndex,init) "Thermochimica-derived mole fractions";
+  Real molesGas = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMolesPhase(T,p,mass_port_a.C,atomicNumbers,init,"gas_ideal") "Thermochimica-derived mole fractions";
   SI.Pressure partialPressureThermochimica[nC_gas] = p*moleFractionGas "Thermochimica-derived partial pressures";
   SI.Concentration Cmolar_interface_gas[nC_salt]=
        {sum(partialPressureThermochimica[:].*relationMatrix[i,:])/(Modelica.Constants.R*T) for i in 1:nC_salt};
