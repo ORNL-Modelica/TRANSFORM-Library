@@ -146,11 +146,7 @@ model EvaporatingPool_thermochimica
     redeclare package Medium = Medium_salt,
     T=T_start_salt,
     nPorts=1) annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-// initial equation
-//    TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica();
-//     C_salt=C_salt_initial;
 equation
-//     der(C_salt) =-convection_mass.port_a.n_flow;
   connect(boundary_gas.ports[1], headSpace.port)
     annotation (Line(points={{-40,40},{14,40}}, color={0,127,255}));
   connect(headSpace.heatPort, convection.port_b)
@@ -168,7 +164,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(
-      StopTime=2000,
-      __Dymola_NumberOfIntervals=5000,
+      StopTime=20000,
+      __Dymola_NumberOfIntervals=10000,
       __Dymola_Algorithm="Dassl"));
 end EvaporatingPool_thermochimica;
