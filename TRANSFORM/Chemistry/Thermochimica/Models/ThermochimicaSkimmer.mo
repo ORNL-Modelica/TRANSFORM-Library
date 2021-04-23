@@ -15,9 +15,9 @@ model ThermochimicaSkimmer "Off-gas separator based on Thermochimica-derived par
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 
   // Species tracked in the salt
-  constant String extraPropertiesNames_salt[:]={"Li","F","Na","K","Pu"};
+  constant String extraPropertiesNames_salt[:]={"Li","F","Na","K","U","Pu"};
   constant Integer nC_salt=size(extraPropertiesNames_salt, 1) "Number of species";
-  constant Integer atomicNumbers[nC_salt]={3,9,11,19,94};
+  constant Integer atomicNumbers[nC_salt]={3,9,11,19,92,94};
 
   Boolean init;
   constant String filename="/home/max/proj/thermochimica/data/MSAX+CationVacancies.dat";

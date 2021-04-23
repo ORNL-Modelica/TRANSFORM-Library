@@ -11,14 +11,14 @@ model EvaporatingPoolSkimmer_thermochimica
   parameter SI.Area surfaceArea = Modelica.Constants.pi*1^2;
 
   // Species tracked in the salt
-  constant String extraPropertiesNames_salt[:]={"Li","F","Na","K","Pu"};
+  constant String extraPropertiesNames_salt[:]={"Li","F","Na","K","U","Pu"};
   constant Integer nC_salt=size(extraPropertiesNames_salt, 1) "Number of species";
-  constant Integer atomicNumbers[nC_salt]={3,9,11,19,94};
+  constant Integer atomicNumbers[nC_salt]={3,9,11,19,92,94};
 
   parameter SI.MolarMass MM_i_salt[nC_salt]={TRANSFORM.PeriodicTable.CalculateMolarMass(extraPropertiesNames_salt[
       i]) for i in 1:nC_salt} "Molecular weight of species";
 
-  parameter SI.Temperature T_start_salt=585 + 273.15 "Initial temperature";
+  parameter SI.Temperature T_start_salt=550 + 273.15 "Initial temperature";
 
   parameter SI.AbsolutePressure p_start_gas=1e5 "Initial head space pressure";
 
@@ -28,23 +28,23 @@ model EvaporatingPoolSkimmer_thermochimica
                                                                                    for i in 1:nC_salt};
   constant SIadd.Mole unit_mole = 1.0;
 
-  constant String saltNames[:] = {"LiF","NaF","KF","PuF3"};
+  constant String saltNames[:] = {"LiF","NaF","KF","UF3","UF4","PuF3"};
   constant Integer nC_saltNames=size(saltNames, 1) "Number of species";
-    constant Real relationMatrix_salt[nC_salt,nC_saltNames]=
+  constant Real relationMatrix_salt[nC_salt,nC_saltNames]=
   {
-  {1,0,0,0},
-  {1,1,1,3},
-  {0,1,0,0},
-  {0,0,1,0},
-  {0,0,0,1}}
-    "Element (row) to species (column) molar relation matrix";
+  {1,0,0,0,0,0},
+  {1,1,1,3,4,3},
+  {0,1,0,0,0,0},
+  {0,0,1,0,0,0},
+  {0,0,0,1,1,0},
+  {0,0,0,0,0,1}}
+     "Element (row) to species (column) molar relation matrix";
 
-  parameter SI.MoleFraction moleFrac_start_salt[nC_saltNames] = {0.4185,0.1035,0.378,0.1};
+   parameter SI.MoleFraction moleFrac_start_salt[nC_saltNames] = {0.4185,0.1035,0.378,0.0001,0.0099,0.09};
   parameter SI.MolarMass MM_salt = TRANSFORM.PeriodicTable.CalculateMolarMass_MoleFractionBased(saltNames,moleFrac_start_salt);
 
   parameter SI.Volume V_salt = 10;
   parameter SI.Density rho = Medium_salt.density_pT(p_start_gas,T_start_salt);
-//   SIadd.Mole C_salt[nC_salt];
 
   Modelica.Blocks.Sources.RealExpression p_gas(y=p_start_gas)
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
@@ -90,7 +90,7 @@ model EvaporatingPoolSkimmer_thermochimica
         extent={{-10,36},{10,56}},
         rotation=180,
         origin={0,12})));
-  Modelica.Blocks.Sources.RealExpression m_flow_pump_PFL(y=2*3*data_PHX.m_flow_tube/(1 - x_bypass.y))
+  Modelica.Blocks.Sources.RealExpression m_flow_pump_PFL(y=data_PHX.m_flow_tube/(1 - x_bypass.y))
     annotation (Placement(transformation(extent={{44,56},{24,76}})));
   Modelica.Blocks.Sources.Constant x_bypass(k=0.1)
     annotation (Placement(transformation(extent={{-98,58},{-78,78}})));
