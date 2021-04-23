@@ -82,6 +82,7 @@ package Functions
 
   function RunAndGetMoleFraction
     import runThermochimica;
+    input String filename;
     input Real temp;
     input Real press;
     input Real[:] mass;
@@ -94,7 +95,7 @@ package Functions
     Integer ierr;
   algorithm
     if init then
-      TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica();
+      TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica(filename);
     end if;
     TRANSFORM.Chemistry.Thermochimica.Functions.RunThermochimica(
       temp,
@@ -142,10 +143,11 @@ package Functions
   end ResetThermo;
 
   function InitThermochimica
-
+    input String filename;
   algorithm
     TRANSFORM.Chemistry.Thermochimica.Functions.ResetThermoAll();
-    TRANSFORM.Chemistry.Thermochimica.Functions.ParseMSTDB();
+     TRANSFORM.Chemistry.Thermochimica.Functions.SetThermoFilename(filename);
+     TRANSFORM.Chemistry.Thermochimica.Functions.ParseDataFile();
   end InitThermochimica;
 
   function GetMolesPhase
@@ -157,6 +159,7 @@ package Functions
 
   function RunAndGetMolesPhase
     import runThermochimica;
+    input String filename;
     input Real temp;
     input Real press;
     input Real[:] mass;
@@ -168,7 +171,7 @@ package Functions
     Integer ierr;
   algorithm
     if init then
-      TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica();
+      TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica(filename);
     end if;
     TRANSFORM.Chemistry.Thermochimica.Functions.RunThermochimica(
       temp,
@@ -177,4 +180,56 @@ package Functions
       elements,1);
     (molesGas,ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseName);
   end RunAndGetMolesPhase;
+
+  function SetThermoFilename
+    input String filename;
+  external "C" SetThermoFilename(filename) annotation(Library={"thermoc"});
+  end SetThermoFilename;
+
+  function ParseDataFile
+  external "FORTRAN 77" ssparsecsdatafile() annotation(Library={"thermochimica","gfortran"});
+  end ParseDataFile;
+
+  function RunAndGetMolesFluid
+    import runThermochimica;
+    input String filename;
+    input Real temp;
+    input Real press;
+    input Real[:] mass;
+    input Integer[:] elements;
+    input String[:] elementNames;
+    input String[:] phaseNames;
+    input Boolean init;
+    output Real[size(elements,1)+size(phaseNames,1)] moles;
+  protected
+    Integer ierr;
+    Real moleGas;
+    Real moleLiq;
+  algorithm
+    if init then
+      TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica(filename);
+    end if;
+    TRANSFORM.Chemistry.Thermochimica.Functions.RunThermochimica(
+      temp,
+      press,
+      mass,
+      elements,1);
+  //  TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
+    for i in 1:size(elementNames,1) loop
+      (moleGas,ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMolesInPhase(elementNames[i],"gas_ideal");
+      (moleLiq,ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMolesInPhase(elementNames[i],"LIQUsoln");
+      moles[i] := moleGas + moleLiq;
+    end for;
+    for i in 1:size(phaseNames,1) loop
+      (moles[size(elementNames,1)+i],ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseNames[i]);
+    end for;
+  end RunAndGetMolesFluid;
+
+  function GetElementMolesInPhase
+    input String elementName;
+    input String phaseName;
+    output Real molesElement;
+    output Integer ierr;
+  external "C" GetElementMolesInPhase(elementName, phaseName, molesElement, ierr) annotation(Library={"thermoc"});
+  end GetElementMolesInPhase;
 end Functions;
