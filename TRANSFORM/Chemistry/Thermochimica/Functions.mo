@@ -81,7 +81,6 @@ package Functions
   end GetMoleFraction;
 
   function RunAndGetMoleFraction
-    import runThermochimica;
     input String filename;
     input Real temp;
     input Real press;
@@ -90,7 +89,8 @@ package Functions
     input Integer[:] species;
     input String[:] phaseNames;
     input Boolean init;
-    output Real[size(species,1)+size(phaseNames,1)] moleFraction;
+    output TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput(redeclare SIadd.ExtraProperty C[size(elements,1)], redeclare Real gasSpecies[size(species,1)], redeclare Real molesPhases[size(phaseNames,1)]);
+    //output Real[size(species,1)+size(phaseNames,1)] moleFraction;
   protected
     Integer ierr;
   algorithm
@@ -104,10 +104,10 @@ package Functions
       elements,1);
   //  TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(species,1) loop
-      moleFraction[i] := TRANSFORM.Chemistry.Thermochimica.Functions.GetMoleFraction(species[i]);
+      thermochimicaOutput.gasSpecies[i] := TRANSFORM.Chemistry.Thermochimica.Functions.GetMoleFraction(species[i]);
     end for;
     for i in 1:size(phaseNames,1) loop
-      (moleFraction[size(species,1)+i],ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseNames[i]);
+      (thermochimicaOutput.molesPhases[i],ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseNames[i]);
     end for;
   end RunAndGetMoleFraction;
 
@@ -191,7 +191,6 @@ package Functions
   end ParseDataFile;
 
   function RunAndGetMolesFluid
-    import runThermochimica;
     input String filename;
     input Real temp;
     input Real press;
@@ -200,7 +199,7 @@ package Functions
     input String[:] elementNames;
     input String[:] phaseNames;
     input Boolean init;
-    output TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput(redeclare SIadd.ExtraProperty C[size(elementNames,1)],redeclare Real molesPhases[size(phaseNames,1)]);
+    output TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput(redeclare SIadd.ExtraProperty C[size(elementNames,1)],redeclare Real gasSpecies[0],redeclare Real molesPhases[size(phaseNames,1)]);
     //output Real[size(elements,1)+size(phaseNames,1)] moles;
 
   protected
