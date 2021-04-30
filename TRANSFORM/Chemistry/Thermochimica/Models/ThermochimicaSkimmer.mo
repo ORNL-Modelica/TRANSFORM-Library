@@ -26,6 +26,8 @@ model ThermochimicaSkimmer "Off-gas separator based on Thermochimica-derived par
   constant String filename="/home/max/proj/thermochimica/data/MSAX+CationVacancies.dat";
   constant String phaseNames[:]={"gas_ideal","LIQUsoln"};
 
+  parameter SIadd.ExtraProperty C_start[Medium.nC]=fill(0,Medium.nC) annotation (Dialog(tab="Initialization"));
+
   TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput=
       TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMolesFluid(
       filename,
@@ -37,11 +39,11 @@ model ThermochimicaSkimmer "Off-gas separator based on Thermochimica-derived par
       phaseNames,
       init) "Thermochimica-derived mole fractions";
 
-  SIadd.ExtraProperty C_input[Medium.nC]={Modelica.Fluid.Utilities.regStep(
-      port_a.m_flow,
-      port_b.C_outflow[i],
-      port_a.C_outflow[i],
-      m_flow_small) for i in 1:Medium.nC} "Trace substance mass-specific value";
+   SIadd.ExtraProperty C_input[Medium.nC](start=C_start)={Modelica.Fluid.Utilities.regStep(
+       port_a.m_flow,
+       port_b.C_outflow[i],
+       port_a.C_outflow[i],
+       m_flow_small) for i in 1:Medium.nC} "Trace substance mass-specific value";
 
 protected
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
