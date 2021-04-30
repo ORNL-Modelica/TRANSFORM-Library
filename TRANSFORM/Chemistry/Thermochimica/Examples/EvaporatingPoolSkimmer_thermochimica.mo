@@ -62,7 +62,9 @@ model EvaporatingPoolSkimmer_thermochimica
   TRANSFORM.Chemistry.Thermochimica.Models.ThermochimicaSkimmer skimmer(
     redeclare package Medium = Medium_salt,
     showName=false,
-    atomicNumbers={3,9,11,19,92,94})
+    atomicNumbers={3,9,11,19,92,94},
+    C_start=C_salt_initial,
+    C_input=volumeSalt.C)
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
