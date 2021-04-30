@@ -195,12 +195,14 @@ package Functions
     input String filename;
     input Real temp;
     input Real press;
-    input Real[:] mass;
-    input Integer[:] elements;
+    input Real[size(elementNames,1)] mass;
+    input Integer[size(elementNames,1)] elements;
     input String[:] elementNames;
     input String[:] phaseNames;
     input Boolean init;
-    output Real[size(elements,1)+size(phaseNames,1)] moles;
+    output TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput(redeclare SIadd.ExtraProperty C[size(elementNames,1)],redeclare Real molesPhases[size(phaseNames,1)]);
+    //output Real[size(elements,1)+size(phaseNames,1)] moles;
+
   protected
     Integer ierr;
     Real moleGas;
@@ -218,10 +220,10 @@ package Functions
     for i in 1:size(elementNames,1) loop
       (moleGas,ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMolesInPhase(elementNames[i],"gas_ideal");
       (moleLiq,ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMolesInPhase(elementNames[i],"LIQUsoln");
-      moles[i] := moleGas + moleLiq;
+      thermochimicaOutput.C[i] := moleGas + moleLiq;
     end for;
     for i in 1:size(phaseNames,1) loop
-      (moles[size(elementNames,1)+i],ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseNames[i]);
+      (thermochimicaOutput.molesPhases[i],ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseNames[i]);
     end for;
   end RunAndGetMolesFluid;
 

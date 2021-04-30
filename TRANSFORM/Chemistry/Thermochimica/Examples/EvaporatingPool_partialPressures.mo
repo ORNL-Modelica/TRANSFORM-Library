@@ -85,8 +85,8 @@ model EvaporatingPool_partialPressures
     T_start=T_start_gas,
     C_start=C_start_gas,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder
-        (length=length.y, crossArea=surfaceArea.y),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder (
+         length=length.y, crossArea=surfaceArea.y),
     use_HeatPort=true,
     use_TraceMassPort=true,
     MMs=if use_AtomBased then fill(Modelica.Constants.N_A, nC_salt) else fill(1.0,

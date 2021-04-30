@@ -60,13 +60,10 @@ model EvaporatingPoolSkimmer_thermochimica
     startTime=500) annotation (Placement(transformation(extent={{-98,-82},{-78,-62}})));
 
   TRANSFORM.Chemistry.Thermochimica.Models.ThermochimicaSkimmer skimmer(
-    T=volumeSalt.Medium.temperature(volumeSalt.state_liquid),
-    p=volumeSalt.Medium.pressure(volumeSalt.state_liquid),
-    R=1,
+    redeclare package Medium = Medium_salt,
     showName=false,
-    nC=nC_salt,
-    C_start=C_salt_initial,
-    Cin = volumeSalt.C) annotation (Placement(transformation(
+    atomicNumbers={3,9,11,19,92,94})
+                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-54,-6})));
@@ -99,10 +96,11 @@ model EvaporatingPoolSkimmer_thermochimica
     annotation (Placement(transformation(extent={{-62,62},{-42,82}})));
 equation
   connect(pump_PFL.port_b, volumeSalt.port_a) annotation (Line(points={{10,38},{14,38},{14,-28},{7,-28}}, color={0,127,255}));
-  connect(volumeSalt.port_b, skimmer.port_a) annotation (Line(points={{-7,-28},{-58,-28},{-58,-20},{-61,-20},{-61,-12}},
-                                                                                                             color={0,127,255}));
+  connect(volumeSalt.port_b, skimmer.port_a) annotation (Line(points={{-7,-28},{-58,-28},{-58,-20},{
+          -64,-20},{-64,-6}},                                                                                color={0,127,255}));
   connect(m_flow_pump_PFL.y, pump_PFL.in_m_flow) annotation (Line(points={{23,66},{0,66},{0,45.3}}, color={0,0,127}));
-  connect(skimmer.port_b, pump_PFL.port_a) annotation (Line(points={{-47,-12},{-16,-12},{-16,38},{-10,38}}, color={0,127,255}));
+  connect(skimmer.port_b, pump_PFL.port_a) annotation (Line(points={{-44,-6},{-16,-6},{-16,38},{-10,
+          38}},                                                                                             color={0,127,255}));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
