@@ -118,10 +118,15 @@ model EvaporatingPool_thermochimica
 
 
   TRANSFORM.Chemistry.Thermochimica.Models.ThermochimicaOffgas offgas(
+    redeclare package Medium = Medium_salt,
     T=volumeSalt.Medium.temperature(volumeSalt.state_liquid),
     p=volumeSalt.Medium.pressure(volumeSalt.state_liquid),
-    showName=false,
-    nC=nC_salt) annotation (Placement(transformation(
+    atomicNumbers=atomicNumbers,
+    extraPropertiesNames_gas=extraPropertiesNames_gas,
+    nC_gas=nC_gas,
+    speciesIndex=speciesIndex,
+    relationMatrix=relationMatrix,
+    showName=false) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,-34})));
