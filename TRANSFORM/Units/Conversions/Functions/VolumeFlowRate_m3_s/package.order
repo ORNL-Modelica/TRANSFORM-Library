@@ -4,3 +4,5 @@ to_m3_s
 from_m3_s
 to_gpm
 from_gpm
+from_ft3_min
+to_ft3_min

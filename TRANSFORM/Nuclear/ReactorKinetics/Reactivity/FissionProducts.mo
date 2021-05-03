@@ -8,11 +8,11 @@ model FissionProducts
     TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   Data data;
-  parameter Integer nC=data.nC "# of fission products";
-  parameter Integer nFS=data.nFS "# of fission product sources";
-  parameter Integer nT=data.nT
+  final parameter Integer nC=data.nC "# of fission products";
+  final parameter Integer nFS=data.nFS "# of fission product sources";
+  final parameter Integer nT=data.nT
     "# of fission product types (e.g., fast/thermal)";
-  parameter Real[nC,nC] parents=data.parents
+  final parameter Real[nC,nC] parents=data.parents
     "Matrix of parent-daughter sources";
   parameter Integer nC_add=0
     "# of additional substances (i.e., trace fluid substances)";

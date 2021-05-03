@@ -21,6 +21,7 @@ model TeeJunctionVolume
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_3(
     redeclare package Medium=Medium)
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
+
 equation
   // Only one connection allowed to a port to avoid unwanted ideal mixing
   assert(cardinality(port_1) <= 1,"

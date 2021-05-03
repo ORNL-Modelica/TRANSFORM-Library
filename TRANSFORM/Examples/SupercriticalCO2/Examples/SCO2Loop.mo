@@ -1,7 +1,7 @@
 within TRANSFORM.Examples.SupercriticalCO2.Examples;
 model SCO2Loop
   extends TRANSFORM.Icons.Example;
-  package Medium = ExternalMedia.Examples.CO2CoolProp(p_default=8e6);  //Requires VS2012 compiler option
+  package Medium = TRANSFORM.Media.ExternalMedia.CoolProp.CarbonDioxide(p_default=8e6);
   package Medium_salt =
       TRANSFORM.Media.Fluids.KClMgCl2.LinearKClMgCl2_67_33_pT;
   Data.Data_Basic data
