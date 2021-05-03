@@ -238,4 +238,11 @@ package Functions
     output Integer number;
   external "C" number=atomicNumber(elementName) annotation(Library={"thermoc"});
   end AtomicNumber;
+
+  function SIZZZAAA2AtomicNumber
+    input Integer SIZZZAAA;
+    output Integer AtomicNumber;
+  algorithm
+    AtomicNumber :=integer((mod(SIZZZAAA, 1000000) - mod(SIZZZAAA, 1000))/1000);
+  end SIZZZAAA2AtomicNumber;
 end Functions;
