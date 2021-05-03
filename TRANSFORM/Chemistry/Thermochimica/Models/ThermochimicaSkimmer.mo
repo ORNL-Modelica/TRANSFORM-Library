@@ -41,6 +41,8 @@ model ThermochimicaSkimmer "Off-gas separator based on Thermochimica-derived par
        port_a.C_outflow[i],
        m_flow_small) for i in 1:Medium.nC} "Trace substance mass-specific value";
 
+  Real m_skimmed[Medium.nC](start=fill(0,Medium.nC));
+
 protected
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
   Medium.Temperature T_b_inflow
@@ -72,6 +74,8 @@ equation
   port_b.C_outflow = thermochimicaOutput.C;
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
+
+  der(m_skimmed) = (C_input - thermochimicaOutput.C) * port_a.m_flow;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
           preserveAspectRatio=false)));
