@@ -5,16 +5,18 @@ package Functions
     import Thermochimica;
     input Real temp, pres;
     input Real[:] mass;
-    input Integer[:] elements;
+    input String[:] elements;
     input Integer reinit = 0;
   protected
     Integer ierr;
+    Integer atomicNumber;
   algorithm
     TRANSFORM.Chemistry.Thermochimica.Functions.SetStandardUnits();
     TRANSFORM.Chemistry.Thermochimica.Functions.ResetThermo();
     TRANSFORM.Chemistry.Thermochimica.Functions.SetTemperaturePressure(temp,pres);
     for i in 1:size(mass,1) loop
-      TRANSFORM.Chemistry.Thermochimica.Functions.SetElementMass(elements[i],mass[i]);
+      atomicNumber:=TRANSFORM.Chemistry.Thermochimica.Functions.AtomicNumber(elements[i]);
+      TRANSFORM.Chemistry.Thermochimica.Functions.SetElementMass(atomicNumber,mass[i]);
     end for;
     TRANSFORM.Chemistry.Thermochimica.Functions.SetReinitRequested(reinit);
     TRANSFORM.Chemistry.Thermochimica.Functions.Thermochimica();
@@ -85,7 +87,7 @@ package Functions
     input Real temp;
     input Real press;
     input Real[:] mass;
-    input Integer[:] elements;
+    input String[:] elements;
     input Integer[:] species;
     input String[:] phaseNames;
     input Boolean init;
@@ -195,13 +197,10 @@ package Functions
     input Real temp;
     input Real press;
     input Real[size(elementNames,1)] mass;
-    input Integer[size(elementNames,1)] elements;
     input String[:] elementNames;
     input String[:] phaseNames;
     input Boolean init;
     output TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput(redeclare SIadd.ExtraProperty C[size(elementNames,1)],redeclare Real gasSpecies[0],redeclare Real molesPhases[size(phaseNames,1)]);
-    //output Real[size(elements,1)+size(phaseNames,1)] moles;
-
   protected
     Integer ierr;
     Real moleGas;
@@ -214,7 +213,7 @@ package Functions
       temp,
       press,
       mass,
-      elements,1);
+      elementNames,1);
   //  TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(elementNames,1) loop
       (moleGas,ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMolesInPhase(elementNames[i],"gas_ideal");
@@ -233,4 +232,10 @@ package Functions
     output Integer ierr;
   external "C" GetElementMolesInPhase(elementName, phaseName, molesElement, ierr) annotation(Library={"thermoc"});
   end GetElementMolesInPhase;
+
+  function AtomicNumber
+    input String elementName;
+    output Integer number;
+  external "C" number=atomicNumber(elementName) annotation(Library={"thermoc"});
+  end AtomicNumber;
 end Functions;

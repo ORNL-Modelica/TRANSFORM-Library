@@ -17,8 +17,6 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
   parameter String extraPropertiesNames_gas[:];
   parameter Integer nC_gas "Number of gas species";
   parameter Integer speciesIndex[nC_gas];
-  // Species tracked in the salt
-  parameter Integer atomicNumbers[Medium.nC]=fill(1,Medium.nC);
 
   // Method to relate gas species to salt species
   parameter Real relationMatrix[Medium.nC,nC_gas] "Element (row) to species (column) molar relation matrix";
@@ -26,7 +24,7 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
   constant String filename="/home/max/proj/thermochimica/data/MSAX+CationVacancies.dat";
   constant String phaseNames[:]={"gas_ideal","LIQUsoln"};
   constant Integer nPhase=size(phaseNames, 1) "Number of phases";
-  TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(filename,T,p,mass_port_a.C,atomicNumbers,speciesIndex,phaseNames,init) "Thermochimica-derived mole fractions";
+  TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMoleFraction(filename,T,p,mass_port_a.C,Medium.extraPropertiesNames,speciesIndex,phaseNames,init) "Thermochimica-derived mole fractions";
   SI.Pressure partialPressureThermochimica[nC_gas] = p*thermochimicaOutput.gasSpecies "Thermochimica-derived partial pressures";
   SI.Concentration Cmolar_interface_gas[Medium.nC]=
        {sum(partialPressureThermochimica[:].*relationMatrix[i,:])/(Modelica.Constants.R*T) for i in 1:Medium.nC};

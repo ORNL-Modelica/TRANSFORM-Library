@@ -19,9 +19,6 @@ model ThermochimicaSkimmer "Off-gas separator based on Thermochimica-derived par
   parameter Medium.MassFlowRate m_flow_small(min=0) = 1e-4
     "Regularization for zero flow:|m_flow| < m_flow_small" annotation (Dialog(tab="Advanced"));
 
-  // Species tracked in the salt
-  parameter Integer atomicNumbers[Medium.nC]=fill(1,Medium.nC);
-
   Boolean init;
   constant String filename="/home/max/proj/thermochimica/data/MSAX+CationVacancies.dat";
   constant String phaseNames[:]={"gas_ideal","LIQUsoln"};
@@ -34,7 +31,6 @@ model ThermochimicaSkimmer "Off-gas separator based on Thermochimica-derived par
       T,
       port_a.p,
       C_input,
-      atomicNumbers,
       Medium.extraPropertiesNames,
       phaseNames,
       init) "Thermochimica-derived mole fractions";

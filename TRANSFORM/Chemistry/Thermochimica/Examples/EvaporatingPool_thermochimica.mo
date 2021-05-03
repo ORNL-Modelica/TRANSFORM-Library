@@ -121,7 +121,6 @@ model EvaporatingPool_thermochimica
     redeclare package Medium = Medium_salt,
     T=volumeSalt.Medium.temperature(volumeSalt.state_liquid),
     p=volumeSalt.Medium.pressure(volumeSalt.state_liquid),
-    atomicNumbers=atomicNumbers,
     extraPropertiesNames_gas=extraPropertiesNames_gas,
     nC_gas=nC_gas,
     speciesIndex=speciesIndex,
