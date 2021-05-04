@@ -77,7 +77,7 @@ model OffgasAndSkimmer_thermochimica
   Modelica.Blocks.Sources.RealExpression length(y=1)
     annotation (Placement(transformation(extent={{-100,-50},{-80,-30}})));
   Modelica.Blocks.Sources.Pulse saltHeatInput(
-    amplitude=-5e5,
+    amplitude=-0e5,
     period=9500,
     startTime=500) annotation (Placement(transformation(extent={{-98,-82},{-78,-62}})));
 
