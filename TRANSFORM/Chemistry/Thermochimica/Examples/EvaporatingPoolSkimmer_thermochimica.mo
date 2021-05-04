@@ -46,6 +46,8 @@ model EvaporatingPoolSkimmer_thermochimica
   parameter SI.Volume V_salt = 10;
   parameter SI.Density rho = Medium_salt.density_pT(p_start_gas,T_start_salt);
 
+  Real totalM[nC_salt] = skimmer.m_skimmed + volumeSalt.C*volumeSalt.m;
+
   Modelica.Blocks.Sources.RealExpression p_gas(y=p_start_gas)
     annotation (Placement(transformation(extent={{-100,30},{-80,50}})));
   Modelica.Blocks.Sources.RealExpression alpha(y=5)
