@@ -1,3 +1,3 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.OvenBrazing",stopTime=3000,numberOfIntervals=100,resultFile="OvenBrazing");
+simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.OvenBrazing",stopTime=3000,tolerance=1e-04,method="Dassl",numberOfIntervals=100,resultFile="OvenBrazing");
 
 createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
