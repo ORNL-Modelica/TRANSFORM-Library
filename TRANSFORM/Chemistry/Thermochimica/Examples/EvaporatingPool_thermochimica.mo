@@ -18,26 +18,8 @@ model EvaporatingPool_thermochimica
   constant Integer nC_salt=size(extraPropertiesNames_salt, 1) "Number of species";
   constant Integer atomicNumbers[nC_salt]={3,9,11,19,55};
 
-  // Species tracked in the gas
-  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs"};
-  constant Integer nC_gas=size(extraPropertiesNames_gas, 1) "Number of species";
-  constant Integer speciesIndex[nC_gas]={1,2,3,4,5,6,7,8,9,10};
-
-  // Method to relate gas species to salt species
-  constant Real relationMatrix[nC_salt,nC_gas]=
-  {
-  {1,1,0,0,0,0,0,0,0,0},
-  {0,1,0,1,2,3,0,1,2,0},
-  {0,0,1,1,2,3,0,0,0,0},
-  {0,0,0,0,0,0,1,1,2,0},
-  {0,0,0,0,0,0,0,0,0,1}}
-    "Element (row) to species (column) molar relation matrix";
-
   parameter SI.MolarMass MM_i_salt[nC_salt]={TRANSFORM.PeriodicTable.CalculateMolarMass(extraPropertiesNames_salt[
       i]) for i in 1:nC_salt} "Molecular weight of species";
-
-    parameter SI.MolarMass MM_i_gas[nC_gas]={TRANSFORM.PeriodicTable.CalculateMolarMass(extraPropertiesNames_gas[
-  i]) for i in 1:nC_gas} "Molecular weight of species";
 
   parameter SI.Temperature T_start_gas=500 + 273.15 "Initial temperature";
 
@@ -121,10 +103,6 @@ model EvaporatingPool_thermochimica
     redeclare package Medium = Medium_salt,
     T=volumeSalt.Medium.temperature(volumeSalt.state_liquid),
     p=volumeSalt.Medium.pressure(volumeSalt.state_liquid),
-    extraPropertiesNames_gas=extraPropertiesNames_gas,
-    nC_gas=nC_gas,
-    speciesIndex=speciesIndex,
-    relationMatrix=relationMatrix,
     showName=false) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

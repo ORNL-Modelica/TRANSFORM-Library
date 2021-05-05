@@ -88,11 +88,14 @@ package Functions
     input Real press;
     input Real[:] mass;
     input String[:] elements;
-    input Integer[:] species;
-    input String[:] phaseNames;
+    input String phaseName;
+    input String[:] species;
     input Boolean init;
-    output TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput(redeclare SIadd.ExtraProperty C[size(elements,1)], redeclare Real gasSpecies[size(species,1)], redeclare Real molesPhases[size(phaseNames,1)]);
-    //output Real[size(species,1)+size(phaseNames,1)] moleFraction;
+    output TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput(
+      redeclare SIadd.ExtraProperty C[size(elements,1)],
+      redeclare Real gasSpecies[size(species,1)],
+      redeclare Real molesPhases[1],
+      redeclare SI.Pressure partialPressure[0]);
   protected
     Integer ierr;
   algorithm
@@ -106,11 +109,9 @@ package Functions
       elements,1);
   //  TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(species,1) loop
-      thermochimicaOutput.gasSpecies[i] := TRANSFORM.Chemistry.Thermochimica.Functions.GetMoleFraction(species[i]);
+      thermochimicaOutput.gasSpecies[i] := TRANSFORM.Chemistry.Thermochimica.Functions.GetOutputMolSpeciesPhase(phaseName,species[i]);
     end for;
-    for i in 1:size(phaseNames,1) loop
-      (thermochimicaOutput.molesPhases[i],ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseNames[i]);
-    end for;
+    (thermochimicaOutput.molesPhases[1],ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseName);
   end RunAndGetMoleFraction;
 
   function PrintResults
@@ -200,11 +201,14 @@ package Functions
     input String[:] elementNames;
     input String[:] phaseNames;
     input Boolean init;
-    output TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput(redeclare SIadd.ExtraProperty C[size(elementNames,1)],redeclare Real gasSpecies[0],redeclare Real molesPhases[size(phaseNames,1)]);
+    output TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput(
+      redeclare SIadd.ExtraProperty C[size(elementNames,1)],
+      redeclare Real gasSpecies[0],
+      redeclare Real molesPhases[size(phaseNames,1)],
+      redeclare SI.Pressure partialPressure[0]);
   protected
     Integer ierr;
-    Real moleGas;
-    Real moleLiq;
+    Real[size(phaseNames,1)] mole;
   algorithm
     if init then
       TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica(filename);
@@ -216,9 +220,10 @@ package Functions
       elementNames,1);
   //  TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(elementNames,1) loop
-      (moleGas,ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMolesInPhase(elementNames[i],"gas_ideal");
-      (moleLiq,ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMolesInPhase(elementNames[i],"LIQUsoln");
-      thermochimicaOutput.C[i] := moleGas + moleLiq;
+      for j in 1:size(phaseNames,1) loop
+        (mole[j],ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMolesInPhase(elementNames[i],phaseNames[j]);
+      end for;
+      thermochimicaOutput.C[i] := sum(mole);
     end for;
     for i in 1:size(phaseNames,1) loop
       (thermochimicaOutput.molesPhases[i],ierr) :=TRANSFORM.Chemistry.Thermochimica.Functions.GetMolesPhase(phaseNames[i]);
@@ -245,4 +250,51 @@ package Functions
   algorithm
     AtomicNumber :=integer((mod(SIZZZAAA, 1000000) - mod(SIZZZAAA, 1000))/1000);
   end SIZZZAAA2AtomicNumber;
+
+  function GetOutputMolSpeciesPhase
+    input String phaseName;
+    input String speciesName;
+    output Real molesSpecies;
+    output Integer ierr;
+    external "C" GetOutputMolSpeciesPhase(phaseName, speciesName, molesSpecies, ierr) annotation(Library={"thermoc"});
+  end GetOutputMolSpeciesPhase;
+
+  function GetElementMoleFractionInPhase
+    input String elementName;
+    input String phaseName;
+    output Real molesElement;
+    output Integer ierr;
+  external "C" GetElementMoleFractionInPhase(elementName, phaseName, molesElement, ierr) annotation(Library={"thermoc"});
+  end GetElementMoleFractionInPhase;
+
+  function RunAndGetPartialPressure
+    input String filename;
+    input Real temp;
+    input SI.Pressure press;
+    input Real[size(elementNames,1)] mass;
+    input String[:] elementNames;
+    input Boolean init;
+    output TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput(
+      redeclare SI.Pressure partialPressure[size(elementNames,1)],
+      redeclare SIadd.ExtraProperty C[0],
+      redeclare Real gasSpecies[0],
+      redeclare Real molesPhases[0]);
+  protected
+    Integer ierr;
+    Real mole;
+  algorithm
+    if init then
+      TRANSFORM.Chemistry.Thermochimica.Functions.InitThermochimica(filename);
+    end if;
+    TRANSFORM.Chemistry.Thermochimica.Functions.RunThermochimica(
+      temp,
+      press,
+      mass,
+      elementNames,1);
+  //  TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
+    for i in 1:size(elementNames,1) loop
+      (mole,ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMoleFractionInPhase(elementNames[i],"gas_ideal");
+      thermochimicaOutput.partialPressure[i] := press*mole;
+    end for;
+  end RunAndGetPartialPressure;
 end Functions;

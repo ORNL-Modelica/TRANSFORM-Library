@@ -11,22 +11,6 @@ model OffgasAndSkimmer_thermochimica
         extraPropertiesNames=extraPropertiesNames_salt, C_nominal=fill(1, nC_salt));
 
   parameter SI.Temperature T_start_gas=500 + 273.15 "Initial temperature";
-  // Species tracked in the gas
-  constant String extraPropertiesNames_gas[:]={"Li","LiF","Na","NaF","F2Na2","F3Na3","K","KF","K2F2","Cs","U","FU","F2U","UF3","UF4","Pu","PuF","PuF2","PuF3","F4Pu","PuF6"};
-  constant Integer nC_gas=size(extraPropertiesNames_gas, 1) "Number of species";
-  constant Integer speciesIndex[nC_gas]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21};
-
-  // Method to relate gas species to salt species
-  constant Real relationMatrix[nC_salt,nC_gas]=
-  {
-  {1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,1,0,1,2,3,0,1,2,0,0,1,2,3,4,0,1,2,3,4,6},
-  {0,0,1,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,1,1,2,0,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1}}
-    "Element (row) to species (column) molar relation matrix";
 
   parameter SI.Area surfaceArea = Modelica.Constants.pi*1^2;
 
@@ -60,7 +44,7 @@ model OffgasAndSkimmer_thermochimica
   {0,0,0,0,0,0,1}}
      "Element (row) to species (column) molar relation matrix";
 
-   parameter SI.MoleFraction moleFrac_start_salt[nC_saltNames] = {0.42,0.10,0.37,0.01,0.0001,0.0099,0.09};
+  parameter SI.MoleFraction moleFrac_start_salt[nC_saltNames] = {0.42,0.10,0.37,0.01,0.0001,0.0099,0.09};
   parameter SI.MolarMass MM_salt = TRANSFORM.PeriodicTable.CalculateMolarMass_MoleFractionBased(saltNames,moleFrac_start_salt);
 
   parameter SI.Volume V_salt = 10;
@@ -120,10 +104,7 @@ model OffgasAndSkimmer_thermochimica
   Models.ThermochimicaOffgas offgas(redeclare package Medium = Medium_salt,
     T=volumeSalt.Medium.temperature(volumeSalt.state_liquid),
     p=volumeSalt.Medium.pressure(volumeSalt.state_liquid),
-    extraPropertiesNames_gas=extraPropertiesNames_gas,
-    nC_gas=nC_gas,
-    speciesIndex=speciesIndex,
-    relationMatrix=relationMatrix,showName=false) annotation (Placement(transformation(extent={{-30,-88},{-10,-68}})));
+    showName=false) annotation (Placement(transformation(extent={{-30,-88},{-10,-68}})));
   Fluid.BoundaryConditions.MassFlowSource_T           boundary_gas(
     showName=false,
     redeclare package Medium = Medium_gas,
