@@ -1,0 +1,3 @@
+simulateModel("TRANSFORM.Blocks.Examples.LatchHold_Test",method="Dassl",numberOfIntervals=100,resultFile="LatchHold_Test");
+
+createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
