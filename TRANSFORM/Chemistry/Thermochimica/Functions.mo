@@ -16,12 +16,14 @@ package Functions
     TRANSFORM.Chemistry.Thermochimica.Functions.SetTemperaturePressure(temp,pres);
     for i in 1:size(mass,1) loop
       atomicNumber:=TRANSFORM.Chemistry.Thermochimica.Functions.AtomicNumber(elements[i]);
-      TRANSFORM.Chemistry.Thermochimica.Functions.SetElementMass(atomicNumber,mass[i]);
+      if atomicNumber > 0 then
+        TRANSFORM.Chemistry.Thermochimica.Functions.SetElementMass(atomicNumber,max(0,mass[i]));
+      end if;
     end for;
     TRANSFORM.Chemistry.Thermochimica.Functions.SetReinitRequested(reinit);
     TRANSFORM.Chemistry.Thermochimica.Functions.Thermochimica();
+    ierr:=TRANSFORM.Chemistry.Thermochimica.Functions.CheckInfo();
     TRANSFORM.Chemistry.Thermochimica.Functions.SaveReinitData();
-  //    TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
   end RunThermochimica;
 
   function Thermochimica
@@ -123,10 +125,10 @@ package Functions
   external "FORTRAN 77" setprintresultsmode(iMode) annotation(Library={"thermochimica","gfortran"});
   end SetPrintResultsMode;
 
-  function CheckInfoC
+  function CheckInfo
     output Integer ierr;
-  external "C" checkinfothermo_(ierr) annotation(Library={"thermoc"});
-  end CheckInfoC;
+  external "FORTRAN 77" checkinfothermo(ierr) annotation(Library={"thermochimica","gfortran"});
+  end CheckInfo;
 
   function SetReinitRequested
   input Integer iMode;
@@ -291,7 +293,6 @@ package Functions
       press,
       mass,
       elementNames,1);
-  //  TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(elementNames,1) loop
       (mole,ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMoleFractionInPhase(elementNames[i],"gas_ideal");
       thermochimicaOutput.partialPressure[i] := press*mole;
