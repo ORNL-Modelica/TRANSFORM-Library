@@ -29,7 +29,6 @@ model OffgasAndSkimmer_thermochimica
 
   parameter SIadd.ExtraProperty C_salt_initial[nC_salt] = {1/MM_salt*sum(moleFrac_start_salt[:].*relationMatrix_salt[i,:])
                                                                                    for i in 1:nC_salt};
-  constant SIadd.Mole unit_mole = 1.0;
 
   constant String saltNames[:] = {"LiF","NaF","KF","Cs","UF3","UF4","PuF3"};
   constant Integer nC_saltNames=size(saltNames, 1) "Number of species";
