@@ -25,6 +25,9 @@ model ThermochimicaSkimmer "Off-gas separator based on Thermochimica-derived par
 
   parameter SIadd.ExtraProperty C_start[Medium.nC]=fill(0,Medium.nC) annotation (Dialog(tab="Initialization"));
 
+  parameter Boolean omitSpecies[Medium.nC]=fill(false,Medium.nC);
+  parameter Real efficiency=1;
+
   TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput=
       TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMolesFluid(
       filename,
@@ -41,7 +44,7 @@ model ThermochimicaSkimmer "Off-gas separator based on Thermochimica-derived par
        port_a.C_outflow[i],
        m_flow_small) for i in 1:Medium.nC} "Trace substance mass-specific value";
 
-  Real m_skimmed[Medium.nC](start=fill(0,Medium.nC));
+//    Real m_skimmed[Medium.nC](start=fill(0,Medium.nC));
 
 protected
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
@@ -70,12 +73,20 @@ equation
 
   port_a.m_flow + port_b.m_flow = 0;
   port_a.p = port_b.p;
-  port_a.C_outflow = thermochimicaOutput.C;
-  port_b.C_outflow = thermochimicaOutput.C;
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
 
-  der(m_skimmed) = (C_input - thermochimicaOutput.C) * port_a.m_flow;
+  for i in 1:Medium.nC loop
+    if omitSpecies[i] then
+      port_a.C_outflow[i] = C_input[i];
+      port_b.C_outflow[i] = C_input[i];
+//       der(m_skimmed[i]) = 0;
+    else
+      port_a.C_outflow[i] = (1-efficiency)*C_input[i] + efficiency*thermochimicaOutput.C[i];
+      port_b.C_outflow[i] = (1-efficiency)*C_input[i] + efficiency*thermochimicaOutput.C[i];
+//       der(m_skimmed[i]) = (C_input[i] - thermochimicaOutput.C[i]) * port_a.m_flow;
+    end if;
+  end for;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(
           preserveAspectRatio=false)));
