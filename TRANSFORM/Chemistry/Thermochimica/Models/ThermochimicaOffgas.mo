@@ -12,18 +12,21 @@ model ThermochimicaOffgas "Off-gas separator based on Thermochimica-derived part
   input SI.Pressure p "Pressure"
       annotation (Dialog(group="Inputs"));
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean useAtoms = false;
+  Real scaleConcentration = if useAtoms then 6.02214076e23 else 1 "Output concentration scaling";
+  parameter Real efficiency=1;
 
   Boolean init;
   constant String filename="/home/max/proj/thermochimica/data/MSAX+CationVacancies.dat";
   TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput = TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetPartialPressure(filename,T,p,mass_port_a.C,Medium.extraPropertiesNames,init) "Thermochimica-derived mole fractions";
-  SI.Concentration Cmolar_interface_gas[Medium.nC]=thermochimicaOutput.partialPressure/(Modelica.Constants.R*T);
+  SI.Concentration Cmolar_interface_gas[Medium.nC]=scaleConcentration*thermochimicaOutput.partialPressure/(Modelica.Constants.R*T);
 equation
-  if time > 1 then
+  if time > 1e9 then
     init = false;
   else
     init = true;
   end if;
   mass_port_a.n_flow + mass_port_b.n_flow = zeros(Medium.nC);
-  mass_port_b.C = Cmolar_interface_gas;
+  mass_port_b.C = efficiency*Cmolar_interface_gas;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end ThermochimicaOffgas;
