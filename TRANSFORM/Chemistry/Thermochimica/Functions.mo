@@ -220,7 +220,7 @@ package Functions
       press,
       mass,
       elementNames,1);
-  //  TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
+  //   TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(elementNames,1) loop
       for j in 1:size(phaseNames,1) loop
         (mole[j],ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMolesInPhase(elementNames[i],phaseNames[j]);
@@ -293,6 +293,7 @@ package Functions
       press,
       mass,
       elementNames,1);
+  //   TRANSFORM.Chemistry.Thermochimica.Functions.PrintResults();
     for i in 1:size(elementNames,1) loop
       (mole,ierr) := TRANSFORM.Chemistry.Thermochimica.Functions.GetElementMoleFractionInPhase(elementNames[i],"gas_ideal");
       thermochimicaOutput.partialPressure[i] := press*mole;

@@ -28,6 +28,8 @@ model ThermochimicaSkimmer "Off-gas separator based on Thermochimica-derived par
   parameter Boolean omitSpecies[Medium.nC]=fill(false,Medium.nC);
   parameter Real efficiency=1;
 
+  parameter Real onTime=0;
+
   TRANSFORM.Chemistry.Thermochimica.BaseClasses.ThermochimicaOutput thermochimicaOutput=
       TRANSFORM.Chemistry.Thermochimica.Functions.RunAndGetMolesFluid(
       filename,
@@ -65,7 +67,7 @@ equation
     T_b_inflow,
     m_flow_small);
 
-  if time > 1 then
+  if time > 1 + onTime then
     init = false;
   else
     init = true;
