@@ -12,6 +12,7 @@ protected
   final parameter Integer f_sigmasA_count_sum[nC]={sum(data.f_sigmasA_count[1:j - 1])
       for j in 1:nC} annotation (Evaluate=true);
 
+  Real SigmaA[nV] = {sum({data.nus[1]*data.sigmasF[k]*mCs[i,data.actinideIndex[k]] for k in 1:data.nA}) for i in 1:nV};
 equation
   for i in 1:nV loop
     for j in 1:nC loop
@@ -36,7 +37,15 @@ equation
           f_sigmasA_count_sum[j] + k]] for k in 1:data.f_sigmasA_count[j]})*phi[
           i] - data.sigmasA[j]*mCs[i, j]*phi[i];
       end if;
-      rhos[i,j] = -data.sigmasA[j]*mCs[i,j]*SF_Q_fission[i]/sum(data.nus[1]*data.sigmasF[k]*mCs[i,data.actinideIndex[k]] for k in 1:data.nA);
+    // this seems correct for poisons which start with a concentration of zero.
+    // for simplicity, actinides will be neglected for reactivity feedback
+    // shift to transport driven power is advisable to keep the solution tractable
+    // rho = (fprime-f)/fprime yields the below (assuming mCs for absorbption is very small)
+     if TRANSFORM.Math.exists(j,data.actinideIndex) then
+       rhos[i,j] = 0.0;
+     else
+       rhos[i,j] = -data.sigmasA[j]*mCs[i,j]*SF_Q_fission[i]/SigmaA[i];
+     end if;
     end for;
   end for;
 

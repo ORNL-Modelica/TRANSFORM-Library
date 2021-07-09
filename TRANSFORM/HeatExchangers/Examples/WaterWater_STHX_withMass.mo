@@ -45,8 +45,7 @@ model WaterWater_STHX_withMass
     m_flow_a_start_tube=tube_inlet.m_flow,
     m_flow_a_start_shell=shell_inlet.m_flow,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         nR=3,
         D_o_shell=0.3,
         length_shell=1,
@@ -71,8 +70,8 @@ model WaterWater_STHX_withMass
     energyDynamics={Modelica.Fluid.Types.Dynamics.FixedInitial,Modelica.Fluid.Types.Dynamics.FixedInitial,
         Modelica.Fluid.Types.Dynamics.FixedInitial},
     redeclare model DiffusionCoeff_wall =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-        (D_ab0=0.00000001),
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
+         D_ab0=0.00000001),
     redeclare package Medium_shell = Medium_shell,
     redeclare package Medium_tube = Medium_tube,
     nC=1,
