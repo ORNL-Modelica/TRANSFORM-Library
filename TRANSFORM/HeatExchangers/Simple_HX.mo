@@ -13,12 +13,12 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   // parallel flow not currently implmented
   parameter Boolean counterCurrent=true "Swap side 2 heatPort vector" annotation (Evaluate=true, enable=false);
 
-  parameter SI.Volume V_1 "Fluid volume";
-  parameter SI.Volume V_2 "Fluid volume";
+  input SI.Volume V_1 "Fluid volume" annotation(Dialog(group="Inputs"));
+  input SI.Volume V_2 "Fluid volume" annotation(Dialog(group="Inputs"));
 
-  parameter SI.ThermalConductance UA "Overall heat transfer coefficient";
-  parameter SIadd.NonDim CF = if abs(T_a_start_1-T_b_start_1) <= Modelica.Constants.eps or abs(T_a_start_2-T_b_start_2) <= Modelica.Constants.eps then 1.0 else TRANSFORM.HeatExchangers.Utilities.Functions.logMean(T_a_start_1 -
-    T_b_start_1, T_b_start_2 - T_a_start_2)/nV "Correction factor";
+  input SI.ThermalConductance UA "Overall heat transfer coefficient" annotation(Dialog(group="Inputs"));
+  input SIadd.NonDim CF = if abs(T_a_start_1-T_b_start_1) <= Modelica.Constants.eps or abs(T_a_start_2-T_b_start_2) <= Modelica.Constants.eps then 1.0 else TRANSFORM.HeatExchangers.Utilities.Functions.logMean(T_a_start_1 -
+    T_b_start_1, T_b_start_2 - T_a_start_2)/nV "Correction factor" annotation(Dialog(group="Inputs"));
 
 // Initialization: Fluid 1
   parameter SI.AbsolutePressure[nV] ps_start_1=linspace_1D(

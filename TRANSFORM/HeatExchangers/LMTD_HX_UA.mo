@@ -2,7 +2,7 @@ within TRANSFORM.HeatExchangers;
 model LMTD_HX_UA "Calculate UA using LMTD method"
   extends TRANSFORM.HeatExchangers.BaseClasses.Partial_LMTD_HX(UA(start=1e5));
 
-  parameter SI.Power Q_flow0=0.5e6;
+  input SI.Power Q_flow0=0.5e6 annotation(Dialog(group="Inputs"));
 
 //   SIadd.NonDim epsilon "Effectiveness";
 

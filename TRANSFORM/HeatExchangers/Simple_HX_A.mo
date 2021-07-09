@@ -13,15 +13,15 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   // parallel flow not currently implmented
   parameter Boolean counterCurrent=true "Swap side 2 heatPort vector" annotation (Evaluate=true, enable=false);
 
-  parameter SI.Volume V_1 "Fluid volume";
-  parameter SI.Volume V_2 "Fluid volume";
+  input SI.Volume V_1 "Fluid volume" annotation(Dialog(group="Inputs"));
+  input SI.Volume V_2 "Fluid volume" annotation(Dialog(group="Inputs"));
 
-  parameter SI.Area surfaceArea "Total surface area";
-  parameter SI.CoefficientOfHeatTransfer alpha_1 "Heat transfer coefficient";
-  parameter SI.CoefficientOfHeatTransfer alpha_2 "Heat transfer coefficient";
+  input SI.Area surfaceArea "Total surface area" annotation(Dialog(group="Inputs"));
+  input SI.CoefficientOfHeatTransfer alpha_1 "Heat transfer coefficient" annotation(Dialog(group="Inputs"));
+  input SI.CoefficientOfHeatTransfer alpha_2 "Heat transfer coefficient" annotation(Dialog(group="Inputs"));
 
-  parameter SIadd.NonDim CF = if abs(T_a_start_1-T_b_start_1) <= Modelica.Constants.eps or abs(T_a_start_2-T_b_start_2) <= Modelica.Constants.eps then 1.0 else TRANSFORM.HeatExchangers.Utilities.Functions.logMean(T_a_start_1 -
-    T_b_start_1, T_b_start_2 - T_a_start_2)/nV "Correction factor";
+  input SIadd.NonDim CF = if abs(T_a_start_1-T_b_start_1) <= Modelica.Constants.eps or abs(T_a_start_2-T_b_start_2) <= Modelica.Constants.eps then 1.0 else TRANSFORM.HeatExchangers.Utilities.Functions.logMean(T_a_start_1 -
+    T_b_start_1, T_b_start_2 - T_a_start_2)/nV "Correction factor" annotation(Dialog(group="Inputs"));
 
 // Initialization: Fluid 1
 
