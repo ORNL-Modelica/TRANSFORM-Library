@@ -53,8 +53,8 @@ partial model Partial_LMTD_HX
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume,
     use_HeatPort=true)
     annotation (Placement(transformation(extent={{-40,50},{-20,30}})));
-  Fluid.FittingsAndResistances.SpecifiedResistance resistance_1(redeclare
-      package Medium = Medium_1, R=R_1)
+  Fluid.FittingsAndResistances.SpecifiedResistance resistance_1(redeclare package
+              Medium = Medium_1, R=R_1)
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundary_1(use_port=
         true) annotation (Placement(transformation(

@@ -3,3 +3,4 @@ TraceSeparator
 TraceDecayAdsorberBed
 SimpleSeparator
 DecayBed_Simple
+TraceDecayAdsorberBed_sparseMatrix

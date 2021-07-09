@@ -1,5 +1,6 @@
 within TRANSFORM.Fluid.TraceComponents;
 model TraceDecayAdsorberBed
+  extends TRANSFORM.Icons.UnderConstruction;
   import TRANSFORM.Units.Conversions.Functions.Time_s.from_hr;
   import TRANSFORM.Math.linspace_1D;
   import Modelica.Fluid.Types.Dynamics;
@@ -10,8 +11,8 @@ model TraceDecayAdsorberBed
   m_flow(max=0))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   replaceable package Medium = Modelica.Media.IdealGases.SingleGases.He (
-        extraPropertiesNames={"dummy"}) constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium properties" annotation (
+        extraPropertiesNames={"dummy"}) constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium properties" annotation (
       choicesAllMatching=true);
   parameter Integer nV=1 "# of volumes";
   input SIadd.InverseTime lambdas[Medium.nC]=fill(1e-3, Medium.nC)

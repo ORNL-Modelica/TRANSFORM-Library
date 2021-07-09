@@ -3,7 +3,7 @@ model LMTD_HX_Q
   "Calculate Q using LMTD method"
   extends TRANSFORM.HeatExchangers.BaseClasses.Partial_LMTD_HX(Q_flow(start=1e6));
 
-  parameter SI.ThermalConductance UA0;
+  input SI.ThermalConductance UA0 annotation(Dialog(group="Inputs"));
 
 equation
   UA = UA0;

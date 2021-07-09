@@ -6,8 +6,7 @@ annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_null
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
     "Data" annotation (choicesAllMatching=true);
   Data data;
 
@@ -41,8 +40,8 @@ annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
 equation
   for i in 1:nV loop
-    phi[i] = Q_fission*SF_Q_fission[i]/sum(data.w_f[k]*data.sigmasF[k]*mCs[i,
-      data.actinideIndex[k]] for k in 1:data.nA);
+    phi[i] = Q_fission*SF_Q_fission[i]/(sum(data.w_f[k]*data.sigmasF[k]*mCs[i,
+      data.actinideIndex[k]] for k in 1:data.nA)+sum(data.w_c[k]*data.sigmasA[k]*mCs[i,k] for k in 1:data.nC));
   end for;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
