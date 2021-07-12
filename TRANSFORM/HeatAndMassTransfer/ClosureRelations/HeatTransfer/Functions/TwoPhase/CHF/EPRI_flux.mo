@@ -24,7 +24,7 @@ protected
   Real F_C=if cwall then 1.183*G_en^(0.1) else 1.0;
   // Nonuniform effect correction factor
   Real Y = q_avg/max(0.0001,q_flux);
-  Real F_nu = if nu then 1 + (1-Y)/(1+G_en) else 0;
+  Real F_nu = if nu then 1 + (1-Y)/(1+G_en) else 1.0;
  Real B,H,D;
 algorithm 
   B:=C*F_g*F_C*F_nu;
