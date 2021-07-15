@@ -3,9 +3,9 @@ model SimpleBattery "Simple battery based on block controller logic"
   parameter TRANSFORM.Units.NonDim capacityFrac_start=1.0
     "Initial capacity as a fraction of usable capacity (capacity_max-capacity_min)"
     annotation (Dialog(tab="Initialization"));
-  parameter SI.Conversions.NonSIunits.Energy_Wh capacity_max=100e6
+  parameter Modelica.Units.NonSI.Energy_Wh capacity_max=100e6
     "Maximum storage capacity";
-  parameter SI.Conversions.NonSIunits.Energy_Wh capacity_min=0
+  parameter Modelica.Units.NonSI.Energy_Wh capacity_min=0
     "Minimum storage capacity";
   parameter SI.Power chargePower_max=Modelica.Constants.inf
     "Maximum charge power";
@@ -13,13 +13,16 @@ model SimpleBattery "Simple battery based on block controller logic"
   parameter SI.Power dischargePower_max=Modelica.Constants.inf
     "Maximum discharge power";
   parameter SI.Power dischargePower_min=0 "Minimum discharge power";
-  final parameter SI.Conversions.NonSIunits.Energy_Wh capacity_usable=
+  final parameter Modelica.Units.NonSI.Energy_Wh capacity_usable=
       capacity_max - capacity_min "Maximum usable capacity";
-  final parameter SI.Energy E_start=SI.Conversions.from_Wh(capacity_usable)*
+  final parameter SI.Energy E_start=Modelica.Units.Conversions.from_Wh(
+                                                           capacity_usable)*
       capacityFrac_start + E_min "Start energy";
-  final parameter SI.Energy E_max=SI.Conversions.from_Wh(capacity_max)
+  final parameter SI.Energy E_max=Modelica.Units.Conversions.from_Wh(
+                                                         capacity_max)
     "Maximum storable energy";
-  final parameter SI.Energy E_min=SI.Conversions.from_Wh(capacity_min)
+  final parameter SI.Energy E_min=Modelica.Units.Conversions.from_Wh(
+                                                         capacity_min)
     "Minimum storable energy";
   SI.Energy E "Total energy stored";
   SI.Power W "Charge/discharge power";

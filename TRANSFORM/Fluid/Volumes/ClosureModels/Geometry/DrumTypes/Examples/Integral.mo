@@ -22,10 +22,10 @@ model Integral
     r_3=r_3)
     annotation (Placement(transformation(extent={{-10,-8},{10,12}})));
   Modelica.Blocks.Sources.Sine variableVfrac_liquid(
-    freqHz=0.5,
+    f=0.5,
     amplitude=0.9,
-    offset=0.05)
-    annotation (Placement(transformation(extent={{-10,20},{10,40}})));
+    offset=0.05) annotation (Placement(transformation(extent={{-10,
+            20},{10,40}})));
   annotation (Documentation(info="<html>
 <p>The various volumes and areas should balance the total volumes and total areas.</p>
 <p>One thing that has be found was that depending on where the fraction of liquid starts, there is a potential</p>

@@ -4,7 +4,7 @@ package Rhenium "Pure natural Rhenium"
 //lambda from http://www.dtic.mil/docs/citations/AD0807299
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="Rhenium",
-    T_min=Modelica.SIunits.Conversions.from_degC(0),
+    T_min=Modelica.Units.Conversions.from_degC(0),
     T_max=3453,
     MM_const=0.186207);
     constant Real A = 3.023e-2;

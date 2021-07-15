@@ -10,7 +10,7 @@ model check_arrheniusEquation
   Real y;
   Utilities.ErrorAnalysis.UnitTests unitTests(x={y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  Modelica.Blocks.Sources.Sine beta(freqHz=1/10, offset=1)
+  Modelica.Blocks.Sources.Sine beta(f=1/10, offset=1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   y = arrheniusEquation(

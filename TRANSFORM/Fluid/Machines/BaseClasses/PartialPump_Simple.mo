@@ -3,13 +3,13 @@ partial model PartialPump_Simple
   import TRANSFORM.Types.Dynamics;
   Interfaces.FluidPort_Flow  port_a(
     redeclare package Medium = Medium,
-    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
+    m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else -m_flow_start),
     h_outflow(start=h_a_start)) "high pressure port" annotation (Placement(
         transformation(extent={{-120,-20},{-80,20}},rotation=0),
         iconTransformation(extent={{-110,-10},{-90,10}})));
   Interfaces.FluidPort_Flow port_b(
     redeclare package Medium = Medium,
-    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
+    m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else m_flow_start),
     p(start=p_b_start)) "low pressure port" annotation (Placement(
         transformation(extent={{80,-20},{120,20}},rotation=0),
         iconTransformation(extent={{90,-10},{110,10}})));
@@ -69,7 +69,8 @@ partial model PartialPump_Simple
 
   SI.Efficiency eta_is "Isentropic or aerodynamic efficiency";
   Medium.ThermodynamicState state_a;
-  SI.PressureDifference dp "Pressure change";
+  Medium.ThermodynamicState state_b;
+  SI.PressureDifference dp(start=p_b_start-p_a_start) "Pressure change";
   SI.MassFlowRate m_flow(start=m_flow_start) "Mass flow rate";
   Medium.SpecificEnthalpy dh_ideal "Ideal enthalpy change";
   Medium.SpecificEnthalpy dh "Actual enthalpy change";
@@ -83,6 +84,10 @@ equation
     port_a.p,
     inStream(port_a.h_outflow),
     inStream(port_a.Xi_outflow));
+  state_b = Medium.setState_phX(
+    port_b.p,
+    inStream(port_b.h_outflow),
+    inStream(port_b.Xi_outflow));
 
   // Pressure relations
   dp = port_b.p - port_a.p;

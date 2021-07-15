@@ -3,7 +3,7 @@ partial model PartialPump_nom
   extends PartialPump_Simple(final allowFlowReversal=not
         flowChar.checkValve);
 
-  import NonSI = Modelica.SIunits.Conversions.NonSIunits;
+  import         Modelica.Units.NonSI;
 
   input SI.Length diameter=diameter_nominal "Impeller diameter"
     annotation (Dialog(group="Inputs"));
@@ -103,7 +103,7 @@ partial model PartialPump_nom
   SI.Density d_inlet=Medium.density(state_a);
 
   SI.VolumeFlowRate V_flow=flowChar.V_flow;
-  SI.Height head=flowChar.head;
+  SI.Height head(start=head_start)=flowChar.head;
 
 equation
 

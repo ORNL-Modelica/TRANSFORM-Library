@@ -29,7 +29,7 @@ model LimPID_Hysteresis_Test
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow     Q_flow(use_port=true)
     annotation (Placement(transformation(extent={{16,-30},{36,-10}})));
   Modelica.Blocks.Sources.Sine sine(
-    freqHz=1/86400,
+    f=1/86400,
     offset=273.15,
     amplitude=20,
     y(unit="K"),

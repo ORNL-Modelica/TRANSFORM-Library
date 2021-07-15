@@ -10,7 +10,7 @@ model Generator_Basic "Boundary condition generator for a shaft connector with n
   parameter Real efficiency=0.99 "Constant generator efficiency";
   parameter SI.AngularVelocity omega_nominal=50*2*3.14
     "Fixed angular mechanical flange velocity";
-  Modelica.SIunits.Power power "Generated power";
+  Modelica.Units.SI.Power power "Generated power";
 equation
   // Assumes that the rotational inertia rotates with a fixed speed, i.e. the acceleration is 0
   power =shaft.tau*omega_m*efficiency;

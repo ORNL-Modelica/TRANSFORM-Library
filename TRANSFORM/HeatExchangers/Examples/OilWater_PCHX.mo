@@ -1,8 +1,8 @@
 within TRANSFORM.HeatExchangers.Examples;
 model OilWater_PCHX
   "Example of an oil and water printed circuit heat exchanger"
-  import TRANSFORM;
   extends TRANSFORM.Icons.Example;
+
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T tube_inlet(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     m_flow=0.2,
@@ -49,19 +49,19 @@ model OilWater_PCHX
     energyDynamics={Modelica.Fluid.Types.Dynamics.SteadyStateInitial,Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
         Modelica.Fluid.Types.Dynamics.SteadyStateInitial},
     redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
-        (use_LambdaState=false, lambda0=0.625),
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (
+         use_LambdaState=false, lambda0=0.625),
     redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
-        (use_LambdaState=false, lambda0=0.138),
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (
+         use_LambdaState=false, lambda0=0.138),
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.PrintedCircuitHX
         (
         length=0.131,
         th_tube=0.00218,
         nV=10,
-        nT=60,
-        nR=3))
+        nR=3,
+        plateStructure="Tube-Shell-Tube"))
     annotation (Placement(transformation(extent={{-21,-20},{21,20}})));
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
     y1={STHX.tube.mediums[i].T for i in 1:STHX.geometry.nV},

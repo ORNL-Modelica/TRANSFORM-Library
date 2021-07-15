@@ -2,6 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.Volumes;
 model UnitVolume
   import Modelica.Fluid.Types.Dynamics;
   extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
+  parameter Real nParallel=1 "Number of parallel components";
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Dialog(tab="Initialization", group="Dynamics"));
@@ -29,9 +30,9 @@ equation
   U = m*cp*(T-T_reference);
   // Energy Balance
   if energyDynamics == Dynamics.SteadyState then
-    0 =port.Q_flow + Q_gen;
+    0 =port.Q_flow/nParallel + Q_gen;
   else
-    der(U) =port.Q_flow + Q_gen;
+    der(U) =port.Q_flow/nParallel + Q_gen;
   end if;
   // Port Definitions
   port.T = T;

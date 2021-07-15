@@ -318,8 +318,7 @@ model GenericDistributed_HX_withMass
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Shell Side",
-      enable=if useLumpedPressure_shell and modelStructure_shell <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure_shell and exposeState_a_shell and not exposeState_b_shell then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties_shell=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Shell Side"), Evaluate=true);
@@ -339,8 +338,7 @@ model GenericDistributed_HX_withMass
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Tube Side",
-      enable=if useLumpedPressure_tube and modelStructure_tube <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure_tube and exposeState_a_tube and not exposeState_b_tube then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties_tube=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Tube Side"), Evaluate=true);
@@ -383,8 +381,7 @@ model GenericDistributed_HX_withMass
     C_a_start=C_a_start_shell,
     C_b_start=C_b_start_shell,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
         nV=geometry.nV,
         crossAreas=geometry.crossAreas_shell,
         perimeters=geometry.perimeters_shell,
@@ -441,8 +438,7 @@ model GenericDistributed_HX_withMass
     C_a_start=C_a_start_tube,
     C_b_start=C_b_start_tube,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
         nV=geometry.nV,
         dimensions=geometry.dimensions_tube,
         dlengths=geometry.dlengths_tube,
@@ -470,36 +466,32 @@ model GenericDistributed_HX_withMass
     redeclare package Material = Material_wall,
     T_a1_start=sum(Ts_start_wall_tubeSide)/size(Ts_start_wall_tubeSide, 1),
     T_b1_start=sum(Ts_start_wall_shellSide)/size(Ts_start_wall_shellSide, 1),
-    T_a2_start=(Ts_start_wall_tubeSide[1] + (if counterCurrent then
-        Ts_start_wall_shellSide[end] else Ts_start_wall_shellSide[1]))/2,
-    T_b2_start=(Ts_start_wall_tubeSide[end] + (if counterCurrent then
-        Ts_start_wall_shellSide[1] else Ts_start_wall_shellSide[end]))/2,
+    T_a2_start=(Ts_start_wall_tubeSide[1] + (if counterCurrent then Ts_start_wall_shellSide[end]
+         else Ts_start_wall_shellSide[1]))/2,
+    T_b2_start=(Ts_start_wall_tubeSide[end] + (if counterCurrent then Ts_start_wall_shellSide[1]
+         else Ts_start_wall_shellSide[end]))/2,
     Ts_start=Ts_start_wall,
     exposeState_a1=if tube.heatTransfer.flagIdeal == 1 then false else true,
     exposeState_b1=if shell.heatTransfer.flagIdeal == 1 then false else true,
     exposeState_a2=exposeState_a_tube,
     exposeState_b2=exposeState_b_tube,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         r_inner=0.5*sum(geometry.dimensions_tube)/geometry.nV,
         r_outer=0.5*sum(geometry.dimensions_tube_outer)/geometry.nV,
         length_z=sum(geometry.dlengths_tube),
         drs=geometry.drs,
         nR=geometry.nR,
         nZ=geometry.nV,
-        dzs=transpose({fill(geometry.dlengths_tube[i], geometry.nR) for i in 1:
-            geometry.nV})),
+        dzs=transpose({fill(geometry.dlengths_tube[i], geometry.nR) for i in 1:geometry.nV})),
     traceDynamics=traceDynamics[3],
     Cs_start=Cs_start_wall,
     C_a1_start={sum(Cs_start_wall_tubeSide[:, i])/geometry.nV for i in 1:nC},
     C_b1_start={sum(Cs_start_wall_shellSide[:, i])/geometry.nV for i in 1:nC},
-    C_a2_start={(Cs_start_wall_tubeSide[1, i] + (if counterCurrent then
-        Cs_start_wall_shellSide[end, i] else Cs_start_wall_shellSide[1, i]))/2
-        for i in 1:nC},
-    C_b2_start={(Cs_start_wall_tubeSide[end, i] + (if counterCurrent then
-        Cs_start_wall_shellSide[1, i] else Cs_start_wall_shellSide[end, i]))/2
-        for i in 1:nC},
+    C_a2_start={(Cs_start_wall_tubeSide[1, i] + (if counterCurrent then Cs_start_wall_shellSide[end,
+        i] else Cs_start_wall_shellSide[1, i]))/2 for i in 1:nC},
+    C_b2_start={(Cs_start_wall_tubeSide[end, i] + (if counterCurrent then Cs_start_wall_shellSide[1,
+        i] else Cs_start_wall_shellSide[end, i]))/2 for i in 1:nC},
     nC=nC,
     redeclare model DiffusionCoeff = DiffusionCoeff_wall,
     redeclare model InternalMassModel = InternalMassModel_wall,
@@ -507,7 +499,7 @@ model GenericDistributed_HX_withMass
     redeclare model InternalHeatModel = InternalHeatModel_wall,
     ds_reference=ds_reference,
     use_nCs_scaled=use_nCs_scaled,
-    C_nominal=C_nominal) annotation (Placement(transformation(
+    C_nominal=C_nominal_wall) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,-34})));
@@ -521,7 +513,7 @@ model GenericDistributed_HX_withMass
         i, 1]*tube.geometry.surfaceAreas[i, 1] for i in 1:tube.nV})*tube.nParallel
         /tube.nV))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  parameter Integer nC=0 "Number of trace substances transfered through wall. Currently nC must be <= min(Medium_tube.nC,Medium_shell.nC)" annotation(Dialog(tab="Trace Mass Transfer"),Evalutate=true);
+  parameter Integer nC=0 "Number of trace substances transfered through wall. Currently nC must be <= min(Medium_tube.nC,Medium_shell.nC)" annotation(Dialog(tab="Trace Mass Transfer"),Evaluate=true);
   parameter Boolean use_TraceMassTransfer_shell=false
     "= true to use the TraceMassTransfer model"
      annotation (Dialog(tab="Trace Mass Transfer",group="Shell"));
@@ -672,7 +664,7 @@ model GenericDistributed_HX_withMass
   parameter Boolean use_nCs_scaled=false
     "=true to use der(nCs_scaled) = nCbs/C_nominal else der(nCs) = nCbs."
     annotation (Dialog(tab="Advanced", group="Wall"));
-  parameter Units.NonDim C_nominal[nC]=fill(1e-6, nC)
+  parameter Units.NonDim C_nominal_wall[nC]=fill(1e-6, nC)
     "Nominal concentration [mol/m3] for improved numeric stability"
     annotation (Dialog(tab="Advanced", group="Wall"));
 equation

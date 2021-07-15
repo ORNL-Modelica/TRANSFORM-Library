@@ -15,9 +15,7 @@ equation
   // Zero flow equations for connectors
   port_a.Q_flow = 0;
   port_b.Q_flow = 0;
- annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0),
-        iconTransformation(extent={{110,-10},{90,10}})),
-    Icon(graphics={
+ annotation (Icon(graphics={
         Text(
           extent={{-149,-68},{151,-108}},
           lineColor={0,0,255},

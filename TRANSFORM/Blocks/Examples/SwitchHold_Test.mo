@@ -6,7 +6,7 @@ model SwitchHold_Test
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Logical.SwitchHold switch
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Blocks.Sources.Sine sine(freqHz=1)
+  Modelica.Blocks.Sources.Sine sine(f=1)
     annotation (Placement(transformation(extent={{-32,22},{-12,42}})));
   Modelica.Blocks.Sources.Ramp ramp(height=10, duration=1)
     annotation (Placement(transformation(extent={{-32,-38},{-12,-18}})));

@@ -23,10 +23,12 @@ model Outsurge
   constant SI.Pressure mainTank_p_start=
       Units.Conversions.Functions.Pressure_Pa.from_psi(125.7)
     "Initial pressure of main (primary) tank";
-  constant SI.Temperature insurge_T = SI.Conversions.from_degF(73) "Insurge water temperature";
+  constant SI.Temperature insurge_T = Modelica.Units.Conversions.from_degF(
+                                                               73) "Insurge water temperature";
   constant Units.NonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
   constant Units.NonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
-  constant SI.Temperature wall_Tavg = SI.Conversions.from_degF(300) "Average wall temperature";
+  constant SI.Temperature wall_Tavg = Modelica.Units.Conversions.from_degF(
+                                                               300) "Average wall temperature";
   constant SI.ThermalConductivity wall_lambda=
       TRANSFORM.Media.Solids.SS316.thermalConductivity_T(wall_Tavg)
     "Wall thermalconductivity";

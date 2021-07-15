@@ -4,22 +4,22 @@ model LimPID_Test
   extends TRANSFORM.Icons.Example;
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  TRANSFORM.Controls.LimPID        limPID(
+  TRANSFORM.Controls.LimPID limPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     Ti=1,
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     derMeas=false)
-          annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   TRANSFORM.Controls.LimPID limPID_reverse(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     Ti=1,
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     derMeas=false,
     k=-1) "Controller with reverse action"
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
@@ -36,7 +36,7 @@ model LimPID_Test
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Modelica.Blocks.Types.InitPID.InitialState)
+    initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   TRANSFORM.Utilities.Diagnostics.AssertEquality assertEquality1(
     threshold=1e-3)

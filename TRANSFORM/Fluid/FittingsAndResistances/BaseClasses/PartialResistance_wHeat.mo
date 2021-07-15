@@ -33,7 +33,7 @@ equation
     Q_flow_internal = 0;
   end if;
 
-  if (not use_HeatPort and Q_gen == 0) then
+  if (not use_HeatPort and abs(Q_gen) <= Modelica.Constants.eps) then
     dh = 0;
   else
     m_flow*dh = Q_flow_internal + Q_gen;

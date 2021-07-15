@@ -3,7 +3,7 @@ model StopValve
   extends TRANSFORM.Fluid.Valves.BaseClasses.PartialTwoPort(final allowFlowReversal=checkValve);
   parameter Boolean stopValve=true "Flow stopped";
 equation
-  if checkValve then
+  if stopValve then
     port_a.m_flow = 0;
     port_b.m_flow = 0;
   else

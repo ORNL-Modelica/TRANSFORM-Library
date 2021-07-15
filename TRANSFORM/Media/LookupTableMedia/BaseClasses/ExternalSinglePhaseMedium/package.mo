@@ -98,7 +98,7 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
            else StateSelect.default) "Specific entropy";
   equation
     MM = externalFluidConstants.molarMass;
-    R = Modelica.Constants.R/MM;
+    R_s = Modelica.Constants.R/MM;
     // if (basePropertiesInputChoice == InputChoice.ph) then
     //   // Compute the state record (including the unique ID)
     //   state = setState_ph(p, h, phaseInput);

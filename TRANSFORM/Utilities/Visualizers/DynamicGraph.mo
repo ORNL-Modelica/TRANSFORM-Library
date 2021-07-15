@@ -20,9 +20,9 @@ model DynamicGraph "Dynamic graphical display of one variable"
   parameter Real y_max(min=y_min + Modelica.Constants.eps) = 1
     "Maximum value of the y-axis"
     annotation (Dialog(group="Scaling"));
-  parameter Modelica.SIunits.Time t_start=0 "Start time of display"
+  parameter Modelica.Units.SI.Time t_start=0 "Start time of display"
     annotation (Dialog(group="Scaling"));
-  parameter Modelica.SIunits.Time t_end=1 "End time of display"
+  parameter Modelica.Units.SI.Time t_end=1 "End time of display"
     annotation (Dialog(group="Scaling"));
   parameter SI.Time dt(min=Modelica.Constants.eps) = (t_end - t_start)/100
     "Time interval for plot" annotation (Dialog(group="Scaling"));
@@ -38,9 +38,9 @@ protected
   final parameter Real x[nPoints]=linspace(
       1,
       100,
-      nPoints) "x-positions of line points" annotation (Hide=false);
-  Real y[nPoints] "y-positions of line points" annotation (Hide=false);
-  Real f "Horizontal position of the cover-rectangle" annotation (Hide=false);
+      nPoints) "x-positions of line points";
+  Real y[nPoints] "y-positions of line points";
+  Real f "Horizontal position of the cover-rectangle";
   Real u_int "Value to be displayed";
   Real u_aux "Auxilliary variable";
 initial equation

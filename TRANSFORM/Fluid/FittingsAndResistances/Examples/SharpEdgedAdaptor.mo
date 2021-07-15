@@ -44,10 +44,10 @@ model SharpEdgedAdaptor
     annotation (Placement(transformation(extent={{-100,
             10},{-80,30}})));
   Modelica.Blocks.Sources.Sine input_mflow(
-    freqHz=1,
+    f=1,
     offset=0,
-    amplitude=0.001) annotation (Placement(
-        transformation(extent={{-100,-50},{-80,-30}})));
+    amplitude=0.001) annotation (Placement(transformation(extent={{-100,
+            -50},{-80,-30}})));
   inner Modelica.Fluid.System system(p_ambient(displayUnit="Pa") = 100000,
       m_flow_small=0.01) annotation (Placement(transformation(extent={{80, -100}, {100, -80}})));
   TRANSFORM.Fluid.FittingsAndResistances.SharpEdgedAdaptor from_mflow(

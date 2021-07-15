@@ -8,7 +8,7 @@ block UnitTests
     annotation (Dialog(group="Inputs"));
   parameter Boolean errorCalcs=false
     "=true to perform error calculations of x vs x_reference"
-    annotation (Dialog(group="Parameters: Error Calculation"), Evalute=true);
+    annotation (Dialog(group="Parameters: Error Calculation"), Evaluate=true);
   parameter Real errorExpected=1e-6
     "if Error_rms < errorExpected then test = Passed" annotation (Dialog(group="Parameters: Error Calculation",
         enable=errorCalcs));
@@ -17,7 +17,7 @@ block UnitTests
         group="Parameters: Error Calculation", enable=errorCalcs));
   parameter Boolean printResult=false "Save success/fail result to file"
     annotation (Dialog(group="Parameters: Error Calculation", enable=errorCalcs),
-      Evalute=true);
+      Evaluate=true);
   parameter String name="" "Name of example for log file identification"
     annotation (Dialog(group="Parameters: Error Calculation", enable=
           printResult and errorCalcs));

@@ -1,20 +1,21 @@
 within ;
 package TRANSFORM "TRANSFORM - TRANsient Simulation Framework Of Reconfigurable Models"
   extends TRANSFORM.Icons.TRANSFORMPackage;
-import SI = Modelica.SIunits;
+import Modelica.Units.SI;
 import SIadd = TRANSFORM.Units;
 import Modelica.Constants.pi;
 import Modelica.Math;
 
 annotation (
-    uses(
-    SDF(version="0.4.0"),
-    ModelicaServices(version="3.2.2"),
-    Complex(version="3.2.3"),
-    UserInteraction(version="0.65"),
-    Modelica(version="3.2.2")),
-    version="1",
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
+  uses(
+    ModelicaServices(version="4.0.0"),
+    Complex(version="4.0.0"),
+    SDF(version="0.4.2"),
+    Modelica(version="4.0.0"),
+    UserInteraction(version="0.70")),
+  version="0.5",
+  conversion(from(version=0.4, script="modelica://TRANSFORM/Resources/Scripts/ConvertFromTRANSFORM_0.4.mos")),
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 </html>"));
 end TRANSFORM;

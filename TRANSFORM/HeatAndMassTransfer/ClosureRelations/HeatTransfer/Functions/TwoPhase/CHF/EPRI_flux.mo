@@ -24,9 +24,15 @@ protected
   Real F_C=if cwall then 1.183*G_en^(0.1) else 1.0;
   // Nonuniform effect correction factor
   Real Y = q_avg/max(0.0001,q_flux);
-  Real F_nu = if nu then 1 + (1-Y)/(1+G_en) else 0;
-algorithm
-  CHF :=(A*F_A - x_th_in)/(C*F_g*F_C*F_nu + (x_th - x_th_in)/max(0.0001,q_flux))/(3.169983306e-4) "[BTU/ft^2-hr] to [kW/m^2]";
+  Real F_nu = if nu then 1 + (1-Y)/(1+G_en) else 1.0;
+ Real B,H,D;
+algorithm 
+  B:=C*F_g*F_C*F_nu;
+  H:=(x_th - x_th_in);
+  D:=max(0.0001, q_flux); //Allows for a solve when flux is zero during startup or times of no heat transfer. 
+  CHF :=((A*F_A - x_th_in)/(B + H/D))/3.169983306e-7; //(3.169983306e-4) "[BTU/ft^2-hr] to [W/m^2]";
+
+
   annotation (Documentation(info="<html>
 <p>Prediction of the critical heat flux using the EPRI correlation as presented in 1982 EPRI Parametric Study of CHF Data Vol. 1-3</p>
 <p><br>      &quot;Outputs&quot;</p>

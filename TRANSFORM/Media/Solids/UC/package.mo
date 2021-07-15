@@ -3,8 +3,8 @@ package UC "Uranium Carbide"
  // 1.P. L. KIRILLOV, “Thermophysical Properties of Materials for Nuclear Engineering,” UDK 621.039.53/54 (031), Institute for Hat and Mass Transfer in Nuclear Power Plants (2006).
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="alloyN",
-    T_min=Modelica.SIunits.Conversions.from_degC(0),
-    T_max=Modelica.SIunits.Conversions.from_degC(3000));
+    T_min=Modelica.Units.Conversions.from_degC(0),
+    T_max=Modelica.Units.Conversions.from_degC(3000));
     constant Real porosity = 0 "Porosity of solid (i.e., 0 = completely solid)";
 
   redeclare function extends specificEnthalpy

@@ -5,18 +5,14 @@ model SystemTF
   replaceable package Medium = Modelica.Media.Water.StandardWater
     constrainedby Modelica.Media.Interfaces.PartialMedium "Medium properties"
     annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.AbsolutePressure p_ambient=101325
-    "Default ambient pressure"
-    annotation(Dialog(group="Environment"));
-  parameter Modelica.SIunits.Temperature T_ambient=293.15
-    "Default ambient temperature"
-    annotation(Dialog(group="Environment"));
-  parameter Modelica.SIunits.Acceleration g=Modelica.Constants.g_n
-    "Constant gravity acceleration"
-    annotation(Dialog(group="Environment"));
-  input Modelica.SIunits.Acceleration g_n=Modelica.Constants.g_n
-    "Constant gravity acceleration"
-    annotation(Dialog(group="Environment"));
+  parameter Modelica.Units.SI.AbsolutePressure p_ambient=101325
+    "Default ambient pressure" annotation (Dialog(group="Environment"));
+  parameter Modelica.Units.SI.Temperature T_ambient=293.15
+    "Default ambient temperature" annotation (Dialog(group="Environment"));
+  parameter Modelica.Units.SI.Acceleration g=Modelica.Constants.g_n
+    "Constant gravity acceleration" annotation (Dialog(group="Environment"));
+  input Modelica.Units.SI.Acceleration g_n=Modelica.Constants.g_n
+    "Constant gravity acceleration" annotation (Dialog(group="Environment"));
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Advanced"), Evaluate=true);

@@ -6,7 +6,8 @@ model Unnamed
  constant Real conversion_feet_to_m=0.3048 "Conversion feet to meter";
  constant Real conversion_inch_to_m=0.0254 "Inch to meter";
  parameter Real circulationRatio=2.9 "Circulation ratio for feed water" annotation(Dialog(group="Inputs"));
- final parameter Modelica.SIunits.Area Aheat_calc_outerTubes=1838*60*conversion_feet_to_m*3.141*1.25*conversion_inch_to_m;
+  final parameter Modelica.Units.SI.Area Aheat_calc_outerTubes=1838*60*
+      conversion_feet_to_m*3.141*1.25*conversion_inch_to_m;
   Real drum_level_percentage=drum.geometry.level_meas_percentage "Drum level percentage";
   Fluid.Volumes.BoilerDrum
                      drum(

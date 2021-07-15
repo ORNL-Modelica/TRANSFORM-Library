@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.Pipes.Examples.RELAPComparison;
 model RelapComparison_LinA
-  import SI = Modelica.SIunits;
+  import      Modelica.Units.SI;
   import SIadd = TRANSFORM.Units;
   package Medium = Modelica.Media.Water.StandardWater;
   parameter Integer iTest = 4 "Set test number to change test run";

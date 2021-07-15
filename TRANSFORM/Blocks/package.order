@@ -1,4 +1,8 @@
 Examples
+Sources
+Noise
+Tables
+Logical
 RealExpression
 DataTable
 DataTable_Inputs
@@ -7,7 +11,7 @@ StringTable
 TimerTotal
 OffTimer
 IntegratorWithReset
-Noise
 ShapeFactor
 SmoothTransition
-ExponentialDecay
+LinearDependency
+OffTimer_DerivativeInformed

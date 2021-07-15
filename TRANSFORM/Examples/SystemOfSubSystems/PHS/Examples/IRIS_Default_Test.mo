@@ -18,7 +18,7 @@ model IRIS_Default_Test
     h=source.Medium.specificEnthalpy_pT(6.19e6, 497))
     annotation (Placement(transformation(extent={{69,-24},{57,-12}})));
   Modelica.Blocks.Sources.Sine sine1(
-    freqHz=1/1000,
+    f=1/1000,
     amplitude=20e5,
     offset=PHS.port_b_nominal.p,
     startTime=100)

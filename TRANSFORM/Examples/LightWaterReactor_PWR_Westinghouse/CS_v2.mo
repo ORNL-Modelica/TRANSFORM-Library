@@ -4,7 +4,7 @@ model CS_v2 "Core: Tavg | Boiler Level: dT_avg"
   parameter SI.Time delayStart_SGpump=0 "Delay SG recirc pump control";
   parameter SI.Time delayStart_CR=0 "Delay control rod reactivity control";
   parameter SI.Time delayStart_PZRheater=0 "Delay pressurizer heater control";
-  Modelica.Blocks.Sources.Clock clock(offset=0, startTime=0)
+  Modelica.Blocks.Sources.ContinuousClock clock(offset=0, startTime=0)
     annotation (Placement(transformation(extent={{-170,60},{-150,80}})));
   Modelica.Blocks.Logical.Greater greater5
     annotation (Placement(transformation(extent={{-130,100},{-110,80}})));
@@ -25,7 +25,7 @@ model CS_v2 "Core: Tavg | Boiler Level: dT_avg"
     annotation (Placement(transformation(extent={{-50,110},{-30,130}})));
   Controls.LimPID PID_CR(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    initType=Modelica.Blocks.Types.InitPID.SteadyState,
+    initType=Modelica.Blocks.Types.Init.SteadyState,
     k_s=1/data.T_core_avg,
     k_m=1/data.T_core_avg)
     annotation (Placement(transformation(extent={{30,130},{50,110}})));

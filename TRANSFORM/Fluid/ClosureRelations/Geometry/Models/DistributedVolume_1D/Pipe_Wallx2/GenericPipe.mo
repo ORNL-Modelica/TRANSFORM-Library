@@ -8,7 +8,7 @@ model GenericPipe
     final nZ=nV,
     ths_wall=fill(0.01, nZ),
     drs=fillArray_1D(ths_wall/nR, nR),
-    drs_2=fillArray_1D(ths_wall/nR_2, nR_2),
+    drs_2=fillArray_1D(ths_wall_2/nR_2, nR_2),
     dzs=fillArray_1D(dlengths, nR),
     dzs_2=fillArray_1D(dlengths, nR_2));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

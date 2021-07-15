@@ -1,5 +1,5 @@
 within TRANSFORM;
 package Media
   extends TRANSFORM.Icons.MediaPackage;
-  import Modelica.SIunits.*;
+  import Modelica.Units.SI.*;
 end Media;

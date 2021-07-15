@@ -5,10 +5,12 @@ model Turbine_SinglePhase_Test3
   package Medium = Modelica.Media.IdealGases.SingleGases.H2 "Working fluid";
   parameter SI.MassFlowRate m_flow = 59.02 "Flow rate in cycle";
   parameter SI.Pressure p_steam = 8.6e6 "Steam pressure";
-  parameter SI.Temperature T_steam = SI.Conversions.from_degC(500) "Steam temperature";
+  parameter SI.Temperature T_steam = Modelica.Units.Conversions.from_degC(
+                                                              500) "Steam temperature";
   parameter SI.Pressure p_condenser = 1e4 "Condenser pressure";
   parameter SI.Efficiency eta = 0.75 "Overall turbine efficiency";
-  parameter SI.Temperature T_condenser = SI.Conversions.from_degC(45.8) "Condenser saturated liquid temperature";
+  parameter SI.Temperature T_condenser = Modelica.Units.Conversions.from_degC(
+                                                                  45.8) "Condenser saturated liquid temperature";
   parameter SI.Power Q_capacity = 56.4e6 "Rated steam turbine capacity";
   Real pR = 1/turbine.PR;
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT source(

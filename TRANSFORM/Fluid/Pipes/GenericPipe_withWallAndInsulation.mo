@@ -18,6 +18,8 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
   extends BaseClasses.GenericPipe_Record_multiSurface(
     final nV=pipe.geometry.nV,
     use_HeatTransfer=true);
+  input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
+    annotation (Dialog(tab="Advanced", group="Inputs"));
   replaceable package Material_wall =
       TRANSFORM.Media.Solids.SS316                     constrainedby
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy

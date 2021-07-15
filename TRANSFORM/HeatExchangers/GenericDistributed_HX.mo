@@ -302,8 +302,7 @@ model GenericDistributed_HX
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Shell Side",
-      enable=if useLumpedPressure_shell and modelStructure_shell <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure_shell and not exposeState_a_shell and not exposeState_b_shell then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties_shell=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Shell Side"), Evaluate=true);
@@ -323,8 +322,7 @@ model GenericDistributed_HX
     "Location of pressure for flow calculations" annotation (Dialog(
       tab="Advanced",
       group="Tube Side",
-      enable=if useLumpedPressure_tube and modelStructure_tube <>
-          ModelStructure.av_vb then true else false), Evaluate=true);
+      enable=if useLumpedPressure_tube and not exposeState_a_tube and not exposeState_b_tube then true else false), Evaluate=true);
   parameter Boolean useInnerPortProperties_tube=false
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Tube Side"), Evaluate=true);
@@ -374,8 +372,7 @@ model GenericDistributed_HX
     C_a_start=C_a_start_shell,
     C_b_start=C_b_start_shell,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
         nV=geometry.nV,
         crossAreas=geometry.crossAreas_shell,
         perimeters=geometry.perimeters_shell,
@@ -430,8 +427,7 @@ model GenericDistributed_HX
     C_a_start=C_a_start_tube,
     C_b_start=C_b_start_tube,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
         nV=geometry.nV,
         dimensions=geometry.dimensions_tube,
         dlengths=geometry.dlengths_tube,
@@ -466,8 +462,7 @@ model GenericDistributed_HX
     exposeState_a2=exposeState_a_tube,
     exposeState_b2=exposeState_b_tube,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         r_inner=0.5*sum(geometry.dimensions_tube)/geometry.nV,
         r_outer=0.5*sum(geometry.dimensions_tube_outer)/geometry.nV,
         length_z=sum(geometry.dlengths_tube),

@@ -2,3 +2,5 @@ Examples
 BaseClasses
 to_rad
 from_rad
+to_deg
+from_deg

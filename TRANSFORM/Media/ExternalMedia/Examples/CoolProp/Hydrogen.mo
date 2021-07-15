@@ -1,6 +1,5 @@
 within TRANSFORM.Media.ExternalMedia.Examples.CoolProp;
 model Hydrogen
-  import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   extends ExternalMedia.Test.GenericModels.TestBasePropertiesDynamic(
     redeclare package Medium =

@@ -18,7 +18,9 @@ model getRPM_centrifugalPump_Test
         time)) annotation (Placement(transformation(extent={{-28,12},{-8,32}})));
   Modelica.Blocks.Sources.Constant const(k=2e5)
     annotation (Placement(transformation(extent={{-92,10},{-72,30}})));
-  Modelica.Blocks.Sources.Sine sine(freqHz=1, offset=0,
+  Modelica.Blocks.Sources.Sine sine(
+    f=1,
+    offset=0,
     amplitude=0.1e5)
     annotation (Placement(transformation(extent={{-92,40},{-72,60}})));
   Modelica.Blocks.Math.Add add
