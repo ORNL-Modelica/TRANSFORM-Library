@@ -101,6 +101,8 @@ partial model PartialTurbine
   Medium.SpecificEnthalpy dh "Actual enthalpy change";
   SI.Power Q_mech "Mechanical power";
   SI.Power Ub "Energy balance";
+  final parameter Medium.SpecificEntropy s_a_start = Medium.specificEntropy_pTX(p_a_start,T_a_start,X_start) "Specific entropy at port a";
+  Medium.SpecificEntropy s_in(start=s_a_start) "Inlet entropy";
   //    SI.Energy U "Energy";
 
 equation
@@ -117,7 +119,8 @@ equation
   // Mass balance equations
   port_a.m_flow + port_b.m_flow = 0;
   // Enthalpy relations
-  h_is = Medium.isentropicEnthalpy(port_b.p, state_a);
+  s_in = Medium.specificEntropy(state_a);
+  h_is = Medium.specificEnthalpy_ps(port_b.p, s_in);
   dh_ideal = (h_in - h_is);
   dh = eta_is*dh_ideal;
   dh = h_in - h_out;

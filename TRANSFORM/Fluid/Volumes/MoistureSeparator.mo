@@ -18,9 +18,9 @@ model MoistureSeparator
         start=p_start)) annotation (Placement(transformation(extent={{-50,-50},{
             -30,-30}}), iconTransformation(extent={{-50,-50},{-30,-30}})));
 
-  input SI.Efficiency eta_sep(
+  parameter SI.Efficiency eta_sep(
     min=0,
-    max=1) = 1.0 "Separation efficiency" annotation(Dialog(group="Inputs"));
+    max=1) = 0.99 "Separation efficiency";
 
   SI.MassFlowRate m_cond;
   SI.MassFraction x_abs;

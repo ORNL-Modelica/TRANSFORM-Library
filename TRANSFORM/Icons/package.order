@@ -47,3 +47,7 @@ ClosureRelationsPackage
 TemplatePackage
 PlaceHolder
 MultiSensor_1values
+GSLPackage
+NusseltNumber
+CoefficientOfHeatTransfer
+MultiSensor_4values

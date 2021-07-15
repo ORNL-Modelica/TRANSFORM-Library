@@ -6,3 +6,4 @@ to_hp
 from_hp
 to_btu_hr
 from_btu_hr
+to_MW

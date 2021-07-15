@@ -13,7 +13,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end PartialNPSrecord;
 
-  model NPS_6 "one_eighth"
+  model NPS_6 "DN=6, one_eighth"
     extends PartialNPSrecord(
              d_o = 0.01029,
              final th_wall = ths[schedule]);
@@ -24,7 +24,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_6;
 
-  model NPS_8 "one_quarter"
+  model NPS_8 "DN=8, one_quarter"
     extends PartialNPSrecord(
              d_o = 0.01372,
              final th_wall = ths[schedule]);
@@ -35,7 +35,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_8;
 
-  model NPS_10 "three_eighths"
+  model NPS_10 "DN=10, three_eighths"
     extends PartialNPSrecord(
              d_o = 0.01715,
              final th_wall = ths[schedule]);
@@ -46,7 +46,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_10;
 
-  model NPS_15 "one_half"
+  model NPS_15 "DN=15, one_half"
     extends PartialNPSrecord(
              d_o = 0.02134,
              final th_wall= ths[schedule]);
@@ -57,7 +57,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_15;
 
-  model NPS_20 "three_quarters"
+  model NPS_20 "DN=20, three_quarters"
     extends PartialNPSrecord(
              d_o = 0.02667,
              final th_wall= ths[schedule]);
@@ -68,7 +68,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_20;
 
-  model NPS_25 "one"
+  model NPS_25 "DN=25, one"
     extends PartialNPSrecord(
              d_o = 0.03340,
              final th_wall= ths[schedule]);
@@ -79,7 +79,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_25;
 
-  model NPS_32 "one_and_one_quarter"
+  model NPS_32 "DN=32, one_and_one_quarter"
     extends PartialNPSrecord(
              d_o = 0.04216,
              final th_wall= ths[schedule]);
@@ -90,7 +90,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_32;
 
-  model NPS_40 "one_and_one_half"
+  model NPS_40 "DN=20 one_and_one_half"
     extends PartialNPSrecord(
              d_o = 0.04826,
              final th_wall= ths[schedule]);
@@ -101,7 +101,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_40;
 
-  model NPS_50 "two"
+  model NPS_50 "DN=50, two"
     extends PartialNPSrecord(
              d_o = 0.06033,
              final th_wall= ths[schedule]);
@@ -112,7 +112,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_50;
 
-  model NPS_65 "two_and_one_half"
+  model NPS_65 "DN=65, two_and_one_half"
     extends PartialNPSrecord(
              d_o = 0.07303,
              final th_wall= ths[schedule]);
@@ -123,7 +123,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_65;
 
-  model NPS_80 "three"
+  model NPS_80 "DN=80, three"
     extends PartialNPSrecord(
              d_o = 0.08890,
              final th_wall= ths[schedule]);
@@ -134,7 +134,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_80;
 
-  model NPS_90 "three_and_one_half"
+  model NPS_90 "DN=90, three_and_one_half"
     extends PartialNPSrecord(
              d_o = 0.10160,
              final th_wall= ths[schedule]);
@@ -145,7 +145,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_90;
 
-  model NPS_100 "four"
+  model NPS_100 "DN=100, four"
     extends PartialNPSrecord(
              d_o = 0.11430,
              final th_wall= ths[schedule]);
@@ -156,7 +156,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_100;
 
-  model NPS_115 "four"
+  model NPS_115 "DN=115, four_and_one_half"
     extends PartialNPSrecord(
              d_o = 0.12700,
              final th_wall= ths[schedule]);
@@ -167,7 +167,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_115;
 
-  model NPS_125 "five"
+  model NPS_125 "DN=125, five"
     extends PartialNPSrecord(
              d_o = 0.14130,
              final th_wall= ths[schedule]);
@@ -178,7 +178,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_125;
 
-  model NPS_150 "six"
+  model NPS_150 "DN=150, six"
     extends PartialNPSrecord(
              d_o = 0.16828,
              final th_wall= ths[schedule]);
@@ -189,7 +189,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_150;
 
-  model NPS_175 "seven"
+  model NPS_175 "DN=175, seven"
     extends PartialNPSrecord(
              d_o = 0.19368,
              final th_wall= ths[schedule]);
@@ -200,7 +200,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_175;
 
-  model NPS_200 "eight"
+  model NPS_200 "DN=200, eight"
     extends PartialNPSrecord(
              d_o = 0.21908,
              final th_wall= ths[schedule]);
@@ -211,7 +211,7 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_200;
 
-  model NPS_225 "nine"
+  model NPS_225 "DN=225, nine"
     extends PartialNPSrecord(
              d_o = 0.24448,
              final th_wall= ths[schedule]);
@@ -222,24 +222,24 @@ package NPS
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_225;
 
-  model NPS_250 "ten"
+  model NPS_250 "DN=250, ten"
     extends PartialNPSrecord(
              d_o = 0.27305,
              final th_wall= ths[schedule]);
 
-    parameter Integer schedule = 1 "Pipe schedule" annotation(choices(choice=1 "5s",choice=2 "10",choice=3 "20",choice=4 "30",choice=5 "40/STD"));
-    constant Real ths[:] = {0.003404,0.004191,0.006350,0.007798,0.009271};
+    parameter Integer schedule = 1 "Pipe schedule" annotation(choices(choice=1 "5/5s",choice=2 "10/10s",choice=3 "20",choice=4 "30",choice=5 "40s/STD/40",choice=6 "60/80s/XS",choice=7 "80",choice=8 "100",choice=9 "120",choice=10 "140",choice=11 "160"));
+    constant Real ths[:] = {0.003404,0.004191,0.006350,0.007798,0.009271,0.012700,0.015088,0.018237,0.021412,0.025400,0.028575};
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_250;
 
-  model NPS_300 "twelve"
+  model NPS_300 "DN=300, twelve"
     extends PartialNPSrecord(
              d_o = 0.32385,
              final th_wall= ths[schedule]);
 
-    parameter Integer schedule = 1 "Pipe schedule" annotation(choices(choice=1 "5s",choice=2 "10",choice=3 "20",choice=4 "30",choice=5 "40/STD"));
-    constant Real ths[:] = {0.003962,0.004572,0.006350,0.008382,0.009525};
+    parameter Integer schedule = 1 "Pipe schedule" annotation(choices(choice=1 "5s",choice=2 "10",choice=3 "20",choice=4 "30",choice=5 "40s/STD",choice=6 "40",choice=7 "60",choice=8 "80s/XS",choice=9 "80",choice=10 "100",choice=11 "120",choice=12 "140",choice=13 "160"));
+    constant Real ths[:] = {0.003962,0.004572,0.006350,0.008382,0.009525,0.010312,0.014275,0.012700,0.017450,0.021412,0.025400,0.028575,0.033325};
     annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
           coordinateSystem(preserveAspectRatio=false)));
   end NPS_300;

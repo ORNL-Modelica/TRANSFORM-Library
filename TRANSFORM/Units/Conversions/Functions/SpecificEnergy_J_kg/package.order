@@ -2,3 +2,5 @@ Examples
 BaseClasses
 to_J_kg
 from_J_kg
+to_kJ_kg
+from_kJ_kg

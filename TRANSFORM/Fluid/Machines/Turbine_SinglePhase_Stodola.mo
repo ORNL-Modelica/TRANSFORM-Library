@@ -54,14 +54,14 @@ initial equation
   end if;
 
 equation
-  p_ratio = port_b.p/port_a.p;
+  p_ratio = port_a.p/port_b.p;
   if cardinality(partialArc) == 0 then
     partialArc = 1.0 "Default value if not connected";
   end if;
 
   if use_Stodola then
-    m_flow = homotopy(Kt*partialArc*sqrt(port_a.p*max(Medium.density(state_a), 0.01))
-      *Modelica.Fluid.Utilities.regRoot(1 - p_ratio^2), partialArc/
+    m_flow = homotopy(Kt*partialArc*sqrt(port_a.p*max(Medium.density(state_a), 0.0001))
+      *Modelica.Fluid.Utilities.regRoot(1 - p_ratio^(-2)), partialArc/
       partialArc_nominal*m_flow_nominal/p_inlet_nominal*port_a.p);
   else
     m_flow = homotopy(port_a.p*partialArc*m_flow_nominal/p_inlet_nominal,

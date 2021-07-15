@@ -94,9 +94,5 @@ equation
     annotation (Line(points={{49,40},{40,40},{40,34}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
-    experiment(
-      StopTime=3000,
-      __Dymola_NumberOfIntervals=100,
-      Tolerance=1e-04,
-      __Dymola_Algorithm="Dassl"));
+    experiment(StopTime=3000, __Dymola_NumberOfIntervals=100));
 end OvenBrazing;

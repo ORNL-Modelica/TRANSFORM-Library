@@ -1,10 +1,12 @@
 within TRANSFORM.Fluid.Valves;
 model ValveCompressible2
   "Valve for compressible fluids, accounts for choked flow conditions"
-  extends BaseClasses.PartialValve;
+  extends BaseClasses.PartialValve(rho_nominal=Medium.density_pT(p_nominal, T_nominal));
   import TRANSFORM.Fluid.Types.CvTypes;
   import Modelica.Constants.pi;
   parameter Medium.AbsolutePressure p_nominal "Nominal inlet pressure"
+  annotation(Dialog(group="Nominal operating point"));
+  parameter Medium.Temperature T_nominal "Nominal inlet temperature"
   annotation(Dialog(group="Nominal operating point"));
   //input Real Fxt_full=0.5 "Fk*xt critical ratio at full opening" annotation(Dialog(group="Inputs"));
   replaceable function xtCharacteristic =
@@ -66,7 +68,7 @@ equation
     p=port_a.p;
     xChoice=x_a;
   end if;
-  Fxt = x_a*xtCharacteristic(opening_actual);
+  Fxt = xChoice*xtCharacteristic(opening_actual);
   x*p = dp;
   xs = max(-Fxt, min(x, Fxt));
   //xs = smooth(0, if x < -Fxt then -Fxt else if x > Fxt then Fxt else x);
