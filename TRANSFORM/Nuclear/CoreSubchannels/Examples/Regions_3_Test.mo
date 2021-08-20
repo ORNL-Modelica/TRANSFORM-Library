@@ -70,8 +70,6 @@ model Regions_3_Test
   Modelica.Blocks.Sources.Step     Other_Reactivity(                startTime=
         250, height=-0.001)
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(x={coreSubchannel.kinetics.Q_total})
-    annotation (Placement(transformation(extent={{60,80},{80,100}})));
 equation
   connect(coreSubchannel.port_b, P_boundary.ports[1])
     annotation (Line(points={{10,0},{50,0},{90,0}}, color={0,127,255}));
@@ -79,6 +77,9 @@ equation
     annotation (Line(points={{-10,0},{-49,0},{-88,0}}, color={0,127,255}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-    experiment(StopTime=1000, __Dymola_NumberOfIntervals=1000),
+    experiment(
+      StopTime=1000,
+      __Dymola_NumberOfIntervals=1000,
+      __Dymola_Algorithm="Dassl"),
     __Dymola_experimentSetupOutput);
 end Regions_3_Test;

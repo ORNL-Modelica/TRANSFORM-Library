@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Examples
 Graphite
 UO2
@@ -28,3 +29,34 @@ Inconel625
 Hastelloy_N_Haynes
 Inconel600
 C276
+=======
+Examples
+Graphite
+UO2
+UC
+ZrNb_E125
+AlloyN
+Helium
+Sodium
+HT9
+SS316
+SS304
+Inconel690
+Cr225Mo1
+Copper
+CustomSolids
+SS304_TRACE
+SS316_TRACE
+FiberGlassGeneric
+UN
+Rhenium
+ZircHydride
+Beryllium
+Molybdenum
+Tungsten
+YSZ
+Inconel625
+Hastelloy_N_Haynes
+Alumina
+FOAMGLAS
+>>>>>>> master

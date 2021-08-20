@@ -2,9 +2,9 @@ within TRANSFORM.HeatExchangers;
 model LMTD_HX_A "Calculate A using LMTD method"
   extends TRANSFORM.HeatExchangers.BaseClasses.Partial_LMTD_HX;
 
-  parameter SI.Power Q_flow0=0.5e6;
-  parameter SI.CoefficientOfHeatTransfer alpha_1 = 800;
-  parameter SI.CoefficientOfHeatTransfer alpha_2 = 4000;
+  input SI.Power Q_flow0=0.5e6 annotation(Dialog(group="Inputs"));
+  input SI.CoefficientOfHeatTransfer alpha_1 = 800 annotation(Dialog(group="Inputs"));
+  input SI.CoefficientOfHeatTransfer alpha_2 = 4000 annotation(Dialog(group="Inputs"));
 
   SI.Area surfaceArea(start=1e3);
 

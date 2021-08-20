@@ -361,8 +361,7 @@ annotation (Dialog(group="Tube Parameters"));
     massDynamics=massDynamics_tube,
     momentumDynamics=momentumDynamics_tube,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2*r_inner,
         length=nPasses*(S_E_a + th_B + S_E_b + (nb - 1)*(S + th_B)),
         roughness=roughness_tube,

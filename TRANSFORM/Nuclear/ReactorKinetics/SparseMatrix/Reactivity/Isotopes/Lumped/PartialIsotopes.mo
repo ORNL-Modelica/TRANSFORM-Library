@@ -4,8 +4,7 @@ partial model PartialIsotopes
 
   replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_null
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.PartialIsotopes
     "Data" annotation (choicesAllMatching=true);
   Data data;
 
@@ -65,8 +64,8 @@ initial equation
   end if;
 equation
 
-  phi = Q_fission/sum(data.w_f[k]*data.sigmasF[k]*mCs[data.actinideIndex[k]]
-    for k in 1:data.nA);
+  phi = Q_fission/(sum(data.w_f[k]*data.sigmasF[k]*mCs[data.actinideIndex[k]]
+    for k in 1:data.nA)+sum(data.w_c[k]*data.sigmasA[k]*mCs[k] for k in 1:data.nC));
 
   // Mass Balance
   if traceDynamics == Dynamics.SteadyState then

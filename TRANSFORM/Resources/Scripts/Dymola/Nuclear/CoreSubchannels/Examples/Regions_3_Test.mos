@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Nuclear.CoreSubchannels.Examples.Regions_3_Test",stopTime=1000,numberOfIntervals=1000,resultFile="Regions_3_Test");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
