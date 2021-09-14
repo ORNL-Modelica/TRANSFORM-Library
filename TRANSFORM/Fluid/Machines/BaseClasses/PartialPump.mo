@@ -61,8 +61,7 @@ partial model PartialPump "Base model for centrifugal pumps"
     "Volume flow rate";
   replaceable model FlowChar =
       TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PartialFlowChar
+    constrainedby TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PartialFlowChar
     "Head vs. Volumetric flow rate" annotation (Dialog(group=
           "Characteristics: Based on single pump nominal conditions"),
       choicesAllMatching=true);
@@ -85,8 +84,7 @@ partial model PartialPump "Base model for centrifugal pumps"
           "Characteristics: Based on single pump nominal conditions"));
   replaceable model PowerChar =
       TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power.Constant
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power.PartialPowerChar
+    constrainedby TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power.PartialPowerChar
     "Power consumption vs. Volumetric flow rate" annotation (Dialog(group=
           "Characteristics: Based on single pump nominal conditions", enable=
           use_powerCharacteristic), choicesAllMatching=true);

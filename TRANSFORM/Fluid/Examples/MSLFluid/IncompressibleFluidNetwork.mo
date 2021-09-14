@@ -21,8 +21,7 @@ model IncompressibleFluidNetwork
   Pipes.GenericPipe_MultiTransferSurface                pipe1(
     redeclare package Medium = Medium,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=10,
         nV=2),
@@ -36,8 +35,7 @@ model IncompressibleFluidNetwork
   Pipes.GenericPipe_MultiTransferSurface                pipe2(
     redeclare package Medium = Medium,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=0.5,
         nV=2),
@@ -53,8 +51,7 @@ model IncompressibleFluidNetwork
         rotation=90)));
   Pipes.GenericPipe_MultiTransferSurface                pipe3(
     redeclare package Medium = Medium, redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=0.5,
         nV=2),
@@ -71,8 +68,7 @@ model IncompressibleFluidNetwork
   Pipes.GenericPipe_MultiTransferSurface                pipe4(
     redeclare package Medium = Medium,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=2,
         nV=2),
@@ -86,8 +82,7 @@ model IncompressibleFluidNetwork
   Pipes.GenericPipe_MultiTransferSurface pipe6(
     redeclare package Medium = Medium,
         redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=20,
         nV=2),
@@ -117,8 +112,7 @@ model IncompressibleFluidNetwork
   Pipes.GenericPipe_MultiTransferSurface pipe7(
     redeclare package Medium = Medium,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=10,
         nV=2),
@@ -164,8 +158,7 @@ model IncompressibleFluidNetwork
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=10,
         nV=2),
@@ -182,8 +175,7 @@ model IncompressibleFluidNetwork
   Pipes.GenericPipe_MultiTransferSurface pipe9(
     redeclare package Medium = Medium,
     redeclare model Geometry =
-     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+     TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=10,
         nV=2),
@@ -197,8 +189,7 @@ model IncompressibleFluidNetwork
   Pipes.GenericPipe_MultiTransferSurface pipe10(
     redeclare package Medium = Medium,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=10,
         nV=2),
@@ -212,8 +203,7 @@ model IncompressibleFluidNetwork
   Pipes.GenericPipe_MultiTransferSurface pipe5(
     redeclare package Medium = Medium,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=20,
         nV=2),
@@ -230,8 +220,7 @@ model IncompressibleFluidNetwork
   Pipes.GenericPipe_MultiTransferSurface pipe11(
     redeclare package Medium = Medium,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2.5e-2,
         length=0.5,
         nV=2),

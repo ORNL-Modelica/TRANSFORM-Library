@@ -43,8 +43,7 @@ model Problem_4new "I-135 Decay with Non-uniform concentration"
     p_a_start=p_start,
     T_a_start=T_start,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=dimension,
         length=length,
         nV=nV),

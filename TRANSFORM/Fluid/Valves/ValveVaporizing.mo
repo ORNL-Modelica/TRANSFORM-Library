@@ -10,8 +10,7 @@ model ValveVaporizing
   parameter Real Fl_nominal=0.9 "Liquid pressure recovery factor";
   replaceable function FlCharacteristic =
       TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.one
-    constrainedby
-    TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.baseFun
+    constrainedby TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.baseFun
     "Pressure recovery characteristic";
   Real Ff "Ff coefficient (see IEC/ISA standard)";
   Real Fl "Pressure recovery coefficient Fl (see IEC/ISA standard)";

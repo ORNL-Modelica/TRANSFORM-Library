@@ -4,8 +4,7 @@ model MassFractions "Ideal one port mass fraction sensor"
   extends BaseClasses.PartialMultiSensor_1values(final var=Xi,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
+      constrainedby TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
   parameter String substanceName = "water" "Name of mass fraction";
   Modelica.Blocks.Interfaces.RealOutput Xi "Mass fraction in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),

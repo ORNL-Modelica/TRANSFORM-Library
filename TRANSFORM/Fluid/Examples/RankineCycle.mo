@@ -43,16 +43,16 @@ model RankineCycle
         origin={-60,8})));
   Machines.Pump pump(
     redeclare model FlowChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve
-        (V_flow_curve={0,0.1,2*0.1}, head_curve={1000,500,0}),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve (
+         V_flow_curve={0,0.1,2*0.1}, head_curve={1000,500,0}),
     m_flow_nominal=m_flow,
     use_T_start=false,
     m_flow_start=m_flow,
     h_start=191.8e3,
     V=0,
     redeclare model EfficiencyChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant
-        (eta_constant=0.8),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant (
+         eta_constant=0.8),
     p_a_start=p_condenser,
     controlType="pressure",
     exposeState_a=false,
@@ -62,11 +62,10 @@ model RankineCycle
     annotation (Placement(transformation(extent={{10,-84},{-10,-64}})));
   Electrical.PowerConverters.Generator generator
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
-  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_out(redeclare
-      package Medium = Modelica.Media.Water.StandardWater)
+  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_out(redeclare package Medium =
+                       Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
-  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_in(redeclare
-      package Medium =
+  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_in(redeclare package Medium =
                Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-90,-67},{-70,-47}})));
   TRANSFORM.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package Medium =
@@ -100,8 +99,8 @@ equation
           {-40,-40},{-40,4},{-40,5.33333},{-50,5.33333}}, color={0,127,255}));
   connect(specificEnthalpy_out.port, boiler.ports[2])
     annotation (Line(points={{-80,40},{-50,40},{-50,8}}, color={0,127,255}));
-  connect(steamTurbine.portHP, boiler.ports[3]) annotation (Line(points={{0,46},{
-          -42,46},{-42,10.6667},{-50,10.6667}},  color={0,127,255}));
+  connect(steamTurbine.portHP, boiler.ports[3]) annotation (Line(points={{0,46},{-42,46},{-42,
+          10.6667},{-50,10.6667}},               color={0,127,255}));
   connect(pump.port_b, massFlowRate.port_a) annotation (Line(points={{-10,-74},{
           -40,-74},{-40,-60}}, color={0,127,255}));
   connect(pump.port_a, condenser.port_b)

@@ -6,8 +6,7 @@ model Deaerator
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.Cylinder
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.GenericVolume
+    constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.GenericVolume
     "Geometry" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
   Geometry geometry(V_liquid=V)
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));

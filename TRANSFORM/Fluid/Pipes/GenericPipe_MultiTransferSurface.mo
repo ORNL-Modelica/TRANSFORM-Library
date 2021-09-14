@@ -103,8 +103,7 @@ model GenericPipe_MultiTransferSurface
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
+    constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
                                                                           "Geometry"
     annotation (Dialog(group="Geometry"),choicesAllMatching=true);
   Geometry geometry annotation (Placement(transformation(extent={{-78,82},{-62,98}})));

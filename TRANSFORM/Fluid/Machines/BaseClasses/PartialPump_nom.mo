@@ -10,8 +10,7 @@ partial model PartialPump_nom
 
   replaceable model FlowChar =
       TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Flow.PerformanceCurve
-    constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Flow.PartialFlowChar
+    constrainedby TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Flow.PartialFlowChar
     "Head vs. Volumetric flow rate" annotation (Dialog(group="Characteristics: Based on single pump nominal conditions"),
       choicesAllMatching=true);
   FlowChar flowChar(
@@ -33,8 +32,7 @@ partial model PartialPump_nom
           "Characteristics: Based on single pump nominal conditions"));
   replaceable model PowerChar =
       TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Power.Constant
-    constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Power.PartialPowerChar
+    constrainedby TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Power.PartialPowerChar
     "Power consumption vs. Volumetric flow rate" annotation (Dialog(group=
           "Characteristics: Based on single pump nominal conditions", enable=
           use_powerCharacteristic), choicesAllMatching=true);

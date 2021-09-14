@@ -46,8 +46,7 @@ model Problem_5 "Single Species Drift w/ DepositionSingle species drift with dec
     p_a_start=p_a_start,
     T_a_start=T_a_start,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=dimension,
         length=length,
         nV=nV),

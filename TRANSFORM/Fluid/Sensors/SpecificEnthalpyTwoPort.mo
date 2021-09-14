@@ -5,8 +5,7 @@ model SpecificEnthalpyTwoPort
   extends BaseClasses.PartialMultiSensor_1values(final var=h_out,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.SpecificEnergy_J_kg.to_J_kg
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.SpecificEnergy_J_kg.BaseClasses.to);
+      constrainedby TRANSFORM.Units.Conversions.Functions.SpecificEnergy_J_kg.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg")
     "Specific enthalpy of the passing fluid"

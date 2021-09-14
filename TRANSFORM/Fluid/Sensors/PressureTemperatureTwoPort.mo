@@ -5,12 +5,11 @@ model PressureTemperatureTwoPort
   extends BaseClasses.PartialMultiSensor_2values(                    final var=p,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_MPa
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to,final var2=T,
+      constrainedby TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to,
+                                                                       final var2=T,
       redeclare replaceable function iconUnit2 =
         TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.BaseClasses.to);
+      constrainedby TRANSFORM.Units.Conversions.Functions.Temperature_K.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput p(
     final quantity="Pressure",
     final unit="Pa",

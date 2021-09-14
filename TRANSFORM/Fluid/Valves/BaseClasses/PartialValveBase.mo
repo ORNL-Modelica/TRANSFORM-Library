@@ -25,8 +25,7 @@ model PartialValveBase
     annotation (Dialog(tab="Advanced"));
   replaceable function valveCharacteristic =
       Modelica.Fluid.Valves.BaseClasses.ValveCharacteristics.linear
-    constrainedby
-    Modelica.Fluid.Valves.BaseClasses.ValveCharacteristics.baseFun
+    constrainedby Modelica.Fluid.Valves.BaseClasses.ValveCharacteristics.baseFun
     "Inherent flow characteristic"
     annotation(choicesAllMatching=true);
     constant Real Kv2Av = sqrt(998.56)/3600/sqrt(1e5) "Conversion factor";

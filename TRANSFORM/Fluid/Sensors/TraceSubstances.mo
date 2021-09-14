@@ -4,8 +4,7 @@ model TraceSubstances "Ideal one port trace substances sensor"
   extends BaseClasses.PartialMultiSensor_1values(final var=C,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
+      constrainedby TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
   parameter String substanceName = "CO2" "Name of trace substance";
   Modelica.Blocks.Interfaces.RealOutput C "Trace substance in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),

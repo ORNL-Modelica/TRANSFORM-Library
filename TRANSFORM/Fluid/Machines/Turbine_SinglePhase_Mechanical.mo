@@ -7,8 +7,7 @@ extends TRANSFORM.Icons.UnderConstruction;
 
   replaceable model FlowChar =
       TRANSFORM.Fluid.Machines.BaseClasses.TurbineCharacteristics.Flow.HyperbolicTangent
-    constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.TurbineCharacteristics.Flow.PartialFlowChar
+    constrainedby TRANSFORM.Fluid.Machines.BaseClasses.TurbineCharacteristics.Flow.PartialFlowChar
     "Flow characteristics" annotation (Dialog(group="Characteristics: Based on single turbine nominal conditions"),
       choicesAllMatching=true);
   FlowChar flowChar(

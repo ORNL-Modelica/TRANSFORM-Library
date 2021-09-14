@@ -19,8 +19,7 @@ partial model PartialResistance
   parameter Integer precision(min=0) = 3 "Number of decimals displayed" annotation (Dialog(tab="Visualization"));
   replaceable function iconUnit =
       TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_MPa
-      constrainedby
-    TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to
+      constrainedby TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to
     "Unit for icon display" annotation (choicesAllMatching=true,Dialog(tab="Visualization"));
 
 equation

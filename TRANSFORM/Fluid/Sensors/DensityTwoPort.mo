@@ -4,8 +4,7 @@ model DensityTwoPort "Ideal two port density sensor"
   extends BaseClasses.PartialMultiSensor_1values(final var=d,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.Density_kg_m3.to_kg_m3
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.Density_kg_m3.BaseClasses.to);
+      constrainedby TRANSFORM.Units.Conversions.Functions.Density_kg_m3.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput d(
     final quantity="Density",
     final unit="kg/m3",

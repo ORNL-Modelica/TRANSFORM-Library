@@ -44,8 +44,7 @@ partial model PartialValve "Base model for valves"
     annotation(Dialog(tab="Assumptions"));
   replaceable function valveCharacteristic =
       TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.linear
-    constrainedby
-    TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.baseFun
+    constrainedby TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.baseFun
     "Inherent flow characteristic"
     annotation(choicesAllMatching=true);
   parameter SI.Pressure dp_small=dp_nominal/m_flow_nominal*m_flow_small
