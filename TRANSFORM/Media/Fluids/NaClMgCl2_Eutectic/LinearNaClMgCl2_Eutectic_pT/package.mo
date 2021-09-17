@@ -1,4 +1,4 @@
-within TRANSFORM.Media.Fluids.LinearNaClMgCl2_Eutectic_pt;
+within TRANSFORM.Media.Fluids.LinearNaClMgCl2_Eutectic;
 package LinearNaClMgCl2_Eutectic_pt "NaCl-MgCl2 Eutectic Salt Linear Compressibility"
   import elem = TRANSFORM.PeriodicTable.Elements;
 // beta_const adjusted till density matched. kappa left alone

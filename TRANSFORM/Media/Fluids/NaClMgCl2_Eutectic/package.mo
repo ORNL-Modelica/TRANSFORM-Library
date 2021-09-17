@@ -1,4 +1,4 @@
 within TRANSFORM.Media.Fluids;
-package NaCLMgCl2_Eutectic "NaCl-MgCl2 Eutectic Salt Package"
+package NaClMgCl2_Eutectic "NaCl-MgCl2 Eutectic Salt Package"
 extends Modelica.Icons.VariantsPackage;
-end NaCLMgCl2_Eutectic;
+end NaClMgCl2_Eutectic;
