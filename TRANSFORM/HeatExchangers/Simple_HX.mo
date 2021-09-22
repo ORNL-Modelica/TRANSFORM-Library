@@ -16,7 +16,8 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   input SI.Volume V_1 "Fluid volume" annotation(Dialog(group="Inputs"));
   input SI.Volume V_2 "Fluid volume" annotation(Dialog(group="Inputs"));
 
-  input SI.ThermalConductance UA "Overall heat transfer coefficient" annotation(Dialog(group="Inputs"));
+  input SI.ThermalConductance UA = 1 "Overall heat transfer coefficient" annotation(Dialog(group="Inputs"));
+  input SI.ThermalConductance UAs[:] = {UA/nV for i in 1:nV} "Overall heat transfer coefficients" annotation(Dialog(group="Inputs"));
   input SIadd.NonDim CF = if abs(T_a_start_1-T_b_start_1) <= Modelica.Constants.eps or abs(T_a_start_2-T_b_start_2) <= Modelica.Constants.eps then 1.0 else TRANSFORM.HeatExchangers.Utilities.Functions.logMean(T_a_start_1 -
     T_b_start_1, T_b_start_2 - T_a_start_2)/nV "Correction factor" annotation(Dialog(group="Inputs"));
   input SIadd.NonDim CFs[nV]=fill(
@@ -239,7 +240,7 @@ import TRANSFORM.Math.linspaceRepeat_1D;
     each use_HeatPort=true)
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_1[nV](
-      redeclare package Medium = Medium_1, each R=R_1/nV)
+      redeclare package Medium = Medium_1, R=R_1s)
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   TRANSFORM.Fluid.Volumes.SimpleVolume volume_2[nV](
     redeclare package Medium = Medium_2,
@@ -256,7 +257,7 @@ import TRANSFORM.Math.linspaceRepeat_1D;
     each use_HeatPort=true)
     annotation (Placement(transformation(extent={{40,-30},{20,-50}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_2[nV](
-      redeclare package Medium = Medium_2, each R=R_2/nV)
+      redeclare package Medium = Medium_2, R=R_2s)
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a1(redeclare package
       Medium = Medium_1)
@@ -277,6 +278,10 @@ import TRANSFORM.Math.linspaceRepeat_1D;
     annotation (Dialog(group="Inputs"));
   input Units.HydraulicResistance R_2=(p_a_start_2-p_b_start_2)/m_flow_start_2  "Hydraulic resistance"
     annotation (Dialog(group="Inputs"));
+  input Units.HydraulicResistance R_1s[nV] = {R_1/nV for i in 1:nV} "Hydraulic resistances"
+    annotation (Dialog(group="Inputs"));
+  input Units.HydraulicResistance R_2s[nV] = {R_2/nV for i in 1:nV} "Hydraulic resistances"
+    annotation (Dialog(group="Inputs"));
 
   SI.Power Q_flow = sum(heatTransfer.port_a.Q_flow);
 
@@ -286,7 +291,7 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   parameter Modelica.Fluid.Types.Dynamics energyDynamics_2=energyDynamics_1
     "Formulation of energy balances"
     annotation (Dialog(tab="Advanced", group="Dynamics"));
-  input SI.ThermalResistance R_val[nV]={1/(UA/nV*CFs[i]) for i in 1:nV} "Thermal resistance"
+  input SI.ThermalResistance R_val[nV]={1/(UAs[i]*CFs[i]) for i in 1:nV} "Thermal resistances"
     annotation (Dialog(group="Inputs"));
 equation
 

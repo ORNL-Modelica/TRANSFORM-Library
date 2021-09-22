@@ -9,3 +9,7 @@ WaterWater_STHX_wallR
 IncroperaAndDeWitt
 check_LMTD_HX
 OilWater_Simple_HX
+LMTD_HX_UA_2stage_Example
+CondensationConvection_Example
+Condensation_Example
+CondensationSmooth_Example
