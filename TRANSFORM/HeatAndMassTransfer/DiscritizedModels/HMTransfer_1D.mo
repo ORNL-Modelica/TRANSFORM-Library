@@ -34,8 +34,7 @@ model HMTransfer_1D
     final D_abs_1=D_absFM_1) "Diffusion Model" annotation (Placement(
         transformation(extent={{-58,62},{-42,78}}, rotation=0)));
   replaceable model DiffusionCoeff =
-      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-                                                                                          constrainedby
+      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient    constrainedby
     TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
     "Diffusion Coefficient" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);

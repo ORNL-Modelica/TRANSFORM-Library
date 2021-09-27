@@ -5,8 +5,7 @@ model Winding_123D_withMass
   DiscritizedModels.HMTransfer_3D winding(
     exposeState_a1=true,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_3D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_3D (
         r_inner=0.01,
         r_outer=0.02,
         length_z=0.03,
@@ -27,8 +26,8 @@ model Winding_123D_withMass
         DiscritizedModels.BaseClasses.Dimensions_3.VolumetricHeatGeneration (
           q_ppp=6e5),
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-        (D_ab0=1e-6),
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
+         D_ab0=1e-6),
     adiabaticDimsMT={false,true,true})
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=10)

@@ -250,8 +250,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=Qs_gen_fuelCell),
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         crossArea=data_RCTR.crossArea_f,
         perimeter=data_RCTR.perimeter_f,
         length=data_RCTR.length_cells,
@@ -265,8 +264,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         (
         MMs={6.022e23},
         redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1}),
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+             iTable={1}),
         iC={kinetics.summary_data.iH3}))
     "frac*data_RCTR.Q_nominal/fuelCell.nV; mC_gens_fuelCell"
                                      annotation (Placement(transformation(
@@ -286,8 +285,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflA_upper),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         crossArea=data_RCTR.crossArea_reflA_ring,
         perimeter=data_RCTR.perimeter_reflA_ring,
         length=data_RCTR.length_reflA,
@@ -306,8 +304,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
         (
         redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1}),
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+             iTable={1}),
         MMs={6.022e23},
         iC={kinetics.summary_data.iH3}))
                annotation (Placement(transformation(
@@ -347,8 +345,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
         (mC_gens=mC_gens_reflA_lower),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         crossArea=data_RCTR.crossArea_reflA_ring,
         perimeter=data_RCTR.perimeter_reflA_ring,
         length=data_RCTR.length_reflA,
@@ -368,8 +365,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         (
         MMs={6.022e23},
         redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1}),
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+             iTable={1}),
         iC={kinetics.summary_data.iH3}))
                          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -419,8 +416,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     redeclare package Material = Media.Solids.Graphite.Graphite_0,
     nParallel=2*data_RCTR.nfG*data_RCTR.nFcells,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D (
         nX=5,
         nY=fuelCell.nV,
         length_x=0.5*data_RCTR.width_fG,
@@ -437,8 +433,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     T_b1_start=0.5*(data_PHX.T_inlet_tube + data_PHX.T_outlet_tube),
     T_b2_start=data_PHX.T_inlet_tube,
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-        (iTable={12}))   annotation (Placement(transformation(
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+         iTable={12}))   annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,0})));
@@ -482,8 +478,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
         (Q_gens=Qs_gen_reflA_upperG),
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-        (iTable={12}))                annotation (Placement(transformation(
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+         iTable={12}))                annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,60})));
@@ -524,8 +520,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
         (Q_gens=Qs_gen_reflA_lowerG),
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-        (iTable={12}))                annotation (Placement(transformation(
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+         iTable={12}))                annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-30,-60})));
@@ -583,8 +579,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=Qs_gen_pipeFromPHX_PFL),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         length=data_PIPING.length_PHXToRCTR,
         dimension=data_PIPING.D_PFL,
         dheight=toggleStaticHead*data_PIPING.height_PHXToRCTR,
@@ -628,8 +623,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     use_TraceMassTransfer_shell=true,
     use_TraceMassTransfer_tube=true,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         D_o_shell=data_PHX.D_shell_inner,
         nTubes=data_PHX.nTubes,
         nR=3,
@@ -639,15 +633,15 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         length_tube=data_PHX.length_tube,
         nV=nV_PHX),
     redeclare model DiffusionCoeff_wall =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-        (iTable={10}),
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+         iTable={10}),
     Kb_wall_tubeSide=kS_PHX_tubeSide_wall.kSs,
     Ka_tubeSide=kH_PHX_tubeSide.kHs,
     redeclare model TraceMassTransfer_shell =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
         (MMs={6.022e23}, redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1})),
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+             iTable={1})),
     Ka_shellSide=kH_PHX_shellSide.kHs,
     Kb_wall_shellSide=kS_PHX_shellSide_wall.kSs,
     nb_wall_shellSide=fill(
@@ -663,8 +657,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         (
         MMs={6.022e23},
         redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1}),
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+             iTable={1}),
         iC={kinetics.summary_data.iH3}))
                         annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
@@ -685,8 +679,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=Qs_gen_pipeToPHX_PFL),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_PIPING.D_PFL,
         length=data_PIPING.length_pumpToPHX,
         dheight=toggleStaticHead*data_PIPING.height_pumpToPHX,
@@ -761,8 +754,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     T_a_start=data_PHX.T_outlet_shell,
     m_flow_a_start=2*3*data_PHX.m_flow_shell,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_PIPING.D_PCL,
         length=data_PIPING.length_PHXsToPump,
         dheight=toggleStaticHead*data_PIPING.height_PHXsToPump,
@@ -790,8 +782,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     m_flow_a_start=2*3*data_PHX.m_flow_shell,
     p_a_start=data_PHX.p_inlet_shell + 300,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_PIPING.D_PCL,
         length=data_PIPING.length_pumpToSHX,
         dheight=toggleStaticHead*data_PIPING.height_pumpToSHX,
@@ -809,8 +800,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     T_a_start=data_PHX.T_inlet_shell,
     nParallel=3,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_PIPING.D_PCL,
         length=data_PIPING.length_SHXToPHX,
         dheight=toggleStaticHead*data_PIPING.height_SHXToPHX,
@@ -873,11 +863,11 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     redeclare model TraceMassTransfer_shell =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
         (MMs={6.022e23}, redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1})),
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+             iTable={1})),
     redeclare model DiffusionCoeff_wall =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-        (iTable={10}),
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+         iTable={10}),
     Ka_shellSide=kH_SHX_shellSide.kHs,
     Kb_wall_shellSide=kS_SHX_shellSide_wall.kSs,
     Ka_tubeSide=kH_SHX_tubeSide.kHs,
@@ -893,8 +883,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     redeclare model TraceMassTransfer_tube =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
         (MMs={6.022e23}, redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (use_RecordData=false, D_ab0=8.12e-4)))
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+             use_RecordData=false, D_ab0=8.12e-4)))
                             annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -970,8 +960,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     nPorts_a=1,
     showName=systemTF.showName,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
-        (V=data_OFFGAS.volume_drainTank_inner - drainTank_liquid.V),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (
+         V=data_OFFGAS.volume_drainTank_inner - drainTank_liquid.V),
     Q_gen=Qs_gen_drainTank_gas)
     annotation (Placement(transformation(extent={{-260,-10},{-240,-30}})));
   TRANSFORM.Fluid.Volumes.ExpansionTank drainTank_liquid(
@@ -1047,8 +1037,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
         (Q_gens=Qs_gen_reflR),
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         angle=toggleStaticHead*90,
         crossArea=data_RCTR.crossArea_reflR,
         perimeter=data_RCTR.perimeter_reflR,
@@ -1062,8 +1051,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         (
         MMs={6.022e23},
         redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1}),
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+             iTable={1}),
         iC={kinetics.summary_data.iH3}))  annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -1080,8 +1069,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     T_b1_start=0.5*(data_PHX.T_outlet_tube + data_PHX.T_outlet_tube),
     T_b2_start=data_PHX.T_outlet_tube,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D (
         nX=5,
         nY=fuelCell.nV,
         length_x=0.5*data_RCTR.width_reflR_blockG,
@@ -1091,8 +1079,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
         (Q_gens=Qs_gen_reflRG),
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-        (iTable={12}))                    annotation (Placement(transformation(
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+         iTable={12}))                    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={50,0})));

@@ -9,8 +9,7 @@ model Figure_1_14_NumericalSolutionsMT
   DiscritizedModels.HMTransfer_1D cylinder(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_r
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_r (
         nR=nNodes_1.k,
         r_inner=r_in.y,
         r_outer=r_out.y,
@@ -26,8 +25,8 @@ model Figure_1_14_NumericalSolutionsMT
     nC=2,
     traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-        (D_abs0={1e-2,1e-5}))
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
+         D_abs0={1e-2,1e-5}))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=20)
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));

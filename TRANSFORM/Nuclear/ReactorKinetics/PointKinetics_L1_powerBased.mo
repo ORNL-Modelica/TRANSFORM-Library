@@ -9,14 +9,12 @@ model PointKinetics_L1_powerBased
     "=true to specify power (i.e., no der(P) equation)";
   replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_TRACEdefault
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
     "Neutron Precursor Data" annotation (choicesAllMatching=true);
   Data data;
   replaceable record Data_DH =
       TRANSFORM.Nuclear.ReactorKinetics.Data.DecayHeat.decayHeat_0
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.DecayHeat.PartialDecayHeat_powerBased
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.DecayHeat.PartialDecayHeat_powerBased
     "Decay-Heat Data" annotation (choicesAllMatching=true);
   Data_DH data_DH;
   // Inputs
@@ -172,8 +170,7 @@ model PointKinetics_L1_powerBased
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable record Data_FP =
       TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_0
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   final parameter Integer nFP=fissionProducts.data.nC "# of fission products";
   final parameter Integer nFS=fissionProducts.data.nFS

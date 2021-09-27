@@ -10,8 +10,7 @@ model PointKinetics_L1_atomBased_external
     "=true to specify power (i.e., no der(P) equation)";
    replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_TRACEdefault
-     constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
+     constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
      "Neutron Precursor Data" annotation (choicesAllMatching=true);
    Data data;
   // Inputs
@@ -134,8 +133,7 @@ model PointKinetics_L1_atomBased_external
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   replaceable record Data_FP =
       TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_0
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   final parameter Integer nFP=fissionProducts.data.nC "# of fission products"
     annotation (Dialog(tab="Kinetics"));
@@ -224,8 +222,7 @@ model PointKinetics_L1_atomBased_external
     "Shape factor for Q_fission, sum() = 1"                                                     annotation(Dialog(group=
           "Shape Factors"));
   replaceable record Data_CP =
-      TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.corrosionProduct_0
-                                                                                              constrainedby
+      TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.corrosionProduct_0             constrainedby
     TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.PartialCorrosionProduct
     "Corrosion Product information" annotation (choicesAllMatching=true);
   TRANSFORM.Nuclear.ReactorKinetics.Data.summary_traceSubstances summary_data(

@@ -10,8 +10,7 @@ model ClosedGeometry_Test
         (Q_gens={{if i == 1 and j == 1 then 100 else 0 for j in 1:conduction_2D.geometry.nTheta}
             for i in 1:conduction_2D.geometry.nR}),
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_theta
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_theta (
         nTheta=8,
         r_inner=0.005,
         r_outer=0.01),
@@ -29,8 +28,7 @@ model ClosedGeometry_Test
         (Q_gens={if i == 1 then 100 else 0 for i in 1:conduction_1D.geometry.nTheta}),
     redeclare package Material = TRANSFORM.Media.Solids.UO2,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_theta
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_theta (
         r_inner=0.005,
         r_outer=0.01,
         nTheta=8))
@@ -38,8 +36,7 @@ model ClosedGeometry_Test
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_3D conduction_3D(
     redeclare package Material = TRANSFORM.Media.Solids.UO2,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_3D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_3D (
         nTheta=8,
         r_inner=0.005,
         r_outer=0.01),

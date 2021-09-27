@@ -3,14 +3,12 @@ model summary_traceSubstances
   extends TRANSFORM.Icons.Record;
   replaceable record Data_PG =
       TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_TRACEdefault
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
     "Precursor group information" annotation (choicesAllMatching=true);
   Data_PG data_PG;
   replaceable record Data_FP =
       TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_test
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
     "Fission product information" annotation (choicesAllMatching=true);
   Data_FP data_FP;
   replaceable record Data_TR =
@@ -19,8 +17,7 @@ model summary_traceSubstances
     "Tritium information" annotation (choicesAllMatching=true);
   Data_TR data_TR;
   replaceable record Data_CP =
-      TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.corrosionProduct_1_Cr
-                                                                                              constrainedby
+      TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.corrosionProduct_1_Cr          constrainedby
     TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.PartialCorrosionProduct
     "Corrosion Product information" annotation (choicesAllMatching=true);
   Data_CP data_CP;

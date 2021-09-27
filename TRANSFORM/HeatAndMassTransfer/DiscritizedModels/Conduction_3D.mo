@@ -66,8 +66,7 @@ model Conduction_3D "2-D Conduction Models"
        else nVs[3] "number of flow models";
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_3D
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_3D
+    constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_3D
     "Geometry" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
   Geometry geometry
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));

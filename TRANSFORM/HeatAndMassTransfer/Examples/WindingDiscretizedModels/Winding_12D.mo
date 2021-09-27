@@ -6,8 +6,7 @@ model Winding_12D
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_28_5_d_7990_cp_500,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         nR=nNodes_1.k,
         nZ=nNodes_2.k,
         r_inner=0.01,

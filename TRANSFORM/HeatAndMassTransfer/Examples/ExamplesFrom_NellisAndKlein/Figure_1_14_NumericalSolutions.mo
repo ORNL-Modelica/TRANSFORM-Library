@@ -9,8 +9,7 @@ model Figure_1_14_NumericalSolutions
   DiscritizedModels.Conduction_1D cylinder(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_r
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_r (
         nR=nNodes_1.k,
         r_inner=r_in.y,
         r_outer=r_out.y,

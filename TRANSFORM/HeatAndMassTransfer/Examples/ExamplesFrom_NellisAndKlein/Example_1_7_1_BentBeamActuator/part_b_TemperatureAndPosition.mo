@@ -31,8 +31,7 @@ model part_b_TemperatureAndPosition
     exposeState_a1=false,
     exposeState_b1=true,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
         length_y=th.y,
         nX=nNodes_1.k,
         length_z=w.y,

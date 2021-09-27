@@ -61,8 +61,7 @@ final parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
   TRANSFORM.Fluid.Volumes.SimpleVolume inletPlenum(redeclare package Medium =
         Medium_PHTS,
       redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder_specifyDiameter
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder_specifyDiameter (
         length=data.length_inletPlenum,
         dimension=data.d_inletPlenum,
         angle=1.5707963267949),
@@ -76,8 +75,7 @@ final parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
     p_a_start=data.p,
     m_flow_a_start=data.m_flow,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data.d_hotLeg,
         length=data.length_hotLeg,
         nV=2,
@@ -100,8 +98,7 @@ final parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
     redeclare model HeatTransfer =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare model Geometry =
-        TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Assembly
-        (
+        TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Assembly (
         nPins=data.nRodFuel_assembly,
         nPins_nonFuel=data.nRodNonFuel_assembly,
         width_FtoF_inner=data.sizeAssembly*data.pitch_fuelRod,
@@ -138,8 +135,7 @@ final parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
   TRANSFORM.Fluid.Volumes.SimpleVolume outletPlenum(
     redeclare package Medium = Medium_PHTS,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder_specifyDiameter
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder_specifyDiameter (
         length=data.length_outletPlenum,
         dimension=data.d_outletPlenum,
         angle=1.5707963267949),
@@ -155,8 +151,7 @@ final parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
     m_flow_a_start=data.m_flow,
     exposeState_a=false,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data.d_coldLeg,
         length=data.length_coldLeg,
         angle=-1.5707963267949,
