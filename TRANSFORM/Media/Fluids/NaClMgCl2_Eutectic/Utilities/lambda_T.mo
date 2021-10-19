@@ -1,4 +1,4 @@
-within TRANSFORM.Media.Fluids.NaClKClMgCl2.Utilities_30_20_50;
+within TRANSFORM.Media.Fluids.NaClMgCl2_Eutectic.Utilities;
 function lambda_T
   input SI.Temperature T;
   output SI.ThermalConductivity lambda;
