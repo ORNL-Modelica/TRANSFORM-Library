@@ -4,8 +4,7 @@ model RelativeTemperature "Ideal relative temperature sensor"
   extends BaseClasses.PartialRelativeIcon_withValueIndicator(final var=T_rel,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.TemperatureDifference_dK.to_degCorK_diff
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.TemperatureDifference_dK.BaseClasses.to);
+      constrainedby TRANSFORM.Units.Conversions.Functions.TemperatureDifference_dK.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput T_rel(final quantity="ThermodynamicTemperature",
                                               final unit = "K", displayUnit = "degC", min=0)
     "Relative temperature signal"                                                                               annotation (Placement(

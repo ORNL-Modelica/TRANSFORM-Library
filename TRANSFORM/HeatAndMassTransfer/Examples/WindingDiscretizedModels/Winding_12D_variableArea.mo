@@ -11,8 +11,7 @@ model Winding_12D_variableArea
     T_a1_start(displayUnit="K") = 320,
     T_a2_start(displayUnit="K") = 320,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         nR=nNodes_1.k,
         nZ=nNodes_2.k,
         r_inner=r_inner.y,

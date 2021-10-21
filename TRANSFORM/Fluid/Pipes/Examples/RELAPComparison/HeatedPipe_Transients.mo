@@ -56,8 +56,7 @@ model HeatedPipe_Transients
     redeclare package Medium = Medium,
     p_a_start=sink.p,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=D_hyd,
         length=length,
         roughness=roughness,
@@ -86,8 +85,7 @@ model HeatedPipe_Transients
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_20_d_8000_cp_500,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         nR=nR,
         nZ=nV,
         r_outer=r_outer,

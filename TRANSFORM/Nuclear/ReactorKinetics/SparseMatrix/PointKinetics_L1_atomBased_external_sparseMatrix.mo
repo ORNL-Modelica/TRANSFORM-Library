@@ -21,8 +21,7 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
     "=true to specify power (i.e., no der(P) equation)";
   replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_TRACEdefault
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
     "Neutron Precursor Data" annotation (choicesAllMatching=true);
   Data data;
   // Inputs

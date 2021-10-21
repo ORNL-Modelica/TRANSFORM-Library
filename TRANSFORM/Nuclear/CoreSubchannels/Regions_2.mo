@@ -55,8 +55,7 @@ model Regions_2
     annotation (choicesAllMatching=true,Dialog(tab="Kinetics",group="Decay-Heat"));
   replaceable record Data_FP =
       ReactorKinetics.Data.FissionProducts.fissionProducts_0 constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
-                                                                                                                                                        annotation (
+    TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct                                                                        annotation (
      choicesAllMatching=true,Dialog(tab="Kinetics",group="Fission Products"));
   parameter SI.Area sigmasA_add_start[Medium.nC]=fill(0, Medium.nC)
     "Microscopic absorption cross-section for reactivity feedback" annotation(Dialog(tab="Kinetics",group="Fluid Trace Substances"));
@@ -411,8 +410,7 @@ model Regions_2
     energyDynamics=energyDynamics,
     traceDynamics=traceDynamics,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         nV=geometry.nV,
         dimension=geometry.dimension,
         crossArea=geometry.crossArea,

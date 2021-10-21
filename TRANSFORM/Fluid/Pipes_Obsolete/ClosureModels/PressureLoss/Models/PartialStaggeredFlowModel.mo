@@ -15,8 +15,7 @@ partial model PartialStaggeredFlowModel
   // Geometry
   replaceable model Geometry =
       TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Flow.Generic
-    constrainedby
-    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Flow.PartialGeometry
+    constrainedby TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Flow.PartialGeometry
   "Geometry Type"
   annotation(choicesAllMatching=true);
   Geometry geometry

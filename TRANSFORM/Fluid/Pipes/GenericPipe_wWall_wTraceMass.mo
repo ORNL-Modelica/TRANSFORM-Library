@@ -98,8 +98,7 @@ model GenericPipe_wWall_wTraceMass
     "Internal mass generation" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
   replaceable model DiffusionCoeff_wall =
-      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-                                                                                          constrainedby
+      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient    constrainedby
     TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
     "Diffusion Coefficient" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);

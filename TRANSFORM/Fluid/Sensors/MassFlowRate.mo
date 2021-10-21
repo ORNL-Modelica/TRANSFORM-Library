@@ -4,8 +4,7 @@ model MassFlowRate "Ideal sensor for mass flow rate"
   extends BaseClasses.PartialMultiSensor_1values(final var=m_flow,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.to_kg_s
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.BaseClasses.to);
+      constrainedby TRANSFORM.Units.Conversions.Functions.MassFlowRate_kg_s.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput m_flow(quantity="MassFlowRate",
                                                final unit="kg/s")
     "Mass flow rate from port_a to port_b" annotation (Placement(

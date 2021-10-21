@@ -31,8 +31,7 @@ partial model SteamTurbineBaseold "Steam turbine"
   parameter Real eta_mech=1.0 "Mechanical efficiency" annotation(Dialog(group="Efficiency"));
   replaceable model Eta_wetSteam =
       TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency.eta_Constant
-    constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency.Partial_eta
+    constrainedby TRANSFORM.Fluid.Machines.BaseClasses.WetSteamEfficiency.Partial_eta
       "Isentropic efficiency" annotation(Dialog(group="Efficiency"),choicesAllMatching=true);
   Eta_wetSteam eta_wetSteam(
   x_abs_in = x_abs_in,

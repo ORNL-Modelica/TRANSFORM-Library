@@ -12,8 +12,8 @@ model Example_1_4_1_FuelElement
   DiscritizedModels.Conduction_1D fuel(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r
-        ( r_outer=r_fuel.y, nR=nNodes_1_fuel.k),
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r (
+          r_outer=r_fuel.y, nR=nNodes_1_fuel.k),
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_1_d_7990_cp_500,
     redeclare model InternalHeatModel =
@@ -28,8 +28,7 @@ model Example_1_4_1_FuelElement
   DiscritizedModels.Conduction_1D clad(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r (
         nR=nNodes_1_clad.k,
         r_inner=r_fuel.y,
         r_outer=r_clad.y),

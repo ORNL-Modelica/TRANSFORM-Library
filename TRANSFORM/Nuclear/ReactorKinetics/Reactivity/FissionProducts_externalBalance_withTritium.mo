@@ -6,8 +6,7 @@ model FissionProducts_externalBalance_withTritium
   parameter Integer nV=1 "# of discrete volumes";
   replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.fissionProducts_0
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.FissionProducts.PartialFissionProduct
     "Fission Product Data" annotation (choicesAllMatching=true);
   Data data;
   parameter Integer nC=data.nC "# of fission products";

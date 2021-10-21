@@ -24,8 +24,7 @@ model GenericPipe_withWallx2
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
   replaceable package Material_2 =
-      Material                     constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      Material                     constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
   parameter Boolean counterCurrent=false "Swap wall vector order";
   parameter Boolean use_HeatTransferOuter=false "= true to use outer wall heat port" annotation (Dialog(group="Heat Transfer"));

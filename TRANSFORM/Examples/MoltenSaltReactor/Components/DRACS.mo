@@ -48,8 +48,8 @@ model DRACS
     redeclare package Medium = Medium_DRACS,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
           length=data_OFFGAS.length_thimbles),
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
@@ -104,8 +104,7 @@ model DRACS
     val_min=data_OFFGAS.T_cold_dracs,
     val_max=data_OFFGAS.T_hot_dracs,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_OFFGAS.D_pipeToFrom_DRACS,
         length=data_OFFGAS.length_pipeToFrom_DRACS,
         angle=1.5707963267949),
@@ -127,8 +126,8 @@ model DRACS
     T_b_start=data_OFFGAS.T_cold_dracs,
     showName=false,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
           length=data_OFFGAS.length_thimbles_waterTank))
                                         annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -190,8 +189,7 @@ model DRACS
     val_max=data_OFFGAS.T_hot_dracs,
     T_a_start=data_OFFGAS.T_cold_dracs,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_OFFGAS.D_pipeToFrom_DRACS,
         length=data_OFFGAS.length_pipeToFrom_DRACS,
         angle=1.5707963267949),

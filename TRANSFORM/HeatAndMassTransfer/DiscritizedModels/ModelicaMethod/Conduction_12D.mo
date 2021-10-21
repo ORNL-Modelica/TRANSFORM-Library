@@ -10,8 +10,7 @@ model Conduction_12D
   extends TRANSFORM.HeatAndMassTransfer.Interfaces.Records.EnergyDynamics;
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D
+    constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D
     "Geometry" annotation (choicesAllMatching=true);
   Geometry geometry
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));

@@ -26,10 +26,10 @@ protected
   Real Y = q_avg/max(0.0001,q_flux);
   Real F_nu = if nu then 1 + (1-Y)/(1+G_en) else 1.0;
  Real B,H,D;
-algorithm 
+algorithm
   B:=C*F_g*F_C*F_nu;
   H:=(x_th - x_th_in);
-  D:=max(0.0001, q_flux); //Allows for a solve when flux is zero during startup or times of no heat transfer. 
+  D:=max(0.0001, q_flux); //Allows for a solve when flux is zero during startup or times of no heat transfer.
   CHF :=((A*F_A - x_th_in)/(B + H/D))/3.169983306e-7; //(3.169983306e-4) "[BTU/ft^2-hr] to [W/m^2]";
 
 

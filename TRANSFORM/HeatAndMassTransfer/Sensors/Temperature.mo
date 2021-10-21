@@ -4,8 +4,7 @@ model Temperature "Ideal sensor for temperature"
    extends BaseClasses.PartialRotationIcon_withValueIndicator(final var=T,
        redeclare replaceable function iconUnit =
          TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC
-       constrainedby
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.BaseClasses.to);
+       constrainedby TRANSFORM.Units.Conversions.Functions.Temperature_K.BaseClasses.to);
    Modelica.Blocks.Interfaces.RealOutput T(
     final quantity="ThermodynamicTemperature",
     final unit="K",

@@ -9,8 +9,7 @@ model ValveCompressible
   parameter Real Fxt_full=0.5 "Fk*xt critical ratio at full opening";
   replaceable function xtCharacteristic =
       TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.one
-    constrainedby
-    TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.baseFun
+    constrainedby TRANSFORM.Fluid.Valves.BaseClasses.ValveCharacteristics.baseFun
     "Critical ratio characteristic";
   Real Fxt;
   Real x "Pressure drop ratio";

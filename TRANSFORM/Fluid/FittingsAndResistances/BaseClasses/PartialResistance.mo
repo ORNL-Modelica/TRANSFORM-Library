@@ -19,10 +19,9 @@ partial model PartialResistance
   parameter Integer precision(min=0) = 3 "Number of decimals displayed" annotation (Dialog(tab="Visualization"));
   replaceable function iconUnit =
       TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_MPa
-      constrainedby
-    TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to
+      constrainedby TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to
     "Unit for icon display" annotation (choicesAllMatching=true,Dialog(tab="Visualization"));
-
+  Real dp_display = iconUnit(dp) "Icon display";
 equation
 
   port_a.m_flow + port_b.m_flow = 0;
@@ -52,7 +51,7 @@ equation
         Text(
           extent={{-60,100},{60,60}},
           textColor={0,0,0},
-          textString=DynamicSelect("0.0", String(iconUnit(dp), format="1." + String(precision) + "f")),
+          textString=DynamicSelect("0.0", String(iconUnit(dp_display), format="1." + String(precision) + "f")),
           visible=showDP)}), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialResistance;

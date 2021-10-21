@@ -18,10 +18,8 @@ model TurboPump_homologouscurves
   Integer region;
 
   replaceable model HomoSet =
-      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets.Radial
-                                                                                                     constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets.PartialHomoSet
-                                                                                                                                                                                                            annotation(choicesAllMatching=true);
+      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets.Radial                 constrainedby
+    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.HomologousSets.PartialHomoSet                                                                                                                  annotation(choicesAllMatching=true);
 
     HomoSet homoSet;
 

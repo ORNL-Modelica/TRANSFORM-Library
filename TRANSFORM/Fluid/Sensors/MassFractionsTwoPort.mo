@@ -4,8 +4,7 @@ model MassFractionsTwoPort "Ideal two port sensor for mass fraction"
   extends BaseClasses.PartialMultiSensor_1values(final var=Xi,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
+      constrainedby TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput Xi "Mass fraction in port medium"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           rotation=90,

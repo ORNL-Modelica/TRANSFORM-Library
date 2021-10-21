@@ -4,8 +4,7 @@ model VolumeFlowRate "Ideal sensor for volume flow rate"
   extends BaseClasses.PartialMultiSensor_1values(final var=V_flow,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.to_m3_s
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.BaseClasses.to);
+      constrainedby TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput V_flow(final quantity="VolumeFlowRate",
                                                final unit="m3/s")
     "Volume flow rate from port_a to port_b"

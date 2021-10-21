@@ -9,14 +9,12 @@ model PointKinetics_L1_powerBased_sparseMatrix
     "=true to specify power (i.e., no der(P) equation)";
   replaceable record Data =
       TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_TRACEdefault
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.PartialPrecursorGroup
     "Neutron Precursor Data" annotation (choicesAllMatching=true);
   Data data;
   replaceable record Data_DH =
       TRANSFORM.Nuclear.ReactorKinetics.Data.DecayHeat.decayHeat_0
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.Data.DecayHeat.PartialDecayHeat_powerBased
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.Data.DecayHeat.PartialDecayHeat_powerBased
     "Decay-Heat Data" annotation (choicesAllMatching=true);
   Data_DH data_DH;
   // Inputs

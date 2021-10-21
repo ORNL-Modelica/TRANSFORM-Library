@@ -63,11 +63,11 @@ model PartiallyFullInsurge
     p_start=mainTank_p_start,
     redeclare package Medium = Medium,
     redeclare model BulkEvaporation =
-        Volumes.ClosureModels.MassTransfer.Evaporation.PhaseSeparationHypothesis
-        (Ac=pressurizer.drum2Phase.drumType.crossArea_liquid),
+        Volumes.ClosureModels.MassTransfer.Evaporation.PhaseSeparationHypothesis (
+         Ac=pressurizer.drum2Phase.drumType.crossArea_liquid),
     redeclare model BulkCondensation =
-        Volumes.ClosureModels.MassTransfer.Condensation.PhaseSeparation_TerminalVelocity
-        (V_fluid=pressurizer.drum2Phase.V_vapor, L_c=0.5*pressurizer.drum2Phase.drumType.level_vapor),
+        Volumes.ClosureModels.MassTransfer.Condensation.PhaseSeparation_TerminalVelocity (
+         V_fluid=pressurizer.drum2Phase.V_vapor, L_c=0.5*pressurizer.drum2Phase.drumType.level_vapor),
     redeclare model HeatTransfer_VL =
         Volumes.ClosureModels.MassTransfer.PhaseInterface.ConstantHeatTransferCoefficient,
     redeclare model MassTransfer_VL =

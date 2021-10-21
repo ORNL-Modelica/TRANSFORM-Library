@@ -19,8 +19,7 @@ model PartialSimpleVolume
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
+    constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
     "Geometry" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
 
   Geometry geometry

@@ -16,14 +16,12 @@ model Pressurizer_withWall
   /* Constitutive/Closure Models*/
   replaceable model BulkEvaporation =
       TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.ConstantTimeDelay
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.PartialMassTransfer
+    constrainedby TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.PartialMassTransfer
     "Vapor bubble transport from liquid to vapor phase" annotation (
       choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
   replaceable model BulkCondensation =
       TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.ConstantTimeDelay
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.PartialMassTransfer
+    constrainedby TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.PartialMassTransfer
     "Liquid droplet transport from vapor to liquid phase" annotation (
       choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
   replaceable model HeatTransfer_WL =

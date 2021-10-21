@@ -15,8 +15,7 @@ model Winding_12D
     exposeState_b2=false,
     nParallel=2,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         nR=nNodes_1.k,
         nZ=nNodes_2.k,
         r_inner=0.01,

@@ -15,6 +15,7 @@ Pressurizer_Simple
 Pressurizer
 Pressurizer_withWall
 MoistureSeparator
+Thermocline
 BaseClasses
 ClosureModels
 InProgress

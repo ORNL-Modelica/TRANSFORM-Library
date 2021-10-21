@@ -6,8 +6,7 @@ model BaseProperties2Phase
    annotation(choicesAllMatching=true);
   replaceable model VoidFraction =
       TRANSFORM.Fluid.ClosureRelations.VoidFraction.Homogeneous_wSlipVelocity
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.VoidFraction.PartialVoidFraction
+    constrainedby TRANSFORM.Fluid.ClosureRelations.VoidFraction.PartialVoidFraction
     annotation (choicesAllMatching=true);
   VoidFraction voidFraction(
     x_abs=x_abs,

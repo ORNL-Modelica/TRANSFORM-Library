@@ -81,8 +81,7 @@ model IRIS
     energyDynamics=system.energyDynamics,
     momentumDynamics=system.momentumDynamics,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=1.3,
         length=0.55,
         dheight=Core_OutletPlenum.geometry.length))
@@ -109,8 +108,7 @@ model IRIS
     T_b_start(displayUnit="K") = 557.1060,
     energyDynamics=system.energyDynamics,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=3.3,
         crossArea=23.52,
         length=5.85,
@@ -131,8 +129,7 @@ model IRIS
     energyDynamics=system.energyDynamics,
     momentumDynamics=system.momentumDynamics,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=0.312,
         crossArea=3.61,
         length=3.63 + 1.53,
@@ -150,8 +147,7 @@ model IRIS
     T_a_start(displayUnit="K") = 595.1183,
     T_b_start(displayUnit="K") = 595.1019,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=1.296,
         crossArea=5.59,
         length=4.37,
@@ -226,11 +222,11 @@ model IRIS
         Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay (tau=
             15),
     redeclare model MassTransfer_VL =
-        Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantMassTransportCoefficient
-        (alphaD0=0.001),
+        Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantMassTransportCoefficient (
+         alphaD0=0.001),
     redeclare model HeatTransfer_VL =
-        Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantHeatTransferCoefficient
-        (alpha0=100),
+        Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantHeatTransferCoefficient (
+         alpha0=100),
     redeclare model HeatTransfer_WL =
         Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     redeclare model HeatTransfer_WV =
@@ -297,8 +293,7 @@ model IRIS
     T_b_start(displayUnit="K") = 595.0252,
     energyDynamics=system.energyDynamics,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=3.776,
         length=0.3,
         roughness=1e-6,
@@ -319,8 +314,7 @@ model IRIS
     T_b_start(displayUnit="K") = 557.1024,
     energyDynamics=system.energyDynamics,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=3.776,
         length=0.3,
         roughness=1e-6,
@@ -341,8 +335,8 @@ model IRIS
     h_b_start=2953630,
     energyDynamics=system.energyDynamics,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=3.776),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=3.776),
     momentumDynamics=system.momentumDynamics)
                        annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
@@ -357,8 +351,8 @@ model IRIS
     T_a_start(displayUnit="K") = 497.0025,
     T_b_start(displayUnit="K") = 497.0025,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=3.776, nV=2),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=3.776, nV=2),
     exposeState_b=true,
     energyDynamics=system.energyDynamics,
     momentumDynamics=system.momentumDynamics)
@@ -386,11 +380,11 @@ model IRIS
   Fluid.Machines.Pump pump(
     redeclare package Medium = Medium,
     redeclare model FlowChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve
-        (V_flow_curve={0,0.8728,1.5*0.8728}, head_curve={2*21.7693,21.7693,0}),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve (
+         V_flow_curve={0,0.8728,1.5*0.8728}, head_curve={2*21.7693,21.7693,0}),
     redeclare model EfficiencyChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant
-        (eta_constant=0.8),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant (
+         eta_constant=0.8),
     m_flow_nominal=system.m_flow_start/8,
     d_nominal=675,
     dp_nominal=157 - 155,
@@ -441,8 +435,7 @@ model IRIS
     p_b_start_shell(displayUnit="bar") = 15732247,
     m_flow_a_start_shell=system.m_flow_start,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         D_i_shell=0.61,
         D_o_shell=1.64,
         nV=20,

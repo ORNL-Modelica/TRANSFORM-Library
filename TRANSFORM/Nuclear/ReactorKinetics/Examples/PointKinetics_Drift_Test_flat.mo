@@ -51,8 +51,7 @@ model PointKinetics_Drift_Test_flat
     redeclare package Medium = Medium,
     m_flow_a_start=1,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
         nV=10,
         dimensions=Ds,
         dlengths=fill(H/core.nV,core.nV)),
@@ -77,8 +76,7 @@ model PointKinetics_Drift_Test_flat
     redeclare model InternalHeatGen =
         Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
         nV=10,
         dimensions=Ds1,
         dlengths=fill(L/loop_.nV,loop_.nV)),
@@ -92,8 +90,8 @@ model PointKinetics_Drift_Test_flat
   HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow_multi heat_rejection(
       nPorts=loop_.nV, Q_flow=fill(-5e4, heat_rejection.nPorts))
     annotation (Placement(transformation(extent={{46,10},{26,30}})));
-  Fluid.Sensors.TraceSubstancesTwoPort_multi Concentration_Measure(redeclare
-      package Medium = Medium)
+  Fluid.Sensors.TraceSubstancesTwoPort_multi Concentration_Measure(redeclare package
+              Medium = Medium)
     annotation (Placement(transformation(extent={{36,10},{56,-10}})));
   TRANSFORM.Nuclear.ReactorKinetics.PointKinetics_L1_atomBased_external
     core_kinetics(

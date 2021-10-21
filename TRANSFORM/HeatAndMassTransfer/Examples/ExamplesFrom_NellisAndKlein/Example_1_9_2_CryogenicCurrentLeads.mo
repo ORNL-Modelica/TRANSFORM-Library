@@ -15,8 +15,7 @@ model Example_1_9_2_CryogenicCurrentLeads
     redeclare package Material =
         TRANSFORM.Media.Solids.Copper.OFHC_RRR200,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_z (
         nZ=nNodes_1.k,
         r_outer=0.5*D.y,
         length_z=L.y),

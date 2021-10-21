@@ -87,8 +87,7 @@ model NSSS_old "Nuclear steam supply system"
     T_b_start(displayUnit="K"),
     m_flow_a_start=data.m_flow_nominal,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         crossArea=data.crossArea_downcomer,
         length=data.length_downcomer,
         perimeter=data.perimeter_downcomer,
@@ -138,11 +137,11 @@ model NSSS_old "Nuclear steam supply system"
         Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay (tau=
             15),
     redeclare model MassTransfer_VL =
-        Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantMassTransportCoefficient
-        (alphaD0=0.001),
+        Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantMassTransportCoefficient (
+         alphaD0=0.001),
     redeclare model HeatTransfer_VL =
-        Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantHeatTransferCoefficient
-        (alpha0=100),
+        Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantHeatTransferCoefficient (
+         alpha0=100),
     redeclare model HeatTransfer_WL =
         Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     redeclare model HeatTransfer_WV =
@@ -237,8 +236,8 @@ model NSSS_old "Nuclear steam supply system"
     h_b_start=2953630,
     energyDynamics=system.energyDynamics,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=3.776),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=3.776),
     momentumDynamics=system.momentumDynamics,
     m_flow_a_start=data.m_flow_shellSide_total)
                        annotation (Placement(transformation(
@@ -253,8 +252,8 @@ model NSSS_old "Nuclear steam supply system"
     T_a_start(displayUnit="K") = 497.0025,
     T_b_start(displayUnit="K") = 497.0025,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=3.776, nV=2),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=3.776, nV=2),
     exposeState_b=true,
     energyDynamics=system.energyDynamics,
     momentumDynamics=system.momentumDynamics,
@@ -291,8 +290,7 @@ model NSSS_old "Nuclear steam supply system"
     exposeState_b_shell=true,
     exposeState_b_tube=true,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         nV=20,
         nR=3,
         D_o_shell=data.diameter_inner_lowerShell,
@@ -341,8 +339,7 @@ model NSSS_old "Nuclear steam supply system"
     m_flow_a_start=data.m_flow_nominal,
     exposeState_b=true,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data.dimension_coldleg,
         length=data.length_coldleg,
         nV=2)) annotation (Placement(transformation(
@@ -358,16 +355,15 @@ model NSSS_old "Nuclear steam supply system"
     m_flow_a_start=data.m_flow_nominal,
     exposeState_b=true,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data.dimension_hotleg,
         length=data.length_hotleg,
         nV=2)) annotation (Placement(transformation(
         extent={{-6,6},{6,-6}},
         rotation=0,
         origin={2,52})));
-  Fluid.FittingsAndResistances.SpecifiedResistance res_coldLeg(redeclare
-      package Medium = Medium_PHTS, R=1*p_units/data.m_flow_nominal)
+  Fluid.FittingsAndResistances.SpecifiedResistance res_coldLeg(redeclare package
+              Medium = Medium_PHTS, R=1*p_units/data.m_flow_nominal)
     annotation (Placement(transformation(
         origin={0,-22.5},
         extent={{-5.5,-5},{5.5,5}},
@@ -381,15 +377,15 @@ model NSSS_old "Nuclear steam supply system"
 protected
   final parameter SI.Pressure p_units = 1;
 public
-  Fluid.FittingsAndResistances.SpecifiedResistance res_downcomer(redeclare
-      package Medium = Medium_PHTS, R=1*p_units/data.m_flow_nominal)
+  Fluid.FittingsAndResistances.SpecifiedResistance res_downcomer(redeclare package
+              Medium = Medium_PHTS, R=1*p_units/data.m_flow_nominal)
     annotation (Placement(transformation(
         origin={-32,-22.5},
         extent={{-5.5,-5},{5.5,5}},
         rotation=180)));
   Fluid.Machines.Pump_SimpleMassFlow
-                      pump(m_flow_nominal=data.m_flow_nominal, redeclare
-      package Medium = Medium)
+                      pump(m_flow_nominal=data.m_flow_nominal, redeclare package
+              Medium = Medium)
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=90,
         origin={4,-42})));

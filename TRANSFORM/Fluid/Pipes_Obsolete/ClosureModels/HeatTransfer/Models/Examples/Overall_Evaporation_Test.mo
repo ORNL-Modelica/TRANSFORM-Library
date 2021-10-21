@@ -14,8 +14,8 @@ model Overall_Evaporation_Test
     states=states,
     m_flows=m_flows,
     redeclare model Geometry =
-        TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.StraightPipe
-        (dimension=1))
+        TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.StraightPipe (
+         dimension=1))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature[heatTransfer.geometry.nNodes](each T=T)
     annotation (Placement(transformation(extent={{60,-11},{40,11}})));

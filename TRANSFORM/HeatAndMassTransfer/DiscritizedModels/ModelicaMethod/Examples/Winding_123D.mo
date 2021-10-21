@@ -15,8 +15,7 @@ model Winding_123D
     T_a2_start(displayUnit="K") = 320,
     T_a3_start(displayUnit="K") = 320,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_3D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_3D (
         r_inner=0.01,
         r_outer=0.02,
         length_z=0.03,

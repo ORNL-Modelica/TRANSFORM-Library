@@ -36,11 +36,11 @@ model Pressurizer_Test
         h_2=1,
         r_3=1),
     redeclare model BulkEvaporation =
-        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Evaporation.ConstantTimeDelay
-        (tau=15),
+        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Evaporation.ConstantTimeDelay (
+         tau=15),
     redeclare model BulkCondensation =
-        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay
-        (tau=15),
+        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay (
+         tau=15),
     redeclare model MassTransfer_VL =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantMassTransportCoefficient
         (alphaD0=1e-3),
@@ -50,8 +50,8 @@ model Pressurizer_Test
     redeclare model HeatTransfer_WL =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     redeclare model HeatTransfer_WV =
-        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient
-        (alpha0=0),
+        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient (
+         alpha0=0),
     Vfrac_liquid_start=0.6)
     annotation (Placement(transformation(extent={{-23,-24},{23,24}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature Temp_wallVapor(T=398.15)

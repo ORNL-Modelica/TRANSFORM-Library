@@ -86,8 +86,7 @@ model CIET_nureth "Final model of the CIET facility"
     each Ts_ambient=fill(data.T_ambient, integer(data.pipes.table[data.index_7,
         1])),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_7, 4],
         crossArea=data.pipes.table[data.index_7, 5],
@@ -118,8 +117,7 @@ model CIET_nureth "Final model of the CIET facility"
     each Ts_ambient=fill(data.T_ambient, integer(data.pipes.table[data.index_8,
         1])),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_8, 4],
         crossArea=data.pipes.table[data.index_8, 5],
@@ -150,8 +148,7 @@ model CIET_nureth "Final model of the CIET facility"
     each Ts_ambient=fill(data.T_ambient, integer(data.pipes.table[data.index_9,
         1])),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_9, 4],
         crossArea=data.pipes.table[data.index_9, 5],
@@ -182,8 +179,7 @@ model CIET_nureth "Final model of the CIET facility"
     each Ts_ambient=fill(data.T_ambient, integer(data.pipes.table[data.index_10,
         1])),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_10, 4],
         crossArea=data.pipes.table[data.index_10, 5],
@@ -214,8 +210,7 @@ model CIET_nureth "Final model of the CIET facility"
     redeclare package Material =
         TRANSFORM.Media.Solids.Copper.OFHC_RRR200,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe (
         roughness=data.roughness,
         nR=2,
         dimension=data.pipes.table[data.index_11, 4],
@@ -239,8 +234,7 @@ model CIET_nureth "Final model of the CIET facility"
     each Ts_ambient=fill(data.T_ambient, integer(data.pipes.table[data.index_12,
         1])),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_12, 4],
         crossArea=data.pipes.table[data.index_12, 5],
@@ -273,8 +267,7 @@ model CIET_nureth "Final model of the CIET facility"
     T_a_start=data.pipes.table[data.index_13, 9],
     T_b_start=data.pipes.table[data.index_13, 10],
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_13, 4],
         crossArea=data.pipes.table[data.index_13, 5],
@@ -307,8 +300,7 @@ model CIET_nureth "Final model of the CIET facility"
     T_a_start=data.pipes.table[data.index_14, 9],
     T_b_start=data.pipes.table[data.index_14, 10],
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_14, 4],
         crossArea=data.pipes.table[data.index_14, 5],
@@ -335,8 +327,7 @@ model CIET_nureth "Final model of the CIET facility"
     each Ts_ambient=fill(data.T_ambient, integer(data.pipes.table[data.index_15,
         1])),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_15, 4],
         crossArea=data.pipes.table[data.index_15, 5],
@@ -367,8 +358,7 @@ model CIET_nureth "Final model of the CIET facility"
     each Ts_ambient=fill(data.T_ambient, integer(data.pipes.table[data.index_5,
         1])),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_5, 4],
         crossArea=data.pipes.table[data.index_5, 5],
@@ -402,8 +392,7 @@ model CIET_nureth "Final model of the CIET facility"
     T_a_start=data.pipes.table[data.index_4, 9],
     T_b_start=data.pipes.table[data.index_4, 10],
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_4, 4],
         crossArea=data.pipes.table[data.index_4, 5],
@@ -429,8 +418,7 @@ model CIET_nureth "Final model of the CIET facility"
     each Ts_ambient=fill(data.T_ambient, integer(data.pipes.table[data.index_3,
         1])),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_3, 4],
         crossArea=data.pipes.table[data.index_3, 5],
@@ -461,8 +449,7 @@ model CIET_nureth "Final model of the CIET facility"
     each Ts_ambient=fill(data.T_ambient, integer(data.pipes.table[data.index_2,
         1])),
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_2, 4],
         crossArea=data.pipes.table[data.index_2, 5],
@@ -833,8 +820,7 @@ model CIET_nureth "Final model of the CIET facility"
     ths_insulation=fill(data.pipes.table[data.index_1, 12], integer(data.pipes.table[
         data.index_1, 1]))*InsulationCF.y,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         roughness=data.roughness,
         dimension=data.pipes.table[data.index_1, 4],
         crossArea=data.pipes.table[data.index_1, 5],
@@ -902,8 +888,8 @@ model CIET_nureth "Final model of the CIET facility"
     T_start=S15.T_b_start,
     use_HeatPort=false,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
-        (V=0.002))
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (
+         V=0.002))
     annotation (Placement(transformation(extent={{82,154},{62,174}})));
   Modelica.Blocks.Sources.Constant CTAHAreaCF(k=1.0125)
     "Correction Factor for HT area in CTAH"
