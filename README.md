@@ -11,6 +11,10 @@ A Modelica based library for modeling thermal hydraulic energy systems and other
 
 As library is in its beta stage, library may change often with compatability breaking changes. Thought you should know!
 
+## Requirements
+
+Dymola
+
 ## Related Training
 
 For training related to TRANSFORM, please see the [TRANSFORM Training repository](https://github.com/ORNL-Modelica/TRANSFORM-Training)
