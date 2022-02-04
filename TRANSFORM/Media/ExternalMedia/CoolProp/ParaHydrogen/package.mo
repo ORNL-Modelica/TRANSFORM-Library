@@ -10,7 +10,7 @@ package ParaHydrogen "ParaHydrogen | Two Phase | Cool Prop"
     redeclare replaceable function surfaceTension
     extends Modelica.Icons.Function;
     input SaturationProperties sat "saturation point";
-    output Modelica.SIunits.SurfaceTension sigma "Surface tension in SI units";
+    output Modelica.Units.SI.SurfaceTension sigma "Surface tension in SI units";
     constant Real s[1] = {0.005314};
     constant Real n[1] = {1.060};
     constant Real Tc=32.938;

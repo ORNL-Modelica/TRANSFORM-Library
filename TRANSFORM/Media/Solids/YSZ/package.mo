@@ -10,18 +10,21 @@ package YSZ "YSZ: Yttria stabilized zirconia"
     "Specific enthalpy"
   algorithm
     h := h_reference + 600*(state.T-T_reference);
+    annotation(smoothOrder=2);
   end specificEnthalpy;
 
   redeclare function extends density
     "Density"
   algorithm
     d := 6000;
+    annotation(smoothOrder=2);
   end density;
 
   redeclare function extends thermalConductivity
     "Thermal conductivity"
   algorithm
     lambda := 2.5;
+    annotation(smoothOrder=2);
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp
@@ -29,5 +32,6 @@ package YSZ "YSZ: Yttria stabilized zirconia"
     //Real cp0;
   algorithm
     cp := 600;
+    annotation(smoothOrder=2);
   end specificHeatCapacityCp;
 end YSZ;

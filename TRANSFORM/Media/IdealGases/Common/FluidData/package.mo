@@ -4,6 +4,7 @@ package FluidData
 
   import Modelica.Media.Interfaces.PartialMixtureMedium;
   import Modelica.Media.IdealGases.Common.SingleGasesData;
+
     constant Modelica.Media.Interfaces.Types.IdealGas.FluidConstants Xe(
                        chemicalFormula =        "Xe",
                        iupacName =              "unknown",
@@ -21,5 +22,23 @@ package FluidData
                        hasIdealGasHeatCapacity=true,
                        hasCriticalData =       true,
                        hasAcentricFactor =     true);
+
+   constant Modelica.Media.Interfaces.Types.IdealGas.FluidConstants HeXe(
+                       chemicalFormula =        "HeXe",
+                       iupacName =              "unknown",
+                       structureFormula =       "unknown",
+                       casRegistryNumber =      "unknown",
+                       meltingPoint =           161.40,
+                       normalBoilingPoint =     165.051,
+                       criticalTemperature =    289.733,
+                       criticalPressure =         8.1747e4,
+                       criticalMolarVolume =     1/8400,
+                       acentricFactor =           0.00363,
+                       dipoleMoment =             0.0,
+                       molarMass =             TRANSFORM.Media.IdealGases.Common.SingleGasesData.HeXe.MM,
+                       hasDipoleMoment =       true,
+                       hasIdealGasHeatCapacity=true,
+                       hasCriticalData =       false,
+                       hasAcentricFactor =     false);
 
 end FluidData;

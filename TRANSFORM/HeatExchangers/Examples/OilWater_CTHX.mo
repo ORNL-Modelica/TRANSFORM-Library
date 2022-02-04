@@ -44,7 +44,8 @@ model OilWater_CTHX
         Media.Fluids.Incompressible.EngineOilUnused,
     redeclare package Material_tubeWall = Media.Solids.SS316,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ConcentricTubeHX (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ConcentricTubeHX
+        (
         D_o_shell=0.045,
         length_tube=65.9,
         dimension_tube=0.025,

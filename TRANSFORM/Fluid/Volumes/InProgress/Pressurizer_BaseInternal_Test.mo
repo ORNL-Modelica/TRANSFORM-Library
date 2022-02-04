@@ -32,7 +32,8 @@ model Pressurizer_BaseInternal_Test
   TRANSFORM.Fluid.Volumes.InProgress.Pressurizer drum2Phase(
     V_total=2/3*pi + pi + 2/3*pi,
     redeclare model DrumType =
-        TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.Traditional (
+        TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.Traditional
+        (
         r_1=1,
         r_2=1,
         h_2=1,

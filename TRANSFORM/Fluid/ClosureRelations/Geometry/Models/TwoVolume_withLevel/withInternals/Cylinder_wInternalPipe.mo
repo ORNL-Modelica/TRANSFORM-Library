@@ -16,7 +16,7 @@ model Cylinder_wInternalPipe
   final parameter SI.Length r_tube_outer=r_tube_inner+th_tube "Outer radius of internal tube";
   SI.Volume VInt "Total volume of internal structure";
 equation
-  assert(V-VInt > 0, "Internal structure volume is greater than the component volume");
+  assert(V-VInt >= 0, "Internal structure volume is greater than the component volume");
   VInt = nTubes*pi*r_tube_outer^2*length_tube;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

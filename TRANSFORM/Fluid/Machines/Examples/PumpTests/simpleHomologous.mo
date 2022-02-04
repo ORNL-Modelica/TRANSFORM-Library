@@ -94,6 +94,12 @@ model simpleHomologous
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={0,-20})));
+  FittingsAndResistances.SpecifiedResistance                 resistance2(
+      redeclare package Medium = Medium, R=circulator1.dp_nominal/circulator1.m_flow_nominal)
+    annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
+  FittingsAndResistances.SpecifiedResistance                 resistance3(
+      redeclare package Medium = Medium, R=1)
+    annotation (Placement(transformation(extent={{60,-80},{40,-60}})));
   Volumes.MixingVolume                 supplyVolume2(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
@@ -114,12 +120,6 @@ model simpleHomologous
     nPorts_a=1,
     nPorts_b=1)
     annotation (Placement(transformation(extent={{40,-60},{20,-80}})));
-  FittingsAndResistances.SpecifiedResistance                 resistance2(
-      redeclare package Medium = Medium, R=circulator1.dp_nominal/circulator1.m_flow_nominal)
-    annotation (Placement(transformation(extent={{-40,-80},{-60,-60}})));
-  FittingsAndResistances.SpecifiedResistance                 resistance3(
-      redeclare package Medium = Medium, R=1)
-    annotation (Placement(transformation(extent={{60,-80},{40,-60}})));
 equation
   connect(circulator.port_a, supplyVolume1.port_b[1])
     annotation (Line(points={{10,30},{24,30}},   color={0,127,255}));
@@ -139,22 +139,22 @@ equation
     annotation (Line(points={{0,40},{0,36}},color={0,0,0}));
   connect(speedSource.y, speed.w_ref) annotation (Line(points={{-8.88178e-16,69},
           {-8.88178e-16,62},{0,62}}, color={0,0,127}));
-  connect(circulator1.port_a, supplyVolume3.port_b[1])
-    annotation (Line(points={{10,-70},{24,-70}}, color={0,127,255}));
-  connect(supplyVolume2.port_a[1], circulator1.port_b)
-    annotation (Line(points={{-24,-70},{-10,-70}}, color={0,127,255}));
-  connect(supplyVolume2.port_b[1], resistance2.port_a)
-    annotation (Line(points={{-36,-70},{-43,-70}}, color={0,127,255}));
   connect(resistance2.port_b, sink1.ports[1])
     annotation (Line(points={{-57,-70},{-70,-70}}, color={0,127,255}));
   connect(source1.ports[1], resistance3.port_a)
     annotation (Line(points={{70,-70},{57,-70}}, color={0,127,255}));
-  connect(resistance3.port_b,supplyVolume3. port_a[1])
-    annotation (Line(points={{43,-70},{36,-70}}, color={0,127,255}));
   connect(speed1.flange, circulator1.shaft)
     annotation (Line(points={{0,-60},{0,-64}}, color={0,0,0}));
   connect(speedSource1.y, speed1.w_ref)
     annotation (Line(points={{0,-31},{0,-38}}, color={0,0,127}));
+  connect(resistance2.port_a, supplyVolume2.port_b[1])
+    annotation (Line(points={{-43,-70},{-36,-70}}, color={0,127,255}));
+  connect(supplyVolume2.port_a[1], circulator1.port_b)
+    annotation (Line(points={{-24,-70},{-10,-70}}, color={0,127,255}));
+  connect(supplyVolume3.port_b[1], circulator1.port_a)
+    annotation (Line(points={{24,-70},{10,-70}}, color={0,127,255}));
+  connect(supplyVolume3.port_a[1], resistance3.port_b)
+    annotation (Line(points={{36,-70},{43,-70}}, color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(__Dymola_NumberOfIntervals=2, __Dymola_Algorithm="Dassl"));

@@ -11,7 +11,7 @@ model ParaHydrogen
   Modelica.Blocks.Sources.Constant p(k=1e5)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Blocks.Sources.Ramp T(
-    height=5000,
+    height=1400,
     duration=1,
     offset=50)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));

@@ -1,8 +1,6 @@
 within TRANSFORM.Fluid.Volumes;
 model ExpansionTank_1Port "Expansion tank with cover gas"
-   extends TRANSFORM.Fluid.Interfaces.Records.Medium_fluid;
-//    package Medium = TRANSFORM.Media.Fluids.FLiBe.LinearFLiBe_pT (extraPropertiesNames={"CO2"},
-//          C_nominal={1.519E-1});
+  extends TRANSFORM.Fluid.Interfaces.Records.Medium_fluid;
   import Modelica.Fluid.Types.Dynamics;
   parameter SI.Area A "Cross-sectional area";
   parameter SI.Volume V0=0 "Volume at zero level";

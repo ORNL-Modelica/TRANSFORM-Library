@@ -18,7 +18,7 @@ SS316_TRACE
 FiberGlassGeneric
 UN
 Rhenium
-ZircHydride
+ZrH1p9
 Beryllium
 Molybdenum
 Tungsten
@@ -26,3 +26,7 @@ YSZ
 Inconel625
 Hastelloy_N_Haynes
 SS347
+ZrHx
+ZircHydrideOld
+ZrHepsilon
+ZrC_bestEstimate

@@ -2,7 +2,8 @@ within TRANSFORM.HeatExchangers.Sizing;
 model Sizing_EffectivenessNTU
   replaceable record CalcType =
       TRANSFORM.HeatExchangers.Sizing.Records.EffectivenessNTU_CalcType.Option1
-    constrainedby TRANSFORM.HeatExchangers.Sizing.Records.EffectivenessNTU_CalcType.PartialCalcType
+    constrainedby
+    TRANSFORM.HeatExchangers.Sizing.Records.EffectivenessNTU_CalcType.PartialCalcType
     "Select variables to be calculated" annotation (choicesAllMatching=true);
   CalcType calcType
     annotation (Placement(transformation(extent={{84,84},{96,96}})));

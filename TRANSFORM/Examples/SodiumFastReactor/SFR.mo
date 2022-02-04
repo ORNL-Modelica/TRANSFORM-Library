@@ -450,7 +450,8 @@ model SFR
     T_a1_start=0.5*(data.T_start_cold + data.T_start_cold),
     T_a2_start=0.5*(data.T_start_cold + data.T_ambientGround),
     redeclare model Geometry =
-        HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
+        HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
+        (
         r_inner=0.5*data.D_inner_primaryVessel,
         length_z=data.length_Vessel,
         nR=6,

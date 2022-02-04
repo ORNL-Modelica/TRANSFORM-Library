@@ -10,7 +10,43 @@ package HeXe "Helium xenon mixture (Change reference_X to customize)"
     substanceNames={"Helium","Xenon"},
     reference_X={0.5,0.5},
     fixedX=true);
+  constant TRANSFORM.Media.IdealGases.Common.AdditionalDataRecord addData[2] = {TRANSFORM.Media.IdealGases.Common.SingleGasesData.He,TRANSFORM.Media.IdealGases.Common.SingleGasesData.Xe};
 
+  redeclare replaceable function thermalConductivity
+    input ThermodynamicState state;
+    input Integer method=methodForThermalConductivity;
+    output ThermalConductivity lambda "Thermal conductivity";
+  protected
+      ThermalConductivity[nX] lambdaX "Component thermal conductivities";
+  algorithm
+      for i in 1:nX loop
+    assert(fluidConstants[i].hasCriticalData, "Critical data for "+ fluidConstants[i].chemicalFormula +
+       " not known. Can not compute thermal conductivity.");
+    lambdaX[i] := TRANSFORM.Media.IdealGases.Common.Functions.thermalConductivity(state.T,data[i],addData[i]);
+      end for;
+      lambda := lowPressureThermalConductivity(massToMoleFractions(state.X,
+                                   fluidConstants[:].molarMass),
+                           state.T,
+                           fluidConstants[:].criticalTemperature,
+                           fluidConstants[:].criticalPressure,
+                           fluidConstants[:].molarMass,
+                           lambdaX);
+      annotation (smoothOrder=2);
+  end thermalConductivity;
+
+  redeclare replaceable function dynamicViscosity
+    input ThermodynamicState state;
+    output DynamicViscosity eta "Dynamic viscosity";
+  protected
+      DynamicViscosity[nX] etaX "Component dynamic viscosities";
+  algorithm
+      for i in 1:nX loop
+    etaX[i] := TRANSFORM.Media.IdealGases.Common.Functions.dynamicViscosity(state.T,data[i],addData[i]);
+      end for;
+      eta := gasMixtureViscosity(massToMoleFractions(state.X,
+                             fluidConstants[:].molarMass),fluidConstants[:].molarMass,etaX);
+      annotation (smoothOrder=2);
+  end dynamicViscosity;
   annotation (Documentation(info="<html>
 
 </html>"));

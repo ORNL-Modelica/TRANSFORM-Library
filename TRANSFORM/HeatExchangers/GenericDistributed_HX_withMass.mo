@@ -381,7 +381,8 @@ model GenericDistributed_HX_withMass
     C_a_start=C_a_start_shell,
     C_b_start=C_b_start_shell,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
+        (
         nV=geometry.nV,
         crossAreas=geometry.crossAreas_shell,
         perimeters=geometry.perimeters_shell,
@@ -438,7 +439,8 @@ model GenericDistributed_HX_withMass
     C_a_start=C_a_start_tube,
     C_b_start=C_b_start_tube,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
+        (
         nV=geometry.nV,
         dimensions=geometry.dimensions_tube,
         dlengths=geometry.dlengths_tube,
@@ -476,7 +478,8 @@ model GenericDistributed_HX_withMass
     exposeState_a2=exposeState_a_tube,
     exposeState_b2=exposeState_b_tube,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
+        (
         r_inner=0.5*sum(geometry.dimensions_tube)/geometry.nV,
         r_outer=0.5*sum(geometry.dimensions_tube_outer)/geometry.nV,
         length_z=sum(geometry.dlengths_tube),

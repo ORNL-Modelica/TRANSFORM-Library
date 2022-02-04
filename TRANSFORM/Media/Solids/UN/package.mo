@@ -20,6 +20,7 @@ package UN "UN: Uranium Mononitride"
     "Specific enthalpy"
   algorithm
     h := h_reference + (51.14*theta)/(exp(theta/state.T)-1)+4.746e-3*state.T^2+1.4609e7*exp(-18081/state.T)-8176.44;
+    annotation(smoothOrder=2);
   end specificEnthalpy;
 
   redeclare function extends density
@@ -29,17 +30,20 @@ protected
   algorithm
     //d := 14090;//density at 1000 K from below equation
     d:= (14.42-2.779e-4*T-4.897e-8*T^2)*1000;
+    annotation(smoothOrder=2);
   end density;
 
   redeclare function extends thermalConductivity
     "Thermal conductivity"
   algorithm
     lambda := min(1.864*exp(-2.14*porosity)*state.T^0.361,29.5);
+    annotation(smoothOrder=2);
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp
     "Specific heat capacity"
   algorithm
     cp := (51.14*(theta/state.T)^2*exp(theta/state.T)/(exp(theta/state.T)-1)^2+9.491e-3*state.T+2.6415e11/state.T^2*exp(-18081/state.T))/MM_const;
+    annotation(smoothOrder=2);
   end specificHeatCapacityCp;
 end UN;

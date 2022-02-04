@@ -4,7 +4,8 @@ model Pressurizer
   extends TRANSFORM.Fluid.Volumes.InProgress.PartialDrum2Phase2Volume;
   /* General */
   replaceable model DrumType =
-      TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.SimpleCylinder constrainedby
+      TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.SimpleCylinder
+                                                                              constrainedby
     TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.PartialDrumType
     "1. Select model 2. Set parameters (Total volume must match V_total)"
     annotation (choicesAllMatching=true, Dialog(group="Geometry"));
