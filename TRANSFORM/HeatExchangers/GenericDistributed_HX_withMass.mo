@@ -381,7 +381,8 @@ model GenericDistributed_HX_withMass
     C_a_start=C_a_start_shell,
     C_b_start=C_b_start_shell,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
+        (
         nV=geometry.nV,
         crossAreas=geometry.crossAreas_shell,
         perimeters=geometry.perimeters_shell,
@@ -438,7 +439,8 @@ model GenericDistributed_HX_withMass
     C_a_start=C_a_start_tube,
     C_b_start=C_b_start_tube,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
+        (
         nV=geometry.nV,
         dimensions=geometry.dimensions_tube,
         dlengths=geometry.dlengths_tube,
@@ -476,7 +478,8 @@ model GenericDistributed_HX_withMass
     exposeState_a2=exposeState_a_tube,
     exposeState_b2=exposeState_b_tube,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
+        (
         r_inner=0.5*sum(geometry.dimensions_tube)/geometry.nV,
         r_outer=0.5*sum(geometry.dimensions_tube_outer)/geometry.nV,
         length_z=sum(geometry.dlengths_tube),
@@ -616,13 +619,13 @@ model GenericDistributed_HX_withMass
         rotation=90,
         origin={0,18})));
   HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_shellSide[geometry.nV](
-     each nC=nC) if             not use_TraceMassTransfer_shell
+     each nC=nC)             if not use_TraceMassTransfer_shell
     annotation (Placement(transformation(extent={{-60,-8},{-40,12}})));
   HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_a[
     geometry.nR](each nC=nC)
     annotation (Placement(transformation(extent={{-60,-26},{-40,-6}})));
-  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_shellSide[geometry.nV] if
-                                                                       not use_HeatTransfer_shell
+  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_shellSide[geometry.nV]
+                                                                    if not use_HeatTransfer_shell
     annotation (Placement(transformation(extent={{60,-8},{40,12}})));
   HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_b[
     geometry.nR](each nC=nC)
@@ -634,15 +637,15 @@ model GenericDistributed_HX_withMass
   HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_tubeSide[geometry.nV](
      each nC=nC) if not use_TraceMassTransfer_tube
     annotation (Placement(transformation(extent={{-60,-62},{-40,-42}})));
-  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_tubeSide[geometry.nV] if
-                                                                       not use_HeatTransfer_tube
+  HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_tubeSide[geometry.nV]
+                                                                    if not use_HeatTransfer_tube
     annotation (Placement(transformation(extent={{60,-62},{40,-42}})));
   HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interfaceM_tubeSide[geometry.nV](
     each nC=nC,
     nb=nb_wall_tubeSide,
     Ka=Ka_tubeSide,
-    Kb=Kb_wall_tubeSide) if
-              use_TraceMassTransfer_tube annotation (Placement(transformation(
+    Kb=Kb_wall_tubeSide)
+           if use_TraceMassTransfer_tube annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-4,-62})));

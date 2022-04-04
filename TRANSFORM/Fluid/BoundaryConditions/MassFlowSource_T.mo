@@ -32,18 +32,18 @@ model MassFlowSource_T
     "Fixed values of trace substances"
     annotation (Evaluate=true,
                 Dialog(enable = (not use_C_in) and Medium.nC > 0));
-  Modelica.Blocks.Interfaces.RealInput m_flow_in if     use_m_flow_in
+  Modelica.Blocks.Interfaces.RealInput m_flow_in     if use_m_flow_in
     "Prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-120,60},{-80,100}}), iconTransformation(extent={{-120,60},{-80,100}})));
-  Modelica.Blocks.Interfaces.RealInput T_in if         use_T_in
+  Modelica.Blocks.Interfaces.RealInput T_in         if use_T_in
     "Prescribed fluid temperature"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if
-                                                        use_X_in
+  Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX]
+                                                     if use_X_in
     "Prescribed fluid composition"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-  Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if
-                                                        use_C_in
+  Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC]
+                                                     if use_C_in
     "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{-120,-100},{-80,-60}})));
 protected

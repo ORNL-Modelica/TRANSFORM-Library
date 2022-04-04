@@ -9,7 +9,8 @@ model Example_1_5_1_ThermalProtectionSystem
   DiscritizedModels.Conduction_1D shield(
     exposeState_b1=true,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        (
         length_y=1,
         length_z=1,
         nX=10,
@@ -25,7 +26,8 @@ model Example_1_5_1_ThermalProtectionSystem
         origin={16,0})));
   DiscritizedModels.Conduction_1D steel(
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        (
         length_x=0.01,
         length_y=1,
         length_z=1,

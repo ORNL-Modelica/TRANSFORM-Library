@@ -19,12 +19,12 @@ block IntegratorWithReset "Output the integral of the input signal"
                Dialog(
                  enable=reset == TRANSFORM.Types.Reset.Parameter,
                  group="Integrator reset"));
-  Modelica.Blocks.Interfaces.RealInput y_reset_in if
-       reset == TRANSFORM.Types.Reset.Input
+  Modelica.Blocks.Interfaces.RealInput y_reset_in
+    if reset == TRANSFORM.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = TRANSFORM.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
-  Modelica.Blocks.Interfaces.BooleanInput trigger if
-       reset <> TRANSFORM.Types.Reset.Disabled
+  Modelica.Blocks.Interfaces.BooleanInput trigger
+    if reset <> TRANSFORM.Types.Reset.Disabled
     "Resets the integrator output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}}, rotation=90,
         origin={0,-120}), iconTransformation(

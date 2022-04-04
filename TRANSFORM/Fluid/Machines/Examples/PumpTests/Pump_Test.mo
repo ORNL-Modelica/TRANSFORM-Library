@@ -41,11 +41,11 @@ model Pump_Test
     use_powerCharacteristic=true,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model PowerChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power.PerformanceCurve (
-         V_flow_curve={0,0.001,0.0015}, W_curve={350,500,600}),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power.PerformanceCurve
+        (V_flow_curve={0,0.001,0.0015}, W_curve={350,500,600}),
     redeclare model FlowChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve (
-         V_flow_curve={0,0.001,0.0015}, head_curve={60,30,0}),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve
+        (V_flow_curve={0,0.001,0.0015}, head_curve={60,30,0}),
     checkValve=false,
     exposeState_a=false,
     exposeState_b=true,

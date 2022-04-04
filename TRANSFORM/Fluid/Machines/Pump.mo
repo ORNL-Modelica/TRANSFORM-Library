@@ -18,7 +18,7 @@ model Pump "Centrifugal pump with ideally controlled speed"
         enable=if controlType == "pressure" and use_port == false then true else false));
   input SI.PressureDifference dp_input=dp_nominal "Set pressure rise" annotation (Dialog(group="Inputs Control Setting",
         enable=if controlType == "dp" and use_port == false then true else false));
-  Modelica.Blocks.Interfaces.RealInput inputSignal if  use_port annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput inputSignal  if use_port annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
         origin={0,80}), iconTransformation(

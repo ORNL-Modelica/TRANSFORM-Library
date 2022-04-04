@@ -70,8 +70,8 @@ model QuenchingACompositeStructure
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_2_8_d_2250_cp_749,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
-                                                                       nX=
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        (                                                              nX=
             nNodes_1.k, length_x=L.y/2))
     annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature water(
@@ -101,8 +101,8 @@ model QuenchingACompositeStructure
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_2_8_d_2250_cp_749,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
-                                                                       nX=
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        (                                                              nX=
             nNodes_1.k, length_x=L.y/2))
     annotation (Placement(transformation(extent={{50,-10},{70,10}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature gas(

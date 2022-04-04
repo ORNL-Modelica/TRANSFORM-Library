@@ -67,14 +67,14 @@ block LimPID
     "Value to which the controller output is reset if the boolean trigger has a rising edge, used if reset == TRANSFORM.Types.Reset.Parameter"
     annotation(Dialog(enable=reset == TRANSFORM.Types.Reset.Parameter,
                       group="Integrator reset"));
-  Modelica.Blocks.Interfaces.BooleanInput trigger if
-       reset <> TRANSFORM.Types.Reset.Disabled
+  Modelica.Blocks.Interfaces.BooleanInput trigger
+    if reset <> TRANSFORM.Types.Reset.Disabled
     "Resets the controller output when trigger becomes true"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-80,-120})));
-  Modelica.Blocks.Interfaces.RealInput y_reset_in if
-       reset == TRANSFORM.Types.Reset.Input
+  Modelica.Blocks.Interfaces.RealInput y_reset_in
+    if reset == TRANSFORM.Types.Reset.Input
     "Input signal for state to which integrator is reset, enabled if reset = TRANSFORM.Types.Reset.Input"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Math.Add addP(k1=wp, k2=-1)
@@ -112,7 +112,7 @@ block LimPID
         origin={80,-50},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-  Modelica.Blocks.Math.Gain gainTrack(k=1/(k*Ni)) if  with_I
+  Modelica.Blocks.Math.Gain gainTrack(k=1/(k*Ni))  if with_I
     annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
   Modelica.Blocks.Nonlinear.Limiter limiter(
     uMax=yMax,
@@ -160,8 +160,8 @@ protected
    "Internal connector for controller output reset"
    annotation(Evaluate=true);
   Modelica.Blocks.Sources.RealExpression intRes(final y=y_reset_internal/k -
-        addPID.u1 - addPID.u2) if
-       reset <> TRANSFORM.Types.Reset.Disabled
+        addPID.u1 - addPID.u2)
+    if reset <> TRANSFORM.Types.Reset.Disabled
     "Signal source for integrator reset"
     annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
 public

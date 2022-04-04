@@ -26,8 +26,8 @@ extends TRANSFORM.Icons.Example;
     redeclare model TraceMassTransfer =
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
         (redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PowerLawTemperature (
-             D_ab0=6.4854e-26, n=5.7227)))
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PowerLawTemperature
+            (D_ab0=6.4854e-26, n=5.7227)))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT Sink(
     nPorts=1,

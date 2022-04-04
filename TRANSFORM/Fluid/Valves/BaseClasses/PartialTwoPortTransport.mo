@@ -32,7 +32,7 @@ partial model PartialTwoPortTransport
               m_flow,
               Medium.density(state_a),
               Medium.density(state_b),
-              m_flow_small) if     show_V_flow
+              m_flow_small)     if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a to port_b)";
   Medium.Temperature port_a_T=
       Modelica.Fluid.Utilities.regStep(port_a.m_flow,

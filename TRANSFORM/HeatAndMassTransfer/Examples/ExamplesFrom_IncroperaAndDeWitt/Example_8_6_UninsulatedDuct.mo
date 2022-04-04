@@ -4,7 +4,8 @@ model Example_8_6_UninsulatedDuct "Example 8.6 Uninsulated Duct pp. 516-518"
   extends Icons.Example;
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_2D pipe(
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
+        (
         nR=nNodes_1.k,
         nZ=nNodes_2.k,
         r_inner=0.5*D.y,

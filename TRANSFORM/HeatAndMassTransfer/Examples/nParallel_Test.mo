@@ -3,12 +3,12 @@ model nParallel_Test
   extends TRANSFORM.Icons.Example;
   DiscritizedModels.HMTransfer_1D conduction_single(
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
-          nX=10),
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        ( nX=10),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
-         D_ab0=0.01),
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+        (D_ab0=0.01),
     redeclare package Material = Media.Solids.SS316)
     annotation (Placement(transformation(extent={{-10,48},{10,68}})));
   Utilities.Visualizers.displayReal boundaryQ_T(val=boundaryQ.port.T)
@@ -33,13 +33,13 @@ model nParallel_Test
     annotation (Placement(transformation(extent={{30,68},{50,88}})));
   DiscritizedModels.HMTransfer_1D conduction_nParallel(
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
-          nX=10),
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        ( nX=10),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     nParallel=10,
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
-         D_ab0=0.01),
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+        (D_ab0=0.01),
     redeclare package Material = Media.Solids.SS316)
     annotation (Placement(transformation(extent={{-10,-54},{10,-34}})));
   Utilities.Visualizers.displayReal boundaryQ_T1(val=boundaryQ1.port.T)

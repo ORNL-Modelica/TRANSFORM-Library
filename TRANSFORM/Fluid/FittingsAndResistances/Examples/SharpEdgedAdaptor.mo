@@ -2,8 +2,8 @@ within TRANSFORM.Fluid.FittingsAndResistances.Examples;
 model SharpEdgedAdaptor
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-  TRANSFORM.Fluid.FittingsAndResistances.SharpEdgedAdaptor from_dp(redeclare package
-              Medium = Modelica.Media.Air.DryAirNasa, dimensions_ab={
+  TRANSFORM.Fluid.FittingsAndResistances.SharpEdgedAdaptor from_dp(redeclare
+      package Medium = Modelica.Media.Air.DryAirNasa, dimensions_ab={
         dimension_a.y,0.01})
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Modelica.Fluid.Sources.FixedBoundary OUT_dp(

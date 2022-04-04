@@ -131,7 +131,7 @@ model BoilerDrum
         rotation=270,
         origin={0,-80})));
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort_liquid(T=medium_liquid.T,
-      Q_flow=Q_external_liquid) if                    use_LiquidHeatPort
+      Q_flow=Q_external_liquid)                    if use_LiquidHeatPort
     annotation (Placement(transformation(extent={{60,-50},{80,-30}}),
         iconTransformation(extent={{63,-48},{77,-34}})));
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort_vapor(T=medium_vapor.T,

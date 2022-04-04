@@ -142,13 +142,13 @@ partial model PartialPump "Base model for centrifugal pumps"
     "Trace substances molar mass"
     annotation (Dialog(group="Closure Models", enable=use_TraceMassPort));
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=medium.T, Q_flow=
-        Q_flow_internal) if                                                                      use_HeatPort
+        Q_flow_internal)                                                                      if use_HeatPort
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}}),
         iconTransformation(extent={{-10,-70},{10,-50}})));
   HeatAndMassTransfer.Interfaces.MolePort_State traceMassPort(
     nC=Medium.nC,
     C=C .* medium.d ./ MMs,
-    n_flow=mC_flow_internal ./ MMs) if                                                                                            use_TraceMassPort
+    n_flow=mC_flow_internal ./ MMs)                                                                                            if use_TraceMassPort
     annotation (Placement(transformation(extent={{30,-50},{50,-30}}),
         iconTransformation(extent={{30,-50},{50,-30}})));
 protected

@@ -9,20 +9,42 @@ partial model PartialTwoPortSensor
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(
     redeclare package Medium = Medium,
     m_flow(min=if allowFlowReversal then -Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default))
+    h_outflow(start=h_start))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
            0)));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b(
     redeclare package Medium = Medium,
     m_flow(max=if allowFlowReversal then +Modelica.Constants.inf else 0),
-    h_outflow(start=Medium.h_default))
+    h_outflow(start=h_start))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0),
         iconTransformation(extent={{110,-10},{90,10}})));
   parameter Medium.MassFlowRate m_flow_small(min=0) = 1e-4
     "Regularization for zero flow:|m_flow| < m_flow_small"
     annotation(Dialog(tab="Advanced"));
+  parameter SI.AbsolutePressure p_start=Medium.p_default "Pressure" annotation (
+     Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
+  parameter Boolean use_T_start=true "Use T_start if true, otherwise h_start"
+    annotation (Evaluate=true, Dialog(tab="Initialization", group=
+          "Start Value: Temperature"));
+  parameter SI.Temperature T_start=Medium.T_default "Temperature" annotation (
+      Evaluate=true, Dialog(
+      tab="Initialization",
+      group="Start Value: Temperature",
+      enable=use_T_start));
+  parameter SI.SpecificEnthalpy h_start=Medium.specificEnthalpy_pTX(
+      p_start,
+      T_start,
+      X_start) "Specific enthalpy" annotation (Dialog(
+      tab="Initialization",
+      group="Start Value: Specific Enthalpy",
+      enable=not use_T_start));
+  parameter SI.MassFraction X_start[Medium.nX]=Medium.X_default "Mass fraction"
+    annotation (Dialog(
+      tab="Initialization",
+      group="Start Value: Species Mass Fraction",
+      enable=Medium.nXi > 0));
 equation
   // Mass balance
   0 = port_a.m_flow + port_b.m_flow;

@@ -24,7 +24,8 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     use_Lambda=true,
     lambda=1,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        (
         nX=nNodes_1.k,
         length_x=L.y,
         length_y=1,
@@ -61,7 +62,8 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     use_Lambda=true,
     lambda=1,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        (
         nX=nNodes_1.k,
         length_x=L.y,
         length_y=1,
@@ -79,7 +81,8 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     use_Lambda=true,
     lambda=1,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        (
         nX=nNodes_1.k,
         length_x=L.y,
         length_y=1,

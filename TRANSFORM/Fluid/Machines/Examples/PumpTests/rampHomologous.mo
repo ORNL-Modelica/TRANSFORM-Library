@@ -31,8 +31,8 @@ model rampHomologous
     p_start(displayUnit="MPa") = 5000000,
     T_start=573.15,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (
-         V=0.001),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
+        (V=0.001),
     nPorts_a=1,
     nPorts_b=1)
     annotation (Placement(transformation(extent={{-20,70},{-40,90}})));
@@ -42,8 +42,8 @@ model rampHomologous
     p_start(displayUnit="MPa") = 4800000,
     T_start=573.15,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (
-         V=0.001),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
+        (V=0.001),
     nPorts_a=1,
     nPorts_b=1)
     annotation (Placement(transformation(extent={{40,70},{20,90}})));

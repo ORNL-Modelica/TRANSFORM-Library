@@ -23,8 +23,8 @@ model TransientResponseOfATankWall
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   DiscritizedModels.Conduction_1D wall(
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
-                                                                       nX=
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        (                                                              nX=
             nNodes_1.k, length_x=th.y),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     exposeState_a1=true,

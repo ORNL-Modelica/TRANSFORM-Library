@@ -67,8 +67,8 @@ model Conduction_1D
                                                     iconTransformation(extent={{-90,-90},
             {-70,-70}})));
   BoundaryConditions.Heat.ParallelFlow nFlow_heatPort_external[nVs[1]](each
-      nParallel=nParallel) if
-       use_HeatTransfer annotation (Placement(transformation(
+      nParallel=nParallel)
+    if use_HeatTransfer annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=45,
         origin={-60,-60})));

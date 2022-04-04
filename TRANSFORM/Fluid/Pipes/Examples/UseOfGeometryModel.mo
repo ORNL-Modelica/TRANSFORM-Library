@@ -36,7 +36,8 @@ TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
   p_b_start=1000000,
   T_a_start=293.15,
   redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (
         dimension=0.01, length=100)) annotation (Placement(transformation(
         origin={-20,40}, extent={{-10,-10},{10,10}})));
 TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
@@ -51,7 +52,8 @@ TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface
   p_b_start=1000000,
   T_a_start=293.15,
   redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightAnnulus (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightAnnulus
+        (
       r_inner=0.5*0.005,
       r_outer=0.5*0.015,
       length=100)) annotation (Placement(transformation(origin={-20,-40},

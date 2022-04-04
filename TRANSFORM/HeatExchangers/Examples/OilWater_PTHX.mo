@@ -47,7 +47,8 @@ model OilWater_PTHX
     p_a_start_shell=shell_outlet.p + 100,
     nParallel=30,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.CompactPlateHX (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.CompactPlateHX
+        (
         height_tube=0.00218,
         width=0.131,
         length=0.131,
@@ -57,11 +58,11 @@ model OilWater_PTHX
     energyDynamics={Modelica.Fluid.Types.Dynamics.SteadyStateInitial,Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
         Modelica.Fluid.Types.Dynamics.SteadyStateInitial},
     redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (
-         use_LambdaState=false, lambda0=0.625),
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
+        (use_LambdaState=false, lambda0=0.625),
     redeclare model HeatTransfer_tube =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (
-         use_LambdaState=false, lambda0=0.138))
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
+        (use_LambdaState=false, lambda0=0.138))
     annotation (Placement(transformation(extent={{-21,-20},{21,20}})));
   UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
     y1={STHX.tube.mediums[i].T for i in 1:STHX.geometry.nV},

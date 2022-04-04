@@ -98,7 +98,8 @@ model GenericPipe_wWall_wTraceMass
     "Internal mass generation" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
   replaceable model DiffusionCoeff_wall =
-      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient    constrainedby
+      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+                                                                                          constrainedby
     TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
     "Diffusion Coefficient" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
@@ -207,11 +208,11 @@ model GenericPipe_wWall_wTraceMass
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_b[geometry.nR]
     annotation (Placement(transformation(extent={{60,-44},{40,-24}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_outer[
-    geometry.nZ] if                                                    not use_HeatTransferOuter
+    geometry.nZ]                                                    if not use_HeatTransferOuter
     annotation (Placement(transformation(extent={{60,-8},{40,12}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.CounterFlow counterFlow(
-      counterCurrent=counterCurrent, n=geometry.nZ) if
-                                          use_HeatTransferOuter annotation (
+      counterCurrent=counterCurrent, n=geometry.nZ)
+                                       if use_HeatTransferOuter annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -223,8 +224,8 @@ model GenericPipe_wWall_wTraceMass
     geometry.nR](each nC=nC)
     annotation (Placement(transformation(extent={{60,-26},{40,-6}})));
   HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_outer[
-    geometry.nZ](each nC=nC) if
-                    not use_TraceMassTransferOuter
+    geometry.nZ](each nC=nC)
+                 if not use_TraceMassTransferOuter
     annotation (Placement(transformation(extent={{-60,-8},{-40,12}})));
   HeatAndMassTransfer.BoundaryConditions.Mass.CounterFlow counterFlowM(
     nC=nC,
@@ -242,11 +243,11 @@ model GenericPipe_wWall_wTraceMass
           extent={{-50,34},{-30,54}}), iconTransformation(extent={{-50,40},{-30,
             60}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_inner[
-    geometry.nZ] if                                                    not use_HeatTransfer
+    geometry.nZ]                                                    if not use_HeatTransfer
     annotation (Placement(transformation(extent={{60,-62},{40,-42}})));
   HeatAndMassTransfer.BoundaryConditions.Mass.AdiabaticMass adiabaticM_inner[
-    geometry.nZ](each nC=nC) if
-                    not use_TraceMassTransfer
+    geometry.nZ](each nC=nC)
+                 if not use_TraceMassTransfer
     annotation (Placement(transformation(extent={{-60,-62},{-40,-42}})));
   HeatAndMassTransfer.Resistances.Mass.SolubilityInterface interface[geometry.nZ](
     each nC=nC,
@@ -265,7 +266,7 @@ model GenericPipe_wWall_wTraceMass
     annotation (Placement(transformation(extent={{20,-80},{40,-60}}),
         iconTransformation(extent={{20,-10},{40,10}})));
   HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts_add[geometry.nZ,
-    geometry.nSurfaces - 1](each nC=nC) if  geometry.nSurfaces > 1 annotation (Placement(transformation(
+    geometry.nSurfaces - 1](each nC=nC)  if geometry.nSurfaces > 1 annotation (Placement(transformation(
           extent={{-40,-80},{-20,-60}}), iconTransformation(extent={{-40,-10},{
             -20,10}})));
 equation

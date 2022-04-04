@@ -25,7 +25,8 @@ model Example_1_9_1_TemperatureSensorMounting
     exposeState_b1=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_z (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_z
+        (
         nZ=nNodes_1.k,
         r_outer=0.5*D.y,
         length_z=L.y))

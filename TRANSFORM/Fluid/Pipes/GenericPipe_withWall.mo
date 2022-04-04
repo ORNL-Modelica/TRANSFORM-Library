@@ -139,11 +139,11 @@ model GenericPipe_withWall
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_b[geometry.nR]
     annotation (Placement(transformation(extent={{60,-44},{40,-24}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_outer[
-    geometry.nZ] if                                                    not use_HeatTransferOuter
+    geometry.nZ]                                                    if not use_HeatTransferOuter
     annotation (Placement(transformation(extent={{60,-8},{40,12}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.CounterFlow counterFlow(
-      counterCurrent=counterCurrent, n=geometry.nZ) if
-                                          use_HeatTransferOuter annotation (
+      counterCurrent=counterCurrent, n=geometry.nZ)
+                                       if use_HeatTransferOuter annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -152,7 +152,7 @@ model GenericPipe_withWall
     annotation (Placement(transformation(extent={{-10,34},{10,54}}),
         iconTransformation(extent={{-10,40},{10,60}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_inner[
-    geometry.nZ] if                                                    not use_HeatTransfer
+    geometry.nZ]                                                    if not use_HeatTransfer
     annotation (Placement(transformation(extent={{60,-62},{40,-42}})));
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));

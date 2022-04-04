@@ -26,7 +26,7 @@ model Pump_Controlled
     annotation (Dialog(group="Inputs Control Setting", enable=if controlType == "dp"
            and use_port == false then true else false));
 
-  Modelica.Blocks.Interfaces.RealInput inputSignal if  use_port annotation (
+  Modelica.Blocks.Interfaces.RealInput inputSignal  if use_port annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,

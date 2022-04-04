@@ -372,7 +372,8 @@ model GenericDistributed_HX_Rwall
     C_a_start=C_a_start_shell,
     C_b_start=C_b_start_shell,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
+        (
         nV=geometry.nV,
         crossAreas=geometry.crossAreas_shell,
         perimeters=geometry.perimeters_shell,
@@ -427,7 +428,8 @@ model GenericDistributed_HX_Rwall
     C_a_start=C_a_start_tube,
     C_b_start=C_b_start_tube,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
+        (
         nV=geometry.nV,
         dimensions=geometry.dimensions_tube,
         dlengths=geometry.dlengths_tube,

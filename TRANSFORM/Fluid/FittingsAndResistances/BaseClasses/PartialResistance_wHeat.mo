@@ -21,8 +21,8 @@ partial model PartialResistance_wHeat
     annotation (Dialog(tab="Advanced", group="Heat Transfer"));
 
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=Medium.temperature(
-        state), Q_flow=Q_flow_internal) if
-                               use_HeatPort annotation (Placement(
+        state), Q_flow=Q_flow_internal)
+                            if use_HeatPort annotation (Placement(
         transformation(extent={{-10,50},{10,70}}), iconTransformation(extent={{-10,
             50},{10,70}})));
 protected

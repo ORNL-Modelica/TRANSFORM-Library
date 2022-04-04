@@ -30,9 +30,9 @@ model TurboPump
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
 
   replaceable model NonDimCurve =
-      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves.Radial           constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves.PartialNonDimCurve
-                                                                                                                                                                                                            annotation(choicesAllMatching=true);
+      TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves.Radial
+                                                                                                     constrainedby
+    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.NondimensionalCurves.PartialNonDimCurve                                                                                                        annotation(choicesAllMatching=true);
 
     NonDimCurve nonDimCurve;
 

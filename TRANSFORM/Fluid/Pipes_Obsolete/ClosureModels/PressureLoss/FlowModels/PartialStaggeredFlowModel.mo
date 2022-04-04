@@ -63,8 +63,8 @@ partial model PartialStaggeredFlowModel
       mus,
       dimensions) if show_Res "Reynolds numbers";
   Medium.MassFlowRate[nFM] m_flows_turbulent=
-      {nParallel*(crossAreas[i] + crossAreas[i+1])/(dimensions[i] + dimensions[i+1])*mus_act[i]*Res_turbulent[i] for i in 1:nFM} if
-         show_Res "Start of turbulent flow";
+      {nParallel*(crossAreas[i] + crossAreas[i+1])/(dimensions[i] + dimensions[i+1])*mus_act[i]*Res_turbulent[i] for i in 1:nFM}
+      if show_Res "Start of turbulent flow";
 protected
   parameter Boolean use_rho_nominal = false
     "= true, if rho_nominal is used, otherwise computed from medium"

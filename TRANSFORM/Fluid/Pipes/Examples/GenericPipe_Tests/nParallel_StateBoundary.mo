@@ -7,8 +7,8 @@ model nParallel_StateBoundary
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
-                                                                          nV=10,
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (                                                                 nV=10,
           dimension=0.01),
     use_TraceMassTransfer=true,
     redeclare model HeatTransfer =
@@ -18,8 +18,8 @@ model nParallel_StateBoundary
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM
         (                                               redeclare model
           DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
-             D_ab0=1), alphaM0=fill(1, Medium.nC)))
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+            (D_ab0=1), alphaM0=fill(1, Medium.nC)))
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Utilities.Visualizers.displayReal boundaryQ_p(val=pipe_single.port_a.p)
     annotation (Placement(transformation(extent={{-52,84},{-32,104}})));
@@ -76,8 +76,8 @@ model nParallel_StateBoundary
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
-                                                                          nV=10,
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (                                                                 nV=10,
           dimension=0.01),
     use_TraceMassTransfer=true,
     nParallel=10,
@@ -88,8 +88,8 @@ model nParallel_StateBoundary
         TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM
         (                                               redeclare model
           DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
-             D_ab0=1), alphaM0=fill(1, Medium.nC)))
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+            (D_ab0=1), alphaM0=fill(1, Medium.nC)))
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
   Utilities.Visualizers.displayReal boundaryQ_p1(val=pipe_nParallel.port_a.p)
     annotation (Placement(transformation(extent={{-50,-16},{-30,4}})));

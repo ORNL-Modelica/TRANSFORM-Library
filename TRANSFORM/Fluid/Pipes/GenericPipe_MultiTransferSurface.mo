@@ -328,12 +328,12 @@ model GenericPipe_MultiTransferSurface
   SI.Temperature[nV,geometry.nSurfaces] Ts_wall(start=transpose(TRANSFORM.Math.fillArray_1D(Ts_start,geometry.nSurfaces)))
     "use_HeatTransfer = true then wall temperature else bulk medium temperature";
   SI.Power[nV] Wb_flows "Mechanical power, p*der(V) etc.";
-  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts[nV,geometry.nSurfaces] if
-                                                                use_HeatTransfer
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts[nV,geometry.nSurfaces]
+                                                             if use_HeatTransfer
     annotation (Placement(transformation(extent={{-10,50},{10,70}}),
         iconTransformation(extent={{-10,40},{10,60}})));
   HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts[nV,geometry.nSurfaces](
-     each nC=traceMassTransfer.nC) if                                                         use_TraceMassTransfer
+     each nC=traceMassTransfer.nC)                                                         if use_TraceMassTransfer
     annotation (Placement(transformation(extent={{-50,50},{-30,70}}),
         iconTransformation(extent={{-50,40},{-30,60}})));
   // Visualization

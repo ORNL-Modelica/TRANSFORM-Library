@@ -47,7 +47,8 @@ model SteamWater_HCSG
     redeclare package Material_tubeWall =
         TRANSFORM.Media.Solids.Inconel690,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
+        (
         D_o_shell=1.64,
         D_i_shell=0.61,
         nTubes=750,

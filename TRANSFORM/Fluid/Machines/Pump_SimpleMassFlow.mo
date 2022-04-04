@@ -14,8 +14,8 @@ model Pump_SimpleMassFlow "Prescribes mass flow rate across the component"
   Interfaces.FluidPort_Flow port_b(redeclare package Medium = Medium, m_flow(
         max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     annotation (Placement(transformation(extent={{90,-10},{110,10}})));
-  Modelica.Blocks.Interfaces.RealInput in_m_flow(value=m_flow_internal) if
-                                                use_input annotation (
+  Modelica.Blocks.Interfaces.RealInput in_m_flow(value=m_flow_internal)
+                                             if use_input annotation (
       Placement(transformation(
         origin={0,80},
         extent={{-20,-20},{20,20}},

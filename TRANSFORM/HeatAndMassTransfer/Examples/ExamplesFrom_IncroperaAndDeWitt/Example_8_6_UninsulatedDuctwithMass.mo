@@ -5,7 +5,8 @@ model Example_8_6_UninsulatedDuctwithMass
   extends Icons.Example;
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.HMTransfer_2D pipe(
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
+        (
         nR=nNodes_1.k,
         nZ=nNodes_2.k,
         r_inner=0.5*D.y,
@@ -19,8 +20,8 @@ model Example_8_6_UninsulatedDuctwithMass
     exposeState_b2=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
-         D_ab0=1e-2),
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+        (D_ab0=1e-2),
     redeclare package Material = TRANSFORM.Media.Solids.SS316)
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},

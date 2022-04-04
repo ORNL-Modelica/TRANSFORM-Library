@@ -19,11 +19,11 @@ model AdiabaticCompression
     redeclare model HeatTransfer_VL =
         Volumes.ClosureModels.MassTransfer.PhaseInterface.ConstantHeatTransferCoefficient,
     redeclare model BulkEvaporation =
-        Volumes.ClosureModels.MassTransfer.Evaporation.PhaseSeparationHypothesis (
-         Ac=pressurizer.drumType.crossArea_liquid),
+        Volumes.ClosureModels.MassTransfer.Evaporation.PhaseSeparationHypothesis
+        (Ac=pressurizer.drumType.crossArea_liquid),
     redeclare model BulkCondensation =
-        Volumes.ClosureModels.MassTransfer.Condensation.PhaseSeparation_TerminalVelocity (
-         V_fluid=pressurizer.V_vapor, L_c=0.5*pressurizer.drumType.level_vapor),
+        Volumes.ClosureModels.MassTransfer.Condensation.PhaseSeparation_TerminalVelocity
+        (V_fluid=pressurizer.V_vapor, L_c=0.5*pressurizer.drumType.level_vapor),
     redeclare model HeatTransfer_WL =
         ClosureRelations.HeatTransfer.Models.Lumped.Alphas,
     redeclare model HeatTransfer_WV =

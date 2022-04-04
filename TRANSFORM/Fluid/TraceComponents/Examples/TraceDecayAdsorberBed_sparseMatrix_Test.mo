@@ -44,7 +44,8 @@ model TraceDecayAdsorberBed_sparseMatrix_Test
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow_multi
     boundary2(nPorts=adsorberBed.nV, Q_flow=fill(-0, adsorberBed.nV))
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
-  TRANSFORM.Fluid.Sensors.TraceSubstancesTwoPort_multi sensor_C(redeclare package Medium = Medium)
+  TRANSFORM.Fluid.Sensors.TraceSubstancesTwoPort_multi sensor_C(redeclare
+      package                                                                     Medium = Medium)
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
 equation
   connect(boundary.ports[1], adsorberBed.port_a)

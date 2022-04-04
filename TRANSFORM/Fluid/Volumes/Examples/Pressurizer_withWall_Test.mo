@@ -3,8 +3,8 @@ model Pressurizer_withWall_Test
   extends TRANSFORM.Icons.Example;
   TRANSFORM.Fluid.Volumes.Pressurizer_withWall pressurizer(
     redeclare model BulkCondensation =
-        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay (
-         tau=15),
+        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay
+        (tau=15),
     cp_wall=600,
     V_wall=2/3*pi*((3.105 + 0.14)^3 - 3.105^3),
     redeclare model DrumType =
@@ -16,8 +16,8 @@ model Pressurizer_withWall_Test
         h_2=0.19),
     p_start(displayUnit="MPa"),
     redeclare model BulkEvaporation =
-        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Evaporation.ConstantTimeDelay (
-         tau=15),
+        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Evaporation.ConstantTimeDelay
+        (tau=15),
     redeclare model MassTransfer_VL =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantMassTransportCoefficient
         (alphaD0=0.001),
@@ -74,8 +74,8 @@ model Pressurizer_withWall_Test
     T=system.T_start,
     nPorts=1)
     annotation (Placement(transformation(extent={{90,-90},{70,-70}})));
-  FittingsAndResistances.SpecifiedResistance lineToPressurizer(R=1, redeclare package
-              Medium = Modelica.Media.Water.StandardWater) annotation (
+  FittingsAndResistances.SpecifiedResistance lineToPressurizer(R=1, redeclare
+      package Medium = Modelica.Media.Water.StandardWater) annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,

@@ -32,7 +32,8 @@ package Medium = Modelica.Media.IdealGases.SingleGases.He;
   TRANSFORM.Fluid.FittingsAndResistances.PipeLoss pipeLoss(
                                                          redeclare model
       Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.Circle (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.Circle
+        (
         dimension_avg=dim.k,
         dlength=len.k,
         angle=ang.k), redeclare package Medium = Medium)
@@ -52,7 +53,8 @@ package Medium = Modelica.Media.IdealGases.SingleGases.He;
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface pipe(
     exposeState_a=false,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (
         nV=2,
         dimension=dim.k,
         length=len.k,

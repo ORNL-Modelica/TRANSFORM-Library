@@ -3,7 +3,8 @@ model NaturalCirculation2
   extends TRANSFORM.Icons.Example;
   Pipes.GenericPipe_MultiTransferSurface riser(
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (
         dimension=0.01,
         length=10,
         angle=1.5707963267949,
@@ -20,7 +21,8 @@ model NaturalCirculation2
         origin={-20,0})));
   Pipes.GenericPipe_MultiTransferSurface downcomer(
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (
         dimension=0.01,
         length=10,
         nV=10,

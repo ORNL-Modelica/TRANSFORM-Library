@@ -15,8 +15,8 @@ replaceable package Medium =
     T_a_start=data.T_IHX_inletIHTS,
     m_flow_a_start=data.m_flow_IHX_IHTS,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
-         dimension=data.D_pipes_IHTStofromHXs, length=0.5*data.length_pipes_IHTStofromHXs),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (dimension=data.D_pipes_IHTStofromHXs, length=0.5*data.length_pipes_IHTStofromHXs),
     redeclare package Medium = Medium,
     p_a_start=400000)
     annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
@@ -24,8 +24,8 @@ replaceable package Medium =
     T_a_start=data.T_IHX_outletIHTS,
     m_flow_a_start=data.m_flow_IHX_IHTS,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
-         dimension=data.D_pipes_IHTStofromHXs, length=data.length_pipes_IHTStofromHXs),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (dimension=data.D_pipes_IHTStofromHXs, length=data.length_pipes_IHTStofromHXs),
     redeclare package Medium = Medium,
     p_a_start=300000)
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));

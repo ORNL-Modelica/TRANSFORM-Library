@@ -75,8 +75,8 @@ model Conduction_123D
         nVs[3]) else Material.thermalConductivity_T(0.5*(conductor_1.port_a.T +
         conductor_1.port_b.T)),
     L=lengths_1FM,
-    crossArea=crossAreas_1FM) if
-    use_dim1 annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
+    crossArea=crossAreas_1FM)
+ if use_dim1 annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Resistances.Heat.Plane                           conductor_2[nVs[1],nFM_2,nVs[
     3]](lambda=if use_Lambda then fill(
         lambda,
@@ -85,8 +85,8 @@ model Conduction_123D
         nVs[3]) else Material.thermalConductivity_T(0.5*(conductor_2.port_a.T +
         conductor_2.port_b.T)),
     L=lengths_2FM,
-    crossArea=crossAreas_2FM) if
-    use_dim2 annotation (Placement(transformation(
+    crossArea=crossAreas_2FM)
+ if use_dim2 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,20})));
@@ -98,58 +98,58 @@ model Conduction_123D
         nFM_3) else Material.thermalConductivity_T(0.5*(conductor_3.port_a.T +
         conductor_3.port_b.T)),
     L=lengths_3FM,
-    crossArea=crossAreas_3FM) if
-    use_dim3 annotation (Placement(transformation(
+    crossArea=crossAreas_3FM)
+ if use_dim3 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=45,
         origin={30,20})));
   Interfaces.HeatPort_Flow port_a1[nVs[2],nVs[3]] if use_dim1 annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent=
            {{-110,-10},{-90,10}})));
-  TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_State port_b1[nVs[2],nVs[3]] if
-           use_dim1 annotation (Placement(transformation(extent={{90,-10},{110,
+  TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_State port_b1[nVs[2],nVs[3]]
+        if use_dim1 annotation (Placement(transformation(extent={{90,-10},{110,
             10}}), iconTransformation(extent={{90,-10},{110,10}})));
   Interfaces.HeatPort_Flow port_a2[nVs[1],nVs[3]] if use_dim2
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
         iconTransformation(extent={{-10,-110},{10,-90}})));
-  TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_State port_b2[nVs[1],nVs[3]] if
-           use_dim2 annotation (Placement(transformation(extent={{-10,90},{10,
+  TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_State port_b2[nVs[1],nVs[3]]
+        if use_dim2 annotation (Placement(transformation(extent={{-10,90},{10,
             110}}), iconTransformation(extent={{-10,90},{10,110}})));
   Interfaces.HeatPort_Flow port_a3[nVs[1],nVs[2]] if use_dim3
     annotation (Placement(transformation(extent={{-90,-90},{-70,-70}}),
         iconTransformation(extent={{-90,-90},{-70,-70}})));
-  TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_State port_b3[nVs[1],nVs[2]] if
-           use_dim3 annotation (Placement(transformation(extent={{70,70},{90,90}}),
+  TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_State port_b3[nVs[1],nVs[2]]
+        if use_dim3 annotation (Placement(transformation(extent={{70,70},{90,90}}),
         iconTransformation(extent={{70,70},{90,90}})));
   BoundaryConditions.Parallel_Real nFlow_Q_gen[nVs[1],nVs[2],nVs[3]](each
       nParallel=nParallel)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   BoundaryConditions.Heat.ParallelFlow nFlow_a1[nVs[2],nVs[3]](each nParallel=
-        nParallel) if                                                       use_dim1
+        nParallel)                                                       if use_dim1
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   BoundaryConditions.Heat.ParallelFlow nFlow_b1[nVs[2],nVs[3]](each nParallel=
-        nParallel) if                                                       use_dim1
+        nParallel)                                                       if use_dim1
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   BoundaryConditions.Heat.ParallelFlow nFlow_a2[nVs[1],nVs[3]](each nParallel=
-        nParallel) if                                                       use_dim2
+        nParallel)                                                       if use_dim2
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-70})));
   BoundaryConditions.Heat.ParallelFlow nFlow_b2[nVs[1],nVs[3]](each nParallel=
-        nParallel) if                                                       use_dim2
+        nParallel)                                                       if use_dim2
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,70})));
   BoundaryConditions.Heat.ParallelFlow nFlow_a3[nVs[1],nVs[2]](each nParallel=
-        nParallel) if                                                       use_dim3
+        nParallel)                                                       if use_dim3
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=45,
         origin={-60,-60})));
   BoundaryConditions.Heat.ParallelFlow nFlow_b3[nVs[1],nVs[2]](each nParallel=
-        nParallel) if                                                       use_dim3
+        nParallel)                                                       if use_dim3
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=45,

@@ -22,8 +22,8 @@ model ElevationChange
         origin={-50,0})));
   inner Modelica.Fluid.System system(p_ambient(displayUnit="Pa") = 100000,
       m_flow_small=0.01) annotation (Placement(transformation(extent={{80, -100}, {100, -80}})));
-  TRANSFORM.Fluid.FittingsAndResistances.ElevationChange from_mflow(redeclare package
-              Medium = Modelica.Media.Air.DryAirNasa, dheight=dh.y)
+  TRANSFORM.Fluid.FittingsAndResistances.ElevationChange from_mflow(redeclare
+      package Medium = Modelica.Media.Air.DryAirNasa, dheight=dh.y)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.Ramp dh(
     startTime=0,

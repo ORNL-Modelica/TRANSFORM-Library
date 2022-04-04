@@ -94,7 +94,7 @@ block LimPIDold
         origin={80,-50},
         extent={{-10,-10},{10,10}},
         rotation=270)));
-  Modelica.Blocks.Math.Gain gainTrack(k=1/(k*Ni)) if  with_I
+  Modelica.Blocks.Math.Gain gainTrack(k=1/(k*Ni))  if with_I
     annotation (Placement(transformation(extent={{40,-80},{20,-60}})));
   Modelica.Blocks.Nonlinear.Limiter limiter(
     uMax=yMax,

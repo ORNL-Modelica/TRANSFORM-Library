@@ -6,7 +6,8 @@ model Example_1_3_2_AbsorptionInALens
   DiscritizedModels.Conduction_1D lense(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        (
         nX=nNodes_1.k,
         length_x=L.y,
         length_y=1,

@@ -422,7 +422,8 @@ model Regions_3
     energyDynamics=energyDynamics,
     traceDynamics=traceDynamics,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (
         nV=geometry.nV,
         dimension=geometry.dimension,
         crossArea=geometry.crossArea,

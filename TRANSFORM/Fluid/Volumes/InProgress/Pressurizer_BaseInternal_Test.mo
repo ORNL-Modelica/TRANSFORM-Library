@@ -39,11 +39,11 @@ model Pressurizer_BaseInternal_Test
         r_3=1),
     Vfrac_liquid_start=0.6,
     redeclare model BulkEvaporation =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.ConstantTimeDelay (
-         m=drum2Phase.m_liquid),
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.ConstantTimeDelay
+        (m=drum2Phase.m_liquid),
     redeclare model BulkCondensation =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.ConstantTimeDelay (
-         m=drum2Phase.m_vapor),
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.Lumped.ConstantTimeDelay
+        (m=drum2Phase.m_vapor),
     redeclare model HeatTransfer_WL =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.Alphas,
     redeclare model HeatTransfer_WV =

@@ -22,7 +22,8 @@ model PointKinetics_Test
     Lambda_start=1e-3,
     nFeedback=2,
     redeclare record Data =
-        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_1_userDefined (
+        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_1_userDefined
+        (
         lambdas={0.08},
         alphas={1},
         Beta=0.0075),

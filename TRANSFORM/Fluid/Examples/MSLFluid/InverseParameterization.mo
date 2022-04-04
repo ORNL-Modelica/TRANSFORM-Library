@@ -20,8 +20,8 @@ model InverseParameterization
     p_a_start=system.p_start,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     redeclare model EfficiencyChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant (
-         eta_constant=0.8),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant
+        (eta_constant=0.8),
     p_b_start=pump.p_a_start,
     exposeState_b=true,
     controlType="pressure",

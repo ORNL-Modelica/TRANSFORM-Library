@@ -80,13 +80,13 @@ model ExpansionTank "Expansion tank with cover gas"
   input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
     annotation (Dialog(tab="Advanced",group="Trace Mass Transfer"));
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=Medium.temperature(state_liquid), Q_flow=
-        Q_flow_internal) if                                                                      use_HeatPort
+        Q_flow_internal)                                                                      if use_HeatPort
     annotation (Placement(transformation(extent={{-10,-94},{10,-74}}),
         iconTransformation(extent={{-10,-94},{10,-74}})));
   HeatAndMassTransfer.Interfaces.MolePort_State traceMassPort(
     nC=Medium.nC,
     C=C .* Medium.density(state_liquid) ./ MMs,
-    n_flow=mC_flow_internal ./ MMs) if                                                                                            use_TraceMassPort
+    n_flow=mC_flow_internal ./ MMs)                                                                                            if use_TraceMassPort
     annotation (Placement(transformation(extent={{30,-86},{50,-66}}),
         iconTransformation(extent={{30,-86},{50,-66}})));
   // Visualization

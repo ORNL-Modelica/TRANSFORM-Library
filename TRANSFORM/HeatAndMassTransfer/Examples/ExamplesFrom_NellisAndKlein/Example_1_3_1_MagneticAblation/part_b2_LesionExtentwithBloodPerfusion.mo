@@ -9,8 +9,8 @@ model part_b2_LesionExtentwithBloodPerfusion
   DiscritizedModels.Conduction_1D thermoseed(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r (
-                                                                          nR=
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r
+        (                                                                 nR=
             nNodes_1_ts.k, r_outer=r_ts.y),
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_10_d_7990_cp_500,
@@ -26,7 +26,8 @@ model part_b2_LesionExtentwithBloodPerfusion
   DiscritizedModels.Conduction_1D tissue(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r
+        (
         nR=nNodes_1_t.k,
         r_inner=r_ts.y,
         r_outer=r_t.y,

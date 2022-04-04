@@ -6,7 +6,8 @@ model Winding_12D_withMass
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_28_5_d_7990_cp_500,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
+        (
         nR=nNodes_1.k,
         nZ=nNodes_2.k,
         r_inner=0.01,
@@ -25,8 +26,8 @@ model Winding_12D_withMass
           q_ppp=6e5),
     traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
-         D_ab0=1e-6))
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
+        (D_ab0=1e-6))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=5)
     annotation (Placement(transformation(extent={{-98,88},{-90,96}})));

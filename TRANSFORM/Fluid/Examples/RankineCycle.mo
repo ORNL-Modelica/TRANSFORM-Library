@@ -43,16 +43,16 @@ model RankineCycle
         origin={-60,8})));
   Machines.Pump pump(
     redeclare model FlowChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve (
-         V_flow_curve={0,0.1,2*0.1}, head_curve={1000,500,0}),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve
+        (V_flow_curve={0,0.1,2*0.1}, head_curve={1000,500,0}),
     m_flow_nominal=m_flow,
     use_T_start=false,
     m_flow_start=m_flow,
     h_start=191.8e3,
     V=0,
     redeclare model EfficiencyChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant (
-         eta_constant=0.8),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant
+        (eta_constant=0.8),
     p_a_start=p_condenser,
     controlType="pressure",
     exposeState_a=false,
@@ -62,10 +62,12 @@ model RankineCycle
     annotation (Placement(transformation(extent={{10,-84},{-10,-64}})));
   Electrical.PowerConverters.Generator generator
     annotation (Placement(transformation(extent={{50,30},{70,50}})));
-  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_out(redeclare package Medium =
+  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_out(redeclare
+      package                                                                     Medium =
                        Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-90,40},{-70,60}})));
-  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_in(redeclare package Medium =
+  TRANSFORM.Fluid.Sensors.SpecificEnthalpy specificEnthalpy_in(redeclare
+      package                                                                    Medium =
                Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-90,-67},{-70,-47}})));
   TRANSFORM.Fluid.Sensors.MassFlowRate massFlowRate(redeclare package Medium =

@@ -27,8 +27,8 @@ model STHX_BellDelaware_2Phase_Test
               annotation (Placement(transformation(extent={{45,55},{35,65}})));
   inner Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
-  TRANSFORM.Fluid.Sensors.BaseClasses.stateSensor sensor_shell_inlet(redeclare package
-              Medium = Modelica.Media.Water.StandardWater) annotation (
+  TRANSFORM.Fluid.Sensors.BaseClasses.stateSensor sensor_shell_inlet(redeclare
+      package Medium = Modelica.Media.Water.StandardWater) annotation (
       Placement(transformation(
         extent={{6.5,-5.5},{-6.5,5.5}},
         rotation=90,
@@ -39,14 +39,14 @@ model STHX_BellDelaware_2Phase_Test
         extent={{6,-5.5},{-6,5.5}},
         rotation=90,
         origin={-9.5,-40})));
-  TRANSFORM.Fluid.Sensors.BaseClasses.stateSensor sensor_tube_inlet(redeclare package
-              Medium = Modelica.Media.Water.StandardWater) annotation (
+  TRANSFORM.Fluid.Sensors.BaseClasses.stateSensor sensor_tube_inlet(redeclare
+      package Medium = Modelica.Media.Water.StandardWater) annotation (
       Placement(transformation(
         extent={{-6,-5.5},{6,5.5}},
         rotation=90,
         origin={3.5,-40})));
-  TRANSFORM.Fluid.Sensors.BaseClasses.stateSensor sensor_tube_outlet(redeclare package
-              Medium = Modelica.Media.Water.StandardWater) annotation (
+  TRANSFORM.Fluid.Sensors.BaseClasses.stateSensor sensor_tube_outlet(redeclare
+      package Medium = Modelica.Media.Water.StandardWater) annotation (
       Placement(transformation(
         extent={{-6.5,-5.5},{6.5,5.5}},
         rotation=90,

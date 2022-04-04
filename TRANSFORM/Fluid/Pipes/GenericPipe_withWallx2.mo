@@ -170,11 +170,11 @@ model GenericPipe_withWallx2
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_b[geometry.nR]
     annotation (Placement(transformation(extent={{60,-44},{40,-24}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_outer[
-    geometry.nZ] if                                                    not use_HeatTransferOuter
+    geometry.nZ]                                                    if not use_HeatTransferOuter
     annotation (Placement(transformation(extent={{60,16},{40,36}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.CounterFlow counterFlow(
-      counterCurrent=counterCurrent, n=geometry.nZ) if
-                                          use_HeatTransferOuter annotation (
+      counterCurrent=counterCurrent, n=geometry.nZ)
+                                       if use_HeatTransferOuter annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -183,7 +183,7 @@ model GenericPipe_withWallx2
     annotation (Placement(transformation(extent={{-10,54},{10,74}}),
         iconTransformation(extent={{-10,40},{10,60}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic adiabatic_inner[
-    geometry.nZ] if                                                    not use_HeatTransfer
+    geometry.nZ]                                                    if not use_HeatTransfer
     annotation (Placement(transformation(extent={{60,-62},{40,-42}})));
   // Visualization
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
@@ -229,8 +229,8 @@ model GenericPipe_withWallx2
             20,22},{40,42}})));
   parameter Boolean use_heatPort_addWall = false "=true for additional source/sink for heat between wall and insulation" annotation(Dialog(group="Heat Transfer"));
   HeatAndMassTransfer.Resistances.Heat.Contact contact[geometry.nZ](surfaceArea=
-       wall.geometry.crossAreas_1[end, :], Rc_pp=Rc_pps + dRc_pps) if
-                                                            not idealContact
+       wall.geometry.crossAreas_1[end, :], Rc_pp=Rc_pps + dRc_pps)
+                                                         if not idealContact
                                                         annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},

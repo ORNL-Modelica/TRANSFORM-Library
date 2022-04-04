@@ -222,7 +222,8 @@ model PointKinetics_L1_atomBased_external
     "Shape factor for Q_fission, sum() = 1"                                                     annotation(Dialog(group=
           "Shape Factors"));
   replaceable record Data_CP =
-      TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.corrosionProduct_0             constrainedby
+      TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.corrosionProduct_0
+                                                                                              constrainedby
     TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.PartialCorrosionProduct
     "Corrosion Product information" annotation (choicesAllMatching=true);
   TRANSFORM.Nuclear.ReactorKinetics.Data.summary_traceSubstances summary_data(

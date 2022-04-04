@@ -36,7 +36,8 @@ model part_c_ThermalElongation
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_80_d_7990_cp_500,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
+        (
         length_y=th.y,
         nX=nNodes_1.k,
         length_z=w.y,

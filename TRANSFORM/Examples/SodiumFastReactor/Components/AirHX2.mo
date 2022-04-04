@@ -6,8 +6,8 @@ replaceable package Medium =
  replaceable package Medium_Ambient =
       Modelica.Media.Air.DryAirNasa
     "Ambient medium" annotation(choicesAllMatching=true);
-  Fluid.FittingsAndResistances.SpecifiedResistance resistance_toAHX(redeclare package
-              Medium = Medium, R=50)
+  Fluid.FittingsAndResistances.SpecifiedResistance resistance_toAHX(redeclare
+      package Medium = Medium, R=50)
     annotation (Placement(transformation(extent={{-28,16},{-8,36}})));
   Fluid.Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-110,-30},{-90,-10}}),
@@ -26,7 +26,8 @@ replaceable package Medium =
     m_flow_a_start_shell=blower.m_flow,
     redeclare package Medium_shell = Medium_Ambient,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
+        (
         nR=3,
         nV=2,
         D_o_shell=data.D_shell_outer_AHX,
@@ -69,8 +70,8 @@ replaceable package Medium =
     m_flow_a_start=data.m_flow_IHX_IHTS/data.nAirHXs,
     p_a_start=200000,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
-         dimension=data.D_pipes_IHTStofromHXs, length=0.5*data.length_pipes_IHTStofromHXs))
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
+        (dimension=data.D_pipes_IHTStofromHXs, length=0.5*data.length_pipes_IHTStofromHXs))
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}})));
 equation
   connect(resistance_toAHX.port_a, port_a) annotation (Line(points={{-25,26},{-62,

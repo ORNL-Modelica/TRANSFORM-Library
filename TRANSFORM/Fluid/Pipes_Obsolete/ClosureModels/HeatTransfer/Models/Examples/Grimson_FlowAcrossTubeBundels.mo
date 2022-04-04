@@ -14,8 +14,8 @@ model Grimson_FlowAcrossTubeBundels
     states=states,
     m_flows=m_flows,
     redeclare model Geometry =
-        TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.StraightPipe (
-         dimension=1),
+        TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.StraightPipe
+        (dimension=1),
     D=0.1,
     S_T=1.25*0.1,
     S_L=1.25*0.1)

@@ -10,7 +10,8 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
     nParallel=2*3,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
+        (
         nV=10,
         nR=3,
         D_o_shell=data_SHX.D_shell_inner,

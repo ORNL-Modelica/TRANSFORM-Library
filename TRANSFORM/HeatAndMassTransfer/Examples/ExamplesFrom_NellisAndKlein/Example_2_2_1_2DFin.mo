@@ -54,7 +54,8 @@ model Example_2_2_1_2DFin
     exposeState_b2=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D
+        (
         nX=nNodes_1.k,
         nY=nNodes_2.k,
         length_x=L.y,
