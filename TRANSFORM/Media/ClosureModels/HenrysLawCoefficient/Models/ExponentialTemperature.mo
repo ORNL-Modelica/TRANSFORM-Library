@@ -2,6 +2,7 @@ within TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models;
 model ExponentialTemperature
   "Exponential Temperature y = A*exp(B*T)"
   extends PartialHenrysLawCoefficient;
+
   parameter Boolean use_RecordData=true "=true then use predefined data";
   parameter Integer iTable[nC]=fill(1, nC)
     "Index of pre-defined values in data table: See Info page."
@@ -18,16 +19,19 @@ model ExponentialTemperature
     "Col 1 = kH0; Col 2 = B"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
-  if use_RecordData then
-    for i in 1:nC loop
-      kHs[i] = data.table[iTable[i], 1]*exp(data.table[iTable[i], 2]*T);
-    end for;
-  else
-    for i in 1:nC loop
-      kHs[i] = kHs0[i]*exp(Bs[i]*T);
-    end for;
-  end if;
-  annotation (defaultComponentName="henrysLawCoeff",
+
+    if use_RecordData then
+      for i in 1:nC loop
+        kHs[i] = data.table[iTable[i], 1]*exp(data.table[iTable[i], 2]*T);
+      end for;
+    else
+      for i in 1:nC loop
+        kHs[i] = kHs0[i]*exp(Bs[i]*T);
+      end for;
+    end if;
+
+  annotation (
+    defaultComponentName="henrysLawCoeff",
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

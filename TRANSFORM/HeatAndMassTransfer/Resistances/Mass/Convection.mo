@@ -8,8 +8,7 @@ model Convection "Convection"
     "Coefficient of mass transfer" annotation (Dialog(group="Inputs"));
 equation
   R = 1.0./(alphaM*surfaceArea);
-    annotation (Dialog(group="Inputs"),
-    defaultComponentName="convection",
+    annotation (defaultComponentName="convection",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{
               -40,-100},{40,-30}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/Convection.jpg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
