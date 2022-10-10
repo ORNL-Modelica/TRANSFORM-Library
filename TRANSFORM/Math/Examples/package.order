@@ -33,6 +33,7 @@ check_xor
 check_diff
 check_regFun3
 check_regRoot
+check_regExponent
 check_max_len_seq
 check_max_len_seq_sine_time
 check_max_len_seq_ternary

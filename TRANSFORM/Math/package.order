@@ -27,6 +27,8 @@ gamma_Lanczos
 factorial
 regRoot_cinterp
 regRoot_cinterp_der
+regExponent_cinterp
+regExponent_cinterp_der
 quadraticCoefficients
 quadraticCurve
 variableFactor
