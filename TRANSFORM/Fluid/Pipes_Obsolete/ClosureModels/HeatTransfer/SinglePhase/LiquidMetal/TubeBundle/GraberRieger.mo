@@ -9,8 +9,7 @@ model GraberRieger
   1.25 <= P/D <= 1.95
   150 <= Pe <= 3000
   */
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
     parameter Real PDratio "Tube Pitch to Diameter ratio";
     Real[nHT] Pes "Peclet Number";
 equation

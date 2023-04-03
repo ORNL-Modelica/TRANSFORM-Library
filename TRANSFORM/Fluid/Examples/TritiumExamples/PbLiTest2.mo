@@ -35,15 +35,13 @@ model PbLiTest2
         permeator.nV,
         Medium.nC),
     redeclare model DiffusionCoeff_wall =
-      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-        (
+      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
         iTable={15},
         Ea=1.32E+04,
         use_RecordData=false,
         D_ab0=1.00E-07),
     redeclare model Geometry =
-      ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
-        (
+      ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe (
         dimension=0.01,
         th_wall=0.0005,
         length=37.3,
@@ -53,10 +51,9 @@ model PbLiTest2
     T_a_start=743.15,
     T_b_start=743.15,
     redeclare model TraceMassTransfer =
-        ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
-        (MMs=fill(0.006032, permeator.nC), redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (
+        ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region (
+         MMs=fill(0.006032, permeator.nC), redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
             iTable={1},
             use_RecordData=false,
             D_ab0=2.5e-7,

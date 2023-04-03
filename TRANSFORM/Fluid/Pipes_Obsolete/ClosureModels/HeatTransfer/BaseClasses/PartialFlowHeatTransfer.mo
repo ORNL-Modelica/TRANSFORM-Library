@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses;
 partial model PartialFlowHeatTransfer
   "base class for any pipe heat transfer correlation"
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialHeatTransfer;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialHeatTransfer;
   // Additional inputs provided to flow heat transfer model
   input SI.MassFlowRate[nHT] m_flows "Mean flow rate in segments";
   // Geometry parameters and inputs for flow heat transfer

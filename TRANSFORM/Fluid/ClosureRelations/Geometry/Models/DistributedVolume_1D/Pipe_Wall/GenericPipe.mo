@@ -2,8 +2,7 @@ within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pip
 model GenericPipe
   import TRANSFORM;
   import TRANSFORM.Math.fillArray_1D;
-  extends
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe;
+  extends TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe;
   extends PartialPipeWithWall(
     final nZ=nV,
     r_inner=sum(surfaceAreas[1,:])/(sum(dlengths)/nZ*2*Modelica.Constants.pi),

@@ -1,23 +1,19 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models;
 model Overall_Evaporation
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.TwoPhase.PartialTwoPhase;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.TwoPhase.PartialTwoPhase;
   parameter Units.NonDim x_CHF=0.9
     "Steam quality corresponding to Critical Heat Flux" annotation(Dialog(group="Heat Transfer Model:"));
   replaceable function heatTransfer_SinglephaseLiquid =
      TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
-    constrainedby
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
+    constrainedby TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
      annotation(choicesAllMatching=true,Dialog(group="Heat Transfer Model:"));
   replaceable function heatTransfer_TwoPhaseSaturated =
      TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.TwoPhase.Evaporation.alpha_Chen_TubeFlow
-    constrainedby
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.TwoPhase.Evaporation.alpha_Chen_TubeFlow
+    constrainedby TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.TwoPhase.Evaporation.alpha_Chen_TubeFlow
      annotation(choicesAllMatching=true,Dialog(group="Heat Transfer Model:"));
   replaceable function heatTransfer_SinglephaseVapor =
      TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
-    constrainedby
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
+    constrainedby TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
      annotation(choicesAllMatching=true,Dialog(group="Heat Transfer Model:"));
   SI.NusseltNumber[nHT] Nus "Nusselt number";
   SI.ReynoldsNumber[nHT] Res "Reynolds number";

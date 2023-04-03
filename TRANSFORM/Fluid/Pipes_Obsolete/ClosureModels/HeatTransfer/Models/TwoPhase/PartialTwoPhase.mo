@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.TwoPhase;
 partial model PartialTwoPhase
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.PartialHeatTransfer_setQ_flows(
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.PartialHeatTransfer_setQ_flows(
       redeclare replaceable package Medium =
         Modelica.Media.Water.StandardWater
       constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium);

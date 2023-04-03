@@ -15,7 +15,7 @@ package ParaHydrogen "ParaHydrogen | Two Phase | Cool Prop"
     constant Real s[3] = {-1.4165, 0.746383, 0.675625};
     constant Real n[3] = {0.63882, 0.659804, 0.619149};
     constant Real Tc=33.145;
-protected
+  protected
       Real t = sat.Tsat/Tc;
     algorithm
     sigma := sum(s[i]*(1-t)^n[i] for i in 1:3);

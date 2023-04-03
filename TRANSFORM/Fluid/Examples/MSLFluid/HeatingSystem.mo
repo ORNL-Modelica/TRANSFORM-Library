@@ -388,8 +388,8 @@ Pipes.GenericPipe_MultiTransferSurface
     m_flow_nominal=0.01,
     V=0,
     redeclare model EfficiencyChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant
-        (eta_constant=0.8),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant (
+         eta_constant=0.8),
     exposeState_a=false,
     exposeState_b=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,

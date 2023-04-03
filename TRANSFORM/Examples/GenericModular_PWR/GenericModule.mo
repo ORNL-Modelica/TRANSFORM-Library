@@ -15,8 +15,7 @@ model GenericModule
   TRANSFORM.Fluid.Volumes.SimpleVolume inletPlenum(redeclare package Medium =
         Medium_PHTS,
       redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder_specifyDiameter
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder_specifyDiameter (
         length=data.length_inletPlenum,
         dimension=data.d_inletPlenum,
         angle=1.5707963267949),
@@ -30,8 +29,7 @@ model GenericModule
     p_a_start=data.p,
     m_flow_a_start=data.m_flow,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data.d_hotLeg,
         length=data.length_hotLeg,
         nV=2,
@@ -54,8 +52,7 @@ model GenericModule
     redeclare model HeatTransfer =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare model Geometry =
-        TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Assembly
-        (
+        TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Assembly (
         nPins=data.nRodFuel_assembly,
         nPins_nonFuel=data.nRodNonFuel_assembly,
         width_FtoF_inner=data.sizeAssembly*data.pitch_fuelRod,
@@ -93,8 +90,7 @@ model GenericModule
   TRANSFORM.Fluid.Volumes.SimpleVolume outletPlenum(
     redeclare package Medium = Medium_PHTS,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder_specifyDiameter
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder_specifyDiameter (
         length=data.length_outletPlenum,
         dimension=data.d_outletPlenum,
         angle=1.5707963267949),
@@ -110,8 +106,7 @@ model GenericModule
     m_flow_a_start=data.m_flow,
     exposeState_a=false,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data.d_coldLeg,
         length=data.length_coldLeg,
         angle=-1.5707963267949,
@@ -143,8 +138,7 @@ model GenericModule
     m_flow_a_start_tube=data.m_flow,
     redeclare package Medium_shell = Medium,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         D_i_shell=data.d_steamGenerator_shell_inner,
         D_o_shell=data.d_steamGenerator_shell_outer,
         length_shell=data.length_steamGenerator,
@@ -203,16 +197,16 @@ model GenericModule
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-30,40})));
-  TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow1(redeclare
-      package Medium = Medium, m_flow_nominal=data.m_flow_steam,
+  TRANSFORM.Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow1(redeclare package Medium =
+                       Medium, m_flow_nominal=data.m_flow_steam,
     use_input=true)
     annotation (Placement(transformation(extent={{60,-50},{40,-30}})));
   TRANSFORM.Blocks.RealExpression CR_reactivity
     annotation (Placement(transformation(extent={{-54,128},{-42,140}})));
   Modelica.Blocks.Sources.RealExpression Q_total(y=core.kinetics.Q_total)
     annotation (Placement(transformation(extent={{-76,128},{-64,140}})));
-  TRANSFORM.Fluid.Sensors.RelativeTemperature relativeTemperature(redeclare
-      package Medium = Medium_PHTS, refPort_a=false) annotation (Placement(
+  TRANSFORM.Fluid.Sensors.RelativeTemperature relativeTemperature(redeclare package Medium =
+                       Medium_PHTS, refPort_a=false) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

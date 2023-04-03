@@ -33,12 +33,12 @@ model PulseSine_Test
     extrapolation=Modelica.Blocks.Types.Extrapolation.HoldLastPoint)
     "this is an example of a solar profile"
     annotation (Placement(transformation(extent={{-10,-50},{10,-30}})));
-  Sources.SineShift                  sineShift(
-    amplitude=1,
-    f=1/(24*60*60),
-    phase=4.7123889803847,
-    startTime=0.2*9*60*60)
-                   annotation (Placement(transformation(extent={{-10,30},{10,50}})));
+//   Sources.SineShift                  sineShift(
+//     amplitude=1,
+//     f=1/(24*60*60),
+//     phase=4.7123889803847,
+//     startTime=0.2*9*60*60)
+//                    annotation (Placement(transformation(extent={{-10,30},{10,50}})));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

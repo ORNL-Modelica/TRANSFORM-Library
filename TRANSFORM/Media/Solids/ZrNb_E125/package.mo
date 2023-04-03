@@ -23,7 +23,7 @@ cp => pg 158 eq. 6.21
 
   redeclare function extends density
     "Density"
-protected
+  protected
     Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
     d := 6657 - 0.2861*T;

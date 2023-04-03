@@ -259,7 +259,6 @@ one, which would require a numeric solution.
   algorithm
     MM := MM_const;
   end molarMass;
-
   annotation (Documentation(info="<html>
 <h4>Linear Compressibility Fluid Model</h4>
 <p>This linear compressibility fluid model is based on the assumptions that:

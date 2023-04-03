@@ -3,12 +3,10 @@ model Cylinder_FD
   "This model allows the use of a replaceable solution for all cylindrical finite difference conduction models"
   replaceable model SolutionMethod_FD =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.SolutionMethods.NodeCentered_2D
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.BaseClasses.Partial_FDCond_Cylinder
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.BaseClasses.Partial_FDCond_Cylinder
     "Finite Difference Solution Method"
       annotation (choicesAllMatching=true);
-  extends
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.BaseClasses.Partial_BaseFDCond_Cylinder;
+  extends TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.BaseClasses.Partial_BaseFDCond_Cylinder;
   SolutionMethod_FD solutionMethod(
     redeclare final package Material = Material,
     final use_q_ppp=use_q_ppp,

@@ -10,8 +10,7 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
     redeclare package Material_tubeWall = Media.Solids.AlloyN,
     nParallel=2*3,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         nV=10,
         nR=3,
         D_o_shell=data_SHX.D_shell_inner,
@@ -30,8 +29,7 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
     m_flow_a_start_tube=2*3*data_SHX.m_flow_tube,
     redeclare package Medium_tube = Medium_BOP,
     redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
-        (
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison (
         D=data_SHX.D_tube_outer,
         S_T=data_SHX.pitch_tube,
         S_L=data_SHX.pitch_tube,
@@ -127,8 +125,8 @@ package Medium_BOP = Modelica.Media.Water.StandardWater;
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-80,-78})));
-  Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Medium_BOP, R=1e8) annotation (Placement(transformation(
+  Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package Medium =
+               Medium_BOP, R=1e8) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-80,-54})));

@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped;
 model Constant_NusseltNumber_Lumped "Constant Nusselt Number"
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.BaseClasses.PartialLumpedHeatTransfer;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.BaseClasses.PartialLumpedHeatTransfer;
   parameter SI.NusseltNumber Nu0 = 7.54 "Constant Nusselt number";
   parameter Boolean useDimension = true "=true for default dimension from model";
   parameter SI.Length dimension0 = 0 "Characteristic length" annotation(Dialog(enable=not useDimensions));

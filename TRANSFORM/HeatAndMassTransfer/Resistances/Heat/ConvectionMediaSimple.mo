@@ -2,8 +2,8 @@ within TRANSFORM.HeatAndMassTransfer.Resistances.Heat;
 model ConvectionMediaSimple
   "Simplified thermal element for heat convection with Media models"
 
-  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in the component"
     annotation (choicesAllMatching=true);
   input SI.Pressure p = 1e5 "Pressure at port_b or specify state" annotation (Dialog(group="Inputs"));
   input Modelica.Media.Air.MoistAir.ThermodynamicState state=

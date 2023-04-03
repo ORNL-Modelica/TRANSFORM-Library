@@ -45,8 +45,7 @@ model WaterWater_STHX_withMass
     m_flow_a_start_tube=tube_inlet.m_flow,
     m_flow_a_start_shell=shell_inlet.m_flow,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         nR=3,
         D_o_shell=0.3,
         length_shell=1,
@@ -61,30 +60,30 @@ model WaterWater_STHX_withMass
     p_a_start_shell=shell_outlet.p + 100,
     redeclare package Material_wall = TRANSFORM.Media.Solids.SS316,
     redeclare model HeatTransfer_shell =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas
-        (alpha0=1000),
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas (
+         alpha0=1000),
     redeclare model HeatTransfer_tube =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas
-        (alpha0=1000),
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas (
+         alpha0=1000),
     use_TraceMassTransfer_shell=true,
     use_TraceMassTransfer_tube=true,
     energyDynamics={Modelica.Fluid.Types.Dynamics.FixedInitial,Modelica.Fluid.Types.Dynamics.FixedInitial,
         Modelica.Fluid.Types.Dynamics.FixedInitial},
     redeclare model DiffusionCoeff_wall =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-        (D_ab0=0.00000001),
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
+         D_ab0=0.00000001),
     redeclare package Medium_shell = Medium_shell,
     redeclare package Medium_tube = Medium_tube,
     nC=1,
     redeclare model TraceMassTransfer_tube =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM
-        (iC={3}, alphaM0={1}),
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM (
+         iC={3}, alphaM0={1}),
     redeclare model TraceMassTransfer_shell =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM
-        (alphaM0={1}, iC={1}))
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM (
+         alphaM0={1}, iC={1}))
     "{Modelica.Fluid.Types.Dynamics.FixedInitial,Modelica.Fluid.Types.Dynamics.FixedInitial,Modelica.Fluid.Types.Dynamics.FixedInitial}"
     annotation (Placement(transformation(extent={{-21,-20},{21,20}})));
-  UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot2 spatialPlot2_1(
     y1={STHX.tube.mediums[i].T for i in 1:STHX.geometry.nV},
     y2={STHX.shell.mediums[i].T for i in 1:STHX.geometry.nV},
     x1=STHX.tube.summary.xpos_norm,
@@ -92,8 +91,7 @@ model WaterWater_STHX_withMass
     maxY1=max({tube_inlet.T,shell_inlet.T,tube_outlet.T,shell_outlet.T}),
     minY2=min({tube_inlet.T,shell_inlet.T,tube_outlet.T,shell_outlet.T}),
     maxY2=max({tube_inlet.T,shell_inlet.T,tube_outlet.T,shell_outlet.T}),
-    x2=if STHX.counterCurrent == true then Modelica.Math.Vectors.reverse(STHX.shell.summary.xpos_norm)
-         else STHX.shell.summary.xpos_norm)
+    x2=if STHX.counterCurrent == true then Modelica.Math.Vectors.reverse(STHX.shell.summary.xpos_norm) else STHX.shell.summary.xpos_norm)
     annotation (Placement(transformation(extent={{-96,-92},{-46,-48}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests
                                     unitTests(n=3, x={STHX.tube.mediums[2].h,

@@ -139,8 +139,7 @@ model GenericPipe
       annotation (Dialog(group="Heat Transfer"));
     replaceable model HeatTransfer =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal
-      constrainedby
-    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.PartialHeatTransfer_setT
+      constrainedby TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.PartialHeatTransfer_setT
       "Coefficient of heat transfer" annotation (Dialog(group="Heat Transfer", enable=
             use_HeatTransfer), choicesAllMatching=true);
     HeatTransfer heatTransfer(
@@ -179,8 +178,7 @@ model GenericPipe
     annotation (Dialog(group="Trace Mass Transfer"));
   replaceable model TraceMassTransfer =
       TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.Ideal
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.PartialMassTransfer_setC
+    constrainedby TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.PartialMassTransfer_setC
     "Trace Substance mass transfer" annotation (Dialog(group="Trace Mass Transfer", enable=
           use_TraceMassTransfer), choicesAllMatching=true);
   TraceMassTransfer traceMassTransfer(

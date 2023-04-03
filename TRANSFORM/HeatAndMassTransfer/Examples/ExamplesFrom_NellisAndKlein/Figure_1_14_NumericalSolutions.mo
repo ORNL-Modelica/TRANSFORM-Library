@@ -9,8 +9,7 @@ model Figure_1_14_NumericalSolutions
   DiscritizedModels.Conduction_1D cylinder(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_r
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_r (
         nR=nNodes_1.k,
         r_inner=r_in.y,
         r_outer=r_out.y,
@@ -37,7 +36,7 @@ model Figure_1_14_NumericalSolutions
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Modelica.Blocks.Sources.Constant r_in(each k=0.1) "inner radius"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
-  UserInteraction.Outputs.SpatialPlot CylinderTemperature(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot CylinderTemperature(
     minX=0.1,
     maxX=0.2,
     minY=450,

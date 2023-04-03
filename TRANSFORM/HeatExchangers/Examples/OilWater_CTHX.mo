@@ -44,8 +44,7 @@ model OilWater_CTHX
         Media.Fluids.Incompressible.EngineOilUnused,
     redeclare package Material_tubeWall = Media.Solids.SS316,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ConcentricTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ConcentricTubeHX (
         D_o_shell=0.045,
         length_tube=65.9,
         dimension_tube=0.025,
@@ -71,7 +70,7 @@ model OilWater_CTHX
    SI.ThermalResistance R_shell;
    SI.CoefficientOfHeatTransfer alphaAvg_tube;
    SI.ThermalResistance R_tube;
-  UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot2 spatialPlot2_1(
     y1={STHX.tube.mediums[i].T for i in 1:STHX.geometry.nV},
     y2={STHX.shell.mediums[i].T for i in 1:STHX.geometry.nV},
     x1=STHX.tube.summary.xpos_norm,
@@ -79,8 +78,7 @@ model OilWater_CTHX
     maxY1=max({tube_inlet.T,shell_inlet.T,tube_outlet.T,shell_outlet.T}),
     minY2=min({tube_inlet.T,shell_inlet.T,tube_outlet.T,shell_outlet.T}),
     maxY2=max({tube_inlet.T,shell_inlet.T,tube_outlet.T,shell_outlet.T}),
-    x2=if STHX.counterCurrent == true then Modelica.Math.Vectors.reverse(STHX.shell.summary.xpos_norm)
-         else STHX.shell.summary.xpos_norm)
+    x2=if STHX.counterCurrent == true then Modelica.Math.Vectors.reverse(STHX.shell.summary.xpos_norm) else STHX.shell.summary.xpos_norm)
     annotation (Placement(transformation(extent={{-96,-92},{-46,-48}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests
                                     unitTests(n=4, x={STHX.tube.mediums[2].p,

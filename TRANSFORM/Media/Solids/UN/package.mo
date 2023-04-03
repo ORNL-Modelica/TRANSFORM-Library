@@ -24,7 +24,7 @@ package UN "UN: Uranium Mononitride"
 
   redeclare function extends density
     "Density"
-protected
+  protected
     Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
     //d := 14090;//density at 1000 K from below equation

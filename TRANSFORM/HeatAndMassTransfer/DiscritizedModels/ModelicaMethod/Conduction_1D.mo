@@ -1,11 +1,9 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ModelicaMethod;
 model Conduction_1D
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
       final figure=geometry.figure);
   final parameter Integer nVs[1]=geometry.ns;
-  extends
-    TRANSFORM.HeatAndMassTransfer.Interfaces.Records.InitialConditions.DistributedVolume_solid1D(
+  extends TRANSFORM.HeatAndMassTransfer.Interfaces.Records.InitialConditions.DistributedVolume_solid1D(
       final ns=nVs);
   extends TRANSFORM.HeatAndMassTransfer.Interfaces.Records.EnergyDynamics;
   replaceable model Geometry =

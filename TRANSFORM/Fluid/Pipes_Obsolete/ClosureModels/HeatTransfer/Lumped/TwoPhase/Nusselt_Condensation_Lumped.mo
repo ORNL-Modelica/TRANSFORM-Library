@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.TwoPhase;
 model Nusselt_Condensation_Lumped
   "Condensation | Laminar | Film: Nusselt theory two phase laminar film condensation model"
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.BaseClasses.PartialLumpedHeatTransfer;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.BaseClasses.PartialLumpedHeatTransfer;
   SI.CoefficientOfHeatTransfer alpha "Coefficient of heat transfer";
   SI.NusseltNumber Nu "Nusselt number";
   SI.SpecificEnthalpy h_fgp "Modified latent heat of vaporization";

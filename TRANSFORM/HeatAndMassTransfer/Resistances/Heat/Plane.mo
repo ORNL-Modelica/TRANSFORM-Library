@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Heat;
 model Plane "Plane Wall"
-  extends
-    TRANSFORM.HeatAndMassTransfer.Resistances.Heat.BaseClasses.PartialResistance;
+  extends TRANSFORM.HeatAndMassTransfer.Resistances.Heat.BaseClasses.PartialResistance;
   input SI.Length L "Wall thickness parallel to heat flow" annotation(Dialog(group="Inputs"));
   input SI.Area crossArea "Cross-sectional area perpindicular to heat flow" annotation(Dialog(group="Inputs"));
   input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs"));

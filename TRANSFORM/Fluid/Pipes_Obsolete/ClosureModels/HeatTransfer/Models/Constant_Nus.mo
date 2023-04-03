@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models;
 model Constant_Nus "Constant Nusselt number"
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.PartialHeatTransfer_setQ_flows;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.PartialHeatTransfer_setQ_flows;
   parameter SI.NusseltNumber Nu0 = 7.54 "Constant Nusselt number" annotation(Dialog(group="Heat Transfer Model:"));
   parameter Boolean use_DefaultDimension = true "=false to set characteristic dimension (alpha = Nu*lambda/dimension0)" annotation(Dialog(group="Heat Transfer Model:"));
   parameter SI.Length dimension0 = 0 "Characteristic dimension" annotation(Dialog(group="Heat Transfer Model:",enable=not use_DefaultDimension));

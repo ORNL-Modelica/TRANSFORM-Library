@@ -15,8 +15,7 @@ model PointKinetics_vs_ApproximateOneGroup
     Q_nominal=1e9,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare record Data =
-        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_1_userDefined
-        (
+        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_1_userDefined (
         lambdas={lambda},
         alphas={alpha},
         Beta=Beta),
@@ -24,8 +23,7 @@ model PointKinetics_vs_ApproximateOneGroup
     rho_input=rho0,
     toggle_Reactivity=false,
     redeclare model Reactivity =
-        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_sparseMatrix
-        (
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_sparseMatrix (
         redeclare record Data =
             TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
         mCs_start=mCs_start_FP,

@@ -144,8 +144,7 @@ model PointKinetics_L1_powerBased_sparseMatrix
 
   replaceable model Reactivity =
       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_sparseMatrix
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.PartialIsotopes
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.PartialIsotopes
     "Additional reactivity contributions" annotation (choicesAllMatching=true,
       Dialog(group="Additional Reactivity"));
   Reactivity reactivity(final Q_fission=Q_fission, final Q_fission_start=

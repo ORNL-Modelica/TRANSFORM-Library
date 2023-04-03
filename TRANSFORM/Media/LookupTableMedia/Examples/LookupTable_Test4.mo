@@ -21,8 +21,8 @@ model LookupTable_Test4
     p_start=100000,
     T_start=293.15)
     annotation (Placement(transformation(extent={{-36,-10},{-16,10}})));
-  Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Medium, R=1)
+  Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package Medium =
+               Medium, R=1)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
   connect(boundary1.ports[1], volume.port_a)

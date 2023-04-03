@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.Condensation;
 model PhaseSeparation_TerminalVelocity
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.Condensation.PartialBulkCondensation;
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.Condensation.PartialBulkCondensation;
   /*
   Source:
   1. NUREG-CR-4449 pg 28

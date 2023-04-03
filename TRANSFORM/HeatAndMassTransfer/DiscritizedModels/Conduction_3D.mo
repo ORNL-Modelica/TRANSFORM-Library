@@ -6,11 +6,9 @@ model Conduction_3D "2-D Conduction Models"
     lambda_effective=sum(Material.thermalConductivity(materials.state) .* ms/
         sum(ms)))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
       final figure=geometry.figure);
-  extends
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.PartialDistributedVolume(
+  extends TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.PartialDistributedVolume(
     final Vs=geometry.Vs,
     final nVs=geometry.ns,
     Ts_start=fill(
@@ -75,8 +73,7 @@ model Conduction_3D "2-D Conduction Models"
     annotation (Dialog(group="Heat Transfer"));
   replaceable model ConductionModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.ForwardDifference_1O
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.PartialDistributedFlow
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.PartialDistributedFlow
     "Diffusive heat transfer" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
   ConductionModel conductionModel(
@@ -116,8 +113,7 @@ model Conduction_3D "2-D Conduction Models"
         iconTransformation(extent={{70,70},{90,90}})));
   replaceable model InternalHeatModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.GenericHeatGeneration
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.PartialInternalHeatGeneration
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.PartialInternalHeatGeneration
     "Internal heat generation" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
   InternalHeatModel internalHeatModel(

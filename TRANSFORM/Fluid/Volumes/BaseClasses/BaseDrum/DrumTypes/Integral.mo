@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes;
 model Integral "Integral: Two cylinders with a spherical cap"
-  extends
-    TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.PartialDrumType(
+  extends TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.PartialDrumType(
     final V_total_parameter=pi*r_1^2*h_1+pi*r_2^2*h_2+0.5*4/3*pi*r_3^3);
   parameter SI.Length r_1 "Region 1 radius" annotation(Dialog(group="Region 1: Bottom Cylinder"));
   parameter SI.Height h_1 "Region 2 height" annotation(Dialog(group="Region 1: Bottom Cylinder"));

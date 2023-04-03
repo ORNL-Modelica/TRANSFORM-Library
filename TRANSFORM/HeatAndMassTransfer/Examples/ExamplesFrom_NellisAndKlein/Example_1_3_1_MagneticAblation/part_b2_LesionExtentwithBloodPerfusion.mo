@@ -9,8 +9,8 @@ model part_b2_LesionExtentwithBloodPerfusion
   DiscritizedModels.Conduction_1D thermoseed(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r
-        (                                                                 nR=
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r (
+                                                                          nR=
             nNodes_1_ts.k, r_outer=r_ts.y),
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_10_d_7990_cp_500,
@@ -26,8 +26,7 @@ model part_b2_LesionExtentwithBloodPerfusion
   DiscritizedModels.Conduction_1D tissue(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r (
         nR=nNodes_1_t.k,
         r_inner=r_ts.y,
         r_outer=r_t.y,
@@ -48,7 +47,7 @@ model part_b2_LesionExtentwithBloodPerfusion
   Modelica.Blocks.Sources.Constant r_t(each k=1)
     "radius of infiinite medium"
     annotation (Placement(transformation(extent={{-100,54},{-92,62}})));
-  UserInteraction.Outputs.SpatialPlot TemperaturePlot(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePlot(
     x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_mm(cat(
         1,
         {0},
@@ -63,8 +62,7 @@ model part_b2_LesionExtentwithBloodPerfusion
         {Adiabatic.port.T},
         thermoseed.materials.T,
         tissue.materials.T,
-        {Tissue_infinite.port.T})))
-    "X - Axial Location (mm) | T - Temperature (C)"
+        {Tissue_infinite.port.T}))) "X - Axial Location (mm) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{-26,-82},{28,-28}})));
   Modelica.Blocks.Sources.Constant Q_gen_ts(each k=1)
     annotation (Placement(transformation(extent={{-100,34},{-92,42}})));

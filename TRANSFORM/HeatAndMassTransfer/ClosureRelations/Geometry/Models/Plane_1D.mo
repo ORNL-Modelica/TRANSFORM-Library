@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Plane_1D
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D(
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D(
       final ns={nX}, final figure=1);
   parameter Integer nX(min=1) = 1 "Number of nodes in x-direction";
   input SI.Length length_x=1 "Specify overall length or dxs in x-dimension"

@@ -2,8 +2,7 @@ within TRANSFORM.Fluid.Examples.MSLFluid;
 model BranchingDynamicPipes
   "Multi-way connections of pipes with dynamic momentum balance, pressure wave and flow reversal"
 extends TRANSFORM.Icons.Example;
-  replaceable package Medium=Modelica.Media.Air.MoistAir constrainedby
-    Modelica.Media.Interfaces.PartialMedium;
+  replaceable package Medium=Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium;
   inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
       momentumDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
     annotation (Placement(transformation(extent={{-90,70},{-70,90}})));

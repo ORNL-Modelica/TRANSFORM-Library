@@ -3,8 +3,7 @@ partial model Partial_BaseFDCond_Cylinder
   import      Modelica.Units.SI;
   /* General */
   replaceable package Material =
-      TRANSFORM.Media.Solids.SS316                     constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      TRANSFORM.Media.Solids.SS316                     constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Specify material type"
     annotation(choicesAllMatching=true);
   parameter Boolean use_q_ppp = false

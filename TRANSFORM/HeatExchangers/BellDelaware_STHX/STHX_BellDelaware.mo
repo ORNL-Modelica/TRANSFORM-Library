@@ -150,8 +150,7 @@ annotation (Dialog(group="Tube Parameters"));
     annotation (Dialog(group="Tube Parameters"), Evaluate=true);
   replaceable model FlowModel_tube =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
+    constrainedby TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
     "Tube flow model"
     annotation (choicesAllMatching=true,Dialog(group="Tube Parameters"));
   replaceable model HeatTransfer_tube =
@@ -361,8 +360,7 @@ annotation (Dialog(group="Tube Parameters"));
     massDynamics=massDynamics_tube,
     momentumDynamics=momentumDynamics_tube,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=2*r_inner,
         length=nPasses*(S_E_a + th_B + S_E_b + (nb - 1)*(S + th_B)),
         roughness=roughness_tube,

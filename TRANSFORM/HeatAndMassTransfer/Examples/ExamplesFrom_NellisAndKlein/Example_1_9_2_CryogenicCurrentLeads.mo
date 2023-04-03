@@ -15,8 +15,7 @@ model Example_1_9_2_CryogenicCurrentLeads
     redeclare package Material =
         TRANSFORM.Media.Solids.Copper.OFHC_RRR200,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_z (
         nZ=nNodes_1.k,
         r_outer=0.5*D.y,
         length_z=L.y),
@@ -43,14 +42,13 @@ model Example_1_9_2_CryogenicCurrentLeads
     annotation (Placement(transformation(extent={{-46,-56},{-26,-36}})));
   Modelica.Blocks.Sources.Constant epsilon(each k=0.5) "material emissivity"
     annotation (Placement(transformation(extent={{-82,70},{-74,78}})));
-  UserInteraction.Outputs.SpatialPlot TemperaturePosition(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePosition(
     minX=0,
     x=xval,
     y=yval,
     maxX=1,
     minY=50,
-    maxY=500) "X - Position m-) | T - Temperature (K)"
-    annotation (Placement(transformation(extent={{-20,22},{22,62}})));
+    maxY=500) "X - Position m-) | T - Temperature (K)" annotation (Placement(transformation(extent={{-20,22},{22,62}})));
   Utilities.Visualizers.displayReal display(val=D.y*1000)
     annotation (Placement(transformation(extent={{-10,58},{10,78}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={T_C.port.Q_flow})

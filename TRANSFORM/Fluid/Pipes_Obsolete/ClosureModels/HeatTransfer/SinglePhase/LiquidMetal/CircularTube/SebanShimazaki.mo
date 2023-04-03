@@ -11,8 +11,7 @@ model SebanShimazaki
   - flow in circular tubes
   - uniform wall temperature
   */
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
     Real[nHT] Pes "Peclet Number";
 equation
   Pes = TRANSFORM.Utilities.CharacteristicNumbers.PecletNumber(Res, Prs);

@@ -22,10 +22,8 @@ package ExternalSinglePhaseMedium "Generic external single phase medium package"
 
   replaceable function Method =
       TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_extrap "Interpolation method selection";
-
   replaceable function Method_dx =
       TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_deriv_x "Interpolation method selection for derivative wrt x";
-
   replaceable function Method_dy =
       TRANSFORM.Math.Interpolation.Bicubic.bicubic_eval_deriv_y "Interpolation method selection for derivative wrt y";
   constant String tablePath="modelica://TRANSFORM/Resources/data/lookupTables/"

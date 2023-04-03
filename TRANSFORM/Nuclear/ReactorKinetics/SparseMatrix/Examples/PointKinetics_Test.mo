@@ -23,8 +23,7 @@ model PointKinetics_Test
     Lambda_start=1e-3,
     nFeedback=2,
     redeclare record Data =
-        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_1_userDefined
-        (
+        TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_1_userDefined (
         lambdas={0.08},
         alphas={1},
         Beta=0.0075),
@@ -33,8 +32,7 @@ model PointKinetics_Test
     vals_feedback={Teff_Fuel.y,Teff_Coolant.y},
     vals_feedback_reference={Teff_Fuel.offset,Teff_Coolant.offset},
     redeclare model Reactivity =
-        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_sparseMatrix
-        (
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_sparseMatrix (
         redeclare record Data =
             TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
         mCs_start=mCs_start_FP,

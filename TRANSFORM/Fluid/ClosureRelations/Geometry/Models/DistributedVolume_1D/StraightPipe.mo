@@ -18,8 +18,7 @@ model StraightPipe
   input SI.Length dheight= length*sin(angle)
     "Height(port_b) - Height(port_a) distributed by flow segment"
     annotation (Dialog(group="Inputs Elevation"));
-  extends
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe(
+  extends TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe(
     final figure=1,
     final dimensions=fill(4*crossArea/perimeter, nV),
     final crossAreas=fill(crossArea, nV),

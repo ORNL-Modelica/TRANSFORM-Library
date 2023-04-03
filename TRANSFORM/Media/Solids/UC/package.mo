@@ -15,7 +15,7 @@ package UC "Uranium Carbide"
 
   redeclare function extends density
     "Density"
-protected
+  protected
     Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
   d := 13500*(1-2.13e-5*T - 2.04e-8*T^2);
@@ -31,7 +31,7 @@ protected
 
   redeclare function extends thermalConductivity
     "Thermal conductivity"
-protected
+  protected
   Real T_degC = state.T - 273.15;
   algorithm
   lambda :=TRANSFORM.Math.spliceTanh(

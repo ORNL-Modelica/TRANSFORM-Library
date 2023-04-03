@@ -3,8 +3,7 @@ model NaturalCirculation2
   extends TRANSFORM.Icons.Example;
   Pipes.GenericPipe_MultiTransferSurface riser(
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=0.01,
         length=10,
         angle=1.5707963267949,
@@ -21,8 +20,7 @@ model NaturalCirculation2
         origin={-20,0})));
   Pipes.GenericPipe_MultiTransferSurface downcomer(
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=0.01,
         length=10,
         nV=10,
@@ -63,14 +61,13 @@ model NaturalCirculation2
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={0,-20})));
-  UserInteraction.Outputs.SpatialPlot2 temperaturePlot(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot2 temperaturePlot(
     x1=riser.summary.xpos_norm,
     y1={riser.mediums[i].T for i in 1:riser.geometry.nV},
     x2=Modelica.Math.Vectors.reverse(downcomer.summary.xpos_norm),
     y2={downcomer.mediums[i].T for i in 1:downcomer.geometry.nV},
     minY1=273.15,
-    maxY1=473.15)
-    annotation (Placement(transformation(extent={{6,-80},{56,-36}})));
+    maxY1=473.15) annotation (Placement(transformation(extent={{6,-80},{56,-36}})));
   Utilities.Visualizers.DynamicGraph massFlowRatePlot(
     y_var=riser.port_a.m_flow,
     y_name="Mass Flow Rate",
@@ -111,12 +108,12 @@ model NaturalCirculation2
     n=3,
     x={riser.mediums[2].T,downcomer.mediums[2].T,riser.port_a.m_flow})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
-  UserInteraction.Outputs.Bar tankLevel_riser(
+  TRANSFORM.Utilities.Visualizers.Outputs.Bar tankLevel_riser(
     hideConnector=true,
     input_Value=expansionTank_riser.level,
     min=0,
     max=0.4) annotation (Placement(transformation(extent={{-30,40},{-10,60}})));
-  UserInteraction.Outputs.Bar tankLevel_downcomer(
+  TRANSFORM.Utilities.Visualizers.Outputs.Bar tankLevel_downcomer(
     hideConnector=true,
     input_Value=expansionTank_downcomer.level,
     min=0,

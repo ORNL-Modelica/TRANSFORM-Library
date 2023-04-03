@@ -51,7 +51,6 @@ partial package PartialMedium "Partial medium properties (base package of all me
   replaceable record FluidConstants =
       Modelica.Media.Interfaces.Types.Basic.FluidConstants
     "Critical, triple, molecular and other standard data of fluid";
-
   replaceable record ThermodynamicState
     "Minimal variable set that is available as input argument to every medium function"
     extends Modelica.Icons.Record;

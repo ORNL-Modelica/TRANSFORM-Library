@@ -5,8 +5,7 @@ model Condenser2
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.Cylinder_wInternalPipe
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.PartialInternal
+    constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.PartialInternal
     "Geometry" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
   Geometry geometry(V_liquid=V)
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
@@ -29,8 +28,7 @@ model Condenser2
     constrainedby Modelica.Media.Interfaces.PartialMedium "Cooling medium"
     annotation (choicesAllMatching);
   replaceable package MaterialWall =
-      TRANSFORM.Media.Solids.CustomSolids.Lambda_fT_d_7763_cp_fT constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      TRANSFORM.Media.Solids.CustomSolids.Lambda_fT_d_7763_cp_fT constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                             "Coolant wall material properties"
     annotation (choicesAllMatching=true);
   input SI.CoefficientOfHeatTransfer alphaInt_WExt=1

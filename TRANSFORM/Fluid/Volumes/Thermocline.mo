@@ -3,7 +3,7 @@ model Thermocline
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium "Medium in the component"
     annotation (choicesAllMatching=true);
 
-  SI.Energy Q_storage = volume_upper.m*(volume_upper.h - Medium.specificEnthalpy(Medium.setState_pT(p_start,T_start_lower)));
+  SI.Energy Q_storage = volume_upper.m*(volume_upper.h - Medium.specificEnthalpy(Medium.setState_pTX(p_start,T_start_lower)));
   Real Q_storage_MWt_h = Q_storage/1e6/3600;
   SI.Volume V_total = volume_upper.V + volume_lower.V;
   Units.NonDim levelFrac = volume_upper.V/V_total;

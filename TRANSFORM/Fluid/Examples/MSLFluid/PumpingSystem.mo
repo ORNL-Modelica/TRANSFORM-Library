@@ -30,12 +30,12 @@ model PumpingSystem "Model of a pumping system for drinking water"
     redeclare package Medium = Medium,
     T_start=system.T_start,
     redeclare model EfficiencyChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant
-        (eta_constant=0.8),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant (
+         eta_constant=0.8),
     checkValve=true,
     redeclare model FlowChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve
-        (V_flow_curve={0,0.25,0.5}, head_curve={100,60,0}),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve (
+         V_flow_curve={0,0.25,0.5}, head_curve={100,60,0}),
     V(displayUnit="l") = 1e-05,
     exposeState_a=false,
     exposeState_b=true,
@@ -81,8 +81,8 @@ model PumpingSystem "Model of a pumping system for drinking water"
     falling=3,
     amplitude=1200,
     offset=0.001) annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  TRANSFORM.Fluid.Sensors.RelativePressure reservoirPressure(redeclare package
-      Medium = Medium)
+  TRANSFORM.Fluid.Sensors.RelativePressure reservoirPressure(redeclare package Medium =
+               Medium)
     annotation (Placement(transformation(extent={{10,-12},{30,-32}})));
   Modelica.Blocks.Continuous.FirstOrder PT1(
     T=2,

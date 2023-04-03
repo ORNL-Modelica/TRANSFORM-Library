@@ -1,10 +1,9 @@
 within TRANSFORM.Media.LookupTableMedia.BaseClasses;
 package LookupTableMedium "Medium package accessing the lookup table solver"
-  extends
-  TRANSFORM.Media.LookupTableMedia.BaseClasses.ExternalSinglePhaseMedium;
+  extends TRANSFORM.Media.LookupTableMedia.BaseClasses.ExternalSinglePhaseMedium;
 
   redeclare replaceable function extends isentropicEnthalpy
-protected
+  protected
     SpecificEntropy s_ideal;
     ThermodynamicState state_ideal;
   algorithm

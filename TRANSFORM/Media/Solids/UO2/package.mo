@@ -31,7 +31,7 @@ h => pg 18 eq 4.1
   end specificEnthalpy;
 
   redeclare function extends density "Density"
-protected
+  protected
      Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
     d := TRANSFORM.Math.spliceTanh(
@@ -53,7 +53,7 @@ protected
   Units.nonDim FP = 1+0.019*B/(3-0.019*B)/(1+exp(-(state.T-1200)/100)) "Effect of precipitated fission products";
   Units.nonDim FR = 1-0.2/(1+exp((state.T-900)/80)) "Radiation effect";
   */
-protected
+  protected
   Units.NonDim FM = (1-porosity)/(1+2*porosity) "Effect of porosity";
   algorithm
     lambda := (115.8/(7.5408 + 17.692*(state.T/1000) + 3.6142*(state.T/1000)^2) +

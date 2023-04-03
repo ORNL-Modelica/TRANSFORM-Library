@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples;
 model StraightPipe_Test
   extends Icons.Example;
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
     dimensions_Exp=0.3,
     crossAreas_Exp=0.0706858347,
     perimeters_Exp=0.9424777961,

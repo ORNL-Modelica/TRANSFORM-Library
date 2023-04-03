@@ -32,7 +32,7 @@ partial package PartialSimpleAlloy_TableBased "Material properties based on tabl
 
   redeclare function extends density
     "Return density as a function of the thermodynamic state record"
-protected
+  protected
     Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
     d := Poly.evaluate(poly_d, T);
@@ -62,7 +62,6 @@ protected
     lambda := Poly.evaluate(poly_lambda, state.T);
     annotation (Inline=true, smoothOrder=2);
   end thermalConductivity;
-
   annotation (Documentation(info="<html>
 <p>
 This is the base package for medium models of incompressible fluids based on

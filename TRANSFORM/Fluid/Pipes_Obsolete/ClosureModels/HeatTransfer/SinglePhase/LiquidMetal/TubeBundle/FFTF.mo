@@ -7,8 +7,7 @@ model FFTF "FFTF: Liquid metal rod bundle; 20 <= Pe <= 1000"
 
   20 <= Pe <= 1000
   */
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
     parameter Real PDratio "Tube Pitch to Diameter ratio";
     Real[nHT] Pes "Peclet Number";
 equation

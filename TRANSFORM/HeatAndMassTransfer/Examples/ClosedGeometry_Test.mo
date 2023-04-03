@@ -6,12 +6,11 @@ model ClosedGeometry_Test
   SI.Temperature Ts_3D[conduction_3D.geometry.nTheta]=conduction_3D.materials[1,:,1].T;
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_2D conduction_2D(
     redeclare model InternalHeatModel =
-        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-        (Q_gens={{if i == 1 and j == 1 then 100 else 0 for j in 1:conduction_2D.geometry.nTheta}
+        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration (
+         Q_gens={{if i == 1 and j == 1 then 100 else 0 for j in 1:conduction_2D.geometry.nTheta}
             for i in 1:conduction_2D.geometry.nR}),
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_theta
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_theta (
         nTheta=8,
         r_inner=0.005,
         r_outer=0.01),
@@ -25,12 +24,11 @@ model ClosedGeometry_Test
     annotation (Placement(transformation(extent={{40,-10},{20,10}})));
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_1D conduction_1D(
     redeclare model InternalHeatModel =
-        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.GenericHeatGeneration
-        (Q_gens={if i == 1 then 100 else 0 for i in 1:conduction_1D.geometry.nTheta}),
+        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.GenericHeatGeneration (
+         Q_gens={if i == 1 then 100 else 0 for i in 1:conduction_1D.geometry.nTheta}),
     redeclare package Material = TRANSFORM.Media.Solids.UO2,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_theta
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_theta (
         r_inner=0.005,
         r_outer=0.01,
         nTheta=8))
@@ -38,14 +36,13 @@ model ClosedGeometry_Test
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.Conduction_3D conduction_3D(
     redeclare package Material = TRANSFORM.Media.Solids.UO2,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_3D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_3D (
         nTheta=8,
         r_inner=0.005,
         r_outer=0.01),
     redeclare model InternalHeatModel =
-        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.GenericHeatGeneration
-        (Q_gens={{{if i == 1 and j == 1 and k == 1 then 100 else 0 for k in 1:
+        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.GenericHeatGeneration (
+         Q_gens={{{if i == 1 and j == 1 and k == 1 then 100 else 0 for k in 1:
             conduction_3D.geometry.nZ} for j in 1:conduction_2D.geometry.nTheta}
             for i in 1:conduction_2D.geometry.nR}))
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));

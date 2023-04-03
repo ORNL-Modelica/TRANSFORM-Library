@@ -7,23 +7,22 @@ model GenericDistributed_HX_Rwall
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
   outer TRANSFORM.Fluid.SystemTF systemTF;
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_tube(redeclare package
-      Medium = Medium_tube) annotation (Placement(transformation(extent={{-110,-10},
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_tube(redeclare package Medium =
+               Medium_tube) annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b_tube(redeclare package
-      Medium = Medium_tube) annotation (Placement(transformation(extent={{90,-10},
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b_tube(redeclare package Medium =
+               Medium_tube) annotation (Placement(transformation(extent={{90,-10},
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_shell(redeclare package
-      Medium = Medium_shell) annotation (Placement(transformation(extent={{90,36},
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_shell(redeclare package Medium =
+               Medium_shell) annotation (Placement(transformation(extent={{90,36},
             {110,56}}), iconTransformation(extent={{90,36},{110,56}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b_shell(redeclare package
-      Medium = Medium_shell) annotation (Placement(transformation(extent={{-110,
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b_shell(redeclare package Medium =
+               Medium_shell) annotation (Placement(transformation(extent={{-110,
             36},{-90,56}}), iconTransformation(extent={{-110,36},{-90,56}})));
   parameter Real nParallel=1 "# of identical parallel HXs";
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.StraightPipeHX
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.GenericHX
+    constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.GenericHX
     "Geometry" annotation (choicesAllMatching=true);
   Geometry geometry
     annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
@@ -40,8 +39,7 @@ model GenericDistributed_HX_Rwall
     "Swap shell side temperature and flux vector order";
   replaceable model FlowModel_shell =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
+    constrainedby TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
     "Shell side flow models (i.e., momentum, pressure loss, wall friction)"
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
   replaceable model HeatTransfer_shell =
@@ -52,8 +50,7 @@ model GenericDistributed_HX_Rwall
       Dialog(group="Heat Transfer"));
   replaceable model FlowModel_tube =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
+    constrainedby TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
     "Tube side flow models (i.e., momentum, pressure loss, wall friction)"
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
   replaceable model HeatTransfer_tube =
@@ -372,8 +369,7 @@ model GenericDistributed_HX_Rwall
     C_a_start=C_a_start_shell,
     C_b_start=C_b_start_shell,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
         nV=geometry.nV,
         crossAreas=geometry.crossAreas_shell,
         perimeters=geometry.perimeters_shell,
@@ -428,8 +424,7 @@ model GenericDistributed_HX_Rwall
     C_a_start=C_a_start_tube,
     C_b_start=C_b_start_tube,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
         nV=geometry.nV,
         dimensions=geometry.dimensions_tube,
         dlengths=geometry.dlengths_tube,

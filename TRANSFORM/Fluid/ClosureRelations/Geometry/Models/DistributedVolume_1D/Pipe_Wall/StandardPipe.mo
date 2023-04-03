@@ -2,8 +2,7 @@ within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pip
 model StandardPipe "StandardPipe | Uses NPS schedules"
   import TRANSFORM;
   import TRANSFORM.Math.fillArray_1D;
-  extends
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StandardPipe;
+  extends TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StandardPipe;
 
   extends PartialPipeWithWall(
     final nZ=nV,

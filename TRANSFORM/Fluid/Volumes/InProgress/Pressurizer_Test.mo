@@ -21,11 +21,11 @@ model Pressurizer_Test
         Volumes.ClosureModels.MassTransfer.Evaporation.ConstantTimeDelay (tau=
             15),
     redeclare model MassTransfer_VL =
-        Volumes.ClosureModels.MassTransfer.PhaseInterface.ConstantMassTransportCoefficient
-        (alphaD0=0.001),
+        Volumes.ClosureModels.MassTransfer.PhaseInterface.ConstantMassTransportCoefficient (
+         alphaD0=0.001),
     redeclare model HeatTransfer_VL =
-        Volumes.ClosureModels.MassTransfer.PhaseInterface.ConstantHeatTransferCoefficient
-        (alpha0=100),
+        Volumes.ClosureModels.MassTransfer.PhaseInterface.ConstantHeatTransferCoefficient (
+         alpha0=100),
     redeclare model HeatTransfer_WL =
         BaseClasses.ClosureModels.HeatTransfer.ConstantHeatTransferCoefficient,
     redeclare model HeatTransfer_WV =
@@ -38,8 +38,8 @@ model Pressurizer_Test
     m_flow=0,
     nPorts=1)
              annotation (Placement(transformation(extent={{-68,50},{-48,70}})));
-  Modelica.Fluid.Sources.MassFlowSource_h relief(          redeclare package
-      Medium = Modelica.Media.Water.StandardWater,
+  Modelica.Fluid.Sources.MassFlowSource_h relief(          redeclare package Medium =
+               Modelica.Media.Water.StandardWater,
     h=relief.Medium.dewEnthalpy(relief.Medium.setSat_p(system.p_start)),
     nPorts=1)
     annotation (Placement(transformation(extent={{68,50},{48,70}})));
@@ -75,14 +75,14 @@ model Pressurizer_Test
     T=system.T_start,
     nPorts=1)
     annotation (Placement(transformation(extent={{90,-90},{70,-70}})));
-  FittingsAndResistances.SpecifiedResistance lineToPressurizer(R=1, redeclare
-      package Medium = Modelica.Media.Water.StandardWater) annotation (
+  FittingsAndResistances.SpecifiedResistance lineToPressurizer(R=1, redeclare package Medium =
+                       Modelica.Media.Water.StandardWater) annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,-52})));
-  FittingsAndResistances.SpecifiedResistance lineToPump(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, R=1) annotation (Placement(
+  FittingsAndResistances.SpecifiedResistance lineToPump(redeclare package Medium =
+               Modelica.Media.Water.StandardWater, R=1) annotation (Placement(
         transformation(
         extent={{10,9.5},{-10,-9.5}},
         rotation=180,

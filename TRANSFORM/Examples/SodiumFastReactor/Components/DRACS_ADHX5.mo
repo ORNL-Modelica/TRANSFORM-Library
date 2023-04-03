@@ -16,8 +16,8 @@ replaceable package Medium =
     redeclare package Medium = Medium,
     m_flow_a_start=data.m_flow_DRACSsec,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data.D_pipes_tofromHXs_DRACS, length=data.length_pipes_tofromHXs_DRACS),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=data.D_pipes_tofromHXs_DRACS, length=data.length_pipes_tofromHXs_DRACS),
     p_a_start=400000,
     T_a_start=data.T_inlet_DRACSsec)
     annotation (Placement(transformation(extent={{-50,-70},{-70,-50}})));
@@ -25,8 +25,8 @@ replaceable package Medium =
     redeclare package Medium = Medium,
     m_flow_a_start=data.m_flow_DRACSsec,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data.D_pipes_tofromHXs_DRACS, length=data.length_pipes_tofromHXs_DRACS),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=data.D_pipes_tofromHXs_DRACS, length=data.length_pipes_tofromHXs_DRACS),
     p_a_start=300000,
     T_a_start=data.T_outlet_DRACSsec)
     annotation (Placement(transformation(extent={{-70,30},{-50,50}})));
@@ -55,8 +55,7 @@ replaceable package Medium =
     T_a2_start=data.T_outlet_DRACSsec,
     counterCurrent=true,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe (
         nV=2,
         dimension=data.D_tube_inner_ADHX,
         length=data.length_tube_ADHX,
@@ -91,8 +90,7 @@ replaceable package Medium =
     redeclare package Medium = Medium_Ambient,
     m_flow_a_start=blower.m_flow,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.ShellSide_STHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.ShellSide_STHX (
         nV=2,
         nTubes=data.nTubes_ADHX,
         length_shell=data.height_active_shell_ADHX,
@@ -105,8 +103,7 @@ replaceable package Medium =
     T_a_start=298.15,
     T_b_start=323.15,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
-        (
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison (
         D=data.D_tube_outer_AHX,
         S_T=data.pitch_tube_AHX,
         S_L=data.pitch_tube_AHX))

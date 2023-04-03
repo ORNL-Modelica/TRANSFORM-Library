@@ -19,8 +19,8 @@ model ExpansionTank2_Test
     T=293.15,
     nPorts=1)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  FittingsAndResistances.SpecifiedResistance resistance(R=0.01, redeclare
-      package Medium = Medium)
+  FittingsAndResistances.SpecifiedResistance resistance(R=0.01, redeclare package Medium =
+                       Medium)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   BoundaryConditions.Boundary_pT boundary1(
     nPorts=1,
@@ -51,8 +51,8 @@ model ExpansionTank2_Test
         ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (V=0.001))
     annotation (Placement(transformation(extent={{-16,-10},{4,10}})));
   FittingsAndResistances.SpecifiedResistance resistance1(
-                                                        R=0.01, redeclare
-      package Medium = Medium)
+                                                        R=0.01, redeclare package Medium =
+                       Medium)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,12})));

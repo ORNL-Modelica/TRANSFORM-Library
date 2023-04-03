@@ -12,12 +12,12 @@ model MoistureSeparator_Test
     redeclare package Medium = Medium)
            annotation (Placement(transformation(extent={{72,16},{52,36}})));
   FittingsAndResistances.SpecifiedResistance resistance1(
-                                                   R=1, redeclare package
-      Medium = Medium)
+                                                   R=1, redeclare package Medium =
+               Medium)
     annotation (Placement(transformation(extent={{22,16},{42,36}})));
   FittingsAndResistances.SpecifiedResistance resistance2(
-                                                   R=1, redeclare package
-      Medium = Medium)
+                                                   R=1, redeclare package Medium =
+               Medium)
     annotation (Placement(transformation(extent={{-32,16},{-12,36}})));
   MoistureSeparator separator(
     redeclare model Geometry =
@@ -28,8 +28,8 @@ model MoistureSeparator_Test
     p_start=100000)
     annotation (Placement(transformation(extent={{-6,16},{14,36}})));
   FittingsAndResistances.SpecifiedResistance resistance3(
-                                                   R=1, redeclare package
-      Medium = Medium)
+                                                   R=1, redeclare package Medium =
+               Medium)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-6,-8})));

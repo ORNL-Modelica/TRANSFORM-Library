@@ -8,8 +8,7 @@ model PlateHX "Plate HX"
   final parameter SI.Area crossAreap = H*W "Single plate cross sectional flow area";
   final parameter SI.Length perimeterp = 2*H + 2*W "Single plate wetted perimeter";
   final parameter SI.Area surfaceAreap = L*W*(2*nParallel-nAreas_NoHT)/nParallel "Single plate heat transfer area corrected with non participating heat transfer areas";
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.StraightPipe(
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.StraightPipe(
     final length=L,
     final use_Dimension=false,
     final dimension=4*crossAreap/perimeterp,

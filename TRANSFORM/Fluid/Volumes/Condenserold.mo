@@ -41,8 +41,7 @@ model Condenserold
   final parameter SI.Area Afreeflow=tubelength*(diameter - d_outer*sqrt(N_tubes))
     "Outer free flow area";
   replaceable package MaterialWall =
-      TRANSFORM.Media.Solids.CustomSolids.Lambda_fT_d_7763_cp_fT constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      TRANSFORM.Media.Solids.CustomSolids.Lambda_fT_d_7763_cp_fT constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                             "Coolant wall material properties" annotation (
       choicesAllMatching=true);
   final parameter SI.Length level_max=if DrumOrientation == 0 then diameter

@@ -218,7 +218,7 @@ which is only exactly true for a fluid with constant density d=d0.
   redeclare function extends specificEntropy
     "Return specific entropy as a function of the thermodynamic state record"
 
-protected
+  protected
     Integer npol=size(poly_Cp,1)-1;
   algorithm
     assert(hasHeatCapacity,"Specific Entropy, s(T), is not defined for medium "
@@ -262,8 +262,8 @@ protected
     u := specificEnthalpyOfT(state.p,state.T) - (if singleState then reference_p else state.p)/density(state);
    annotation(Inline=true,smoothOrder=2);
   end specificInternalEnergy;
+protected
 
-protected 
   function specificEnthalpyOfT
     "Return specific enthalpy from pressure and temperature, taking the flag enthalpyOfT into account"
     extends Modelica.Icons.Function;
@@ -275,7 +275,6 @@ protected
     h := if enthalpyOfT then h_T(T) else h_pT(p, T, densityOfT);
     annotation(Inline=true,smoothOrder=2);
   end specificEnthalpyOfT;
-
 annotation(Documentation(info="<html>
 <p>
 This is the base package for medium models of incompressible fluids based on

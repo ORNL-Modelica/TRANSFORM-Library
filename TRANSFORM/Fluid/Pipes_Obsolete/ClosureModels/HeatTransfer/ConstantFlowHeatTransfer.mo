@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer;
 model ConstantFlowHeatTransfer "Constant Heat Transfer Coefficient"
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialFlowHeatTransfer(
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialFlowHeatTransfer(
       alphas_start=alphas0);
   parameter SI.CoefficientOfHeatTransfer[nHT] alphas0=1000*ones(nHT) "heat transfer coefficient";
 equation

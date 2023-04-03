@@ -7,11 +7,9 @@ model Conduction_1D "1-D Conduction Models"
     lambda_effective=sum(Material.thermalConductivity(materials.state) .* ms/
         sum(ms)))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
       final figure=geometry.figure);
-  extends
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.PartialDistributedVolume(
+  extends TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.PartialDistributedVolume(
     final Vs=geometry.Vs,
     final nVs=geometry.ns,
     Ts_start=linspace_1D(
@@ -43,8 +41,7 @@ model Conduction_1D "1-D Conduction Models"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   replaceable model ConductionModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.ForwardDifference_1O
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.PartialDistributedFlow
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.PartialDistributedFlow
     "Diffusive heat transfer" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
   ConductionModel conductionModel(
@@ -57,8 +54,7 @@ model Conduction_1D "1-D Conduction Models"
         transformation(extent={{-58,82},{-42,98}}, rotation=0)));
   replaceable model InternalHeatModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.GenericHeatGeneration
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.PartialInternalHeatGeneration
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.PartialInternalHeatGeneration
     "Internal heat generation" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
   InternalHeatModel internalHeatModel(

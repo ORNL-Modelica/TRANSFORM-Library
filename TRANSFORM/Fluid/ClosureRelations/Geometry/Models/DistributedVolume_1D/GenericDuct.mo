@@ -9,8 +9,7 @@ model GenericDuct
     annotation (Dialog(group="Inputs"));
   input SI.Length heights_outer[nV] = ones(nV) "Outer duct height"
     annotation (Dialog(group="Inputs"));
-  extends
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe(
+  extends TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe(
     final figure=3,
     final dimensions=4*crossAreas ./ perimeters,
     final crossAreas=widths_outer .* heights_outer - widths_inner .*

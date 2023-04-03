@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.SinglePhase;
 model Grimson_FlowAcrossTubeBundels "Grimson: Flow Across Tube Bundels"
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
   parameter Boolean tubesAligned=false "true if aligned else staggered";
   parameter SI.Length D "Diameter of tubes in tube bank";
   parameter SI.Length S_T "Transverse (within same row) tube pitch";

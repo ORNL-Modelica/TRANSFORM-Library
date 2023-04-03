@@ -25,8 +25,7 @@ model Example_1_9_1_TemperatureSensorMounting
     exposeState_b1=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_z (
         nZ=nNodes_1.k,
         r_outer=0.5*D.y,
         length_z=L.y))
@@ -52,13 +51,13 @@ model Example_1_9_1_TemperatureSensorMounting
         extent={{10,-10},{-10,10}},
         rotation=-90,
         origin={-8,-56})));
-  UserInteraction.Outputs.SpatialPlot TemperaturePosition(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePosition(
     minX=0,
     x=xval,
     y=yval,
     maxX=0.05,
     minY=4,
-    maxY=20)  "X - Dimensionless position (-) | T - Temperature (C)"
+    maxY=20) "X - Dimensionless position (-) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{16,-76},{58,-36}})));
   Real xval[nNodes_1.k] = RTD.geometry.cs_1;
   Real yval[nNodes_1.k]=

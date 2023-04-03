@@ -7,8 +7,7 @@ record GenericPipe_wTraceMass_Record
     annotation (Dialog(group="Trace Mass Transfer"));
   replaceable model TraceMassTransfer =
       TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.Ideal
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.PartialMassTransfer_setC
+    constrainedby TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D.PartialMassTransfer_setC
     "Trace Substance mass transfer" annotation (Dialog(group="Trace Mass Transfer", enable=
           use_TraceMassTransfer), choicesAllMatching=true);
   // Internal Trace Substance Generation Model

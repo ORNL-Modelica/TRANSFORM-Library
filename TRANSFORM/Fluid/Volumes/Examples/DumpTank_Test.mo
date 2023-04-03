@@ -16,8 +16,8 @@ model DumpTank_Test
     redeclare package Medium = Medium)
            annotation (Placement(transformation(extent={{70,-30},{50,-10}})));
   FittingsAndResistances.SpecifiedResistance resistance(
-                                                   R=1, redeclare package
-      Medium = Medium)
+                                                   R=1, redeclare package Medium =
+               Medium)
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
   DumpTank dumpTank(
     A=1,

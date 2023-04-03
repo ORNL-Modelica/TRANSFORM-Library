@@ -22,7 +22,7 @@ package OFHC_RRR200 "Oxygen-free, high conductivity copper (OFHC) of Residual Re
 
     redeclare function extends electricalResistivity
       "Electrical resistivity"
-protected
+  protected
     constant Real tableData[:,2] = [50,0.057; 55,0.076; 60,0.098; 70,0.15; 80,0.22; 90,
          0.29; 100,0.36; 125,0.54; 150,0.72; 200,1.06; 250,1.39; 300,1.73; 400,2.49;
          500,3.19]*[1,0;0,1e-8];
@@ -33,7 +33,6 @@ protected
     algorithm
       rho_e := Poly.evaluate(polyFit, state.T);
     end electricalResistivity;
-
   annotation (Documentation(info="<html>
 </html>"));
 end OFHC_RRR200;

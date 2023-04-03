@@ -46,14 +46,13 @@ model Problem_2 "Single species drift with decay"
     T_a_start=T_start,
     m_flow_a_start=m_flow,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=dimension,
         length=length,
         nV=nV),
     redeclare model InternalTraceGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens)) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration (
+         mC_gens=mC_gens)) annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   BoundaryConditions.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     m_flow=m_flow,

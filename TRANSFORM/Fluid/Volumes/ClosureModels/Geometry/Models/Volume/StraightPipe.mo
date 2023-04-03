@@ -21,8 +21,7 @@ model StraightPipe
   parameter SI.Length dheight= 0.0
     "Height(port_b) - Height(port_a) distributed by flow segment"
     annotation (Dialog(group="Static head"), Evaluate=true);
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.PartialGeometry(
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.PartialGeometry(
     final lengths=fill(length/nNodes, nNodes),
     final use_Dimensions=use_Dimension,
     final dimensions=fill(4*crossArea/perimeter, nNodes),

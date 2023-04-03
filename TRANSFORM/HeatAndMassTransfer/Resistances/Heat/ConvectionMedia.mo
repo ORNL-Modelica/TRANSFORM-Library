@@ -2,8 +2,8 @@ within TRANSFORM.HeatAndMassTransfer.Resistances.Heat;
 model ConvectionMedia
   "Thermal element for heat convection with Media models"
   import Modelica.Constants.pi;
-  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in the component"
     annotation (choicesAllMatching=true);
   parameter Integer n=1 "Number of heat transfer segments";
   input Medium.ThermodynamicState[n] states=Medium.setState_pTX(fill(1e5, n),
@@ -27,8 +27,7 @@ model ConvectionMedia
     annotation (Dialog(group="Inputs"));
   replaceable model HeatTransferCoeff =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Ideal
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialHeatTransfer
+    constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialHeatTransfer
     "Coefficient of heat transfer" annotation (Dialog(group="Closure Models",
         enable=not IdealHeatTransfer), choicesAllMatching=true);
   HeatTransferCoeff heatTransferCoeff(

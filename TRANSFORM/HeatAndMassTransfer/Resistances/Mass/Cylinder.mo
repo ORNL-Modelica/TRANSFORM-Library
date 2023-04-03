@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
 model Cylinder "Cylinder | Radial"
-  extends
-    TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
+  extends TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
   import Modelica.Math.log;
   import Modelica.Constants.pi;
   input SI.Length L "Cylinder length" annotation(Dialog(group="Inputs"));

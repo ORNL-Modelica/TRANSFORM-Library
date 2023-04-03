@@ -52,8 +52,7 @@ partial model PartialPump_nom
 
   replaceable model EfficiencyChar =
       TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Efficiency.Constant
-    constrainedby
-    TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Efficiency.PartialEfficiencyChar
+    constrainedby TRANSFORM.Fluid.Machines.BaseClasses.PumpCharacteristics.Efficiency.PartialEfficiencyChar
     "Efficiency vs. Volumetric flow rate" annotation (Dialog(group=
           "Characteristics: Based on single pump nominal conditions", enable=
           not use_powerCharacteristic), choicesAllMatching=true);

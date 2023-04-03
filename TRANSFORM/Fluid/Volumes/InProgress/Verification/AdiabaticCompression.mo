@@ -19,11 +19,11 @@ model AdiabaticCompression
     redeclare model HeatTransfer_VL =
         Volumes.ClosureModels.MassTransfer.PhaseInterface.ConstantHeatTransferCoefficient,
     redeclare model BulkEvaporation =
-        Volumes.ClosureModels.MassTransfer.Evaporation.PhaseSeparationHypothesis
-        (Ac=pressurizer.drumType.crossArea_liquid),
+        Volumes.ClosureModels.MassTransfer.Evaporation.PhaseSeparationHypothesis (
+         Ac=pressurizer.drumType.crossArea_liquid),
     redeclare model BulkCondensation =
-        Volumes.ClosureModels.MassTransfer.Condensation.PhaseSeparation_TerminalVelocity
-        (V_fluid=pressurizer.V_vapor, L_c=0.5*pressurizer.drumType.level_vapor),
+        Volumes.ClosureModels.MassTransfer.Condensation.PhaseSeparation_TerminalVelocity (
+         V_fluid=pressurizer.V_vapor, L_c=0.5*pressurizer.drumType.level_vapor),
     redeclare model HeatTransfer_WL =
         ClosureRelations.HeatTransfer.Models.Lumped.Alphas,
     redeclare model HeatTransfer_WV =
@@ -41,11 +41,11 @@ model AdiabaticCompression
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_vapor(T=373.15)
     annotation (Placement(transformation(extent={{70,2},{50,22}})));
-  Modelica.Fluid.Sources.MassFlowSource_h spray(nPorts=1, redeclare package
-      Medium = Medium)
+  Modelica.Fluid.Sources.MassFlowSource_h spray(nPorts=1, redeclare package Medium =
+               Medium)
     annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
-  Modelica.Fluid.Sources.MassFlowSource_h relief(nPorts=1, redeclare package
-      Medium = Medium)
+  Modelica.Fluid.Sources.MassFlowSource_h relief(nPorts=1, redeclare package Medium =
+               Medium)
     annotation (Placement(transformation(extent={{48,50},{28,70}})));
   Modelica.Fluid.Sources.MassFlowSource_T insurge(nPorts=1, use_m_flow_in=true,
     redeclare package Medium = Medium,

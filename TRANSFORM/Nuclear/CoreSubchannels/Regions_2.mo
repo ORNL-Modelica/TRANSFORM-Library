@@ -29,8 +29,7 @@ model Regions_2
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   replaceable model FlowModel =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
+    constrainedby TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
     "Coolant flow models (i.e., momentum, pressure loss, wall friction)"
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
   replaceable model HeatTransfer =
@@ -410,8 +409,7 @@ model Regions_2
     energyDynamics=energyDynamics,
     traceDynamics=traceDynamics,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         nV=geometry.nV,
         dimension=geometry.dimension,
         crossArea=geometry.crossArea,
@@ -424,8 +422,8 @@ model Regions_2
         height_a=geometry.height_a,
         angle=geometry.angle),
     redeclare model InternalTraceGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens={{SF_mC_add[i, j]*kinetics.fissionProducts.mC_gens_add[j] for
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration (
+         mC_gens={{SF_mC_add[i, j]*kinetics.fissionProducts.mC_gens_add[j] for
             j in 1:Medium.nC} for i in 1:coolantSubchannel.nV}))
                                              annotation (Placement(
         transformation(

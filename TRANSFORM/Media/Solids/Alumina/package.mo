@@ -1,7 +1,7 @@
 within TRANSFORM.Media.Solids;
 package Alumina "Alumina Al2-O3"
 
-  // http://www.haynesintl.com/alloys/alloy-portfolio_/Corrosion-resistant-Alloys/hastelloy-n-alloy/physical-properties 
+  // http://www.haynesintl.com/alloys/alloy-portfolio_/Corrosion-resistant-Alloys/hastelloy-n-alloy/physical-properties
 
   extends TRANSFORM.Media.Interfaces.Solids.PartialSimpleAlloy(
     mediumName="Al2_O3",
@@ -31,7 +31,6 @@ package Alumina "Alumina Al2-O3"
   algorithm
     cp := 1117+0.14*(state.T-273.15)-411*exp(-0.006*(state.T-273.15)); //(J/kg*k)
   end specificHeatCapacityCp;
-
 annotation (Documentation(info="<html>
 <p>Properties for a Sintered alpha-alumina product. </p>
 </html>"));

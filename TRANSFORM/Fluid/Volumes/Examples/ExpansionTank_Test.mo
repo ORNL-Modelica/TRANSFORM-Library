@@ -19,8 +19,8 @@ model ExpansionTank_Test
     use_C_in=true,
     T=293.15)
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  FittingsAndResistances.SpecifiedResistance resistance(R=0.01, redeclare
-      package Medium = Medium)
+  FittingsAndResistances.SpecifiedResistance resistance(R=0.01, redeclare package Medium =
+                       Medium)
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   BoundaryConditions.Boundary_pT boundary1(
     nPorts=1,

@@ -3,8 +3,7 @@ model SFR_PHS
   extends BaseClasses.Record_Data;
   //Source 1: Fast Spectrum Reactors by Alan Waltar, Donald Todd, and Pavel Tsvetkov
   replaceable package Medium_primary =
-      TRANSFORM.Media.Fluids.Sodium.ConstantPropertyLiquidSodium constrainedby
-    Modelica.Media.Interfaces.PartialMedium
+      TRANSFORM.Media.Fluids.Sodium.ConstantPropertyLiquidSodium constrainedby Modelica.Media.Interfaces.PartialMedium
     "Primary system medium: Sodium change/add temp dependent sodium!"
     annotation (choicesAllMatching=true);
 // PHTS medium: Sodium

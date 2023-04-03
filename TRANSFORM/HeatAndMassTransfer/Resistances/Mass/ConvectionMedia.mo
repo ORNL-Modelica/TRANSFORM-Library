@@ -1,8 +1,8 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
 model ConvectionMedia
   "Mass element for mass convection with Media models"
-  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in the component"
     annotation (choicesAllMatching=true);
   parameter Integer n=1 "Number of mass transfer segments";
   parameter Integer nC = 1 "Number of substances";
@@ -29,8 +29,7 @@ model ConvectionMedia
     annotation (Dialog(group="Inputs"));
   replaceable model MassTransferCoeff =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.MassTransfer.Models.Ideal
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.MassTransfer.Models.PartialMassTransfer
+    constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.MassTransfer.Models.PartialMassTransfer
     "Coefficient of mass transfer" annotation (Dialog(group="Closure Models",
         enable=not IdealHeatTransfer), choicesAllMatching=true);
   MassTransferCoeff massTransferCoeff(

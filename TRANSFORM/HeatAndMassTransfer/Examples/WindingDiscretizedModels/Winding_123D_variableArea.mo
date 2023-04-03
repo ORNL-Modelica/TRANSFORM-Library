@@ -8,8 +8,7 @@ model Winding_123D_variableArea
     exposeState_b3=true,
     exposeState_b1=false,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_3D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_3D (
         nR=nNodes_1.k,
         nTheta=nNodes_2.k,
         nZ=nNodes_3.k,

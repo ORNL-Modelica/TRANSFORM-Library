@@ -8,8 +8,7 @@ model GenericPipe_withWallx2
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wallx2.StraightPipe
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wallx2.PartialPipeWithWall
+    constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wallx2.PartialPipeWithWall
                                                                                       "Geometry"
     annotation (Dialog(group="Geometry"),choicesAllMatching=true);
   Geometry geometry
@@ -20,8 +19,7 @@ model GenericPipe_withWallx2
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
     annotation (Dialog(tab="Advanced", group="Inputs"));
   replaceable package Material =
-      TRANSFORM.Media.Solids.SS316                     constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      TRANSFORM.Media.Solids.SS316                     constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
   replaceable package Material_2 =
       Material                     constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
@@ -82,14 +80,12 @@ model GenericPipe_withWallx2
          "Model Structure", tab="Advanced"));
   replaceable model InternalHeatModel_wall =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
     "Internal heat generation" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
   replaceable model InternalHeatModel_wall_2 =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
     "Internal heat generation" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
   GenericPipe_MultiTransferSurface

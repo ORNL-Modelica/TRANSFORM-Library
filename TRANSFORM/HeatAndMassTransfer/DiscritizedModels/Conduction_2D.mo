@@ -7,11 +7,9 @@ model Conduction_2D "2-D Conduction Models"
     lambda_effective=sum(Material.thermalConductivity(materials.state) .* ms/
         sum(ms)))
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
       final figure=geometry.figure);
-  extends
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialDistributedVolume(
+  extends TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialDistributedVolume(
     final Vs=geometry.Vs,
     final nVs=geometry.ns,
     Ts_start=linspace_2Dedge(
@@ -64,8 +62,7 @@ model Conduction_2D "2-D Conduction Models"
     annotation (Dialog(group="Heat Transfer"));
   replaceable model ConductionModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.ForwardDifference_1O
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialDistributedFlow
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialDistributedFlow
     "Diffusive heat transfer" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
   ConductionModel conductionModel(
@@ -83,8 +80,7 @@ model Conduction_2D "2-D Conduction Models"
         transformation(extent={{-58,82},{-42,98}}, rotation=0)));
   replaceable model InternalHeatModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
     "Internal heat generation" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
   InternalHeatModel internalHeatModel(

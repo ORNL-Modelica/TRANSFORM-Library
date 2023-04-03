@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Heat;
 model Radiation "Radiation"
-  extends
-    TRANSFORM.HeatAndMassTransfer.Resistances.Heat.BaseClasses.PartialResistance;
+  extends TRANSFORM.HeatAndMassTransfer.Resistances.Heat.BaseClasses.PartialResistance;
   import Modelica.Constants.sigma;
   parameter Boolean useExact = true "=false to use average temperature approximation Tbar^3";
   input SI.Area surfaceArea "Heat transfer surface area" annotation(Dialog(group="Inputs"));
