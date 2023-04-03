@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples;
 model Plate_HX_Test
   extends Icons.Example;
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
     dimensions_Exp=0.019047619,
     crossAreas_Exp=0.002,
     perimeters_Exp=0.42,

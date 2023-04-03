@@ -6,8 +6,7 @@ model Condenser
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.Cylinder_wInternalPipe
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.PartialInternal
+    constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.PartialInternal
     "Geometry" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
   Geometry geometry(V_liquid=V)
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
@@ -30,8 +29,7 @@ model Condenser
     constrainedby Modelica.Media.Interfaces.PartialMedium "Cooling medium"
     annotation (choicesAllMatching);
   replaceable package MaterialWall =
-      TRANSFORM.Media.Solids.CustomSolids.Lambda_fT_d_7763_cp_fT constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      TRANSFORM.Media.Solids.CustomSolids.Lambda_fT_d_7763_cp_fT constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                             "Coolant wall material properties"
     annotation (choicesAllMatching=true);
   input SI.CoefficientOfHeatTransfer alphaInt_WExt=1
@@ -124,14 +122,14 @@ model Condenser
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={60,10})));
-  FittingsAndResistances.SpecifiedResistance resistance_a(redeclare package
-      Medium = Medium_coolant, R=R_a_coolant) if not exposeState_a_coolant
+  FittingsAndResistances.SpecifiedResistance resistance_a(redeclare package Medium =
+               Medium_coolant, R=R_a_coolant) if not exposeState_a_coolant
                                     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={60,30})));
-  FittingsAndResistances.SpecifiedResistance resistance_b(redeclare package
-      Medium = Medium_coolant, R=R_b_coolant) if not exposeState_b_coolant
+  FittingsAndResistances.SpecifiedResistance resistance_b(redeclare package Medium =
+               Medium_coolant, R=R_b_coolant) if not exposeState_b_coolant
                                     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,

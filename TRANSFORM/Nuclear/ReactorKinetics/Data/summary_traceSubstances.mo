@@ -17,8 +17,7 @@ model summary_traceSubstances
     "Tritium information" annotation (choicesAllMatching=true);
   Data_TR data_TR;
   replaceable record Data_CP =
-      TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.corrosionProduct_1_Cr
-                                                                                              constrainedby
+      TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.corrosionProduct_1_Cr          constrainedby
     TRANSFORM.Nuclear.ReactorKinetics.Data.CorrosionProducts.PartialCorrosionProduct
     "Corrosion Product information" annotation (choicesAllMatching=true);
   Data_CP data_CP;

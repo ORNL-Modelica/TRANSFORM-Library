@@ -17,8 +17,7 @@ extends TRANSFORM.Icons.Example;
     redeclare package Material_2 =
         TRANSFORM.Media.Solids.FiberGlassGeneric,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wallx2.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wallx2.StraightPipe (
         dimension=0.1,
         nV=1,
         nR=5,

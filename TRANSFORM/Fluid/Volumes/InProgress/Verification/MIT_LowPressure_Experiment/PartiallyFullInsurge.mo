@@ -44,11 +44,11 @@ model PartiallyFullInsurge
     annotation (Placement(transformation(extent={{-80,-62},{-60,-42}})));
   Real p_exp "Experimentally measured pressure in psia";
   // Models
-  Modelica.Fluid.Sources.MassFlowSource_h spray(nPorts=1, redeclare package
-      Medium = Medium)
+  Modelica.Fluid.Sources.MassFlowSource_h spray(nPorts=1, redeclare package Medium =
+               Medium)
     annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
-  Modelica.Fluid.Sources.MassFlowSource_h relief(nPorts=1, redeclare package
-      Medium = Medium)
+  Modelica.Fluid.Sources.MassFlowSource_h relief(nPorts=1, redeclare package Medium =
+               Medium)
     annotation (Placement(transformation(extent={{48,50},{28,70}})));
   Modelica.Fluid.Sources.MassFlowSource_T insurge(nPorts=1, use_m_flow_in=true,
     T=insurge_T,
@@ -63,11 +63,11 @@ model PartiallyFullInsurge
     p_start=mainTank_p_start,
     redeclare package Medium = Medium,
     redeclare model BulkEvaporation =
-        Volumes.ClosureModels.MassTransfer.Evaporation.PhaseSeparationHypothesis
-        (Ac=pressurizer.drum2Phase.drumType.crossArea_liquid),
+        Volumes.ClosureModels.MassTransfer.Evaporation.PhaseSeparationHypothesis (
+         Ac=pressurizer.drum2Phase.drumType.crossArea_liquid),
     redeclare model BulkCondensation =
-        Volumes.ClosureModels.MassTransfer.Condensation.PhaseSeparation_TerminalVelocity
-        (V_fluid=pressurizer.drum2Phase.V_vapor, L_c=0.5*pressurizer.drum2Phase.drumType.level_vapor),
+        Volumes.ClosureModels.MassTransfer.Condensation.PhaseSeparation_TerminalVelocity (
+         V_fluid=pressurizer.drum2Phase.V_vapor, L_c=0.5*pressurizer.drum2Phase.drumType.level_vapor),
     redeclare model HeatTransfer_VL =
         Volumes.ClosureModels.MassTransfer.PhaseInterface.ConstantHeatTransferCoefficient,
     redeclare model MassTransfer_VL =

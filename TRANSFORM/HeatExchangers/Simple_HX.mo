@@ -258,17 +258,17 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_2[nV](
       redeclare package Medium = Medium_2, each R=R_2/nV)
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
-  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a1(redeclare package
-      Medium = Medium_1)
+  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a1(redeclare package Medium =
+               Medium_1)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_b1(redeclare package
-      Medium = Medium_1)
+  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_b1(redeclare package Medium =
+               Medium_1)
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a2(redeclare package
-      Medium = Medium_2)
+  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a2(redeclare package Medium =
+               Medium_2)
     annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
-  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_b2(redeclare package
-      Medium = Medium_2)
+  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_b2(redeclare package Medium =
+               Medium_2)
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
   HeatAndMassTransfer.Resistances.Heat.Specified_Resistance heatTransfer[nV](
       R_val=R_val)

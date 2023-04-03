@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Cylinder_1D_r
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D(
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D(
       final ns={nR}, final figure=2);
   parameter Integer nR(min=1) = 1 "Number of nodes in r-direction";
   input SI.Length r_inner=0

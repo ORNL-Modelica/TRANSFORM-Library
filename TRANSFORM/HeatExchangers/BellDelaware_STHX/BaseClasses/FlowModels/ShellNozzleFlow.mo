@@ -1,8 +1,7 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX.BaseClasses.FlowModels;
 model ShellNozzleFlow
   "ShellFlow Nozzle: Shell-side Nozzle (of a shell and tube heat exchanger) flow pressure loss and gravity with replaceable WallFriction package"
-  extends
-    TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialSinglePhase;
+  extends TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialSinglePhase;
   // Shell Model (Nozzle) Parameters
   parameter SI.Length d_N "Nozzle diameter"
   annotation(Dialog(tab="Shell Model (Nozzle) Parameters"));

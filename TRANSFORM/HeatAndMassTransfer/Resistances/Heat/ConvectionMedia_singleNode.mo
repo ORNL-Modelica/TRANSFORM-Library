@@ -2,8 +2,8 @@ within TRANSFORM.HeatAndMassTransfer.Resistances.Heat;
 model ConvectionMedia_singleNode
   "Thermal element for heat convection with Media models"
   import Modelica.Constants.pi;
-  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in the component"
     annotation (choicesAllMatching=true);
   input SI.Pressure p = 1e5 "Pressure at port_b or specify state" annotation (Dialog(group="Inputs"));
   input Modelica.Media.Air.MoistAir.ThermodynamicState state=
@@ -29,8 +29,7 @@ model ConvectionMedia_singleNode
     annotation (Dialog(group="Inputs"));
   replaceable model HeatTransferCoeff =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Ideal
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialHeatTransfer
+    constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialHeatTransfer
     "Coefficient of heat transfer" annotation (Dialog(group="Closure Models",
         enable=not IdealHeatTransfer), choicesAllMatching=true);
   HeatTransferCoeff heatTransferCoeff(

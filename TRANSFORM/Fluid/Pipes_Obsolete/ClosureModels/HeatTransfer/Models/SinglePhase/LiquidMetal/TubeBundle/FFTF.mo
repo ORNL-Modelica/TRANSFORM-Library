@@ -7,8 +7,7 @@ model FFTF "FFTF: Liquid metal rod bundle; 20 <= Pe <= 1000"
 
   20 <= Pe <= 1000
   */
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.PartialHeatTransfer_setQ_flows;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.PartialHeatTransfer_setQ_flows;
   parameter Real PDratio "Tube Pitch to Diameter ratio" annotation(Dialog(group="Heat Transfer Model:"));
   SI.NusseltNumber[nHT] Nus "Nusselt number";
   SI.ReynoldsNumber[nHT] Res "Reynolds number";

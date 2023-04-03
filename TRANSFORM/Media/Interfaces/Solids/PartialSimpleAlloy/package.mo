@@ -64,7 +64,6 @@ partial package PartialSimpleAlloy "Material properties based on tables"
     MM := MM_const;
     annotation (Inline=true, smoothOrder=2);
   end molarMass;
-
   annotation (Documentation(info="<html>
 <p>
 This is the base package for medium models of incompressible fluids based on

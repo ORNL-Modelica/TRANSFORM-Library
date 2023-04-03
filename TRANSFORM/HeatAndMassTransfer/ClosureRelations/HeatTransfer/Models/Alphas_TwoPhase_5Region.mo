@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models;
 model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions"
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialTwoPhase;
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialTwoPhase;
   input SI.CoefficientOfHeatTransfer[nHT] alpha_SinglePhaseLiquid_lam=
       mediums_film.lambda ./ dimensions .*
       Functions.SinglePhase.InternalFlow.Nu_Laminar_Local_Developed_Circular(

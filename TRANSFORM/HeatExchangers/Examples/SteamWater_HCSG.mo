@@ -47,8 +47,7 @@ model SteamWater_HCSG
     redeclare package Material_tubeWall =
         TRANSFORM.Media.Solids.Inconel690,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         D_o_shell=1.64,
         D_i_shell=0.61,
         nTubes=750,
@@ -65,8 +64,8 @@ model SteamWater_HCSG
     redeclare model HeatTransfer_tube =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas_TwoPhase_3Region,
     redeclare model HeatTransfer_shell =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region
-        (Nus_turb={{
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region (
+         Nus_turb={{
             TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.Nu_Grimison_FlowAcrossTubeBanks(
             STHX.shell.heatTransfer.Res[i],
             STHX.shell.heatTransfer.Prs[i],
@@ -75,12 +74,12 @@ model SteamWater_HCSG
             1.25*(STHX.geometry.dimension_tube + 2*STHX.geometry.th_wall)) for
             j in 1:STHX.shell.heatTransfer.nSurfaces} for i in 1:STHX.geometry.nV}))
     annotation (Placement(transformation(extent={{-23,-20},{19,20}})));
-  UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot2 spatialPlot2_1(
     y1={STHX.tube.mediums[i].T for i in 1:STHX.geometry.nV},
     y2={STHX.shell.mediums[i].T for i in 1:STHX.geometry.nV},
     x1=STHX.tube.summary.xpos_norm,
-    x2=if STHX.counterCurrent == true then Modelica.Math.Vectors.reverse(STHX.shell.summary.xpos_norm)
-         else STHX.shell.summary.xpos_norm,
+    x2=if STHX.counterCurrent == true then Modelica.Math.Vectors.reverse(STHX.shell.summary.xpos_norm) else STHX.shell.summary.xpos_norm,
+
     minY1=min({tube_inlet_T,shell_inlet.T,tube_outlet_T,shell_outlet.T}),
     maxY1=max({tube_inlet_T,shell_inlet.T,tube_outlet_T,shell_outlet.T}),
     minY2=min({tube_inlet_T,shell_inlet.T,tube_outlet_T,shell_outlet.T}),

@@ -53,8 +53,8 @@ partial model Partial_LMTD_HX
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume,
     use_HeatPort=true)
     annotation (Placement(transformation(extent={{-40,50},{-20,30}})));
-  Fluid.FittingsAndResistances.SpecifiedResistance resistance_1(redeclare
-      package Medium = Medium_1, R=R_1)
+  Fluid.FittingsAndResistances.SpecifiedResistance resistance_1(redeclare package Medium =
+                       Medium_1, R=R_1)
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow boundary_1(use_port=
         true) annotation (Placement(transformation(
@@ -77,17 +77,17 @@ partial model Partial_LMTD_HX
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance_2(
       redeclare package Medium = Medium_2, R=R_2)
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
-  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a1(redeclare package
-      Medium = Medium_1)
+  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a1(redeclare package Medium =
+               Medium_1)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_b1(redeclare package
-      Medium = Medium_1)
+  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_b1(redeclare package Medium =
+               Medium_1)
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a2(redeclare package
-      Medium = Medium_2)
+  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_a2(redeclare package Medium =
+               Medium_2)
     annotation (Placement(transformation(extent={{80,-50},{60,-30}})));
-  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_b2(redeclare package
-      Medium = Medium_2)
+  TRANSFORM.Fluid.Sensors.TemperatureTwoPort sensor_T_b2(redeclare package Medium =
+               Medium_2)
     annotation (Placement(transformation(extent={{-60,-50},{-80,-30}})));
   Modelica.Blocks.Sources.RealExpression boundary_2_input(y=Q_flow)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));

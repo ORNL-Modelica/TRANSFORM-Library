@@ -2,8 +2,7 @@ within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.PhaseInterfac
 partial model PartialPhaseInterface
   extends TRANSFORM.Fluid.Interfaces.Records.Medium_fluidInternal(
       redeclare replaceable package Medium =
-                       Modelica.Media.Water.StandardWater constrainedby
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium);
+                       Modelica.Media.Water.StandardWater constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium);
   // Inputs provided to heat transfer model
   input Medium.ThermodynamicState state_liquid "Thermodynamic state"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));

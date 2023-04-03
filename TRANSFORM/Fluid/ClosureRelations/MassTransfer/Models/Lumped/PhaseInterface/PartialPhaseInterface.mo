@@ -3,8 +3,7 @@ partial model PartialPhaseInterface
   "Mass flow rate at the vapor-liquid interface. Positive is into the liquid."
   extends PartialMassTransfer(
      final flagIdeal=0, redeclare replaceable package Medium =
-        Modelica.Media.Water.StandardWater constrainedby
-      Modelica.Media.Interfaces.PartialTwoPhaseMedium,
+        Modelica.Media.Water.StandardWater constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium,
       final state=state_liquid);
   // Inputs provided to heat transfer model
   input Medium.ThermodynamicState state_liquid

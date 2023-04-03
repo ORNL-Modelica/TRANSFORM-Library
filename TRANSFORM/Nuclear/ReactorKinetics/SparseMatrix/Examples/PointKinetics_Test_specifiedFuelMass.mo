@@ -11,8 +11,8 @@ model PointKinetics_Test_specifiedFuelMass
         TRANSFORM.Nuclear.ReactorKinetics.Data.PrecursorGroups.precursorGroups_6_TRACEdefault,
     toggle_Reactivity=true,
     redeclare model Reactivity =
-        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_sparseMatrix
-        (redeclare record Data =
+        TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Lumped.Isotopes_sparseMatrix (
+         redeclare record Data =
             TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Data.Isotopes.Isotopes_TeIXeU,
           mCs_start=mCs_start))
     annotation (Placement(transformation(extent={{-20,-20},{20,20}})));

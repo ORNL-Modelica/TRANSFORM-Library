@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power;
 model Constant "Constant power consumption"
-  extends
-    TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power.PartialPowerChar;
+  extends TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Power.PartialPowerChar;
    parameter SI.Power W_constant = 0.0 "Constant power consumption" annotation(Dialog);
 algorithm
   W := W_constant;

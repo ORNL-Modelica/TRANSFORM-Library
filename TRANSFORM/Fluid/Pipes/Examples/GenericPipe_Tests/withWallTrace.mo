@@ -12,8 +12,7 @@ extends TRANSFORM.Icons.Example;
     use_HeatTransferOuter=true,
     use_TraceMassTransferOuter=true,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe (
         dimension=0.1,
         nR=1,
         nV=10),
@@ -24,10 +23,10 @@ extends TRANSFORM.Icons.Example;
     redeclare model HeatTransfer =
         TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare model TraceMassTransfer =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
-        (redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PowerLawTemperature
-            (D_ab0=6.4854e-26, n=5.7227)))
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal (
+         redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PowerLawTemperature (
+             D_ab0=6.4854e-26, n=5.7227)))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT Sink(
     nPorts=1,
@@ -51,15 +50,13 @@ extends TRANSFORM.Icons.Example;
     pipe.nV] annotation (Placement(transformation(extent={{-38,12},{-18,32}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature boundary1[
     pipe.nV] annotation (Placement(transformation(extent={{28,12},{8,32}})));
-  UserInteraction.Outputs.SpatialPlot plotC(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot plotC(
     minX=0,
     maxX=1,
     minY=0,
     maxY=4.5e-4,
     y=pipe.pipe.Cs[:, 1],
-    x=x)
-    "X - Axial Location (m) | T - Temperature (C)"
-    annotation (Placement(transformation(extent={{-24,-72},{30,-18}})));
+    x=x) "X - Axial Location (m) | T - Temperature (C)" annotation (Placement(transformation(extent={{-24,-72},{30,-18}})));
     Real x[pipe.pipe.nV] = TRANSFORM.Math.cumulativeSum(pipe.pipe.geometry.dxs);
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={pipe.pipe.mediums[
         5].T,pipe.pipe.Cs[5, 1]})

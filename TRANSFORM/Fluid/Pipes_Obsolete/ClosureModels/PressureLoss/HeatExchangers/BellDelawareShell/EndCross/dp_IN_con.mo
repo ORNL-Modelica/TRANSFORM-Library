@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.HeatExchangers.BellDelawareShell.EndCross;
 record dp_IN_con "Input record for function dp_DP and dp_MFLOW"
-extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.Functions.BaseClasses.Partial_dp_GenericPipe_IN_con;
+extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.Functions.BaseClasses.Partial_dp_GenericPipe_IN_con;
   Boolean toggleStaggered "true = staggered grid type; false = in-line";
   SI.Length d_o "Outer diameter of tubes";
   SI.Length D_i "Inside shell diameter";

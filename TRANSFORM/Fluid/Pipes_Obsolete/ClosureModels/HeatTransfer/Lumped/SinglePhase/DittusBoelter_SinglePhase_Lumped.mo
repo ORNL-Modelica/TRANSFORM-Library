@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.SinglePhase;
 model DittusBoelter_SinglePhase_Lumped
   "Single Phase: Dittus Boelter correlation"
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.BaseClasses.PartialLumpedHeatTransfer;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Lumped.BaseClasses.PartialLumpedHeatTransfer;
   SI.CoefficientOfHeatTransfer alpha "Coefficient of heat transfer";
   SI.NusseltNumber Nu "Nusselt number";
   SI.SpecificEnthalpy h_fgp "Modified latent heat of vaporization";

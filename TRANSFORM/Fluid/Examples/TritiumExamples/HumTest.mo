@@ -33,11 +33,10 @@ model HumTest
     use_Ts_start=true,
     m_flow_a_start=2.468,
     redeclare model DiffusionCoeff_wall =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-        (iTable={10}),
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+         iTable={10}),
     redeclare model Geometry =
-        ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
-        (
+        ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe (
         dimension=0.0254,
         length=50,
         nV=50,
@@ -48,10 +47,10 @@ model HumTest
     T_a_start=973.15,
     T_b_start=973.15,
     redeclare model TraceMassTransfer =
-        ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region
-        (MMs=fill(0.006032, permeator.nC), redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation
-            (iTable={1})))
+        ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Shs_SinglePhase_2Region (
+         MMs=fill(0.006032, permeator.nC), redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.ArrheniusEquation (
+             iTable={1})))
     annotation (Placement(transformation(extent={{-10,10},{10,-10}})));
   Modelica.Fluid.Sources.Boundary_pT sink(
     nPorts=1,

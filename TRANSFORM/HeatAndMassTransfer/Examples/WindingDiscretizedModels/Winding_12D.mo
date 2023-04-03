@@ -6,8 +6,7 @@ model Winding_12D
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_28_5_d_7990_cp_500,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         nR=nNodes_1.k,
         nZ=nNodes_2.k,
         r_inner=0.01,
@@ -62,16 +61,15 @@ model Winding_12D
   Modelica.Blocks.Sources.RealExpression T_max(y=
         TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(winding.materials.T)))
     annotation (Placement(transformation(extent={{-38,-66},{-22,-54}})));
-  UserInteraction.Outputs.SpatialPlot Temperature_y0(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot Temperature_y0(
     x=xval,
     y=yval,
     minX=0.01,
     maxX=0.02,
     minY=45,
-    maxY=55)
-            "X - Axial Location (m) | T - Temperature (C) - Bottom Boundary"
+    maxY=55) "X - Axial Location (m) | T - Temperature (C) - Bottom Boundary"
     annotation (Placement(transformation(extent={{16,-76},{58,-36}})));
-  UserInteraction.Outputs.SpatialPlot Temperature_y_th_half(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot Temperature_y_th_half(
     x=xval2,
     y=yval2,
     minX=0.01,

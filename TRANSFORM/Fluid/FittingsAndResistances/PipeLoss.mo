@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.FittingsAndResistances;
 model PipeLoss
   extends TRANSFORM.Icons.UnderConstruction;
-  extends
-    TRANSFORM.Fluid.FittingsAndResistances.BaseClasses.PartialResistancenew;
+  extends TRANSFORM.Fluid.FittingsAndResistances.BaseClasses.PartialResistancenew;
   //   parameter Boolean use_Dimension=true
   //     "=true to specify characteristic dimension else cross-sectional area and wetted perimeter"
   //     annotation (Evaluate=true);
@@ -24,8 +23,7 @@ model PipeLoss
   //   annotation (Dialog(group="Inputs"));
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.Circle
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.PartialGeometry
+    constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.PartialGeometry
     annotation (choicesAllMatching=true);
   Geometry geometry annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"

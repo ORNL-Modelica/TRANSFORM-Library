@@ -12,17 +12,17 @@ model nParallel_withWall_FlowBoundary
     use_TraceMassTransferOuter=true,
     energyDynamics_wall=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
-        (                                                     dimension=0.01,
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe (
+                                                              dimension=0.01,
           nV=10),
     redeclare model HeatTransfer =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas
-        (alpha0=1000),
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas (
+         alpha0=1000),
     redeclare model TraceMassTransfer =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM
-        (redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-            (D_ab0=1), alphaM0=fill(1, Medium.nC)))
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM (
+         redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
+             D_ab0=1), alphaM0=fill(1, Medium.nC)))
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
   Utilities.Visualizers.displayReal boundaryQ_p(val=pipe_single.port_a.p)
     annotation (Placement(transformation(extent={{-52,84},{-32,104}})));
@@ -82,20 +82,20 @@ model nParallel_withWall_FlowBoundary
     use_TraceMassTransfer=true,
     nParallel=10,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
-        (                                                     dimension=0.01,
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe (
+                                                              dimension=0.01,
           nV=10),
     use_HeatTransferOuter=true,
     use_TraceMassTransferOuter=true,
     energyDynamics_wall=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model HeatTransfer =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas
-        (alpha0=1000),
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas (
+         alpha0=1000),
     redeclare model TraceMassTransfer =
-        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM
-        (redeclare model DiffusionCoeff =
-            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-            (D_ab0=1), alphaM0=fill(1, Medium.nC)))
+        TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.AlphasM (
+         redeclare model DiffusionCoeff =
+            TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
+             D_ab0=1), alphaM0=fill(1, Medium.nC)))
     annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
   Utilities.Visualizers.displayReal boundaryQ_p1(val=pipe_nParallel.port_a.p)
     annotation (Placement(transformation(extent={{-50,-16},{-30,4}})));

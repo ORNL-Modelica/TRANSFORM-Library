@@ -56,16 +56,15 @@ model HeatedPipe_Transients
     redeclare package Medium = Medium,
     p_a_start=sink.p,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=D_hyd,
         length=length,
         roughness=roughness,
         angle=angle,
         nV=nV),
     redeclare model HeatTransfer =
-        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas_TwoPhase_4Region
-        (HT_width={0.02,0.005,0.0005}, HT_smooth={0,0.99,0.995}))
+        TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Alphas_TwoPhase_4Region (
+         HT_width={0.02,0.005,0.0005}, HT_smooth={0,0.99,0.995}))
     "{sum(wall.geometry.crossAreas_1[end, :])/pipe.nV*wall.nParallel}"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -86,15 +85,14 @@ model HeatedPipe_Transients
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_20_d_8000_cp_500,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         nR=nR,
         nZ=nV,
         r_outer=r_outer,
         length_z=length),
     redeclare model InternalHeatModel =
-        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-        (Q_gen=power.y))
+        TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration (
+         Q_gen=power.y))
     annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=180,

@@ -43,14 +43,13 @@ model Problem_4new "I-135 Decay with Non-uniform concentration"
     p_a_start=p_start,
     T_a_start=T_start,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=dimension,
         length=length,
         nV=nV),
     redeclare model InternalTraceGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens)) annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration (
+         mC_gens=mC_gens)) annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   BoundaryConditions.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
     use_C_in=true,

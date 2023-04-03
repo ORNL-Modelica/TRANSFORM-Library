@@ -1,8 +1,8 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models;
 partial model PartialHeatTransfer
   "Base model"
-  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in the component"
     annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
   parameter Integer nHT=1 "Number of heat transfer segments"
     annotation (Dialog(tab="Internal Interface"));

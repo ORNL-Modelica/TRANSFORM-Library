@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes;
 model SimpleCylinder "Straight Cylinder"
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.PartialDrumType;
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.PartialDrumType;
   parameter SI.Length r_1 "Region 1 radius" annotation(Dialog(group="Region 1: Cylinder"));
   parameter SI.Height h_1 "Region 1 height" annotation(Dialog(group="Region 1: Cylinder"));
   SI.Area A_1c = pi*r_1^2 "Region 1 cross liquid/vapor surface area";

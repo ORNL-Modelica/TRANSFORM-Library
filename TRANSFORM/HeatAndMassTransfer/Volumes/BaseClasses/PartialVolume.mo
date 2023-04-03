@@ -2,8 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.Volumes.BaseClasses;
 partial model PartialVolume
   import Modelica.Fluid.Types.Dynamics;
   extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
-  replaceable package Material = TRANSFORM.Media.Solids.SS304 constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+  replaceable package Material = TRANSFORM.Media.Solids.SS304 constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                             "Material properties" annotation (
       choicesAllMatching=true);
   input SI.Volume V "Volume" annotation (Dialog(group="Inputs"));

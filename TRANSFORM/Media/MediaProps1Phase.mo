@@ -1,8 +1,8 @@
 within TRANSFORM.Media;
 record MediaProps1Phase
 
-  replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in the component"
     annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
 
   //Medium.ThermodynamicState state "Medium state"; //<-causes error as does not update state variables

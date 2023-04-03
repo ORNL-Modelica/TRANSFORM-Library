@@ -7,8 +7,7 @@ model Condenser_Test
     alphaInt_WExt=1000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.Cylinder_wInternalPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.Cylinder_wInternalPipe (
         orientation="Horizontal",
         length=5,
         r_inner=1.5,
@@ -61,8 +60,8 @@ model Condenser_Test
     offset=30,
     startTime=500)
     annotation (Placement(transformation(extent={{99,41},{83,57}})));
-  Sensors.MassFlowRate                       massFlowRate(redeclare package
-      Medium = Modelica.Media.Water.StandardWater)
+  Sensors.MassFlowRate                       massFlowRate(redeclare package Medium =
+               Modelica.Media.Water.StandardWater)
     annotation (Placement(transformation(extent={{-55,33},{-37,15}})));
   Utilities.ErrorAnalysis.UnitTests unitTests(x={cond.level})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models;
 model NominalLaminarFlow
   "NominalLaminarFlow: Linear laminar flow for given nominal values"
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.PartialStaggeredFlowModel(
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.PartialStaggeredFlowModel(
       use_mu_nominal=not show_Res);
   // Operational conditions
   parameter SI.AbsolutePressure dp_nominal "Nominal pressure loss";

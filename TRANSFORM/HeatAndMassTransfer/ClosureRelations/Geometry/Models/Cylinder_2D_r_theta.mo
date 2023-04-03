@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Cylinder_2D_r_theta
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D(
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D(
       final ns={nR,nTheta}, final figure=2);
   parameter Integer nR(min=1) = 1 "Number of nodes in r-direction";
   parameter Integer nTheta(min=1) = 1 "Number of nodes in theta-direction";

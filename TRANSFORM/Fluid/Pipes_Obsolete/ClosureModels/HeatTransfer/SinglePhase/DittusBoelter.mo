@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.SinglePhase;
 model DittusBoelter "Dittus-Boelter: Single-phase"
   import TRANSFORM;
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialPipeFlowHeatTransfer;
 equation
    for i in 1:nHT loop
     alphas[i] =

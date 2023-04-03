@@ -20,7 +20,7 @@ package Beryllium "Pure natural Beryllium"
 
   redeclare function extends specificEnthalpy
     "Specific enthalpy"
-protected
+  protected
             Real t = state.T/1000;
             SI.SpecificEnthalpy h_lo, h_hi;
   algorithm
@@ -43,7 +43,7 @@ protected
 
   redeclare function extends specificHeatCapacityCp
     "Specific heat capacity"
-protected
+  protected
             Real t = state.T/1000;
             SI.SpecificHeatCapacity cp_lo, cp_hi;
   algorithm

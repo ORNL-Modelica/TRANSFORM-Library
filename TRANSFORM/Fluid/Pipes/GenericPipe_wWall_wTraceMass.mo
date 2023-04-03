@@ -8,8 +8,7 @@ model GenericPipe_wWall_wTraceMass
   // Geometry Model
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.PartialPipeWithWall
+    constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.PartialPipeWithWall
     "Geometry" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
   Geometry geometry
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
@@ -19,8 +18,7 @@ model GenericPipe_wWall_wTraceMass
     use_TraceMassTransfer=true);
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
     annotation (Dialog(tab="Advanced", group="Inputs"));
-  replaceable package Material = TRANSFORM.Media.Solids.SS316 constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+  replaceable package Material = TRANSFORM.Media.Solids.SS316 constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                             "Wall material properties"
     annotation (choicesAllMatching=true);
   parameter Boolean counterCurrent=false "Swap wall vector order";
@@ -59,8 +57,7 @@ model GenericPipe_wWall_wTraceMass
          "Model Structure", tab="Advanced"));
   replaceable model InternalHeatModel_wall =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalHeatGeneration
     "Internal heat generation" annotation (Dialog(group="Heat Transfer"),
       choicesAllMatching=true);
   final parameter Integer nC=Medium.nC "Number of trace substances";
@@ -93,13 +90,11 @@ model GenericPipe_wWall_wTraceMass
         group="Start Value: Concentration"));
   replaceable model InternalMassModel_wall =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericMassGeneration
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalMassGeneration
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalMassGeneration
     "Internal mass generation" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
   replaceable model DiffusionCoeff_wall =
-      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-                                                                                          constrainedby
+      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient    constrainedby
     TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
     "Diffusion Coefficient" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);

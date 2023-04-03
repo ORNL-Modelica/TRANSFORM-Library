@@ -31,8 +31,7 @@ model part_b_TemperatureAndPosition
     exposeState_a1=false,
     exposeState_b1=true,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
         length_y=th.y,
         nX=nNodes_1.k,
         length_z=w.y,
@@ -58,7 +57,7 @@ model part_b_TemperatureAndPosition
   Modelica.Blocks.Sources.RealExpression R_e[nNodes_1.k](y={rho_e.y*2*L.y/beam.geometry.crossAreas_1
         [i] for i in 1:nNodes_1.k})
     annotation (Placement(transformation(extent={{-10,56},{10,76}})));
-  UserInteraction.Outputs.SpatialPlot TemperaturePosition(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePosition(
     minX=0,
     x=xval,
     y=yval,

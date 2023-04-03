@@ -2,8 +2,7 @@ within TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels;
 model SquareSubChannel
   input SI.Length pitch = 2*rs_outer[end] + 0.01 "Distance between pin centers" annotation(Dialog(group="Inputs"));
   input SI.Length gap_PW = 0.5*pitch "Gap between pin center and wall" annotation(Dialog(group="Inputs",enable=if channelType=="Center" then false else true));
-  extends
-    TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Generic(
+  extends TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Generic(
     final nPins = if channelType == "Center" then 1.0 elseif channelType == "Edge" then 0.5 else 0.25,
     final dimension = 4*crossArea/perimeter,
     final crossArea = crossArea_int,

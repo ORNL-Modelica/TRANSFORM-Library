@@ -9,8 +9,7 @@ model Figure_1_14_NumericalSolutionsMT
   DiscritizedModels.HMTransfer_1D cylinder(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_r
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_r (
         nR=nNodes_1.k,
         r_inner=r_in.y,
         r_outer=r_out.y,
@@ -26,8 +25,8 @@ model Figure_1_14_NumericalSolutionsMT
     nC=2,
     traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-        (D_abs0={1e-2,1e-5}))
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
+         D_abs0={1e-2,1e-5}))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=20)
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
@@ -42,7 +41,7 @@ model Figure_1_14_NumericalSolutionsMT
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Modelica.Blocks.Sources.Constant r_in(each k=0.1) "inner radius"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
-  UserInteraction.Outputs.SpatialPlot CylinderTemperature(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot CylinderTemperature(
     minX=0.1,
     maxX=0.2,
     minY=450,
@@ -74,7 +73,7 @@ model Figure_1_14_NumericalSolutionsMT
     C={1.5,1.5},
     use_port=false)
     annotation (Placement(transformation(extent={{90,-30},{70,-10}})));
-  UserInteraction.Outputs.SpatialPlot TemperaturePlot(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePlot(
     minY=0,
     maxY=6,
     x=cat(
@@ -88,10 +87,9 @@ model Figure_1_14_NumericalSolutionsMT
         1,
         {high_pressure.C[1]},
         cylinder.Cs[:, 1],
-        {low_pressure.C[1]}))
-              "X - Axial Location (mm) | C - concentration (mol/m3)"
+        {low_pressure.C[1]})) "X - Axial Location (mm) | C - concentration (mol/m3)"
     annotation (Placement(transformation(extent={{34,-78},{68,-46}})));
-  UserInteraction.Outputs.SpatialPlot TemperaturePlot1(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePlot1(
     minY=0,
     maxY=6,
     x=cat(
@@ -105,8 +103,7 @@ model Figure_1_14_NumericalSolutionsMT
         1,
         {high_pressure.C[2]},
         cylinder.Cs[:, 2],
-        {low_pressure.C[2]}))
-              "X - Axial Location (mm) | C - concentration (mol/m3)"
+        {low_pressure.C[2]})) "X - Axial Location (mm) | C - concentration (mol/m3)"
     annotation (Placement(transformation(extent={{68,-78},{102,-46}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={high_pressure.C[
         1],cylinder.Cs[10, 1],low_pressure.C[1]})

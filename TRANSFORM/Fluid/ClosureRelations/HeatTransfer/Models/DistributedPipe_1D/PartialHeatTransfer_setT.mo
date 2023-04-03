@@ -2,8 +2,8 @@ within TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D;
 partial model PartialHeatTransfer_setT "Base model"
   parameter Real nParallel=1 "Number of parallel components" annotation(Dialog(tab="Internal Interface"));
 //Modelica.Media.Air.MoistAir
-  replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in the component"
     annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
   parameter Integer nHT=1 "Number of heat transfer segments"
     annotation (Dialog(tab="Internal Interface"));

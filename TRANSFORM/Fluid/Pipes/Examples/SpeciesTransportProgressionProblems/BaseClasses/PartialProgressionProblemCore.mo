@@ -63,14 +63,13 @@ partial model PartialProgressionProblemCore
     T_a_start=T_start,
     m_flow_a_start=m_flow,
     redeclare replaceable model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=dimension,
         length=length,
         nV=nV),
     redeclare replaceable model InternalTraceGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-        (mC_gens=mC_gens))
+        TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration (
+         mC_gens=mC_gens))
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   BoundaryConditions.MassFlowSource_T boundary(
     redeclare package Medium = Medium,

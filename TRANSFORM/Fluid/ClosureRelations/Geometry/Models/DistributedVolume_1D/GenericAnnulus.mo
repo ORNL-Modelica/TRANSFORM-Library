@@ -5,8 +5,7 @@ model GenericAnnulus
     annotation (Dialog(group="Inputs"));
   input SI.Length rs_outer[nV] = ones(nV) "Outer radius"
     annotation (Dialog(group="Inputs"));
-  extends
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe(
+  extends TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe(
     final figure=2,
     final dimensions=4*crossAreas ./ perimeters,
     final crossAreas=pi*(rs_outer .^ 2 - rs_inner .^ 2),

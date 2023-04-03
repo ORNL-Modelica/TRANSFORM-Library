@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.FittingsAndResistances;
 model SharpEdgedAdaptor
-  extends
-    TRANSFORM.Fluid.FittingsAndResistances.BaseClasses.PartialResistancenew;
+  extends TRANSFORM.Fluid.FittingsAndResistances.BaseClasses.PartialResistancenew;
   parameter Boolean use_Dimension=true
     "=true to specify characteristic dimension else cross-sectional area and wetted perimeter"
     annotation (Evaluate=true);

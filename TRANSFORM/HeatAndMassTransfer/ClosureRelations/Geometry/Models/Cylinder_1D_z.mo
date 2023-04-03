@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Cylinder_1D_z
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D(
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D(
       final ns={nZ}, final figure=2);
   parameter Integer nZ(min=1) = 1 "Number of nodes in z-direction";
   input SI.Length r_inner = 0 "Specify inner radius or dthetas in r-dimension and r_outer" annotation(Dialog(group="Inputs"));

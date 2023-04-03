@@ -30,8 +30,7 @@ model HMTransfer_3D
     "=true, toggle off diffusive mass transfer in dimension {1,2,3}"
     annotation (Dialog(group="Trace Mass Transfer"));
   replaceable model DiffusionModel =
-      BaseClasses.Dimensions_3.ForwardDifferenceMass_1O constrainedby
-    BaseClasses.Dimensions_3.PartialDistributedMassFlow
+      BaseClasses.Dimensions_3.ForwardDifferenceMass_1O constrainedby BaseClasses.Dimensions_3.PartialDistributedMassFlow
     "Diffusive mass transfer" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
   DiffusionModel diffusionModel(
@@ -59,8 +58,7 @@ model HMTransfer_3D
     final D_abs_3=D_absFM_3) "Diffusion Model" annotation (Placement(
         transformation(extent={{-58,62},{-42,78}}, rotation=0)));
   replaceable model DiffusionCoeff =
-      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-                                                                                          constrainedby
+      TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient    constrainedby
     TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
     "Diffusion Coefficient" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
@@ -69,8 +67,7 @@ model HMTransfer_3D
     final T=materials.T) "Diffusion Coefficient" annotation (Placement(
         transformation(extent={{-38,42},{-22,58}}, rotation=0)));
   replaceable model InternalMassModel =
-      BaseClasses.Dimensions_3.GenericMassGeneration constrainedby
-    BaseClasses.Dimensions_3.PartialInternalMassGeneration
+      BaseClasses.Dimensions_3.GenericMassGeneration constrainedby BaseClasses.Dimensions_3.PartialInternalMassGeneration
     "Internal mass generation" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
   InternalMassModel internalMassModel(

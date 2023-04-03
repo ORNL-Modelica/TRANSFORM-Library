@@ -41,8 +41,8 @@ model DecayBed_Simple
     X_start=Xs_start,
     C_start=Cs_start,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
-        (V=Vs),
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume (
+         V=Vs),
     mC_gen=mC_gens)
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
   TRANSFORM.Fluid.FittingsAndResistances.SpecifiedResistance resistance[nV](

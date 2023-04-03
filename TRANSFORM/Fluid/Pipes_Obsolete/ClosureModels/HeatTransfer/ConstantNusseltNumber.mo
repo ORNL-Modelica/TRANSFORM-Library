@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer;
 model ConstantNusseltNumber "Constant Nusselt Number"
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialFlowHeatTransfer(
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.BaseClasses.PartialFlowHeatTransfer(
       alphas_start=1000*ones(nHT));
   parameter SI.NusseltNumber[nHT] Nus0 = 7.54*ones(nHT) "Constant Nusselt number";
   parameter Boolean useDimensions = true "=true for default dimensions from model";

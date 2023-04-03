@@ -4,8 +4,7 @@ model SpecificEntropy "Ideal one port specific entropy sensor"
   extends BaseClasses.PartialMultiSensor_1values(final var=s,
       redeclare replaceable function iconUnit =
         TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.to_J_kgK
-      constrainedby
-      TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.BaseClasses.to);
+      constrainedby TRANSFORM.Units.Conversions.Functions.SpecificHeatAndEntropy_J_kgK.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")
     "Specific entropy in port medium"

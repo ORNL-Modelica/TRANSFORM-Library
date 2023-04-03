@@ -3,8 +3,7 @@ partial model Partial_FDCond_Cylinder "BaseClass for 2D Cylindrical FD"
   import      Modelica.Units.SI;
   import Modelica.Fluid.Types.Dynamics;
   import Modelica.Constants.pi;
-  extends
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.BaseClasses.Partial_BaseFDCond_Cylinder;
+  extends TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.Cylindrical.BaseClasses.Partial_BaseFDCond_Cylinder;
   SI.Volume V_total=pi*(r_outer^2 - r_inner^2)*length
     "Total cylinder volume";
   SI.Volume Vs[nR,nZ] "Volume each node";

@@ -6,8 +6,7 @@ model Winding_12D_withMass
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_28_5_d_7990_cp_500,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         nR=nNodes_1.k,
         nZ=nNodes_2.k,
         r_inner=0.01,
@@ -26,8 +25,8 @@ model Winding_12D_withMass
           q_ppp=6e5),
     traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare model DiffusionCoeff =
-        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-        (D_ab0=1e-6))
+        TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient (
+         D_ab0=1e-6))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=5)
     annotation (Placement(transformation(extent={{-98,88},{-90,96}})));
@@ -66,16 +65,15 @@ model Winding_12D_withMass
   Modelica.Blocks.Sources.RealExpression T_max(y=
         TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(winding.materials.T)))
     annotation (Placement(transformation(extent={{-38,-66},{-22,-54}})));
-  UserInteraction.Outputs.SpatialPlot Temperature_y0(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot Temperature_y0(
     x=xval,
     y=yval,
     minX=0.01,
     maxX=0.02,
     minY=45,
-    maxY=55)
-            "X - Axial Location (m) | T - Temperature (C) - Bottom Boundary"
+    maxY=55) "X - Axial Location (m) | T - Temperature (C) - Bottom Boundary"
     annotation (Placement(transformation(extent={{16,-76},{58,-36}})));
-  UserInteraction.Outputs.SpatialPlot Temperature_y_th_half(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot Temperature_y_th_half(
     x=xval2,
     y=yval2,
     minX=0.01,
@@ -111,23 +109,21 @@ model Winding_12D_withMass
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={20,-30})));
-  UserInteraction.Outputs.SpatialPlot Concentration_y_th_half(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot Concentration_y_th_half(
     minX=0.01,
     maxX=0.02,
     x=mxval2,
     y=myval2,
     minY=0,
-    maxY=1)
-    "X - Axial Location (m) | C - Concentration (mol/m3) - Top Boundary"
+    maxY=1) "X - Axial Location (m) | C - Concentration (mol/m3) - Top Boundary"
     annotation (Placement(transformation(extent={{-90,-76},{-48,-36}})));
-  UserInteraction.Outputs.SpatialPlot Concentration_y(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot Concentration_y(
     minX=0.01,
     maxX=0.02,
     x=mxval,
     y=myval,
     minY=0,
-    maxY=1)
-    "X - Axial Location (m) | C - Concentration (mol/m3) - Bottom Boundary"
+    maxY=1) "X - Axial Location (m) | C - Concentration (mol/m3) - Bottom Boundary"
     annotation (Placement(transformation(extent={{-136,-76},{-94,-36}})));
      Real xval[nNodes_1.k] = abs(winding.geometry.cs_1[:, 1]);
   Real yval[nNodes_1.k]=

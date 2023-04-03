@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.Evaporation;
 model PhaseSeparationHypothesis
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.Evaporation.PartialBulkEvaporation;
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.MassTransfer.Evaporation.PartialBulkEvaporation;
   /*
   Source:
   1. NUREG-CR-4449 pg 30

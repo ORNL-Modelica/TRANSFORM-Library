@@ -31,7 +31,7 @@ model Example_2_2_1_2DFin
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,-30})));
-  UserInteraction.Outputs.SpatialPlot Temperature_y0(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot Temperature_y0(
     minX=0,
     maxX=0.05,
     minY=20,
@@ -39,7 +39,7 @@ model Example_2_2_1_2DFin
     x=xval,
     y=yval) "X - Axial Location (m) | T - Temperature (C) - Bottom Boundary"
     annotation (Placement(transformation(extent={{16,-76},{58,-36}})));
-  UserInteraction.Outputs.SpatialPlot Temperature_y_th_half(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot Temperature_y_th_half(
     minX=0,
     maxX=0.05,
     minY=20,
@@ -54,8 +54,7 @@ model Example_2_2_1_2DFin
     exposeState_b2=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D (
         nX=nNodes_1.k,
         nY=nNodes_2.k,
         length_x=L.y,

@@ -1,8 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.FinEfficiency;
 model RectangleAnnular
   import GSL = TRANSFORM.Math.GNU_ScientificLibrary.Functions.specfunc;
-  extends
-    TRANSFORM.HeatAndMassTransfer.FinEfficiency.BaseClasses.PartialFinEfficiency;
+  extends TRANSFORM.HeatAndMassTransfer.FinEfficiency.BaseClasses.PartialFinEfficiency;
   parameter Boolean use_NonDimensional = false;
   input SI.CoefficientOfHeatTransfer alpha "Average heat transfer coefficient" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
   input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));

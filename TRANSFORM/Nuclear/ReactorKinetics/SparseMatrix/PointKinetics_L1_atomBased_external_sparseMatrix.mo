@@ -111,8 +111,7 @@ model PointKinetics_L1_atomBased_external_sparseMatrix
 
   replaceable model Reactivity =
       TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Distributed.Isotopes_external_sparseMatrix
-    constrainedby
-    TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Distributed.PartialIsotopesExternal
+    constrainedby TRANSFORM.Nuclear.ReactorKinetics.SparseMatrix.Reactivity.Isotopes.Distributed.PartialIsotopesExternal
     "Additional reactivity contributions" annotation (choicesAllMatching=true,
       Dialog(group="Additional Reactivity"));
   Reactivity reactivity(

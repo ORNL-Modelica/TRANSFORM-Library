@@ -6,8 +6,7 @@ model Example_1_3_2_AbsorptionInALens
   DiscritizedModels.Conduction_1D lense(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
         nX=nNodes_1.k,
         length_x=L.y,
         length_y=1,
@@ -35,13 +34,12 @@ model Example_1_3_2_AbsorptionInALens
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature
     Ambient_bottom(T=293.15)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  UserInteraction.Outputs.SpatialPlot TemperaturePlot(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePlot(
     x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_mm(lense.geometry.xs),
     maxX=10,
     y=TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(lense.materials.T),
     minY=35.6,
-    maxY=36.4) "X - Axial Location (mm) | T - Temperature (C)"
-    annotation (Placement(transformation(extent={{-30,-78},{30,-20}})));
+    maxY=36.4) "X - Axial Location (mm) | T - Temperature (C)" annotation (Placement(transformation(extent={{-30,-78},{30,-20}})));
   Modelica.Blocks.Sources.RealExpression position(y=
         TRANSFORM.Units.Conversions.Functions.Distance_m.to_cm(lense.geometry.xs[
         Modelica.Math.Vectors.find(

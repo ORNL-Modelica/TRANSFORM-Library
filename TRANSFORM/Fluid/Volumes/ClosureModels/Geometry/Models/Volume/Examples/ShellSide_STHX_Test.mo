@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples;
 model ShellSide_STHX_Test
   extends Icons.Example;
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
     dimensions_Exp=0.0125,
     crossAreas_Exp=0.0589048623,
     perimeters_Exp=18.84955592,

@@ -2,8 +2,8 @@ within TRANSFORM.Examples.MoltenSaltReactor.Components;
 model DRACS
   extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
   replaceable package Medium_DRACS =
-      TRANSFORM.Media.Fluids.NaK.LinearNaK_22_78_pT constrainedby
-    Modelica.Media.Interfaces.PartialMedium annotation (choicesAllMatching=true);
+      TRANSFORM.Media.Fluids.NaK.LinearNaK_22_78_pT constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            annotation (choicesAllMatching=true);
   input SI.Area surfaceAreas_thimble[2] = fill(1,2)
     "Heat transfer surface area for gas and salt"
     annotation (Dialog(group="Inputs"));
@@ -48,8 +48,8 @@ model DRACS
     redeclare package Medium = Medium_DRACS,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
           length=data_OFFGAS.length_thimbles),
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
@@ -104,8 +104,7 @@ model DRACS
     val_min=data_OFFGAS.T_cold_dracs,
     val_max=data_OFFGAS.T_hot_dracs,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_OFFGAS.D_pipeToFrom_DRACS,
         length=data_OFFGAS.length_pipeToFrom_DRACS,
         angle=1.5707963267949),
@@ -127,8 +126,8 @@ model DRACS
     T_b_start=data_OFFGAS.T_cold_dracs,
     showName=false,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=data_OFFGAS.D_inner_thimbles - 2*data_OFFGAS.th_inner_thimbles,
           length=data_OFFGAS.length_thimbles_waterTank))
                                         annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -162,8 +161,8 @@ model DRACS
     p=100000,
     showName=false)
               annotation (Placement(transformation(extent={{200,52},{180,72}})));
-  Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow(redeclare package
-      Medium = Modelica.Media.Water.StandardWater, use_input=true)
+  Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow(redeclare package Medium =
+               Modelica.Media.Water.StandardWater, use_input=true)
     annotation (Placement(transformation(extent={{152,52},{172,72}})));
   Modelica.Blocks.Sources.RealExpression realExpression(y=waterTank.port_a.m_flow)
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
@@ -190,8 +189,7 @@ model DRACS
     val_max=data_OFFGAS.T_hot_dracs,
     T_a_start=data_OFFGAS.T_cold_dracs,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_OFFGAS.D_pipeToFrom_DRACS,
         length=data_OFFGAS.length_pipeToFrom_DRACS,
         angle=1.5707963267949),
@@ -199,8 +197,8 @@ model DRACS
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-100,-10})));
-  Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Medium_DRACS,
+  Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package Medium =
+               Medium_DRACS,
     showName=false,
     R=-2000)                          annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},

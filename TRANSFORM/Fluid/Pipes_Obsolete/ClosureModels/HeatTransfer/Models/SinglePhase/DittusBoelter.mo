@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.SinglePhase;
 model DittusBoelter
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.PartialHeatTransfer_setQ_flows;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Models.PartialHeatTransfer_setQ_flows;
   SI.NusseltNumber[nHT] Nus "Nusselt number";
   SI.ReynoldsNumber[nHT] Res "Reynolds number";
   SI.PrandtlNumber[nHT] Prs "Prandtl number";

@@ -3,8 +3,8 @@ model IdealCondenser "Ideal condenser with fixed pressure"
   import Modelica.Fluid.Types.Dynamics;
   extends BaseClasses.Icon_TwoVolume;
   outer Modelica.Fluid.System system "System properties";
-  replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in component" annotation(choicesAllMatching=true);
+  replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in component" annotation(choicesAllMatching=true);
   Interfaces.FluidPort_State            port_a(redeclare package Medium =
         Medium) "Steam port" annotation (Placement(transformation(extent={{-90,80},
             {-50,120}},

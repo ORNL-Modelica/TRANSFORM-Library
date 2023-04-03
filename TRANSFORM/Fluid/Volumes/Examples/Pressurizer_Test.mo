@@ -17,8 +17,8 @@ model Pressurizer_Test
     m_flow=0,
     nPorts=1)
     annotation (Placement(transformation(extent={{-48,-70},{-28,-50}})));
-  Modelica.Fluid.Sources.MassFlowSource_h relief(          redeclare package
-      Medium = Modelica.Media.Water.StandardWater,
+  Modelica.Fluid.Sources.MassFlowSource_h relief(          redeclare package Medium =
+               Modelica.Media.Water.StandardWater,
     h=relief.Medium.dewEnthalpy(relief.Medium.setSat_p(system.p_start)),
     nPorts=1)
     annotation (Placement(transformation(extent={{48,50},{28,70}})));
@@ -36,22 +36,22 @@ model Pressurizer_Test
         h_2=1,
         r_3=1),
     redeclare model BulkEvaporation =
-        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Evaporation.ConstantTimeDelay
-        (tau=15),
+        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Evaporation.ConstantTimeDelay (
+         tau=15),
     redeclare model BulkCondensation =
-        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay
-        (tau=15),
+        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay (
+         tau=15),
     redeclare model MassTransfer_VL =
-        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantMassTransportCoefficient
-        (alphaD0=1e-3),
+        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantMassTransportCoefficient (
+         alphaD0=1e-3),
     redeclare model HeatTransfer_VL =
-        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantHeatTransferCoefficient
-        (alpha0=100),
+        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.PhaseInterface.ConstantHeatTransferCoefficient (
+         alpha0=100),
     redeclare model HeatTransfer_WL =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     redeclare model HeatTransfer_WV =
-        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient
-        (alpha0=0),
+        TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient (
+         alpha0=0),
     Vfrac_liquid_start=0.6)
     annotation (Placement(transformation(extent={{-23,-24},{23,24}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature Temp_wallVapor(T=398.15)

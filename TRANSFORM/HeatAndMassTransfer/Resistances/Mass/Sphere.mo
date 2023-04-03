@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
 model Sphere "Sphere | Radial"
-  extends
-    TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
+  extends TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
   input SI.Length r_in "Inner radius" annotation(Dialog(group="Inputs"));
   input SI.Length r_out "Outer radius" annotation(Dialog(group="Inputs"));
   input SI.DiffusionCoefficient D_ab[nC] "Diffusion coefficient" annotation(Dialog(group="Inputs"));

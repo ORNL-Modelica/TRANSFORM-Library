@@ -23,8 +23,8 @@ model TransientResponseOfATankWall
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   DiscritizedModels.Conduction_1D wall(
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
-        (                                                              nX=
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D (
+                                                                       nX=
             nNodes_1.k, length_x=th.y),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     exposeState_a1=true,
@@ -84,14 +84,13 @@ model TransientResponseOfATankWall
   Modelica.Blocks.Sources.Constant alpha_gas(each k=100)
     "heat transfer coefficient"
     annotation (Placement(transformation(extent={{-40,84},{-32,92}})));
-  UserInteraction.Outputs.SpatialPlot wallTemperature(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot wallTemperature(
     minX=0,
     maxX=0.8,
     maxY=475,
     y=wall.materials.T,
     x=wall.geometry.cs_1*100,
-    minY=400) "X - Axial Location (cm) | T - Temperature (K)"
-    annotation (Placement(transformation(extent={{10,-86},{64,-32}})));
+    minY=400) "X - Axial Location (cm) | T - Temperature (K)" annotation (Placement(transformation(extent={{10,-86},{64,-32}})));
   Modelica.Blocks.Sources.RealExpression T_hot(y=Thot_tank.y)
     annotation (Placement(transformation(extent={{100,10},{80,30}})));
   Modelica.Blocks.Sources.RealExpression T_cold(y=Tcold_tank.y)

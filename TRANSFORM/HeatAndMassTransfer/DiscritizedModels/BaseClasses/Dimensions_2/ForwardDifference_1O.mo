@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2;
 model ForwardDifference_1O
-  extends
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialDistributedFlow;
+  extends TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialDistributedFlow;
 equation
   if adiabaticDims[1] == false then
     for i in 1:nFM_1 loop

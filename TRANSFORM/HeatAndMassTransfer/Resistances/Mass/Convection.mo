@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
 model Convection "Convection"
-  extends
-    TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
+  extends TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
   input SI.Area surfaceArea "Transfer surface area"
     annotation (Dialog(group="Inputs"));
   input Units.CoefficientOfMassTransfer alphaM[nC]

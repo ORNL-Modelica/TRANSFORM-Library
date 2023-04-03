@@ -1,8 +1,7 @@
 within TRANSFORM.HeatExchangers.BellDelaware_STHX.BaseClasses.FlowModels;
 model ShellEndCrossFlow
   "ShellFlow End Cross: Shell-side End Cross (of a shell and tube heat exchanger) flow pressure loss and gravity with replaceable WallFriction package"
-  extends
-    TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialSinglePhase;
+  extends TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialSinglePhase;
   parameter SI.DynamicViscosity mu_w__nominal = Medium.dynamicViscosity(
       Medium.setState_pTX(Medium.p_default, Medium.T_default, Medium.X_default))
     "Nominal wall viscosity";

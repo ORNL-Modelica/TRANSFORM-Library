@@ -8,8 +8,7 @@ model Sizing_EffectivenessNTU
     annotation (Placement(transformation(extent={{84,84},{96,96}})));
   replaceable model EffectivenessNTU =
       TRANSFORM.HeatExchangers.ClosureRelations.Models.EffectivenessNTU_Relations.ConcentricTube
-    constrainedby
-    TRANSFORM.HeatExchangers.ClosureRelations.Models.EffectivenessNTU_Relations.PartialEffectivenessNTU
+    constrainedby TRANSFORM.HeatExchangers.ClosureRelations.Models.EffectivenessNTU_Relations.PartialEffectivenessNTU
     "Select effectiveness-NTU method" annotation (choicesAllMatching=true);
   EffectivenessNTU effectivenessNTU(
     C_1=C_1,

@@ -23,8 +23,7 @@ model SCO2Loop
     T_b_start_tube=data.T_out_pcx,
     nParallel=data.nT_300,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.PrintedCircuitHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.PrintedCircuitHX (
         length=data.length_pcx,
         th_tube=data.r_pcx*2,
         nR=3,
@@ -57,8 +56,8 @@ model SCO2Loop
   Fluid.Pipes.GenericPipe_MultiTransferSurface AHX(
     redeclare package Medium = Medium,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data.d_inner_ahx, length=data.length_ahx),
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=data.d_inner_ahx, length=data.length_ahx),
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
@@ -80,8 +79,8 @@ model SCO2Loop
   Fluid.Pipes.GenericPipe_MultiTransferSurface WHX(
     redeclare package Medium = Medium,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data.d_inner_ahx, length=data.length_ahx),
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=data.d_inner_ahx, length=data.length_ahx),
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
@@ -132,8 +131,7 @@ model SCO2Loop
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare package Material_tubeWall = Media.Solids.Inconel690,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         nR=3,
         D_o_shell=0.1683 - 2*0.02195,
         length_shell=2,
@@ -171,8 +169,8 @@ model SCO2Loop
     p_a_start=data.p_nominal_PCL,
     m_flow_a_start=data.m_flow_salt_300kw,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (dimension=data.d_inner_pipe),
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
+         dimension=data.d_inner_pipe),
     T_a_start=data.T_in_pcx,
     redeclare model HeatTransfer =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
@@ -184,12 +182,12 @@ model SCO2Loop
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-50,74})));
-  Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow(redeclare package
-      Medium = Medium, m_flow_nominal=data.m_flow_co2_300kw,
+  Fluid.Machines.Pump_SimpleMassFlow pump_SimpleMassFlow(redeclare package Medium =
+               Medium, m_flow_nominal=data.m_flow_co2_300kw,
     use_input=false)
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Fluid.FittingsAndResistances.TeeJunctionVolume teeJunctionVolume(redeclare
-      package Medium = Medium, V=0.01)
+  Fluid.FittingsAndResistances.TeeJunctionVolume teeJunctionVolume(redeclare package Medium =
+                       Medium, V=0.01)
     annotation (Placement(transformation(extent={{-20,-64},{-8,-76}})));
   Fluid.Sensors.PressureTemperature sensor_pT4(
     redeclare package Medium = Medium,
@@ -207,8 +205,8 @@ model SCO2Loop
     precision=2,
     precision2=1)
     annotation (Placement(transformation(extent={{-6,32},{14,12}})));
-  Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package
-      Medium = Medium, R=1e6,
+  Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package Medium =
+               Medium, R=1e6,
     showName=systemTF.showName)
                               annotation (Placement(transformation(
         extent={{4,-4},{-4,4}},
@@ -244,8 +242,7 @@ model SCO2Loop
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare package Material_tubeWall = Media.Solids.Inconel690,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         nR=3,
         D_o_shell=0.1683 - 2*0.02195,
         length_shell=2,
@@ -274,8 +271,7 @@ model SCO2Loop
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare package Material_tubeWall = Media.Solids.Inconel690,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         nR=3,
         D_o_shell=0.1683 - 2*0.02195,
         length_shell=2,

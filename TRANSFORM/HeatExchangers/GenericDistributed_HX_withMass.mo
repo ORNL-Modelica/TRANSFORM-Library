@@ -7,23 +7,22 @@ model GenericDistributed_HX_withMass
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
   import TRANSFORM.Math.linspaceRepeat_1D_multi;
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_tube(redeclare package
-      Medium = Medium_tube) annotation (Placement(transformation(extent={{-110,-10},
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_tube(redeclare package Medium =
+               Medium_tube) annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b_tube(redeclare package
-      Medium = Medium_tube) annotation (Placement(transformation(extent={{90,-10},
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b_tube(redeclare package Medium =
+               Medium_tube) annotation (Placement(transformation(extent={{90,-10},
             {110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_shell(redeclare package
-      Medium = Medium_shell) annotation (Placement(transformation(extent={{90,36},
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_shell(redeclare package Medium =
+               Medium_shell) annotation (Placement(transformation(extent={{90,36},
             {110,56}}), iconTransformation(extent={{90,36},{110,56}})));
-  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b_shell(redeclare package
-      Medium = Medium_shell) annotation (Placement(transformation(extent={{-110,
+  TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_b_shell(redeclare package Medium =
+               Medium_shell) annotation (Placement(transformation(extent={{-110,
             36},{-90,56}}), iconTransformation(extent={{-110,36},{-90,56}})));
   parameter Real nParallel=1 "# of identical parallel HXs";
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.StraightPipeHX
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.GenericHX
+    constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.GenericHX
     "Geometry" annotation (choicesAllMatching=true);
   Geometry geometry
     annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
@@ -39,14 +38,12 @@ model GenericDistributed_HX_withMass
     "Swap shell side temperature and flux vector order";
   replaceable model FlowModel_shell =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
+    constrainedby TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
     "Shell side flow models (i.e., momentum, pressure loss, wall friction)"
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
   replaceable model FlowModel_tube =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
+    constrainedby TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.PartialDistributedStaggeredFlow
     "Tube side flow models (i.e., momentum, pressure loss, wall friction)"
     annotation (choicesAllMatching=true, Dialog(group="Pressure Loss"));
   parameter Boolean use_HeatTransfer_tube=true
@@ -381,8 +378,7 @@ model GenericDistributed_HX_withMass
     C_a_start=C_a_start_shell,
     C_b_start=C_b_start_shell,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
         nV=geometry.nV,
         crossAreas=geometry.crossAreas_shell,
         perimeters=geometry.perimeters_shell,
@@ -439,8 +435,7 @@ model GenericDistributed_HX_withMass
     C_a_start=C_a_start_tube,
     C_b_start=C_b_start_tube,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe (
         nV=geometry.nV,
         dimensions=geometry.dimensions_tube,
         dlengths=geometry.dlengths_tube,
@@ -478,8 +473,7 @@ model GenericDistributed_HX_withMass
     exposeState_a2=exposeState_a_tube,
     exposeState_b2=exposeState_b_tube,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_2D_r_z (
         r_inner=0.5*sum(geometry.dimensions_tube)/geometry.nV,
         r_outer=0.5*sum(geometry.dimensions_tube_outer)/geometry.nV,
         length_z=sum(geometry.dlengths_tube),
@@ -527,23 +521,19 @@ model GenericDistributed_HX_withMass
     "=true, toggle off diffusive mass transfer in dimension {1,2}"
     annotation (Dialog(tab="Trace Mass Transfer",group="Wall"));
   replaceable model TraceMassTransfer_shell =
-      Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
-                                                                                                         constrainedby
+      Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal constrainedby
     TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.PartialMassTransfer_setC
      annotation (Dialog(tab="Trace Mass Transfer",group="Shell"), choicesAllMatching=true);
   replaceable model TraceMassTransfer_tube =
-      Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal
-                                                                                                         constrainedby
+      Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.Ideal constrainedby
     TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_TraceMass_1D_MultiTransferSurface.PartialMassTransfer_setC
     annotation (Dialog(tab="Trace Mass Transfer",group="Tube"), choicesAllMatching=true);
   replaceable model InternalTraceGen_shell =
-      Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-                                                                                                              constrainedby
+      Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration constrainedby
     TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.PartialInternalTraceGeneration
      annotation (Dialog(tab="Trace Mass Transfer",group="Shell"), choicesAllMatching=true);
   replaceable model InternalTraceGen_tube =
-      Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration
-                                                                                                              constrainedby
+      Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.GenericTraceGeneration constrainedby
     TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.DistributedVolume_Trace_1D.PartialInternalTraceGeneration
     annotation (Dialog(tab="Trace Mass Transfer",group="Tube"), choicesAllMatching=true);
   parameter SI.Concentration Cs_start_wall[geometry.nR,geometry.nV,nC]=linspaceRepeat_1D_multi(Cs_start_wall_tubeSide,if counterCurrent then Modelica.Math.Matrices.flipUpDown(Cs_start_wall_shellSide) else Cs_start_wall_shellSide,geometry.nR)
@@ -564,14 +554,12 @@ model GenericDistributed_HX_withMass
          "Wall Initialization", group="Start Value: Concentration"));
   replaceable model InternalMassModel_wall =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericMassGeneration
-    constrainedby
-    TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalMassGeneration
+    constrainedby TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalMassGeneration
     "Internal mass generation" annotation (Dialog(tab="Trace Mass Transfer",group="Wall"),
       choicesAllMatching=true);
   replaceable model DiffusionCoeff_wall =
       TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-    constrainedby
-    TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
+    constrainedby TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
     "Diffusion Coefficient" annotation (Dialog(tab="Trace Mass Transfer",group="Wall"),
       choicesAllMatching=true);
   parameter Real nb_wall_shellSide[geometry.nV,nC]=fill(

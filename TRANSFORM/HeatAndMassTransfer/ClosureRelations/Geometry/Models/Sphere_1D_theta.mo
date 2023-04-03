@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Sphere_1D_theta
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D(
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D(
       final ns={nTheta}, final figure=3);
   parameter Integer nTheta(min=1) = 1 "Number of nodes in theta-direction";
   input SI.Length r_inner=0

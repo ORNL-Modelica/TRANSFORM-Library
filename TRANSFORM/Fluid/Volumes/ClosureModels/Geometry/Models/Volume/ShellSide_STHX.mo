@@ -16,8 +16,7 @@ model ShellSide_STHX
     annotation(Dialog(group="General",enable=isAnnulus));
   parameter SI.Area surfaceArea_shell = pi*D_o_tube*length_tube*nTubes "Heat Transfer surface area (not including parallel shells)"
     annotation(Dialog(group="General"));
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.StraightPipe(
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.StraightPipe(
     final length=length_shell,
     final use_Dimension=false,
     final dimension=4*crossAreaEmpty_shell/perimeterEmpty_shell,

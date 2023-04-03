@@ -7,8 +7,8 @@ model Pressurizer_Simple
 
   import Modelica.Fluid.Types.Dynamics;
 
-  replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby
-    Modelica.Media.Interfaces.PartialTwoPhaseMedium annotation (choicesAllMatching=true);
+  replaceable package Medium = Modelica.Media.Water.StandardWater constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium
+                                                    annotation (choicesAllMatching=true);
 
   parameter SI.Volume V_total=1 "Total pressurizer volume";
   parameter SI.Pressure p_start=160e5 "Initial pressure" annotation(Dialog(tab="Initialization"));

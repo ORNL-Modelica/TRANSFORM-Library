@@ -36,7 +36,7 @@ partial package PartialSimpleAlloy_SplineBased "Material properties based on tab
 
   redeclare function extends density
     "Return density as a function of the thermodynamic state record"
-protected
+  protected
     Temperature T=if use_constantDensity then T_density else state.T;
   algorithm
     d := TRANSFORM.Math.cspline(
@@ -49,7 +49,7 @@ protected
 
   redeclare function extends specificEnthalpy
     "Return specific enthalpy as a function of the thermodynamic state record"
-protected
+  protected
     Integer iPlace=TRANSFORM.Math.findPlace(state.T, x_cp);
     SI.SpecificHeatCapacity cp[:]=cat(
           1,
@@ -87,7 +87,6 @@ protected
         d_lambda);
     annotation (Inline=true, smoothOrder=2);
   end thermalConductivity;
-
   annotation (Documentation(info="<html>
 <p>
 This is the base package for medium models of incompressible fluids based on

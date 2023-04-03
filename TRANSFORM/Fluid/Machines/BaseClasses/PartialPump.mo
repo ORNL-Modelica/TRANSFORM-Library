@@ -103,8 +103,7 @@ partial model PartialPump "Base model for centrifugal pumps"
     annotation (Placement(transformation(extent={{-56,84},{-44,96}})));
   replaceable model EfficiencyChar =
       TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.PartialEfficiencyChar
+    constrainedby TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.PartialEfficiencyChar
     "Efficiency vs. Volumetric flow rate" annotation (Dialog(group=
           "Characteristics: Based on single pump nominal conditions", enable=
           not use_powerCharacteristic), choicesAllMatching=true);

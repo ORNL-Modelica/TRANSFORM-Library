@@ -50,12 +50,12 @@ model getRPM_centrifugalPump_Test
     dp_nominal=6.9e5 - 1.95e5,
     d_nominal=Medium.bubbleDensity(Medium.setSat_p(1.95e5)),
     redeclare model FlowChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve
-        (V_flow_curve=(pump.m_flow_nominal/pump.d_nominal)*{0,1,2}, head_curve=
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve (
+         V_flow_curve=(pump.m_flow_nominal/pump.d_nominal)*{0,1,2}, head_curve=
             (1/10*1/pump.d_nominal)*(6.9e5 - 1.95e5)*{2,1,0}),
     redeclare model EfficiencyChar =
-        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant
-        (eta_constant=0.8),
+        TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Efficiency.Constant (
+         eta_constant=0.8),
     V=0.1,
     N_input=realExpression.y,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

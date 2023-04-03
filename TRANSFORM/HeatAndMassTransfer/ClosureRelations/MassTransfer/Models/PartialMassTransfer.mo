@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.MassTransfer.Models;
 partial model PartialMassTransfer "Base model"
-  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in the component"
     annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
   parameter Integer nMT=1 "Number of mass transfer segments"
     annotation (Dialog(tab="Internal Interface"));

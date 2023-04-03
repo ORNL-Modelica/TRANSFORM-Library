@@ -1,8 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Interfaces.Records;
 record Volume_solid
   replaceable package Material =
-      TRANSFORM.Media.Solids.SS316                     constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      TRANSFORM.Media.Solids.SS316                     constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material in the component"
       annotation (choicesAllMatching = true);
   parameter SI.Temperature T_start = Material.T_reference "Temperature"

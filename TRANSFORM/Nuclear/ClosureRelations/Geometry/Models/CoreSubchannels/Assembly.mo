@@ -2,8 +2,7 @@ within TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels;
 model Assembly
   input SI.Length width_FtoF_inner = 0.1 "Inner flat to flat distance" annotation(Dialog(group="Inputs"));
   input SI.Length D_wireWrap = 0 "Wire wrap diameter" annotation(Dialog(group="Inputs"));
-  extends
-    TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Generic(
+  extends TRANSFORM.Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Generic(
   final dimension = 4*crossArea/perimeter,
   final crossArea = crossArea_empty - pi*rs_outer[end]^2*(nPins+nPins_nonFuel) - 0.25*pi*D_wireWrap^2*nPins,
   final perimeter = perimeter_empty + 2*pi*rs_outer[end]*(nPins+nPins_nonFuel) + pi*D_wireWrap*nPins,

@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals;
 model Cylinder_wInternalPipe
-  extends
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.Cylinder;
+  extends TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.Cylinder;
   parameter Real nTubes=1 "Total number of parallel tubes"
      annotation(Dialog(group="Parameters: Internal Structure"));
   parameter SI.Length length_tube=length "Effective tubelength (single tube)"

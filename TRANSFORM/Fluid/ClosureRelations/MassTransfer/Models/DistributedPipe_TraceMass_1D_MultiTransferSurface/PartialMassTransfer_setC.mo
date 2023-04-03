@@ -2,8 +2,8 @@ within TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_Trac
 partial model PartialMassTransfer_setC "Base model"
   parameter Real nParallel=1 "Number of parallel components"
     annotation (Dialog(tab="Internal Interface"));
-  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+  replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in the component"
     annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
   parameter Integer nMT=1 "Number of mass transfer segments"
     annotation (Dialog(tab="Internal Interface"));
@@ -41,8 +41,7 @@ partial model PartialMassTransfer_setC "Base model"
     "Conversion from fluid mass-specific value to moles (e.g., molar mass [kg/mol] or Avogadro's number [atoms/mol])";
   replaceable model DiffusionCoeff =
       TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient
-    constrainedby
-    TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
+    constrainedby TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
     "Fluid Diffusion Coefficient" annotation (Dialog(group="Closure Models"),
       choicesAllMatching=true);
   DiffusionCoeff diffusionCoeff[nMT](each final nC=nC, final T=Ts_fluid)

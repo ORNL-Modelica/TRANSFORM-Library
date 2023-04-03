@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel;
 model Cylinder
-  extends
-    TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.GenericVolume(
+  extends TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.GenericVolume(
       V_liquid(start=pi*r_inner^2*length/2),
       V_vapor(start=pi*r_inner^2*length/2),
       level_0 = if orientation == "Vertical" then length/2 else r_inner,

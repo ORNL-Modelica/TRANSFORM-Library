@@ -30,10 +30,8 @@ package Medium = Modelica.Media.IdealGases.SingleGases.He;
         rotation=90,
         origin={0,-70})));
   TRANSFORM.Fluid.FittingsAndResistances.PipeLoss pipeLoss(
-                                                         redeclare model
-      Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.Circle
-        (
+                                                         redeclare model Geometry =
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.Circle (
         dimension_avg=dim.k,
         dlength=len.k,
         angle=ang.k), redeclare package Medium = Medium)
@@ -53,8 +51,7 @@ package Medium = Modelica.Media.IdealGases.SingleGases.He;
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface pipe(
     exposeState_a=false,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         nV=2,
         dimension=dim.k,
         length=len.k,
@@ -62,8 +59,8 @@ package Medium = Modelica.Media.IdealGases.SingleGases.He;
     redeclare package Medium = Medium,
     T_a_start=773.15,
     redeclare model InternalHeatGen =
-        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
-        (Q_gens={100,0}))
+        TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration (
+         Q_gens={100,0}))
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

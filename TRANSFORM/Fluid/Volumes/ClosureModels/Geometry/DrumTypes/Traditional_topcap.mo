@@ -1,7 +1,6 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes;
 model Traditional_topcap "Traditional: Cylinder with only a top spherical cap"
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.PartialDrumType;
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.PartialDrumType;
   parameter SI.Length r_1 "Region 1 radius" annotation(Dialog(group="Region 1: Cylinder"));
   parameter SI.Height h_1 "Region 1 height" annotation(Dialog(group="Region 1: Cylinder"));
   parameter SI.Length r_2 "Region 2 radius" annotation(Dialog(group="Region 2: Top Spherical Cap"));

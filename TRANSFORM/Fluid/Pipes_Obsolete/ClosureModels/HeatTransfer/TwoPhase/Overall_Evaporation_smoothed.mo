@@ -2,24 +2,20 @@ within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.TwoPhase;
 model Overall_Evaporation_smoothed
   "Evaporation: Smoothed overall evaporation model from single phase liquid to single phase vapor."
   extends Modelica.Icons.UnderConstruction;
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.TwoPhase.Partial_TwoPhaseHeatTransfer;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.TwoPhase.Partial_TwoPhaseHeatTransfer;
   parameter Units.NonDim[nHT] x_chf=0.9*ones(nHT)
     "Steam quality corresponding to Critical Heat Flux";
   replaceable function heatTransfer_SinglephaseLiquid =
      TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
-    constrainedby
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
+    constrainedby TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
      annotation(choicesAllMatching=true);
   replaceable function heatTransfer_TwoPhaseSaturated =
      TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.TwoPhase.Evaporation.alpha_Chen_TubeFlow
-    constrainedby
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.TwoPhase.Evaporation.alpha_Chen_TubeFlow
+    constrainedby TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.TwoPhase.Evaporation.alpha_Chen_TubeFlow
      annotation(choicesAllMatching=true);
   replaceable function heatTransfer_SinglephaseVapor =
      TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
-    constrainedby
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
+    constrainedby TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter
      annotation(choicesAllMatching=true);
   SI.CoefficientOfHeatTransfer[nHT] alphas_SinglephaseLiquid;
   SI.CoefficientOfHeatTransfer[nHT] alphas_TwoPhaseSaturated;

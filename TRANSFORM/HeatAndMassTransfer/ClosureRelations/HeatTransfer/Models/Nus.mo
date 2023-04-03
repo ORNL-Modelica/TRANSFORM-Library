@@ -1,7 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models;
 model Nus "Specify Nusselt Number"
-  extends
-    TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialSinglePhase;
+  extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialSinglePhase;
   input SI.NusseltNumber Nu0=7.54 "Nusselt number"
     annotation (Dialog(group="Inputs"));
   input SI.NusseltNumber Nus0[nHT]=fill(Nu0, nHT) "if non-uniform then set"

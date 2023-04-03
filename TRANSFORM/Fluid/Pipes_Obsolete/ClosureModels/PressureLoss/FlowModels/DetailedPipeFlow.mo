@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.FlowModels;
 model DetailedPipeFlow
   "DetailedPipeFlow: Detailed characteristic for laminar and turbulent flow"
-  extends
-    TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.FlowModels.PartialGenericPipeFlow;
+  extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.FlowModels.PartialGenericPipeFlow;
   TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.PressureLoss.Models.Functions.Pipes.Detailed.dp_IN_con[
     nFM] IN_con(
     length=lengths,

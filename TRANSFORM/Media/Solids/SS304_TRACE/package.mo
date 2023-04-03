@@ -14,7 +14,7 @@ package SS304_TRACE "SS304: Stainless steel 304 from TRACE"
 
   redeclare function extends density
     "Density"
-protected
+  protected
     Temperature T = if use_constantDensity then T_density else state.T;
   algorithm
     d := 7984 - 2.651e-1*T - 1.158e-4*T^2;

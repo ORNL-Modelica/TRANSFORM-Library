@@ -1,8 +1,7 @@
 within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples;
 model Generic_Test
   extends Icons.Example;
-  extends
-    TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
+  extends TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Volume.Examples.PartialGeometryTest(
     dimensions_Exp=0.7525,
     crossAreas_Exp=0.4447366188,
     perimeters_Exp=2.364048472,

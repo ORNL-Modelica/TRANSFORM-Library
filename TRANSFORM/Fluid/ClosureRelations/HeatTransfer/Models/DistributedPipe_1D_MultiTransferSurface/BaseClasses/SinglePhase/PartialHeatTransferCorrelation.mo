@@ -4,8 +4,8 @@ partial model PartialHeatTransferCorrelation
   extends TRANSFORM.Icons.NusseltNumber;
 
   replaceable package Medium =
-      Modelica.Media.Water.StandardWater                          constrainedby
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
+      Modelica.Media.Water.StandardWater                          constrainedby Modelica.Media.Interfaces.PartialMedium
+                                            "Medium in the component"
     annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
 
   input SI.ReynoldsNumber Re "Reynolds number"

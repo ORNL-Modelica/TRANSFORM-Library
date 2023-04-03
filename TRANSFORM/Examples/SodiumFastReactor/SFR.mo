@@ -40,8 +40,8 @@ model SFR
     T_start_2=data.T_start_hot,
     redeclare package Medium = Medium_PHTS,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
-        (Nus0=
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (
+         Nus0=
            {{HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             outerCore.coolantSubchannel.heatTransfer.Res[i],
             outerCore.coolantSubchannel.heatTransfer.Prs[i],
@@ -64,8 +64,7 @@ model SFR
     T_start_2=data.T_start_hot,
     redeclare package Medium = Medium_PHTS,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
-        (                                                                                       Nus0=
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (Nus0=
            {{HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             innerCore.coolantSubchannel.heatTransfer.Res[i],
             innerCore.coolantSubchannel.heatTransfer.Prs[i],
@@ -100,8 +99,7 @@ model SFR
     redeclare package Medium = Medium_PHTS,
     redeclare package Material_1 = Media.Solids.SS316,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
-        (                                                                                       Nus0=
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (Nus0=
            {{HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             reflector.coolantSubchannel.heatTransfer.Res[i],
             reflector.coolantSubchannel.heatTransfer.Prs[i],
@@ -132,8 +130,7 @@ model SFR
     redeclare package Medium = Medium_PHTS,
     redeclare package Material_1 = Media.Solids.SS316,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
-        (                                                                                       Nus0=
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (Nus0=
            {{HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             shield.coolantSubchannel.heatTransfer.Res[i],
             shield.coolantSubchannel.heatTransfer.Prs[i],
@@ -195,8 +192,7 @@ model SFR
         nV=2,
         angle=1.5707963267949),
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
-        (                                                                                       Nus0=
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (Nus0=
            {{HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             outerCore_out.coolantSubchannel.heatTransfer.Res[i],
             outerCore_out.coolantSubchannel.heatTransfer.Prs[i],
@@ -219,8 +215,7 @@ model SFR
     T_start_2=data.T_start_hot,
     redeclare package Medium = Medium_PHTS,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
-        (                                                                                       Nus0=
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (Nus0=
            {{HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             outerCore_in.coolantSubchannel.heatTransfer.Res[i],
             outerCore_in.coolantSubchannel.heatTransfer.Prs[i],
@@ -252,8 +247,7 @@ model SFR
     T_start_2=data.T_start_hot,
     redeclare package Medium = Medium_PHTS,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
-        (                                                                                       Nus0=
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (Nus0=
            {{HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             innerCore_out.coolantSubchannel.heatTransfer.Res[i],
             innerCore_out.coolantSubchannel.heatTransfer.Prs[i],
@@ -289,8 +283,7 @@ model SFR
     T_start_2=data.T_start_hot,
     redeclare package Medium = Medium_PHTS,
     redeclare model HeatTransfer =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus
-        (                                                                                       Nus0=
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus (Nus0=
            {{HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.SinglePhase.ExternalFlow.LiquidMetal.Nu_FFTF(
             innerCore_in.coolantSubchannel.heatTransfer.Res[i],
             innerCore_in.coolantSubchannel.heatTransfer.Prs[i],
@@ -328,8 +321,7 @@ model SFR
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
-        (
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison (
         D=data.D_tube_outer,
         S_T=data.pitch_tube,
         S_L=data.pitch_tube),
@@ -343,8 +335,7 @@ model SFR
     useLumpedPressure_shell=true,
     useLumpedPressure_tube=true,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         D_o_shell=data.D_shell_outer,
         length_shell=data.length_tube,
         D_i_shell=data.D_downcomerIHX,
@@ -360,15 +351,13 @@ model SFR
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={72,2})));
-  UserInteraction.Outputs.SpatialPlot2 spatialPlot2_1(
-    minY1=min({data.T_IHX_inletIHTS,data.T_IHX_inletPHTS,data.T_IHX_inletIHTS,
-        data.T_IHX_oultetPHTS}),
-    maxY1=max({data.T_IHX_inletIHTS,data.T_IHX_inletPHTS,data.T_IHX_inletIHTS,
-        data.T_IHX_oultetPHTS}),
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot2 spatialPlot2_1(
+    minY1=min({data.T_IHX_inletIHTS,data.T_IHX_inletPHTS,data.T_IHX_inletIHTS,data.T_IHX_oultetPHTS}),
+    maxY1=max({data.T_IHX_inletIHTS,data.T_IHX_inletPHTS,data.T_IHX_inletIHTS,data.T_IHX_oultetPHTS}),
     x1=IHX[1].tube.summary.xpos_norm,
     y1={IHX[1].tube.mediums[i].T for i in 1:IHX[1].geometry.nV},
-    x2=if IHX[1].counterCurrent == true then Modelica.Math.Vectors.reverse(IHX[1].shell.summary.xpos_norm)
-         else IHX[1].shell.summary.xpos_norm,
+    x2=if IHX[1].counterCurrent == true then Modelica.Math.Vectors.reverse(IHX[1].shell.summary.xpos_norm) else IHX[1].shell.summary.xpos_norm,
+
     y2={IHX[1].shell.mediums[i].T for i in 1:IHX[1].geometry.nV})
     annotation (Placement(transformation(extent={{38,-166},{88,-122}})));
   Fluid.Volumes.MixingVolume lowerPlenum_outer(
@@ -405,8 +394,7 @@ model SFR
     T_a_start=data.T_start_cold,
     m_flow_b_start=data.m_flow_PHTS/3,
     redeclare model Geometry =
-        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
-        (
+        TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data.D_downcomerIHX,
         length=data.length_pumpDowncomer,
         angle=-1.5707963267949)) annotation (Placement(transformation(
@@ -434,8 +422,8 @@ model SFR
         extent={{10,-10},{-10,10}},
         rotation=270,
         origin={-20,-128})));
-  Fluid.FittingsAndResistances.SpecifiedResistance resistances[4](redeclare
-      package Medium = Medium_PHTS, R={2e5/
+  Fluid.FittingsAndResistances.SpecifiedResistance resistances[4](redeclare package Medium =
+                       Medium_PHTS, R={2e5/
         data.m_flow_shield,2e5/data.m_flow_reflector,1/data.m_flow_outer,1/data.m_flow_inner})
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -480,8 +468,7 @@ model SFR
     redeclare model HeatTransfer_tube =
         Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.Nus_SinglePhase_2Region,
     redeclare model HeatTransfer_shell =
-        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison
-        (
+        Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D_MultiTransferSurface.FlowAcrossTubeBundles_Grimison (
         D=data.D_tube_outer,
         S_T=data.pitch_tube,
         S_L=data.pitch_tube),
@@ -496,8 +483,7 @@ model SFR
     useLumpedPressure_shell=true,
     useLumpedPressure_tube=true,
     redeclare model Geometry =
-        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX
-        (
+        Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         D_o_shell=data.D_shell_outerDRACS,
         nTubes=data.nTubes_DRACS,
         length_shell=data.length_tubeDRACS,

@@ -34,8 +34,7 @@ model Example_1_7_2_DrawingAWire
   DiscritizedModels.Conduction_1D wire(
     exposeState_a1=false,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_z
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Cylinder_1D_z (
         nZ=nNodes_1.k,
         r_outer=0.5*D.y,
         length_z=L.y),
@@ -49,7 +48,7 @@ model Example_1_7_2_DrawingAWire
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={0,0})));
-  UserInteraction.Outputs.SpatialPlot TemperaturePosition(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePosition(
     minX=0,
     x=xval,
     y=yval,

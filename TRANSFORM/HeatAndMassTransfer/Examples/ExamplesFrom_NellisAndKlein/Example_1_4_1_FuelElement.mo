@@ -12,8 +12,8 @@ model Example_1_4_1_FuelElement
   DiscritizedModels.Conduction_1D fuel(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r
-        ( r_outer=r_fuel.y, nR=nNodes_1_fuel.k),
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r (
+          r_outer=r_fuel.y, nR=nNodes_1_fuel.k),
     redeclare package Material =
         TRANSFORM.Media.Solids.CustomSolids.Lambda_1_d_7990_cp_500,
     redeclare model InternalHeatModel =
@@ -28,8 +28,7 @@ model Example_1_4_1_FuelElement
   DiscritizedModels.Conduction_1D clad(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare model Geometry =
-        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r
-        (
+        TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Sphere_1D_r (
         nR=nNodes_1_clad.k,
         r_inner=r_fuel.y,
         r_outer=r_clad.y),
@@ -39,7 +38,7 @@ model Example_1_4_1_FuelElement
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1_clad(k=10)
     annotation (Placement(transformation(extent={{-86,84},{-78,92}})));
-  UserInteraction.Outputs.SpatialPlot FuelCladTemperature(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot FuelCladTemperature(
     x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_cm(cat(
         1,
         {0},
@@ -54,8 +53,7 @@ model Example_1_4_1_FuelElement
         {Adiabatic.port.T},
         fuel.materials.T,
         clad.materials.T,
-        {convection.port_a.T})))
-    "X - Axial Location (cm) | T - Temperature (C)"
+        {convection.port_a.T}))) "X - Axial Location (cm) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{4,-78},{58,-24}})));
   Modelica.Blocks.Sources.Constant q_ppp0(k=5e5)
     "Center volumetric heat generation"
@@ -65,7 +63,7 @@ model Example_1_4_1_FuelElement
     annotation (Placement(transformation(extent={{-100,56},{-92,64}})));
   Resistances.Heat.Convection convection(alpha=100, surfaceArea=clad.geometry.crossAreas_1
         [end]) annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  UserInteraction.Outputs.SpatialPlot FuelTemperature(
+  TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot FuelTemperature(
     minY=520,
     maxY=660,
     x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_cm(cat(

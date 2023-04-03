@@ -20,12 +20,10 @@ input SI.CoefficientOfHeatTransfer alphas_ambient[pipe.geometry.nV] = fill(10,pi
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
     annotation (Dialog(tab="Advanced", group="Inputs"));
   replaceable package Material_wall =
-      TRANSFORM.Media.Solids.SS316                     constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      TRANSFORM.Media.Solids.SS316                     constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
   replaceable package Material_insulation =
-      TRANSFORM.Media.Solids.FiberGlassGeneric                    constrainedby
-    TRANSFORM.Media.Interfaces.Solids.PartialAlloy
+      TRANSFORM.Media.Solids.FiberGlassGeneric                    constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Wall material properties" annotation (choicesAllMatching=true);
   // Initialization: Wall
   parameter Dynamics energyDynamics_wall=Dynamics.DynamicFreeInitial

@@ -26,14 +26,12 @@ model Pressurizer_withWall
       choicesAllMatching=true, Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
   replaceable model HeatTransfer_WL =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.Ideal
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.PartialHeatTransfer_setT
+    constrainedby TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.PartialHeatTransfer_setT
     "Wall-liquid heat transfer coefficient" annotation (choicesAllMatching=true,
       Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
   replaceable model HeatTransfer_WV =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.Ideal
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.PartialHeatTransfer_setT
+    constrainedby TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.Lumped.PartialHeatTransfer_setT
     "Wall-vapor heat transfer coefficient" annotation (choicesAllMatching=true,
       Dialog(group="Closure Models: 1. Select Model 2. Set parameters"));
   parameter SI.CoefficientOfHeatTransfer alpha=0

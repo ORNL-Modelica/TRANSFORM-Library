@@ -119,8 +119,7 @@ record GenericPipe_Record
     annotation (Dialog(group="Heat Transfer"));
   replaceable model HeatTransfer =
       TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.Ideal
-    constrainedby
-    TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.PartialHeatTransfer_setT
+    constrainedby TRANSFORM.Fluid.ClosureRelations.HeatTransfer.Models.DistributedPipe_1D.PartialHeatTransfer_setT
     "Coefficient of heat transfer" annotation (Dialog(group="Heat Transfer", enable=
           use_HeatTransfer), choicesAllMatching=true);
   // Internal Heat Generation Model
