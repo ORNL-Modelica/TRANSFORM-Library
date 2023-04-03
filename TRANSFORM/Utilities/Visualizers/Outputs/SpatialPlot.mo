@@ -6,7 +6,7 @@ model SpatialPlot "Polyline with coordinate system"
   parameter Real maxX=1;
   parameter Real minY=0;
   parameter Real maxY=1;
-  parameter UserInteraction.Internal.Color color={255,0,0} "Color (RGB) of curve";
+  parameter TRANSFORM.Utilities.Visualizers.BaseClasses.Color color={255,0,0} "Color (RGB) of curve";
 
   TRANSFORM.Utilities.Visualizers.Outputs.PolyLine PolyLine1(
     x=x,

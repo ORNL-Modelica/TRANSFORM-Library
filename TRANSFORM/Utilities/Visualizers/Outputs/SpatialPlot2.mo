@@ -14,8 +14,8 @@ model SpatialPlot2 "Two polylines with coordinate systems"
   parameter Real maxX2=maxX1;
   parameter Real minY2=minY1;
   parameter Real maxY2=maxY1;
-  parameter UserInteraction.Internal.Color color1={255,0,0} "Color (RGB) of first curve" annotation (__Dymola_Hide=false);
-  parameter UserInteraction.Internal.Color color2={0,0,255} "Color (RGB) of second curve" annotation (__Dymola_Hide=false);
+  parameter TRANSFORM.Utilities.Visualizers.BaseClasses.Color color1={255,0,0} "Color (RGB) of first curve" annotation (__Dymola_Hide=false);
+  parameter TRANSFORM.Utilities.Visualizers.BaseClasses.Color color2={0,0,255} "Color (RGB) of second curve" annotation (__Dymola_Hide=false);
 
   TRANSFORM.Utilities.Visualizers.Outputs.PolyLine PolyLine1(
     x=x1,

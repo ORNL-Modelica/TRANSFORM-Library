@@ -3,9 +3,9 @@ model PolyLine
   input Real x[:]={1} annotation (Dialog);
   input Real y[size(x, 1)]={1} annotation (Dialog);
 
-  parameter UserInteraction.Internal.Color color={255,0,0} annotation (__Dymola_Hide=false);
+  parameter TRANSFORM.Utilities.Visualizers.BaseClasses.Color color={255,0,0} annotation (__Dymola_Hide=false);
 
-  extends UserInteraction.Internal.ScalingXYVectors(scaledX=x, scaledY=y);
+  extends TRANSFORM.Utilities.Visualizers.BaseClasses.ScalingXYVectors(scaledX=x, scaledY=y);
 
   final Real[size(x, 1), 2] points=transpose({unScaledX,unScaledY})
     annotation (__Dymola_Hide=false);

@@ -1,6 +1,6 @@
 within TRANSFORM.Utilities.Visualizers.Outputs;
 model Bar
-  extends UserInteraction.Internal.Scaling;
+  extends TRANSFORM.Utilities.Visualizers.BaseClasses.Scaling;
 
   parameter Boolean hideConnector=false;
 
