@@ -10,17 +10,17 @@ model Plane_2D
     annotation (Dialog(group="Inputs"));
   input SI.Length length_z=1 "Specify length or dzs in z-dimension"
     annotation (Dialog(group="Inputs"));
-  input SI.Length dxs[nX,nY](min=0) = fill(
+  input SI.Length dxs[nX,nY](each min=0) = fill(
     (length_x)/nX,
     nX,
     nY) "Unit volume lengths of x-dimension"
     annotation (Dialog(group="Inputs"));
-  input SI.Length dys[nX,nY](min=0) = fill(
+  input SI.Length dys[nX,nY](each min=0) = fill(
     (length_y)/nY,
     nX,
     nY) "Unit volume lengths of y-dimension"
     annotation (Dialog(group="Inputs"));
-  input SI.Length dzs[nX,nY](min=0) = fill(
+  input SI.Length dzs[nX,nY](each min=0) = fill(
     length_z,
     nX,
     nY) "Unit volume lengths of z-dimension"

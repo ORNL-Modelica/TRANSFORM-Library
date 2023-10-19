@@ -17,7 +17,7 @@ model Concentration_multi "Mass concentration boundary condition"
           extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
             10}})));
 protected
-  Modelica.Blocks.Interfaces.RealInput C_int[nPorts,nC](unit="mol/m3");
+  Modelica.Blocks.Interfaces.RealInput C_int[nPorts,nC](each unit="mol/m3");
 equation
   connect(C_int, C_ext);
   if not use_port then

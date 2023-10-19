@@ -24,7 +24,7 @@ model GenericPipe
     "Discretized area per transfer surface"
     annotation (Dialog(group="Inputs"));
   // Elevation
-  input SI.Angle[nV] angles(min=-Modelica.Constants.pi/2-0.01,max=Modelica.Constants.pi/2+0.01)=fill(0,nV) "Vertical angle from the horizontal (-pi/2 <= x <= pi/2)"
+  input SI.Angle[nV] angles(each min=-Modelica.Constants.pi/2-0.01,each max=Modelica.Constants.pi/2+0.01)=fill(0,nV) "Vertical angle from the horizontal (-pi/2 <= x <= pi/2)"
     annotation (Dialog(group="Inputs Elevation"));
   input SI.Length[nV] dheights=dlengths.*sin(angles)  "Height(port_b) - Height(port_a)"
     annotation (Dialog(group="Inputs Elevation"));

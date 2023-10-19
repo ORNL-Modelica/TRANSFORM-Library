@@ -3,7 +3,7 @@ partial model PartialInternalHeatGeneration
   replaceable package Material =
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true,Dialog(tab="Internal Interface"));
-  parameter Integer nVs[2](min=1) = {1,1} "Number of discrete volumes"
+  parameter Integer nVs[2](each min=1) = {1,1} "Number of discrete volumes"
     annotation(Dialog(tab="Internal Interface"));
   // Inputs provided to the model
   input Material.ThermodynamicState states[nVs[1],nVs[2]]

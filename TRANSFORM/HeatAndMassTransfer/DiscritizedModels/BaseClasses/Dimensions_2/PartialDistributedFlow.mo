@@ -4,11 +4,11 @@ partial model PartialDistributedFlow
   replaceable package Material =
       TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
-  parameter Integer nVs[2](min=1) = {1,1} "Number of discrete volumes"
+  parameter Integer nVs[2](each min=1) = {1,1} "Number of discrete volumes"
     annotation (Dialog(tab="Internal Interface"));
-  parameter Integer nFM_1(min=1) = 1 "Number of discrete flow models"
+  parameter Integer nFM_1(each min=1) = 1 "Number of discrete flow models"
     annotation (Dialog(tab="Internal Interface"));
-  parameter Integer nFM_2(min=1) = 1 "Number of discrete flow models"
+  parameter Integer nFM_2(each min=1) = 1 "Number of discrete flow models"
     annotation (Dialog(tab="Internal Interface"));
   parameter Boolean adiabaticDims[2]={false,false}
     "=true, toggle off conduction heat transfer in dimension {1,2}"

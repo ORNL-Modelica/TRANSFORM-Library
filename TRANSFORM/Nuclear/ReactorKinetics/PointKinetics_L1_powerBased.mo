@@ -114,8 +114,8 @@ model PointKinetics_L1_powerBased
       tab="Kinetics",
       group="Decay-Heat",
       enable=use_history));
-  final parameter SI.Power Cs_start_history[nC](fixed=false);
-  final parameter SI.Energy Es_start_history[nDH](fixed=false);
+  final parameter SI.Power Cs_start_history[nC](each fixed=false);
+  final parameter SI.Energy Es_start_history[nDH](each fixed=false);
   // Advanced
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of nuclear kinetics balances"

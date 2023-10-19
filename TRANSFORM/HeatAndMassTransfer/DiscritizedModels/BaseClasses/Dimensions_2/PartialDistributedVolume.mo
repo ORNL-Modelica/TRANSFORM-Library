@@ -5,9 +5,9 @@ partial model PartialDistributedVolume
   replaceable package Material =
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true);
-  parameter Integer nVs[2](min=1) = {1,1} "Number of discrete volumes";
+  parameter Integer nVs[2](each min=1) = {1,1} "Number of discrete volumes";
   // Inputs provided to the volume model
-  input SI.Volume Vs[nVs[1],nVs[2]](min=0) "Discretized volumes"
+  input SI.Volume Vs[nVs[1],nVs[2]](each min=0) "Discretized volumes"
     annotation (Dialog(group="Inputs"));
   // Initialization
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
