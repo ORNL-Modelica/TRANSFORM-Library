@@ -29,7 +29,7 @@ model DynamicGraph "Dynamic graphical display of one variable"
   parameter SI.Time tau=0.01
     "Stabilizing time constant, = 0 then no stabilization"
     annotation (Dialog(group="Numerics"));
-  Modelica.Blocks.Interfaces.RealInput u(value=u_aux) if use_port
+  Modelica.Blocks.Interfaces.RealInput u = u_aux if use_port
     "Input signal" annotation (Placement(transformation(extent={{-70,30},{-30,70}}),
         iconTransformation(extent={{-42,44},{-30,56}})));
 protected
