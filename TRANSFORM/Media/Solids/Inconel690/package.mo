@@ -15,6 +15,6 @@ package Inconel690 "IN690: Inconel 690"
         28.5; 1273.15,30.1; 1373.15,30.1]);
 
   annotation (Documentation(info="<html>
-<p>Source: http://www.specialmetals.com/assets/documents/alloys/inconel/inconel-alloy-690.pdf</p>
+<p>Source: http://www.specialmetals.com/assets/smc/documents/alloys/inconel/inconel-alloy-690.pdf</p>
 </html>"));
 end Inconel690;
