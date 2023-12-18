@@ -30,7 +30,7 @@ equation
         Text(
           extent={{110,36},{260,-32}},
           textColor={0,0,0},
-          textString=unitLabel,
+          textString="%{unitLabel}",
           horizontalAlignment=TextAlignment.Left)}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})));
