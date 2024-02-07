@@ -27,7 +27,6 @@ equation
   connect(heatPorts_outer,solutionMethod.heatPorts_outer);
   connect(heatPorts_inner,solutionMethod.heatPorts_inner);
   annotation (defaultComponentName="cylinder",
-      __Dymola_experimentSetupOutput,
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics={
         Line(
