@@ -371,6 +371,5 @@ equation
           textString="%name",
           visible=DynamicSelect(true,showName))}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{200,
-            100}})),
-    experiment(StopTime=5000, __Dymola_NumberOfIntervals=5000));
+            100}})));
 end DRACS;

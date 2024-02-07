@@ -11,6 +11,5 @@ model BatemanEquations_Test
     x=batemanEquations.Ns)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=1000, __Dymola_NumberOfIntervals=1000));
+        coordinateSystem(preserveAspectRatio=false)));
 end BatemanEquations_Test;
