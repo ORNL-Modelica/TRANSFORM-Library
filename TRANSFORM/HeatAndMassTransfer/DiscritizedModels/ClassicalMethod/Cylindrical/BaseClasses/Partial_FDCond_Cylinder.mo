@@ -94,7 +94,6 @@ R_cond_radial =noEvent(if r_inner < Modelica.Constants.eps then log(1/0.01)
     /(2*pi*lambda_effective*length) else log(r_outer/r_inner)/(2*pi*
     lambda_effective*length));
   annotation (
-      __Dymola_experimentSetupOutput,
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics={
         Line(
