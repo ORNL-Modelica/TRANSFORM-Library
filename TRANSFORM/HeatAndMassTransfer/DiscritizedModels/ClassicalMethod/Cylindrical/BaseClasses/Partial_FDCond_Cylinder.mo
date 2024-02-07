@@ -93,7 +93,7 @@ R_cond_axial =length/(lambda_effective*pi*(r_outer^2 - r_inner^2));
 R_cond_radial =noEvent(if r_inner < Modelica.Constants.eps then log(1/0.01)
     /(2*pi*lambda_effective*length) else log(r_outer/r_inner)/(2*pi*
     lambda_effective*length));
-  annotation (experiment(StopTime=1000, __Dymola_NumberOfIntervals=1000),
+  annotation (
       __Dymola_experimentSetupOutput,
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics={
