@@ -25,7 +25,7 @@ model RoomCO2WithControls
     nPorts=2)
     annotation (Placement(transformation(extent={{-70,-40},{-50,-20}})));
   Modelica.Fluid.Vessels.ClosedVolume volume(
-    medium(Xi(nominal=0.01)),
+    medium(Xi(each nominal=0.01)),
     C_start={1.519E-3},
     V=100,
     redeclare package Medium = Medium,
