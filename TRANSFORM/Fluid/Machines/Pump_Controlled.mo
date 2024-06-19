@@ -9,13 +9,14 @@ model Pump_Controlled
       choice="pressure_a",
       choice="pressure_b",
       choice="dp"));
+
   parameter Boolean use_port=false "=true to toggle port for control signal"
     annotation (Dialog(group="Inputs Control Setting"));
-
+  parameter Real k_inputSignal=1.0 "Input signal scaler (k*inputSignal)"
+    annotation (Dialog(group="Inputs Control Setting", enable=use_port));
   input Modelica.Units.NonSI.AngularVelocity_rpm N_input=N_nominal
     "Set rotational speed" annotation (Dialog(group="Inputs Control Setting",
-        enable=if controlType == "RPM" and use_port == false then true
-           else false));
+        enable=if controlType == "RPM" and use_port == false then true else false));
   input SI.MassFlowRate m_flow_input=m_flow_nominal
     "Set per pump mass flow rate" annotation (Dialog(group="Inputs Control Setting",
         enable=if controlType == "m_flow" and use_port == false then true else false));
@@ -26,7 +27,7 @@ model Pump_Controlled
     annotation (Dialog(group="Inputs Control Setting", enable=if controlType == "dp"
            and use_port == false then true else false));
 
-  Modelica.Blocks.Interfaces.RealInput inputSignal  if use_port annotation (
+  Modelica.Blocks.Interfaces.RealInput inputSignal if use_port annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
@@ -45,15 +46,15 @@ equation
   end if;
   if use_port then
     if controlType == "RPM" then
-      N = max(inputSignal_int, 1e-3);
+      N = max(inputSignal_int*k_inputSignal, 1e-3);
     elseif controlType == "m_flow" then
-      m_flow = inputSignal_int;
+      m_flow = inputSignal_int*k_inputSignal;
     elseif controlType == "pressure_a" then
-      port_a.p = inputSignal_int;
+      port_a.p = inputSignal_int*k_inputSignal;
     elseif controlType == "pressure_b" then
-      port_b.p = inputSignal_int;
+      port_b.p = inputSignal_int*k_inputSignal;
     elseif controlType == "dp" then
-      dp = inputSignal_int;
+      dp = inputSignal_int*k_inputSignal;
     end if;
   else
     if controlType == "RPM" then
