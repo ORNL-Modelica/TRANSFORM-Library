@@ -26,7 +26,7 @@ model GenericPipe_wWall_wTraceMass
     "= true to use outer wall heat port" annotation (Dialog(group="Heat Transfer"));
   parameter Boolean use_TraceMassTransferOuter=false
     "= true to use outer wall mass port" annotation (Dialog(group="Trace Mass Transfer"));
-  final parameter Integer nVs[2](min=1) = {geometry.nR,geometry.nZ}
+  final parameter Integer nVs[2](each min=1) = {geometry.nR,geometry.nZ}
     "Number of discrete volumes";
   // Initialization: Wall
   parameter Dynamics energyDynamics_wall=Dynamics.DynamicFreeInitial

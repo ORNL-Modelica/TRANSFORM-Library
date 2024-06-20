@@ -48,7 +48,7 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
   SIadd.ExtraPropertyExtrinsic mC[Medium.nC] "Trace substance extrinsic value";
   SI.MassFraction Xi[Medium.nXi](start=Medium.reference_X[1:Medium.nXi])
     "Structurally independent mass fractions";
-  SIadd.ExtraProperty C[Medium.nC](stateSelect=StateSelect.prefer, start=C_start)
+  SIadd.ExtraProperty C[Medium.nC](each stateSelect=StateSelect.prefer, start=C_start)
     "Trace substance mass-specific value";
   // Species Balance
   SI.MassFlowRate mXib[Medium.nXi]
