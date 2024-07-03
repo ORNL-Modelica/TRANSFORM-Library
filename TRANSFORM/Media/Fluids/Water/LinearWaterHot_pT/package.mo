@@ -3,7 +3,7 @@ package LinearWaterHot_pT "Water | Ref. p=15.5 MPa, T=550 K | Linear compressibi
 // beta_const adjusted till density matched. kappa left alone
 // assumed specific enthalpy at 273.15 is zero
   extends TRANSFORM.Media.Interfaces.Fluids.PartialLinearFluid(
-    mediumName="Linear FLiBe",
+    mediumName="Linear hot water",
     constantJacobian=false,
     reference_p=15.5e6,
     reference_T=550,
