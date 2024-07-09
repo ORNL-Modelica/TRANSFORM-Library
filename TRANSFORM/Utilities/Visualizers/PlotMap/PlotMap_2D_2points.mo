@@ -31,9 +31,20 @@ equation
   assert(x_scale_2[2] > x_scale_2[1], "x_scale_2[2] must be greater than x_scale_2[1]");
   assert(y_scale_2[2] > y_scale_2[1], "y_scale_2[2] must be greater than y_scale_2[1]");
 
-  // Normalize input to give values between 0 and 1 when within nominal range
-  x_scaled_2 = (x_2 - x_scale_2[1])/(x_scale_2[2] - x_scale_2[1]);
-  y_scaled_2 = (y_2 - y_scale_2[1])/(y_scale_2[2] - y_scale_2[1]);
+// Normalize input to give values between 0 and 1 when within nominal range
+  if log_scale[1] then
+    x_scaled_2 = (log10(x_2 + 1) - log10(x_scale_2[1] + 1))/(log10(x_scale_2[2] + 1) -
+      log10(x_scale_2[1] + 1));
+  else
+    x_scaled_2 = (x_2 - x_scale_2[1])/(x_scale_2[2] - x_scale_2[1]);
+  end if;
+
+  if log_scale[2] then
+    y_scaled_2 = (log10(y_2)  - log10(y_scale_2[1])) /(log10(y_scale_2[2])  -
+      log10(y_scale[1]));
+  else
+    y_scaled_2 = (y_2 - y_scale_2[1])/(y_scale_2[2] - y_scale_2[1]);
+  end if;
 
   // Map the normalized values to pixel space
   x_scaled_2 = (x_pixel_2 - lowerLeft[1])/(lowerRight[1] - lowerLeft[1]);

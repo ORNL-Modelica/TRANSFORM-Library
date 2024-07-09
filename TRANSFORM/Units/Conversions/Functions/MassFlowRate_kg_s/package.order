@@ -8,3 +8,5 @@ to_lbm_min
 from_lbm_min
 to_lbm_hr
 from_lbm_hr
+to_klbm_hr
+from_klbm_hr

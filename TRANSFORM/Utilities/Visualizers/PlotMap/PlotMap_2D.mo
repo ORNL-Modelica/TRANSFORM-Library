@@ -3,14 +3,14 @@ model PlotMap_2D
 
   parameter String imageName="" "Location of image" annotation (Dialog(
         loadSelector(filter="All files (*.*);;PNG files (*.png)", caption="Open image file")));
-  parameter Real dotSize=1 "Dot size" annotation(Dialog(group="Effects"));
+  parameter Real dotSize=1 "Dot size" annotation (Dialog(group="Effects"));
   parameter Integer[3] dotColor={50,205,50} "Dot color" annotation (choices(
       choice={0,0,0} "Black",
       choice={255,0,0} "Red",
       choice={255,230,0} "Yellow",
       choice={0,0,255} "Blue",
       choice={50,205,50} "Green",
-      choice={255,255,255} "White"),Dialog(group="Effects"));
+      choice={255,255,255} "White"), Dialog(group="Effects"));
   parameter Real x_scale[2]={0,1} "x-axis bounds";
   parameter Real y_scale[2]={0,1} "y-axis bounds";
 
@@ -38,14 +38,27 @@ model PlotMap_2D
   Real x_pixel "Coordinates in pixel space";
   Real y_pixel "Coordinates in pixel space";
 
+  parameter Boolean log_scale[2]={false,false}
+    "=true if x or y axis are log-scaled";
 equation
 
   assert(x_scale[2] > x_scale[1], "x_scale[2] must be greater than x_scale[1]");
   assert(y_scale[2] > y_scale[1], "y_scale[2] must be greater than y_scale[1]");
 
-  // Normalize input to give values between 0 and 1 when within nominal range
-  x_scaled = (x - x_scale[1])/(x_scale[2] - x_scale[1]);
-  y_scaled = (y - y_scale[1])/(y_scale[2] - y_scale[1]);
+// Normalize input to give values between 0 and 1 when within nominal range
+  if log_scale[1] then
+    x_scaled = (log10(x + 1) - log10(x_scale[1] + 1))/(log10(x_scale[2] + 1) -
+      log10(x_scale[1] + 1));
+  else
+    x_scaled = (x - x_scale[1])/(x_scale[2] - x_scale[1]);
+  end if;
+
+  if log_scale[2] then
+    y_scaled = (log10(y)  - log10(y_scale[1])) /(log10(y_scale[2])  -
+      log10(y_scale[1]));
+  else
+    y_scaled = (y - y_scale[1])/(y_scale[2] - y_scale[1]);
+  end if;
 
   // Map the normalized values to pixel space
   x_scaled = (x_pixel - lowerLeft[1])/(lowerRight[1] - lowerLeft[1]);
