@@ -4,5 +4,5 @@ package SparseMatrix
   import Modelica.Units.SI;
   import SIadd = TRANSFORM.Units;
 
-annotation ();
+annotation();
 end SparseMatrix;

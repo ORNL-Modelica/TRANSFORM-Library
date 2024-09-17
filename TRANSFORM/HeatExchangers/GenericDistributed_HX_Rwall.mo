@@ -485,6 +485,16 @@ model GenericDistributed_HX_Rwall
         origin={0,-4})));
   SI.ThermalConductivity lambdas_tubeWall[geometry.nV] = {if counterCurrent then Material_tubeWall.thermalConductivity_T(0.5*(tube.mediums[i].T + tube.mediums[geometry.nV-i+1].T)) else Material_tubeWall.thermalConductivity_T(0.5*(tube.mediums[i].T + tube.mediums[geometry.nV-i+1].T)) for i in 1:geometry.nV} "Average thermal conductivity per wall node";
   input SI.ThermalResistance R_tubeWall[geometry.nV]={log(geometry.dimensions_tube_outer[i]/geometry.dimensions_tube[i])/(2*Modelica.Constants.pi*geometry.dlengths_tube[i]*lambdas_tubeWall[i]) for i in 1:geometry.nV} "Thermal resistance of wall" annotation(Dialog(group="Inputs"));
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_addShell[geometry.nV,
+    geometry.nSurfaces_shell - 1] if geometry.nSurfaces_shell > 1
+    "Additional heat transfer (e.g., external-to-shell)." annotation (Placement(
+        transformation(extent={{-10,70},{10,90}}), iconTransformation(extent={{
+            -10,62},{10,82}})));
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_addTube[geometry.nV,
+    geometry.nSurfaces_tube - 1] if geometry.nSurfaces_tube > 1
+    "Additional heat transfer (e.g., internal-to-tube)." annotation (Placement(
+        transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent
+          ={{-10,-10},{10,10}})));
 equation
   //    SI.TemperatureDifference DT_lm "Log mean temperature difference";
   //    SI.ThermalConductance UA "Overall heat transfer conductance";
@@ -538,6 +548,10 @@ equation
     annotation (Line(points={{0,-23},{0,-14}}, color={191,0,0}));
   connect(nFlow_wallToshell.port_1, counterFlow.port_a)
     annotation (Line(points={{0,6},{0,14}}, color={191,0,0}));
+  connect(heatPorts_addShell, shell.heatPorts[:, 2:geometry.nSurfaces_shell])
+    annotation (Line(points={{0,80},{0,41}}, color={191,0,0}));
+  connect(heatPorts_addTube, tube.heatPorts[:, 2:geometry.nSurfaces_tube])
+    annotation (Line(points={{0,-100},{0,-75}}, color={191,0,0}));
   annotation (
     defaultComponentName="STHX",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

@@ -63,13 +63,19 @@ model GenericDistributed_HX_withMass
     "Tube side coefficient of heat transfer" annotation (choicesAllMatching=true,
       Dialog(group="Heat Transfer"));
   replaceable model InternalHeatGen_shell =
-      Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+      TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+    constrainedby
+    Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
     annotation (Dialog(group="Heat Transfer"), choicesAllMatching=true);
   replaceable model InternalHeatGen_tube =
-      Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+      TRANSFORM.Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
+    constrainedby
+    Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
     annotation (Dialog(group="Heat Transfer"), choicesAllMatching=true);
   replaceable model InternalHeatModel_wall =
-      HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
+      TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
+    constrainedby
+    HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
     annotation (Dialog(group="Heat Transfer"),choicesAllMatching=true);
   // Shell Initialization
   parameter SI.AbsolutePressure[geometry.nV] ps_start_shell=linspace_1D(
@@ -658,6 +664,30 @@ model GenericDistributed_HX_withMass
   parameter Units.NonDim C_nominal_wall[nC]=fill(1e-6, nC)
     "Nominal concentration [mol/m3] for improved numeric stability"
     annotation (Dialog(tab="Advanced", group="Wall"));
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_addShell[geometry.nV,
+    geometry.nSurfaces_shell - 1]
+    if geometry.nSurfaces_shell > 1 and use_HeatTransfer_shell
+    "Additional heat transfer (e.g., external-to-shell)." annotation (Placement(
+        transformation(extent={{-10,70},{10,90}}), iconTransformation(extent={{
+            -10,70},{10,90}})));
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_addTube[geometry.nV,
+    geometry.nSurfaces_tube - 1]
+    if geometry.nSurfaces_tube > 1 and use_HeatTransfer_tube
+    "Additional heat transfer (e.g., internal-to-tube)." annotation (Placement(
+        transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent
+          ={{-10,-10},{10,10}})));
+  HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts_addTube1[geometry.nV,
+    geometry.nSurfaces_tube - 1]
+    if geometry.nSurfaces_tube > 1 and use_TraceMassTransfer_tube
+    "Additional mass transfer (e.g., internal-to-tube)." annotation (Placement(
+        transformation(extent={{-40,-110},{-20,-90}}), iconTransformation(
+          extent={{-10,-10},{10,10}})));
+  HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts_addShell1[geometry.nV,
+    geometry.nSurfaces_shell - 1]
+    if geometry.nSurfaces_shell > 1 and use_TraceMassTransfer_shell
+    "Additional mass transfer (e.g., external-to-shell)." annotation (Placement(
+        transformation(extent={{20,70},{40,90}}), iconTransformation(extent={{
+            -10,70},{10,90}})));
 equation
   //    SI.TemperatureDifference DT_lm "Log mean temperature difference";
   //    SI.ThermalConductance UA "Overall heat transfer conductance";
@@ -738,6 +768,14 @@ equation
           -20,28},{-20,34},{4,34},{4,41}}, color={0,140,72}));
   connect(interfaceM_tubeSide.port_a, tube.massPorts[:, 1])
     annotation (Line(points={{-4,-69},{-4,-75}}, color={0,140,72}));
+  connect(heatPorts_addShell, shell.heatPorts[:, 2:geometry.nSurfaces_shell])
+    annotation (Line(points={{0,80},{0,41}}, color={191,0,0}));
+  connect(heatPorts_addTube, tube.heatPorts[:, 2:geometry.nSurfaces_tube])
+    annotation (Line(points={{0,-100},{0,-75}}, color={191,0,0}));
+  connect(massPorts_addShell1, shell.massPorts[:, 2:geometry.nSurfaces_shell])
+    annotation (Line(points={{30,80},{30,41},{4,41}}, color={0,140,72}));
+  connect(massPorts_addTube1, tube.massPorts[:, 2:geometry.nSurfaces_tube])
+    annotation (Line(points={{-30,-100},{-30,-75},{-4,-75}}, color={0,140,72}));
   annotation (
     defaultComponentName="STHX",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,

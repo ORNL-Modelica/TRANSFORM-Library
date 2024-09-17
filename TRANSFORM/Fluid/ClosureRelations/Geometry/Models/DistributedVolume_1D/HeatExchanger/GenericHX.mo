@@ -3,7 +3,7 @@ model GenericHX
   import TRANSFORM.Math.fillArray_1D;
   parameter Integer nV(min=1) = 1 "Number of volume nodes";
   parameter Integer nSurfaces_shell=1 "Number of transfer (heat/mass) surfaces"
-  annotation (Dialog(tab="Shell Side",enable=false));
+  annotation (Dialog(tab="Shell Side"));
   input SI.Length dimensions_shell[nV]= 4*crossAreas_shell ./ perimeters_shell
     "Characteristic dimension (e.g., hydraulic diameter)"
     annotation (Dialog(tab="Shell Side",group="Inputs"));
@@ -36,7 +36,7 @@ model GenericHX
   parameter Real nTubes=1 "# of tubes per heat exchanger" annotation (Dialog(tab="Tube Side"));
   parameter Integer nR(min=1) = 1 "Number of radial nodes in wall (r-direction)" annotation(Dialog(tab="Tube Side"));
   parameter Integer nSurfaces_tube=1 "Number of transfer (heat/mass) surfaces"
-  annotation (Dialog(tab="Tube Side",enable=false));
+  annotation (Dialog(tab="Tube Side"));
   input SI.Length dimensions_tube[nV]= 4*crossAreas_tube ./ perimeters_tube
     "Characteristic dimension (e.g., hydraulic diameter)"
     annotation (Dialog(tab="Tube Side",group="Inputs"));

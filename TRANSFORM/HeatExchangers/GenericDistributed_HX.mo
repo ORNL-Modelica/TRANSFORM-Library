@@ -501,6 +501,16 @@ model GenericDistributed_HX
       annotation (Dialog(group="Heat Transfer"),choicesAllMatching=true);
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=shell.summary.T_effective);
   Real dynColor_tube[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(tube.summary.T_effective, val_min, val_max, colorMap(n_colors));
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_addShell[geometry.nV,
+    geometry.nSurfaces_shell - 1] if geometry.nSurfaces_shell > 1
+    "Additional heat transfer (e.g., external-to-shell)." annotation (Placement(
+        transformation(extent={{-10,70},{10,90}}), iconTransformation(extent={{
+            -10,62},{10,82}})));
+  HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_addTube[geometry.nV,
+    geometry.nSurfaces_tube - 1] if geometry.nSurfaces_tube > 1
+    "Additional heat transfer (e.g., internal-to-tube)." annotation (Placement(
+        transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent
+          ={{-10,-10},{10,10}})));
 equation
   //    SI.TemperatureDifference DT_lm "Log mean temperature difference";
   //    SI.ThermalConductance UA "Overall heat transfer conductance";
@@ -553,6 +563,10 @@ equation
     annotation (Line(points={{-20,-30},{-15,-30},{-10,-30}}, color={191,0,0}));
   connect(tubeWall.port_b2, adiabaticWall_b2.port)
     annotation (Line(points={{10,-30},{15,-30},{20,-30}}, color={191,0,0}));
+  connect(heatPorts_addShell, shell.heatPorts[:, 2:geometry.nSurfaces_shell])
+    annotation (Line(points={{0,80},{0,41}}, color={191,0,0}));
+  connect(heatPorts_addTube, tube.heatPorts[:, 2:geometry.nSurfaces_tube])
+    annotation (Line(points={{0,-100},{0,-75}}, color={191,0,0}));
   annotation (
     defaultComponentName="heatExchanger",
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
