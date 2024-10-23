@@ -13,8 +13,11 @@ model ExpansionTank "Expansion tank with cover gas"
   parameter SI.Pressure p_start = 1e5 annotation(Dialog(tab="Initialization"));
   parameter SI.Length level_start "Start level"
     annotation (Dialog(tab="Initialization"));
-  parameter SI.SpecificEnthalpy h_start=1e5
-    annotation (Dialog(tab="Initialization"));
+  parameter Boolean use_T_start=true annotation (Dialog(tab="Initialization"));
+  parameter SI.Temperature T_start=293.15
+    annotation (Dialog(tab="Initialization",enable=use_T_start));
+  parameter SI.SpecificEnthalpy h_start = Medium.specificEnthalpy_pTX(p_start,T_start,X_start)
+    annotation (Dialog(tab="Initialization",enable=not use_T_start));
   parameter Dynamics massDynamics=Dynamics.DynamicFreeInitial
     "Formulation of mass balances"
     annotation (Evaluate=true, Dialog(tab="Advanced", group="Dynamics"));
