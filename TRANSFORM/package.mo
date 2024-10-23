@@ -12,7 +12,6 @@ annotation (
     Complex(version="4.0.0"),
     Modelica(version="4.0.0")),
   version="1.0",
-  conversion(from(version=0.4, script="modelica://TRANSFORM/Resources/Scripts/ConvertFromTRANSFORM_0.4.mos")),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 </html>"));
