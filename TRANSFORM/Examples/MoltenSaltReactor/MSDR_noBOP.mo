@@ -254,7 +254,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         crossArea=data_RCTR.crossArea_f,
         perimeter=data_RCTR.perimeter_f,
         length=data_RCTR.length_cells,
-        angle=toggleStaticHead*90,
+        angle=toggleStaticHead*Modelica.Constants.pi/2,
         surfaceArea={fuelCellG.nParallel/fuelCell.nParallel*sum(fuelCellG.geometry.crossAreas_1
             [1, :])},
         nV=nV_fuelCell),
@@ -291,7 +291,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         length=data_RCTR.length_reflA,
         nV=2,
         nSurfaces=2,
-        angle=toggleStaticHead*90,
+        angle=toggleStaticHead*Modelica.Constants.pi/2,
         surfaceArea={reflA_upperG.nParallel/reflA_upper.nParallel*sum(
             reflA_upperG.geometry.crossAreas_1[1, :]),reflA_upperG.nParallel/
             reflA_upper.nParallel*sum(reflA_upperG.geometry.crossAreas_1[end, :])}),
@@ -322,7 +322,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder (
         length=data_RCTR.length_plenum,
         crossArea=data_RCTR.crossArea_plenum,
-        angle=toggleStaticHead*90),
+        angle=toggleStaticHead*Modelica.Constants.pi/2),
     showName=systemTF.showName,
     mC_gen=mC_gen_plenum_upper,
     C_start=C_start_plenum_upper,
@@ -351,7 +351,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         length=data_RCTR.length_reflA,
         nV=2,
         nSurfaces=2,
-        angle=toggleStaticHead*90,
+        angle=toggleStaticHead*Modelica.Constants.pi/2,
         surfaceArea={reflA_lowerG.nParallel/reflA_lower.nParallel*sum(
             reflA_lowerG.geometry.crossAreas_1[1, :]),reflA_lowerG.nParallel/
             reflA_lower.nParallel*sum(reflA_lowerG.geometry.crossAreas_1[end, :])}),
@@ -388,7 +388,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder (
         length=data_RCTR.length_plenum,
         crossArea=data_RCTR.crossArea_plenum,
-        angle=toggleStaticHead*90),
+        angle=toggleStaticHead*Modelica.Constants.pi/2),
     T_start=data_PHX.T_outlet_tube,
     showName=systemTF.showName,
     mC_gen=mC_gen_plenum_lower,
@@ -555,7 +555,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
         Fluid.ClosureRelations.Geometry.Models.LumpedVolume.Cylinder (
         length=data_RCTR.length_tee_inlet,
         crossArea=data_RCTR.crossArea_tee_inlet,
-        angle=toggleStaticHead*90),
+        angle=toggleStaticHead*Modelica.Constants.pi/2),
     nPorts_a=1,
     showName=systemTF.showName,
     mC_gen=mC_gen_tee_inlet,
@@ -1032,7 +1032,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
          Q_gens=Qs_gen_reflR),
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
-        angle=toggleStaticHead*90,
+        angle=toggleStaticHead*Modelica.Constants.pi/2,
         crossArea=data_RCTR.crossArea_reflR,
         perimeter=data_RCTR.perimeter_reflR,
         length=data_RCTR.length_reflR,
