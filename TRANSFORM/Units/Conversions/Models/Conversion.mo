@@ -7,6 +7,7 @@ model Conversion "Base model for conversion models"
   replaceable function convert =
       TRANSFORM.Units.Conversions.Functions.BaseClasses.PartialConversion
     "Define conversion" annotation (choicesAllMatching=true);
+  parameter Real k = 1 "y = k*UnitConversion(u)";
   Modelica.Blocks.Interfaces.RealInput u if use_port annotation (Placement(
         transformation(extent={{-140,-20},{-100,20}}),
                                                      iconTransformation(extent={{-140,
@@ -21,7 +22,7 @@ equation
   if not use_port then
     u_int = val;
   end if;
-  y = convert(u_int);
+  y = k*convert(u_int);
   annotation (defaultComponentName="conversion",Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
