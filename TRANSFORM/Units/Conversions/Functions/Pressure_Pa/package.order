@@ -16,3 +16,5 @@ to_inHg
 from_inHg
 from_mH2O_to_psi
 from_psi_to_mH2O
+from_Torr
+to_Torr
