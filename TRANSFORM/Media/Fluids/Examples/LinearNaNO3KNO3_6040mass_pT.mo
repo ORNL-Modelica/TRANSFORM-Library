@@ -5,7 +5,7 @@ model LinearNaNO3KNO3_6040mass_pT
   parameter SI.Temperature[n] Ts = {300+273.15,450+273.15,600+273.15};
   parameter SI.Pressure[n] ps = fill(1e5,3);
   replaceable package Medium =
-      TRANSFORM.Media.Fluids.NaNO3KNO3.LinearNaNO3KNO3_6040mass;
+      TRANSFORM.Media.Fluids.NaNO3KNO3.LinearNaNO3KNO3_6040mass_pT;
   Medium.BaseProperties mediums[n];
   SI.DynamicViscosity eta[n] = Medium.dynamicViscosity(mediums.state);
   SI.ThermalConductivity lambda[n] = Medium.thermalConductivity(mediums.state);

@@ -1,5 +1,5 @@
 within TRANSFORM.Media.Fluids.NaNO3KNO3;
-package LinearNaNO3KNO3_6040mass
+package LinearNaNO3KNO3_6040mass_pT
   "NaNO3-KNO3 | 60%-40% by mass | Linear compressibility"
 // https://www.osti.gov/servlets/purl/786629/ Section 1.6.3
 // beta_const adjusted till density matched. kappa left alone
@@ -34,4 +34,4 @@ algorithm
     lambda := NaNO3KNO3.Utilities_NaNO3KNO3_6040mass.lambda_T(state.T);
   annotation(Inline=true);
 end thermalConductivity;
-end LinearNaNO3KNO3_6040mass;
+end LinearNaNO3KNO3_6040mass_pT;
