@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Fluid.Volumes.Examples.Pressurizer_Simple_Test",stopTime=10000,numberOfIntervals=1000,resultFile="Pressurizer_Simple_Test");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

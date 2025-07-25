@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.ThermalConductivity_W_mK.Examples.check_W_mK",resultFile="check_W_mK");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

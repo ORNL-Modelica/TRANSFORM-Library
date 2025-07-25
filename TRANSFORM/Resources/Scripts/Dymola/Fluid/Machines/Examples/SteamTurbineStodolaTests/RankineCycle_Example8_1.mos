@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Fluid.Machines.Examples.SteamTurbineStodolaTests.RankineCycle_Example8_1",numberOfIntervals=100,resultFile="RankineCycle_Example8_1");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

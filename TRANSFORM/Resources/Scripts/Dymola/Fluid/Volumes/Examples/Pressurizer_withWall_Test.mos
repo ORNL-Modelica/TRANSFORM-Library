@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Fluid.Volumes.Examples.Pressurizer_withWall_Test",stopTime=1000,method="Esdirk45a",numberOfIntervals=1000,resultFile="Pressurizer_withWall_Test");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

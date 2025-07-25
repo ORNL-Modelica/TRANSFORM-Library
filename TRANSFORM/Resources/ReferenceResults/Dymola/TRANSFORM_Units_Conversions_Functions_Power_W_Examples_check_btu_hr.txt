@@ -1,9 +1,0 @@
-last-generated=2018-12-19
-statistics-simulation=
-{
-  "numerical Jacobians": "0", 
-  "nonlinear": " ", 
-  "linear": " "
-}
-unitTests.x[1]=[3.41214156150817871094, 3.41214156150817871094]
-time=[0., 1.]

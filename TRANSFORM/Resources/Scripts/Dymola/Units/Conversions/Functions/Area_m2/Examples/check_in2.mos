@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Area_m2.Examples.check_in2",resultFile="check_in2");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

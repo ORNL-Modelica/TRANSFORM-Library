@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Distance_m.Examples.check_in",resultFile="check_in");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

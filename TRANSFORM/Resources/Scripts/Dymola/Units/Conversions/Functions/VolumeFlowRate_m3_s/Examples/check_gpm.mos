@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.VolumeFlowRate_m3_s.Examples.check_gpm",resultFile="check_gpm");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

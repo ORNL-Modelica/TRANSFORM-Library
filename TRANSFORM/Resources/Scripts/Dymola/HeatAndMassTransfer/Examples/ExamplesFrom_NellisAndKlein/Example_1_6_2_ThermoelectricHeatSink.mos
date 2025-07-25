@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_6_2_ThermoelectricHeatSink",stopTime=10,method="Dassl",numberOfIntervals=100,resultFile="Example_1_6_2_ThermoelectricHeatSink");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

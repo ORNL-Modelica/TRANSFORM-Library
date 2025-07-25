@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.DynamicViscosity_kg_ms.Examples.check_kg_ms",resultFile="check_kg_ms");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

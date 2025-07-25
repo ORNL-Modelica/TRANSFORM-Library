@@ -1,4 +1,0 @@
-simulateModel("TRANSFORM.HeatExchangers.ClosureRelations.Models.Examples.check_CrossFlow",resultFile="check_CrossFlow");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
-createPlot(id=2, y={"unitTests.x[2]"}, grid=true);

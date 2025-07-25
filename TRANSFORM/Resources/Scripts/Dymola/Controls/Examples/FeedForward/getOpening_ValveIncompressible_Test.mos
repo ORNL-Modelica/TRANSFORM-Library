@@ -1,4 +1,0 @@
-simulateModel("TRANSFORM.Controls.Examples.FeedForward.getOpening_ValveIncompressible_Test",stopTime=10,resultFile="getOpening_ValveIncompressible_Test");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
-createPlot(id=2, y={"unitTests.x[2]"}, grid=true);

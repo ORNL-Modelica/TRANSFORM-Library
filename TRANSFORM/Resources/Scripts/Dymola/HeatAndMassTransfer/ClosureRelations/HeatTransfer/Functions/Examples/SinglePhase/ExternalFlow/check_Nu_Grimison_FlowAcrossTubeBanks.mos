@@ -1,4 +1,0 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.Examples.SinglePhase.ExternalFlow.check_Nu_Grimison_FlowAcrossTubeBanks",stopTime=2,numberOfIntervals=160,resultFile="check_Nu_Grimison_FlowAcrossTubeBanks");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
-createPlot(id=2, y={"unitTests.x[2]"}, grid=true);

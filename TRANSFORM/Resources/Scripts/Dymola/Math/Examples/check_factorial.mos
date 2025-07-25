@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Math.Examples.check_factorial",stopTime=10,resultFile="check_factorial");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Concentration_mol_m3.Examples.check_mol_L",resultFile="check_mol_L");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -1,5 +1,0 @@
-simulateModel("TRANSFORM.Media.Fluids.Examples.LinearKClMGCl2_67_33_pT",resultFile="LinearKClMGCl2_67_33_pT");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
-createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
-createPlot(id=3, y={"unitTests.x[3]"}, grid=true);

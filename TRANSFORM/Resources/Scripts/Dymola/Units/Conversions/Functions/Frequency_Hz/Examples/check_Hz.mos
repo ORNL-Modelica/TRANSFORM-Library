@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Frequency_Hz.Examples.check_Hz",resultFile="check_Hz");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

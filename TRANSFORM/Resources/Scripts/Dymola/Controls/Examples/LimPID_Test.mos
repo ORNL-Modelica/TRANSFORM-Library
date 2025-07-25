@@ -1,5 +1,0 @@
-simulateModel("TRANSFORM.Controls.Examples.LimPID_Test",stopTime=1.0,tolerance=1e-6,resultFile="LimPID_Test");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
-createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
-createPlot(id=3, y={"unitTests.x[3]"}, grid=true);

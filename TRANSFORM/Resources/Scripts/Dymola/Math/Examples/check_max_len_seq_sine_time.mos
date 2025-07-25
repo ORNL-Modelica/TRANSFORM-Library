@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Math.Examples.check_max_len_seq_sine_time",resultFile="check_max_len_seq_sine_time");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

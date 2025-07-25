@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Fluid.Machines.Examples.PumpTests.Pump_Mechanical_Test",stopTime=10,tolerance=1e-006,resultFile="Pump_Mechanical_Test");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

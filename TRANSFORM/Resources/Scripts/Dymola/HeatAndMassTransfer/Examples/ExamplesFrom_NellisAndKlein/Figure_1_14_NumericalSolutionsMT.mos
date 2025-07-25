@@ -1,5 +1,0 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Figure_1_14_NumericalSolutionsMT",numberOfIntervals=100,resultFile="Figure_1_14_NumericalSolutionsMT");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
-createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
-createPlot(id=3, y={"unitTests.x[3]"}, grid=true);

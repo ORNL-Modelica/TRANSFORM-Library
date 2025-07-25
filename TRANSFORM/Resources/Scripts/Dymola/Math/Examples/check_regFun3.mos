@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Math.Examples.check_regFun3",stopTime=1.0,resultFile="check_regFun3");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -1,5 +1,0 @@
-simulateModel("TRANSFORM.Examples.Demonstrations.Examples.LorenzSystem_LinA_Test",stopTime=100,numberOfIntervals=10000,resultFile="LorenzSystem_LinA_Test");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
-createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
-createPlot(id=3, y={"unitTests.x[3]"}, grid=true);

@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Velocity_m_s.Examples.check_ft_s",resultFile="check_ft_s");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

@@ -1,6 +1,0 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Examples.Utilities.Groeneveld2006LUT",stopTime=10,resultFile="Groeneveld2006LUT");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
-createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
-createPlot(id=3, y={"unitTests.x[3]"}, grid=true);
-createPlot(id=4, y={"unitTests.x[4]"}, grid=true);

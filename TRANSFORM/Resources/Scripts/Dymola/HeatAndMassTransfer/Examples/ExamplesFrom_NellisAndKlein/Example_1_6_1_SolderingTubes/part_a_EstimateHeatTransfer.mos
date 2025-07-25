@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_6_1_SolderingTubes.part_a_EstimateHeatTransfer",numberOfIntervals=100,resultFile="part_a_EstimateHeatTransfer");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

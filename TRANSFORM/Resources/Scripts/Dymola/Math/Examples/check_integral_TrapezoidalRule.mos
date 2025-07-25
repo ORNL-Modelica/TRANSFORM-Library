@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Math.Examples.check_integral_TrapezoidalRule",numberOfIntervals=100,resultFile="check_integral_TrapezoidalRule");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

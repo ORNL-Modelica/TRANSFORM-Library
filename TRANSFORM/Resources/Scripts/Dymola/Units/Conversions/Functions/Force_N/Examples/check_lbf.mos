@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Force_N.Examples.check_lbf",resultFile="check_lbf");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

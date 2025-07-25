@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Math.Examples.check_psi_math",stopTime=4,resultFile="check_psi_math");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

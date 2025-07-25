@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_vs_ApproximateOneGroup",stopTime=1.1,numberOfIntervals=100,resultFile="PointKinetics_vs_ApproximateOneGroup");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

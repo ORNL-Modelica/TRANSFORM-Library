@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_7_2_DrawingAWire",stopTime=50,numberOfIntervals=100,resultFile="Example_1_7_2_DrawingAWire");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

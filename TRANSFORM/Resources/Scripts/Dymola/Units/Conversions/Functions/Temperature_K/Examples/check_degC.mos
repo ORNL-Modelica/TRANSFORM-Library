@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Temperature_K.Examples.check_degC",resultFile="check_degC");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

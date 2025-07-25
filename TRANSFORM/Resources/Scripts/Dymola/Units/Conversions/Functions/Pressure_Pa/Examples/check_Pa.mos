@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Pressure_Pa.Examples.check_Pa",resultFile="check_Pa");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

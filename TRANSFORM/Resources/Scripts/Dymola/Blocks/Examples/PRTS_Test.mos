@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Blocks.Examples.PRTS_Test",stopTime=10,resultFile="PRTS_Test");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

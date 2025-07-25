@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_2_1_LiquidOxygenDewar.part_c_InsulationThickness",numberOfIntervals=100,resultFile="part_c_InsulationThickness");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

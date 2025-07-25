@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.Examples.check_femto",resultFile="check_femto");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

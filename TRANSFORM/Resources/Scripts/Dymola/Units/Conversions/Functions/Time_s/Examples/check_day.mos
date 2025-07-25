@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Time_s.Examples.check_day",resultFile="check_day");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

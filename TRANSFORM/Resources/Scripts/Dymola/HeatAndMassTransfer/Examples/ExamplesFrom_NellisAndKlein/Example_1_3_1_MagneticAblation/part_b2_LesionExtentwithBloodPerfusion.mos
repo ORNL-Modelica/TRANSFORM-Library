@@ -1,5 +1,0 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_3_1_MagneticAblation.part_b2_LesionExtentwithBloodPerfusion",numberOfIntervals=100,resultFile="part_b2_LesionExtentwithBloodPerfusion");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
-createPlot(id=2, y={"unitTests.x[2]"}, grid=true);
-createPlot(id=3, y={"unitTests.x[3]"}, grid=true);

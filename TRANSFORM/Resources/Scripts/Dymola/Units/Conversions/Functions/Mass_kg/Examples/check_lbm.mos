@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Mass_kg.Examples.check_lbm",resultFile="check_lbm");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

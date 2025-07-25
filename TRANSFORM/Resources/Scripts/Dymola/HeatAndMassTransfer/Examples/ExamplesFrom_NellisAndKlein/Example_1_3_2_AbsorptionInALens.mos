@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_3_2_AbsorptionInALens",numberOfIntervals=100,resultFile="Example_1_3_2_AbsorptionInALens");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

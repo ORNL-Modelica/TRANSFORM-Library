@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Fluid.Examples.MSLFluid.RoomCO2WithControls",stopTime=86400,tolerance=1e-006,method="Esdirk45a",resultFile="RoomCO2WithControls");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

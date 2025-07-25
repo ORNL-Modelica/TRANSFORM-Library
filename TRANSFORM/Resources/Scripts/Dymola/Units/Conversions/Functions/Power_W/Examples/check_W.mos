@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Power_W.Examples.check_W",resultFile="check_W");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);

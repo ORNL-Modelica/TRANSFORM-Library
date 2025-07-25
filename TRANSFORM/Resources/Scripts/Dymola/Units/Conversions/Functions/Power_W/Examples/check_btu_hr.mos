@@ -1,3 +1,0 @@
-simulateModel("TRANSFORM.Units.Conversions.Functions.Power_W.Examples.check_btu_hr",resultFile="check_btu_hr");
-
-createPlot(id=1, y={"unitTests.x[1]"}, grid=true);
