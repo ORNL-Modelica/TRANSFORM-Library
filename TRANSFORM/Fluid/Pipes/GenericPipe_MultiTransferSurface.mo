@@ -465,9 +465,17 @@ equation
        Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((mediums[nV].p - mediums[nV - 1].p)/2 + flowModel.dps_fg[nV - 1]/2 - g_n*geometry.dheights[nV]*mediums[nV].d);
      elseif exposeState_a and not exposeState_b then
        Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - mediums[1].p)/2 + flowModel.dps_fg[1]/2 - g_n*geometry.dheights[1]*mediums[1].d);
-       Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((port_b.p - mediums[nV - 1].p)/1.5 + flowModel.dps_fg[nV - 1]/2 + flowModel.dps_fg[nV] - g_n*geometry.dheights[nV]*mediums[nV].d);
+       if nV == 2 then
+         Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((port_b.p - mediums[nV - 1].p)*5/8 + flowModel.dps_fg[nV - 1]/2 + flowModel.dps_fg[nV] - g_n*geometry.dheights[nV]*mediums[nV].d);
+       else
+         Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((port_b.p - mediums[nV - 1].p)/1.5 + flowModel.dps_fg[nV - 1]/2 + flowModel.dps_fg[nV] - g_n*geometry.dheights[nV]*mediums[nV].d);
+       end if;
      elseif not exposeState_a and exposeState_b then
-       Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - port_a.p)/1.5 + flowModel.dps_fg[1] + flowModel.dps_fg[2]/2 - g_n*geometry.dheights[1]*mediums[1].d);
+       if nV == 2 then
+         Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - port_a.p)*5/8 + flowModel.dps_fg[1] + flowModel.dps_fg[2]/2 - g_n*geometry.dheights[1]*mediums[1].d);
+       else
+         Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - port_a.p)/1.5 + flowModel.dps_fg[1] + flowModel.dps_fg[2]/2 - g_n*geometry.dheights[1]*mediums[1].d);
+       end if;
        Wb_flows[nV] = vs[nV]*geometry.crossAreas[nV]*((mediums[nV].p - mediums[nV - 1].p)/2 + flowModel.dps_fg[nV]/2 - g_n*geometry.dheights[nV]*mediums[nV].d);
      elseif not exposeState_a and not exposeState_b then
        Wb_flows[1] = vs[1]*geometry.crossAreas[1]*((mediums[2].p - port_a.p)/1.5 + flowModel.dps_fg[1] + flowModel.dps_fg[2]/2 - g_n*geometry.dheights[1]*mediums[1].d);
