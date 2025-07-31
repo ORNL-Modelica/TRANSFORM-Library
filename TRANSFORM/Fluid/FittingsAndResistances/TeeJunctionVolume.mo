@@ -66,12 +66,14 @@ Icon(coordinateSystem(
           extent={{-40,90},{40,40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.VerticalCylinder,
-          fillColor={0,127,255}),
+          fillColor=DynamicSelect({0,128,255}, if showColors then dynColor
+               else {0,128,255})),
         Rectangle(
           extent={{-90,40},{90,-40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),                  Ellipse(
+          fillColor=DynamicSelect({0,128,255}, if showColors then dynColor
+               else {0,128,255})),                  Ellipse(
           extent={{-9,10},{11,-10}},
           lineColor={0,0,0},
           fillColor={0,0,0},

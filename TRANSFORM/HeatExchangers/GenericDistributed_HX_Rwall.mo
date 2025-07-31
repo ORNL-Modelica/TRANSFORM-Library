@@ -470,7 +470,9 @@ model GenericDistributed_HX_Rwall
       Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
       annotation (Dialog(group="Heat Transfer"),choicesAllMatching=true);
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=shell.summary.T_effective);
-  Real dynColor_tube[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(tube.summary.T_effective, val_min, val_max, colorMap(n_colors));
+  input Real val_tube = tube.summary.T_effective "Color map input variable" annotation(Dialog(tab="Visualization",group="Color Coding",enable=showColors));
+  Real dynColor_tube[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val_tube, val_min, val_max, colorMap(n_colors));
+
   HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nFlow_tubeTowall[
     geometry.nV](each nParallel=tube.nParallel)
                                            annotation (Placement(transformation(

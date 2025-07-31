@@ -54,8 +54,6 @@ model SimpleVolume
       annotation (Placement(transformation(extent={{30,-50},{50,-30}}),
           iconTransformation(extent={{30,-50},{50,-30}})));
 
-    // Visualization
-    parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
 
 protected
     SI.HeatFlowRate Q_flow_internal;
@@ -82,7 +80,8 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Ellipse(
           extent={{60,60},{-60,-60}},
           lineColor={0,0,0},
-          fillColor={0,128,255},
+          fillColor=DynamicSelect({0,128,255}, if showColors then dynColor
+               else {0,128,255}),
           fillPattern=FillPattern.Sphere), Text(
           extent={{-151,104},{149,64}},
           lineColor={0,0,255},

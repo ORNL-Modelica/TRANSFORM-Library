@@ -91,7 +91,8 @@ equation
           visible=DynamicSelect(true, showName)),               Ellipse(
           extent={{60,60},{-60,-60}},
           lineColor={0,0,0},
-          fillColor={0,128,255},
+          fillColor=DynamicSelect({0,128,255}, if showColors then dynColor
+               else {0,128,255}),
           fillPattern=FillPattern.Sphere)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)));
 end PartialSimpleVolume;

@@ -1,6 +1,7 @@
 within TRANSFORM.Fluid.Volumes.BaseClasses;
 partial model PartialVolume
     "Base class for volume models"
+  outer TRANSFORM.Fluid.SystemTF systemTF;
   import Modelica.Fluid.Types.Dynamics;
   import Modelica.Media.Interfaces.Choices.IndependentVariables;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
@@ -88,6 +89,9 @@ partial model PartialVolume
   // Trace Balance
   SIadd.ExtraPropertyFlowRate mCb[Medium.nC]=zeros(Medium.nC)
     "Trace flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
+
+  extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=medium.T);
+
 protected
   parameter Boolean initialize_p=not Medium.singleState
     "= true to set up initial equations for pressure";
