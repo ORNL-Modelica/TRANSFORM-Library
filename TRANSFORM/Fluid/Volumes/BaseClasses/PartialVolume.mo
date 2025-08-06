@@ -90,6 +90,7 @@ partial model PartialVolume
   SIadd.ExtraPropertyFlowRate mCb[Medium.nC]=zeros(Medium.nC)
     "Trace flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
 
+  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=medium.T);
 
 protected

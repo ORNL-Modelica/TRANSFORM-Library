@@ -469,6 +469,7 @@ model GenericDistributed_HX_Rwall
   replaceable model InternalHeatGen_shell =
       Fluid.ClosureRelations.InternalVolumeHeatGeneration.Models.DistributedVolume_1D.GenericHeatGeneration
       annotation (Dialog(group="Heat Transfer"),choicesAllMatching=true);
+  parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=shell.summary.T_effective);
   input Real val_tube = tube.summary.T_effective "Color map input variable" annotation(Dialog(tab="Visualization",group="Color Coding",enable=showColors));
   Real dynColor_tube[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val_tube, val_min, val_max, colorMap(n_colors));
@@ -671,7 +672,12 @@ equation
           fillPattern=FillPattern.Solid,
           visible=exposeState_b_tube,
           origin={100,-0.5},
-          rotation=360)}),
+          rotation=360),
+        Text(
+          extent={{-149,-68},{151,-108}},
+          lineColor={0,0,255},
+          textString="%name",
+          visible=DynamicSelect(true,showName))}),
     Documentation(info="<html>
 <p>A generic heat exchanger for any relatively simple general purpose heat transfer process.</p>
 <p><br>- Currently the nodes on the shell and tube side must be equal. The lengths do not however there are no geometry checks to ensure reasonable user input.</p>
