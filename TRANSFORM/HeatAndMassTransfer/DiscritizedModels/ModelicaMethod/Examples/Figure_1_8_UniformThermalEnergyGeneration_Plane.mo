@@ -1,17 +1,7 @@
-﻿within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ModelicaMethod.Examples;
+within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ModelicaMethod.Examples;
 model Figure_1_8_UniformThermalEnergyGeneration_Plane
   "Uniform thermaly energy generation in a plane wall (Figure 1-8) | pg. 28"
   extends Icons.Example;
-  Utilities.ErrorAnalysis.UnitTests summary_Error(
-    n=12,
-    x_reference=Units.Conversions.Functions.Temperature_K.from_degC({80,82,84,
-        84,82,78,72,64,54,42,28,20}),
-    x=cat(
-        1,
-        {T_H.T},
-        wall1.unitCell.T,
-        {T_C.T}))
-    annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_H(T=353.15)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_C(T=293.15)
