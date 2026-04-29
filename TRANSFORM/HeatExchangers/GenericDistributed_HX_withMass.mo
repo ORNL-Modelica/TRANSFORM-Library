@@ -7,6 +7,7 @@ model GenericDistributed_HX_withMass
   import TRANSFORM.Fluid.Types.LumpedLocation;
   import Modelica.Fluid.Types.Dynamics;
   import TRANSFORM.Math.linspaceRepeat_1D_multi;
+  outer TRANSFORM.Fluid.SystemTF systemTF;
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a_tube(redeclare package Medium =
                Medium_tube) annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}}), iconTransformation(extent={{-110,-10},{-90,10}})));
