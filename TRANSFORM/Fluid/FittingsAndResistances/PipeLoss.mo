@@ -75,11 +75,11 @@ equation
     geometry.dimension^2);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
-          extent={{-90,40},{90,-40}},
+          extent={{-60,40},{60,-40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}), Line(points={{-90,0},{-42,0},{-36,18},{-24,
-              -18},{-12,18},{0,-18},{12,18},{24,-18},{36,18},{42,0},{90,0}},
+          fillColor={0,127,255}), Line(points={{-70,0},{-42,0},{-36,18},{-24,
+              -18},{-12,18},{0,-18},{12,18},{24,-18},{36,18},{42,0},{70,0}},
             color={0,0,0})}),                                    Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PipeLoss;

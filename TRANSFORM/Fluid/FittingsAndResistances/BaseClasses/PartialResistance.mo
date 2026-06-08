@@ -1,14 +1,7 @@
 within TRANSFORM.Fluid.FittingsAndResistances.BaseClasses;
 partial model PartialResistance
-  replaceable package Medium = Modelica.Media.Water.StandardWater
-    constrainedby Modelica.Media.Interfaces.PartialMedium "Medium properties"
-    annotation (choicesAllMatching=true);
-  Interfaces.FluidPort_Flow port_a(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{-80,-10},{-60,10}}),
-        iconTransformation(extent={{-80,-10},{-60,10}})));
-  Interfaces.FluidPort_Flow port_b(redeclare package Medium = Medium)
-    annotation (Placement(transformation(extent={{60,-10},{80,10}}),
-        iconTransformation(extent={{60,-10},{80,10}})));
+  extends PartialResistanceInterface;
+
   Medium.ThermodynamicState state;
   SI.PressureDifference dp;
   SI.MassFlowRate m_flow;
