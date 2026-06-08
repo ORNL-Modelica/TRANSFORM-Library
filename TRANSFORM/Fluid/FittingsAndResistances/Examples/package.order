@@ -3,6 +3,7 @@ GasKineticTheoryTest
 SharpEdgedAdaptor
 SmoothAdaptor
 Elbow
+TeeJunctionVolume_withResistances
 SpecifiedResistance
 ElevationChange
 NominalLoss

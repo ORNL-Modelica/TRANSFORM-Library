@@ -51,16 +51,16 @@ model TeeJunctionVolume_withResistances
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
   replaceable PressureLoss resistance_1(dp0(displayUnit="Pa") = 0.01)
-    constrainedby BaseClasses.PartialResistance(redeclare package Medium =
-        Medium) annotation (Placement(transformation(extent={{-80,-10},{-60,10}})),
+    constrainedby BaseClasses.PartialResistanceInterface(redeclare package
+        Medium = Medium) annotation (Placement(transformation(extent={{-80,-10},{-60,10}})),
       choicesAllMatching=true);
   replaceable PressureLoss resistance_2(dp0(displayUnit="Pa") = 0.01)
-    constrainedby BaseClasses.PartialResistance(redeclare package Medium =
-        Medium) annotation (Placement(transformation(extent={{60,-10},{80,10}})),
+    constrainedby BaseClasses.PartialResistanceInterface(redeclare package
+        Medium = Medium) annotation (Placement(transformation(extent={{60,-10},{80,10}})),
       choicesAllMatching=true);
   replaceable PressureLoss resistance_3(dp0(displayUnit="Pa") = 0.01)
-    constrainedby BaseClasses.PartialResistance(redeclare package Medium =
-        Medium) annotation (Placement(transformation(
+    constrainedby BaseClasses.PartialResistanceInterface(redeclare package
+        Medium = Medium) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,70})), choicesAllMatching=true);
@@ -94,8 +94,23 @@ equation
   annotation (
     defaultComponentName="tee",
     Documentation(info="<html>
-  This model introduces a mixing volume into a junction.
-  This might be useful to examine the non-ideal mixing taking place in a real junction.</html>"),
+<p>This model introduces a mixing volume into a junction. This might be useful to examine the non-ideal mixing taking
+place in a real junction.</p>
+<p>Each leg carries a <b>replaceable</b> resistance (<code>resistance_1</code>, <code>resistance_2</code>,
+<code>resistance_3</code>) between the outer port and the central mixing volume. The slots are constrained by the
+minimal <a href=\"modelica://TRANSFORM.Fluid.FittingsAndResistances.BaseClasses.PartialResistanceInterface\">PartialResistanceInterface</a>
+(<code>Medium</code> + two ports), so they accept a resistance built on <i>either</i> base class:</p>
+<ul>
+<li>old-style <a href=\"modelica://TRANSFORM.Fluid.FittingsAndResistances.BaseClasses.PartialResistance\">PartialResistance</a>
+components (the default <code>PressureLoss</code>, <code>SpecifiedResistance</code>, &hellip;), and</li>
+<li>new-style <a href=\"modelica://TRANSFORM.Fluid.FittingsAndResistances.BaseClasses.PartialResistancenew\">PartialResistancenew</a>
+components (<code>SharpEdgedAdaptor</code>, <code>SmoothAdaptor</code>, <code>Elbow</code>, &hellip;).</li>
+</ul>
+<p>This makes it straightforward to build a tee whose three ends are <b>different sizes</b> &ndash; e.g. redeclare a leg
+to a <code>SmoothAdaptor</code>/<code>SharpEdgedAdaptor</code> to transition the junction down to a smaller branch pipe.
+See the example
+<a href=\"modelica://TRANSFORM.Fluid.FittingsAndResistances.Examples.TeeJunctionVolume_withResistances\">Examples.TeeJunctionVolume_withResistances</a>.</p>
+</html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
