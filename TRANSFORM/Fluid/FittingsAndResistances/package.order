@@ -9,9 +9,11 @@ GasKineticTheory
 SharpEdgedAdaptor
 SmoothAdaptor
 Elbow
+MiterBend
 PipeLoss
 MultiPort
 TeeJunctionVolume
+TeeJunctionVolumeLoss
 BaseClasses
 Buoyancy_specifyFriction
 Buoyancy_withFriction
