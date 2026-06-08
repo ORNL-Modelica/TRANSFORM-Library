@@ -10,6 +10,11 @@ SharpEdgedAdaptor
 SmoothAdaptor
 Elbow
 MiterBend
+Orifice
+PerforatedPlate
+Entrance
+Exit
+SpacerGrid
 PipeLoss
 MultiPort
 TeeJunctionVolume
