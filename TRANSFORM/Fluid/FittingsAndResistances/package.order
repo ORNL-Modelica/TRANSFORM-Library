@@ -7,6 +7,8 @@ NominalLoss
 MassTranportCoefficient
 GasKineticTheory
 SharpEdgedAdaptor
+SmoothAdaptor
+Elbow
 PipeLoss
 MultiPort
 TeeJunctionVolume

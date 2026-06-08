@@ -1,6 +1,8 @@
 MassTransportCoefficientTest
 GasKineticTheoryTest
 SharpEdgedAdaptor
+SmoothAdaptor
+Elbow
 SpecifiedResistance
 ElevationChange
 NominalLoss
