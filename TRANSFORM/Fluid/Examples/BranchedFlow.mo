@@ -76,7 +76,7 @@ model BranchedFlow
   TRANSFORM.Fluid.FittingsAndResistances.SmoothAdaptor adaptor_out(
     redeclare package Medium = Medium,
     m_flow_start=5,
-    dimensions_ab={0.1,0.05},
+    dimensions_ab={0.05,0.1},
     roughness=2.5e-5)
     annotation (Placement(transformation(extent={{50,-40},{30,-20}})));
 equation
