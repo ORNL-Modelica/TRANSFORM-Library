@@ -67,6 +67,7 @@ regFun3
 clamp
 findPlace
 PerformanceCurve
+PerformanceCurve_der
 psi
 hypergeometric2F1
 pochhammer

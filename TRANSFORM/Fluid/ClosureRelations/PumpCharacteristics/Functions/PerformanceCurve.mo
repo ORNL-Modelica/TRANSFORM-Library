@@ -3,6 +3,11 @@ function PerformanceCurve
   input Real x "Value of interest";
   input Real x_curve[:];
   input Real y_curve[size(x_curve, 1)];
+  input Real d[size(x_curve, 1)]=TRANSFORM.Math.splineDerivatives(
+      x=x_curve,
+      y=y_curve,
+      ensureMonotonicity=TRANSFORM.Math.isMonotonic(x=y_curve, strict=false))
+    "Derivatives at the support points (precomputed; default keeps backward compatibility)";
   input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
   input Real delta=0.05
     "Small value for switching implementation around zero rpm";
@@ -12,10 +17,6 @@ protected
   Real r_R(unit="1") "Relative revolution, bounded below by delta";
   Real ratio "Ratio of x/r_N";
   Integer i "Integer to select data interval";
-  Real d[size(x_curve, 1)]=TRANSFORM.Math.splineDerivatives(
-      x=x_curve,
-      y=y_curve,
-      ensureMonotonicity=TRANSFORM.Math.isMonotonic(x=y_curve, strict=false));
 algorithm
   // For r_N < delta, we restrict r_N in the term V_flow/r_N.
   // This is done using a cubic spline in a region 0.75*delta < r_N < 1.25*r_N
@@ -61,5 +62,21 @@ algorithm
       y1d=d[i],
       y2d=d[i + 1]);
   end if;
-annotation(smoothOrder=1);
+annotation(
+  smoothOrder=1,
+  derivative(
+    zeroDerivative=x_curve,
+    zeroDerivative=y_curve,
+    zeroDerivative=d,
+    zeroDerivative=delta) = PerformanceCurve_der,
+  Documentation(info="<html>
+<p>Pump-characteristic copy of
+<a href=\"modelica://TRANSFORM.Math.PerformanceCurve\">TRANSFORM.Math.PerformanceCurve</a>.
+See that function for the math, argument meaning and the analytic-derivative pattern.</p>
+
+<p>Both copies must be kept in sync. This local copy exists so that the
+<code>PumpCharacteristics</code> closure-relation models can reference a function within their
+own sub-package; the implementation, default for <code>d</code>, and derivative annotation are
+identical.</p>
+</html>"));
 end PerformanceCurve;
