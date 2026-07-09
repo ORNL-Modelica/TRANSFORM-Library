@@ -7,10 +7,6 @@ A Modelica based library for modeling thermal hydraulic energy systems and other
 
 [![TRANSFORMDemo](http://img.youtube.com/vi/esUoh9zBK-M/0.jpg)](https://youtu.be/lEhW7kK8ypw)
 
-## Version - BETA
-
-As library is in its beta stage, library may change often with compatability breaking changes. Thought you should know!
-
 ## Requirements
 
 Dymola
