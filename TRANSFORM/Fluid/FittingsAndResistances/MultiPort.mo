@@ -24,6 +24,8 @@ model MultiPort
     "inStream mass fractions at ports_b";
   Medium.ExtraProperty ports_b_C_inStream[nPorts_b,Medium.nC]
     "inStream extra properties at ports_b";
+
+  parameter Boolean showName=false annotation (Dialog(tab="Visualization"));
 equation
   // Only one connection allowed to a port to avoid unwanted ideal mixing
   for i in 1:nPorts_b loop
@@ -56,8 +58,13 @@ of the modeller. Increase nPorts_b to add an additional port.
     port_a.C_outflow[i] = (positiveMax(ports_b.m_flow)*ports_b_C_inStream[:,i])
                          / sum(positiveMax(ports_b.m_flow));
   end for;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-40,
-            -100},{40,100}}), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-60,-60},
+            {60,60}}),        graphics={
+        Rectangle(
+          extent={{-30,40},{30,-40}},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
         Line(
           points={{-40,0},{40,0}},
           color={0,128,255},
@@ -71,9 +78,10 @@ of the modeller. Increase nPorts_b to add an additional port.
           color={0,128,255},
           thickness=1),
         Text(
-          extent={{-150,100},{150,60}},
+          extent={{-120,80},{120,40}},
           lineColor={0,0,255},
-          textString="%name")}),
+          textString="%name",
+          visible=DynamicSelect(true, showName))}),
                           Documentation(info="<html>
 <p>
 This model is useful if multiple connections shall be made to a port of a volume model exposing a state,
@@ -84,5 +92,6 @@ The mixing is shifted into the volume connected to port_a and the result is prop
 If multiple connections were directly made to the volume,
 then ideal mixing would take place in the connection set, outside the volume. This is normally not intended.
 </p>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(extent={{-60,-60},{60,60}})));
 end MultiPort;
