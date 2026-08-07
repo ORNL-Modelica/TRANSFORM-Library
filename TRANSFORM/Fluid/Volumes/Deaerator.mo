@@ -112,6 +112,17 @@ equation
   steam.h_outflow =mediaProps.h_vsat;
   steam.Xi_outflow = medium.Xi;
   steam.C_outflow = C;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+        Ellipse(extent={{56,44},{48,36}}, lineColor={28,108,200}),
+        Ellipse(extent={{76,52},{68,44}}, lineColor={28,108,200}),
+        Ellipse(extent={{70,36},{62,28}}, lineColor={28,108,200}),
+        Ellipse(extent={{78,20},{70,12}}, lineColor={28,108,200}),
+        Ellipse(extent={{54,20},{46,12}}, lineColor={28,108,200}),
+        Line(points={{-70,54},{-70,28}}, color={28,108,200}),
+        Line(points={{-66,54},{-62,40}}, color={28,108,200}),
+        Line(points={{-74,54},{-78,42}}, color={28,108,200}),
+        Ellipse(extent={{-50,56},{-58,48}}, lineColor={28,108,200}),
+        Ellipse(extent={{-78,34},{-86,26}}, lineColor={28,108,200})}),
+                                                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Deaerator;
