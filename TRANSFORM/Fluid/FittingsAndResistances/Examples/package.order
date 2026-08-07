@@ -1,6 +1,16 @@
 MassTransportCoefficientTest
 GasKineticTheoryTest
 SharpEdgedAdaptor
+SmoothAdaptor
+Elbow
+MiterBend
+Orifice
+PerforatedPlate
+Entrance
+Exit
+SpacerGrid
+TeeJunctionVolume_withResistances
+TeeJunctionVolumeLoss
 SpecifiedResistance
 ElevationChange
 NominalLoss
