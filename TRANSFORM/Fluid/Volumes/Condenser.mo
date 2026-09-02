@@ -32,6 +32,9 @@ model Condenser
       TRANSFORM.Media.Solids.CustomSolids.Lambda_fT_d_7763_cp_fT constrainedby TRANSFORM.Media.Interfaces.Solids.PartialAlloy
                                             "Coolant wall material properties"
     annotation (choicesAllMatching=true);
+  parameter Boolean steamSpaceOutflow=false
+    "true: reverse flow out of portSteamFeed carries the steam-space enthalpy (saturated vapour while two-phase, the bulk state once superheated) instead of the bulk mixture h. Opt-in: the default keeps every existing model bit-identical"
+    annotation (Dialog(tab="Advanced"));
   input SI.CoefficientOfHeatTransfer alphaInt_WExt=1
     "Heat transfer coeffient for coolant wall outer surface and the condenser fluid state"
     annotation (Dialog(group="Inputs Heat Transfer"));
@@ -151,7 +154,23 @@ equation
   V = (1 - mediaProps.x_abs)*m/mediaProps.rho_lsat;
   // Boundary Conditions
   portSteamFeed.p = medium.p;
-  portSteamFeed.h_outflow = medium.h;
+  // steamSpaceOutflow (opt-in, Entergy_BOP P24 2026-09-02): reverse flow out of the steam
+  // port leaves from the STEAM SPACE: saturated vapour
+  // while any liquid is present, the bulk state once superheated (x_abs -> 1). The bulk
+  // mixture h (mostly liquid in a condenser) used to be handed to whatever drew from
+  // this port, which filled a dead turbine train with liquid enthalpy after a trip
+  // (Entergy_BOP P24, 2026-09-01). Inflow (the design case) is unaffected.
+  // Known limit: a shell whose bulk state is SUBCOOLED (x_abs clamps to 0) also delivers
+  // h_vsat. That is deliberate — a condenser's hotwell is subcooled by its cooling water
+  // while its steam space persists (x_th ~ -1e-4 at design), so x_abs = 0 cannot be read
+  // as "no steam space" here; a draw from a genuinely liquid-full vessel is then
+  // energy-conserving but unphysical (a refinement on x_th was tried 2026-09-02 and
+  // re-created the liquid-enthalpy artifact on the main condenser).
+  portSteamFeed.h_outflow = if steamSpaceOutflow then TRANSFORM.Math.spliceTanh(
+    medium.h,
+    mediaProps.h_vsat,
+    mediaProps.x_abs - 0.95,
+    0.05) else medium.h;
   portSteamFeed.C_outflow = C;
   portFluidDrain.p = medium.p + mediaProps.rho_lsat*g_n*level;
   portFluidDrain.h_outflow = TRANSFORM.Math.spliceTanh(
