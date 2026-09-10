@@ -40,67 +40,78 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start);
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC));
   parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_plenum_lower=
       cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start);
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC));
   parameter SIadd.ExtraProperty[reflA_lower.nV,kinetics.summary_data.nC]
     Cs_start_reflA_lower={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start) for i in 1:reflA_lower.nV};
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:reflA_lower.nV};
   parameter SIadd.ExtraProperty[fuelCell.nV,kinetics.summary_data.nC]
     Cs_start_fuelCell={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start) for i in 1:fuelCell.nV};
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:fuelCell.nV};
   parameter SIadd.ExtraProperty[reflR.nV,kinetics.summary_data.nC]
     Cs_start_reflR={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start) for i in 1:reflR.nV};
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:reflR.nV};
   parameter SIadd.ExtraProperty[reflA_upper.nV,kinetics.summary_data.nC]
     Cs_start_reflA_upper={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start) for i in 1:reflA_upper.nV};
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:reflA_upper.nV};
   parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_plenum_upper=
       cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start);
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC));
   parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_pumpBowl_PFL=
       cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start);
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC));
   parameter SIadd.ExtraProperty[pipeToPHX_PFL.nV,kinetics.summary_data.nC]
     Cs_start_pipeToPHX_PFL={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start) for i in 1:pipeToPHX_PFL.nV};
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:pipeToPHX_PFL.nV};
   parameter SIadd.ExtraProperty[PHX.tube.nV,kinetics.summary_data.nC]
     Cs_start_PHX_tube={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start) for i in 1:PHX.tube.nV};
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:PHX.tube.nV};
   parameter SIadd.ExtraProperty[pipeFromPHX_PFL.nV,kinetics.summary_data.nC]
     Cs_start_pipeFromPHX_PFL={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
-      C_start) for i in 1:pipeFromPHX_PFL.nV};
+      C_start,
+      fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:pipeFromPHX_PFL.nV};
       parameter Integer nV_fuelCell = 10;
       parameter Integer nV_PHX = 10;
       parameter Integer nV_SHX = 10;
@@ -183,7 +194,7 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_tee_inlet = {-kinetics.summary_data.lambdas[j]*tee_inlet.mC[j] + mC_gen_tee_inlet_PtoD[j] for j in 1:kinetics.summary_data.nC};
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_lower = {-kinetics.summary_data.lambdas[j]*plenum_lower.mC[j] + mC_gen_plenum_lower_PtoD[j] for j in 1:kinetics.summary_data.nC};
   SIadd.ExtraPropertyFlowRate[reflA_lower.nV,kinetics.summary_data.nC] mC_gens_reflA_lower = {{-kinetics.summary_data.lambdas[j]*reflA_lower.mCs[i, j]*reflA_lower.nParallel + mC_gens_reflA_lower_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflA_lower.nV};
-  SIadd.ExtraPropertyFlowRate[fuelCell.nV,kinetics.summary_data.nC] mC_gens_fuelCell = cat(2, kinetics.mC_gens, kinetics.fissionProducts.mC_gens,kinetics.fissionProducts.mC_gens_TR);
+  SIadd.ExtraPropertyFlowRate[fuelCell.nV,kinetics.summary_data.nC] mC_gens_fuelCell = cat(2, kinetics.mC_gens, kinetics.fissionProducts.mC_gens,kinetics.fissionProducts.mC_gens_TR, zeros(fuelCell.nV,kinetics.summary_data.data_CP.nC));
   SIadd.ExtraPropertyFlowRate[reflR.nV,kinetics.summary_data.nC] mC_gens_reflR = {{-kinetics.summary_data.lambdas[j]*reflR.mCs[i, j]*reflR.nParallel + mC_gens_reflR_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflR.nV};
   SIadd.ExtraPropertyFlowRate[reflA_upper.nV,kinetics.summary_data.nC] mC_gens_reflA_upper = {{-kinetics.summary_data.lambdas[j]*reflA_upper.mCs[i, j]*reflA_upper.nParallel + mC_gens_reflA_upper_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflA_upper.nV};
   SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_upper = {-kinetics.summary_data.lambdas[j]*plenum_upper.mC[j] + mC_gen_plenum_upper_PtoD[j] for j in 1:kinetics.summary_data.nC};
@@ -1306,7 +1317,7 @@ public
     annotation (Placement(transformation(extent={{-60,-160},{-40,-140}})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
     interface_fuelCell[fuelCell.nV](
-    showName=systemTF.showName,
+      each showName=systemTF.showName,
     Ka=kH_core.kHs,
     Kb=kS_coreG.kSs,
     each nb={2})
@@ -1328,7 +1339,7 @@ public
         origin={62,30})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
     interface_reflR[reflR.nV](
-    showName=systemTF.showName,
+      each showName=systemTF.showName,
     each nb={2},
     Ka=kH_reflR.kHs,
     Kb=kS_reflRG.kSs)
@@ -1368,14 +1379,14 @@ public
         origin={-42,30})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
     interface_reflA_upper1[reflA_upper.nV](
-    showName=systemTF.showName,
+      each showName=systemTF.showName,
     each nb={2},
     Ka=kH_reflA_upper.kHs,
     Kb=kS_reflAG_upper.kSs)
     annotation (Placement(transformation(extent={{-8,52},{-16,60}})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
     interface_reflA_upper2[reflA_upper.nV](
-    showName=systemTF.showName,
+      each showName=systemTF.showName,
     each nb={2},
     Ka=kH_reflA_upper.kHs,
     Kb=kS_reflAG_upper.kSs)
@@ -1394,14 +1405,14 @@ public
         origin={-42,-90})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
     interface_reflA_lower1[reflA_lower.nV](
-    showName=systemTF.showName,
+      each showName=systemTF.showName,
     each nb={2},
     Ka=kH_reflA_lower.kHs,
     Kb=kS_reflAG_lower.kSs)
     annotation (Placement(transformation(extent={{-8,-68},{-16,-60}})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Mass.SolubilityInterface
     interface_reflA_lower2[reflA_lower.nV](
-    showName=systemTF.showName,
+      each showName=systemTF.showName,
     each nb={2},
     Ka=kH_reflA_lower.kHs,
     Kb=kS_reflAG_lower.kSs)
