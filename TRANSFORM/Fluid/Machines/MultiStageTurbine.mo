@@ -21,6 +21,9 @@ model MultiStageTurbine
   parameter SI.Temperature T_in_nominal = 520 "Inlet temperature (stage 1)";
   parameter SI.Volume V_tap = 20
     "Each extraction-tap node volume (buffers the IC steam-fill transient).";
+  parameter Boolean use_vapourBackflow_b = false
+    "= true: reverse flow into the exhaust (port_b -> last stage) carries saturated-vapour enthalpy (see ReverseVapourEnthalpy)"
+    annotation (Evaluate=true, Dialog(tab="Advanced", group="Exhaust"));
   parameter SI.Temperature dT_superheat_nominal = 5
     "Superheat above Tsat used for the DEFAULT T_nominal of stages 2..n"
     annotation (Dialog(tab="Advanced", group="Stodola sizing"));
@@ -110,6 +113,11 @@ model MultiStageTurbine
         V=V_tap))
     annotation (Placement(transformation(extent={{-10,10},{10,30}})));
 
+  TRANSFORM.Fluid.Machines.ReverseVapourEnthalpy exhaustBackflow(
+    redeclare package Medium = Medium) if use_vapourBackflow_b
+    "Optional exhaust element: reverse flow into the last stage is saturated vapour"
+    annotation (Placement(transformation(extent={{50,50},{70,70}})));
+
 equation
   connect(port_a, stages[1].portHP)
     annotation (Line(points={{-100,60},{-80,60},{-80,6},{-10,6}},
@@ -122,9 +130,16 @@ equation
     connect(vols[i].port_b[2], drain_extract[i]);
     connect(stages[i].shaft_b, stages[i + 1].shaft_a);
   end for;
-  connect(stages[nStages].portLP, port_b)
-    annotation (Line(points={{10,6},{80,6},{80,60},{100,60}},
-                                                 color={0,127,255}));
+  if use_vapourBackflow_b then
+    connect(stages[nStages].portLP, exhaustBackflow.port_a)
+      annotation (Line(points={{10,6},{40,6},{40,60},{50,60}}, color={0,127,255}));
+    connect(exhaustBackflow.port_b, port_b)
+      annotation (Line(points={{70,60},{100,60}}, color={0,127,255}));
+  else
+    connect(stages[nStages].portLP, port_b)
+      annotation (Line(points={{10,6},{80,6},{80,60},{100,60}},
+                                                   color={0,127,255}));
+  end if;
   connect(stages[nStages].shaft_b, shaft_b)
     annotation (Line(points={{10,0},{100,0}},          color={0,0,0}));
 
@@ -196,6 +211,15 @@ structure.</p>
                           v drain_extract[1]    v drain_extract[2]
 </pre>
 
+<h4>Exhaust backflow (optional)</h4>
+<p>The turbine has no volume at <code>port_b</code>, so whatever enthalpy the connected
+downstream volume offers on reverse flow enters the last stage directly. When that volume
+is a lumped two-phase vessel (a condenser, a heater shell) its outflow is usually the bulk
+mixture, mostly liquid. With <code>use_vapourBackflow_b = true</code> a
+<a href=\"modelica://TRANSFORM.Fluid.Machines.ReverseVapourEnthalpy\">ReverseVapourEnthalpy</a>
+element is inserted at the exhaust, so reverse flow carries saturated-vapour enthalpy
+instead. It is transparent in forward flow and not energy-conserving in reverse flow;
+default <code>false</code> (the exhaust is connected directly, as before).</p>
 <h4>Stodola sizing and its validity envelope</h4>
 <p>Each stage's flow coefficient is derived from its own nominal point:
 <code>Kt<sub>i</sub> = m_flow_nominal[i] / (&radic;(p&middot;&rho;(p_nominal[i],

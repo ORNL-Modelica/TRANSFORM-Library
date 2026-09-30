@@ -10,6 +10,7 @@ BaseClasses
 Turbine_SinglePhase
 Turbine_SinglePhase_Stodola
 MultiStageTurbine
+ReverseVapourEnthalpy
 Turbine_SinglePhase_Mechanical
 TurboPump
 TurboPump_homologouscurves
