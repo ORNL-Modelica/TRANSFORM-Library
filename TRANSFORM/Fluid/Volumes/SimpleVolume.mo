@@ -87,5 +87,11 @@ equation
           lineColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true, showName))}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Two-port lumped fluid volume with a replaceable geometry model. The inherited volume balance stores mass, energy, species, and trace substances using the selected medium.</p>
+<p><code>port_a</code> and <code>port_b</code> exchange fluid with the volume. Their pressures include opposite half-height hydrostatic terms based on <code>geometry.dheight</code>, density, and <code>g_n</code>; the port names do not impose a flow direction.</p>
+<p>Set the geometry through the replaceable <code>Geometry</code> model. Enable <code>use_HeatPort</code> to expose a heat port, or <code>use_TraceMassPort</code> to expose a trace-mass port. When disabled, the corresponding internal boundary flow is zero. <code>Q_gen</code> and <code>mC_gen</code> specify internal source terms. The trace-port conversion uses <code>MMs</code>; choose values consistent with the selected medium's trace-property units.</p>
+<p>See <code>TRANSFORM.Fluid.Volumes.Examples.SimpleVolume_Test</code> for two fluid-volume configurations and monitored specific enthalpies.</p>
+</html>"));
 end SimpleVolume;

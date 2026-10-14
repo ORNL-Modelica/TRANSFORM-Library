@@ -59,5 +59,9 @@ equation
           extent={{-80,80},{80,-80}},
           lineColor={0,0,0},
           fillColor={175,175,175},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
+<p>Lumped solid wall that stores energy and connects two heat ports. Thickness <code>th</code> and <code>surfaceArea</code> set the inherited volume; the default thermal resistance is <code>th/(lambda*surfaceArea)</code>, where <code>lambda</code> comes from the selected material state.</p>
+<p><code>Q_gen</code> is an internal heat source. The <code>exposeState_a</code> and <code>exposeState_b</code> settings choose whether the material temperature is exposed directly at a port or the port heat flow is determined through the resistance. With neither state exposed, each port uses half of the total resistance. Review the selected material, initialization, and connected components when choosing these settings.</p>
+</html>"));
 end SimpleWall;

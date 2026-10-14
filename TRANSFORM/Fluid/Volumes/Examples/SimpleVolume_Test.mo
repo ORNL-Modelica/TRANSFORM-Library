@@ -69,5 +69,9 @@ equation
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
-    experiment(StopTime=100));
+    experiment(StopTime=100),
+    Documentation(info="<html>
+<p>Demonstrates two independent uses of <code>TRANSFORM.Fluid.Volumes.SimpleVolume</code> with StandardWater. The upper circuit uses a mass-flow source, a volume, a specified resistance, and a pressure boundary. The lower circuit drives a pressure boundary with a sine signal before another resistance and volume.</p>
+<p>Simulate to <code>100 s</code> and inspect <code>volume.medium.h</code> and <code>volume1.medium.h</code>. The <code>unitTests</code> component identifies those two specific-enthalpy signals for regression comparison; this example does not by itself establish physical or cross-tool validation.</p>
+</html>"));
 end SimpleVolume_Test;
