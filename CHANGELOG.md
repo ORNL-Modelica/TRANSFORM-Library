@@ -15,6 +15,10 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 - `.gitignore` now tracks `TRANSFORM/Resources/Scripts/Conversion/`, the conventional home of Modelica conversion scripts. The rest of `TRANSFORM/Resources/Scripts/` stays ignored.
 
+### Fixed
+
+- `TRANSFORM.Examples.MoltenSaltReactor.MSDR_noBOP`: the drain-tank thimble convection area `surfaceAreas_thimble` passed to `DRACS` no longer multiplies by `DRACS.nP_outer_drainTank[1].nParallel`, which counted the 360 thimbles twice and made the heel-to-thimble conductance 360 times too large, on both the salt and gas sides (#112). `MSDR_noBOP` results change.
+
 ## Earlier history
 
 Changes before this file was created are recorded only in the git history. For reference:

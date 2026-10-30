@@ -1232,8 +1232,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
   TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS DRACS(
     redeclare package Medium_DRACS = Medium_DRACS,
     showName=systemTF.showName,
-    surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*DRACS.nP_outer_drainTank[
-        1].nParallel*{drainTank_liquid.level/data_OFFGAS.length_drainTank_inner,
+    surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*{
+        drainTank_liquid.level/data_OFFGAS.length_drainTank_inner,
         1 - drainTank_liquid.level/data_OFFGAS.length_drainTank_inner},
     alphas_drainTank={5000,1000})
     annotation (Placement(transformation(extent={{-354,-96},{-284,-16}})));
