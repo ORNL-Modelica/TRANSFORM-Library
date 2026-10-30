@@ -1417,6 +1417,14 @@ public
     Ka=kH_reflA_lower.kHs,
     Kb=kS_reflAG_lower.kSs)
     annotation (Placement(transformation(extent={{-8,-78},{-16,-70}})));
+  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=15, x={Qt_total,
+        plenum_upper.medium.T,plenum_lower.medium.T,drainTank_liquid.state_liquid.T,
+        DRACS.thimble_outer_drainTank.material.T,drainTank_liquid.level,
+        DRACS.riser_DRACS.port_a.m_flow,DRACS.port_thimbleWall[1].Q_flow,
+        DRACS.waterTank.state_liquid.T,DRACS.waterTank.port_a.m_flow,
+        plenum_upper.C[1],plenum_upper.C[6],pumpBowl_PFL.C[9],drainTank_gas.C[9],
+        pumpBowl_PFL.C[7]})
+    annotation (Placement(transformation(extent={{-360,160},{-340,180}})));
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},

@@ -9,6 +9,7 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 ### Added
 
 - `CHANGELOG.md` and the `TRANSFORM.UsersGuide.ReleaseNotes` package, so that every change is recorded and each release is summarized inside the library.
+- Regression tests for `TRANSFORM.Examples.MoltenSaltReactor.MSDR_noBOP` (15 signals) and the new standalone `TRANSFORM.Examples.MoltenSaltReactor.Components.Examples.DRACS_Test` (5 signals). Their baselines were recorded before the fixes for issues #111–#116.
 
 ### Changed
 
