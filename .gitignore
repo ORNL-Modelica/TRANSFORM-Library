@@ -44,4 +44,5 @@ TRANSFORM/Resources/Images/~$Information.pptm
 unitTests-dymola.log
 TRANSFORM 0.*
 TRANSFORM/Resources/ReferenceResults/
-TRANSFORM/Resources/Scripts/
+TRANSFORM/Resources/Scripts/*
+!TRANSFORM/Resources/Scripts/Conversion/
