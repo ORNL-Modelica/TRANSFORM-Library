@@ -168,6 +168,8 @@ model DRACS
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
   Controls.LimPID PID_waterTank(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=200,
+    Ti=300,
     yb=data_OFFGAS.m_flow_inlet_waterTank*data_OFFGAS.nWaterTanks,
     yMin=0) annotation (Placement(transformation(extent={{48,76},{68,96}})));
   Modelica.Blocks.Sources.RealExpression waterTank_m_flow_set(y=waterTank.state_liquid.T)

@@ -18,6 +18,7 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 ### Fixed
 
 - `TRANSFORM.Examples.MoltenSaltReactor.MSDR_noBOP`: the drain-tank thimble convection area `surfaceAreas_thimble` passed to `DRACS` no longer multiplies by `DRACS.nP_outer_drainTank[1].nParallel`, which counted the 360 thimbles twice and made the heel-to-thimble conductance 360 times too large, on both the salt and gas sides (#112). `MSDR_noBOP` results change.
+- `TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS`: the water-tank make-up controller `PID_waterTank` is tuned to `k=200`, `Ti=300` instead of the `LimPID` defaults (`k=1`, `Ti=0.5`), which left the make-up flow in a barely damped oscillation of about 1 to 99 kg/s with a period of about 760 s (#113). `MSDR_noBOP` results change.
 
 ## Earlier history
 
