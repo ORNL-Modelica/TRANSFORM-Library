@@ -5,10 +5,10 @@ model DRACS
       TRANSFORM.Media.Fluids.NaK.LinearNaK_22_78_pT constrainedby Modelica.Media.Interfaces.PartialMedium
                                             annotation (choicesAllMatching=true);
   input SI.Area surfaceAreas_thimble[2] = fill(1,2)
-    "Heat transfer surface area for gas and salt"
+    "Heat transfer surface area for salt [1] and gas [2]"
     annotation (Dialog(group="Inputs"));
   input SI.CoefficientOfHeatTransfer alphas_drainTank[2]=fill(2000,2)
-    "Convection heat transfer coefficient at thimble-drain tank interface for gas and salt"
+    "Convection heat transfer coefficient at thimble-drain tank interface for salt [1] and gas [2]"
     annotation (Dialog(group="Inputs"));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_drainTank(
     exposeState_b=true,
@@ -66,7 +66,7 @@ model DRACS
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_waterTank(
     exposeState_b=true,
     redeclare package Material = Media.Solids.AlloyN,
-    length=data_OFFGAS.length_thimbles,
+    length=data_OFFGAS.length_thimbles_waterTank,
     r_inner=0.5*data_OFFGAS.D_thimbles - data_OFFGAS.th_thimbles,
     r_outer=0.5*data_OFFGAS.D_thimbles,
     exposeState_a=true,
@@ -74,14 +74,14 @@ model DRACS
     showName=false)
     annotation (Placement(transformation(extent={{70,30},{50,50}})));
   HeatAndMassTransfer.Resistances.Heat.Radiation radiation_waterTank(
-      surfaceArea=0.5*(thimble_inner_drainTank.surfaceArea_outer +
-        thimble_outer_drainTank.surfaceArea_inner), epsilon=0.5,
+      surfaceArea=0.5*(thimble_inner_waterTank.surfaceArea_outer +
+        thimble_outer_waterTank.surfaceArea_inner), epsilon=0.5,
     showName=false)
     annotation (Placement(transformation(extent={{40,30},{20,50}})));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_inner_waterTank(
     exposeState_a=true,
     redeclare package Material = Media.Solids.AlloyN,
-    length=data_OFFGAS.length_thimbles,
+    length=data_OFFGAS.length_thimbles_waterTank,
     r_inner=0.5*data_OFFGAS.D_inner_thimbles - data_OFFGAS.th_inner_thimbles,
     r_outer=0.5*data_OFFGAS.D_inner_thimbles,
     exposeState_b=true,
