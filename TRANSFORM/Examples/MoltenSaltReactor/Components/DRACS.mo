@@ -107,7 +107,8 @@ model DRACS
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_OFFGAS.D_pipeToFrom_DRACS,
         length=data_OFFGAS.length_pipeToFrom_DRACS,
-        angle=1.5707963267949),
+        angle=1.5707963267949,
+        nV=10),
     showName=false)             annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
@@ -194,7 +195,8 @@ model DRACS
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_OFFGAS.D_pipeToFrom_DRACS,
         length=data_OFFGAS.length_pipeToFrom_DRACS,
-        angle=1.5707963267949),
+        angle=-Modelica.Constants.pi/2,
+        nV=10),
     showName=false)             annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -202,7 +204,7 @@ model DRACS
   Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package Medium =
                Medium_DRACS,
     showName=false,
-    R=-2000)                          annotation (Placement(transformation(
+    R=1)                          annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-100,16})));

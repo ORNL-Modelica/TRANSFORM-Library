@@ -19,6 +19,7 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 - `TRANSFORM.Examples.MoltenSaltReactor.MSDR_noBOP`: the drain-tank thimble convection area `surfaceAreas_thimble` passed to `DRACS` no longer multiplies by `DRACS.nP_outer_drainTank[1].nParallel`, which counted the 360 thimbles twice and made the heel-to-thimble conductance 360 times too large, on both the salt and gas sides (#112). `MSDR_noBOP` results change.
 - `TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS`: the water-tank make-up controller `PID_waterTank` is tuned to `k=200`, `Ti=300` instead of the `LimPID` defaults (`k=1`, `Ti=0.5`), which left the make-up flow in a barely damped oscillation of about 1 to 99 kg/s with a period of about 760 s (#113). `MSDR_noBOP` results change.
+- `TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS`: the NaK loop now circulates by natural convection. The downcomer `downcomer_DRACS` runs downward (`angle=-pi/2` instead of `+pi/2`, so the loop no longer climbs 36.6 m), and `resistance` has `R=1` instead of `R=-2000`, which acted as a pump (#111). The riser and downcomer each use `nV=10` volumes instead of 1, so the static-head regularization at the end of each leg no longer averages away the buoyancy head and reverses the loop (#116). `MSDR_noBOP` results change.
 
 ## Earlier history
 
