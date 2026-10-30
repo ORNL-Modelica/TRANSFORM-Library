@@ -1235,7 +1235,8 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*{
         drainTank_liquid.level/data_OFFGAS.length_drainTank_inner,
         1 - drainTank_liquid.level/data_OFFGAS.length_drainTank_inner},
-    alphas_drainTank={5000,1000})
+    alphas_drainTank={5000,1000},
+    thimble_outer_drainTank(T_start=data_PHX.T_inlet_tube))
     annotation (Placement(transformation(extent={{-354,-96},{-284,-16}})));
   Modelica.Blocks.Sources.RealExpression m_flow_pump_PFL(y=2*3*data_PHX.m_flow_tube
         /(1 - x_bypass.y))

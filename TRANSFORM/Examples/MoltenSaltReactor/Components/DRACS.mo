@@ -31,7 +31,7 @@ model DRACS
     length=data_OFFGAS.length_thimbles,
     r_inner=0.5*data_OFFGAS.D_inner_thimbles - data_OFFGAS.th_inner_thimbles,
     r_outer=0.5*data_OFFGAS.D_inner_thimbles,
-    T_start=data_OFFGAS.T_hot_dracs,
+    T_start=0.5*(data_OFFGAS.T_hot_dracs + data_OFFGAS.T_cold_dracs),
     exposeState_b=true,
     showName=false)
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
@@ -70,7 +70,7 @@ model DRACS
     r_inner=0.5*data_OFFGAS.D_thimbles - data_OFFGAS.th_thimbles,
     r_outer=0.5*data_OFFGAS.D_thimbles,
     exposeState_a=true,
-    T_start=data_OFFGAS.T_inlet_waterTank,
+    T_start=0.5*(data_OFFGAS.T_inlet_waterTank + data_OFFGAS.T_outlet_waterTank),
     showName=false)
     annotation (Placement(transformation(extent={{70,30},{50,50}})));
   HeatAndMassTransfer.Resistances.Heat.Radiation radiation_waterTank(
@@ -85,7 +85,7 @@ model DRACS
     r_inner=0.5*data_OFFGAS.D_inner_thimbles - data_OFFGAS.th_inner_thimbles,
     r_outer=0.5*data_OFFGAS.D_inner_thimbles,
     exposeState_b=true,
-    T_start=data_OFFGAS.T_cold_dracs,
+    T_start=0.5*(data_OFFGAS.T_hot_dracs + data_OFFGAS.T_cold_dracs),
     showName=false)
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_inner_waterTank(
