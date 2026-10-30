@@ -26,7 +26,7 @@ equation
 outside the full plant model. A fixed heat flow of 2 MW, about what the full
 <a href=\"modelica://TRANSFORM.Examples.MoltenSaltReactor.MSDR_noBOP\">MSDR_noBOP</a> plant delivers to the DRACS,
 enters the first thimble wall port (<code>q1</code>); the second port (<code>q2</code>) receives no heat.
-The test tracks the natural circulation flow in the riser, the thimble and salt-side temperatures, and the
+The test tracks the natural circulation flow in the riser, the thimble wall and NaK temperatures, and the
 water tank temperature and flow.</p>
 </html>"));
 end DRACS_Test;
