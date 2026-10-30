@@ -13,6 +13,7 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 ### Changed
 
 - `.gitignore` now tracks `TRANSFORM/Resources/Scripts/Conversion/`, the conventional home of Modelica conversion scripts. The rest of `TRANSFORM/Resources/Scripts/` stays ignored.
+- `TRANSFORM/package.mo` declares `conversion(noneFromVersion="0.5")`: models written for TRANSFORM 0.5, such as TRANSFORM-Training, need no conversion to use 1.0. Tools that check versions, such as OpenModelica, should no longer warn that the versions are incompatible.
 
 ## Earlier history
 
