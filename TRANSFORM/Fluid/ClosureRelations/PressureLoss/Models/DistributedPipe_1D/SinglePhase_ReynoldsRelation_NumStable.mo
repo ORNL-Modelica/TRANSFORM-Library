@@ -105,7 +105,7 @@ equation
         IN_con,
         IN_var,
         dps_fg - {g_n*dheights[i]*ds_a[i] for i in 1:nFM},
-        dp_small/(nFM)), simplified=m_flow_nominal/dp_nominal*(dps_fg - g_n*
+        dp_small/(nFM)), simplified=m_flow_nominal/max(abs(dp_nominal), dp_small)*(dps_fg - g_n*
         dheights*d_nominal));
     else
       dps_fg =homotopy(actual=
@@ -114,7 +114,7 @@ equation
         IN_var,
         m_flows,
         m_flow_small) + {g_n*dheights[i]*ds_a[i] for i in 1:nFM}, simplified=
-        dp_nominal/m_flow_nominal*m_flows + g_n*dheights*d_nominal);
+        max(abs(dp_nominal), dp_small)/m_flow_nominal*m_flows + g_n*dheights*d_nominal);
     end if;
   else
     // regularization for discontinuous flow reversal and static head
@@ -126,7 +126,7 @@ equation
         IN_var,
         dps_fg,
         dp_small/(nFM),
-        g_n*dheights), simplified=m_flow_nominal/dp_nominal*(dps_fg - g_n*
+        g_n*dheights), simplified=m_flow_nominal/max(abs(dp_nominal), dp_small)*(dps_fg - g_n*
         dheights*d_nominal));
     else
       dps_fg =homotopy(actual=
@@ -135,7 +135,7 @@ equation
         IN_var,
         m_flows,
         m_flow_small,
-        g_n*dheights), simplified=dp_nominal/m_flow_nominal*m_flows + g_n*
+        g_n*dheights), simplified=max(abs(dp_nominal), dp_small)/m_flow_nominal*m_flows + g_n*
         dheights*d_nominal);
     end if;
   end if;
