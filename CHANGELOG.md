@@ -20,4 +20,4 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 Changes before this file was created are recorded only in the git history. For reference:
 
 - Git tags `v0.1-beta` (2018-06-14), `v0.2-beta` (2018-09-20), `v0.3-beta` (2018-11-13), `v0.4-beta` (2019-09-10) and `Before_MSL_4.0` (2020-12-07).
-- `TRANSFORM/package.mo` has declared `version="1.0"` since commit `673d13d8` (2024-09-17). No git tag marks that version.
+- `TRANSFORM/package.mo` has declared `version="1.0"` since commit `673d13d8` (2024-09-17). The tag `v1.0` was added on 2026-10-30, on commit `0f097b4a` (2026-09-30).
