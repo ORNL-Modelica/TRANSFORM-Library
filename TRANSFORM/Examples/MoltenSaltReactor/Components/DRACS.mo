@@ -46,6 +46,7 @@ model DRACS
   Fluid.Pipes.GenericPipe_MultiTransferSurface thimbles_drainTank_fluid(
     nParallel=data_OFFGAS.nThimbles,
     redeclare package Medium = Medium_DRACS,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
@@ -98,6 +99,7 @@ model DRACS
     annotation (Placement(transformation(extent={{130,30},{110,50}})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface riser_DRACS(
     redeclare package Medium = Medium_DRACS,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     T_a_start=data_OFFGAS.T_hot_dracs,
     showColors=true,
@@ -115,6 +117,7 @@ model DRACS
         origin={-50,-10})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface thimbles_waterTank_fluid(
     redeclare package Medium = Medium_DRACS,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
@@ -186,6 +189,7 @@ model DRACS
     annotation (Placement(transformation(extent={{-76,26},{-96,46}})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface downcomer_DRACS(
     redeclare package Medium = Medium_DRACS,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     m_flow_a_start=data_OFFGAS.m_flow_cold_dracs,
     showColors=true,
     val_min=data_OFFGAS.T_cold_dracs,
