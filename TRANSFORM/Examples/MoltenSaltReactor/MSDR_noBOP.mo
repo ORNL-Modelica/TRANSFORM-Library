@@ -1232,10 +1232,11 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
   TRANSFORM.Examples.MoltenSaltReactor.Components.DRACS DRACS(
     redeclare package Medium_DRACS = Medium_DRACS,
     showName=systemTF.showName,
-    surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*DRACS.nP_outer_drainTank[
-        1].nParallel*{drainTank_liquid.level/data_OFFGAS.length_drainTank_inner,
+    surfaceAreas_thimble=DRACS.thimble_outer_drainTank.surfaceArea_outer*{
+        drainTank_liquid.level/data_OFFGAS.length_drainTank_inner,
         1 - drainTank_liquid.level/data_OFFGAS.length_drainTank_inner},
-    alphas_drainTank={5000,1000})
+    alphas_drainTank={5000,1000},
+    thimble_outer_drainTank(T_start=data_PHX.T_inlet_tube))
     annotation (Placement(transformation(extent={{-354,-96},{-284,-16}})));
   Modelica.Blocks.Sources.RealExpression m_flow_pump_PFL(y=2*3*data_PHX.m_flow_tube
         /(1 - x_bypass.y))
@@ -1417,6 +1418,14 @@ public
     Ka=kH_reflA_lower.kHs,
     Kb=kS_reflAG_lower.kSs)
     annotation (Placement(transformation(extent={{-8,-78},{-16,-70}})));
+  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=15, x={Qt_total,
+        plenum_upper.medium.T,plenum_lower.medium.T,drainTank_liquid.state_liquid.T,
+        DRACS.thimble_outer_drainTank.material.T,drainTank_liquid.level,
+        DRACS.riser_DRACS.port_a.m_flow,DRACS.port_thimbleWall[1].Q_flow,
+        DRACS.waterTank.state_liquid.T,DRACS.waterTank.port_a.m_flow,
+        plenum_upper.C[1],plenum_upper.C[6],pumpBowl_PFL.C[9],drainTank_gas.C[9],
+        pumpBowl_PFL.C[7]})
+    annotation (Placement(transformation(extent={{-360,160},{-340,180}})));
 equation
   connect(resistance_fuelCell_outlet.port_a, fuelCell.port_b)
     annotation (Line(points={{0,23},{0,10},{4.44089e-16,10}},

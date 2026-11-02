@@ -5,10 +5,10 @@ model DRACS
       TRANSFORM.Media.Fluids.NaK.LinearNaK_22_78_pT constrainedby Modelica.Media.Interfaces.PartialMedium
                                             annotation (choicesAllMatching=true);
   input SI.Area surfaceAreas_thimble[2] = fill(1,2)
-    "Heat transfer surface area for gas and salt"
+    "Heat transfer surface area for salt [1] and gas [2]"
     annotation (Dialog(group="Inputs"));
   input SI.CoefficientOfHeatTransfer alphas_drainTank[2]=fill(2000,2)
-    "Convection heat transfer coefficient at thimble-drain tank interface for gas and salt"
+    "Convection heat transfer coefficient at thimble-drain tank interface for salt [1] and gas [2]"
     annotation (Dialog(group="Inputs"));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_drainTank(
     exposeState_b=true,
@@ -31,7 +31,7 @@ model DRACS
     length=data_OFFGAS.length_thimbles,
     r_inner=0.5*data_OFFGAS.D_inner_thimbles - data_OFFGAS.th_inner_thimbles,
     r_outer=0.5*data_OFFGAS.D_inner_thimbles,
-    T_start=data_OFFGAS.T_hot_dracs,
+    T_start=0.5*(data_OFFGAS.T_hot_dracs + data_OFFGAS.T_cold_dracs),
     exposeState_b=true,
     showName=false)
     annotation (Placement(transformation(extent={{10,-70},{-10,-50}})));
@@ -46,6 +46,7 @@ model DRACS
   Fluid.Pipes.GenericPipe_MultiTransferSurface thimbles_drainTank_fluid(
     nParallel=data_OFFGAS.nThimbles,
     redeclare package Medium = Medium_DRACS,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
@@ -66,26 +67,26 @@ model DRACS
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_waterTank(
     exposeState_b=true,
     redeclare package Material = Media.Solids.AlloyN,
-    length=data_OFFGAS.length_thimbles,
+    length=data_OFFGAS.length_thimbles_waterTank,
     r_inner=0.5*data_OFFGAS.D_thimbles - data_OFFGAS.th_thimbles,
     r_outer=0.5*data_OFFGAS.D_thimbles,
     exposeState_a=true,
-    T_start=data_OFFGAS.T_inlet_waterTank,
+    T_start=0.5*(data_OFFGAS.T_inlet_waterTank + data_OFFGAS.T_outlet_waterTank),
     showName=false)
     annotation (Placement(transformation(extent={{70,30},{50,50}})));
   HeatAndMassTransfer.Resistances.Heat.Radiation radiation_waterTank(
-      surfaceArea=0.5*(thimble_inner_drainTank.surfaceArea_outer +
-        thimble_outer_drainTank.surfaceArea_inner), epsilon=0.5,
+      surfaceArea=0.5*(thimble_inner_waterTank.surfaceArea_outer +
+        thimble_outer_waterTank.surfaceArea_inner), epsilon=0.5,
     showName=false)
     annotation (Placement(transformation(extent={{40,30},{20,50}})));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_inner_waterTank(
     exposeState_a=true,
     redeclare package Material = Media.Solids.AlloyN,
-    length=data_OFFGAS.length_thimbles,
+    length=data_OFFGAS.length_thimbles_waterTank,
     r_inner=0.5*data_OFFGAS.D_inner_thimbles - data_OFFGAS.th_inner_thimbles,
     r_outer=0.5*data_OFFGAS.D_inner_thimbles,
     exposeState_b=true,
-    T_start=data_OFFGAS.T_cold_dracs,
+    T_start=0.5*(data_OFFGAS.T_hot_dracs + data_OFFGAS.T_cold_dracs),
     showName=false)
     annotation (Placement(transformation(extent={{10,30},{-10,50}})));
   HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_inner_waterTank(
@@ -98,6 +99,7 @@ model DRACS
     annotation (Placement(transformation(extent={{130,30},{110,50}})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface riser_DRACS(
     redeclare package Medium = Medium_DRACS,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     T_a_start=data_OFFGAS.T_hot_dracs,
     showColors=true,
@@ -107,13 +109,15 @@ model DRACS
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_OFFGAS.D_pipeToFrom_DRACS,
         length=data_OFFGAS.length_pipeToFrom_DRACS,
-        angle=1.5707963267949),
+        angle=1.5707963267949,
+        nV=10),
     showName=false)             annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-50,-10})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface thimbles_waterTank_fluid(
     redeclare package Medium = Medium_DRACS,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
@@ -168,6 +172,8 @@ model DRACS
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
   Controls.LimPID PID_waterTank(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=200,
+    Ti=300,
     yb=data_OFFGAS.m_flow_inlet_waterTank*data_OFFGAS.nWaterTanks,
     yMin=0) annotation (Placement(transformation(extent={{48,76},{68,96}})));
   Modelica.Blocks.Sources.RealExpression waterTank_m_flow_set(y=waterTank.state_liquid.T)
@@ -183,6 +189,7 @@ model DRACS
     annotation (Placement(transformation(extent={{-76,26},{-96,46}})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface downcomer_DRACS(
     redeclare package Medium = Medium_DRACS,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     m_flow_a_start=data_OFFGAS.m_flow_cold_dracs,
     showColors=true,
     val_min=data_OFFGAS.T_cold_dracs,
@@ -192,7 +199,8 @@ model DRACS
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data_OFFGAS.D_pipeToFrom_DRACS,
         length=data_OFFGAS.length_pipeToFrom_DRACS,
-        angle=1.5707963267949),
+        angle=-Modelica.Constants.pi/2,
+        nV=10),
     showName=false)             annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
@@ -200,7 +208,7 @@ model DRACS
   Fluid.FittingsAndResistances.SpecifiedResistance resistance(redeclare package Medium =
                Medium_DRACS,
     showName=false,
-    R=-2000)                          annotation (Placement(transformation(
+    R=1)                          annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=90,
         origin={-100,16})));
