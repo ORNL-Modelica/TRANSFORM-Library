@@ -13,6 +13,7 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 ### Changed
 
+- `TRANSFORM.Fluid.Volumes.Examples.ExpansionTank2_Test`: the outlet resistance `resistance.R` is 100 instead of 0.01. With 0.01 the tank took no water after its level settled, so no CO2 reached it and the tested tank concentration `expansionTank.C[1]` was solver noise (1e-11 to 1e-9). Now the tank is still filling when the CO2 arrives and `C[1]` rises to about 0.008. The level ends at 2.053 m instead of 2.043 m. Results of this example change.
 - `.gitignore` now tracks `TRANSFORM/Resources/Scripts/Conversion/`, the conventional home of Modelica conversion scripts. The rest of `TRANSFORM/Resources/Scripts/` stays ignored.
 - `TRANSFORM/package.mo` declares `conversion(noneFromVersion="0.5")`: models written for TRANSFORM 0.5, such as TRANSFORM-Training, need no conversion to use 1.0. Tools that check versions, such as OpenModelica, should no longer warn that the versions are incompatible.
 - `TRANSFORM.Nuclear.ReactorKinetics.Data`: new documentation explains what `C_nominal` does, that it matters only in tools that integrate the scaled trace inventories, and how to set per-species values in your own record. The 1e14 defaults are unchanged (#117). The `C_nominal` descriptions in the data records point to it. Text only.
