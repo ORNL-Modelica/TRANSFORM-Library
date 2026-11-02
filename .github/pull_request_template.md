@@ -10,4 +10,4 @@ Fixes #
 ### Checks
 - [ ] Tests added or updated (TRANSFORM-UnitTests); reference results updated there if results change
 - [ ] A line in CHANGELOG.md under Unreleased
-- [ ] If a public class or parameter was renamed, moved or removed: the conversion guard was run and passed (`TRANSFORM-UnitTests/scripts/check_conversion.py`)
+- [ ] The conversion guard was run and passed (`TRANSFORM-UnitTests/scripts/check_conversion.py`; needed for any change under `TRANSFORM/`)
