@@ -10,7 +10,10 @@ model IconColorMap
           constrainedby Modelica.Mechanics.MultiBody.Interfaces.partialColorMap
       "Function defining the color map"
             annotation(choicesAllMatching=true, Dialog(enable=showColors,tab="Visualization",group="Color Coding"));
-  Real dynColor[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val, val_min, val_max, colorMap(n_colors));
+  Real dynColor[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val, val_min, val_max, colorMapData_);
+protected
+  final parameter Real colorMapData_[n_colors,3]=colorMap(n_colors)
+    "Color map table; a named parameter so that OpenModelica can generate code for it (#109)";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end IconColorMap;

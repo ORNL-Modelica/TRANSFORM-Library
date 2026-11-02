@@ -12,9 +12,12 @@ model IconColorMap_1D
       "Function defining the color map"
             annotation(choicesAllMatching=true, Dialog(enable=showColors,tab="Visualization",group="Color Coding"));
   Real dynColor[n,3];
+protected
+  final parameter Real colorMapData_[n_colors,3]=colorMap(n_colors)
+    "Color map table; a named parameter so that OpenModelica can generate code for it (#109)";
 equation
    for i in 1:n loop
-     dynColor[i,:] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val[1], val_min, val_max, colorMap(n_colors));
+     dynColor[i,:] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val[1], val_min, val_max, colorMapData_);
    end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
