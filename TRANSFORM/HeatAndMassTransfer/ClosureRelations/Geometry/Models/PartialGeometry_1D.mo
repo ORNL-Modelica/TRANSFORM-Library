@@ -4,7 +4,7 @@ partial model PartialGeometry_1D
       choice=1 "Plane",
       choice=2 "Cylinder",
       choice=3 "Sphere"));
-  parameter Integer ns[1](min=1) = {1} "Number of nodes in each dimension {1}";
+  parameter Integer ns[1](each min=1) = {1} "Number of nodes in each dimension {1}";
   final parameter Integer n_total=ns[1] "Total number of nodes";
   parameter Boolean closedDim_1(fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
   output SI.Volume Vs[ns[1]] "Unit volumes" annotation (Dialog(

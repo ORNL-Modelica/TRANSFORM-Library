@@ -68,7 +68,7 @@ model DumpTank "Expansion tank with cover gas"
   SI.MassFraction Xi[Medium.nXi](start=Medium.reference_X[1:Medium.nXi])
     "Structurally independent mass fractions";
   SIadd.ExtraPropertyExtrinsic mC[Medium.nC] "Trace substance extrinsic value";
-  SIadd.ExtraProperty C[Medium.nC](stateSelect=StateSelect.prefer, start=
+  SIadd.ExtraProperty C[Medium.nC](each stateSelect=StateSelect.prefer, start=
         C_start) "Trace substance mass-specific value";
   // Mass Balance
   SI.MassFlowRate mb=port_a.m_flow + port_b.m_flow

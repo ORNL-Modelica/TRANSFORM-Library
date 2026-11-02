@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Interfaces.Records.InitialConditions.BaseClasses;
 record Ts1D
-  parameter Integer ns[1](min=1)={1} "Number of nodes in each dimesions {1}";
+  parameter Integer ns[1](each min=1)={1} "Number of nodes in each dimesions {1}";
   parameter SI.Temperature T_a1_start = 273.15 "Temperature at port a1"
     annotation(Dialog(tab = "Initialization",group="Start Value: Temperature"));
   parameter SI.Temperature T_b1_start=T_a1_start "Temperature at port b1"

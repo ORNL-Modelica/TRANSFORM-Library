@@ -9,7 +9,7 @@ model Concentration "Mass concentration boundary condition"
   parameter SI.Concentration C[nC]=zeros(nC) "Fixed concentration at port"
     annotation (Dialog(enable=not use_port));
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-  Modelica.Blocks.Interfaces.RealInput C_ext[nC](unit="mol/m3") if use_port
+  Modelica.Blocks.Interfaces.RealInput C_ext[nC](each unit="mol/m3") if use_port
     annotation (Placement(transformation(extent={{-60,-20},{-20,20}}),
         iconTransformation(extent={{-60,-20},{-20,20}})));
   Interfaces.MolePort_State port(nC=nC) annotation (Placement(transformation(

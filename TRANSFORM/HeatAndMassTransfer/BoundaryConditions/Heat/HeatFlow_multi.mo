@@ -6,12 +6,12 @@ model HeatFlow_multi "Heat flow boundary condition"
   parameter SI.HeatFlowRate Q_flow[nPorts]=fill(0,nPorts) "Heat flow rate at port"             annotation(Dialog(                        enable=not
           use_port));
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-  Modelica.Blocks.Interfaces.RealInput Q_flow_ext[nPorts](unit="W") if use_port
+  Modelica.Blocks.Interfaces.RealInput Q_flow_ext[nPorts](each unit="W") if use_port
                                                                          annotation (Placement(transformation(
           extent={{-60,-20},{-20,20}}), iconTransformation(extent={{-60,-20},{
             -20,20}})));
 protected
-    Modelica.Blocks.Interfaces.RealInput Q_flow_int[nPorts](unit="W");
+    Modelica.Blocks.Interfaces.RealInput Q_flow_int[nPorts](each unit="W");
 public
   Interfaces.HeatPort_Flow port[nPorts] annotation (Placement(transformation(extent={{
             90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));

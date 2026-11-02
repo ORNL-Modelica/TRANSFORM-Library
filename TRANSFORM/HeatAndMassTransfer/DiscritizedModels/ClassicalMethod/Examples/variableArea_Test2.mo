@@ -35,7 +35,7 @@ model variableArea_Test2
         rotation=90,
         origin={6,59})));
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions.FixedTemperature_FD
-    fixedTemperature_FD2(nNodes=Winding.nR, T(displayUnit="K") = 320*ones(
+    fixedTemperature_FD2(nNodes=Winding.nR, T(each displayUnit="K") = 320*ones(
       Winding.nR))
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
   TRANSFORM.HeatAndMassTransfer.DiscritizedModels.ClassicalMethod.BoundaryConditions.Adiabatic_FD

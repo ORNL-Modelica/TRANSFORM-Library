@@ -37,7 +37,7 @@ partial model Partial_BaseFDCond_Cylinder
             nR,
             nZ)
           annotation (Dialog(tab="Initialization"));
-  Modelica.Blocks.Interfaces.RealInput[nR,nZ] q_ppp_input(unit="W/m3")
+  Modelica.Blocks.Interfaces.RealInput[nR,nZ] q_ppp_input(each unit="W/m3")
  if use_q_ppp "Volumetric heat generation" annotation (Placement(transformation(
           extent={{-130,45},{-100,75}}), iconTransformation(
         extent={{-6,-6},{6,6}},

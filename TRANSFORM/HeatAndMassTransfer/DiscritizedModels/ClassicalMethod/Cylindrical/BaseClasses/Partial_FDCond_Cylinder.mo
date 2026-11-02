@@ -14,7 +14,7 @@ partial model Partial_FDCond_Cylinder "BaseClass for 2D Cylindrical FD"
   SI.Temperature T_outerAvg "Average temperature of outer edge";
   SI.Temperature T_topAvg "Average temperature of outer edge";
   SI.Temperature T_bottomAvg "Average temperature of outer edge";
-  SI.Temperature Ts[nR,nZ](start=Ts_start, stateSelect=StateSelect.prefer)
+  SI.Temperature Ts[nR,nZ](start=Ts_start, each stateSelect=StateSelect.prefer)
     "Nodal temperatures";
   SI.Power Q_gen_total "Total power generated";
   SI.Power[nR,nZ] Q_gen "Power generated per node";
@@ -39,7 +39,7 @@ partial model Partial_FDCond_Cylinder "BaseClass for 2D Cylindrical FD"
   SI.ThermalResistance R_cond_radial
     "Approximate resistance to conduction in radial direction";
 protected
-  Modelica.Blocks.Interfaces.RealInput[nR,nZ] q_ppp(unit="W/m3")
+  Modelica.Blocks.Interfaces.RealInput[nR,nZ] q_ppp(each unit="W/m3")
     "Needed to connect to conditional connector";
   SI.Temperature[nR,nZ] T_volavg "Volume weighted temperature";
   SI.Density d_volavg[nR,nZ] "Volume weighted density";

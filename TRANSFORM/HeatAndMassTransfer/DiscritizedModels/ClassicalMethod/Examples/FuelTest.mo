@@ -87,7 +87,7 @@ model FuelTest "Representative nuclear fuel element"
     length=Fuel.length)
     annotation (Placement(transformation(extent={{68,-11},{88,9}})));
   BoundaryConditions.FixedTemperature_FD fixedTemperature_FD(nNodes=Fuel.nZ,
-      T(displayUnit="K") = 500*ones(Fuel.nZ)) annotation (Placement(
+      T(each displayUnit="K") = 500*ones(Fuel.nZ)) annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,

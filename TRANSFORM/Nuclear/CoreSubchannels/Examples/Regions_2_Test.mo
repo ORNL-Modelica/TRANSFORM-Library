@@ -2,7 +2,7 @@ within TRANSFORM.Nuclear.CoreSubchannels.Examples;
 model Regions_2_Test
   extends TRANSFORM.Icons.Example;
   Regions_2    coreSubchannel(
-    Ts_start_1(displayUnit="K"),
+    Ts_start_1(each displayUnit="K"),
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     redeclare package Material_1 = TRANSFORM.Media.Solids.UO2,
     redeclare package Material_2 = TRANSFORM.Media.Solids.ZrNb_E125,

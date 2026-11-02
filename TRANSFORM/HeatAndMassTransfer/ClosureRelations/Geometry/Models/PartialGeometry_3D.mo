@@ -4,12 +4,12 @@ partial model PartialGeometry_3D
       choice=1 "Plane",
       choice=2 "Cylinder",
       choice=3 "Sphere"));
-  parameter Integer ns[3](min=1) = {1,1,1}
+  parameter Integer ns[3](each min=1) = {1,1,1}
     "Number of nodes in each dimension {1,2,3}";
   final parameter Integer n_total=ns[1]*ns[2]*ns[3] "Total number of nodes";
-  parameter Boolean closedDim_1[ns[2],ns[3]](fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
-  parameter Boolean closedDim_2[ns[1],ns[3]](fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
-  parameter Boolean closedDim_3[ns[1],ns[2]](fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
+  parameter Boolean closedDim_1[ns[2],ns[3]](each fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
+  parameter Boolean closedDim_2[ns[1],ns[3]](each fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
+  parameter Boolean closedDim_3[ns[1],ns[2]](each fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
   output SI.Volume Vs[ns[1],ns[2],ns[3]] "Unit volumes" annotation (Dialog(
       tab="Internal Interface",
       group="Outputs",

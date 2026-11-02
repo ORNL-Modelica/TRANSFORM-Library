@@ -502,7 +502,7 @@ model GenericDistributed_HX
   parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=shell.summary.T_effective);
   input Real val_tube = tube.summary.T_effective "Color map input variable" annotation(Dialog(tab="Visualization",group="Color Coding",enable=showColors));
-  Real dynColor_tube[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val_tube, val_min, val_max, colorMap(n_colors));
+  Real dynColor_tube[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val_tube, val_min, val_max, colorMapData_);
 
 
   HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_addShell[geometry.nV,
