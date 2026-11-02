@@ -13,9 +13,9 @@ model Properties_CO2_Test "Generate data for external plot file"
   Modelica.Blocks.Sources.Constant ps[4](k={7.377,7.5,7.7,8}*1e6)
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Modelica.Blocks.Sources.Ramp Ts[4](
-    height=10,
-    duration=1,
-    offset=25 + 273.15)
+    each height=10,
+    each duration=1,
+    each offset=25 + 273.15)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
 equation
   mediums.p =ps.y;

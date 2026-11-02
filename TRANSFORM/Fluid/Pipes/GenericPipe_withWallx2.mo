@@ -26,7 +26,7 @@ model GenericPipe_withWallx2
     "Wall material properties" annotation (choicesAllMatching=true);
   parameter Boolean counterCurrent=false "Swap wall vector order";
   parameter Boolean use_HeatTransferOuter=false "= true to use outer wall heat port" annotation (Dialog(group="Heat Transfer"));
-  final parameter Integer nVs[3](min=1) = {geometry.nR,geometry.nZ,geometry.nR_2}
+  final parameter Integer nVs[3](each min=1) = {geometry.nR,geometry.nZ,geometry.nR_2}
     "Number of discrete volumes";
   // Initialization: Wall
   parameter Dynamics energyDynamics_wall=Dynamics.DynamicFreeInitial

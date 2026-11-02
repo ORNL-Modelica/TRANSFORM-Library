@@ -59,17 +59,17 @@ model CIET_nureth "Final model of the CIET facility"
 
   TRANSFORM.HeatAndMassTransfer.Volumes.SimpleWall thermalMass[integer(data.pipes.table[
     data.index_1, 1])](
-    th=0.3,
-    surfaceArea=0.004,
-    T_start=294.15) annotation (Placement(transformation(
+    each th=0.3,
+    each surfaceArea=0.004,
+    each T_start=294.15) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,8})));
   TRANSFORM.HeatAndMassTransfer.Volumes.SimpleWall thermalMass1[integer(data.pipes.table[
     data.index_1, 1])](
-    th=5,
-    surfaceArea=0.09,
-    T_start=294.15) annotation (Placement(transformation(
+    each th=5,
+    each surfaceArea=0.09,
+    each T_start=294.15) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,38})));
@@ -787,7 +787,7 @@ model CIET_nureth "Final model of the CIET facility"
     "Correction Factor for Insulation"
     annotation (Placement(transformation(extent={{40,200},{60,220}})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Heat.Convection convection_1[
-    integer(data.pipes.table[data.index_1, 1])](surfaceArea=0.5, each alpha=
+    integer(data.pipes.table[data.index_1, 1])](each surfaceArea=0.5, each alpha=
         HTC_Ambient.y) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=270,
@@ -876,9 +876,9 @@ model CIET_nureth "Final model of the CIET facility"
 
   TRANSFORM.HeatAndMassTransfer.Volumes.UnitVolume volume1[integer(data.pipes.table[
     data.index_6, 1])](
-    d=Material_wall.density_T(150 + 273.15),
-    cp=Material_wall.specificHeatCapacityCp_T(150 + 273.15),
-    V=3.120/Material_wall.density_T(150 + 273.15))
+    each d=Material_wall.density_T(150 + 273.15),
+    each cp=Material_wall.specificHeatCapacityCp_T(150 + 273.15),
+    each V=3.120/Material_wall.density_T(150 + 273.15))
     annotation (Placement(transformation(extent={{-160,22},{-140,42}})));
   TRANSFORM.Fluid.Volumes.SimpleVolume volume2(
     redeclare package Medium = Medium,

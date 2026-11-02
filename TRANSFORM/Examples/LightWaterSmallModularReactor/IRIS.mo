@@ -15,17 +15,17 @@ model IRIS
   package Medium_PHTS = Modelica.Media.Water.StandardWater
     "Primary heat transport system medium" annotation (Dialog(enable=false));
   TRANSFORM.Nuclear.CoreSubchannels.Regions_3    coreSubchannel(
-    Ts_start_3(displayUnit="K") = [{coreSubchannel.Ts_start_2[end, 1]},{
+    Ts_start_3(each displayUnit="K") = [{coreSubchannel.Ts_start_2[end, 1]},{
       coreSubchannel.Ts_start_2[end, 2]},{coreSubchannel.Ts_start_2[end, 3]},{
       coreSubchannel.Ts_start_2[end, 4]}; 588.673217773438,598.278564453125,
       607.177856445313,615.421997070313; 583.928039550781,593.558532714844,
       602.48095703125,610.746276855469],
-    Ts_start_2(displayUnit="K") = [{coreSubchannel.Ts_start_1[end, 1]},{
+    Ts_start_2(each displayUnit="K") = [{coreSubchannel.Ts_start_1[end, 1]},{
       coreSubchannel.Ts_start_1[end, 2]},{coreSubchannel.Ts_start_1[end, 3]},{
       coreSubchannel.Ts_start_1[end, 4]}; 645.326904296875,654.579406738281,
       663.157775878906,671.109558105469; 593.718627929688,603.297302246094,
       612.172241210938,620.393920898438],
-    Ts_start_1(displayUnit="K") = [855.985778808594,866.50341796875,
+    Ts_start_1(each displayUnit="K") = [855.985778808594,866.50341796875,
       876.264709472656,885.321228027344; 849.067749023438,859.516784667969,
       869.214233398438,878.211303710938; 828.583129882813,838.829895019531,
       848.339050292969,857.160949707031; 795.317565917969,805.238525390625,
@@ -40,7 +40,7 @@ model IRIS
     p_b_start(displayUnit="Pa") = 15655919,
     T_a_start(displayUnit="K") = 557.0997,
     T_b_start(displayUnit="K") = 595.1576,
-    Ts_start(displayUnit="K") = {567.265808105469,577.039306640625,
+    Ts_start(each displayUnit="K") = {567.265808105469,577.039306640625,
       586.362365722656,595.158447265625},
     alpha_fuel=-3.24e-5,
     alpha_coolant=-2.88e-4,
@@ -415,7 +415,7 @@ model IRIS
     h_a_start_tube=962463,
     T_a_start_shell(displayUnit="K") = 595.1901,
     T_b_start_shell(displayUnit="K") = 557.0911,
-    Ts_start_shell(displayUnit="K") = {595.025085449219,594.724182128906,
+    Ts_start_shell(each displayUnit="K") = {595.025085449219,594.724182128906,
       594.155090332031,593.082824707031,591.095886230469,588.496643066406,
       584.942443847656,581.663757324219,578.658508300781,575.916442871094,
       573.423217773438,571.162841796875,569.118530273438,567.2734375,

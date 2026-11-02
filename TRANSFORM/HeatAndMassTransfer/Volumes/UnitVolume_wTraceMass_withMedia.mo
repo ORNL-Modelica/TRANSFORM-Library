@@ -13,7 +13,7 @@ model UnitVolume_wTraceMass_withMedia
   parameter Units.NonDim C_nominal[nC] = fill(1e-6,nC) "Nominal concentration [mol/m3] for improved numeric stability" annotation(Dialog(tab="Advanced"));
   Units.Mole nCs[nC] "Trace substance moles";
   Units.Mole[nC] nCs_scaled "Scaled trace substance moles for improved numerical stability";
-  SI.Concentration C[nC](stateSelect=StateSelect.prefer, start=C_start)
+  SI.Concentration C[nC](each stateSelect=StateSelect.prefer, start=C_start)
     "Trace substance concentration";
   Interfaces.MolePort_State portM(nC=nC) "Trace flow across boundary"
     annotation (Placement(transformation(extent={{30,-110},{50,-90}}),

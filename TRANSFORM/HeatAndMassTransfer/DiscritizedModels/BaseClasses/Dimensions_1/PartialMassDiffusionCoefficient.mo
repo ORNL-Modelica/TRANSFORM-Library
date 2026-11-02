@@ -3,7 +3,7 @@ partial model PartialMassDiffusionCoefficient
   replaceable package Material =
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true,Dialog(tab="Internal Interface"));
-  parameter Integer nVs[1](min=1) = {1} "Number of discrete volumes"
+  parameter Integer nVs[1](each min=1) = {1} "Number of discrete volumes"
     annotation(Dialog(tab="Internal Interface"));
   parameter Integer nC = 1 "Number of diffusive substances" annotation (Dialog(tab="Internal Interface"));
   // Inputs provided to the model

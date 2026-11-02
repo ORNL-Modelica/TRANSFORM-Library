@@ -16,12 +16,12 @@ model AxPowTOAxVolHeat
   Modelica.Blocks.Interfaces.RealInput Power_in[nZ]
     "Input Axial Power Distribution (volume approach)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput q_ppp[nR,nZ](unit="W/m3")
+  Modelica.Blocks.Interfaces.RealOutput q_ppp[nR,nZ](each unit="W/m3")
     "Volumetric heat source"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   SI.Volume volTotal = pi*(r_outer^2-r_inner^2)*length;
   SI.Volume volAxial=volTotal/(nZ);
-  Real q_ppp_vol[nZ](unit="W/m3");
+  Real q_ppp_vol[nZ](each unit="W/m3");
 equation
 q_ppp_vol =Power_in/(nParallel*volAxial);
   for i in 1:nR loop

@@ -11,7 +11,7 @@ model StandardPipe "StandardPipe | Uses NPS schedules"
     final drs=transpose(fillArray_1D(dr, nZ)),
     final dzs=fillArray_1D(dlengths, nR));
     extends Icons.UnderConstruction;
-  input SI.Length dr[nR](min=0) = fill(nps.th_wall/nR,nR) "Wall unit volume lengths of r-dimension"
+  input SI.Length dr[nR](each min=0) = fill(nps.th_wall/nR,nR) "Wall unit volume lengths of r-dimension"
     annotation (Dialog(group="Inputs: Wall"));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

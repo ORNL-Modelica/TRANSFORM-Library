@@ -9,9 +9,9 @@ model Cylinder_3D
   input SI.Length r_outer = 1 "Specify outer radius or dthetas in r-dimension" annotation(Dialog(group="Inputs"));
   input SI.Angle angle_theta(min=0,max=2*Modelica.Constants.pi) = 2*Modelica.Constants.pi "Specify overall angle or dthetas in theta-dimension" annotation(Dialog(group="Inputs"));
   input SI.Length length_z = 1 "Specify overall length or dzs in z-dimension" annotation(Dialog(group="Inputs"));
-  input SI.Length drs[nR,nTheta,nZ](min=0) = fill((r_outer-r_inner)/nR,nR,nTheta,nZ) "Unit volume lengths of r-dimension" annotation(Dialog(group="Inputs"));
-  input SI.Angle dthetas[nR,nTheta,nZ](min=0) = fill(angle_theta/nTheta,nR,nTheta,nZ)  "Unit volume lengths of theta-dimension" annotation(Dialog(group="Inputs"));
-  input SI.Length dzs[nR,nTheta,nZ](min=0) = fill((length_z)/nZ,nR,nTheta,nZ) "Unit volume lengths of z-dimension" annotation(Dialog(group="Inputs"));
+  input SI.Length drs[nR,nTheta,nZ](each min=0) = fill((r_outer-r_inner)/nR,nR,nTheta,nZ) "Unit volume lengths of r-dimension" annotation(Dialog(group="Inputs"));
+  input SI.Angle dthetas[nR,nTheta,nZ](each min=0) = fill(angle_theta/nTheta,nR,nTheta,nZ)  "Unit volume lengths of theta-dimension" annotation(Dialog(group="Inputs"));
+  input SI.Length dzs[nR,nTheta,nZ](each min=0) = fill((length_z)/nZ,nR,nTheta,nZ) "Unit volume lengths of z-dimension" annotation(Dialog(group="Inputs"));
   SI.Length rs[nR,nTheta,nZ] "Position in r-dimension";
   SI.Angle thetas[nR,nTheta,nZ] "Position in theta-dimension";
   SI.Length zs[nR,nTheta,nZ] "Position in z-dimension";

@@ -39,7 +39,7 @@ model Conduction_1D
     V=geometry.Vs,
     Q_gen=nFlow_Q_gen.port_n)
     annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
-  Modelica.Blocks.Interfaces.RealInput Q_gen[nVs[1]](unit="W")
+  Modelica.Blocks.Interfaces.RealInput Q_gen[nVs[1]](each unit="W")
     annotation (Placement(transformation(extent={{-120,40},{-100,60}}),
         iconTransformation(extent={{-120,40},{-100,60}})));
   Resistances.Heat.Plane                           conductor_1[nFM_1](

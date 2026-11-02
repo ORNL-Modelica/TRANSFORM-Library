@@ -9,14 +9,14 @@ model MassFlow "Mass flow boundary condition"
   parameter SI.MolarFlowRate n_flow[nC]=zeros(nC) "Molar flow rate at port"
     annotation (Dialog(enable=not use_port));
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
-  Modelica.Blocks.Interfaces.RealInput n_flow_ext[nC](unit="mol/s") if use_port
+  Modelica.Blocks.Interfaces.RealInput n_flow_ext[nC](each unit="mol/s") if use_port
                   annotation (Placement(transformation(extent={{-60,-20},{-20,
             20}}), iconTransformation(extent={{-60,-20},{-20,20}})));
   Interfaces.MolePort_Flow port(nC=nC) annotation (Placement(transformation(
           extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
             10}})));
 protected
-  Modelica.Blocks.Interfaces.RealInput n_flow_int[nC](unit="mol/s");
+  Modelica.Blocks.Interfaces.RealInput n_flow_int[nC](each unit="mol/s");
 equation
   connect(n_flow_int, n_flow_ext);
   if not use_port then

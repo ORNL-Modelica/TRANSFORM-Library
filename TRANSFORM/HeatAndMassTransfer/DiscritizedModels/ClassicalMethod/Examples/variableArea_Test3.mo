@@ -32,7 +32,7 @@ model variableArea_Test3
         rotation=90,
         origin={6,59})));
   BoundaryConditions.FixedTemperature_FD fixedTemperature_FD2(nNodes=
-        Winding.nR, T(displayUnit="K") = 320*ones(Winding.nR))
+        Winding.nR, T(each displayUnit="K") = 320*ones(Winding.nR))
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
   BoundaryConditions.Adiabatic_FD adiabatic_bottom(nNodes=Winding.nR)
     annotation (Placement(transformation(extent={{-26,-80},{-6,-60}})));

@@ -1,5 +1,5 @@
 within TRANSFORM.Utilities.Visualizers.BaseClasses;
-type Color = Integer[3] (min=0, max=255) "RGB representation of color"
+type Color = Integer[3] (each min=0, each max=255) "RGB representation of color"
   annotation (preferedView="text", choices(
     choice={255,0,0} "{255,0,0 }    \"red\"",
     choice={255,255,0} "{255,255,0}   \"yellow\"",

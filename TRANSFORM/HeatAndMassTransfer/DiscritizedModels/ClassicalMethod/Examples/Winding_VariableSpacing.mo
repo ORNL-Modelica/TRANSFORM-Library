@@ -39,7 +39,7 @@ model Winding_VariableSpacing
         rotation=90,
         origin={6,58.5})));
   BoundaryConditions.FixedTemperature_FD fixedTemperature_FD2(nNodes=
-        Winding.nR, T(displayUnit="K") = 320*ones(Winding.nR))
+        Winding.nR, T(each displayUnit="K") = 320*ones(Winding.nR))
     annotation (Placement(transformation(extent={{-40,74},{-20,94}})));
   BoundaryConditions.Adiabatic_FD adiabatic_bottom(nNodes=Winding.nR)
     annotation (Placement(transformation(extent={{-26,-80},{-6,-60}})));
@@ -57,7 +57,7 @@ model Winding_VariableSpacing
     alphas=400*ones(Winding.nZ))
     annotation (Placement(transformation(extent={{-36,-22},{-56,-2}})));
   BoundaryConditions.FixedTemperature_FD fixedTemperature_FD(nNodes=Winding.nZ,
-      T(displayUnit="K") = 320*ones(Winding.nZ))
+      T(each displayUnit="K") = 320*ones(Winding.nZ))
     annotation (Placement(transformation(extent={{-90,-22},{-70,-2}})));
   Modelica.Blocks.Sources.Constant const[Winding.nR,Winding.nZ](k=6e5*ones(
         Winding.nR, Winding.nZ))

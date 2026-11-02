@@ -8,9 +8,9 @@ model Plane_3D
   input SI.Length length_x = 1 "Specify overall length or dxs in x-dimension" annotation(Dialog(group="Inputs"));
   input SI.Length length_y = 1 "Specify overall length or dys in y-dimension" annotation(Dialog(group="Inputs"));
   input SI.Length length_z = 1 "Specify overall length or dzs in z-dimension" annotation(Dialog(group="Inputs"));
-  input SI.Length dxs[nX,nY,nZ](min=0) = fill((length_x)/nX,nX,nY,nZ) "Unit volume lengths of x-dimension" annotation(Dialog(group="Inputs"));
-  input SI.Length dys[nX,nY,nZ](min=0) = fill((length_y)/nY,nX,nY,nZ)  "Unit volume lengths of y-dimension" annotation(Dialog(group="Inputs"));
-  input SI.Length dzs[nX,nY,nZ](min=0) = fill((length_z)/nZ,nX,nY,nZ) "Unit volume lengths of z-dimension" annotation(Dialog(group="Inputs"));
+  input SI.Length dxs[nX,nY,nZ](each min=0) = fill((length_x)/nX,nX,nY,nZ) "Unit volume lengths of x-dimension" annotation(Dialog(group="Inputs"));
+  input SI.Length dys[nX,nY,nZ](each min=0) = fill((length_y)/nY,nX,nY,nZ)  "Unit volume lengths of y-dimension" annotation(Dialog(group="Inputs"));
+  input SI.Length dzs[nX,nY,nZ](each min=0) = fill((length_z)/nZ,nX,nY,nZ) "Unit volume lengths of z-dimension" annotation(Dialog(group="Inputs"));
   SI.Length xs[nX,nY,nZ] "Position in x-dimension";
   SI.Length ys[nX,nY,nZ] "Position in y-dimension";
   SI.Length zs[nX,nY,nZ] "Position in z-dimension";

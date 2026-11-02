@@ -19,17 +19,17 @@ model Sphere_2D_theta_phi
     max=Modelica.Constants.pi) = Modelica.Constants.pi
     "Specify overall angle or dphis in phi-dimension"
     annotation (Dialog(group="Inputs"));
-  input SI.Length drs[nTheta,nPhi](min=0) = fill(
+  input SI.Length drs[nTheta,nPhi](each min=0) = fill(
     r_outer - r_inner,
     nTheta,
     nPhi) "Unit volume lengths of r-dimension"
     annotation (Dialog(group="Inputs"));
-  input SI.Angle dthetas[nTheta,nPhi](min=0) = fill(
+  input SI.Angle dthetas[nTheta,nPhi](each min=0) = fill(
     angle_theta/nTheta,
     nTheta,
     nPhi) "Unit volume lengths of theta-dimension"
     annotation (Dialog(group="Inputs"));
-  input SI.Angle dphis[nTheta,nPhi](min=0) = fill(
+  input SI.Angle dphis[nTheta,nPhi](each min=0) = fill(
     angle_phi/nPhi,
     nTheta,
     nPhi) "Unit volume lengths of phi-dimension"

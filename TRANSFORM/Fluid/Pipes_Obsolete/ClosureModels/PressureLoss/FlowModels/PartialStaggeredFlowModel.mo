@@ -13,7 +13,7 @@ partial model PartialStaggeredFlowModel
   parameter Real nParallel "number of identical parallel flow devices";
   input SI.Temperature[nFM+1] Ts_w
     "Mean wall temperatures of heat transfer surface";
-  input SI.Length[nFM] lengths(min=0) "Lengths of flow elements";
+  input SI.Length[nFM] lengths(each min=0) "Lengths of flow elements";
   input SI.Area[nFM+1] crossAreas "Cross flow areas at segment boundaries";
   input SI.Length[nFM+1] dimensions
     "Characteristic dimensions for fluid flow (diameters for pipe flow)";

@@ -325,15 +325,15 @@ model SFR
         D=data.D_tube_outer,
         S_T=data.pitch_tube,
         S_L=data.pitch_tube),
-    T_a_start_shell=data.T_start_hot,
-    T_b_start_shell=data.T_start_cold,
-    T_a_start_tube=data.T_IHX_inletIHTS,
-    T_b_start_tube=data.T_IHX_outletIHTS,
-    p_a_start_shell=data.p_start + 0.75e5,
-    m_flow_a_start_shell=data.m_flow_PHTS/3,
-    m_flow_a_start_tube=data.m_flow_IHX_IHTS,
-    useLumpedPressure_shell=true,
-    useLumpedPressure_tube=true,
+    each T_a_start_shell=data.T_start_hot,
+    each T_b_start_shell=data.T_start_cold,
+    each T_a_start_tube=data.T_IHX_inletIHTS,
+    each T_b_start_tube=data.T_IHX_outletIHTS,
+    each p_a_start_shell=data.p_start + 0.75e5,
+    each m_flow_a_start_shell=data.m_flow_PHTS/3,
+    each m_flow_a_start_tube=data.m_flow_IHX_IHTS,
+    each useLumpedPressure_shell=true,
+    each useLumpedPressure_tube=true,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         D_o_shell=data.D_shell_outer,
@@ -347,7 +347,7 @@ model SFR
         nV=10,
         angle_shell=-1.5707963267949,
         angle_tube=1.5707963267949),
-    p_a_start_tube=350000) annotation (Placement(transformation(
+    each p_a_start_tube=350000) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={72,2})));
@@ -374,7 +374,7 @@ model SFR
         rotation=180,
         origin={50,-68})));
   Fluid.FittingsAndResistances.SpecifiedResistance resistance_toIHX[3](
-      redeclare package Medium = Medium_PHTS, R=50)
+      redeclare package Medium = Medium_PHTS, each R=50)
     annotation (Placement(transformation(extent={{4,16},{24,36}})));
   Fluid.BoundaryConditions.Boundary_pT boundary_dummy(
     redeclare package Medium = Medium_PHTS,
@@ -388,11 +388,11 @@ model SFR
         rotation=90,
         origin={-20,40})));
   Fluid.Pipes.GenericPipe_MultiTransferSurface downcomer[3](
-    nParallel=2,
+    each nParallel=2,
     redeclare package Medium = Medium_PHTS,
-    p_a_start=data.p_start,
-    T_a_start=data.T_start_cold,
-    m_flow_b_start=data.m_flow_PHTS/3,
+    each p_a_start=data.p_start,
+    each T_a_start=data.T_start_cold,
+    each m_flow_b_start=data.m_flow_PHTS/3,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
         dimension=data.D_downcomerIHX,
@@ -405,7 +405,7 @@ model SFR
                       pump_SimpleMassFlow
                           [3](
     redeclare package Medium = Medium_PHTS,
-    m_flow_nominal=data.m_flow_PHTS/3)
+    each m_flow_nominal=data.m_flow_PHTS/3)
                        annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
@@ -472,16 +472,16 @@ model SFR
         D=data.D_tube_outer,
         S_T=data.pitch_tube,
         S_L=data.pitch_tube),
-    T_a_start_shell=data.T_start_hot,
-    T_b_start_shell=data.T_start_cold,
-    T_a_start_tube=data.T_IHX_inletIHTS,
-    T_b_start_tube=data.T_IHX_outletIHTS,
-    p_a_start_shell=data.p_start + 0.75e5,
+    each T_a_start_shell=data.T_start_hot,
+    each T_b_start_shell=data.T_start_cold,
+    each T_a_start_tube=data.T_IHX_inletIHTS,
+    each T_b_start_tube=data.T_IHX_outletIHTS,
+    each p_a_start_shell=data.p_start + 0.75e5,
     redeclare package Medium_tube = Medium_DRACS,
-    m_flow_a_start_shell=data.m_flow_DRACS,
-    m_flow_a_start_tube=data.m_flow_DRACSsec,
-    useLumpedPressure_shell=true,
-    useLumpedPressure_tube=true,
+    each m_flow_a_start_shell=data.m_flow_DRACS,
+    each m_flow_a_start_tube=data.m_flow_DRACSsec,
+    each useLumpedPressure_shell=true,
+    each useLumpedPressure_tube=true,
     redeclare model Geometry =
         Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.ShellAndTubeHX (
         D_o_shell=data.D_shell_outerDRACS,
@@ -494,12 +494,12 @@ model SFR
         nV=10,
         angle_shell=-1.5707963267949,
         angle_tube=1.5707963267949),
-    p_a_start_tube=350000) annotation (Placement(transformation(
+    each p_a_start_tube=350000) annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={-84,2})));
   Fluid.Machines.Pump_SimpleMassFlow               resistance_toDRACS[3](
-      redeclare package Medium = Medium_PHTS, m_flow_nominal=data.m_flow_DRACS)
+      redeclare package Medium = Medium_PHTS, each m_flow_nominal=data.m_flow_DRACS)
     annotation (Placement(transformation(extent={{-50,16},{-70,36}})));
   Components.DRACS_ADHX5 DRACS[3](redeclare package Medium = Medium_DRACS)
     annotation (Placement(transformation(extent={{-100,-20},{-160,40}})));

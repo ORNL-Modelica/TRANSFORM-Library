@@ -67,7 +67,7 @@ partial model PartialVolume_wlevelold "Base class for volume models"
   SI.Mass[Medium.nC] mC_scaled "Scaled trace substance mass for improved numerical stability";
   // C has the additional parameter because it is not included in the medium
   // i.e.,Xi has medium[:].Xi but there is no variable medium[:].C
-  SIadd.ExtraProperty C[Medium.nC](stateSelect=StateSelect.prefer, start=C_start)
+  SIadd.ExtraProperty C[Medium.nC](each stateSelect=StateSelect.prefer, start=C_start)
     "Trace substance mass-specific value";
   // Mass Balance
   SI.MassFlowRate mb "Mass flow rate source/sinks within volumes";
