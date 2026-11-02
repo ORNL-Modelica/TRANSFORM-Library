@@ -11,8 +11,8 @@ annotation (
     ModelicaServices(version="4.0.0"),
     Complex(version="4.0.0"),
     Modelica(version="4.0.0")),
-  version="1.0",
-  conversion(noneFromVersion="0.5"),
+  version="1.1.0-dev",
+  conversion(noneFromVersion="0.5", noneFromVersion="1.0"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 </html>"));

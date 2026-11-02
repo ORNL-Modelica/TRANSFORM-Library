@@ -36,6 +36,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 You may report any issues with using the Issues button.
 
 Contributions in the form of Pull Requests are always welcome.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to change the library without breaking user models.
 Prior to issuing a pull request, make sure your code follows the style guide and coding conventions.
 
 ## Citation
