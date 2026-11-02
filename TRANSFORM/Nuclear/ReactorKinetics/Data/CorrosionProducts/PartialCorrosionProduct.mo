@@ -3,7 +3,7 @@ partial record PartialCorrosionProduct
   extends TRANSFORM.Icons.Record;
   constant String[:] extraPropertiesNames= fill("",0) "Names of groups";
   final constant Integer nC=size(extraPropertiesNames, 1) "# of groups";
-  constant Real C_nominal[nC]=fill(1e14, nC) "Default for the nominal values for the extra properties";
+  constant Real C_nominal[nC]=fill(1e14, nC) "Nominal amounts that scale the trace-substance inventories in fluid volumes; see the documentation of ReactorKinetics.Data";
   // Data
   parameter TRANSFORM.Units.InverseTime[nC] lambdas = fill(0,nC) "Decay constants for each group";
   constant Real[nC,nC] parents = fill(0,nC,nC) "Matrix of parent sources (sum(column) = 0 or 1) for each product 'daughter'. Row is daughter, Column is parent.";

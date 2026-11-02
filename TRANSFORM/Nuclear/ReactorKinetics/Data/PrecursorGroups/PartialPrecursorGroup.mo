@@ -3,7 +3,7 @@ partial record PartialPrecursorGroup
   extends TRANSFORM.Icons.Record;
   constant String[:] extraPropertiesNames= fill("",0) "Names of precursor groups";
   final constant Integer nC=size(extraPropertiesNames, 1) "# of precursor groups";
-  constant Real C_nominal[nC]=fill(1e14, nC) "Default for the nominal values for the extra properties";
+  constant Real C_nominal[nC]=fill(1e14, nC) "Nominal amounts that scale the trace-substance inventories in fluid volumes; see the documentation of ReactorKinetics.Data";
   // Data
   parameter TRANSFORM.Units.NonDim[nC] alphas "Normalized precursor fractions [betas = alphas*Beta]";
   parameter TRANSFORM.Units.NonDim Beta "Effective delayed neutron fraction";

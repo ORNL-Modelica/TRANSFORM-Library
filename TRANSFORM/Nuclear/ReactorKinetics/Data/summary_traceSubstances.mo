@@ -37,7 +37,7 @@ model summary_traceSubstances
       data_FP.C_nominal,
       data_TR.C_nominal,
       data_CP.C_nominal)
-    "Default for the nominal values for the extra properties";
+    "Nominal amounts that scale the trace-substance inventories in fluid volumes; see the documentation of ReactorKinetics.Data";
   // Indexing of substance categories
   final constant Integer[2] iPG={1,data_PG.nC}
     "First and last index of precursors groups";
