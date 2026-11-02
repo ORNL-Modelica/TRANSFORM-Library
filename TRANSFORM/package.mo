@@ -12,6 +12,7 @@ annotation (
     Complex(version="4.0.0"),
     Modelica(version="4.0.0")),
   version="1.0",
+  conversion(noneFromVersion="0.5"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 </html>"));
