@@ -15,6 +15,7 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 - `.gitignore` now tracks `TRANSFORM/Resources/Scripts/Conversion/`, the conventional home of Modelica conversion scripts. The rest of `TRANSFORM/Resources/Scripts/` stays ignored.
 - `TRANSFORM/package.mo` declares `conversion(noneFromVersion="0.5")`: models written for TRANSFORM 0.5, such as TRANSFORM-Training, need no conversion to use 1.0. Tools that check versions, such as OpenModelica, should no longer warn that the versions are incompatible.
+- `TRANSFORM.Nuclear.ReactorKinetics.Data`: new documentation explains what `C_nominal` does, why it has no measurable effect on accuracy in Dymola but sets the error scale in tools that integrate the scaled inventories (such as OpenModelica 1.27.1), and how to set per-species values in your own record. The 1e14 defaults are unchanged (#117). The `C_nominal` descriptions in the data records point to it. Text only.
 
 ### Fixed
 

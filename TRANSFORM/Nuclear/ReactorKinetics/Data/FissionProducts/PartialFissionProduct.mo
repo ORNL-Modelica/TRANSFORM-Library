@@ -5,7 +5,7 @@ partial record PartialFissionProduct
   constant String[:] fissionSourceNames = fill("", 0) "Name of original source of fission products";
   constant String[:] fissionTypes = fill("", 0) "Name of fission type for each source of fission products";
   final constant Integer nC=size(extraPropertiesNames, 1) "# of fission products (e.g., I/Xe)";
-  constant Real C_nominal[nC] = fill(1e14,nC) "Default for the nominal values for the extra properties";
+  constant Real C_nominal[nC] = fill(1e14,nC) "Nominal amounts that scale the trace-substance inventories in fluid volumes; see the documentation of ReactorKinetics.Data";
   final constant Integer nFS=size(fissionSourceNames, 1) "# of fission product sources (e.g., U/Pu)";
   final constant Integer nT=size(fissionTypes, 1) "# of fission product types (e.g., fast/thermal)";
   // Data

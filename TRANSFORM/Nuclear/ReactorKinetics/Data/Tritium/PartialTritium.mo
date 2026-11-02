@@ -3,7 +3,7 @@ partial record PartialTritium
   extends TRANSFORM.Icons.Record;
   constant String[:] extraPropertiesNames= fill("", 0) "Names of transport tritium contributors";
   final constant Integer nC=size(extraPropertiesNames, 1) "# of tritium contributors (e.g., Li7/Li6)";
-  constant Real C_nominal[nC] = fill(1e14,nC) "Default for the nominal values for the extra properties";
+  constant Real C_nominal[nC] = fill(1e14,nC) "Nominal amounts that scale the trace-substance inventories in fluid volumes; see the documentation of ReactorKinetics.Data";
   // Data
   parameter SIadd.InverseTime[nC] lambdas "Half-life of tritium contributors";
   parameter SI.Area sigmasA[nC]=fill(0, nC)

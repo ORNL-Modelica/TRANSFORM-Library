@@ -3,7 +3,7 @@ partial record PartialDecayHeat_powerBased
   extends TRANSFORM.Icons.Record;
   constant String[:] extraPropertiesNames= fill("",0) "Names of decay-heat groups";
   final constant Integer nC=size(extraPropertiesNames, 1) "# of decay-heat groups";
-  constant Real C_nominal[nC]=fill(1e14, nC) "Default for the nominal values for the extra properties";
+  constant Real C_nominal[nC]=fill(1e14, nC) "Nominal amounts that scale the trace-substance inventories in fluid volumes; see the documentation of ReactorKinetics.Data";
   // Data
   parameter TRANSFORM.Units.InverseTime[nC] lambdas "Decay constants for each decay-heat group";
   parameter Units.NonDim efs[nC]
