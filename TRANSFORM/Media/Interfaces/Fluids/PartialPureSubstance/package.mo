@@ -163,6 +163,14 @@ partial package PartialPureSubstance "Base class for pure substances of one chem
             fill(0, 0)));
   end density_pT;
 
+  redeclare replaceable function massFraction "Return independent mass fractions (if any)"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output MassFraction Xi[nXi] "Independent mass fractions";
+  algorithm
+    Xi := fill(0,0);
+  end massFraction;
+
   redeclare replaceable partial model extends BaseProperties(final
       standardOrderComponents=true)
   end BaseProperties;

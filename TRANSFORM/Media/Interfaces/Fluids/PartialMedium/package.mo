@@ -598,6 +598,12 @@ kappa is defined as - 1/v * der(v,p), with v = 1/d at constant temperature T.
             s,
             X));
   end specificEnthalpy_psX;
+
+  replaceable partial function massFraction "Return independent mass fractions (if any)"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output MassFraction Xi[nXi] "Independent mass fractions";
+  end massFraction;
   // Only for backwards compatibility to version 3.2 (
   // (do not use these definitions in new models, but use Modelica.Media.Interfaces.Choices instead)
   annotation (Documentation(info="<html>
