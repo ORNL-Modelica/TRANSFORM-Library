@@ -169,17 +169,19 @@ algorithm
   else
     assert(false,"Model structure unknown");
   end if;
-  for i in 2:n1 - 1 loop
-    for j in 2:n2 - 1 loop
+  // The row loop variable is not named i: OpenModelica 1.27.1 inlines linspace, whose
+  // own iterator i then shadows an outer i (wrong values or out-of-bounds).
+  for iRow in 2:n1 - 1 loop
+    for jCol in 2:n2 - 1 loop
       row := linspace(
-        y[i, 1],
-        y[i, n2],
+        y[iRow, 1],
+        y[iRow, n2],
         n2);
       col := linspace(
-        y[1, j],
-        y[n1, j],
+        y[1, jCol],
+        y[n1, jCol],
         n1);
-      y[i, j] := 0.5*(row[j] + col[i]);
+      y[iRow, jCol] := 0.5*(row[jCol] + col[iRow]);
     end for;
   end for;
 end if;
