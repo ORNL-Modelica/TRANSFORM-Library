@@ -6,6 +6,10 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 ## [Unreleased]
 
+### Changed
+
+- `TRANSFORM/package.mo`: `main` carries `version="1.2.0-dev"` and adds `noneFromVersion="1.1.0"` to the conversion annotation, so models written for 1.1.0 load without conversion. The release date `versionDate` is removed until the next release.
+
 ## [1.1.0] - 2026-11-03
 
 ### Added
