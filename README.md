@@ -11,6 +11,11 @@ A Modelica based library for modeling thermal hydraulic energy systems and other
 
 Dymola
 
+Optional libraries, needed only by the models that use them:
+
+- [ExternalMedia](https://github.com/modelica-3rdparty/ExternalMedia) 4.0.0, for the CoolProp media in `TRANSFORM.Media.ExternalMedia` and the models that use them.
+- [SDF](https://github.com/ScientificDataFormat/SDF-Modelica) 0.4.5, for the critical heat flux and film boiling look-up tables. Dymola 2026x ships it.
+
 ## Related Training
 
 For training related to TRANSFORM, please see the [TRANSFORM Training repository](https://github.com/ORNL-Modelica/TRANSFORM-Training)

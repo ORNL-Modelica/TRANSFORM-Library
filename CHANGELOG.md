@@ -9,6 +9,7 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 ### Changed
 
 - `TRANSFORM/package.mo`: `main` carries `version="1.2.0-dev"` and adds `noneFromVersion="1.1.0"` to the conversion annotation, so models written for 1.1.0 load without conversion. The release date `versionDate` is removed until the next release.
+- `TRANSFORM/package.mo` declares `SDF(version="0.4.5")` in its `uses` annotation. The critical heat flux and film boiling look-up tables (`Groeneveld2006LUT`, `Alphas_TwoPhase_3Region_CHFtransition`, the example `Groeneveld2001LUT_FilmBoilingCoefficient` and the examples of the first two) read their data with `SDF.NDTable`, but the library did not say so (#98). SDF is public under the BSD 2-Clause license. What to do: in Dymola 2026x, nothing; it ships SDF 0.4.6, which loads 0.4.5 models without conversion (older Dymola versions are unchecked). Other users install SDF 0.4.5 from [SDF-Modelica](https://github.com/ScientificDataFormat/SDF-Modelica/releases) or, in OpenModelica, with `installPackage(SDF, "0.4.5")`. Only the models that use these tables need SDF: OpenModelica 1.27.1 loads TRANSFORM without it and prints the install command. With SDF installed, these models also run in OpenModelica and match the Dymola results. `README.md` now lists ExternalMedia and SDF as optional libraries. Results are unchanged.
 
 ## [1.1.0] - 2026-11-03
 
