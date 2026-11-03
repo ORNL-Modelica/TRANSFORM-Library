@@ -17,8 +17,7 @@ For training related to TRANSFORM, please see the [TRANSFORM Training repository
 
 ### Check that the Library is working
 
-- To run all tests included in the unit tests, run the appropriate `runAll_*.mos` script.
-    - Note, this may take a bit too run, but feel free to "Make it STOP!"
+- The regression tests and their reference results live in [TRANSFORM-UnitTests](https://github.com/ORNL-Modelica/TRANSFORM-UnitTests). They run with [DSTF](https://github.com/ORNL-Modelica/DynamicSystemsTestingFramework) (Dynamic Systems Testing Framework); see the TRANSFORM-UnitTests README for the commands.
 
 ## License
 

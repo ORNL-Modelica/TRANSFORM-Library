@@ -182,7 +182,7 @@ model data_RCTR
   parameter SI.Volume volume_reflA_reg = pi*radius_reflA_edge^2*(length_reflA_edge) + 0.5*pi*length_reflA_edge*(radius_reflA^2 - radius_reflA_edge^2) + pi*radius_reflA^2*(length_reflA-length_reflA_edge)
     "Volume of each axial reflector region (no fuel channels) - approximate for checking";
   //parameter SI.Area crossArea_reflA_reg_avg = volume_reflA_reg/length_reflA "Cross-sectional area (avg) of each axial reflector region (no fuel channels)";
-  parameter SI.Length rs_ring_cell[nARs + 1]=cat(1,{0},{rs_ring_cell[i-1] + length_reflA_ring_cell for i in 2:nARs+1})
+  parameter SI.Length rs_ring_cell[nARs + 1]={(i - 1)*length_reflA_ring_cell for i in 1:nARs + 1}
     "Radial position of axial reflector ring unit cells";
   parameter SI.Length rs_ring_edge_inner[nARs] = {rs_ring_cell[i] + 0.5*width_reflA_channel[i] for i in 1:nARs}
     "Radial position of the inner edge of each axial reflector graphite ring";
