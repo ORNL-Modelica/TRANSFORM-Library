@@ -54,6 +54,7 @@ pressure
 density
 specificEnthalpy
 specificInternalEnergy
+massFraction
 T_ph
 T_ps
 specificEnthalpyOfT

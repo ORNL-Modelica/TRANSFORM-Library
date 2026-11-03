@@ -262,6 +262,14 @@ which is only exactly true for a fluid with constant density d=d0.
     u := specificEnthalpyOfT(state.p,state.T) - (if singleState then reference_p else state.p)/density(state);
    annotation(Inline=true,smoothOrder=2);
   end specificInternalEnergy;
+
+  redeclare replaceable function massFraction "Return independent mass fractions (if any)"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output MassFraction Xi[nXi] "Independent mass fractions";
+  algorithm
+    Xi := fill(0,0);
+  end massFraction;
 protected
 
   function specificEnthalpyOfT

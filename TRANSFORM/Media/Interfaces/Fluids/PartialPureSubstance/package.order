@@ -11,4 +11,5 @@ temperature_ps
 density_ps
 specificEnthalpy_pT
 density_pT
+massFraction
 BaseProperties

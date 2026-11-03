@@ -62,5 +62,6 @@ density_phX
 temperature_psX
 density_psX
 specificEnthalpy_psX
+massFraction
 MassFlowRate
 Choices
