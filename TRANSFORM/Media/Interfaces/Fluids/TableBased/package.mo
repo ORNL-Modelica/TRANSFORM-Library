@@ -25,7 +25,7 @@ package TableBased "Incompressible medium properties based on tables"
   constant Temperature T0=273.15 "Reference Temperature";
   constant SpecificEnthalpy h0=0 "Reference enthalpy at T0, reference_p";
   constant SpecificEntropy s0=0 "Reference entropy at T0, reference_p";
-  constant MolarMass MM_const=0.1 "Molar mass";
+  constant SI.MolarMass MM_const=0.1 "Molar mass";
   constant Integer npol=2 "Degree of polynomial used for fitting";
   constant Integer npolDensity=npol
     "Degree of polynomial used for fitting rho(T)";
