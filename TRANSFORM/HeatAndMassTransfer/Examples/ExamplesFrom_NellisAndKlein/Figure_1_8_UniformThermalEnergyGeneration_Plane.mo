@@ -124,7 +124,7 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
         wall2.materials.T,
         {T_C2.T}))) "X - Axial Location (cm) | T - Temperature (°C)"
     annotation (Placement(transformation(extent={{64,-76},{98,-44}})));
-  Modelica.Blocks.Sources.RealExpression deltaT_max(y=(L.y^2*sum(0)/
+  Modelica.Blocks.Sources.RealExpression deltaT_max(y=(L.y^2*0/
         nNodes_1.k/(4*1))) "Sanity check for order of magnitude expected"
     annotation (Placement(transformation(extent={{-70,-5},{-90,15}})));
   Modelica.Blocks.Sources.RealExpression deltaT_max1(y=(L.y^2*sum(wall1.internalHeatModel.q_ppps)

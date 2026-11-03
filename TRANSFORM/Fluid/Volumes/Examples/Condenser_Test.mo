@@ -36,10 +36,10 @@ model Condenser_Test
   BoundaryConditions.MassFlowSource_h coolFlow(
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     use_m_flow_in=true,
-    h=coolFlow.Medium.specificEnthalpy(coolFlow.Medium.setState_pTX(
+    h=Modelica.Media.Water.StandardWater.specificEnthalpy(Modelica.Media.Water.StandardWater.setState_pTX(
         1.01e5,
         275.54,
-        coolFlow.Medium.X_default)),
+        Modelica.Media.Water.StandardWater.X_default)),
     nPorts=1) annotation (Placement(transformation(extent={{86,10},{66,30}},
           rotation=0)));
   BoundaryConditions.Boundary_ph coolSink(
