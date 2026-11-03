@@ -45,7 +45,7 @@ features are:
     Icon(graphics={
         Text(
           extent={{-149,134},{151,94}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true,showName))}));
 end PartialSource;

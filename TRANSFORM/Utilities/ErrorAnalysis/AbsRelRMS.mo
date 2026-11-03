@@ -35,9 +35,7 @@ algorithm
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-102,136},{102,110}},
-          lineColor={0,0,0},
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="%name")}),                     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

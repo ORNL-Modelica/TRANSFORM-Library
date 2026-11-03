@@ -28,7 +28,7 @@ equation
           smooth=Smooth.Bezier),        Text(
         extent={{-150,140},{150,100}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
         Polygon(
           points={{-80,80},{-88,58},{-72,58},{-80,80}},
           lineColor={192,192,192},

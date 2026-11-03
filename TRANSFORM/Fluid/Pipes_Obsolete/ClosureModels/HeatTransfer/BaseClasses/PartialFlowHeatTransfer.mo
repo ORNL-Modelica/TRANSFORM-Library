@@ -34,6 +34,6 @@ for example definitions.
             fillColor={255,0,0},
             fillPattern=FillPattern.HorizontalCylinder), Text(
             extent={{-40,22},{38,-18}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
             textString="%name")}));
 end PartialFlowHeatTransfer;

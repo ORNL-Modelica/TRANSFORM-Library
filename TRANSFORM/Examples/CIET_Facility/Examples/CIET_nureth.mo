@@ -971,7 +971,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-240,-120},{200,
             260}}), graphics={Text(
           extent={{138,142},{140,142}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Old Correlation: 1122.3*((0.006295784*1.225*FanFrequency.y)^0.7928)")}),
     experiment(
       StopTime=10000,

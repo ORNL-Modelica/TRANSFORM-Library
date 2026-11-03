@@ -7,7 +7,7 @@ partial record CoefficientOfHeatTransfer
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={108,88,49},
+          textColor={108,88,49},
           extent={{-100,-40},{100,40}},
         fontName="Bernard MT Condensed",
           textString="alpha")}),                      Documentation(info="<html>

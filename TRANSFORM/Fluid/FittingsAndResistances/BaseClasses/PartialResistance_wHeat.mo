@@ -53,7 +53,7 @@ equation
           Bitmap(extent={{-60,-60},{60,60}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/Resistance_Fluid.jpg"),
           Text(
           extent={{-149,-68},{151,-108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true, showName))}), Diagram(coordinateSystem(
           preserveAspectRatio=false)));

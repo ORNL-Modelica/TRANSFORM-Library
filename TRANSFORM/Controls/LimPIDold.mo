@@ -236,7 +236,7 @@ equation
         Line(points={{-80,-80},{-80,-20},{30,60},{80,60}}, color={0,0,127}),
         Text(
           extent={{-20,-20},{80,-60}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="%controllerType"),
         Line(
           visible=strict,
@@ -305,6 +305,6 @@ equation
 </html>"),
     Diagram(graphics={         Text(
           extent={{-98,106},{-158,96}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="(feed-forward)")}));
 end LimPIDold;

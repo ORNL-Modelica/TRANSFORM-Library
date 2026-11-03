@@ -19,7 +19,7 @@ equation
 Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-150,106},{150,146}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           textString="%name"), Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/FrequencySource.jpg")}),
                                                                   Diagram(
         coordinateSystem(preserveAspectRatio=false)));

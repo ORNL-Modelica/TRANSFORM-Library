@@ -18,7 +18,7 @@ equation
             {100,100}}), graphics={
         Text(
           extent={{-30,14},{-110,-16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="p"),
         Line(points={{0,-26},{0,-100}}, color={0,127,255})}),
                              Documentation(info="<html>

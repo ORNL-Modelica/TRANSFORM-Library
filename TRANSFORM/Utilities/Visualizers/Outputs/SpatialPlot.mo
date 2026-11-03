@@ -21,18 +21,18 @@ model SpatialPlot "Polyline with coordinate system"
         Rectangle(extent={{-80,80},{80,-80}}, lineColor={0,0,255}),
         Text(
           extent={{-100,76},{-74,84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%maxY"),
         Text(
           extent={{-100,-84},{-74,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%minY"),
         Text(
           extent={{-94,-94},{-64,-86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%minX"),
         Text(
           extent={{66,-94},{96,-86}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%maxX")}));
 end SpatialPlot;

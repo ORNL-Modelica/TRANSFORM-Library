@@ -48,8 +48,6 @@ the boundary temperatures <code>heatPorts.T</code>, and the heat flow rates <cod
           fillColor={199,0,0},
           fillPattern=FillPattern.Sphere),Text(
           extent={{-64,12},{64,-14}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="%name")}));
 end PartialLumpedHeatTransfer;

@@ -44,20 +44,13 @@ equation
           Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                           Text(
           extent={{-58,58},{56,-58}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dash,
-          lineThickness=0.5,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="output
 =
 f(inputs)"),
         Text(
           extent={{-102,-116},{104,-128}},
-          lineColor={0,0,0},
-          lineThickness=0.5,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

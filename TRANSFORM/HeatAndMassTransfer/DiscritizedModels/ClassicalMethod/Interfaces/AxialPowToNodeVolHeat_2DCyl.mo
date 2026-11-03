@@ -94,34 +94,18 @@ end for;
           thickness=0.5),
         Text(
           extent={{-98,30},{-42,-24}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dot,
-          lineThickness=0.5,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Power"),
         Text(
           extent={{-18,18},{18,-18}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dot,
-          lineThickness=0.5,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="TO"),
         Text(
           extent={{50,28},{94,0}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dot,
-          lineThickness=0.5,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="q_ppp"),
         Text(
           extent={{50,2},{94,-26}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dot,
-          lineThickness=0.5,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="q_ppp")}));
 end AxialPowToNodeVolHeat_2DCyl;

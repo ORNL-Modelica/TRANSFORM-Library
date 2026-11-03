@@ -95,10 +95,6 @@ equation
           pattern=LinePattern.None),
         Text(
           extent={{-18,18},{18,-18}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dot,
-          lineThickness=0.5,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="TO")}));
 end NodeToVolumeHeatPort;

@@ -20,11 +20,7 @@ equation
           Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                           Text(
           extent={{-60,58},{54,-58}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dash,
-          lineThickness=0.5,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="output
 =
 f(inputs)")}),

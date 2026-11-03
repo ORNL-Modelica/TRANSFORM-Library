@@ -121,7 +121,7 @@ equation
         Line(points={{-18,-40},{18,-60},{-90,-60}}, color={28,108,200}),
         Text(
           extent={{-149,144},{151,104}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true,showName))}),               Diagram(
         coordinateSystem(preserveAspectRatio=false)));

@@ -20,7 +20,7 @@ annotation (
         Line(points={{70,0},{100,0}}, color={191,0,0}),
         Text(
           extent={{18,104},{-142,74}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Q_flow"),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={191,0,0})}),

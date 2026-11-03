@@ -58,8 +58,6 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{-38,28},{44,-28}},
-          lineColor={28,108,200},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
+          textColor={28,108,200},
           textString="TS")}));
 end TraceSubstances;

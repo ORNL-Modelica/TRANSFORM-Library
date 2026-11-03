@@ -38,6 +38,6 @@ equation
         Text(
           extent={{-136,100},{144,60}},
           textString="%name",
-          lineColor={0,0,255},
+          textColor={0,0,255},
           visible=showName)}));
 end CounterFlow;

@@ -375,7 +375,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,134},{151,94}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true,showName))}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-120,-100},{200,

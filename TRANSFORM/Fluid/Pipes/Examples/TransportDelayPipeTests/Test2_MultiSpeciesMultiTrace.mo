@@ -48,8 +48,7 @@ equation
     annotation (Line(points={{-18,0},{-18,0},{-8,0}},  color={0,127,255}));
   connect(transportDelayPipe.port_b, boundary.ports[1]) annotation (Line(
       points={{12,0},{50,0}},
-      color={0,127,255},
-      thickness));
+      color={0,127,255}));
   connect(step3.y, add1.u2) annotation (Line(points={{-79,2},{-80,2},{-74,2}},
                       color={0,0,127}));
   connect(step2.y, add1.u1) annotation (Line(points={{-79,30},{-78,30},{-78,14},

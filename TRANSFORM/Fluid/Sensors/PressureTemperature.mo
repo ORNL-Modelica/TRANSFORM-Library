@@ -34,11 +34,11 @@ equation
         Line(points={{0,-50},{0,-100}}, color={0,127,255}),
         Text(
           extent={{-30,-10},{-110,-40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T"),
         Text(
           extent={{-30,40},{-110,10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="p")}), Documentation(info="<html>
 <p>
 This component monitors the absolute pressure at its fluid port. The sensor is

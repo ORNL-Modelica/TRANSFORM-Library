@@ -587,10 +587,7 @@ equation
     Icon(coordinateSystem(extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-94,82},{94,74}},
-          lineColor={0,0,0},
-          lineThickness=1,
-          fillColor={255,255,237},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="IRIS: Integral SMR-LWR"),
         Rectangle(
           extent={{-0.492602,1.39701},{17.9804,-1.39699}},

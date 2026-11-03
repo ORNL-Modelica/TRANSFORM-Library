@@ -159,11 +159,11 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-66,-26},{-16,-40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Plot of Temperature gradient per distance at ~1 cm
  demonstrating likely location of failure"), Text(
           extent={{34,-26},{84,-40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Plot of Temperature gradient per distance at ~1 cm
  demonstrating no failure with lower heat transfer coefficient")}),
     experiment(StopTime=380));

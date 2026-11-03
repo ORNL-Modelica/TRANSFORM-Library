@@ -16,10 +16,10 @@ block RealExpression
           borderPattern=BorderPattern.Raised),
         Text(
           extent={{-96,15},{96,-15}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%u"),
         Text(
           extent={{-150,90},{140,50}},
           textString="%name",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end RealExpression;

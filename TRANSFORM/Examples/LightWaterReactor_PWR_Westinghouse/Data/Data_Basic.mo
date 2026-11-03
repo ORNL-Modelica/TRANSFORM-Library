@@ -121,7 +121,7 @@ record Data_Basic
   annotation (
     defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          lineColor={0,0,0},
+          textColor={0,0,0},
           extent={{-100,-90},{100,-70}},
           textString="Basic")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

@@ -79,7 +79,7 @@ of the modeller. Increase nPorts_b to add an additional port.
           thickness=1),
         Text(
           extent={{-120,80},{120,40}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true, showName))}),
                           Documentation(info="<html>

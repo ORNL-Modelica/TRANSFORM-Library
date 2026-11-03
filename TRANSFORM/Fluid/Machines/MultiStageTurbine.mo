@@ -170,7 +170,7 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={160,160,164}),
-      Text(extent={{-100,120},{100,100}},textString="%name", lineColor={0,0,0}),
+      Text(extent={{-100,120},{100,100}},textString="%name", textColor={0,0,0}),
         Polygon(
           points={{-80,26},{-80,-34},{80,-76},{80,76},{-80,26}},
           lineColor={0,0,0},

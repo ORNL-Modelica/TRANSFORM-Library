@@ -117,9 +117,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{18,-26},{56,-32}},
-          lineColor={0,0,0},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="The wall equilibrates quickly internally
 with the low convection coefficient when
 gas enters the tanks and then drops

@@ -5,7 +5,7 @@ partial package FiniteDifferencePackage
   annotation (Icon(graphics={
       Text(
         extent={{-12,-4},{12,-22}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         fontName="Cambria Math",
         fontSize=48,
         textString="i, j"),
@@ -40,25 +40,25 @@ partial package FiniteDifferencePackage
         lineColor={0,0,0}),
       Text(
         extent={{42,-4},{82,-22}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         fontName="Cambria Math",
         fontSize=48,
         textString="i+1, j"),
       Text(
         extent={{-18,58},{18,40}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         fontName="Cambria Math",
         fontSize=48,
         textString="i, j+1"),
       Text(
         extent={{-18,-62},{18,-80}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         fontName="Cambria Math",
         fontSize=48,
         textString="i, j-1"),
       Text(
         extent={{-78,-4},{-38,-22}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         fontName="Cambria Math",
         fontSize=48,
         textString="i-1, j"),

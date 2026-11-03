@@ -23,9 +23,9 @@ equation
                                                        Text(extent={{-148,72},{
               152,112}},
           textString="%name",
-          lineColor={238,46,47}),
+          textColor={238,46,47}),
         Text(
           extent={{137,50},{43,20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="f")}));
 end FrequencySensor;

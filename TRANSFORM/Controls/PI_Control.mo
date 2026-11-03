@@ -91,11 +91,11 @@ This is discussed in the description of package
         Line(points={{-80.0,-80.0},{-80.0,-20.0},{60.0,80.0}}, color={0,0,127}),
         Text(
           extent={{0,6},{60,-56}},
-          lineColor={192,192,192},
+          textColor={192,192,192},
           textString="PI"),
         Text(
           extent={{-150,-150},{150,-110}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T=%T")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})));

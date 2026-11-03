@@ -46,10 +46,10 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-100,70},{0,130}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%max"),
         Text(
           extent={{-100,-130},{0,-70}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%min")}));
 end Bar;

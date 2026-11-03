@@ -74,7 +74,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{26,90},{58,84}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Heat flow from pipe [W]")}),
     experiment(StopTime=10));
 end part_b_CalculateHeatLoss;

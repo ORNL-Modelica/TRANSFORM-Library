@@ -7,6 +7,6 @@ equation
   y = Functions.specfunc.bessel_J0(x);
   annotation (Icon(graphics={Text(
           extent={{-78,18},{70,-12}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="J(0,x)")}));
 end Bessel_J0;

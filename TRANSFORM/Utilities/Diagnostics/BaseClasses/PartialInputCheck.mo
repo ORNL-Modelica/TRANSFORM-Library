@@ -17,7 +17,7 @@ initial equation
   t0 = time + startTime;
   annotation (Icon(graphics={Text(
           extent={{-62,-54},{54,-84}},
-          lineColor={162,29,33},
+          textColor={162,29,33},
           textString="%threshold")}),
 Documentation(info="<html>
 <p>

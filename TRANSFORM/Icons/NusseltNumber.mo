@@ -7,7 +7,7 @@ partial record NusseltNumber
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          lineColor={108,88,49},
+          textColor={108,88,49},
           extent={{-90,-90},{90,90}},
         fontName="Bernard MT Condensed",
           textString="Nu")}),                         Documentation(info="<html>

@@ -110,7 +110,7 @@ equation
           extent={{-100,-100},{100,100}}), graphics={
         Text(
           extent={{-149,142},{151,102}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Ellipse(
           extent={{-100,100},{100,-100}},

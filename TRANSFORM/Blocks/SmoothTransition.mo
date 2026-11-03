@@ -26,11 +26,11 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-74,50},{-48,24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="u1"),
         Text(
           extent={{54,46},{80,20}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           textString="y"),
         Line(points={{-60,28},{60,28}},
                                       color={0,0,0}),
@@ -42,11 +42,11 @@ equation
                                       color={0,0,0}),
         Text(
           extent={{-74,-18},{-48,-44}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="u2"),
         Text(
           extent={{-4,-18},{10,-34}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="x")}),                                     Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

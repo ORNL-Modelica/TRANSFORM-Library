@@ -28,8 +28,8 @@ equation
           fillColor={255,255,255}, fillPattern=FillPattern.Solid),
         Line(points={{-90,0},{-80,0}}, color={0,127,255}),
         Line(points={{80,0},{90,0}}, color={0,127,255}),
-        Text(extent={{-76,30},{76,-30}}, textString="h_v <-", lineColor={0,127,255}),
-        Text(extent={{-150,90},{150,50}}, textString="%name", lineColor={0,0,255})}),
+        Text(extent={{-76,30},{76,-30}}, textString="h_v <-", textColor={0,127,255}),
+        Text(extent={{-150,90},{150,50}}, textString="%name", textColor={0,0,255})}),
     Documentation(info="<html>
 <p>A two-port element with no storage and no pressure drop that treats the two flow
 directions differently:</p>

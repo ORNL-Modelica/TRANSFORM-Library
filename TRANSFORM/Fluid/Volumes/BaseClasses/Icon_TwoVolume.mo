@@ -38,7 +38,7 @@ model Icon_TwoVolume
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-147,132},{153,92}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true,showName))}),                                      Diagram(coordinateSystem(
           preserveAspectRatio=false)));

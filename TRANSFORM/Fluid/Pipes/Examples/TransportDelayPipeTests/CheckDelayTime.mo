@@ -36,8 +36,7 @@ equation
     annotation (Line(points={{-18,0},{-18,0},{-8,0}},  color={0,127,255}));
   connect(transportDelayPipe.port_b, boundary.ports[1]) annotation (Line(
       points={{12,0},{50,0}},
-      color={0,127,255},
-      thickness));
+      color={0,127,255}));
   connect(step2.y, boundary1.T_in) annotation (Line(points={{-59,10},{-50,10},{
           -50,4},{-40,4}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

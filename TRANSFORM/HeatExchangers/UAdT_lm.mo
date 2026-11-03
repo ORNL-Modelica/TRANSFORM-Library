@@ -38,10 +38,10 @@ equation
         Text(
           extent={{-140,92},{140,52}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-40,10},{40,-10}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="UA*dT_lm")}),                              Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end UAdT_lm;

@@ -5,7 +5,7 @@ partial package SourcesPackage "Icon for packages containing sources"
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Text(
-          lineColor={108,88,49},
+          textColor={108,88,49},
           extent={{-84,-92},{96,88}},
         textString="BC",
         fontName="Bernard MT Condensed")}),

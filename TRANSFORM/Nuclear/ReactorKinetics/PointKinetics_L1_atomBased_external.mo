@@ -280,7 +280,7 @@ equation
         Text(
           extent={{-149,138.5},{151,98.5}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Ellipse(
           extent={{-14,7},{-2,19}},
           fillColor={0,0,255},

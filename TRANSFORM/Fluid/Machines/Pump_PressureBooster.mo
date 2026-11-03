@@ -65,7 +65,7 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255}),
                    Text(extent={{-22,18},{28,-14}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="p")}),
     Documentation(info="<HTML>
 This component prescribes the flow rate passing through it. The change of

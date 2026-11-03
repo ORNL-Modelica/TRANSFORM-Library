@@ -87,7 +87,7 @@ to specify system properties.",
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,150},{150,110}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name"),
         Line(points={{-86,-30},{82,-30}}),
         Line(points={{-82,-68},{-52,-30}}),
@@ -102,11 +102,11 @@ to specify system properties.",
           fillPattern=FillPattern.Solid),
         Text(
           extent={{16,20},{60,-18}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="g"),
         Text(
           extent={{-90,82},{74,50}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="defaults"),
         Line(
           points={{-82,14},{-42,-20},{2,30}},

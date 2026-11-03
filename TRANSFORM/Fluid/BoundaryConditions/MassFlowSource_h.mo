@@ -109,7 +109,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-54,32},{16,-30}},
-          lineColor={255,0,0},
+          textColor={255,0,0},
           textString="m"),
         Ellipse(
           extent={{-26,30},{-18,22}},
@@ -119,22 +119,22 @@ equation
         Text(
           visible=use_m_flow_in,
           extent={{-185,132},{-45,100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="m_flow"),
         Text(
           visible=use_h_in,
           extent={{-113,72},{-73,38}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="h"),
         Text(
           visible=use_X_in,
           extent={{-153,-44},{-33,-72}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="X"),
         Text(
           visible=use_X_in,
           extent={{-155,-98},{-35,-126}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="C")}),
     Documentation(info="<html>
 <p>

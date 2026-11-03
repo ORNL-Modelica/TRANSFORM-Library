@@ -74,19 +74,11 @@ equation
         coordinateSystem(preserveAspectRatio=false), graphics={
                                       Text(
           extent={{56,-36},{86,-42}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dash,
-          lineThickness=0.5,
-          fillColor={216,112,112},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Valve opening reference"),
                                       Text(
           extent={{56,-62},{84,-66}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dash,
-          lineThickness=0.5,
-          fillColor={216,112,112},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Valve opening FF")}),
     experiment(StopTime=10));
 end getOpening_ValveIncompressible_Test;

@@ -28,7 +28,7 @@ equation
         Text(
           extent={{-100,112},{180,72}},
           textString="%name",
-          lineColor={0,0,255},
+          textColor={0,0,255},
           visible=showName)}),
     Documentation(info="<html>
 <p>This model defines an adiabatic boundary condition (Q_flow = 0) for all nodes.</p>

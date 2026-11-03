@@ -39,15 +39,15 @@ equation
           arrow={Arrow.None,Arrow.Filled}),
         Text(
           extent={{-104,-18},{-78,-40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="z"),
         Text(
           extent={{-42,-76},{-16,-98}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="r"),
       Text(
         extent={{-12,-4},{12,-22}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         fontName="Cambria Math",
         fontSize=48,
         textString="i, j"),
@@ -82,25 +82,25 @@ equation
         lineColor={0,0,0}),
       Text(
         extent={{42,-4},{82,-22}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         fontName="Cambria Math",
         fontSize=48,
         textString="i+1, j"),
       Text(
         extent={{-18,58},{18,40}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         fontName="Cambria Math",
         fontSize=48,
         textString="i, j+1"),
       Text(
         extent={{-18,-62},{18,-80}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         fontName="Cambria Math",
         fontSize=48,
         textString="i, j-1"),
       Text(
         extent={{-78,-4},{-38,-22}},
-        lineColor={0,0,0},
+        textColor={0,0,0},
         fontName="Cambria Math",
         fontSize=48,
         textString="i-1, j")}),
@@ -114,7 +114,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),                                                             Text(
           extent={{54,-56},{146,-100}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="%name"),
       Ellipse(
         extent={{2,2},{-2,-2}},
@@ -129,7 +129,7 @@ equation
         lineColor={0,0,0}),
         Text(
           extent={{-30,-46},{-22,-52}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="r"),
         Line(
           points={{-42,-44},{-22,-44}},
@@ -137,7 +137,7 @@ equation
           arrow={Arrow.None,Arrow.Filled}),
         Text(
           extent={{-50,-24},{-44,-30}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="z"),
         Line(
           points={{-42,-44},{-42,-24}},

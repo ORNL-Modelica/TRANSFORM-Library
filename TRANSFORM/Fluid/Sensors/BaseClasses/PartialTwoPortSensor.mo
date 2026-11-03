@@ -60,7 +60,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-149,-68},{151,-108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true, showName))}), Diagram(coordinateSystem(
           preserveAspectRatio=false)));

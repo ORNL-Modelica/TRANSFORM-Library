@@ -19,7 +19,7 @@ equation
    Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
           extent={{-150,106},{150,146}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           textString="%name"),
         Polygon(
           points={{-110,86},{-110,86}},

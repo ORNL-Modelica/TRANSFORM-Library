@@ -37,14 +37,10 @@ model PlotMap_2points_Test
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-80,58},{-40,48}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={255,255,0},
+          textColor={0,0,0},
           textString="Using pre-scaled pixels"), Text(
           extent={{22,60},{96,48}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={255,255,0},
+          textColor={0,0,0},
           textString="Non-scaled pixels and manual loaded image")}),
     experiment(StopTime=100));
 end PlotMap_2points_Test;

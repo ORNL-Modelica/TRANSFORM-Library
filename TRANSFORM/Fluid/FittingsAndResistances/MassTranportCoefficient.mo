@@ -18,7 +18,7 @@ equation
   annotation (defaultComponentName="resistance",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-36,-56},{38,-64}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="alpha*A*(Ta-Tb)")}),
         Diagram(coordinateSystem(preserveAspectRatio=false)));
 end MassTranportCoefficient;

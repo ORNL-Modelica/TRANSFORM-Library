@@ -204,7 +204,7 @@ equation
           endAngle=180),
         Text(
           extent={{-150,20},{150,-20}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true, showName),
           origin={-111,0},

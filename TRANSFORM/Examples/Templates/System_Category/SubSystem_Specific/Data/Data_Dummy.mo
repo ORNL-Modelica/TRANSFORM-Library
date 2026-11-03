@@ -4,7 +4,7 @@ record Data_Dummy
   annotation (
     defaultComponentName="data",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Text(
-          lineColor={0,0,0},
+          textColor={0,0,0},
           extent={{-100,-90},{100,-70}},
           textString="changeMe")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

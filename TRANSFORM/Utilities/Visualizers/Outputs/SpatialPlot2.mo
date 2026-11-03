@@ -38,39 +38,35 @@ model SpatialPlot2 "Two polylines with coordinate systems"
         Rectangle(extent={{-80,80},{80,-80}}, lineColor={0,0,255}),
         Text(
           extent={{-92,-92},{-64,-84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%minX1"),
         Text(
           extent={{66,-92},{96,-84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%maxX1"),
         Text(
           extent={{-92,-100},{-64,-92}},
-          lineColor={0,0,255},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,255},
           textString="%minX2"),
         Text(
           extent={{66,-100},{96,-92}},
-          lineColor={0,0,255},
-          fillColor={255,0,0},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,255},
           textString="%maxX2"),
         Text(
           extent={{-100,-84},{-74,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%minY1"),
         Text(
           extent={{-100,76},{-74,84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%maxY1"),
         Text(
           extent={{76,-84},{102,-76}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%minY2"),
         Text(
           extent={{76,76},{102,84}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%maxY2"),
         Line(points={{-80,-80},{-80,80}}, color={0,0,255}),
         Line(points={{80,-80},{80,80}}, color={0,0,255})}));

@@ -98,9 +98,7 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={Text(
           extent={{-84,-36},{-56,-42}},
-          lineColor={0,0,0},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Fuel T_max C")}),
     experiment(__Dymola_NumberOfIntervals=100),
     Documentation(info="<html>

@@ -179,7 +179,7 @@ equation
           endAngle=180),
         Text(
           extent={{-151,134},{149,94}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true,showName))}),
                                      Diagram(coordinateSystem(

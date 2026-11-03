@@ -271,68 +271,52 @@ equation
       thickness=0.5));
   connect(port_b, pipe.port_b) annotation (Line(
       points={{100,0},{100,-14},{60,-14},{60,-80},{10,-80}},
-      color={0,127,255},
-      thickness));
+      color={0,127,255}));
   connect(wall.port_a1, pipe.heatPorts[:,1]) annotation (Line(
       points={{0,-30},{0,-75}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(wall.portM_a2, adiabaticM_a.port) annotation (Line(
       points={{-9.8,-16},{-40,-16}},
-      color={0,140,72},
-      thickness));
+      color={0,140,72}));
   connect(wall.port_a2, adiabatic_a.port) annotation (Line(
       points={{-10,-20},{-20,-20},{-20,-34},{-40,-34}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(adiabaticM_b.port, wall.portM_b2) annotation (Line(
       points={{40,-16},{10,-16}},
-      color={0,140,72},
-      thickness));
+      color={0,140,72}));
   connect(adiabatic_b.port, wall.port_b2) annotation (Line(
       points={{40,-34},{20,-34},{20,-20},{10,-20}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(adiabaticM_outer.port, wall.portM_b1) annotation (Line(
       points={{-40,2},{-4,2},{-4,-10}},
-      color={0,140,72},
-      thickness));
+      color={0,140,72}));
   connect(adiabatic_outer.port, wall.port_b1) annotation (Line(
       points={{40,2},{0,2},{0,-10}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(counterFlowM.port_a, wall.portM_b1) annotation (Line(
       points={{-20,8},{-20,2},{-4,2},{-4,-10}},
-      color={0,140,72},
-      thickness));
+      color={0,140,72}));
   connect(counterFlow.port_a, wall.port_b1) annotation (Line(
       points={{0,8},{0,-10}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(counterFlowM.port_b, massPorts) annotation (Line(
       points={{-20,28},{-20,32},{-40,32},{-40,44}},
-      color={0,140,72},
-      thickness));
+      color={0,140,72}));
   connect(counterFlow.port_b, heatPorts) annotation (Line(
       points={{0,28},{0,44}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(adiabatic_inner.port, wall.port_a1) annotation (Line(
       points={{40,-52},{0,-52},{0,-30}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(adiabaticM_inner.port, wall.portM_a1) annotation (Line(
       points={{-40,-52},{-4,-52},{-4,-30}},
-      color={0,140,72},
-      thickness));
+      color={0,140,72}));
   connect(pipe.massPorts[:,1], interface.port_a) annotation (Line(
       points={{-4,-75},{-4,-69}},
-      color={0,140,72},
-      thickness));
+      color={0,140,72}));
   connect(interface.port_b, wall.portM_a1) annotation (Line(
       points={{-4,-55},{-4,-30}},
-      color={0,140,72},
-      thickness));
+      color={0,140,72}));
   connect(massPorts_add, pipe.massPorts[:,2:geometry.nSurfaces])
     annotation (Line(points={{-30,-70},{-4,-70},{-4,-75}}, color={0,140,72}));
   connect(heatPorts_add, pipe.heatPorts[:,2:geometry.nSurfaces])
@@ -399,7 +383,7 @@ Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           pattern=LinePattern.Dash),
         Text(
           extent={{-149,-68},{151,-108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true,showName)),
         Polygon(

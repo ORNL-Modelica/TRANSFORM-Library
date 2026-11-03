@@ -25,7 +25,7 @@ equation
                                    Text(
           extent={{-90,40},{90,-40}},
           textString="latch",
-          lineColor={0,0,0})}),
+          textColor={0,0,0})}),
     Documentation(info="<html>
 <p>The output is <b>true</b> if at input has ever been <b>true</b>, otherwise the output is <b>false</b>. </p>
 </html>"));

@@ -196,58 +196,48 @@ equation
           thickness=1),
         Text(
           extent={{-29.5,9.5},{29.5,-9.5}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Single Conduction Element",
           origin={-89.5,50.5},
           rotation=90),
         Text(
           extent={{-30,10},{30,-10}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           origin={-90,-50},
           rotation=90,
           textString="10 identical parallel
 conduction elements"),
         Text(
           extent={{56,96},{80,90}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Temperature [K]"),
         Text(
           extent={{54,80},{80,74}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Heat Flow Rate [W]"),
         Text(
           extent={{54,10},{82,4}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Mole Flow Rate [mol/s]"),
         Text(
           extent={{54,26},{82,20}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Concentration [mol/m3]"),
         Text(
           extent={{54,-22},{80,-28}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Heat Flow Rate [W]"),
         Text(
           extent={{56,-6},{80,-12}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Temperature [K]"),
         Text(
           extent={{52,-92},{80,-98}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Mole Flow Rate [mol/s]"),
         Text(
           extent={{52,-76},{80,-82}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Concentration [mol/m3]")}),
     experiment(__Dymola_NumberOfIntervals=100));
 end nParallel_Test;

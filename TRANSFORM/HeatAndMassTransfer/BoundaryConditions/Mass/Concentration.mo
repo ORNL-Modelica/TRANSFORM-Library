@@ -50,11 +50,11 @@ equation
         Text(
           extent={{-100,112},{180,72}},
           textString="%name",
-          lineColor={0,0,255},
+          textColor={0,0,255},
           visible=showName),
         Text(
           extent={{26,-14},{-20,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="C")}),
     Documentation(info="<html>
 <p>

@@ -38,10 +38,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-94,-76},{94,-84}},
-          lineColor={0,0,0},
-          lineThickness=1,
-          fillColor={255,255,237},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Change Me")}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,140}})));

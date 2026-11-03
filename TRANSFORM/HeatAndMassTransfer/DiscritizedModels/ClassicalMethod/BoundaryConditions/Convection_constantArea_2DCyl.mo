@@ -89,7 +89,7 @@ equation
         Text(
           extent={{-154,-86},{146,-126}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(points={{96,4},{96,4}},   color={0,127,255}),
         Line(points={{-64,24},{72,24}}, color={191,0,0}),
         Line(points={{-64,-16},{72,-16}}, color={191,0,0}),
@@ -124,7 +124,7 @@ equation
         Text(
           extent={{-152,-86},{148,-126}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(points={{98,4},{98,4}},   color={0,127,255}),
         Line(points={{-62,24},{74,24}}, color={191,0,0}),
         Line(points={{-62,-16},{74,-16}}, color={191,0,0}),
