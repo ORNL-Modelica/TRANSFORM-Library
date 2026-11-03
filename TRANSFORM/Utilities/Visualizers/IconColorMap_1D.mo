@@ -17,7 +17,7 @@ protected
     "Color map table; a named parameter so that OpenModelica can generate code for it (#109)";
 equation
    for i in 1:n loop
-     dynColor[i,:] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val[1], val_min, val_max, colorMapData_);
+     dynColor[i,:] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val[i], val_min, val_max, colorMapData_);
    end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
