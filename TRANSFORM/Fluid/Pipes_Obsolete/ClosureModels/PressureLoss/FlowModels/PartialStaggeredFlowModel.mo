@@ -144,6 +144,6 @@ e.g., with numerical smoothing or by raising events as appropriate.
       smooth=Smooth.None,
       thickness=1), Text(
       extent={{-40,-50},{40,-90}},
-      lineColor={0,0,0},
+      textColor={0,0,0},
       textString="%name")}));
 end PartialStaggeredFlowModel;

@@ -26,6 +26,6 @@ revisions="<html>
     Icon(graphics={
                Text(
           extent={{-100,20},{100,-20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="u1 > u2 ?")}));
 end AssertInequality;

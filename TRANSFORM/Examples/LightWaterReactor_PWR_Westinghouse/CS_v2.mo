@@ -170,10 +170,7 @@ annotation(defaultComponentName="PHS_CS", Icon(coordinateSystem(extent={{-100,-1
             {100,100}}),                       graphics={
         Text(
           extent={{-94,82},{94,74}},
-          lineColor={0,0,0},
-          lineThickness=1,
-          fillColor={255,255,237},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="CS: Tavg/CR/Pressure with start lag")}),
     Diagram(coordinateSystem(extent={{-180,-100},{280,200}})));
 end CS_v2;

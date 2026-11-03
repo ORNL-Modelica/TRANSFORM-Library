@@ -123,8 +123,7 @@ equation
     annotation (Line(points={{-20,0},{-15,0},{-10,0}}, color={0,127,255}));
   connect(permeator.port_b, permeatorOut.port_a) annotation (Line(
       points={{10,0},{20,0}},
-      color={0,127,255},
-      thickness));
+      color={0,127,255}));
   connect(permeatorIn.C, CBdivC0.u2) annotation (Line(points={{-30,11},{-30,20},
           {-3,20},{-3,33}}, color={0,0,127}));
   connect(source.ports[1], permeatorIn.port_a)
@@ -133,12 +132,10 @@ equation
     annotation (Line(points={{40,0},{70,0}},        color={0,127,255}));
   connect(adiabatic.port, permeator.heatPorts) annotation (Line(
       points={{10,-20},{10,-12},{0,-12},{0,-5}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(vacuum.port, permeator.massPorts) annotation (Line(
       points={{-10,-20},{-10,-12},{-4,-12},{-4,-5}},
-      color={0,140,72},
-      thickness));
+      color={0,140,72}));
   connect(CBdivC0.y, eta.u1) annotation (Line(points={{4.44089e-016,44.5},{
           4.44089e-016,52},{4,52},{4,58}}, color={0,0,127}));
   connect(one.y, eta.u2) annotation (Line(points={{20,44.5},{20,52},{16,52},{16,

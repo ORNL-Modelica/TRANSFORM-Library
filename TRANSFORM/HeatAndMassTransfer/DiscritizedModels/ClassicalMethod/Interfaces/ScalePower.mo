@@ -45,7 +45,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),            Text(
           extent={{-28,38},{28,-42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="P -> nElem*P
 
 T -> T")}));

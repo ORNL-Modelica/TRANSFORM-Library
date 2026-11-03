@@ -17,7 +17,7 @@ equation
         Text(
           extent={{-140,82},{140,42}},
           textString="%name",
-          lineColor={0,0,255},
+          textColor={0,0,255},
           visible=showName)}),                                   Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialResistance;

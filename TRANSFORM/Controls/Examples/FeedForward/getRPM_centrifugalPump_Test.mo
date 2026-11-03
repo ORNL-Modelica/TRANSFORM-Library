@@ -80,18 +80,10 @@ equation
         coordinateSystem(preserveAspectRatio=false), graphics={
                                       Text(
           extent={{56,-40},{86,-46}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dash,
-          lineThickness=0.5,
-          fillColor={216,112,112},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Pump reference"),
                                       Text(
           extent={{56,-66},{84,-70}},
-          lineColor={0,0,0},
-          pattern=LinePattern.Dash,
-          lineThickness=0.5,
-          fillColor={216,112,112},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Pump predicted")}));
 end getRPM_centrifugalPump_Test;

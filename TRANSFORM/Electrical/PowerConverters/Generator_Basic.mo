@@ -32,9 +32,7 @@ equation
               fillPattern=FillPattern.Solid),
                          Text(
               extent={{-26,24},{28,-28}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid,
+              textColor={0,0,0},
               textString="G")}),
     Documentation(info="<html>
 <p>This model describes the conversion between mechanical power and electrical power in an ideal synchronous generator. 

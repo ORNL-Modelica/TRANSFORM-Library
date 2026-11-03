@@ -33,7 +33,7 @@ annotation (defaultComponentName="traceSubstance",
             100}}), graphics={
         Text(
           extent={{-20,14},{-120,-16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="C"),
         Line(points={{0,-26},{0,-100}}, color={0,127,255})}),
   Documentation(info="<html>

@@ -11,7 +11,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                                                     Text(
           extent={{-30,-50},{30,-70}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="dheight")}),                               Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ElevationChange;

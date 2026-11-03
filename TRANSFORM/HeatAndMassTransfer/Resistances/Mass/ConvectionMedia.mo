@@ -104,7 +104,7 @@ equation
         Text(
           extent={{-150,104},{150,64}},
           textString="%name",
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Documentation(info="<html>
 <p>
 This is a model of linear heat convection, e.g., the heat transfer between a plate and the surrounding air; see also:

@@ -178,7 +178,7 @@ simulation and/or might give a more robust simulation.
       arrow={Arrow.Filled,Arrow.Filled}),
     Text(
       extent={{-50,16},{6,-10}},
-      lineColor={0,0,255},
+      textColor={0,0,255},
       textString="diameters"),
     Line(
       points={{-100,74},{100,74}},
@@ -186,6 +186,6 @@ simulation and/or might give a more robust simulation.
       arrow={Arrow.Filled,Arrow.Filled}),
     Text(
       extent={{-32,93},{32,74}},
-      lineColor={0,0,255},
+      textColor={0,0,255},
       textString="pathLengths")}));
 end ShellNozzleFlow;

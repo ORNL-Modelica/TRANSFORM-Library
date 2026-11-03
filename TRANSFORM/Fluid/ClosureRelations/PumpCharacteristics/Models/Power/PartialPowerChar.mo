@@ -16,9 +16,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid), Text(
           extent={{-64,12},{64,-14}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="%name")}),                     Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialPowerChar;

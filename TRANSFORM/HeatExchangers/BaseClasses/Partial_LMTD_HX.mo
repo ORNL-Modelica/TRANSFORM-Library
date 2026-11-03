@@ -146,7 +146,7 @@ equation
         Line(points={{-88,40},{-30,40},{0,0},{30,40},{88,40}}, color={238,46,47}),
         Text(
           extent={{-149,-68},{151,-108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true, showName))}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

@@ -20,10 +20,10 @@ revisions="<html>
     Icon(graphics={
         Text(
           extent={{-62,-38},{54,-68}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%threshold"),
                Text(
           extent={{-100,20},{100,-20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="u1 = u2 ?")}));
 end CheckEquality;

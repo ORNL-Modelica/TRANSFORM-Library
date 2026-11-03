@@ -107,12 +107,12 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{54,-56},{88,-66}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Clock indicating time spent
 above required temperature [s]"),
                               Text(
           extent={{30,-84},{64,-94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Velocity of conveyor belt required to
 give enough time for the plastic disk
 to cool from Tini to Tmax [m/s]")}),

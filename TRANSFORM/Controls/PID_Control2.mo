@@ -90,7 +90,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{-20,-28},{-10,-32}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Connection based
 on user selection")}));
 end PID_Control2;

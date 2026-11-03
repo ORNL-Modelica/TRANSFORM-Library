@@ -19,7 +19,7 @@ equation
               "modelica://TRANSFORM/Resources/Images/Icons/nParallel_ElecPower.jpg"),
         Text(
           extent={{-145,-68},{155,-108}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),                                 Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end parallelElecPower;

@@ -23,7 +23,7 @@ equation
             100}}), graphics={
         Text(
           extent={{106,58},{10,29}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="m_flow"),
         Line(points={{50,0},{100,0}}, color={0,128,255}),
         Line(points={{-100,0},{-50,0}}, color={0,128,255})}),

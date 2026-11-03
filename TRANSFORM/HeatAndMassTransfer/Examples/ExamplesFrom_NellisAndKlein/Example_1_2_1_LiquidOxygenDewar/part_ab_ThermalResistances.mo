@@ -110,15 +110,11 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{120,100}}),
         graphics={Text(
           extent={{16,64},{34,58}},
-          lineColor={0,0,0},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Total Resistance"),
                                  Text(
           extent={{44,64},{66,58}},
-          lineColor={0,0,0},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Total Heat to Dewar")}),
     experiment(__Dymola_NumberOfIntervals=100),
     Documentation(info="<html>

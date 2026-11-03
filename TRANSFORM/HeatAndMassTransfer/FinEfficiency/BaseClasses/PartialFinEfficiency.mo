@@ -9,6 +9,6 @@ equation
         Text(
           extent={{-150,152},{150,112}},
           textString="%name",
-          lineColor={0,0,255})}),                                Diagram(
+          textColor={0,0,255})}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialFinEfficiency;

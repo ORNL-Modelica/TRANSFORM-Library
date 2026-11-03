@@ -239,32 +239,25 @@ model GenericPipe_withWallx2
 equation
   connect(port_a, pipe.port_a) annotation (Line(
       points={{-100,0},{-60,0},{-60,-80},{-10,-80}},
-      color={0,127,255},
-      thickness));
+      color={0,127,255}));
   connect(port_b, pipe.port_b) annotation (Line(
       points={{100,0},{60,0},{60,-80},{10,-80}},
-      color={0,127,255},
-      thickness));
+      color={0,127,255}));
   connect(wall.port_a1, pipe.heatPorts[:,1]) annotation (Line(
       points={{-6.66134e-16,-44},{-6.66134e-16,-58},{0,-58},{0,-75}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(wall.port_a2, adiabatic_a.port) annotation (Line(
       points={{-10,-34},{-40,-34}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(adiabatic_b.port, wall.port_b2) annotation (Line(
       points={{40,-34},{10,-34}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(counterFlow.port_b, heatPorts) annotation (Line(
       points={{6.66134e-16,50},{6.66134e-16,58},{0,58},{0,64}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(adiabatic_inner.port, wall.port_a1) annotation (Line(
       points={{40,-52},{-6.66134e-16,-52},{-6.66134e-16,-44}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(heatPorts_add, pipe.heatPorts[:,2:geometry.nSurfaces])
     annotation (Line(points={{30,-70},{0,-70},{0,-75}}, color={191,0,0}));
   connect(adiabatic_outer.port, wall_2.port_b1)
@@ -338,7 +331,7 @@ equation
           pattern=LinePattern.Dash),
         Text(
           extent={{-149,-68},{151,-108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true,showName)),
         Polygon(

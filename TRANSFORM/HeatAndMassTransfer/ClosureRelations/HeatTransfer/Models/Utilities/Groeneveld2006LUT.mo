@@ -135,19 +135,19 @@ equation
         Bitmap(extent={{-98,-98},{98,98}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/CHF.jpg"),
         Text(
           extent={{34,-70},{112,-100}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="*Ks"),
         Text(
           extent={{-96,54},{-74,26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="P"),
         Text(
           extent={{-96,14},{-74,-14}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="x"),
         Text(
           extent={{-96,-26},{-74,-54}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="G")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>

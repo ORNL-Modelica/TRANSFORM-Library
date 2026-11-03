@@ -23,7 +23,7 @@ equation
         Line(points={{0,40},{0,28}},   color={0,0,127}),
         Text(
           extent={{-12,64},{-130,34}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T_rel"),
           Text(extent={{-60,-50},{60,-22}}, textString=DynamicSelect("0.0",
               String(y, format="1." + String(precision) + "f"))),

@@ -70,7 +70,7 @@ model BoundaryCheck_fluidPorts
           fillPattern=FillPattern.Solid,
           visible=DynamicSelect(false,if not BCcheck_p.passedAll then true else false)),
         Text(
-          lineColor={0,0,0},
+          textColor={0,0,0},
           extent={{-388,60},{-88,100}},
           textString="p"),
         Rectangle(
@@ -102,7 +102,7 @@ model BoundaryCheck_fluidPorts
           fillPattern=FillPattern.Solid,
           visible=DynamicSelect(false,if not BCcheck_T.passedAll then true else false)),
         Text(
-          lineColor={0,0,0},
+          textColor={0,0,0},
           extent={{-228,60},{72,100}},
           textString="T"),
         Rectangle(
@@ -134,7 +134,7 @@ model BoundaryCheck_fluidPorts
           fillPattern=FillPattern.Solid,
           visible=DynamicSelect(false,if not BCcheck_h.passedAll then true else false)),
         Text(
-          lineColor={0,0,0},
+          textColor={0,0,0},
           extent={{-68,60},{232,100}},
           textString="h"),
         Rectangle(
@@ -166,11 +166,11 @@ model BoundaryCheck_fluidPorts
           fillPattern=FillPattern.Solid,
           visible=DynamicSelect(false,if not BCcheck_m_flow.passedAll then true else false)),
         Text(
-          lineColor={0,0,0},
+          textColor={0,0,0},
           extent={{92,60},{392,100}},
           textString="m_flow"),
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-140,-140},{160,-100}},
           textString="%name")}), Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}})));

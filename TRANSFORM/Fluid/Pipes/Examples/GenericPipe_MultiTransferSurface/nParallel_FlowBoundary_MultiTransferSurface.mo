@@ -192,20 +192,16 @@ model nParallel_FlowBoundary_MultiTransferSurface
 equation
   connect(pipe_single.port_a, boundaryM.ports[1]) annotation (Line(
       points={{-10,20},{-20,20}},
-      color={0,127,255},
-      thickness));
+      color={0,127,255}));
   connect(pipe_single.port_b, boundaryP.ports[1]) annotation (Line(
       points={{10,20},{20,20}},
-      color={0,127,255},
-      thickness));
+      color={0,127,255}));
   connect(pipe_nParallel.port_a, boundaryM1.ports[1]) annotation (Line(
       points={{-8,-80},{-18,-80}},
-      color={0,127,255},
-      thickness));
+      color={0,127,255}));
   connect(pipe_nParallel.port_b, boundaryP1.ports[1]) annotation (Line(
       points={{12,-80},{22,-80}},
-      color={0,127,255},
-      thickness));
+      color={0,127,255}));
   connect(boundaryQ_external.port, pipe_single.heatPorts[4, 1])
     annotation (Line(points={{10,40},{0,40},{0,25}}, color={191,0,0}));
   connect(boundaryQ_external1.port, pipe_nParallel.heatPorts[4, 1])
@@ -222,57 +218,47 @@ equation
           thickness=1),
         Text(
           extent={{-29.5,9.5},{29.5,-9.5}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           origin={-89.5,50.5},
           rotation=90,
           textString="Single Pipe"),
         Text(
           extent={{56,96},{80,90}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Pressure [Pa]"),
         Text(
           extent={{54,60},{80,54}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Mass Flow Rate [kg/s]"),
         Text(
           extent={{58,-4},{82,-10}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Pressure [Pa]"),
         Text(
           extent={{56,-40},{82,-46}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Mass Flow Rate [kg/s]"),
         Text(
           extent={{-29.5,9.5},{29.5,-9.5}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           origin={-89.5,-49.5},
           rotation=90,
           textString="10 identical parallel pipes"),
         Text(
           extent={{54,72},{92,66}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Trace Mass Flow Rate [kg/s]"),
         Text(
           extent={{54,84},{82,78}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Enthalpy Flow Rate [W]"),
         Text(
           extent={{56,-28},{94,-34}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Trace Mass Flow Rate [kg/s]"),
         Text(
           extent={{56,-16},{84,-22}},
-          lineColor={0,0,0},
-          lineThickness=1,
+          textColor={0,0,0},
           textString="Enthalpy Flow Rate [W]")}),
     experiment(__Dymola_NumberOfIntervals=100));
 end nParallel_FlowBoundary_MultiTransferSurface;

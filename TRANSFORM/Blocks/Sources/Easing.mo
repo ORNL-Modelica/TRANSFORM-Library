@@ -25,7 +25,7 @@ equation
                                         Text(
         extent={{-150,150},{150,110}},
         textString="%name",
-        lineColor={0,0,255}),
+        textColor={0,0,255}),
         Line(points={{-80,68},{-80,-80}}, color={192,192,192}),
         Polygon(
           points={{-80,90},{-88,68},{-72,68},{-80,90}},

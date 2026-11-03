@@ -35,7 +35,7 @@ equation
           fillPattern=FillPattern.Forward),
         Text(
           extent={{26,-14},{-20,-60}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T"),
         Line(
           points={{-40,0},{56,0}},
@@ -49,7 +49,7 @@ equation
         Text(
           extent={{-100,112},{180,72}},
           textString="%name",
-          lineColor={0,0,255},
+          textColor={0,0,255},
           visible=showName)}),
     Documentation(info="<html>
 <p>

@@ -95,35 +95,35 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-8,-2},{10,-8}},
-          lineColor={27,36,42},
+          textColor={27,36,42},
           textString=String(t_start, format="1.0f")),
         Text(
           extent={{90,-2},{108,-8}},
-          lineColor={27,36,42},
+          textColor={27,36,42},
           textString=String(t_end, format="1.0f")),
         Text(
           extent={{-2,94},{-30,100}},
-          lineColor={27,36,42},
+          textColor={27,36,42},
           horizontalAlignment=TextAlignment.Right,
           textString=String(y_max, format="1.0f")),
         Text(
           extent={{-30,6},{-2,0}},
-          lineColor={27,36,42},
+          textColor={27,36,42},
           horizontalAlignment=TextAlignment.Right,
           textString=String(y_min, format="1.0f")),
         Text(
           extent={{64,-2},{34,-10}},
-          lineColor={27,36,42},
+          textColor={27,36,42},
           textString="Time [s]"),
         Text(
           extent={{44,4},{-44,-4}},
-          lineColor={27,36,42},
+          textColor={27,36,42},
           origin={-20,50},
           rotation=90,
           textString="%y_name"),
         Text(
           extent={{44,4},{-44,-4}},
-          lineColor={27,36,42},
+          textColor={27,36,42},
           origin={-10,50},
           rotation=90,
           textString="%Unit")}),

@@ -47,8 +47,7 @@ equation
     annotation (Line(points={{50,0},{30,0},{10,0}}, color={0,127,255}));
   connect(boundary1.port, pipe.heatPorts) annotation (Line(
       points={{8,22},{0,22},{0,5}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=100));

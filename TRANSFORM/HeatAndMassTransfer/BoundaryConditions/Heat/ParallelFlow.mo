@@ -20,7 +20,7 @@ equation
             extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/nParallel_thermal.jpg"),
         Text(
           extent={{-149,88},{151,48}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true,showName))}),            Diagram(
         coordinateSystem(preserveAspectRatio=false)));

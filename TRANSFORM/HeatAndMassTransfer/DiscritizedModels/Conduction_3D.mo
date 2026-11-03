@@ -671,7 +671,7 @@ equation
         Text(
           extent={{-84,12},{84,-12}},
           textString="%name",
-          lineColor={0,0,255},
+          textColor={0,0,255},
           visible=showName),
         Ellipse(
           extent={{-92,30},{-108,-30}},

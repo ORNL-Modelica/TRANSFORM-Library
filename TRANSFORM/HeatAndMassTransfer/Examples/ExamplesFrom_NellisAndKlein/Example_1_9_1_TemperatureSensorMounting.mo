@@ -87,7 +87,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{62,-42},{94,-52}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Measurement Error (°C)")}),
     experiment(__Dymola_NumberOfIntervals=100, __Dymola_Algorithm="Dassl"));
 end Example_1_9_1_TemperatureSensorMounting;

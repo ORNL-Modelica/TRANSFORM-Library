@@ -171,7 +171,7 @@ equation
           thickness=0.5),
         Text(
           extent={{-149,144},{151,104}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true,showName)),
         Rectangle(

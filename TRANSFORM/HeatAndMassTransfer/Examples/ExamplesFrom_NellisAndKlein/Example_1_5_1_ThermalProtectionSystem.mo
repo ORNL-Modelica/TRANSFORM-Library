@@ -87,6 +87,6 @@ equation
   annotation (                          experiment(StopTime=11.9),
                                          Diagram(graphics={Text(
           extent={{-42,-96},{40,-98}},
-          lineColor={28,108,200},
+          textColor={28,108,200},
           textString="Plot of temperature nearest steel as a function of time")}));
 end Example_1_5_1_ThermalProtectionSystem;

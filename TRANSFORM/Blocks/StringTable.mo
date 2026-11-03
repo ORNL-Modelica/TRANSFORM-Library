@@ -9,10 +9,10 @@ block StringTable "Generate a String table"
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={               Text(
             extent={{-20,53},{19,38}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="y[2]"),                Text(
             extent={{-70,53},{-31,38}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="y[1]"),
         Line(points={{-75,60},{-75,-60},{-25,-60},{-25,60},{-75,60}}, color={0,0,
               0}),
@@ -25,7 +25,7 @@ block StringTable "Generate a String table"
         Line(points={{-25,-30},{25,-30}}, color={0,0,0}),
                                              Text(
             extent={{30,53},{69,38}},
-            lineColor={0,0,0},
+            textColor={0,0,0},
           textString="...y[n]"),
         Line(points={{25,60},{25,-60},{75,-60},{75,60},{25,60}}, color={0,0,0}),
         Line(points={{75,30},{25,30}}, color={0,0,0}),

@@ -21,7 +21,7 @@ equation
   annotation (defaultComponentName="BCcheck",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Text(
-          lineColor={0,0,255},
+          textColor={0,0,255},
           extent={{-148,58},{152,98}},
           textString="%name"),
         Rectangle(

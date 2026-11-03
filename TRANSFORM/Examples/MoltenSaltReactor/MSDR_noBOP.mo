@@ -1637,91 +1637,91 @@ equation
             180}}), graphics={
         Text(
           extent={{188,-106},{312,-120}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Heat Exchanger Temperature Profiles",
           textStyle={TextStyle.Bold,TextStyle.UnderLine}),
         Text(
           extent={{-33,5},{33,-5}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           origin={167,-173},
           rotation=90,
           textString="Temperature [K]"),
         Text(
           extent={{154,-126},{266,-136}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textStyle={TextStyle.Bold,TextStyle.UnderLine},
           textString="Primary Fuel HX"),
         Text(
           extent={{240,-126},{352,-136}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textStyle={TextStyle.Bold,TextStyle.UnderLine},
           textString="Primary Coolant HX"),
         Text(
           extent={{-33,5},{33,-5}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           origin={253,-215},
           rotation=0,
           textString="Position"),
         Text(
           extent={{-290,-132},{-248,-140}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="PHX",
           textStyle={TextStyle.Bold,TextStyle.UnderLine}),
         Text(
           extent={{-312,-146},{-270,-154}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Fluid"),
         Text(
           extent={{-270,-146},{-228,-154}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Wall"),
         Text(
           extent={{-190,-146},{-148,-154}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Fluid"),
         Text(
           extent={{-232,-146},{-190,-154}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Wall"),
         Text(
           extent={{-210,-132},{-168,-140}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textStyle={TextStyle.Bold,TextStyle.UnderLine},
           textString="SHX"),
         Text(
           extent={{-350,-168},{-308,-176}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Tube side"),
         Text(
           extent={{-350,-186},{-308,-194}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Shell side"),
         Text(
           extent={{-112,-126},{-70,-134}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Fluid"),
         Text(
           extent={{-70,-126},{-28,-134}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Wall"),
         Text(
           extent={{-154,-146},{-112,-154}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textStyle={TextStyle.Bold,TextStyle.UnderLine},
           textString="Core"),
         Text(
           extent={{-154,-166},{-112,-174}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textStyle={TextStyle.Bold,TextStyle.UnderLine},
           textString="ReflR"),
         Text(
           extent={{-154,-184},{-112,-192}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textStyle={TextStyle.Bold,TextStyle.UnderLine},
           textString="ReflA_upper"),
         Text(
           extent={{-154,-200},{-112,-208}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textStyle={TextStyle.Bold,TextStyle.UnderLine},
           textString="ReflA_lower")}),
     experiment(

@@ -40,7 +40,7 @@ equation
         Text(
           extent={{-138,102},{142,62}},
           textString="%name",
-          lineColor={0,0,255},
+          textColor={0,0,255},
           visible=showName)}),
     Documentation(info="<html>
 <p>

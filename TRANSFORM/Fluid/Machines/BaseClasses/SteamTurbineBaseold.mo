@@ -188,7 +188,7 @@ equation
           fillColor={0,127,255}),
         Text(
           extent={{-147,112},{153,72}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true,showName))}),
     Documentation(info="<html>

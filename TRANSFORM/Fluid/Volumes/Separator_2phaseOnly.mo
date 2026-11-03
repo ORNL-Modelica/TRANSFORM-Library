@@ -42,7 +42,7 @@ equation
           fillColor={0,128,255},
           fillPattern=FillPattern.Sphere), Text(
           extent={{-151,104},{149,64}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true, showName))}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),

@@ -74,15 +74,11 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={Text(
           extent={{2,80},{46,70}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="mm location of peak temperature"),
                          Text(
           extent={{2,66},{40,60}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="max T (C) in lense")}),
     experiment(__Dymola_NumberOfIntervals=100),
     Documentation(info="<html>

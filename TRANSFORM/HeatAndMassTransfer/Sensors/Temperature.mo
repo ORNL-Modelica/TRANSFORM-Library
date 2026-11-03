@@ -28,6 +28,6 @@ equation
         Line(points={{0,-70},{0,-100}}, color={191,0,0}),
         Text(
           extent={{150,44},{30,14}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T")}));
 end Temperature;

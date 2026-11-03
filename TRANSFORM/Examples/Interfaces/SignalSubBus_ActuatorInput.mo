@@ -50,7 +50,7 @@ expandable connector SignalSubBus_ActuatorInput
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-150,70},{150,40}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name")}),
     Documentation(info="<html>
 This icon is designed for a <b>signal bus</b> connector.

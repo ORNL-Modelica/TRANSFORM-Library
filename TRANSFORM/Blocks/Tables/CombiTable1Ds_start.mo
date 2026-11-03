@@ -258,7 +258,7 @@ MATLAB is a registered trademark of The MathWorks, Inc.
         Text(
           extent={{-100,100},{100,64}},
           textString="Univariate constant, linear or cubic Hermite spline table interpolation",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Line(points={{-54,40},{-54,-40},{54,-40},{54,40},{28,40},{28,-40},{-28,
               -40},{-28,40},{-54,40},{-54,20},{54,20},{54,0},{-54,0},{-54,-20},
               {54,-20},{54,-40},{-54,-40},{-54,40},{54,40},{54,-40}}, color={
@@ -283,17 +283,17 @@ MATLAB is a registered trademark of The MathWorks, Inc.
         Text(
           extent={{-52,56},{-34,44}},
           textString="u",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{-22,54},{2,42}},
           textString="y[1]",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{4,54},{28,42}},
           textString="y[2]",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Text(
           extent={{0,-40},{32,-54}},
           textString="columns",
-          lineColor={0,0,255})}));
+          textColor={0,0,255})}));
 end CombiTable1Ds_start;

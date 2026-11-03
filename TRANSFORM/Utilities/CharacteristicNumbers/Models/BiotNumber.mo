@@ -18,11 +18,11 @@ algorithm
           fillPattern=FillPattern.Solid),
         Text(
           extent={{20,26},{100,-26}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="Bi"),
         Text(
           extent={{-80,92},{200,52}},
           textString="%name",
-          lineColor={0,0,255})}),                                Diagram(
+          textColor={0,0,255})}),                                Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end BiotNumber;

@@ -107,21 +107,15 @@ equation
         coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={Text(
           extent={{12,72},{56,62}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="mm from Thermoseed center
 where crosses T = 50C"),Text(
           extent={{12,58},{50,52}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="max T (C) in tissue "),
                   Text(
           extent={{12,86},{52,78}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="radial tissue node
 where crosses T = 50C")}),
     experiment(__Dymola_NumberOfIntervals=100),

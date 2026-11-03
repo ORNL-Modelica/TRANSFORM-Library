@@ -9,9 +9,6 @@ partial model Partial_ControlSystem
               "modelica://TRANSFORM/Resources/Images/Icons/controlSystem.jpg"),
                   Text(
           extent={{-94,-76},{94,-84}},
-          lineColor={0,0,0},
-          lineThickness=1,
-          fillColor={255,255,237},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Control System")}));
 end Partial_ControlSystem;

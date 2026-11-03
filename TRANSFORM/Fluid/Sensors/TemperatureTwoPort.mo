@@ -50,7 +50,7 @@ equation
             100}}), graphics={
         Text(
           extent={{78,56},{-18,27}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T"),
         Line(points={{50,0},{100,0}}, color={0,128,255}),
         Line(points={{-100,0},{-50,0}}, color={0,128,255})}),

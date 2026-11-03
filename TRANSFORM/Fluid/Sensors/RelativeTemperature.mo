@@ -28,7 +28,7 @@ equation
     Icon(graphics={
         Text(
           extent={{110,62},{-8,32}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T_rel"),
         Line(points={{-100,0},{-50,0}}, color={0,128,255}),
         Line(points={{50,0},{100,0}}, color={0,128,255})}),

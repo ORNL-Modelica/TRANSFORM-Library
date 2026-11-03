@@ -129,9 +129,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{0,62},{88,50}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.VerticalCylinder,
-          fillColor={135,135,135},
+          textColor={0,0,0},
           textString="IDEAL"),
         Ellipse(
           extent={{8,30},{-8,-30}},

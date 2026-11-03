@@ -109,22 +109,22 @@ equation
         Text(
           visible=use_p_in,
           extent={{-152,134},{-68,94}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="p"),
         Text(
           visible=use_X_in,
           extent={{-164,4},{-62,-36}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="X"),
         Text(
           visible=use_C_in,
           extent={{-164,-90},{-62,-130}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="C"),
         Text(
           visible=use_T_in,
           extent={{-162,34},{-60,-6}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="T")}),
     Documentation(info="<html>
 <p>

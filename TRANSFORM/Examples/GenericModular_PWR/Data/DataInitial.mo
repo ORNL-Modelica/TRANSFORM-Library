@@ -55,7 +55,7 @@ parameter SI.Temperature T_start_pressurizer_tee = 597.826;
 parameter SI.SpecificEnthalpy h_start_pressurizer_tee = 1.48888e+06;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                                                 Text(
-          lineColor={0,0,0},
+          textColor={0,0,0},
           extent={{-100,-90},{100,-70}},
           textString="GenericModule")}),                         Diagram(
         coordinateSystem(preserveAspectRatio=false)));

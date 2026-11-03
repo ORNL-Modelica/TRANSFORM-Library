@@ -64,7 +64,7 @@ equation
           fillColor={255,255,255}),
                    Text(extent={{-22,18},{28,-14}},
           textString="m_flow",
-          lineColor={0,0,0})}),
+          textColor={0,0,0})}),
     Documentation(info="<HTML>
 This component prescribes the flow rate passing through it. The change of
 specific enthalpy due to the pressure difference between the inlet and the

@@ -70,12 +70,10 @@ equation
           -100,-8},{-88,-8}}, color={0,0,127}));
   connect(boundary1.port, pipe.heatPorts) annotation (Line(
       points={{8,22},{0,22},{0,5}},
-      color={191,0,0},
-      thickness));
+      color={191,0,0}));
   connect(boundary.port, pipe.massPorts) annotation (Line(
       points={{-18,22},{-4,22},{-4,5}},
-      color={0,140,72},
-      thickness));
+      color={0,140,72}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(StopTime=100, __Dymola_Algorithm="Esdirk45a"));

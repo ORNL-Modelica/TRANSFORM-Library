@@ -41,7 +41,7 @@ partial model PartialTwoPort "Partial component with two ports"
           visible=DynamicSelect(true, showDesignFlowDirection)),
         Text(
           extent={{-149,-68},{151,-108}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true, showName))}));
 end PartialTwoPort;

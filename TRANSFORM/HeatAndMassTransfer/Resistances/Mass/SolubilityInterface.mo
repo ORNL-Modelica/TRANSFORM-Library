@@ -38,7 +38,7 @@ equation
           extent={{-150,92},{150,52}},
           textString="%name",
           visible=showName,
-          lineColor={0,0,255})}),
+          textColor={0,0,255})}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Implementation of an interfacial solubility calculation to properly account for concentration gradients.</p>

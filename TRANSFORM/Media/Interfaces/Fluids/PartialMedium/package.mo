@@ -113,7 +113,7 @@ partial package PartialMedium "Partial medium properties (base package of all me
             lineColor={0,0,255}), Text(
             extent={{-152,164},{152,102}},
             textString="%name",
-            lineColor={0,0,255})}), Documentation(info="<html>
+            textColor={0,0,255})}), Documentation(info="<html>
 <p>
 Model <b>BaseProperties</b> is a model within package <b>PartialMedium</b>
 and contains the <b>declarations</b> of the minimum number of

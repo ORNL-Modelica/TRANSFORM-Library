@@ -26,7 +26,7 @@ equation
         Text(
           extent={{-150,140},{150,100}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Polygon(
           points={{-80,80},{-88,58},{-72,58},{-80,80}},
           lineColor={192,192,192},
@@ -41,10 +41,10 @@ equation
         Line(points={{-80,58},{-80,-80}}, color={192,192,192}),
         Text(
           extent={{-72,46},{-46,20}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="u"),
         Text(
           extent={{46,46},{72,20}},
-          lineColor={238,46,47},
+          textColor={238,46,47},
           textString="y")}), Diagram(coordinateSystem(preserveAspectRatio=false)));
 end ShapeFactor;

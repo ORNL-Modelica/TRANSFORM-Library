@@ -17,7 +17,7 @@ equation
         Line(points={{0,-26},{0,-100}}, color={0,127,255}),
         Text(
           extent={{-30,14},{-110,-16}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="s")}), Documentation(info="<html>
 <p>
 The sensor is ideal, i.e., it does not influence the fluid.

@@ -13,7 +13,7 @@ algorithm
         Text(
           extent={{-80,92},{200,52}},
           textString="%name",
-          lineColor={0,0,255}),
+          textColor={0,0,255}),
         Rectangle(
           extent={{20,40},{100,-40}},
           lineColor={0,0,0},
@@ -21,7 +21,7 @@ algorithm
           fillPattern=FillPattern.Solid),
         Text(
           extent={{20,26},{100,-24}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="tau")}),                       Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end DiffusiveMassTimeConstant;

@@ -294,10 +294,7 @@ equation
           fillPattern=FillPattern.Sphere,
           fillColor={0,100,199}),                                    Text(
           extent={{-94,82},{94,74}},
-          lineColor={0,0,0},
-          lineThickness=1,
-          fillColor={255,255,237},
-          fillPattern=FillPattern.Solid,
+          textColor={0,0,0},
           textString="Generic Modular PWR"),
         Rectangle(
           extent={{-0.492602,1.39701},{17.9804,-1.39699}},

@@ -85,8 +85,7 @@ equation
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false), graphics={Text(
           extent={{54,34},{90,22}},
-          lineColor={194,1,8},
-          lineThickness=0.5,
+          textColor={194,1,8},
           textString="Plot dy vs V")}),
     experiment(StopTime=10, __Dymola_NumberOfIntervals=100));
 end part_c_ThermalElongation;

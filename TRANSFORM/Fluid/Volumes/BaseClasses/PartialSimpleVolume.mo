@@ -86,7 +86,7 @@ equation
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
                                            Text(
           extent={{-151,104},{149,64}},
-          lineColor={0,0,255},
+          textColor={0,0,255},
           textString="%name",
           visible=DynamicSelect(true, showName)),               Ellipse(
           extent={{60,60},{-60,-60}},

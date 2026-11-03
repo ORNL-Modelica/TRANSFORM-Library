@@ -38,7 +38,7 @@ equation
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-149,82},{151,42}},
-          lineColor={0,0,0},
+          textColor={0,0,0},
           textString="%name",
           visible=showName)}));
 end Conversion;
