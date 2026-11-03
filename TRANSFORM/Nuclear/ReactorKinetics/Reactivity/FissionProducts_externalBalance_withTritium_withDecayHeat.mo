@@ -29,7 +29,8 @@ model FissionProducts_externalBalance_withTritium_withDecayHeat
       tab="Outputs",
       group="Decay-Heat",
       enable=false));
-protected
+  // Public, not protected: PointKinetics_L1_atomBased_external reads Qs_near_i, and
+  // Modelica 3.6 section 4.1 forbids reading a protected element via dot notation.
   SI.Power Qs_near_i[nV,nC]
     "Near field (e.g, beta) power released from fission product decay (per species per volume)";
   SI.Power Qs_far_i[nV,nC]
