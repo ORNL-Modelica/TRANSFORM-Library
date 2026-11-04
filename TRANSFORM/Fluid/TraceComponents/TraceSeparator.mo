@@ -52,8 +52,13 @@ model TraceSeparator
   SIadd.ExtraProperty[Medium.nC] Cs_notSep
      "Concentration of substances after separation";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+protected
+  // Carrier inflow, taken in the equation section: OpenModelica 1.27.1 generates C that
+  // does not compile for inStream inside the algorithm below.
+  SIadd.ExtraProperty[Medium_carrier.nC] Cs_in_carrier=inStream(port_a_carrier.C_outflow)
+    "Trace substances flowing in at port_a_carrier";
 algorithm
-  port_b_carrier.C_outflow := inStream(port_a_carrier.C_outflow);
+  port_b_carrier.C_outflow := Cs_in_carrier;
   for i in 1:nSep loop
     port_b_carrier.C_outflow[iCar[i]] := port_b_carrier.C_outflow[iCar[i]] +
       mC_flows_sep[iSep[i]]/port_a_carrier.m_flow;
