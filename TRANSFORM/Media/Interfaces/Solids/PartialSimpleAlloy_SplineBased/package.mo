@@ -51,18 +51,27 @@ partial package PartialSimpleAlloy_SplineBased "Material properties based on tab
     "Return specific enthalpy as a function of the thermodynamic state record"
   protected
     Integer iPlace=TRANSFORM.Math.findPlace(state.T, x_cp);
-    SI.SpecificHeatCapacity cp[:]=cat(
-          1,
-          {specificHeatCapacityCp(setState_T(T_reference))},
-          y_cp[1:iPlace],
-          {specificHeatCapacityCp(state)});
-    SI.Temperature T[:]=cat(
-          1,
-          {T_reference},
-          x_cp[1:iPlace],
-          {state.T});
+    Real integral "Trapezoidal integral of cp over T";
+    SI.Temperature T_lo "Lower temperature of the current interval";
+    SI.SpecificHeatCapacity cp_lo "cp at T_lo";
   algorithm
-    h := h_reference + TRANSFORM.Math.integral_TrapezoidalRule(T, cp);
+    // Trapezoidal rule over T = {T_reference, x_cp[1:iPlace], state.T}, same arithmetic as
+    // TRANSFORM.Math.integral_TrapezoidalRule. Keep it a loop. The earlier form built these
+    // arrays with cat() and slices (y_cp[1:iPlace]) and called that function: Dymola 2026x then
+    // returned h = 0 without a warning when T was a fixed value (test:
+    // TRANSFORM.Media.Solids.Examples.AlloyEnthalpy_FixedT), and OpenModelica 1.27.1 generated
+    // C that did not compile. Copying the tables or using {x_cp[i] for i in 1:iPlace} instead
+    // of the slice fixes OpenModelica but not Dymola.
+    integral := 0;
+    T_lo := T_reference;
+    cp_lo := specificHeatCapacityCp(setState_T(T_reference));
+    for i in 1:iPlace loop
+      integral := integral + 0.5*(x_cp[i] - T_lo)*(y_cp[i] + cp_lo);
+      T_lo := x_cp[i];
+      cp_lo := y_cp[i];
+    end for;
+    integral := integral + 0.5*(state.T - T_lo)*(specificHeatCapacityCp(state) + cp_lo);
+    h := h_reference + integral;
     annotation (Inline=true, smoothOrder=2);
   end specificEnthalpy;
 
