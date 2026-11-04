@@ -6,7 +6,7 @@ model AlloyEnthalpy_FixedT
   package W = TRANSFORM.Media.Solids.Tungsten;
   parameter SI.Temperature T = 1000 "Fixed temperature (a point of both cp tables)";
   // Expected, from the trapezoidal integral of each cp table from 1 K to 1000 K:
-  // Mo 237265.10112 J/kg, W 126537.735635 J/kg. Before 1.2.0, Dymola returned 0 for
+  // Mo 237265.10112 J/kg, W 126537.733635 J/kg. Before 1.2.0, Dymola returned 0 for
   // h_Mo, h_W and h_W_par without a warning. The baseline of unitTests.x checks the values;
   // an assert comparing them does not, because Dymola evaluated it with the right values.
   SI.SpecificEnthalpy h_Mo = Mo.specificEnthalpy(Mo.setState_T(T));
