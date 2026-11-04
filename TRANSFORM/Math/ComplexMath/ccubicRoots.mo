@@ -10,6 +10,8 @@ function ccubicRoots
   input Real d;
   output Complex[3] roots "Real roots";
   output Real nRoots "Number of distinct real solutions expected";
+  output Real re[3] "Real parts of roots (roots[:].re)";
+  output Real im[3] "Imaginary parts of roots (roots[:].im)";
 protected
   Real eps = Modelica.Constants.eps;
   Real f, e, s, theta, r;
@@ -56,8 +58,14 @@ algorithm
       roots[i].re :=0;
     end if;
   end for;
+  // re and im repeat roots as Real arrays. OpenModelica 1.27.1 cannot set an array of Complex
+  // records in a model from a function call, so a model that must run there skips roots:
+  // (, nRoots, re, im) = ccubicRoots(a, b, c, d);
+  re := roots.re;
+  im := roots.im;
   annotation (Documentation(info="<html>
 <p><br><span style=\"font-family: Courier New;\">Return roots[3] where each root is complex (i.e., has both roots[*].re and roots[*].im ).</span></p>
 <p><br><span style=\"font-family: Courier New;\">nRoots helps to identify the number of expected real roots based on the result from the polynomial discriminant, D.</span></p>
+<p>re and im hold the same roots as Real arrays (roots[i] = Complex(re[i], im[i])). Use them in a model that must also run in OpenModelica, which cannot set an array of Complex records in a model from a function call: <code>(, nRoots, re, im) = ccubicRoots(a, b, c, d);</code></p>
 </html>"));
 end ccubicRoots;

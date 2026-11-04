@@ -6,6 +6,10 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 ## [Unreleased]
 
+### Added
+
+- `TRANSFORM.Math.ComplexMath.ccubicRoots` has two new outputs, `re[3]` and `im[3]`: the same roots as `Real` arrays. OpenModelica 1.27.1 cannot set an array of `Complex` records in a model from a function call, so a model that must run there writes `(, nRoots, re, im) = ccubicRoots(a, b, c, d)`. Existing calls are unchanged. The examples `TRANSFORM.Math.Examples.check_cubicRoots` and `TRANSFORM.Math.Examples.ComplexMath.check_ccubicRoots` use the new outputs and now run in OpenModelica; their Dymola results are unchanged. Upgrade note: a function of your own that replaces `ccubicRoots` through a `replaceable` declaration constrained by it must now also declare the outputs `re[3]` and `im[3]`; one that extends `ccubicRoots` must not declare its own `re` or `im`.
+
 ### Changed
 
 - `TRANSFORM/package.mo`: `main` carries `version="1.2.0-dev"` and adds `noneFromVersion="1.1.0"` to the conversion annotation, so models written for 1.1.0 load without conversion. The release date `versionDate` is removed until the next release.
