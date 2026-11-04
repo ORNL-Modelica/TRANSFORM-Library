@@ -31,7 +31,9 @@ partial package PartialSimpleAlloy "Material properties based on tables"
     "Returns state record, given temperature"
   algorithm
     state := ThermodynamicState(T=T);
-    annotation (smoothOrder=3);
+    // Inline=true: without it OpenModelica 1.27.1 writes "$cse.T = setState_T(T)" (a record
+    // into a Real) when T is fixed, and its generated C does not compile. Dymola is unaffected.
+    annotation (Inline=true, smoothOrder=3);
   end setState_T;
 
   redeclare function extends setSmoothState
