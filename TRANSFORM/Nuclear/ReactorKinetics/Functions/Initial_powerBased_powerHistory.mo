@@ -25,8 +25,11 @@ protected
   Integer nI=size(lambdas, 1) "# of delayed-neutron precursors groups";
   Integer nDH=size(lambdas_dh, 1) "# of decay-heat groups";
   Real betas[nI]=alphas*Beta;
-  Real t[nT]=history[:, 1] "Time";
-  Real Q_total[nT]=history[:, 2] "Total Power (fission + decay)";
+  // Element by element, not history[:, 1]: OpenModelica 1.27.1 passes an empty history
+  // (fill(0, 0, 2), the default in the point-kinetics models) as a 1-D {}, and the
+  // slice then stops the simulation at start-up. Same values.
+  Real t[nT]={history[i, 1] for i in 1:nT} "Time";
+  Real Q_total[nT]={history[i, 2] for i in 1:nT} "Total Power (fission + decay)";
   Real Q_fission[nT] "Fission power";
   Real Q_decay[nT] "Decay power";
   Real eta[nT]=zeros(nT);
