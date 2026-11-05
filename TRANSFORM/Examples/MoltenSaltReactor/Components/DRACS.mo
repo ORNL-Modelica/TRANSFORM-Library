@@ -11,6 +11,7 @@ model DRACS
     "Convection heat transfer coefficient at thimble-drain tank interface for salt [1] and gas [2]"
     annotation (Dialog(group="Inputs"));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_drainTank(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     exposeState_b=true,
     redeclare package Material = Media.Solids.AlloyN,
     length=data_OFFGAS.length_thimbles,
@@ -26,6 +27,7 @@ model DRACS
     showName=false)
     annotation (Placement(transformation(extent={{40,-70},{20,-50}})));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_inner_drainTank(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     exposeState_a=true,
     redeclare package Material = Media.Solids.AlloyN,
     length=data_OFFGAS.length_thimbles,
@@ -43,10 +45,19 @@ model DRACS
   HeatAndMassTransfer.BoundaryConditions.Heat.ParallelFlow nP_outer_drainTank[2](each
       nParallel=data_OFFGAS.nThimbles, each showName=false)
     annotation (Placement(transformation(extent={{148,-70},{128,-50}})));
+  // Every start is explicit. The pipe pressures start from steady state
+  // (massDynamics = SteadyStateInitial, so the tool computes consistent pressures); every
+  // other state starts from its start value: the four NaK pipes' temperatures and the four
+  // thimble walls (energyDynamics = FixedInitial), both tanks (massDynamics = FixedInitial:
+  // h_start, level_start) and the PID integrator (initType = InitialState, xi_start = 0).
+  // With the defaults (DynamicFreeInitial, NoInit) the start was under-specified and each
+  // tool completed it its own way: Dymola started at these values, OpenModelica fixed pipe
+  // pressures at their start values instead and could not start.
   Fluid.Pipes.GenericPipe_MultiTransferSurface thimbles_drainTank_fluid(
     nParallel=data_OFFGAS.nThimbles,
     redeclare package Medium = Medium_DRACS,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     redeclare model Geometry =
         TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe (
@@ -65,6 +76,7 @@ model DRACS
         rotation=180,
         origin={-80,-40})));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_outer_waterTank(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     exposeState_b=true,
     redeclare package Material = Media.Solids.AlloyN,
     length=data_OFFGAS.length_thimbles_waterTank,
@@ -80,6 +92,7 @@ model DRACS
     showName=false)
     annotation (Placement(transformation(extent={{40,30},{20,50}})));
   HeatAndMassTransfer.Volumes.SimpleWall_Cylinder thimble_inner_waterTank(
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     exposeState_a=true,
     redeclare package Material = Media.Solids.AlloyN,
     length=data_OFFGAS.length_thimbles_waterTank,
@@ -100,6 +113,7 @@ model DRACS
   Fluid.Pipes.GenericPipe_MultiTransferSurface riser_DRACS(
     redeclare package Medium = Medium_DRACS,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     T_a_start=data_OFFGAS.T_hot_dracs,
     showColors=true,
@@ -118,6 +132,7 @@ model DRACS
   Fluid.Pipes.GenericPipe_MultiTransferSurface thimbles_waterTank_fluid(
     redeclare package Medium = Medium_DRACS,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_a_start=data_OFFGAS.m_flow_hot_dracs,
     use_HeatTransfer=true,
     redeclare model HeatTransfer =
@@ -139,6 +154,7 @@ model DRACS
         origin={-60,30})));
   Fluid.Volumes.ExpansionTank waterTank(
     use_HeatPort=true,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare package Medium = Modelica.Media.Water.StandardWater,
     A=data_OFFGAS.crossArea_waterTank*data_OFFGAS.nWaterTanks,
     level_start=data_OFFGAS.level_nominal_waterTank,
@@ -172,6 +188,7 @@ model DRACS
     annotation (Placement(transformation(extent={{140,78},{160,98}})));
   Controls.LimPID PID_waterTank(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    initType=Modelica.Blocks.Types.Init.InitialState,
     k=200,
     Ti=300,
     yb=data_OFFGAS.m_flow_inlet_waterTank*data_OFFGAS.nWaterTanks,
@@ -182,6 +199,7 @@ model DRACS
     annotation (Placement(transformation(extent={{20,54},{40,74}})));
   Fluid.Volumes.ExpansionTank expansionTank_DRACS(
     redeclare package Medium = Medium_DRACS,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     h_start=data_OFFGAS.h_cold_dracs,
     A=2,
     level_start=1,
@@ -190,6 +208,7 @@ model DRACS
   Fluid.Pipes.GenericPipe_MultiTransferSurface downcomer_DRACS(
     redeclare package Medium = Medium_DRACS,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     m_flow_a_start=data_OFFGAS.m_flow_cold_dracs,
     showColors=true,
     val_min=data_OFFGAS.T_cold_dracs,
