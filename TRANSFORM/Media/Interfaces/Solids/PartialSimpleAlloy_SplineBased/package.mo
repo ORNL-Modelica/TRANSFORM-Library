@@ -59,9 +59,9 @@ partial package PartialSimpleAlloy_SplineBased "Material properties based on tab
     // TRANSFORM.Math.integral_TrapezoidalRule. Keep it a loop. The earlier form built these
     // arrays with cat() and slices (y_cp[1:iPlace]) and called that function: Dymola 2026x then
     // returned h = 0 without a warning when T was a fixed value (test:
-    // TRANSFORM.Media.Solids.Examples.AlloyEnthalpy_FixedT), and OpenModelica 1.27.1 generated
-    // C that did not compile. Copying the tables or using {x_cp[i] for i in 1:iPlace} instead
-    // of the slice fixes OpenModelica but not Dymola.
+    // TRANSFORMTest.Media.Solids.AlloyEnthalpy_FixedT in TRANSFORM-UnitTests), and
+    // OpenModelica 1.27.1 generated C that did not compile. Copying the tables or using
+    // {x_cp[i] for i in 1:iPlace} instead of the slice fixes OpenModelica but not Dymola.
     integral := 0;
     T_lo := T_reference;
     cp_lo := specificHeatCapacityCp(setState_T(T_reference));
