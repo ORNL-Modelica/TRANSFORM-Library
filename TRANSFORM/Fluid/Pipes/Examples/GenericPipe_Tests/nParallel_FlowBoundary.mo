@@ -260,5 +260,10 @@ equation
           extent={{56,-16},{84,-22}},
           textColor={0,0,0},
           textString="Enthalpy Flow Rate [W]")}),
-    experiment(__Dymola_NumberOfIntervals=100));
+    experiment(__Dymola_NumberOfIntervals=100),
+    // OpenModelica 1.27.1 starts with global homotopy whenever a model contains homotopy()
+    // (here through its pipe components), and that start fails on this example; a start
+    // without homotopy works.
+    // Dymola ignores this flag.
+    __OpenModelica_simulationFlags(noHomotopyOnFirstTry="()"));
 end nParallel_FlowBoundary;
