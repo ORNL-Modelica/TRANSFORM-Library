@@ -772,6 +772,11 @@ equation
 <p>Note the appropriate use of the Model Structure of the DynamicPipe models (Advanced tab). The default Model Structure is av_vb, i.e. volumes with a pressure state are exposed at both ports. In many cases this gives good numerical performance, avoiding algebraic loops in connections, e.g. if a pipe is connected to a valve or to a vessel with portsData configured. The price to pay is a high-index DAE if two pipes are connected or if a pipe is connected to a boundary with prescribed pressure. In such cases one might consider changing the Model Structure. </p>
 <p>In the BranchingDynamicPipes example, {pipe1,pipe3,pipe4}.Model Structure are configured to a_v_b, while pipe2.Model Structure remains av_vb. This avoids a high-index DAE and overdetermined initial conditions. </p>
 </html>"), experiment(StopTime=10),
+    // OpenModelica 1.27.1 starts with global homotopy whenever a model contains homotopy()
+    // (here through its pipe components), and that start fails on this example; a start
+    // without homotopy works.
+    // Dymola ignores this flag.
+    __OpenModelica_simulationFlags(noHomotopyOnFirstTry="()"),
     __Dymola_Commands(file(ensureSimulated=true)=
         "modelica://Modelica/Resources/Scripts/Dymola/Fluid/BranchingDynamicPipes/plotResults.mos"
         "plotResults"));
