@@ -1,6 +1,15 @@
 within TRANSFORM.Fluid.Volumes.Examples;
 model Pressurizer_withWall_Test
   extends TRANSFORM.Icons.Example;
+  // massDynamics and energyDynamics = FixedInitial: a steady-state start (from
+  // system.energyDynamics) has more than one solution here. OpenModelica could not start
+  // the example, and Dymola started at Vfrac_liquid = 0.356 instead of Vfrac_liquid_start.
+  // Start from p_start and Vfrac_liquid_start instead, as
+  // Modelica.Fluid.Examples.DrumBoiler.DrumBoiler starts its drum. The start is not
+  // balanced with the surge line, so a start-up surge follows (2500 kg/s out of the
+  // pressurizer at t = 0). The later filling of the pressurizer is sensitive to solver
+  // details (in OpenModelica, a 0.01 s output step gives no filling at all), and a
+  // p_start tuned to the exact balance makes this worse.
   TRANSFORM.Fluid.Volumes.Pressurizer_withWall pressurizer(
     redeclare model BulkCondensation =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.Condensation.ConstantTimeDelay (
@@ -29,6 +38,8 @@ model Pressurizer_withWall_Test
     redeclare model HeatTransfer_WV =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient,
     Vfrac_liquid_start=1/3,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     rho_wall=7000)
     annotation (Placement(transformation(extent={{-20,-26},{20,26}})));
   Modelica.Fluid.Sources.MassFlowSource_h spray(
