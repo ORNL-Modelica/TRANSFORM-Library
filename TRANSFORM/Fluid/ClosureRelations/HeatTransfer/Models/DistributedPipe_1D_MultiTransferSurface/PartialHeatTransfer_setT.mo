@@ -35,7 +35,13 @@ partial model PartialHeatTransfer_setT "Base model"
       nHT,
       nSurfaces) "if non-uniform then set"  annotation(Dialog(tab="Advanced",group="Inputs"));
 
-  Medium.ThermodynamicState states_wall[nHT,nSurfaces] = Medium.setState_pTX(transpose({Medium.pressure(states) for i in 1:nSurfaces}), Ts_wall, Medium.X_default);
+  // One call per element, not one vectorized call over [nHT,nSurfaces] with X_default passed whole.
+  // OpenModelica 1.27.1 got the vectorized call wrong for any medium: it miscounted its equations
+  // when nX > 1 and nHT > 1 (BranchingDynamicPipes, RoomCO2WithControls), generated C that did not
+  // compile (IncompressibleFluidNetwork) or failed at start-up (OilWater_PTHX). Same values.
+  Medium.ThermodynamicState states_wall[nHT,nSurfaces] = {{Medium.setState_pTX(
+    Medium.pressure(states[i]), Ts_wall[i, j], Medium.X_default) for j in 1:nSurfaces}
+    for i in 1:nHT};
 
   //parameter Boolean use_Ts_film = false "=true for Ts_film = 0.5*(Ts_wall + Ts_fluid) else Ts_fluid" annotation(Dialog(tab="Advanced"));
   SI.Temperature Ts_fluid[nHT] = Medium.temperature(states) "Fluid temperature";
