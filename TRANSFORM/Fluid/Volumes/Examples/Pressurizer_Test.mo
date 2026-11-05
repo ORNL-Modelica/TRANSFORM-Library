@@ -28,6 +28,11 @@ model Pressurizer_Test
     m_flow=0,
     nPorts=1)
              annotation (Placement(transformation(extent={{-48,50},{-28,70}})));
+  // energyDynamics and massDynamics = FixedInitial: with no flow and no wall heat
+  // transfer, every saturated state is steady, so a steady-state start (der(...) = 0)
+  // fixes neither pressure nor level and tools may start at different states. Start
+  // from p_start and Vfrac_liquid_start instead, as
+  // Modelica.Fluid.Examples.DrumBoiler.DrumBoiler starts its drum.
   TRANSFORM.Fluid.Volumes.Pressurizer drum2Phase(
     redeclare model DrumType =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.DrumTypes.Traditional (
@@ -52,6 +57,8 @@ model Pressurizer_Test
     redeclare model HeatTransfer_WV =
         TRANSFORM.Fluid.Volumes.BaseClasses.BaseDrum.HeatTransfer.ConstantHeatTransferCoefficient (
          alpha0=0),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     Vfrac_liquid_start=0.6)
     annotation (Placement(transformation(extent={{-23,-24},{23,24}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature Temp_wallVapor(T=398.15)
