@@ -25,7 +25,10 @@ package Graphite_1 "Graphite | fluence = 0.2e25 [n/m2]"
   redeclare function extends thermalConductivity
     "Thermal conductivity"
   algorithm
-    lambda := 90.1445 - 3.64930e-2*state.T - 3.42932e-6*state.T^2 + 4.56817e-9*state.T^3;
+    // max(state.T, 0): below 0 K this fit reaches zero at -3365 K, where a solver searching for a start
+    // can find a false steady state with no conduction (see Solids.SS316). No value at a real
+    // temperature changes.
+    lambda := 90.1445 - 3.64930e-2*max(state.T, 0) - 3.42932e-6*max(state.T, 0)^2 + 4.56817e-9*max(state.T, 0)^3;
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp

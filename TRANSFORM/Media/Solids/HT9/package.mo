@@ -21,7 +21,10 @@ package HT9 "HT9: Material properties for HT9 a series 400 type stainless steel"
   redeclare function extends thermalConductivity
     "Thermal conductivity"
   algorithm
-    lambda := 17.622 + 2.428e-2*state.T - 1.696e-5*state.T^2;
+    // max(state.T, 0): below 0 K this fit reaches zero at -530 K, where a solver searching for a start
+    // can find a false steady state with no conduction (see SS316). No value at a real
+    // temperature changes.
+    lambda := 17.622 + 2.428e-2*max(state.T, 0) - 1.696e-5*max(state.T, 0)^2;
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp

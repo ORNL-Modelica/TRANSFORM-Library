@@ -23,7 +23,10 @@ package SS304_TRACE "SS304: Stainless steel 304 from TRACE"
   redeclare function extends thermalConductivity
     "Thermal conductivity"
   algorithm
-    lambda := 8.116 + 1.618e-2*state.T;
+    // max(state.T, 0): below 0 K this fit reaches zero at -502 K, where a solver searching for a start
+    // can find a false steady state with no conduction (see SS316). No value at a real
+    // temperature changes.
+    lambda := 8.116 + 1.618e-2*max(state.T, 0);
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp

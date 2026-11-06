@@ -89,8 +89,11 @@ partial package PartialSimpleAlloy_SplineBased "Material properties based on tab
   redeclare function extends thermalConductivity
     "Return thermal conductivity as a function of the thermodynamic state record"
   algorithm
+    // max(state.T, 0): below 0 K this fit is extrapolated (Molybdenum and Tungsten tables start at 0 W/(m.K) at 0 K and go negative), where a solver searching for a start
+    // can find a false steady state with no conduction (see Solids.SS316). No value at a real
+    // temperature changes.
     lambda := TRANSFORM.Math.cspline(
-        state.T,
+        max(state.T, 0),
         x_lambda,
         y_lambda,
         d_lambda);
