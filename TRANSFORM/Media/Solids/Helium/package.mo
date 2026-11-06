@@ -35,7 +35,10 @@ cp => pg 56
   redeclare function extends thermalConductivity
     "Thermal conductivity"
   algorithm
-    lambda := 0.1449 + 3e-4*state.T - 3e-8*state.T^2 - 9e-11*state.T^3 + 5e-14*state.T^4;
+    // max(state.T, 0): below 0 K this fit reaches zero at -508 K, where a solver searching for a start
+    // can find a false steady state with no conduction (see SS316). No value at a real
+    // temperature changes.
+    lambda := 0.1449 + 3e-4*max(state.T, 0) - 3e-8*max(state.T, 0)^2 - 9e-11*max(state.T, 0)^3 + 5e-14*max(state.T, 0)^4;
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp

@@ -23,7 +23,10 @@ package Alumina "Alumina Al2-O3"
   redeclare function extends thermalConductivity
     "Thermal conductivity"
   algorithm
-    lambda := 5.85 + 15360*exp(-0.002*(state.T-273.15))/((state.T-273.15)+516); //W/m*K
+    // max(state.T, 0): below 0 K this fit divides by zero at -243 K and is negative below it, where a solver searching for a start
+    // can find a false steady state with no conduction (see SS316). No value at a real
+    // temperature changes.
+    lambda := 5.85 + 15360*exp(-0.002*(max(state.T, 0)-273.15))/((max(state.T, 0)-273.15)+516); //W/m*K
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp

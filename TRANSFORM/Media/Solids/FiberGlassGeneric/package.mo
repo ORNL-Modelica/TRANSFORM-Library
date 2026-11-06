@@ -20,7 +20,10 @@ package FiberGlassGeneric "Fiber Glass: Generic"
   redeclare function extends thermalConductivity
     "Thermal conductivity"
   algorithm
-    lambda := 1.03001e-4*state.T+2.86571e-3;
+    // max(state.T, 0): below 0 K this fit reaches zero at -28 K, where a solver searching for a start
+    // can find a false steady state with no conduction (see SS316). No value at a real
+    // temperature changes.
+    lambda := 1.03001e-4*max(state.T, 0)+2.86571e-3;
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp
