@@ -3,7 +3,15 @@ model nParallel_StateBoundary
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   package Medium=Modelica.Media.Water.StandardWater(extraPropertiesNames={"Tritium"});
+  // m_flow_a_start = 1 in both pipes (the flow of boundaryM and boundaryM1). It also makes
+  // p_b_start default to 1 kPa below p_a_start, so the start guesses for the steady-state
+  // start have a pressure drop along each pipe, and so a flow. With the default 0, every
+  // pressure guess was 101325 Pa, which gives no flow: OpenModelica 1.27.1 then found its
+  // Jacobian singular, drove the pipe enthalpies negative and could not start. The pressure
+  // drop is what matters: a flow guess with p_b_start = p_a_start still fails. MSL examples
+  // set a start flow and start pressures (Modelica.Fluid.Examples.BranchingDynamicPipes).
   Pipes.GenericPipe_MultiTransferSurface pipe_single(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    m_flow_a_start=1,
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     redeclare model Geometry =
@@ -72,6 +80,7 @@ model nParallel_StateBoundary
     annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
   Pipes.GenericPipe_MultiTransferSurface pipe_nParallel(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    m_flow_a_start=1,
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     redeclare model Geometry =
