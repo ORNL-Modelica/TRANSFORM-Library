@@ -56,12 +56,12 @@ partial package PartialSimpleAlloy_TableBased "Material properties based on tabl
     annotation (Inline=true, smoothOrder=2);
   end specificHeatCapacityCp;
 
-  redeclare function extends thermalConductivity
+  redeclare replaceable function extends thermalConductivity
     "Return thermal conductivity as a function of the thermodynamic state record"
   algorithm
-    // max(state.T, 0): below 0 K this fit can reach zero (Inconel690 at -338 K, Inconel625 at -183 K, Cr225Mo1 at -755 K), where a solver searching for a start
-    // can find a false steady state with no conduction (see Solids.SS316). No value at a real
-    // temperature changes.
+    // max(state.T, 0): below 0 K this fit can reach zero (Inconel690 at -338 K, Inconel625 at
+    // -183 K), where a solver searching for a start can find a false steady state with no
+    // conduction (see Solids.SS316). No value at a real temperature changes.
     lambda := Poly.evaluate(poly_lambda, max(state.T, 0));
     annotation (Inline=true, smoothOrder=2);
   end thermalConductivity;

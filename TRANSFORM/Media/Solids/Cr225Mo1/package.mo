@@ -16,6 +16,20 @@ package Cr225Mo1 "Chrome-Moly Steel: 2-1/4 Cr - 1 Mo steel"
         949.82,30.63; 977.59,29.77; 1005.37,28.38; 1033.15,27; 1060.93,26.65;
         1088.71,26.48]);
 
+  redeclare replaceable function thermalConductivity
+    "Thermal conductivity: the table's fit, held at its last data point (816 C) above it"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output ThermalConductivity lambda "Thermal conductivity";
+  algorithm
+    // The table ends at 1088.71 K (816 C); T_max is 1773.15 K. Above the data the quadratic
+    // fit is extrapolation: 21.8 W/(m.K) at 1200 K, zero at 1627 K, -9.6 at T_max. It is held
+    // at its 1088.71 K value instead. Below 0 K it is held at its 0 K value (see Solids.SS316).
+    lambda := TRANSFORM.Media.Interfaces.Solids.Polynomials_Temp.evaluate(poly_lambda,
+      min(max(state.T, 0), tableConductivity[end, 1]));
+    annotation (Inline=true);
+  end thermalConductivity;
+
 annotation (Documentation(info="<html>
 <p>Source: http://www.osti.gov/scitech/servlets/purl/455553/</p>
 <p><br>Metals design handbook.</p>
