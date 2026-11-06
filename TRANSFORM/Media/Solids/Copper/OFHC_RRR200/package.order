@@ -3,4 +3,8 @@ electricalResistivity
 x_lambda
 y_lambda
 d_lambda
+tableResistivity
+x_rho
+y_rho
+d_rho
 thermalConductivity

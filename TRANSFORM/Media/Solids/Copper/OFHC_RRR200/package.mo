@@ -26,6 +26,17 @@ package OFHC_RRR200 "Oxygen-free, high conductivity copper (OFHC) of Residual Re
       y=y_lambda,
       ensureMonotonicity=false) "Spline derivatives at the support points";
 
+  final constant Real tableResistivity[:,2]=[50,0.057; 55,0.076; 60,0.098; 70,0.15; 80,0.22; 90,
+         0.29; 100,0.36; 125,0.54; 150,0.72; 200,1.06; 250,1.39; 300,1.73; 400,2.49;
+         500,3.19]*[1,0;0,1e-8]
+    "Electrical resistivity table [K, Ohm.m]";
+  final constant Real x_rho[:]=tableResistivity[:, 1] "Spline support points";
+  final constant Real y_rho[size(x_rho, 1)]=tableResistivity[:, 2] "Spline support values";
+  final constant Real d_rho[size(x_rho, 1)]=TRANSFORM.Math.splineDerivatives(
+      x=x_rho,
+      y=y_rho,
+      ensureMonotonicity=true) "Spline derivatives at the support points (data is monotone)";
+
   redeclare replaceable function thermalConductivity
     "Thermal conductivity: cubic spline through the table, held at its end points outside it"
     extends Modelica.Icons.Function;
@@ -47,17 +58,16 @@ package OFHC_RRR200 "Oxygen-free, high conductivity copper (OFHC) of Residual Re
     end linearExpansionCoefficient;
 
     redeclare function extends electricalResistivity
-      "Electrical resistivity"
-  protected
-    constant Real tableData[:,2] = [50,0.057; 55,0.076; 60,0.098; 70,0.15; 80,0.22; 90,
-         0.29; 100,0.36; 125,0.54; 150,0.72; 200,1.06; 250,1.39; 300,1.73; 400,2.49;
-         500,3.19]*[1,0;0,1e-8];
-    constant Real polyFit[:] = Poly.fitting(
-        tableData[:, 1],
-        tableData[:, 2],
-        2);
+      "Electrical resistivity: cubic spline through the table, held at its end points outside it"
     algorithm
-      rho_e := Poly.evaluate(polyFit, state.T);
+      // The former degree-2 polynomial fit of this table was 41 % low at 50 K (0.033e-8 instead
+      // of 0.057e-8 Ohm.m) and negative below 45 K.
+      rho_e := TRANSFORM.Math.cspline(
+          min(max(state.T, x_rho[1]), x_rho[end]),
+          x_rho,
+          y_rho,
+          d_rho);
+      annotation (Inline=true);
     end electricalResistivity;
   annotation (Documentation(info="<html>
 </html>"));
