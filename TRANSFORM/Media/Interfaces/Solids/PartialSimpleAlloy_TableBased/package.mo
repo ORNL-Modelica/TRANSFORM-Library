@@ -56,7 +56,7 @@ partial package PartialSimpleAlloy_TableBased "Material properties based on tabl
     annotation (Inline=true, smoothOrder=2);
   end specificHeatCapacityCp;
 
-  redeclare function extends thermalConductivity
+  redeclare replaceable function extends thermalConductivity
     "Return thermal conductivity as a function of the thermodynamic state record"
   algorithm
     lambda := Poly.evaluate(poly_lambda, state.T);

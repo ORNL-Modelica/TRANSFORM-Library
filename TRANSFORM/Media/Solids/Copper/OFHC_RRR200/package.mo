@@ -14,6 +14,32 @@ package OFHC_RRR200 "Oxygen-free, high conductivity copper (OFHC) of Residual Re
      tableConductivity=[50,1100; 55,911; 60,783; 70,625; 80,543; 90,498; 100,
          471; 125,434; 150,424; 200,411; 250,404; 300,399; 400,415; 500,431]);
 
+  // Conductivity: a cubic spline through tableConductivity, held at the end points outside it.
+  // The inherited degree-2 polynomial fit could not follow the steep rise below 100 K: it was
+  // off by up to 318 W/(m.K) inside the table (296 instead of 399 at 300 K, 617 instead of 471
+  // at 100 K).
+  final constant Real x_lambda[:]=tableConductivity[:, 1] "Spline support points";
+  final constant Real y_lambda[size(x_lambda, 1)]=tableConductivity[:, 2]
+    "Spline support values";
+  final constant Real d_lambda[size(x_lambda, 1)]=TRANSFORM.Math.splineDerivatives(
+      x=x_lambda,
+      y=y_lambda,
+      ensureMonotonicity=false) "Spline derivatives at the support points";
+
+  redeclare replaceable function thermalConductivity
+    "Thermal conductivity: cubic spline through the table, held at its end points outside it"
+    extends Modelica.Icons.Function;
+    input ThermodynamicState state "Thermodynamic state record";
+    output ThermalConductivity lambda "Thermal conductivity";
+  algorithm
+    lambda := TRANSFORM.Math.cspline(
+        min(max(state.T, x_lambda[1]), x_lambda[end]),
+        x_lambda,
+        y_lambda,
+        d_lambda);
+    annotation (Inline=true);
+  end thermalConductivity;
+
     redeclare function extends linearExpansionCoefficient
       "Linear expansion coefficient"
     algorithm

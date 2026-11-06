@@ -20,6 +20,9 @@ package Lambda_fT_d_7763_cp_fT "Lambda_fT_d_7763_cp_fT"
   redeclare function extends thermalConductivity
     "Thermal conductivity"
   algorithm
+    // Source and valid range unknown (in TRANSFORM since its first release; T_max = 1e6 sets no
+    // limit). The line reaches zero at 1638 K and is negative above it: check the range before
+    // using this material well above room temperature.
     lambda := -0.0469*state.T + 76.813;
   end thermalConductivity;
 

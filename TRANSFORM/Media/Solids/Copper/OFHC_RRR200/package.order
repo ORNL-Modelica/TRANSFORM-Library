@@ -1,2 +1,6 @@
 linearExpansionCoefficient
 electricalResistivity
+x_lambda
+y_lambda
+d_lambda
+thermalConductivity
