@@ -32,67 +32,70 @@ model Sphere_1D_r
   SI.Angle phis[nR] "Position in phi-dimension";
 initial equation
   closedDim_1 = false;
-algorithm
-  rs[1] := r_inner + 0.5*drs[1];
+equation
+  // Equations, not an algorithm section: a tool must be able to differentiate Vs.
+  // With an algorithm section, OpenModelica (and Dymola in some models) could not
+  // keep materials.T as the conduction states and ignored Ts_start.
+  rs[1] = r_inner + 0.5*drs[1];
   for i in 2:nR loop
-    rs[i] := r_inner + sum(drs[1:i - 1]) + 0.5*drs[i];
+    rs[i] = r_inner + sum(drs[1:i - 1]) + 0.5*drs[i];
   end for;
   for i in 1:nR loop
-    thetas[i] := 0.5*dthetas[i];
+    thetas[i] = 0.5*dthetas[i];
   end for;
   for i in 1:nR loop
-    phis[i] := 0.5*dphis[i];
+    phis[i] = 0.5*dphis[i];
   end for;
   for i in 1:nR loop
-    Vs[i] := 1/3*((rs[i] + 0.5*drs[i])^3 - (rs[i] - 0.5*drs[i])^3)*dthetas[i]*(
+    Vs[i] = 1/3*((rs[i] + 0.5*drs[i])^3 - (rs[i] - 0.5*drs[i])^3)*dthetas[i]*(
       -Modelica.Math.cos(phis[i] + 0.5*dphis[i]) + Modelica.Math.cos(phis[i] -
       0.5*dphis[i]));
   end for;
   for i in 1:nR loop
-    crossAreas_1[i] := (rs[i] - 0.5*drs[i])^2*dthetas[i]*(-Modelica.Math.cos(
+    crossAreas_1[i] = (rs[i] - 0.5*drs[i])^2*dthetas[i]*(-Modelica.Math.cos(
       phis[i] + 0.5*dphis[i]) + Modelica.Math.cos(phis[i] - 0.5*dphis[i]));
   end for;
-  crossAreas_1[nR + 1] := (rs[nR] + 0.5*drs[nR])^2*dthetas[nR]*(-
+  crossAreas_1[nR + 1] = (rs[nR] + 0.5*drs[nR])^2*dthetas[nR]*(-
     Modelica.Math.cos(phis[nR] + 0.5*dphis[nR]) + Modelica.Math.cos(phis[nR] -
     0.5*dphis[nR]));
   for i in 1:nR loop
-    dlengths_1[i] := drs[i];
+    dlengths_1[i] = drs[i];
   end for;
   for i in 1:nR loop
-    cs_1[i] := rs[i]*Modelica.Math.cos(thetas[i])*Modelica.Math.sin(phis[i]);
+    cs_1[i] = rs[i]*Modelica.Math.cos(thetas[i])*Modelica.Math.sin(phis[i]);
   end for;
   for i in 1:nR loop
     if dthetas[i] < 2*Modelica.Constants.pi then
       if i == 1 then
-        surfaceAreas_2a[i] := ((r_inner + drs[i])^2 - r_inner^2)*dthetas[i]*
+        surfaceAreas_2a[i] = ((r_inner + drs[i])^2 - r_inner^2)*dthetas[i]*
           Modelica.Math.sin(phis[i]);
-        surfaceAreas_2b[i] := ((r_inner + drs[i])^2 - r_inner^2)*dthetas[i]*
+        surfaceAreas_2b[i] = ((r_inner + drs[i])^2 - r_inner^2)*dthetas[i]*
           Modelica.Math.sin(phis[i]);
       else
-        surfaceAreas_2a[i] := ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
+        surfaceAreas_2a[i] = ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
           r_inner + sum(drs[1:i - 1]) - 0.5*drs[i])^2)*dthetas[i]*
           Modelica.Math.sin(phis[i]);
-        surfaceAreas_2b[i] := ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
+        surfaceAreas_2b[i] = ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
           r_inner + sum(drs[1:i - 1]) - 0.5*drs[i])^2)*dthetas[i]*
           Modelica.Math.sin(phis[i]);
       end if;
     else
-      surfaceAreas_2a[i] := 0;
-      surfaceAreas_2b[i] := 0;
+      surfaceAreas_2a[i] = 0;
+      surfaceAreas_2b[i] = 0;
     end if;
     if dphis[i] < Modelica.Constants.pi then
       if i == 1 then
-        surfaceAreas_3a[i] := ((r_inner + drs[i])^2 - r_inner^2)*dphis[i];
-        surfaceAreas_3b[i] := ((r_inner + drs[i])^2 - r_inner^2)*dphis[i];
+        surfaceAreas_3a[i] = ((r_inner + drs[i])^2 - r_inner^2)*dphis[i];
+        surfaceAreas_3b[i] = ((r_inner + drs[i])^2 - r_inner^2)*dphis[i];
       else
-        surfaceAreas_3a[i] := ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
+        surfaceAreas_3a[i] = ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
           r_inner + sum(drs[1:i - 1]) - 0.5*drs[i])^2)*dphis[i];
-        surfaceAreas_3b[i] := ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
+        surfaceAreas_3b[i] = ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
           r_inner + sum(drs[1:i - 1]) - 0.5*drs[i])^2)*dphis[i];
       end if;
     else
-      surfaceAreas_3a[i] := 0;
-      surfaceAreas_3b[i] := 0;
+      surfaceAreas_3a[i] = 0;
+      surfaceAreas_3b[i] = 0;
     end if;
   end for;
   annotation (

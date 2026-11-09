@@ -31,57 +31,60 @@ model Plane_2D
 initial equation
   closedDim_1 = fill(false,nY);
   closedDim_2 = fill(false,nX);
-algorithm
+equation
+  // Equations, not an algorithm section: a tool must be able to differentiate Vs.
+  // With an algorithm section, OpenModelica (and Dymola in some models) could not
+  // keep materials.T as the conduction states and ignored Ts_start.
   for j in 1:nY loop
-    xs[1, j] := 0.5*dxs[1, j];
+    xs[1, j] = 0.5*dxs[1, j];
     for i in 2:nX loop
-      xs[i, j] := sum(dxs[1:i - 1, j]) + 0.5*dxs[i, j];
+      xs[i, j] = sum(dxs[1:i - 1, j]) + 0.5*dxs[i, j];
     end for;
   end for;
   for i in 1:nX loop
-    ys[i, 1] := 0.5*dys[i, 1];
+    ys[i, 1] = 0.5*dys[i, 1];
     for j in 2:nY loop
-      ys[i, j] := sum(dys[i, 1:j - 1]) + 0.5*dys[i, j];
+      ys[i, j] = sum(dys[i, 1:j - 1]) + 0.5*dys[i, j];
     end for;
   end for;
   for i in 1:nX loop
     for j in 1:nY loop
-      zs[i, j] := 0.5*dzs[i, j];
+      zs[i, j] = 0.5*dzs[i, j];
     end for;
   end for;
   for i in 1:nX loop
     for j in 1:nY loop
-      Vs[i, j] := dxs[i, j]*dys[i, j]*dzs[i, j];
+      Vs[i, j] = dxs[i, j]*dys[i, j]*dzs[i, j];
     end for;
   end for;
   for j in 1:nY loop
     for i in 1:nX loop
-      crossAreas_1[i, j] := dys[i, j]*dzs[i, j];
+      crossAreas_1[i, j] = dys[i, j]*dzs[i, j];
     end for;
-    crossAreas_1[nX + 1, j] := dys[nX, j]*dzs[nX, j];
+    crossAreas_1[nX + 1, j] = dys[nX, j]*dzs[nX, j];
   end for;
   for i in 1:nX loop
     for j in 1:nY loop
-      crossAreas_2[i, j] := dxs[i, j]*dzs[i, j];
+      crossAreas_2[i, j] = dxs[i, j]*dzs[i, j];
     end for;
-    crossAreas_2[i, nY + 1] := dxs[i, nY]*dzs[i, nY];
+    crossAreas_2[i, nY + 1] = dxs[i, nY]*dzs[i, nY];
   end for;
   for i in 1:nX loop
     for j in 1:nY loop
-      dlengths_1[i, j] := dxs[i, j];
-      dlengths_2[i, j] := dys[i, j];
-    end for;
-  end for;
-  for i in 1:nX loop
-    for j in 1:nY loop
-      cs_1[i, j] := xs[i, j];
-      cs_2[i, j] := ys[i, j];
+      dlengths_1[i, j] = dxs[i, j];
+      dlengths_2[i, j] = dys[i, j];
     end for;
   end for;
   for i in 1:nX loop
     for j in 1:nY loop
-      surfaceAreas_3a[i, j] := dxs[i, j]*dys[i, j];
-      surfaceAreas_3b[i, j] := dxs[i, j]*dys[i, j];
+      cs_1[i, j] = xs[i, j];
+      cs_2[i, j] = ys[i, j];
+    end for;
+  end for;
+  for i in 1:nX loop
+    for j in 1:nY loop
+      surfaceAreas_3a[i, j] = dxs[i, j]*dys[i, j];
+      surfaceAreas_3b[i, j] = dxs[i, j]*dys[i, j];
     end for;
   end for;
   annotation (

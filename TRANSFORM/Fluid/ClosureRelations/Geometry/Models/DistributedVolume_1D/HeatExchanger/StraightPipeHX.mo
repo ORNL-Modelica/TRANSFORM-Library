@@ -8,8 +8,9 @@ model StraightPipeHX
     final roughnesses_shell=fill(roughness_shell, nV),
     final angles_shell=fill(angle_shell,nV),
     final dheights_shell=fill(dheight_shell/nV, nV),
-    final surfaceAreas_shell=transpose({fill(surfaceArea_shell[i]/nV, nV) for i in
-            1:nSurfaces_shell}),
+    // fill(), not an array comprehension or a function call: OpenModelica treats such a
+    // binding as time-varying (it failed with an internal error in a heat exchanger example).
+    final surfaceAreas_shell=fill(surfaceArea_shell/nV, nV),
     final dimensions_tube=fill(dimension_tube, nV),
     final crossAreas_tube=fill(crossArea_tube, nV),
     final perimeters_tube=fill(perimeter_tube, nV),
@@ -17,8 +18,9 @@ model StraightPipeHX
     final roughnesses_tube=fill(roughness_tube, nV),
     final angles_tube=fill(angle_tube,nV),
     final dheights_tube=fill(dheight_tube/nV, nV),
-    final surfaceAreas_tube=transpose({fill(surfaceArea_tube[i]/nV, nV) for i in
-            1:nSurfaces_tube}),
+    // fill(), not an array comprehension or a function call: OpenModelica treats such a
+    // binding as time-varying (it failed with an internal error in a heat exchanger example).
+    final surfaceAreas_tube=fill(surfaceArea_tube/nV, nV),
     final ths_wall = fill(th_wall,nV),
     drs=fill(th_wall/nR,nR,nV));
   // Shell Side

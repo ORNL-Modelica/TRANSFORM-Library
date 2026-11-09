@@ -33,41 +33,44 @@ initial equation
   else
     closedDim_1 = false;
   end if;
-algorithm
+equation
+  // Equations, not an algorithm section: a tool must be able to differentiate Vs.
+  // With an algorithm section, OpenModelica (and Dymola in some models) could not
+  // keep materials.T as the conduction states and ignored Ts_start.
   for j in 1:nTheta loop
-    rs[j] := r_inner + 0.5*drs[j];
+    rs[j] = r_inner + 0.5*drs[j];
   end for;
-  thetas[1] := 0.5*dthetas[1];
+  thetas[1] = 0.5*dthetas[1];
   for j in 2:nTheta loop
-    thetas[j] := sum(dthetas[1:j - 1]) + 0.5*dthetas[j];
+    thetas[j] = sum(dthetas[1:j - 1]) + 0.5*dthetas[j];
   end for;
   for j in 1:nTheta loop
-    zs[j] := 0.5*dzs[j];
+    zs[j] = 0.5*dzs[j];
   end for;
   for j in 1:nTheta loop
-    Vs[j] := 0.5*((rs[j] + 0.5*drs[j])^2 - (rs[j] - 0.5*drs[j])^2)*dthetas[j]*
+    Vs[j] = 0.5*((rs[j] + 0.5*drs[j])^2 - (rs[j] - 0.5*drs[j])^2)*dthetas[j]*
       dzs[j];
   end for;
   for j in 1:nTheta loop
-    crossAreas_1[j] := drs[j]*dzs[j];
+    crossAreas_1[j] = drs[j]*dzs[j];
   end for;
-  crossAreas_1[nTheta + 1] := drs[nTheta]*dzs[nTheta];
+  crossAreas_1[nTheta + 1] = drs[nTheta]*dzs[nTheta];
   for j in 1:nTheta loop
-    dlengths_1[j] := rs[j]*dthetas[j];
+    dlengths_1[j] = rs[j]*dthetas[j];
   end for;
   for j in 1:nTheta loop
-    cs_1[j] := rs[j]*Modelica.Math.sin(thetas[j]);
+    cs_1[j] = rs[j]*Modelica.Math.sin(thetas[j]);
   end for;
   for i in 1:nTheta loop
-    surfaceAreas_2a[i] := r_inner*dthetas[i]*dzs[i];
-    surfaceAreas_2b[i] := (r_inner + drs[i])*dthetas[i]*dzs[i];
+    surfaceAreas_2a[i] = r_inner*dthetas[i]*dzs[i];
+    surfaceAreas_2b[i] = (r_inner + drs[i])*dthetas[i]*dzs[i];
     if i == 1 then
-      surfaceAreas_3a[i] := ((r_inner + 0.5*drs[i])^2 - r_inner^2)*dthetas[i];
-      surfaceAreas_3b[i] := ((r_inner + 0.5*drs[i])^2 - r_inner^2)*dthetas[i];
+      surfaceAreas_3a[i] = ((r_inner + 0.5*drs[i])^2 - r_inner^2)*dthetas[i];
+      surfaceAreas_3b[i] = ((r_inner + 0.5*drs[i])^2 - r_inner^2)*dthetas[i];
     else
-      surfaceAreas_3a[i] := ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
+      surfaceAreas_3a[i] = ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
         r_inner + sum(drs[1:i - 1]) - 0.5*drs[i - 1])^2)*dthetas[i];
-      surfaceAreas_3b[i] := ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
+      surfaceAreas_3b[i] = ((r_inner + sum(drs[1:i - 1]) + 0.5*drs[i])^2 - (
         r_inner + sum(drs[1:i - 1]) - 0.5*drs[i - 1])^2)*dthetas[i];
     end if;
   end for;

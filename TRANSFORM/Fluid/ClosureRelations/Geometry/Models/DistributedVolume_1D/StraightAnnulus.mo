@@ -24,7 +24,9 @@ model StraightAnnulus
     final perimeters=fill(2*pi*(r_outer + r_inner), nV),
     final dlengths=fill(length/nV, nV),
     final roughnesses=fill(roughness, nV),
-    final surfaceAreas=transpose({fill(surfaceArea[i]/nV,nV) for i in 1:nSurfaces}),
+    // fill(), not an array comprehension or a function call: OpenModelica treats such a
+    // binding as time-varying. Same form as in StraightPipeHX, where it caused an internal error.
+    final surfaceAreas=fill(surfaceArea/nV, nV),
     final angles=fill(angle,nV),
     final dheights=fill(dheight/nV, nV));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
