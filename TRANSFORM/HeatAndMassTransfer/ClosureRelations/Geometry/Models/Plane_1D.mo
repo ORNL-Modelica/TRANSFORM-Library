@@ -23,35 +23,38 @@ model Plane_1D
   SI.Length zs[nX] "Position in z-dimension";
 initial equation
   closedDim_1 = false;
-algorithm
-  xs[1] := 0.5*dxs[1];
+equation
+  // Equations, not an algorithm section: a tool must be able to differentiate Vs.
+  // With an algorithm section, OpenModelica (and Dymola in some models) could not
+  // keep materials.T as the conduction states and ignored Ts_start.
+  xs[1] = 0.5*dxs[1];
   for i in 2:nX loop
-    xs[i] := sum(dxs[1:i - 1]) + 0.5*dxs[i];
+    xs[i] = sum(dxs[1:i - 1]) + 0.5*dxs[i];
   end for;
   for i in 1:nX loop
-    ys[i] := 0.5*dys[i];
+    ys[i] = 0.5*dys[i];
   end for;
   for i in 1:nX loop
-    zs[i] := 0.5*dzs[i];
+    zs[i] = 0.5*dzs[i];
   end for;
   for i in 1:nX loop
-    Vs[i] := dxs[i]*dys[i]*dzs[i];
+    Vs[i] = dxs[i]*dys[i]*dzs[i];
   end for;
   for i in 1:nX loop
-    crossAreas_1[i] := dys[i]*dzs[i];
+    crossAreas_1[i] = dys[i]*dzs[i];
   end for;
-  crossAreas_1[nX + 1] := dys[nX]*dzs[nX];
+  crossAreas_1[nX + 1] = dys[nX]*dzs[nX];
   for i in 1:nX loop
-    dlengths_1[i] := dxs[i];
-  end for;
-  for i in 1:nX loop
-    cs_1[i] := xs[i];
+    dlengths_1[i] = dxs[i];
   end for;
   for i in 1:nX loop
-    surfaceAreas_2a[i] := dxs[i]*dys[i];
-    surfaceAreas_2b[i] := dxs[i]*dys[i];
-    surfaceAreas_3a[i] := dxs[i]*dzs[i];
-    surfaceAreas_3b[i] := dxs[i]*dzs[i];
+    cs_1[i] = xs[i];
+  end for;
+  for i in 1:nX loop
+    surfaceAreas_2a[i] = dxs[i]*dys[i];
+    surfaceAreas_2b[i] = dxs[i]*dys[i];
+    surfaceAreas_3a[i] = dxs[i]*dzs[i];
+    surfaceAreas_3b[i] = dxs[i]*dzs[i];
   end for;
   annotation (
     defaultComponentName="geometry",

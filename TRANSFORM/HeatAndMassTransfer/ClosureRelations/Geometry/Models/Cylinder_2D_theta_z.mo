@@ -43,60 +43,63 @@ initial equation
     end if;
   end for;
   closedDim_2 = fill(false,nTheta);
-algorithm
+equation
+  // Equations, not an algorithm section: a tool must be able to differentiate Vs.
+  // With an algorithm section, OpenModelica (and Dymola in some models) could not
+  // keep materials.T as the conduction states and ignored Ts_start.
   for j in 1:nTheta loop
     for k in 1:nZ loop
-      rs[j, k] := r_inner + 0.5*drs[j, k];
+      rs[j, k] = r_inner + 0.5*drs[j, k];
     end for;
   end for;
   for k in 1:nZ loop
-    thetas[1, k] := 0.5*dthetas[1, k];
+    thetas[1, k] = 0.5*dthetas[1, k];
     for j in 2:nTheta loop
-      thetas[j, k] := sum(dthetas[1:j - 1, k]) + 0.5*dthetas[j, k];
+      thetas[j, k] = sum(dthetas[1:j - 1, k]) + 0.5*dthetas[j, k];
     end for;
   end for;
   for j in 1:nTheta loop
-    zs[j, 1] := 0.5*dzs[j, 1];
+    zs[j, 1] = 0.5*dzs[j, 1];
     for k in 2:nZ loop
-      zs[j, k] := sum(dzs[j, 1:k - 1]) + 0.5*dzs[j, k];
+      zs[j, k] = sum(dzs[j, 1:k - 1]) + 0.5*dzs[j, k];
     end for;
   end for;
   for j in 1:nTheta loop
     for k in 1:nZ loop
-      Vs[j, k] := 0.5*((rs[j, k] + 0.5*drs[j, k])^2 - (rs[j, k] - 0.5*drs[j, k])
+      Vs[j, k] = 0.5*((rs[j, k] + 0.5*drs[j, k])^2 - (rs[j, k] - 0.5*drs[j, k])
         ^2)*dthetas[j, k]*dzs[j, k];
     end for;
   end for;
   for k in 1:nZ loop
     for j in 1:nTheta loop
-      crossAreas_1[j, k] := drs[j, k]*dzs[j, k];
+      crossAreas_1[j, k] = drs[j, k]*dzs[j, k];
     end for;
-    crossAreas_1[nTheta + 1, k] := drs[nTheta, k]*dzs[nTheta, k];
+    crossAreas_1[nTheta + 1, k] = drs[nTheta, k]*dzs[nTheta, k];
   end for;
   for j in 1:nTheta loop
     for k in 1:nZ loop
-      crossAreas_2[j, k] := 0.5*((rs[j, k] + 0.5*drs[j, k])^2 - (rs[j, k] - 0.5
+      crossAreas_2[j, k] = 0.5*((rs[j, k] + 0.5*drs[j, k])^2 - (rs[j, k] - 0.5
         *drs[j, k])^2)*dthetas[j, k];
     end for;
-    crossAreas_2[j, nZ + 1] := 0.5*((rs[j, nZ] + 0.5*drs[j, nZ])^2 - (rs[j, nZ]
+    crossAreas_2[j, nZ + 1] = 0.5*((rs[j, nZ] + 0.5*drs[j, nZ])^2 - (rs[j, nZ]
        - 0.5*drs[j, nZ])^2)*dthetas[j, nZ];
   end for;
   for j in 1:nTheta loop
     for k in 1:nZ loop
-      dlengths_1[j, k] := rs[j, k]*dthetas[j, k];
-      dlengths_2[j, k] := dzs[j, k];
+      dlengths_1[j, k] = rs[j, k]*dthetas[j, k];
+      dlengths_2[j, k] = dzs[j, k];
     end for;
   end for;
   for j in 1:nTheta loop
     for k in 1:nZ loop
-      cs_1[j, k] := rs[j, k]*Modelica.Math.sin(thetas[j, k]);
-      cs_2[j, k] := zs[j, k];
+      cs_1[j, k] = rs[j, k]*Modelica.Math.sin(thetas[j, k]);
+      cs_2[j, k] = zs[j, k];
     end for;
   end for;
   for j in 1:nTheta loop
     for k in 1:nZ loop
-      surfaceAreas_3a[j, k] := r_inner*dthetas[j, k]*dzs[j, k];
-      surfaceAreas_3b[j, k] := (r_inner + drs[j, k])*dthetas[j, k]*dzs[j, k];
+      surfaceAreas_3a[j, k] = r_inner*dthetas[j, k]*dzs[j, k];
+      surfaceAreas_3b[j, k] = (r_inner + drs[j, k])*dthetas[j, k]*dzs[j, k];
     end for;
   end for;
   annotation (

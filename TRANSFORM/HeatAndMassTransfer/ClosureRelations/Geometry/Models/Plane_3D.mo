@@ -18,77 +18,80 @@ initial equation
   closedDim_1 = fill(false,nY,nZ);
   closedDim_2 = fill(false,nX,nZ);
   closedDim_3 = fill(false,nX,nY);
-algorithm
+equation
+  // Equations, not an algorithm section: a tool must be able to differentiate Vs.
+  // With an algorithm section, OpenModelica (and Dymola in some models) could not
+  // keep materials.T as the conduction states and ignored Ts_start.
   for j in 1:nY loop
     for k in 1:nZ loop
-      xs[1,j,k] :=0.5*dxs[1, j, k];
+      xs[1,j,k] = 0.5*dxs[1, j, k];
       for i in 2:nX loop
-        xs[i, j, k] :=sum(dxs[1:i - 1, j, k]) + 0.5*dxs[i, j, k];
+        xs[i, j, k] = sum(dxs[1:i - 1, j, k]) + 0.5*dxs[i, j, k];
       end for;
     end for;
   end for;
   for i in 1:nX loop
     for k in 1:nZ loop
-      ys[i, 1, k] :=0.5*dys[i, 1, k];
+      ys[i, 1, k] = 0.5*dys[i, 1, k];
       for j in 2:nY loop
-        ys[i, j, k] :=sum(dys[i, 1:j - 1, k]) + 0.5*dys[i, j, k];
+        ys[i, j, k] = sum(dys[i, 1:j - 1, k]) + 0.5*dys[i, j, k];
       end for;
     end for;
   end for;
   for i in 1:nX loop
     for j in 1:nY loop
-      zs[i, j, 1] :=0.5*dzs[i, j, 1];
+      zs[i, j, 1] = 0.5*dzs[i, j, 1];
       for k in 2:nZ loop
-        zs[i, j, k] :=sum(dzs[i, j, 1:k - 1]) + 0.5*dzs[i, j, k];
+        zs[i, j, k] = sum(dzs[i, j, 1:k - 1]) + 0.5*dzs[i, j, k];
       end for;
     end for;
   end for;
   for i in 1:nX loop
     for j in 1:nY loop
       for k in 1:nZ loop
-        Vs[i,j,k] :=dxs[i, j, k]*dys[i, j, k]*dzs[i, j, k];
+        Vs[i,j,k] = dxs[i, j, k]*dys[i, j, k]*dzs[i, j, k];
       end for;
     end for;
   end for;
   for j in 1:nY loop
     for k in 1:nZ loop
       for i in 1:nX loop
-        crossAreas_1[i,j,k] :=dys[i, j, k]*dzs[i, j, k];
+        crossAreas_1[i,j,k] = dys[i, j, k]*dzs[i, j, k];
       end for;
-      crossAreas_1[nX + 1,j,k] :=dys[nX, j, k]*dzs[nX, j, k];
+      crossAreas_1[nX + 1,j,k] = dys[nX, j, k]*dzs[nX, j, k];
     end for;
   end for;
   for i in 1:nX loop
     for k in 1:nZ loop
       for j in 1:nY loop
-        crossAreas_2[i,j,k] :=dxs[i, j, k]*dzs[i, j, k];
+        crossAreas_2[i,j,k] = dxs[i, j, k]*dzs[i, j, k];
       end for;
-      crossAreas_2[i,nY+1,k] :=dxs[i, nY, k]*dzs[i, nY, k];
+      crossAreas_2[i,nY+1,k] = dxs[i, nY, k]*dzs[i, nY, k];
     end for;
   end for;
   for i in 1:nX loop
     for j in 1:nY loop
       for k in 1:nZ loop
-        crossAreas_3[i,j,k] :=dxs[i, j, k]*dys[i, j, k];
+        crossAreas_3[i,j,k] = dxs[i, j, k]*dys[i, j, k];
       end for;
-      crossAreas_3[i,j,nZ+1] :=dxs[i, j, nZ]*dys[i, j, nZ];
+      crossAreas_3[i,j,nZ+1] = dxs[i, j, nZ]*dys[i, j, nZ];
     end for;
   end for;
   for i in 1:nX loop
     for j in 1:nY loop
       for k in 1:nZ loop
-        dlengths_1[i,j,k] :=dxs[i, j, k];
-        dlengths_2[i,j,k] :=dys[i, j, k];
-        dlengths_3[i,j,k] :=dzs[i, j, k];
+        dlengths_1[i,j,k] = dxs[i, j, k];
+        dlengths_2[i,j,k] = dys[i, j, k];
+        dlengths_3[i,j,k] = dzs[i, j, k];
       end for;
     end for;
   end for;
   for i in 1:nX loop
     for j in 1:nY loop
       for k in 1:nZ loop
-        cs_1[i,j,k] :=xs[i, j, k];
-        cs_2[i,j,k] :=ys[i, j, k];
-        cs_3[i,j,k] :=zs[i, j, k];
+        cs_1[i,j,k] = xs[i, j, k];
+        cs_2[i,j,k] = ys[i, j, k];
+        cs_3[i,j,k] = zs[i, j, k];
       end for;
     end for;
   end for;

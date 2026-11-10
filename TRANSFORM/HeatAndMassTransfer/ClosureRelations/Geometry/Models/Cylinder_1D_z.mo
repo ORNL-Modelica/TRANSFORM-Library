@@ -15,42 +15,45 @@ model Cylinder_1D_z
   SI.Length zs[nZ] "Position in z-dimension";
 initial equation
   closedDim_1 = false;
-algorithm
+equation
+  // Equations, not an algorithm section: a tool must be able to differentiate Vs.
+  // With an algorithm section, OpenModelica (and Dymola in some models) could not
+  // keep materials.T as the conduction states and ignored Ts_start.
   for k in 1:nZ loop
-    rs[k] := r_inner + 0.5*drs[k];
+    rs[k] = r_inner + 0.5*drs[k];
   end for;
   for k in 1:nZ loop
-    thetas[k] := 0.5*dthetas[k];
+    thetas[k] = 0.5*dthetas[k];
   end for;
-  zs[1] := 0.5*dzs[1];
+  zs[1] = 0.5*dzs[1];
   for k in 2:nZ loop
-    zs[k] := sum(dzs[1:k - 1]) + 0.5*dzs[k];
+    zs[k] = sum(dzs[1:k - 1]) + 0.5*dzs[k];
   end for;
   for k in 1:nZ loop
-    Vs[k] := 0.5*((rs[k] + 0.5*drs[k])^2 - (rs[k] - 0.5*drs[k])^2)*dthetas[k]*
+    Vs[k] = 0.5*((rs[k] + 0.5*drs[k])^2 - (rs[k] - 0.5*drs[k])^2)*dthetas[k]*
       dzs[k];
   end for;
   for k in 1:nZ loop
-    crossAreas_1[k] := 0.5*((rs[k] + 0.5*drs[k])^2 - (rs[k] - 0.5*drs[k])^2)*
+    crossAreas_1[k] = 0.5*((rs[k] + 0.5*drs[k])^2 - (rs[k] - 0.5*drs[k])^2)*
       dthetas[k];
   end for;
-  crossAreas_1[nZ + 1] := 0.5*((rs[nZ] + 0.5*drs[nZ])^2 - (rs[nZ] - 0.5*drs[nZ])
+  crossAreas_1[nZ + 1] = 0.5*((rs[nZ] + 0.5*drs[nZ])^2 - (rs[nZ] - 0.5*drs[nZ])
     ^2)*dthetas[nZ];
   for k in 1:nZ loop
-    dlengths_1[k] := dzs[k];
+    dlengths_1[k] = dzs[k];
   end for;
   for k in 1:nZ loop
-    cs_1[k] := zs[k];
+    cs_1[k] = zs[k];
   end for;
   for i in 1:nZ loop
-    surfaceAreas_2a[i] := r_inner*dthetas[i]*dzs[i];
-    surfaceAreas_2b[i] := (r_inner + drs[i])*dthetas[i]*dzs[i];
+    surfaceAreas_2a[i] = r_inner*dthetas[i]*dzs[i];
+    surfaceAreas_2b[i] = (r_inner + drs[i])*dthetas[i]*dzs[i];
     if dthetas[i] < 2*Modelica.Constants.pi then
-      surfaceAreas_3a[i] := drs[i]*dzs[i];
-      surfaceAreas_3b[i] := drs[i]*dzs[i];
+      surfaceAreas_3a[i] = drs[i]*dzs[i];
+      surfaceAreas_3b[i] = drs[i]*dzs[i];
     else
-      surfaceAreas_3a[i] := 0;
-      surfaceAreas_3b[i] := 0;
+      surfaceAreas_3a[i] = 0;
+      surfaceAreas_3b[i] = 0;
     end if;
   end for;
   annotation (

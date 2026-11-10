@@ -487,7 +487,9 @@ model GenericDistributed_HX_withMass
         drs=geometry.drs,
         nR=geometry.nR,
         nZ=geometry.nV,
-        dzs=transpose({fill(geometry.dlengths_tube[i], geometry.nR) for i in 1:geometry.nV})),
+        // fill(), not an array comprehension or a function call: OpenModelica treats such a
+        // binding as time-varying, which can put the conduction states in a dynamic state set.
+        dzs=fill(geometry.dlengths_tube, geometry.nR)),
     traceDynamics=traceDynamics[3],
     Cs_start=Cs_start_wall,
     C_a1_start={sum(Cs_start_wall_tubeSide[:, i])/geometry.nV for i in 1:nC},

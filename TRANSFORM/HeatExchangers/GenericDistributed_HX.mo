@@ -466,8 +466,9 @@ model GenericDistributed_HX
         drs=geometry.drs,
         nR=geometry.nR,
         nZ=geometry.nV,
-        dzs=transpose({fill(geometry.dlengths_tube[i], geometry.nR) for i in 1:
-            geometry.nV})))            annotation (Placement(transformation(
+        // fill(), not an array comprehension or a function call: OpenModelica treats such a
+        // binding as time-varying, which can put the conduction states in a dynamic state set.
+        dzs=fill(geometry.dlengths_tube, geometry.nR)))            annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=90,
         origin={0,-30})));

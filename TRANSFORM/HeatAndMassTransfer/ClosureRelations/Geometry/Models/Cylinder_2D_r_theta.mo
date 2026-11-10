@@ -43,67 +43,70 @@ initial equation
       closedDim_2[i] = false;
     end if;
   end for;
-algorithm
+equation
+  // Equations, not an algorithm section: a tool must be able to differentiate Vs.
+  // With an algorithm section, OpenModelica (and Dymola in some models) could not
+  // keep materials.T as the conduction states and ignored Ts_start.
   for j in 1:nTheta loop
-    rs[1, j] := r_inner + 0.5*drs[1, j];
+    rs[1, j] = r_inner + 0.5*drs[1, j];
     for i in 2:nR loop
-      rs[i, j] := r_inner + sum(drs[1:i - 1, j]) + 0.5*drs[i, j];
+      rs[i, j] = r_inner + sum(drs[1:i - 1, j]) + 0.5*drs[i, j];
     end for;
   end for;
   for i in 1:nR loop
-    thetas[i, 1] := 0.5*dthetas[i, 1];
+    thetas[i, 1] = 0.5*dthetas[i, 1];
     for j in 2:nTheta loop
-      thetas[i, j] := sum(dthetas[i, 1:j - 1]) + 0.5*dthetas[i, j];
+      thetas[i, j] = sum(dthetas[i, 1:j - 1]) + 0.5*dthetas[i, j];
     end for;
   end for;
   for i in 1:nR loop
     for j in 1:nTheta loop
-      zs[i, j] := 0.5*dzs[i, j];
+      zs[i, j] = 0.5*dzs[i, j];
     end for;
   end for;
   for i in 1:nR loop
     for j in 1:nTheta loop
-      Vs[i, j] := 0.5*((rs[i, j] + 0.5*drs[i, j])^2 - (rs[i, j] - 0.5*drs[i, j])
+      Vs[i, j] = 0.5*((rs[i, j] + 0.5*drs[i, j])^2 - (rs[i, j] - 0.5*drs[i, j])
         ^2)*dthetas[i, j]*dzs[i, j];
     end for;
   end for;
   for j in 1:nTheta loop
     for i in 1:nR loop
-      crossAreas_1[i, j] := (rs[i, j] - 0.5*drs[i, j])*dthetas[i, j]*dzs[i, j];
+      crossAreas_1[i, j] = (rs[i, j] - 0.5*drs[i, j])*dthetas[i, j]*dzs[i, j];
     end for;
-    crossAreas_1[nR + 1, j] := (rs[nR, j] + 0.5*drs[nR, j])*dthetas[nR, j]*dzs[
+    crossAreas_1[nR + 1, j] = (rs[nR, j] + 0.5*drs[nR, j])*dthetas[nR, j]*dzs[
       nR, j];
   end for;
   for i in 1:nR loop
     for j in 1:nTheta loop
-      crossAreas_2[i, j] := drs[i, j]*dzs[i, j];
+      crossAreas_2[i, j] = drs[i, j]*dzs[i, j];
     end for;
-    crossAreas_2[i, nTheta + 1] := drs[i, nTheta]*dzs[i, nTheta];
+    crossAreas_2[i, nTheta + 1] = drs[i, nTheta]*dzs[i, nTheta];
   end for;
   for i in 1:nR loop
     for j in 1:nTheta loop
-      dlengths_1[i, j] := drs[i, j];
-      dlengths_2[i, j] := rs[i, j]*dthetas[i, j];
+      dlengths_1[i, j] = drs[i, j];
+      dlengths_2[i, j] = rs[i, j]*dthetas[i, j];
     end for;
   end for;
   for i in 1:nR loop
     for j in 1:nTheta loop
-      cs_1[i, j] := rs[i, j]*Modelica.Math.cos(thetas[i, j]);
-      cs_2[i, j] := rs[i, j]*Modelica.Math.sin(thetas[i, j]);
+      cs_1[i, j] = rs[i, j]*Modelica.Math.cos(thetas[i, j]);
+      cs_2[i, j] = rs[i, j]*Modelica.Math.sin(thetas[i, j]);
     end for;
   end for;
   for i in 1:nR loop
     for j in 1:nTheta loop
       if i == 1 then
-        surfaceAreas_3a[i, j] := ((r_inner + 0.5*drs[i, j])^2 - r_inner^2)*
+        surfaceAreas_3a[i, j] = ((r_inner + 0.5*drs[i, j])^2 - r_inner^2)*
           dthetas[i, j];
-        surfaceAreas_3b[i, j] := ((r_inner + 0.5*drs[i, j])^2 - r_inner^2)*
+        surfaceAreas_3b[i, j] = ((r_inner + 0.5*drs[i, j])^2 - r_inner^2)*
           dthetas[i, j];
       else
-        surfaceAreas_3a[i, j] := ((r_inner + sum(drs[1:i - 1, j]) + 0.5*drs[i,
+        surfaceAreas_3a[i, j] = ((r_inner + sum(drs[1:i - 1, j]) + 0.5*drs[i,
           j])^2 - (r_inner + sum(drs[1:i - 1, j]) - 0.5*drs[i - 1, j])^2)*
           dthetas[i, j];
-        surfaceAreas_3b[i, j] := ((r_inner + sum(drs[1:i - 1, j]) + 0.5*drs[i,
+        surfaceAreas_3b[i, j] = ((r_inner + sum(drs[1:i - 1, j]) + 0.5*drs[i,
           j])^2 - (r_inner + sum(drs[1:i - 1, j]) - 0.5*drs[i - 1, j])^2)*
           dthetas[i, j];
       end if;
