@@ -48,14 +48,23 @@ protected
   Integer iter=0;
   Integer iterMax=30;
 algorithm
-  // Initial guesses
+  // Initial guesses. Without decay heat in the history, the history is all fission power.
   for i in 1:nT loop
-    eta[i] := sum({lambdas_dh[j]*Es_0[j] for j in 1:nDH})/max(1,Q_total[i]);
+    if includeDH then
+      eta[i] := sum({lambdas_dh[j]*Es_0[j] for j in 1:nDH})/max(1,Q_total[i]);
+    else
+      eta[i] := 0;
+    end if;
     Q_fission[i] := Q_total[i]/(1 + eta[i]);
     Q_decay[i] := eta[i]*Q_fission[i];
   end for;
+  // Each update below is the exact solution of der(C) = betas/Lambda*P - lambdas*C (and of
+  // der(E) = efs*P - lambdas_dh*E) over one interval on which the power is linear, P = a + b*t
+  // (exact for intervals of 1 s or more: dt is clamped below that).
   if not includeDH then
     // Decay-heat is not included in power history.
+    Cs := Cs_0;
+    Es := Es_0;
         for i in 1:nT - 1 loop
       dt := max(1, t[i + 1] - t[i]);
       a := (t[i + 1]*Q_fission[i] - t[i]*Q_fission[i + 1])/dt;
@@ -65,7 +74,7 @@ algorithm
         elamdt := min(1, max(0, exp(-lambdas[j]*dt)));
         Cs[j] := max(0, Cs[j]*elamdt + betas[j]/(lambdas[j]*Lambda)*(a*(1 -
           elamdt) + b/lambdas[j]*(lambdas[j]*t[i + 1] - 1 - (lambdas[j]*t[i] - 1)
-          *elamdt - t[i])));
+          *elamdt)));
       end for;
       // Decay-heat group
       for j in 1:nDH loop
@@ -90,7 +99,7 @@ algorithm
         elamdt := min(1, max(0, exp(-lambdas[j]*dt)));
         Cs[j] := max(0, Cs[j]*elamdt + betas[j]/(lambdas[j]*Lambda)*(a*(1 -
           elamdt) + b/lambdas[j]*(lambdas[j]*t[i + 1] - 1 - (lambdas[j]*t[i] - 1)
-          *elamdt - t[i])));
+          *elamdt)));
       end for;
       // Decay-heat group
       for j in 1:nDH loop
