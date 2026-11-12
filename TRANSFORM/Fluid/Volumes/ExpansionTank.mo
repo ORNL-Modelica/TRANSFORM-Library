@@ -189,5 +189,8 @@ equation
           textString="%name",
           visible=DynamicSelect(true,showName))}),
                                      Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
+          preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>When a port connects directly to a component that holds a pressure (a volume, or a pipe end that exposes its state), that pressure ties the tank's level and temperature to it, and a tool keeps only some of them as states. With a free start (<code>massDynamics=DynamicFreeInitial</code>), the tank may then start from the other component's start pressure instead of its own start values. Start the tank with <code>massDynamics=FixedInitial</code> and that component with <code>massDynamics=DynamicFreeInitial</code>, or join the two through a flow resistance.</p>
+</html>"));
 end ExpansionTank;

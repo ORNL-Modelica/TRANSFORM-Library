@@ -469,7 +469,11 @@ model CIET_nureth "Final model of the CIET facility"
         rotation=270,
         origin={-28,-2})));
 
+  // tank1 starts fixed at its level and temperature: its port joins S10's end,
+  // which holds a pressure, so with a free start a tool could start the tank from
+  // that pressure instead (see ExpansionTank_1Port's documentation).
   Fluid.Volumes.ExpansionTank_1Port tank1(
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     redeclare package Medium = Medium,
     p_start=data.p_primary,
     use_T_start=true,

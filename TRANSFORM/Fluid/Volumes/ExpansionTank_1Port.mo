@@ -63,7 +63,7 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
     p(start=Medium.density(Medium.setState_phX(
           p_start,
           h_start,
-          X_start))*g_n*level_start + p_start))
+          X_start))*g_n*(level_start + dheight) + p_start))
     "Fluid connector a (positive design flow direction is into port)"
     annotation (Placement(transformation(extent={{-20,-100},{20,-60}}, rotation=
            0), iconTransformation(extent={{-10,-94},{10,-74}})));
@@ -183,5 +183,9 @@ equation
           textString="%name",
           visible=DynamicSelect(true,showName))}),
                                      Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
+          preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>Liquid tank under a cover gas at pressure <code>p_surface</code>, with one port at its bottom. The port pressure is <code>p_surface</code> plus the liquid head over <code>level + dheight</code>, where <code>dheight</code> is any height between the tank bottom and the port.</p>
+<p>When the port connects directly to a component that holds a pressure (a volume, or a pipe end that exposes its state), that pressure ties the tank's level and temperature to it, and a tool keeps only some of them as states. With a free start (<code>massDynamics=DynamicFreeInitial</code>), the tank may then start from the other component's start pressure instead of its own start values. Start the tank with <code>massDynamics=FixedInitial</code> and that component with <code>massDynamics=DynamicFreeInitial</code>, or join the two through a flow resistance.</p>
+</html>"));
 end ExpansionTank_1Port;
