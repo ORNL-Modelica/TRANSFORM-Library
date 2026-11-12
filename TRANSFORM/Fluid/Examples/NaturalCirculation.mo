@@ -10,7 +10,7 @@ model NaturalCirculation
         angle=1.5707963267949,
         nV=10),
     use_HeatTransfer=true,
-    p_a_start=1*9.81*1000,
+    p_a_start=riser.p_b_start + 1000*Modelica.Constants.g_n*10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     p_b_start=100000,
     redeclare model HeatTransfer =
@@ -30,7 +30,7 @@ model NaturalCirculation
     use_HeatTransfer=true,
     exposeState_a=false,
     exposeState_b=true,
-    p_b_start=1*9.81*1000,
+    p_b_start=downcomer.p_a_start + 1000*Modelica.Constants.g_n*10,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     p_a_start=100000,
     redeclare model HeatTransfer =
@@ -57,7 +57,9 @@ model NaturalCirculation
     level_start=0.1,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     A=0.01) annotation (Placement(transformation(extent={{-10,16},{10,36}})));
-  FittingsAndResistances.SpecifiedResistance resistance2(R=1/1e6) annotation (
+  // resistance2 joins two pressure states (the bottom volumes of downcomer and riser);
+  // a near-zero R makes the start-up too stiff for DASSL-type solvers.
+  FittingsAndResistances.SpecifiedResistance resistance2(R=100) annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
