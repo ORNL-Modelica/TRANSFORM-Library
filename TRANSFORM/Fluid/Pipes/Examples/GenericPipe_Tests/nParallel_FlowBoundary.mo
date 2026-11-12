@@ -3,7 +3,14 @@ model nParallel_FlowBoundary
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   package Medium=Modelica.Media.Water.StandardWater(extraPropertiesNames={"Tritium"});
+  // m_flow_a_start = 1 in both pipes (the flow of their mass-flow sources), as in
+  // nParallel_StateBoundary. It also makes p_b_start default to 1 kPa below p_a_start, so the
+  // start guesses for the steady-state start have a pressure drop along each pipe, and so a flow.
+  // Without it (all guesses 0, equal pressures), OpenModelica's start with global homotopy fails;
+  // the pressure drop is what matters. Dymola starts either way; only the OpenModelica test
+  // guards this.
   Pipes.GenericPipe_MultiTransferSurface pipe_single(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    m_flow_a_start=1,
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     redeclare model Geometry =
@@ -72,6 +79,7 @@ model nParallel_FlowBoundary
     annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
   Pipes.GenericPipe_MultiTransferSurface pipe_nParallel(
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
+    m_flow_a_start=1,
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
     redeclare model Geometry =
@@ -260,10 +268,5 @@ equation
           extent={{56,-16},{84,-22}},
           textColor={0,0,0},
           textString="Enthalpy Flow Rate [W]")}),
-    experiment(__Dymola_NumberOfIntervals=100),
-    // OpenModelica 1.27.1 starts with global homotopy whenever a model contains homotopy()
-    // (here through its pipe components), and that start fails on this example; a start
-    // without homotopy works.
-    // Dymola ignores this flag.
-    __OpenModelica_simulationFlags(noHomotopyOnFirstTry="()"));
+    experiment(__Dymola_NumberOfIntervals=100));
 end nParallel_FlowBoundary;
