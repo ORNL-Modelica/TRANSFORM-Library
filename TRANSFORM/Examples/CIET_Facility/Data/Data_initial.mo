@@ -33,7 +33,7 @@ model Data_initial
   parameter SI.Pressure p_primary=1.0133e5;
   parameter SI.Area tank1_crossArea=0.25*Modelica.Constants.pi*
       TRANSFORM.Units.Conversions.Functions.Distance_m.from_in(12.39)^2;
-  parameter SI.Area tank1_length=
+  parameter SI.Length tank1_length=
       TRANSFORM.Units.Conversions.Functions.Distance_m.from_in(11.75);
   parameter SI.Temperature T_ambient = 298.15;
   parameter SI.Temperature T_ctah = 353.1;
