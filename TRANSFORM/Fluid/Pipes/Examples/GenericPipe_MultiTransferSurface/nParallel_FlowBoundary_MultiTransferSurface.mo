@@ -3,7 +3,15 @@ model nParallel_FlowBoundary_MultiTransferSurface
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
   package Medium=Modelica.Media.Water.StandardWater(extraPropertiesNames={"Tritium","blah"});
+  // m_flow_a_start = 1 in both pipes (the flow of their mass-flow sources), as in
+  // GenericPipe_Tests.nParallel_StateBoundary. It also makes p_b_start default to 1 kPa below
+  // p_a_start, so the start guesses for the steady-state start have a flow and a pressure drop
+  // along each pipe. With a zero flow guess and equal start pressures, OpenModelica could not
+  // start nParallel_StateBoundary, and its start with global homotopy failed on
+  // nParallel_FlowBoundary; the pressure drop is what matters. This example started without the
+  // guess; it keeps the family's start guesses alike.
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface pipe_single(
+    m_flow_a_start=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
@@ -73,6 +81,7 @@ model nParallel_FlowBoundary_MultiTransferSurface
         fill(0.1, boundaryTM_external.nC), nC=pipe_single.traceMassTransfer.nC)
     annotation (Placement(transformation(extent={{-28,30},{-8,50}})));
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface pipe_nParallel(
+    m_flow_a_start=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     redeclare package Medium = Medium,
     use_HeatTransfer=true,
