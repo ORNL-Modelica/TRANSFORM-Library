@@ -10,8 +10,9 @@ import TRANSFORM.Math.linspaceRepeat_1D;
 
     parameter Integer nV = 1 "# of fluid volumes on each side";
 
-  // parallel flow not currently implmented
-  parameter Boolean counterCurrent=true "Swap side 2 heatPort vector" annotation (Evaluate=true, enable=false);
+  parameter Boolean counterCurrent=true
+    "=true for counter-current flow, =false for parallel (co-current) flow (side 2 volumes coupled in reverse or same order)"
+    annotation (Evaluate=true);
 
   input SI.Volume V_1 "Fluid volume" annotation(Dialog(group="Inputs"));
   input SI.Volume V_2 "Fluid volume" annotation(Dialog(group="Inputs"));
