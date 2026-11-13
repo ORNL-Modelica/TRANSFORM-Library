@@ -8,6 +8,9 @@ partial model Partial_LMTD_HX
   // parallel flow not currently implmented
   parameter Boolean counterCurrent=true annotation (Evaluate=true, enable=false);
 
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
+    "Balances of the two internal volumes (zero size, so steady state by default)"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
   parameter SI.AbsolutePressure p_start_1=Medium_1.p_default "Pressure"
     annotation (Dialog(tab="Initialization", group="Start Value: Absolute Pressure"));
   parameter SI.AbsolutePressure p_start_2=Medium_2.p_default "Pressure"
@@ -47,6 +50,7 @@ partial model Partial_LMTD_HX
           extent={{-110,-50},{-90,-30}})));
   TRANSFORM.Fluid.Volumes.SimpleVolume volume_1(
     redeclare package Medium = Medium_1,
+    energyDynamics=energyDynamics,
     p_start=p_start_1,
     T_start=T_start_1,
     redeclare model Geometry =
@@ -63,6 +67,7 @@ partial model Partial_LMTD_HX
         origin={-30,70})));
   TRANSFORM.Fluid.Volumes.SimpleVolume volume_2(
     redeclare package Medium = Medium_2,
+    energyDynamics=energyDynamics,
     p_start=p_start_2,
     T_start=T_start_2,
     redeclare model Geometry =
@@ -103,7 +108,7 @@ equation
 
   Q_flow = UA*dT_LM;
   dT_LM = TRANSFORM.HeatExchangers.Utilities.Functions.logMean(sensor_T_a1.T -
-    sensor_T_b1.T, sensor_T_b2.T - sensor_T_a2.T);
+    sensor_T_b2.T, sensor_T_b1.T - sensor_T_a2.T);
 
   connect(volume_1.port_b, resistance_1.port_a)
     annotation (Line(points={{-24,40},{23,40}}, color={0,127,255}));
@@ -152,6 +157,6 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Assumption:</p>
-<p>Side 1 is hot side (i.e,. if Q_flow &lt; 0 then heat is going from Side 1 to Side 2)</p>
+<p>Side 1 is the hot side: Q_flow &gt; 0 is heat going from side 1 to side 2.</p>
 </html>"));
 end Partial_LMTD_HX;

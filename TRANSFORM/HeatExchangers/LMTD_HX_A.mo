@@ -10,7 +10,9 @@ model LMTD_HX_A "Calculate A using LMTD method"
 
 equation
   Q_flow = Q_flow0;
-  UA = 1/(1/(alpha_1*surfaceArea) + 1/(alpha_2*surfaceArea));
+  // Same as UA = 1/(1/(alpha_1*A) + 1/(alpha_2*A)), written linear in the area so tools
+  // solve it directly: the reciprocal form made Newton diverge from surfaceArea(start=1e3).
+  UA = surfaceArea/(1/alpha_1 + 1/alpha_2);
 
   annotation (defaultComponentName="lmtd_HX",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
@@ -30,6 +32,6 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Assumption:</p>
-<p>Side 1 is hot side (i.e,. if Q_flow &lt; 0 then heat is going from Side 1 to Side 2)</p>
+<p>Side 1 is the hot side: Q_flow &gt; 0 is heat going from side 1 to side 2.</p>
 </html>"));
 end LMTD_HX_A;
