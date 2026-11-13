@@ -5,8 +5,9 @@ partial model Partial_LMTD_HX
   replaceable package Medium_2 = Modelica.Media.Interfaces.PartialMedium
     annotation (choicesAllMatching=true);
 
-  // parallel flow not currently implmented
-  parameter Boolean counterCurrent=true annotation (Evaluate=true, enable=false);
+  parameter Boolean counterCurrent=true
+    "=true for counter-current flow, =false for parallel (co-current) flow; both streams enter at port a"
+    annotation (Evaluate=true);
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState
     "Balances of the two internal volumes (zero size, so steady state by default)"
@@ -107,8 +108,13 @@ partial model Partial_LMTD_HX
 equation
 
   Q_flow = UA*dT_LM;
-  dT_LM = TRANSFORM.HeatExchangers.Utilities.Functions.logMean(sensor_T_a1.T -
-    sensor_T_b2.T, sensor_T_b1.T - sensor_T_a2.T);
+  if counterCurrent then
+    dT_LM = TRANSFORM.HeatExchangers.Utilities.Functions.logMean(sensor_T_a1.T -
+      sensor_T_b2.T, sensor_T_b1.T - sensor_T_a2.T);
+  else
+    dT_LM = TRANSFORM.HeatExchangers.Utilities.Functions.logMean(sensor_T_a1.T -
+      sensor_T_a2.T, sensor_T_b1.T - sensor_T_b2.T);
+  end if;
 
   connect(volume_1.port_b, resistance_1.port_a)
     annotation (Line(points={{-24,40},{23,40}}, color={0,127,255}));
