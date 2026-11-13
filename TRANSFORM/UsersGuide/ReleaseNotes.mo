@@ -2,6 +2,27 @@ within TRANSFORM.UsersGuide;
 package ReleaseNotes "Release notes"
   extends TRANSFORM.Icons.ReleaseNotes;
 
+  class Version_1_2_0 "Version 1.2.0 (2026-11-12)"
+    extends TRANSFORM.Icons.ReleaseNotes;
+
+    annotation (Documentation(info="<html>
+<p><b>Conversion:</b> none needed. Models written for TRANSFORM 1.1.0, 1.0 or 0.5 load without change, except in the rare case described under <b>Added</b>. A few changes can give different results in your own models; each is marked <b>upgrade note</b> in <code>CHANGELOG.md</code> and says how to get the old behaviour back where that makes sense.</p>
+<p><b>OpenModelica:</b> with this release many more of the library's examples run in OpenModelica and match Dymola. Most of the fixes are in the library's components, media and functions, so they also help your own models; some are in the examples' start values only. The examples that still do not run in OpenModelica are listed in <code>CHANGELOG.md</code>.</p>
+<p><b>Results that change:</b></p>
+<ul>
+<li>Conduction walls (<code>TRANSFORM.HeatAndMassTransfer</code> conduction models and the walls built on them) now start at <code>Ts_start</code>. Their geometry was computed in an algorithm section, which a tool cannot differentiate, so some walls started at the material's reference temperature (298.15 K for most solids) instead, in OpenModelica always and in Dymola in some models. Upgrade note in <code>CHANGELOG.md</code>.</li>
+<li><code>TRANSFORM.Nuclear.ReactorKinetics.Functions.Initial_powerBased_powerHistory</code>: the precursor start values from a power history are now right when the history's power changes; the start values <code>Cs_0</code> and <code>Es_0</code> are no longer ignored without decay heat.</li>
+<li>Solid media: OFHC copper conductivity and resistivity follow their table instead of a poor polynomial fit; <code>Cr225Mo1</code> conductivity is held above its table. Conductivity fits that reach zero below 0 K are no longer evaluated below 0 K, which removes a false steady state; no value at a real temperature changes.</li>
+<li><code>Molybdenum</code> and <code>Tungsten</code>: in Dymola, their enthalpy at a fixed temperature came out as 0; it is now right.</li>
+<li>Examples with corrected starts or data: <code>Pressurizer_withWall_Test</code>, <code>NaturalCirculation</code>, <code>NaturalCirculation2</code> and <code>CIET_nureth</code> (its expansion tank was far too large). <code>DRACS</code>, <code>nParallel_StateBoundary</code>, <code>nParallel_FlowBoundary</code> and <code>nParallel_FlowBoundary_MultiTransferSurface</code> also have corrected starts, which leave their Dymola results unchanged; so does <code>Pressurizer_Test</code>, within its test tolerance.</li>
+<li><code>TRANSFORM.Fluid.Volumes.ExpansionTank_1Port</code>: the port pressure's start value includes <code>dheight</code>. The tank documentation now says how to start a tank whose port joins a component that holds a pressure.</li>
+</ul>
+<p><b>Added:</b> outputs <code>re</code> and <code>im</code> of <code>TRANSFORM.Math.ComplexMath.ccubicRoots</code> (the roots as Real arrays). If your own function replaces <code>ccubicRoots</code> through a <code>replaceable</code> declaration constrained by it, it must now also declare these two outputs; one that extends <code>ccubicRoots</code> must not declare its own <code>re</code> or <code>im</code>. The library now declares <code>SDF</code> 0.4.5 in its <code>uses</code> annotation; only the critical-heat-flux and film-boiling look-up tables need it.</p>
+<p><b>Compatibility, results unchanged:</b> several components and functions are rewritten in standard Modelica that OpenModelica accepts (solid-media functions, trace separators, distributed heat transfer, <code>linspace_2D</code> functions, reading the power-history table), and two examples no longer use constructs that only Dymola accepts.</p>
+<p>The full list is in <code>CHANGELOG.md</code> in the <a href=\"https://github.com/ORNL-Modelica/TRANSFORM-Library\">TRANSFORM-Library repository</a>.</p>
+</html>"));
+  end Version_1_2_0;
+
   class Version_1_1_0 "Version 1.1.0 (2026-11-03)"
     extends TRANSFORM.Icons.ReleaseNotes;
 
