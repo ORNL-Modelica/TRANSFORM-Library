@@ -13,8 +13,9 @@ annotation (
     Modelica(version="4.0.0"),
     ExternalMedia(version="4.0.0"),
     SDF(version="0.4.5")),
-  version="1.2.0-dev",
-  conversion(noneFromVersion="0.5", noneFromVersion="1.0", noneFromVersion="1.1.0-dev", noneFromVersion="1.1.0"),
+  version="1.2.0",
+  versionDate="2026-11-12",
+  conversion(noneFromVersion="0.5", noneFromVersion="1.0", noneFromVersion="1.1.0-dev", noneFromVersion="1.1.0", noneFromVersion="1.2.0-dev"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 </html>"));
