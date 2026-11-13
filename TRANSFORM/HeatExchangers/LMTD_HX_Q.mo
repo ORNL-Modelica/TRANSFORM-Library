@@ -26,6 +26,6 @@ equation
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Assumption:</p>
-<p>Side 1 is hot side (i.e,. if Q_flow &lt; 0 then heat is going from Side 1 to Side 2)</p>
+<p>Side 1 is the hot side: Q_flow &gt; 0 is heat going from side 1 to side 2.</p>
 </html>"));
 end LMTD_HX_Q;
