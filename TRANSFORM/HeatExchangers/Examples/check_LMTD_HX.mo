@@ -30,6 +30,9 @@ extends TRANSFORM.Icons.Example;
     m_flow_start_1=1,
     m_flow_start_2=1)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
+  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={lmtd_HX.surfaceArea,
+        lmtd_HX.dT_LM,lmtd_HX.sensor_T_b2.T})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(boundary_a1.ports[1], lmtd_HX.port_a1) annotation (Line(points={{-40,20},
           {-16,20},{-16,4},{-10,4}},    color={0,127,255}));
@@ -41,5 +44,6 @@ equation
   connect(boundary_b1.ports[1], lmtd_HX.port_b1) annotation (Line(points={{44,20},
           {16,20},{16,4},{10,4}},    color={0,127,255}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    experiment(StopTime=1));
 end check_LMTD_HX;
