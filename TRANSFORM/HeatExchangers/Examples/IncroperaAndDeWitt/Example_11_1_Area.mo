@@ -3,9 +3,9 @@ model Example_11_1_Area
   "Incropera and DeWitt Example 11.1: heat transfer area from the heat rate (LMTD_HX_A)"
   extends TRANSFORM.Icons.Example;
   package Medium_oil = Modelica.Media.Water.ConstantPropertyLiquidWater (
-      mediumName="Engine oil, constant cp", cp_const=2131) "Hot side: engine oil, cp as in the book";
+      mediumName="Engine oil, constant cp", cp_const=2131, cv_const=2131) "Hot side: engine oil, cp as in the book";
   package Medium_water = Modelica.Media.Water.ConstantPropertyLiquidWater (
-      mediumName="Water, constant cp", cp_const=4178) "Cold side: water, cp as in the book";
+      mediumName="Water, constant cp", cp_const=4178, cv_const=4178) "Cold side: water, cp as in the book";
 
   TRANSFORM.Fluid.BoundaryConditions.MassFlowSource_T boundary_a1(
     redeclare package Medium = Medium_oil,

@@ -8,8 +8,12 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 ### Added
 
-- `TRANSFORM.HeatExchangers.Examples.IncroperaAndDeWitt.Example_11_1_Area`, `Example_11_1_UA` and `Example_11_1_Q`: Example 11.1 of Incropera and DeWitt, *Fundamentals of Heat and Mass Transfer* (an oil cooler, counterflow concentric tube), solved once with each LMTD heat exchanger: `LMTD_HX_A` finds the area, `LMTD_HX_UA` the thermal conductance UA, `LMTD_HX_Q` the heat rate and outlet temperatures. They use constant specific heats, as the book does, and track their answers with the book's as reference values (area 5.178 m², log mean temperature difference 43.2 K, heat rate 8524 W, water outlet 40.2 °C). Dymola and OpenModelica match the book within its rounding (0.02 %). They are also tests.
+- `TRANSFORM.HeatExchangers.Examples.IncroperaAndDeWitt.Example_11_1_Area`, `Example_11_1_UA` and `Example_11_1_Q`: Example 11.1 of Incropera and DeWitt, *Fundamentals of Heat and Mass Transfer* (an oil cooler, counterflow concentric tube), solved once with each LMTD heat exchanger: `LMTD_HX_A` finds the area, `LMTD_HX_UA` the thermal conductance UA, `LMTD_HX_Q` the heat rate and outlet temperatures. They use constant specific heats, as the book does, track their answers, and carry the book's answers as reference values (area 5.178 m², log mean temperature difference 43.2 K, heat rate 8524 W, water outlet 40.2 °C). Dymola and OpenModelica match the book within its rounding (0.02 %). They are also tests.
 - `TRANSFORM.HeatExchangers.BaseClasses.Partial_LMTD_HX` (so `LMTD_HX_A`, `LMTD_HX_UA` and `LMTD_HX_Q`): new parameter `energyDynamics` (Advanced tab), default `SteadyState`, for the mass and energy balances of the model's two internal volumes. These volumes have zero size. With the old dynamic balances (`DynamicFreeInitial`), OpenModelica could not build the model with a gas medium: its index reduction failed. The Buildings library also gives zero-size nodes steady-state balances. Dymola results are unchanged (whole result files of the four LMTD tests compared). Upgrade note: a model that gave these volumes a size and relies on their storage sets `energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial`.
+
+### Changed
+
+- `TRANSFORM/package.mo`: `main` carries `version="1.3.0-dev"` and adds `noneFromVersion="1.2.0"` to the conversion annotation, so models written for 1.2.0 load without conversion. The release date `versionDate` is removed until the next release.
 
 ### Fixed
 
@@ -17,10 +21,6 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 - `TRANSFORM.HeatExchangers.LMTD_HX_A`: UA is now computed as `UA = surfaceArea/(1/alpha_1 + 1/alpha_2)`. This is the same value as before, written linear in the area. The old form, `1/(1/(alpha_1*surfaceArea) + 1/(alpha_2*surfaceArea))`, made Dymola's Newton solver diverge when starting from the area's start value of 1000 m² if the answer was below about 10 m².
 - `TRANSFORM.HeatExchangers.Examples.check_LMTD_HX` (helium–air, `LMTD_HX_A`) never started, in Dymola or in OpenModelica. With the three fixes above it runs in both tools, with the same results. It is now a test (area, `dT_LM` and air outlet temperature) and has experiment settings.
 - `LMTD_HX_A`, `LMTD_HX_UA`, `LMTD_HX_Q` and `Partial_LMTD_HX` documentation: positive `Q_flow` is heat going from side 1 to side 2. The documentation said negative.
-
-### Changed
-
-- `TRANSFORM/package.mo`: `main` carries `version="1.3.0-dev"` and adds `noneFromVersion="1.2.0"` to the conversion annotation, so models written for 1.2.0 load without conversion. The release date `versionDate` is removed until the next release.
 
 ## [1.2.0] - 2026-11-12
 
