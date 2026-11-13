@@ -45,7 +45,7 @@ model OilWater_Simple_HX
     m_flow_start_2=tube_inlet.m_flow,
     V_1=0.1,
     V_2=0.01,
-    UA=156) annotation (Placement(transformation(extent={{21,-10},{-21,30}})));
+    UA=38.1*5.178) annotation (Placement(transformation(extent={{21,-10},{-21,30}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={STHX.Q_flow,STHX.sensor_T_b1.T,
         STHX.sensor_T_b2.T})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
@@ -67,5 +67,6 @@ equation
     Documentation(info="<html>
 <p>Example 11.1 (pp. 680-682).</p>
 <p>A counterflow, concentric tube heat exchanger with oil and water taken from Example 11.1 (pp. 680-682) of Fundamentals of Heat and Mass Transfer by Incropera and DeWitt.</p>
+<p>UA is the book's overall coefficient times the heat transfer area. With a few well-mixed volumes per side, Simple_HX transfers less heat than the book's counterflow answer; the difference shrinks as nV grows.</p>
 </html>"));
 end OilWater_Simple_HX;
