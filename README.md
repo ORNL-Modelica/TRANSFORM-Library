@@ -41,7 +41,7 @@ You may report any issues with using the Issues button.
 
 Contributions in the form of Pull Requests are always welcome.
 See [CONTRIBUTING.md](CONTRIBUTING.md) for how to change the library without breaking user models.
-Prior to issuing a pull request, make sure your code follows the style guide and coding conventions.
+Prior to issuing a pull request, make sure your code follows the conventions in `TRANSFORM.UsersGuide.Conventions` (the Conventions package of the User's Guide inside the library, [TRANSFORM/UsersGuide/Conventions](TRANSFORM/UsersGuide/Conventions)). Its Checklist page lists what to check.
 
 ## Citation
 Greenwood, M. S.. TRANSFORM - TRANsient Simulation Framework of Reconfigurable Models. Computer Software. https://github.com/ORNL-Modelica/TRANSFORM-Library. USDOE. 26 Sep. 2017. Web. doi:10.11578/dc.20171025.2022.
