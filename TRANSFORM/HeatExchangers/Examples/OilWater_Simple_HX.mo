@@ -37,13 +37,18 @@ model OilWater_Simple_HX
     counterCurrent=true,
     p_a_start_1=shell_outlet.p,
     T_a_start_1=shell_inlet.T,
+    T_b_start_1=shell_outlet.T,
     p_a_start_2=tube_outlet.p,
     T_a_start_2=tube_inlet.T,
+    T_b_start_2=tube_outlet.T,
     m_flow_start_1=shell_inlet.m_flow,
     m_flow_start_2=tube_inlet.m_flow,
     V_1=0.1,
     V_2=0.01,
     UA=156) annotation (Placement(transformation(extent={{21,-10},{-21,30}})));
+  TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={STHX.Q_flow,STHX.sensor_T_b1.T,
+        STHX.sensor_T_b2.T})
+    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
 equation
   connect(tube_inlet.ports[1], STHX.port_a2) annotation (Line(points={{-39,0},{-26,
