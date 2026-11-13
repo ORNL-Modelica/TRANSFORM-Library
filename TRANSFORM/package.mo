@@ -3,6 +3,7 @@ package TRANSFORM "TRANSFORM - TRANsient Simulation Framework Of Reconfigurable 
   extends TRANSFORM.Icons.TRANSFORMPackage;
 import Modelica.Units.SI;
 import SIadd = TRANSFORM.Units;
+import SItf = TRANSFORM.Units;
 import Modelica.Constants.pi;
 import Modelica.Math;
 

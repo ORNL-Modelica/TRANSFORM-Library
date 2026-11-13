@@ -5,6 +5,7 @@ TRANSFORM is released and used by people we do not know by name. A change must n
 ## Every change
 
 - Base pull requests on `main`.
+- Follow the conventions in `TRANSFORM.UsersGuide.Conventions`, the style guide inside the library ([TRANSFORM/UsersGuide/Conventions](TRANSFORM/UsersGuide/Conventions)). Its Checklist page lists what to check before a pull request.
 - Add or update a test. Unit tests and their reference results live in [TRANSFORM-UnitTests](https://github.com/ORNL-Modelica/TRANSFORM-UnitTests). If results change, update the reference results there in a pull request of its own.
 - Add a line to [CHANGELOG.md](CHANGELOG.md) under **Unreleased**, saying what changed and whether results change.
 - Reviewers, people or agents, start from [REVIEW.md](REVIEW.md): what a wrong change looks like in this library.
