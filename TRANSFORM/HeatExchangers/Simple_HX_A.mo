@@ -10,8 +10,9 @@ import TRANSFORM.Math.linspaceRepeat_1D;
 
     parameter Integer nV = 1 "# of fluid volumes on each side";
 
-  // parallel flow not currently implmented
-  parameter Boolean counterCurrent=true "Swap side 2 heatPort vector" annotation (Evaluate=true, enable=false);
+  parameter Boolean counterCurrent=true
+    "=true for counter-current flow, =false for parallel (co-current) flow (side 2 volumes coupled in reverse or same order)"
+    annotation (Evaluate=true);
 
   input SI.Volume V_1 "Fluid volume" annotation(Dialog(group="Inputs"));
   input SI.Volume V_2 "Fluid volume" annotation(Dialog(group="Inputs"));
@@ -20,8 +21,10 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   input SI.CoefficientOfHeatTransfer alpha_1 "Heat transfer coefficient" annotation(Dialog(group="Inputs"));
   input SI.CoefficientOfHeatTransfer alpha_2 "Heat transfer coefficient" annotation(Dialog(group="Inputs"));
 
-  input SIadd.NonDim CF = if abs(T_a_start_1-T_b_start_1) <= Modelica.Constants.eps or abs(T_a_start_2-T_b_start_2) <= Modelica.Constants.eps then 1.0 else TRANSFORM.HeatExchangers.Utilities.Functions.logMean(T_a_start_1 -
-    T_b_start_1, T_b_start_2 - T_a_start_2)/nV "Correction factor" annotation(Dialog(group="Inputs"));
+  // CF used to default to logMean(T_a_start_1 - T_b_start_1, T_b_start_2 - T_a_start_2)/nV: a
+  // temperature, not a factor, that scaled UA by that many kelvin whenever both sides' outlet start
+  // temperatures differed from their inlet ones, and made results depend on start values.
+  input SIadd.NonDim CF = 1 "Correction factor on UA, e.g. to account for well-mixed volumes" annotation(Dialog(group="Inputs"));
   input SIadd.NonDim CFs[nV]=fill(
       CF,
       nV) "if non-uniform then set"  annotation(Dialog(group="Inputs"));
@@ -348,6 +351,6 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Assumption:</p>
-<p>Side 1 is hot side (i.e,. if Q_flow &lt; 0 then heat is going from Side 1 to Side 2)</p>
+<p>Side 1 is the hot side: Q_flow &gt; 0 is heat going from side 1 to side 2.</p>
 </html>"));
 end Simple_HX_A;
