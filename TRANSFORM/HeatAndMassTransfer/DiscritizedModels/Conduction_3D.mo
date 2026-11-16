@@ -1,10 +1,10 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels;
-model Conduction_3D "2-D Conduction Models"
+model Conduction_3D "Discretized 3-D heat conduction in a solid"
   BaseClasses.Dimensions_3.Summary summary(
     T_effective=sum(materials.T .* ms/sum(ms)),
     T_max=max(materials.T),
     lambda_effective=sum(Material.thermalConductivity(materials.state) .* ms/
-        sum(ms)))
+        sum(ms))) "Mass-averaged temperature and conductivity, maximum temperature"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
       final figure=geometry.figure);
@@ -19,57 +19,57 @@ model Conduction_3D "2-D Conduction Models"
         nVs[3]));
   // Initialization
   parameter SI.Temperature T_a1_start=Material.T_reference
-    "Temperature at port a1"
+    "Start temperature; volumes start at the mean of all six"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.Temperature T_b1_start=T_a1_start "Temperature at port b1"
+  parameter SI.Temperature T_b1_start=T_a1_start "Start temperature; volumes start at the mean of all six"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_a2_start=Material.T_reference
-    "Temperature at port a2"
+    "Start temperature; volumes start at the mean of all six"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.Temperature T_b2_start=T_a2_start "Temperature at port b2"
+  parameter SI.Temperature T_b2_start=T_a2_start "Start temperature; volumes start at the mean of all six"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_a3_start=Material.T_reference
-    "Temperature at port a3"
+    "Start temperature; volumes start at the mean of all six"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.Temperature T_b3_start=T_a3_start "Temperature at port b3"
+  parameter SI.Temperature T_b3_start=T_a3_start "Start temperature; volumes start at the mean of all six"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter Real nParallel=1 "# of parallel components";
   // Advanced
   parameter Boolean exposeState_a1=true
-    "=true, T is calculated at port_a1 else Q_flow" annotation (Dialog(group=
+    "= true to define T at port_a1, false to define Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
   parameter Boolean exposeState_b1=false
-    "=true, T is calculated at port_b1 else Q_flow" annotation (Dialog(group=
+    "= true to define T at port_b1, false to define Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
   final parameter Integer nFM_1=if exposeState_a1 and exposeState_b1 then nVs[1]
        - 1 else if not exposeState_a1 and not exposeState_b1 then nVs[1] + 1
-       else nVs[1] "# of flow models";
+       else nVs[1] "# of flow models in dimension 1";
   parameter Boolean exposeState_a2=true
-    "=true, T is calculated at port_a2 else Q_flow" annotation (Dialog(group=
+    "= true to define T at port_a2, false to define Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
   parameter Boolean exposeState_b2=false
-    "=true, T is calculated at port_b2 else Q_flow" annotation (Dialog(group=
+    "= true to define T at port_b2, false to define Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
   final parameter Integer nFM_2=if exposeState_a2 and exposeState_b2 then nVs[2]
        - 1 else if not exposeState_a2 and not exposeState_b2 then nVs[2] + 1
-       else nVs[2] "# of flow models";
+       else nVs[2] "# of flow models in dimension 2";
   parameter Boolean exposeState_a3=true
-    "=true, T is calculated at port_a3 else Q_flow" annotation (Dialog(group=
+    "= true to define T at port_a3, false to define Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
   parameter Boolean exposeState_b3=false
-    "=true, T is calculated at port_b3 else Q_flow" annotation (Dialog(group=
+    "= true to define T at port_b3, false to define Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
   final parameter Integer nFM_3=if exposeState_a3 and exposeState_b3 then nVs[3]
        - 1 else if not exposeState_a3 and not exposeState_b3 then nVs[3] + 1
-       else nVs[3] "# of flow models";
+       else nVs[3] "# of flow models in dimension 3";
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_3D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_3D
     "Geometry" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-  Geometry geometry
+  Geometry geometry "Shape, size and division into volumes"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   parameter Boolean adiabaticDims[3]={false,false,false}
-    "=true, toggle off conduction heat transfer in dimension {1,2,3}"
+    "= true to turn off conduction along dimension {1,2,3}"
     annotation (Dialog(group="Heat Transfer"));
   replaceable model ConductionModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.ForwardDifference_1O
@@ -91,25 +91,25 @@ model Conduction_3D "2-D Conduction Models"
     final lengths_3=lengths_3FM,
     final states_1=statesFM_1,
     final states_2=statesFM_2,
-    final states_3=statesFM_3) "Conduction Model" annotation (Placement(
+    final states_3=statesFM_3) "Heat conduction between volumes and to ports with exposeState=false" annotation (Placement(
         transformation(extent={{-58,82},{-42,98}}, rotation=0)));
-  Interfaces.HeatPort_Flow port_a1[nVs[2],nVs[3]] annotation (Placement(
+  Interfaces.HeatPort_Flow port_a1[nVs[2],nVs[3]] "Heat ports at the start of dimension 1" annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent=
            {{-110,-10},{-90,10}})));
   Interfaces.HeatPort_Flow                                  port_b1[nVs[2],nVs[
-    3]] annotation (Placement(transformation(extent={{90,-10},{110,10}}),
+    3]] "Heat ports at the end of dimension 1" annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-  Interfaces.HeatPort_Flow port_a2[nVs[1],nVs[3]] annotation (Placement(
+  Interfaces.HeatPort_Flow port_a2[nVs[1],nVs[3]] "Heat ports at the start of dimension 2" annotation (Placement(
         transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent=
            {{-10,-110},{10,-90}})));
   Interfaces.HeatPort_Flow                                  port_b2[nVs[1],nVs[
-    3]] annotation (Placement(transformation(extent={{-10,90},{10,110}}),
+    3]] "Heat ports at the end of dimension 2" annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
-  Interfaces.HeatPort_Flow port_a3[nVs[1],nVs[2]] annotation (Placement(
+  Interfaces.HeatPort_Flow port_a3[nVs[1],nVs[2]] "Heat ports at the start of dimension 3" annotation (Placement(
         transformation(extent={{-90,-90},{-70,-70}}), iconTransformation(extent=
            {{-90,-90},{-70,-70}})));
   Interfaces.HeatPort_Flow                                  port_b3[nVs[1],nVs[
-    2]] annotation (Placement(transformation(extent={{70,70},{90,90}}),
+    2]] "Heat ports at the end of dimension 3" annotation (Placement(transformation(extent={{70,70},{90,90}}),
         iconTransformation(extent={{70,70},{90,90}})));
   replaceable model InternalHeatModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.GenericHeatGeneration
@@ -129,24 +129,24 @@ model Conduction_3D "2-D Conduction Models"
     final states=materials.state) "Internal heat generation model" annotation (
       Placement(transformation(extent={{-38,82},{-22,98}}, rotation=0)));
   SI.HeatFlowRate Q_flows_1[nVs[1] + 1,nVs[2],nVs[3]]
-    "Heat flow rates across segment boundaries";
+    "Heat flow rates across dimension-1 segment boundaries";
   SI.HeatFlowRate Q_flows_2[nVs[1],nVs[2] + 1,nVs[3]]
-    "Heat flow rates across segment boundaries";
+    "Heat flow rates across dimension-2 segment boundaries";
   SI.HeatFlowRate Q_flows_3[nVs[1],nVs[2],nVs[3] + 1]
-    "Heat flow rates across segment boundaries";
+    "Heat flow rates across dimension-3 segment boundaries";
   Material.ThermodynamicState state_a1[nVs[2],nVs[3]]
-    "State defined by volume outside port_a1";
+    "Material states at the port_a1 temperatures";
   Material.ThermodynamicState state_b1[nVs[2],nVs[3]]
-    "State defined by volume outside port_b1";
+    "Material states at the port_b1 temperatures";
   Material.ThermodynamicState state_a2[nVs[1],nVs[3]]
-    "State defined by volume outside port_a2";
+    "Material states at the port_a2 temperatures";
   Material.ThermodynamicState state_b2[nVs[1],nVs[3]]
-    "State defined by volume outside port_b2";
+    "Material states at the port_b2 temperatures";
   Material.ThermodynamicState state_a3[nVs[1],nVs[2]]
-    "State defined by volume outside port_a3";
+    "Material states at the port_a3 temperatures";
   Material.ThermodynamicState state_b3[nVs[1],nVs[2]]
-    "State defined by volume outside port_b3";
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+    "Material states at the port_b3 temperatures";
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 protected
   Material.ThermodynamicState statesFM_1[nFM_1 + 1,nVs[2],nVs[3]];
   Material.ThermodynamicState statesFM_2[nVs[1],nFM_2 + 1,nVs[3]];
@@ -717,5 +717,8 @@ equation
           visible=exposeState_b3,
           origin={80.2218,80.435},
           rotation=45)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Heat conduction in three dimensions of a solid that is divided into a grid of volumes. Unlike <code>Conduction_2D</code>, there is no external port: heat enters or leaves only through the boundary ports and <code>InternalHeatModel</code>. Behavior shared by the discretized models is in <code>UsersGuide.DiscretizedModels</code>.</p>
+</html>"));
 end Conduction_3D;

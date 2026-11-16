@@ -1,11 +1,11 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels;
-model Conduction_1D "1-D Conduction Models"
+model Conduction_1D "Discretized 1-D heat conduction in a solid"
   import TRANSFORM.Math.linspace_1D;
   BaseClasses.Dimensions_1.Summary summary(
     T_effective=sum(materials.T .* ms/sum(ms)),
     T_max=max(materials.T),
     lambda_effective=sum(Material.thermalConductivity(materials.state) .* ms/
-        sum(ms)))
+        sum(ms))) "Mass-averaged temperature and conductivity, maximum temperature"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
       final figure=geometry.figure);
@@ -18,26 +18,26 @@ model Conduction_1D "1-D Conduction Models"
         nVs[1]));
   // Initialization
   parameter SI.Temperature T_a1_start=Material.T_reference
-    "Temperature at port a1"
+    "Start temperature of the first volume (linear profile)"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.Temperature T_b1_start=T_a1_start "Temperature at port b1"
+  parameter SI.Temperature T_b1_start=T_a1_start "Start temperature of the last volume (linear profile)"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter Real nParallel=1 "# of parallel components";
   // Advanced
   parameter Boolean exposeState_a1=true
-    "=true, T is calculated at port_a1 else Q_flow" annotation (Dialog(group=
+    "= true to define T at port_a1, false to define Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
   parameter Boolean exposeState_b1=false
-    "=true, T is calculated at port_b1 else Q_flow" annotation (Dialog(group=
+    "= true to define T at port_b1, false to define Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
   final parameter Integer nFM_1=if exposeState_a1 and exposeState_b1 then nVs[1]
        - 1 else if not exposeState_a1 and not exposeState_b1 then nVs[1] + 1
-       else nVs[1] "# of flow models";
+       else nVs[1] "# of flow models in dimension 1";
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D
     "Geometry" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-  Geometry geometry
+  Geometry geometry "Shape, size and division into volumes"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   replaceable model ConductionModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.ForwardDifference_1O
@@ -50,7 +50,7 @@ model Conduction_1D "1-D Conduction Models"
     final nFM_1=nFM_1,
     final crossAreas_1=crossAreas_1FM,
     final lengths_1=lengths_1FM,
-    final states_1=statesFM_1) "Conduction Model" annotation (Placement(
+    final states_1=statesFM_1) "Heat conduction between volumes and to ports with exposeState=false" annotation (Placement(
         transformation(extent={{-58,82},{-42,98}}, rotation=0)));
   replaceable model InternalHeatModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1.GenericHeatGeneration
@@ -65,14 +65,14 @@ model Conduction_1D "1-D Conduction Models"
     final lengths_1=geometry.dlengths_1,
     final states=materials.state) "Internal heat generation model" annotation (
       Placement(transformation(extent={{-38,82},{-22,98}}, rotation=0)));
-  Interfaces.HeatPort_Flow port_a1 annotation (Placement(transformation(extent=
+  Interfaces.HeatPort_Flow port_a1 "Heat port at the start of dimension 1" annotation (Placement(transformation(extent=
             {{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},{-90,
             10}})));
-  Interfaces.HeatPort_Flow                                  port_b1 annotation (
+  Interfaces.HeatPort_Flow                                  port_b1 "Heat port at the end of dimension 1" annotation (
      Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(
           extent={{90,-10},{110,10}})));
   Interfaces.HeatPort_State port_external[nVs[1]]
-    "External heat transfer in non-discritized dimensions" annotation (
+    "External heat transfer in non-discretized dimensions" annotation (
       Placement(transformation(extent={{-90,-90},{-70,-70}}),
         iconTransformation(extent={{-90,-90},{-70,-70}})));
   SI.HeatFlowRate H_flows_1[nVs[1] + 1]
@@ -80,12 +80,12 @@ model Conduction_1D "1-D Conduction Models"
   SI.HeatFlowRate Q_flows_1[nVs[1] + 1]
     "Heat flow rates across segment boundaries";
   Material.ThermodynamicState state_a1
-    "State defined by volume outside port_a1";
+    "Material state at the port_a1 temperature";
   Material.ThermodynamicState state_b1
-    "State defined by volume outside port_b1";
+    "Material state at the port_b1 temperature";
   input SI.Velocity velocity_1=0 "Velocity of material through control volumes"
     annotation (Dialog(group="Inputs"));
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 protected
   Material.ThermodynamicState statesFM_1[nFM_1 + 1];
   SI.Area crossAreas_1FM[nFM_1];
@@ -286,5 +286,12 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=exposeState_b1)}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Heat conduction along one dimension of a solid that is divided into volumes in series. <code>Conduction_2D</code> and <code>Conduction_3D</code> divide two and three dimensions into volumes, and <code>HMTransfer_1D</code> adds the diffusion of trace substances. Behavior shared by the discretized models is in <code>UsersGuide.DiscretizedModels</code>.</p>
+<h4>Use</h4>
+<ul>
+<li>A positive <code>velocity_1</code> moves material from <code>port_a1</code> toward <code>port_b1</code>. Material that enters at a port has the enthalpy of the material at that port's temperature, and the enthalpy it carries is part of the port's heat flow rate.</li>
+</ul>
+</html>"));
 end Conduction_1D;

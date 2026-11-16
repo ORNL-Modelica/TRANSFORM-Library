@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels;
-model HMTransfer_2D
+model HMTransfer_2D "2-D heat conduction and trace substance diffusion in a solid"
   import Modelica.Fluid.Types.Dynamics;
   import TRANSFORM.Math.linspaceRepeat_2Dedge;
   extends Conduction_2D;
@@ -18,16 +18,16 @@ model HMTransfer_2D
       {exposeState_b2,exposeState_a1,exposeState_a2,exposeState_b1})
     "Trace substance concentration" annotation (Dialog(tab="Initialization",
         group="Start Value: Concentration"));
-  parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Concentration at portM_a1"
+  parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration at the portM_a1 edge (interpolated)"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b1_start[nC]=C_a1_start "Concentration at portM_b1"
+  parameter SI.Concentration C_b1_start[nC]=C_a1_start "Start concentration at the portM_b1 edge (interpolated)"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_a2_start[nC]=fill(0,nC) "Concentration at portM_a2"
+  parameter SI.Concentration C_a2_start[nC]=fill(0,nC) "Start concentration at the portM_a2 edge (interpolated)"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b2_start[nC]=C_a2_start "Concentration at portM_b2"
+  parameter SI.Concentration C_b2_start[nC]=C_a2_start "Start concentration at the portM_b2 edge (interpolated)"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
   parameter Boolean adiabaticDimsMT[2]={false,false}
-    "=true, toggle off diffusive mass transfer in dimension {1,2}"
+    "= true to turn off diffusion along dimension {1,2}"
     annotation (Dialog(group="Trace Mass Transfer"));
   replaceable model DiffusionModel =
       BaseClasses.Dimensions_2.ForwardDifferenceMass_1O constrainedby BaseClasses.Dimensions_2.PartialDistributedMassFlow
@@ -49,16 +49,16 @@ model HMTransfer_2D
     final Cs_1=CsFM_1,
     final Cs_2=CsFM_2,
     final D_abs_1=D_absFM_1,
-    final D_abs_2=D_absFM_2) "Diffusion Model" annotation (Placement(
+    final D_abs_2=D_absFM_2) "Diffusion between volumes and to mass ports with exposeState=false" annotation (Placement(
         transformation(extent={{-58,62},{-42,78}}, rotation=0)));
   replaceable model DiffusionCoeff =
       TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient    constrainedby
     TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
-    "Diffusion Coefficient" annotation (Dialog(group="Trace Mass Transfer"),
+    "Diffusion coefficient" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
   DiffusionCoeff diffusionCoeff[nVs[1],nVs[2]](
     each final nC=nC,
-    final T=materials.T) "Diffusion Coefficient" annotation (Placement(
+    final T=materials.T) "Diffusion coefficient in each volume at its temperature" annotation (Placement(
         transformation(extent={{-38,42},{-22,58}}, rotation=0)));
   replaceable model InternalMassModel =
       BaseClasses.Dimensions_2.GenericMassGeneration constrainedby BaseClasses.Dimensions_2.PartialInternalMassGeneration
@@ -76,47 +76,47 @@ model HMTransfer_2D
     final Cs=Cs,
     final states=materials.state) "Internal mass generation model" annotation (Placement(
         transformation(extent={{-38,62},{-22,78}}, rotation=0)));
-  parameter Boolean use_nCs_scaled = false "=true to use der(nCs_scaled) = nCbs/C_nominal else der(nCs) = nCbs." annotation(Dialog(tab="Advanced"));
-  parameter SItf.NonDim C_nominal[nC] = fill(1e-6,nC) "Nominal concentration [mol/m3] for improved numeric stability" annotation(Dialog(tab="Advanced",enable=use_nCs_scaled));
+  parameter Boolean use_nCs_scaled = false "= true to write the mole balance on nCs/C_nominal, false on nCs" annotation(Dialog(tab="Advanced"));
+  parameter SItf.NonDim C_nominal[nC] = fill(1e-6,nC) "Nominal concentration that scales nCs_scaled [mol/m3]" annotation(Dialog(tab="Advanced",enable=use_nCs_scaled));
   // Total quantities
   SItf.Mole nCs[nVs[1],nVs[2],nC] "Trace substance moles";
-  SItf.Mole[nVs[1],nVs[2],nC] nCs_scaled "Scaled trace substance moles for improved numerical stability";
+  SItf.Mole[nVs[1],nVs[2],nC] nCs_scaled "Trace substance moles divided by C_nominal, if used";
   SI.Concentration Cs[nVs[1],nVs[2],nC](each stateSelect=StateSelect.prefer, start=
        Cs_start) "Trace substance concentration";
   // Energy Balance
   SI.MolarFlowRate nCbs[nVs[1],nVs[2],nC]
-    "Molar flow rate across volume interfaces (e.g., diffusion) and sources from volume states, (e.g., chemical reactions, external convection)";
+    "Net molar flow rates into volumes";
   Interfaces.MolePort_State portM_external[nVs[1],nVs[2]](each nC=nC)
-    "External mass transfer in non-discritized dimensions" annotation (
+    "External mass transfer in non-discretized dimension" annotation (
       Placement(transformation(extent={{-70,-110},{-50,-90}}),
         iconTransformation(extent={{-70,-110},{-50,-90}})));
   SI.MolarFlowRate nC_flows_1[nVs[1] + 1,nVs[2],nC]
-    "Molar flow rates across segment boundaries";
+    "Molar flow rates across dimension-1 segment boundaries";
   SI.MolarFlowRate nC_flows_2[nVs[1],nVs[2] + 1,nC]
-    "Molar flow rates across segment boundaries";
+    "Molar flow rates across dimension-2 segment boundaries";
   SI.Concentration C_a1[nVs[2],nC]
-    "Concentration defined by volume outside portM_a1";
+    "Concentration at portM_a1";
   SI.Concentration C_b1[nVs[2],nC]
-    "Concentration defined by volume outside portM_b1";
+    "Concentration at portM_b1";
   SI.Concentration C_a2[nVs[1],nC]
-    "Concentration defined by volume outside portM_a2";
+    "Concentration at portM_a2";
   SI.Concentration C_b2[nVs[1],nC]
-    "Concentration defined by volume outside portM_b2";
-  Interfaces.MolePort_Flow portM_a1[nVs[2]](each nC=nC)
+    "Concentration at portM_b2";
+  Interfaces.MolePort_Flow portM_a1[nVs[2]](each nC=nC) "Trace substance ports at start of dimension 1 (exposeState_a1)"
                                             annotation (Placement(
         transformation(extent={{-110,-50},{-90,-30}}),
                                                      iconTransformation(extent=
             {{-110,-50},{-90,-30}})));
-  Interfaces.MolePort_Flow    portM_b1[nVs[2]](each nC=nC)
+  Interfaces.MolePort_Flow    portM_b1[nVs[2]](each nC=nC) "Trace substance ports at end of dimension 1 (exposeState_b1)"
                                                annotation (Placement(
         transformation(extent={{90,-50},{110,-30}}),
                                                    iconTransformation(extent={{
             90,-50},{110,-30}})));
-  Interfaces.MolePort_Flow portM_a2[nVs[1]](each nC=nC)
+  Interfaces.MolePort_Flow portM_a2[nVs[1]](each nC=nC) "Trace substance ports at start of dimension 2 (exposeState_a2)"
                                             annotation (Placement(
         transformation(extent={{30,-110},{50,-90}}), iconTransformation(extent=
             {{30,-108},{50,-88}})));
-  Interfaces.MolePort_Flow    portM_b2[nVs[1]](each nC=nC)
+  Interfaces.MolePort_Flow    portM_b2[nVs[1]](each nC=nC) "Trace substance ports at end of dimension 2 (exposeState_b2)"
                                                annotation (Placement(
         transformation(extent={{30,90},{50,110}}), iconTransformation(extent={{
             30,90},{50,110}})));
@@ -356,5 +356,12 @@ for ic in 1:nC loop
   end for;
 end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Heat conduction and trace substance diffusion in two dimensions of a solid that is divided into a grid of volumes. It adds to <code>Conduction_2D</code> the concentration of each of <code>nC</code> trace substances in each volume.</p>
+<h4>Assumptions and limits</h4>
+<ul>
+<li>The heat side is that of <code>Conduction_2D</code>: the substances enter neither the energy balance nor the material properties.</li>
+</ul>
+</html>"));
 end HMTransfer_2D;
