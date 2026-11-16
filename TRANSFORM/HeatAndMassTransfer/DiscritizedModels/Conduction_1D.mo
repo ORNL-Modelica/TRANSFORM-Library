@@ -18,9 +18,9 @@ model Conduction_1D "Discretized 1-D heat conduction in a solid"
         nVs[1]));
   // Initialization
   parameter SI.Temperature T_a1_start=Material.T_reference
-    "Start temperature of the first volume (linear profile)"
+    "Start temperature at the port_a1 end of the linear profile"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.Temperature T_b1_start=T_a1_start "Start temperature of the last volume (linear profile)"
+  parameter SI.Temperature T_b1_start=T_a1_start "Start temperature at the port_b1 end of the linear profile"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter Real nParallel=1 "# of parallel components";
   // Advanced

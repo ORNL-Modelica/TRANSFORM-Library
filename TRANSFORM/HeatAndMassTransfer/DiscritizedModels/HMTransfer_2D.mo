@@ -102,21 +102,21 @@ model HMTransfer_2D "2-D heat conduction and trace substance diffusion in a soli
     "Concentration at portM_a2";
   SI.Concentration C_b2[nVs[1],nC]
     "Concentration at portM_b2";
-  Interfaces.MolePort_Flow portM_a1[nVs[2]](each nC=nC) "Trace substance ports at start of dimension 1 (exposeState_a1)"
+  Interfaces.MolePort_Flow portM_a1[nVs[2]](each nC=nC) "Trace substance ports at the start of dimension 1 (exposeState_a1)"
                                             annotation (Placement(
         transformation(extent={{-110,-50},{-90,-30}}),
                                                      iconTransformation(extent=
             {{-110,-50},{-90,-30}})));
-  Interfaces.MolePort_Flow    portM_b1[nVs[2]](each nC=nC) "Trace substance ports at end of dimension 1 (exposeState_b1)"
+  Interfaces.MolePort_Flow    portM_b1[nVs[2]](each nC=nC) "Trace substance ports at the end of dimension 1 (exposeState_b1)"
                                                annotation (Placement(
         transformation(extent={{90,-50},{110,-30}}),
                                                    iconTransformation(extent={{
             90,-50},{110,-30}})));
-  Interfaces.MolePort_Flow portM_a2[nVs[1]](each nC=nC) "Trace substance ports at start of dimension 2 (exposeState_a2)"
+  Interfaces.MolePort_Flow portM_a2[nVs[1]](each nC=nC) "Trace substance ports at the start of dimension 2 (exposeState_a2)"
                                             annotation (Placement(
         transformation(extent={{30,-110},{50,-90}}), iconTransformation(extent=
             {{30,-108},{50,-88}})));
-  Interfaces.MolePort_Flow    portM_b2[nVs[1]](each nC=nC) "Trace substance ports at end of dimension 2 (exposeState_b2)"
+  Interfaces.MolePort_Flow    portM_b2[nVs[1]](each nC=nC) "Trace substance ports at the end of dimension 2 (exposeState_b2)"
                                                annotation (Placement(
         transformation(extent={{30,90},{50,110}}), iconTransformation(extent={{
             30,90},{50,110}})));
