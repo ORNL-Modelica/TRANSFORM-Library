@@ -10,7 +10,7 @@ class Checklist "Checklist for a pull request"
 <li>Start values are on the Initialization tab in \"Start Value: ...\" groups, and no default is a number tuned from a run.</li>
 <li>New quantities use <code>SI.</code> or <code>SItf.</code> types. No new bare <code>Real</code> for a physical quantity.</li>
 <li>Each port's look matches what the component defines there.</li>
-<li>The page has a first paragraph and only headings from the fixed list. Every sentence passes the test: it states the promise, not the implementation.</li>
+<li>The page has a first paragraph and only headings from the fixed list. Every sentence passes the test: it states the promise, not the implementation, and a user would make a mistake without it. A fact the user's guide or a parent class already states is named, not repeated.</li>
 <li>Sources are cited with a key, an entry under \"References\" and a locator.</li>
 <li>Comments state what must stay true, in three lines or fewer, on their own line. No history, and no new commented-out code.</li>
 <li>An example has <code>TRANSFORM.Icons.Example</code>, an <code>experiment</code> annotation and, if it is a test, a <code>unitTests</code> block that tracks a value the model computes.</li>

@@ -5,9 +5,11 @@ class Documentation "What the page of a class holds"
 <p>The code is the definitive answer on what a class does. Its page holds what the code cannot say: what the class represents, when it is valid, where it comes from and how to set it up.</p>
 <p>Every public class that is not partial has a page with at least a first paragraph.</p>
 <h4>The test for a sentence</h4>
+<p>A short page that is right beats a long one. Every sentence must earn its place: name the mistake a user would make without it. If there is none, the sentence goes.</p>
 <p>Document the promise, not the implementation. For any sentence, ask: could someone change the equation section, keep what the class promises, and make this sentence false? If so, it does not belong on the page.</p>
 <ul>
 <li>Never on the page: default values, a list of the class's parameters or variables with their meanings (the tool builds that from the description strings), how a balance is arranged, which smoothing function is used.</li>
+<li>Not on the page either: what the parameter window, the icon or an error message already shows the user.</li>
 <li>A name from the code appears only where the reader has to use it: a value to set (<code>massDynamics=FixedInitial</code>), a port to connect, a variable to look at, or a term of an equation that is shown.</li>
 <li>A number appears when it is part of what the class promises: a validity range, or the coefficient that identifies a published correlation.</li>
 <li>An equation appears only when it is the class's identity, as for a correlation, and only if the description string does not already carry it. It is written as text in the model's own variable names, not as a picture.</li>
@@ -19,7 +21,7 @@ class Documentation "What the page of a class holds"
 <li>A figure, where words define symbols poorly: geometry, node numbering, sign conventions.</li>
 <li>Headings from the table below, in that order. A heading appears only when it has content. No other headings are used.</li>
 </ol>
-<p>Documentation is not inherited. Classes that share a base class each state the shared behaviour, briefly and in the same words.</p>
+<p>One home per fact. A convention of the whole library is stated once, in the user's guide: <code>UsersGuide.Connectors</code> for ports a parameter can switch, <code>UsersGuide.nParallel</code> for parallel components, <code>UsersGuide.DiscretizedModels</code> for discretized models. Behaviour shared by a family of classes is stated once, on the page of the class the others build on. A class's page says only what is specific to it, or where it departs from the convention, and may name the page or class that holds a shared fact.</p>
 <p>In the table, \"yes\" means the heading is expected for that kind of class and \"if needed\" means it is used when there is something to say. An empty cell means it is not used.</p>
 <table border=\"1\" cellspacing=\"0\" cellpadding=\"2\">
 <tr><th>Heading, in page order</th><th>Component</th><th>Correlation</th><th>Material or medium</th><th>Function</th><th>Example</th><th>Validation example</th><th>Package</th></tr>
