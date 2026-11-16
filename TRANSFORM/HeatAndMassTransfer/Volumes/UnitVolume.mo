@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.Volumes;
 model UnitVolume
   import Modelica.Fluid.Types.Dynamics;
   extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
-  parameter Real nParallel=1 "Number of parallel components";
+  parameter Real nParallel=1 "# of parallel components";
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of energy balances"
     annotation (Dialog(tab="Initialization", group="Dynamics"));

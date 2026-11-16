@@ -31,7 +31,7 @@ model Conduction_2D "2-D Conduction Models"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_b2_start=T_a2_start "Temperature at port b2"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter Real nParallel=1 "Number of parallel components";
+  parameter Real nParallel=1 "# of parallel components";
   // Advanced
   parameter Boolean exposeState_a1=true
     "=true, T is calculated at port_a1 else Q_flow" annotation (Dialog(group=
@@ -41,7 +41,7 @@ model Conduction_2D "2-D Conduction Models"
           "Model Structure", tab="Advanced"));
   final parameter Integer nFM_1=if exposeState_a1 and exposeState_b1 then nVs[1]
        - 1 else if not exposeState_a1 and not exposeState_b1 then nVs[1] + 1
-       else nVs[1] "number of flow models";
+       else nVs[1] "# of flow models";
   parameter Boolean exposeState_a2=true
     "=true, T is calculated at port_a2 else Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
@@ -50,7 +50,7 @@ model Conduction_2D "2-D Conduction Models"
           "Model Structure", tab="Advanced"));
   final parameter Integer nFM_2=if exposeState_a2 and exposeState_b2 then nVs[2]
        - 1 else if not exposeState_a2 and not exposeState_b2 then nVs[2] + 1
-       else nVs[2] "number of flow models";
+       else nVs[2] "# of flow models";
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D
@@ -114,13 +114,13 @@ model Conduction_2D "2-D Conduction Models"
   SI.HeatFlowRate Q_flows_2[nVs[1],nVs[2] + 1]
     "Heat flow rates across segment boundaries";
   Material.ThermodynamicState state_a1[nVs[2]]
-    "state defined by volume outside port_a1";
+    "State defined by volume outside port_a1";
   Material.ThermodynamicState state_b1[nVs[2]]
-    "state defined by volume outside port_b1";
+    "State defined by volume outside port_b1";
   Material.ThermodynamicState state_a2[nVs[1]]
-    "state defined by volume outside port_a2";
+    "State defined by volume outside port_a2";
   Material.ThermodynamicState state_b2[nVs[1]]
-    "state defined by volume outside port_b2";
+    "State defined by volume outside port_b2";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 //   parameter Boolean connectDim_1 = true "=false to remove automatic connection based on closed geometry" annotation(Dialog(tab="Advanced"));
 //   parameter Boolean connectDim_2 = true "=false to remove automatic connection based on closed geometry" annotation(Dialog(tab="Advanced"));

@@ -5,14 +5,14 @@ model Shs "Specify Shs Number"
   input SItf.SherwoodNumber Sh0[nC]=fill(7.54,nC) "Nusselt number"
     annotation (Dialog(group="Inputs"));
   input SItf.SherwoodNumber Shs0[nMT,nC]=fillArray_1D(Sh0, nMT)
-    "if non-uniform then set" annotation (Dialog(group="Inputs"));
+    "If non-uniform then set" annotation (Dialog(group="Inputs"));
   parameter Boolean use_DefaultDimension=true
     "= false to set characteristic dimension else from geometry model"
     annotation (Dialog(group="Inputs"));
   input SI.Length dimension0=0 "Characteristic dimension" annotation (Dialog(
         group="Inputs", enable=not use_DefaultDimension));
   input SI.Length dimensions0[nMT]=fill(dimension0, nMT)
-    "if non-uniform then set" annotation (Dialog(group="Inputs",
+    "If non-uniform then set" annotation (Dialog(group="Inputs",
         enable=not use_DefaultDimension));
   SI.Length[nMT] L_char "Characteristic length";
 equation

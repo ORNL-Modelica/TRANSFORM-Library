@@ -1,8 +1,8 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass;
 model CounterFlow
   "Switch mass concentration arrays for counter flow cases"
-  parameter Integer nC = 2 "Number of substances";
-  parameter Integer n=1 "Number of connected elements";// annotation(Dialog(connectorSizing=true));
+  parameter Integer nC = 2 "# of substances";
+  parameter Integer n=1 "# of connected elements";// annotation(Dialog(connectorSizing=true));
   parameter Boolean counterCurrent=false
     "Swap concentration and flux vector order";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));

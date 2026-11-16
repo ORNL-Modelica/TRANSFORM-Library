@@ -25,7 +25,7 @@ model Figure_1_14_NumericalSolutions
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=20)
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
-  Modelica.Blocks.Sources.Constant r_out(each k=0.2) "radius outer"
+  Modelica.Blocks.Sources.Constant r_out(each k=0.2) "Radius outer"
     annotation (Placement(transformation(extent={{-100,54},{-92,62}})));
   Resistances.Heat.Convection h_out(alpha=200, surfaceArea=cylinder.geometry.crossAreas_1
         [end]) annotation (Placement(transformation(extent={{30,-10},{50,10}})));
@@ -34,7 +34,7 @@ model Figure_1_14_NumericalSolutions
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_inf_in(T(
         displayUnit="degC") = 293.15)
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
-  Modelica.Blocks.Sources.Constant r_in(each k=0.1) "inner radius"
+  Modelica.Blocks.Sources.Constant r_in(each k=0.1) "Inner radius"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot CylinderTemperature(
     minX=0.1,

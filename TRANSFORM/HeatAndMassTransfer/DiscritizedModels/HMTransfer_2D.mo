@@ -3,7 +3,7 @@ model HMTransfer_2D
   import Modelica.Fluid.Types.Dynamics;
   import TRANSFORM.Math.linspaceRepeat_2Dedge;
   extends Conduction_2D;
-  parameter Integer nC = 1 "Number of substances";
+  parameter Integer nC = 1 "# of substances";
   // Initialization
   parameter Dynamics traceDynamics=energyDynamics
     "Formulation of trace substance balances"

@@ -4,7 +4,7 @@ partial model PartialHeatTransfer
   replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
                                             "Medium in the component"
     annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
-  parameter Integer nHT=1 "Number of heat transfer segments"
+  parameter Integer nHT=1 "# of heat transfer segments"
     annotation (Dialog(tab="Internal Interface"));
   parameter Integer flagIdeal = 0 "Flag for models to handle ideal heat transfer" annotation (Dialog(tab="Internal Interface"));
   input Medium.ThermodynamicState states[nHT] "Thermodynamic state of fluid"

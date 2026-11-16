@@ -3,9 +3,9 @@ partial model PartialMassTransfer "Base model"
   replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
                                             "Medium in the component"
     annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
-  parameter Integer nMT=1 "Number of mass transfer segments"
+  parameter Integer nMT=1 "# of mass transfer segments"
     annotation (Dialog(tab="Internal Interface"));
-  parameter Integer nC = 1 "Number of substances"
+  parameter Integer nC = 1 "# of substances"
     annotation (Dialog(tab="Internal Interface"));
   parameter Integer flagIdeal = 0 "Flag for models to handle ideal heat transfer" annotation (Dialog(tab="Internal Interface"));
   input Medium.ThermodynamicState states[nMT] "Thermodynamic state of fluid"

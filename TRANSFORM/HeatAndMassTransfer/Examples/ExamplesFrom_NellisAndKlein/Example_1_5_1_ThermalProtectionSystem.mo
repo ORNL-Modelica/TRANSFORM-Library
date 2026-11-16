@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein;
 model Example_1_5_1_ThermalProtectionSystem
-  "part a) Determine heat flus to air and the rate the the ablative shield is consumed"
+  "Part a) Determine heat flux to air and the rate the ablative shield is consumed"
   import TRANSFORM;
   extends Icons.Example;
   parameter SI.Length shield_th0 = 0.05 "Initial shield thickness";

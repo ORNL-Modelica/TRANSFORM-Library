@@ -2,13 +2,13 @@ within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein;
 model ConveyorBeltDesign "Example 3.1-1 Design of a conveyor belt pp. 307-309"
   extends Icons.Example;
   Modelica.Blocks.Sources.Constant L(each k=
-        SItf.Conversions.Functions.Distance_m.from_ft(15)) "conveyor length"
+        SItf.Conversions.Functions.Distance_m.from_ft(15)) "Conveyor length"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
-  Modelica.Blocks.Sources.Constant D(each k=0.1) "diameter"
+  Modelica.Blocks.Sources.Constant D(each k=0.1) "Diameter"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
-  Modelica.Blocks.Sources.Constant alpha(each k=15) "heat transfer coefficient"
+  Modelica.Blocks.Sources.Constant alpha(each k=15) "Heat transfer coefficient"
     annotation (Placement(transformation(extent={{-54,84},{-46,92}})));
-  Modelica.Blocks.Sources.Constant th(each k=0.002) "thickness"
+  Modelica.Blocks.Sources.Constant th(each k=0.002) "Thickness"
     annotation (Placement(transformation(extent={{-100,56},{-92,64}})));
   Utilities.CharacteristicNumbers.Models.BiotNumber biotNumber(
     alpha=alpha.y,
@@ -16,16 +16,16 @@ model ConveyorBeltDesign "Example 3.1-1 Design of a conveyor belt pp. 307-309"
     lambda=lambda.y)
     annotation (Placement(transformation(extent={{-72,2},{-52,22}})));
   Modelica.Blocks.Sources.RealExpression V(y=Modelica.Constants.pi*0.25*D.y^2*
-        th.y) "volume"
+        th.y) "Volume"
     annotation (Placement(transformation(extent={{-40,78},{-20,98}})));
   Modelica.Blocks.Sources.RealExpression As(y=Modelica.Constants.pi*0.25*D.y^2)
-    "surface area for heat transfer: ignoring edge"
+    "Surface area for heat transfer: ignoring edge"
     annotation (Placement(transformation(extent={{-40,62},{-20,82}})));
-  Modelica.Blocks.Sources.Constant lambda(each k=0.35) "thermal conductivity"
+  Modelica.Blocks.Sources.Constant lambda(each k=0.35) "Thermal conductivity"
     annotation (Placement(transformation(extent={{-68,84},{-60,92}})));
-  Modelica.Blocks.Sources.Constant d(each k=1100) "density"
+  Modelica.Blocks.Sources.Constant d(each k=1100) "Density"
     annotation (Placement(transformation(extent={{-68,70},{-60,78}})));
-  Modelica.Blocks.Sources.Constant cp(each k=1900) "heat capacity"
+  Modelica.Blocks.Sources.Constant cp(each k=1900) "Heat capacity"
     annotation (Placement(transformation(extent={{-68,56},{-60,64}})));
   Utilities.Visualizers.displayReal display_tau_lumped(use_port=true)
     annotation (Placement(transformation(extent={{-42,-20},{-22,0}})));
@@ -48,7 +48,7 @@ model ConveyorBeltDesign "Example 3.1-1 Design of a conveyor belt pp. 307-309"
         extent={{-10,-10},{10,10}},
         rotation=-90,
         origin={20,30})));
-  Modelica.Blocks.Sources.RealExpression T(y=plasticDisk.T) "disk temperature"
+  Modelica.Blocks.Sources.RealExpression T(y=plasticDisk.T) "Disk temperature"
     annotation (Placement(transformation(extent={{-82,-70},{-62,-50}})));
   Blocks.TimerTotal             timer
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
@@ -56,25 +56,25 @@ model ConveyorBeltDesign "Example 3.1-1 Design of a conveyor belt pp. 307-309"
        Tmax.k)
     annotation (Placement(transformation(extent={{-46,-70},{-26,-50}})));
   Utilities.Visualizers.displayReal display_time(use_port=true)
-    "stops changing when T < T_max"
+    "Stops changing when T < T_max"
     annotation (Placement(transformation(extent={{28,-70},{48,-50}})));
   Modelica.Blocks.Sources.RealExpression uc(y=L.y/max(0.0001, timer.y))
-    "conveyor velocity"
+    "Conveyor velocity"
     annotation (Placement(transformation(extent={{-24,-98},{-4,-78}})));
   Utilities.Visualizers.displayReal display_u(use_port=true, precision=4)
-    "stops changing when T < T_max"
+    "Stops changing when T < T_max"
     annotation (Placement(transformation(extent={{4,-98},{24,-78}})));
   Modelica.Blocks.Sources.Constant Tmax(each k=
         SItf.Conversions.Functions.Temperature_K.from_degC(80))
-    "maximum acceptable disk temperature"
+    "Maximum acceptable disk temperature"
     annotation (Placement(transformation(extent={{-84,56},{-76,64}})));
   Modelica.Blocks.Sources.Constant Tinf(k=
         SItf.Conversions.Functions.Temperature_K.from_degC(20))
-    "ambient temperature"
+    "Ambient temperature"
     annotation (Placement(transformation(extent={{-84,70},{-76,78}})));
   Modelica.Blocks.Sources.Constant Tini(each k=
         SItf.Conversions.Functions.Temperature_K.from_degC(180))
-    "initial plastic disk temperature"
+    "Initial plastic disk temperature"
     annotation (Placement(transformation(extent={{-84,84},{-76,92}})));
   Utilities.CharacteristicNumbers.Models.LumpedHeatTimeConstant tau_lumped(
     R=1/(alpha.y*As.y),

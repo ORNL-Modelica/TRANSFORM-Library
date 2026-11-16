@@ -5,7 +5,7 @@ partial model PartialGeometry_2D
       choice=2 "Cylinder",
       choice=3 "Sphere"));
   parameter Integer ns[2](each min=1) = {1,1}
-    "Number of nodes in each dimension {1,2}";
+    "# of nodes in each dimension {1,2}";
   final parameter Integer n_total=ns[1]*ns[2] "Total number of nodes";
   parameter Boolean closedDim_1[ns[2]](each fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));
   parameter Boolean closedDim_2[ns[1]](each fixed=false) "=true if the conduction path is closed on itself for specified dimension" annotation(Dialog(tab="Internal Interface"));

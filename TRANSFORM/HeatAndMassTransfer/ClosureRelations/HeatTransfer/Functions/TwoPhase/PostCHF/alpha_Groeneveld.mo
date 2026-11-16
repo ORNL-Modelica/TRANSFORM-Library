@@ -24,8 +24,8 @@ protected
   Real Nu "Nusselt number of vapor phase";
   Real Y;
   Real epsilon_hom "Void fraction in the homogenous flow";
-  Real status_p=if rho_lsat/rho_vsat > 6 then 1 else 0 "pressure status";
-  Real status_G=if m_flow/crossArea < 2000 then 10 else 0 "mass flux status";
+  Real status_p=if rho_lsat/rho_vsat > 6 then 1 else 0 "Pressure status";
+  Real status_G=if m_flow/crossArea < 2000 then 10 else 0 "Mass flux status";
 algorithm
   status := status_p + status_G;
   Re := D_hyd*abs(m_flow)/(crossArea*mu_vsat);

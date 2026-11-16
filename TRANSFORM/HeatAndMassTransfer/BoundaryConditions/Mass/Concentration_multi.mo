@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass;
 model Concentration_multi "Mass concentration boundary condition"
   parameter Integer nPorts = 1 "# of ports";
-  parameter Integer nC = 1 "Number of substances";
+  parameter Integer nC = 1 "# of substances";
   parameter Boolean use_port=false "=true then use input port"
     annotation (
     Evaluate=true,

@@ -7,7 +7,7 @@ model VolumetricHeatGeneration
       q_ppp,
       nVs[1],
       nVs[2],
-      nVs[3]) "if non-uniform then set q_ppps"
+      nVs[3]) "If non-uniform then set q_ppps"
     annotation (Dialog(group="Inputs"));
 equation
   for i in 1:nVs[1] loop

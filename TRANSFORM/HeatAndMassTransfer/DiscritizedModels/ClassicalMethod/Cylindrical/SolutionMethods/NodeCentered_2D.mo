@@ -333,6 +333,6 @@ end if;
 <p>Note that the nodes lie along the boundaries. </p>
 <p>This governs the ability, or lack thereof, to use predefined boundary conditions. </p>
 <p>For example, this stencil WILL NOT directly interface with &apos;DynamicPipe&apos; because that requires volume centered Q_flow and T values.</p>
-<p><img src=\"modelica://TRANSFORM/../Resources/Images/Thermal/Conduction/FiniteDifference/FD_NodeCentered_2DCyl.PNG\"/></p>
+<p><img src=\"modelica://TRANSFORM/Resources/Images/NonPowerPoint/FiniteDifference/FD_NodeCentered_2DCyl.PNG\" alt=\"Finite-difference stencil for a 2-D cylinder, node-centered\"/></p>
 </html>"));
 end NodeCentered_2D;

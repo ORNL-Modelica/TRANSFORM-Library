@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model Collector
-  parameter Integer n(min=1)=1 "Number of collected heat flows";
+  parameter Integer n(min=1)=1 "# of collected heat flows";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
   Interfaces.HeatPort_Flow port_a[n]
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));

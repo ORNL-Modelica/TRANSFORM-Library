@@ -6,7 +6,7 @@ model TotalHeatGeneration
   input SI.HeatFlowRate Q_gens[nVs[1],nVs[2]]=fill(
       Q_gen/(nVs[1]*nVs[2]),
       nVs[1],
-      nVs[2]) "if non-uniform then set Q_gens"
+      nVs[2]) "If non-uniform then set Q_gens"
     annotation (Dialog(group="Inputs"));
 equation
   for i in 1:nVs[1] loop

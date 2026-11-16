@@ -5,7 +5,7 @@ model ConvectionMedia
   replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
                                             "Medium in the component"
     annotation (choicesAllMatching=true);
-  parameter Integer n=1 "Number of heat transfer segments";
+  parameter Integer n=1 "# of heat transfer segments";
   input Medium.ThermodynamicState[n] states=Medium.setState_pTX(fill(1e5, n),
       port_b.T) "Thermodynamic state of fluid at port_b"
     annotation (Dialog(group="Inputs"));

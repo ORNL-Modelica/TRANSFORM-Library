@@ -19,7 +19,7 @@ model part_b1_LesionExtent
           q_ppp=3*Q_gen_ts.y/(4*Modelica.Constants.pi*r_ts.k^3)))
     annotation (Placement(transformation(extent={{-30,-10},{-10,10}})));
   Modelica.Blocks.Sources.Constant r_ts(each k=0.001)
-    "radius of thermoseed"
+    "Radius of thermoseed"
     annotation (Placement(transformation(extent={{-100,68},{-92,76}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1_ts(k=10)
     annotation (Placement(transformation(extent={{-100,82},{-92,90}})));
@@ -41,7 +41,7 @@ model part_b1_LesionExtent
   Modelica.Blocks.Sources.IntegerConstant nNodes_1_t(k=100)
     annotation (Placement(transformation(extent={{-86,82},{-78,90}})));
   Modelica.Blocks.Sources.Constant r_t(each k=1)
-    "radius of infiinite medium"
+    "Radius of infinite medium"
     annotation (Placement(transformation(extent={{-100,54},{-92,62}})));
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePlot(
     x=SItf.Conversions.Functions.Distance_m.to_mm(cat(

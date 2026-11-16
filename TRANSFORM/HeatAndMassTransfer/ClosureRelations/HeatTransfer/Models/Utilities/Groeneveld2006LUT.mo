@@ -152,15 +152,15 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
 <p>Prediction of the critical heat flux using the 2006 Groeneveld Look-Up Table as presented in 2006 CHF Look-Up Table, Nuclear Engineering and Design 237, pp. 190-1922.</p>
-<p><u><span style=\"font-family: Courier New;\">Correction Factor Definitions</span></u></p>
-<p><span style=\"font-family: Courier New;\">K1 &quot;Diameter Effect Factor&quot;</span></p>
-<p><span style=\"font-family: Courier New;\">K2 &quot;Bundle Geometry Factor&quot;</span></p>
-<p><span style=\"font-family: Courier New;\">K3 &quot;Mid-Plane Spacer Factor&quot;</span></p>
-<p><span style=\"font-family: Courier New;\">K4 &quot;Heated Length Factor&quot;</span></p>
-<p><span style=\"font-family: Courier New;\">K5 &quot;Axial Flux Distribution Factor&quot;</span></p>
-<p><span style=\"font-family: Courier New;\">K6 &quot;Radial/Circumferential (R/C) Flux Distribution Factor&quot;</span></p>
-<p><span style=\"font-family: Courier New;\">K7&nbsp;&quot;Flow-Orientation&nbsp;Factor&quot;</span></p>
-<p><span style=\"font-family: Courier New;\">K8 &quot;Vertical Low-Flow Factor - A minus sign refers to downward flow&quot;</span></p>
-<p><br><span style=\"font-family: Courier New;\">Note: If K(3) is used then K(4) = 1. This is because K(3) already includes the heated length effect. This condition is handled in the code.</span></p>
+<p><u>Correction Factor Definitions</u></p>
+<p><code>K1 &quot;Diameter Effect Factor&quot;</code></p>
+<p><code>K2 &quot;Bundle Geometry Factor&quot;</code></p>
+<p><code>K3 &quot;Mid-Plane Spacer Factor&quot;</code></p>
+<p><code>K4 &quot;Heated Length Factor&quot;</code></p>
+<p><code>K5 &quot;Axial Flux Distribution Factor&quot;</code></p>
+<p><code>K6 &quot;Radial/Circumferential (R/C) Flux Distribution Factor&quot;</code></p>
+<p><code>K7&nbsp;&quot;Flow-Orientation&nbsp;Factor&quot;</code></p>
+<p><code>K8 &quot;Vertical Low-Flow Factor - A minus sign refers to downward flow&quot;</code></p>
+<p><br>Note: If K(3) is used then K(4) = 1. This is because K(3) already includes the heated length effect. This condition is handled in the code.</p>
 </html>"));
 end Groeneveld2006LUT;

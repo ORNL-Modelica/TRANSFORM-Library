@@ -15,7 +15,7 @@ model Example_2_2_1_2DFin
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_inf[
     nNodes_1.k](each T=293.15)
     annotation (Placement(transformation(extent={{-30,-80},{-10,-60}})));
-  Modelica.Blocks.Sources.Constant th(each k=0.04) "thickness of fin"
+  Modelica.Blocks.Sources.Constant th(each k=0.04) "Thickness of fin"
     annotation (Placement(transformation(extent={{-100,58},{-92,66}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic bound_right[
     nNodes_2.k]
