@@ -14,7 +14,7 @@ class Descriptions "Description strings"
 <h4>Form</h4>
 <ul>
 <li>It is written in sentence case: a capital first letter, then capitals only for names and symbols. A description that starts with <code>#</code> or <code>=</code> has no letter to capitalize. It has no final period.</li>
-<li>It carries no unit. The type carries the unit.</li>
+<li>It carries no unit. The type carries the unit. Where the type has none, as for a test signal or a column of a data table, the description names the unit: <code>\"Mass flux [kg/(m2.s)]\"</code>.</li>
 <li>It fits on one line of the parameter window: about 60 characters. What needs more room goes in the documentation.</li>
 <li>A description may be split over source lines with <code>+</code>, but the parameter window still shows it as one line. A description that needs a second source line needs a reason.</li>
 </ul>
