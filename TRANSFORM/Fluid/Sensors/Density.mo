@@ -3,8 +3,8 @@ model Density "Ideal one port density sensor"
   extends BaseClasses.PartialAbsoluteSensor;
   extends BaseClasses.PartialMultiSensor_1values(final var=d,
       redeclare replaceable function iconUnit =
-        TRANSFORM.Units.Conversions.Functions.Density_kg_m3.to_kg_m3
-      constrainedby TRANSFORM.Units.Conversions.Functions.Density_kg_m3.BaseClasses.to);
+        SItf.Conversions.Functions.Density_kg_m3.to_kg_m3
+      constrainedby SItf.Conversions.Functions.Density_kg_m3.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput d(final quantity="Density",
                                           final unit="kg/m3",
                                           min=0) "Density in port medium"

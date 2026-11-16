@@ -3,9 +3,9 @@ function EPRI_quality
   input SI.HeatFlux q_flux "Local heat flux";
   input SI.HeatFlux q_avg "Average heat flux";
   input Real x_th "Local thermodynamic quality";
-  input SIadd.MassFlux G "Mass flux";
+  input SItf.MassFlux G "Mass flux";
   input SI.Pressure P_red "Reduced pressure (i.e., P/P_crit)";
-  input SIadd.NonDim K_g=1.0 "Grid spacer pressure loss coefficient";
+  input SItf.NonDim K_g=1.0 "Grid spacer pressure loss coefficient";
   input Boolean cwall=false "=true to use cold wall correction factor";
   input Boolean nu=false "=true to use nonuniform heat flux correction factor";
   output SI.HeatFlux x_CHF "Critical heat flux prediction";

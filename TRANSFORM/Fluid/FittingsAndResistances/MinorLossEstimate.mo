@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.FittingsAndResistances;
 model MinorLossEstimate
 
-  input TRANSFORM.Units.NonDim K "Minor loss coefficients"
+  input SItf.NonDim K "Minor loss coefficients"
     annotation (Dialog(group="Inputs"));
   input SI.Density rho "Density" annotation (Dialog(group="Inputs"));
   input SI.Velocity v "Velocity" annotation (Dialog(group="Inputs"));

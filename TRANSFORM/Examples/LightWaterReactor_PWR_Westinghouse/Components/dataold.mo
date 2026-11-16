@@ -2,23 +2,23 @@ within TRANSFORM.Examples.LightWaterReactor_PWR_Westinghouse.Components;
 record dataold
   // parameters to reference in model
   parameter SI.MassFlowRate m_flow_steam_nominal=
-      Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr(1.8e6);                                                       // steamRate*lb_to_kg/3600;
+      SItf.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr(1.8e6);                                                       // steamRate*lb_to_kg/3600;
   parameter SI.MassFlowRate m_flow_circulation_nominal=
-      Units.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr(2.2e6);                                                                   //drumRecirculationRate*lb_to_kg/3600*10^6;
+      SItf.Conversions.Functions.MassFlowRate_kg_s.from_lbm_hr(2.2e6);                                                                   //drumRecirculationRate*lb_to_kg/3600*10^6;
   parameter SI.Pressure p_steam_nominal=
-      Units.Conversions.Functions.Pressure_Pa.from_psi(1000);                                                 // steamPressure*psi_to_Pa;
+      SItf.Conversions.Functions.Pressure_Pa.from_psi(1000);                                                 // steamPressure*psi_to_Pa;
   parameter SI.Pressure p_SG_inlet_nominal=
-      Units.Conversions.Functions.Pressure_Pa.from_psi(1036);                                                //pin_SG_water*psi_to_Pa;
+      SItf.Conversions.Functions.Pressure_Pa.from_psi(1036);                                                //pin_SG_water*psi_to_Pa;
   parameter SI.Pressure p_condenser_nominal=
-      Units.Conversions.Functions.Pressure_Pa.from_inHg(2.5);                                                     //condenserPressure*inchMercuryAbs_to_Pa;
+      SItf.Conversions.Functions.Pressure_Pa.from_inHg(2.5);                                                     //condenserPressure*inchMercuryAbs_to_Pa;
   parameter SI.HeatFlowRate Q_condenser_nominal=
-      Units.Conversions.Functions.Power_W.from_btu_hr(3.1e9);                                                       // condenserHeatRate*btu_per_h_to_Watt/3600;
+      SItf.Conversions.Functions.Power_W.from_btu_hr(3.1e9);                                                       // condenserHeatRate*btu_per_h_to_Watt/3600;
   parameter SI.Temperature T_steam_nominal=
-      Units.Conversions.Functions.Temperature_K.from_degF(545);
+      SItf.Conversions.Functions.Temperature_K.from_degF(545);
   parameter SI.Temperature T_feedwater_nominal=
-      Units.Conversions.Functions.Temperature_K.from_degF(420);
+      SItf.Conversions.Functions.Temperature_K.from_degF(420);
   parameter SI.Temperature T_SG_inlet_nominal=
-      Units.Conversions.Functions.Temperature_K.from_degF(440);
+      SItf.Conversions.Functions.Temperature_K.from_degF(440);
   // Pressure
   parameter SI.Pressure p_boiler_nominal=p_steam_nominal
     "Nominal boiler pressure"

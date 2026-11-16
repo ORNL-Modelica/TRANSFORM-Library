@@ -1,13 +1,13 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Functions.TwoPhase.CHF;
 function Biasi_quality
-  input SIadd.MassFlux G "Mass flux";
+  input SItf.MassFlux G "Mass flux";
   input SI.Pressure p "Pressure";
   input SI.Length L_B "Length of pipe in two phase region (boiling length)";
   input SI.Length D_htd "Heated diameter";
   input SI.SpecificEnthalpy h_lv "Latent heat of vaporization";
   input SI.Length perimeter = Modelica.Constants.pi*D_htd "Wetted perimeter";
   input SI.Length perimeter_htd = Modelica.Constants.pi*D_htd "Heated perimeter";
-  input SIadd.NonDim R_f = 1 "Radial peaking factor";
+  input SItf.NonDim R_f = 1 "Radial peaking factor";
   output SI.HeatFlux x_CHF "Critical heat flux prediction";
 protected
   Real p_bar = p/100000 "[Pa] to [bar]";

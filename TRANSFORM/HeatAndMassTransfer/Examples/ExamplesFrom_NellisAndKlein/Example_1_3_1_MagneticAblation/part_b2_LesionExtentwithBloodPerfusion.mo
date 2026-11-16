@@ -48,7 +48,7 @@ model part_b2_LesionExtentwithBloodPerfusion
     "radius of infiinite medium"
     annotation (Placement(transformation(extent={{-100,54},{-92,62}})));
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePlot(
-    x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_mm(cat(
+    x=SItf.Conversions.Functions.Distance_m.to_mm(cat(
         1,
         {0},
         thermoseed.geometry.rs,
@@ -57,7 +57,7 @@ model part_b2_LesionExtentwithBloodPerfusion
     maxY=200,
     minY=50,
     maxX=10,
-    y=TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {Adiabatic.port.T},
         thermoseed.materials.T,
@@ -69,13 +69,13 @@ model part_b2_LesionExtentwithBloodPerfusion
   Modelica.Blocks.Sources.Constant T_lethal(k=323.15)
     annotation (Placement(transformation(extent={{-100,20},{-92,28}})));
   Modelica.Blocks.Sources.RealExpression r_lesion(y=
-        TRANSFORM.Units.Conversions.Functions.Distance_m.to_mm(tissue.geometry.rs[
+        SItf.Conversions.Functions.Distance_m.to_mm(tissue.geometry.rs[
         integer(node.y)]))
     annotation (Placement(transformation(extent={{-34,62},{-18,74}})));
   Utilities.Visualizers.displayReal display(use_port=true)
     annotation (Placement(transformation(extent={{-10,58},{10,78}})));
   Modelica.Blocks.Sources.RealExpression T_max(y=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(tissue.materials.T)))
+        SItf.Conversions.Functions.Temperature_K.to_degC(max(tissue.materials.T)))
     annotation (Placement(transformation(extent={{-34,48},{-18,60}})));
   Utilities.Visualizers.displayReal display1(use_port=true)
     annotation (Placement(transformation(extent={{-10,44},{10,64}})));

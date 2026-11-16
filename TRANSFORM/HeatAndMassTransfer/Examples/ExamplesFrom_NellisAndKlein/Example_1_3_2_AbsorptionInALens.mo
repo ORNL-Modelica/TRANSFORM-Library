@@ -35,13 +35,13 @@ model Example_1_3_2_AbsorptionInALens
     Ambient_bottom(T=293.15)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePlot(
-    x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_mm(lense.geometry.xs),
+    x=SItf.Conversions.Functions.Distance_m.to_mm(lense.geometry.xs),
     maxX=10,
-    y=TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(lense.materials.T),
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(lense.materials.T),
     minY=35.6,
     maxY=36.4) "X - Axial Location (mm) | T - Temperature (C)" annotation (Placement(transformation(extent={{-30,-78},{30,-20}})));
   Modelica.Blocks.Sources.RealExpression position(y=
-        TRANSFORM.Units.Conversions.Functions.Distance_m.to_cm(lense.geometry.xs[
+        SItf.Conversions.Functions.Distance_m.to_cm(lense.geometry.xs[
         Modelica.Math.Vectors.find(
         max(lense.materials.T),
         lense.materials.T,
@@ -50,7 +50,7 @@ model Example_1_3_2_AbsorptionInALens
   Utilities.Visualizers.displayReal display(use_port=true)
     annotation (Placement(transformation(extent={{-20,66},{0,86}})));
   Modelica.Blocks.Sources.RealExpression T_max(y=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(lense.materials.T)))
+        SItf.Conversions.Functions.Temperature_K.to_degC(max(lense.materials.T)))
     annotation (Placement(transformation(extent={{-44,56},{-28,68}})));
   Utilities.Visualizers.displayReal display1(use_port=true)
     annotation (Placement(transformation(extent={{-20,52},{0,72}})));

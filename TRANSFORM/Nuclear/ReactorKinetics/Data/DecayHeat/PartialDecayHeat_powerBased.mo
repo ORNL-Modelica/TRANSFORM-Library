@@ -5,8 +5,8 @@ partial record PartialDecayHeat_powerBased
   final constant Integer nC=size(extraPropertiesNames, 1) "# of decay-heat groups";
   constant Real C_nominal[nC]=fill(1e14, nC) "Nominal amounts that scale the trace-substance inventories in fluid volumes; see the documentation of ReactorKinetics.Data";
   // Data
-  parameter TRANSFORM.Units.InverseTime[nC] lambdas "Decay constants for each decay-heat group";
-  parameter Units.NonDim efs[nC]
+  parameter SItf.InverseTime[nC] lambdas "Decay constants for each decay-heat group";
+  parameter SItf.NonDim efs[nC]
     "Decay-heat group fractions of fission power";
   annotation (defaultComponentName="data",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

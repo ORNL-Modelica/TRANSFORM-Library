@@ -24,7 +24,7 @@ model ShellSide_STHX
     annotation (Dialog(group="Inputs: Tube"));
   input SI.Length D_o_tube   "Outer diameter of tubes"
     annotation (Dialog(group="Inputs: Tube"));
-  Units.NonDim lengthRatio = length_tube/length_shell "Ratio of tube length to shell length";
+  SItf.NonDim lengthRatio = length_tube/length_shell "Ratio of tube length to shell length";
   SI.Area crossAreaWithLratio_tube = 0.25*pi*D_o_tube*D_o_tube*nTubes*lengthRatio "Estimate of cross sectional area of tubes (exact if tubes are circular) with an unequal shell-tube length factor correction";
   SI.Length perimeterWithLratio_tube = pi*D_o_tube*nTubes*lengthRatio "Wetted perimeter of tubes in shell with an unequal shell-tube length factor correction";
   SI.Area crossArea_shell = crossAreaEmpty_shell-crossAreaWithLratio_tube "Cross-sectional flow area of shell";

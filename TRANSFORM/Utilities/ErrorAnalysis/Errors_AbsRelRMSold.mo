@@ -9,11 +9,11 @@ input Real[n] x_2 "Values of second variable" annotation(Dialog(group="Inputs"))
 Boolean passedTest "if false then expected and actual values to not match within the expected error";
 Real Error_rms "Root Mean Square error sqrt(sum(Error_abs.^2)/n)";
 Real[n] Error_abs "Absolute error (x_1 - x_2)";
-Units.NonDim[n] Error_rel "Relative error (x_1 - x_2)/x_2";
+SItf.NonDim[n] Error_rel "Relative error (x_1 - x_2)/x_2";
 protected
   Real eps = Modelica.Constants.eps*tolerance;
   Real[n] Error_absRaw "Absolute error not filtered by machine tolerance";
-  Units.NonDim[n] Error_relRaw "Relative error not filtered by machine tolerance";
+  SItf.NonDim[n] Error_relRaw "Relative error not filtered by machine tolerance";
 equation
   for i in 1:n loop
     Error_absRaw[i] = x_1[i] - x_2[i];

@@ -38,7 +38,7 @@ model PartialSimpleVolume
       tab="Advanced",
       group="Trace Mass Transfer",
       enable=use_TraceMassPort));
-  input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0, Medium.nC)
+  input SItf.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0, Medium.nC)
     "Internal trace mass generation"
     annotation (Dialog(tab="Advanced", group="Trace Mass Transfer"));
 
@@ -59,7 +59,7 @@ model PartialSimpleVolume
 
 protected
   SI.HeatFlowRate Q_flow_internal;
-  SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
+  SItf.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
 
 equation
 

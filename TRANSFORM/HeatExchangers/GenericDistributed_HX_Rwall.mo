@@ -131,7 +131,7 @@ model GenericDistributed_HX_Rwall
   parameter SI.MassFraction X_b_start_shell[Medium_shell.nX]=X_a_start_shell
     "Mass fraction at port b" annotation (Dialog(tab="Shell Initialization",
         group="Start Value: Species Mass Fraction"));
-  parameter SIadd.ExtraProperty Cs_start_shell[geometry.nV,Medium_shell.nC]=
+  parameter SItf.ExtraProperty Cs_start_shell[geometry.nV,Medium_shell.nC]=
       linspaceRepeat_1D(
       C_a_start_shell,
       C_b_start_shell,
@@ -139,10 +139,10 @@ model GenericDistributed_HX_Rwall
       tab="Shell Initialization",
       group="Start Value: Trace Substances",
       enable=Medium_shell.nC > 0));
-  parameter SIadd.ExtraProperty C_a_start_shell[Medium_shell.nC]=fill(0,
+  parameter SItf.ExtraProperty C_a_start_shell[Medium_shell.nC]=fill(0,
       Medium_shell.nC) "Mass-Specific value at port a" annotation (Dialog(tab="Shell Initialization",
         group="Start Value: Trace Substances"));
-  parameter SIadd.ExtraProperty C_b_start_shell[Medium_shell.nC]=C_a_start_shell
+  parameter SItf.ExtraProperty C_b_start_shell[Medium_shell.nC]=C_a_start_shell
     "Mass-Specific value at port b" annotation (Dialog(tab="Shell Initialization",
         group="Start Value: Trace Substances"));
   parameter SI.MassFlowRate[geometry.nV + 1] m_flows_start_shell=linspace(
@@ -225,7 +225,7 @@ model GenericDistributed_HX_Rwall
   parameter SI.MassFraction X_b_start_tube[Medium_tube.nX]=X_a_start_tube
     "Mass fraction at port b" annotation (Dialog(tab="Tube Initialization",
         group="Start Value: Species Mass Fraction"));
-  parameter SIadd.ExtraProperty Cs_start_tube[geometry.nV,Medium_tube.nC]=
+  parameter SItf.ExtraProperty Cs_start_tube[geometry.nV,Medium_tube.nC]=
       linspaceRepeat_1D(
       C_a_start_tube,
       C_b_start_tube,
@@ -233,10 +233,10 @@ model GenericDistributed_HX_Rwall
       tab="Tube Initialization",
       group="Start Value: Trace Substances",
       enable=Medium_tube.nC > 0));
-  parameter SIadd.ExtraProperty C_a_start_tube[Medium_tube.nC]=fill(0, Medium_tube.nC)
+  parameter SItf.ExtraProperty C_a_start_tube[Medium_tube.nC]=fill(0, Medium_tube.nC)
     "Mass-Specific value at port a" annotation (Dialog(tab="Tube Initialization",
         group="Start Value: Trace Substances"));
-  parameter SIadd.ExtraProperty C_b_start_tube[Medium_tube.nC]=C_a_start_tube
+  parameter SItf.ExtraProperty C_b_start_tube[Medium_tube.nC]=C_a_start_tube
     "Mass-Specific value at port b" annotation (Dialog(tab="Tube Initialization",
         group="Start Value: Trace Substances"));
   parameter SI.MassFlowRate[geometry.nV + 1] m_flows_start_tube=linspace(

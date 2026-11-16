@@ -1,9 +1,9 @@
 within TRANSFORM.Media.ClosureModels.HenrysLawCoefficient.Models;
 model GenericCoefficient
 extends PartialHenrysLawCoefficient;
-  input TRANSFORM.Units.HenrysLawCoefficient kH0=0 "Henry's Law Coefficient"
+  input SItf.HenrysLawCoefficient kH0=0 "Henry's Law Coefficient"
     annotation (Dialog(group="Inputs"));
-  input TRANSFORM.Units.HenrysLawCoefficient kHs0[nC]=fill(kH0, nC)
+  input SItf.HenrysLawCoefficient kHs0[nC]=fill(kH0, nC)
     "if non-uniform then set" annotation (Dialog(group="Inputs"));
 equation
   kHs = kHs0;

@@ -34,28 +34,28 @@ model OvenBrazing "Example 3.2-1 Oven Brazing pp. 339-348"
         rotation=-90,
         origin={40,30})));
   Modelica.Blocks.Sources.Constant Tini(each k=
-        Units.Conversions.Functions.Temperature_K.from_degC(20))
+        SItf.Conversions.Functions.Temperature_K.from_degC(20))
     "initial plastic disk temperature"
     annotation (Placement(transformation(extent={{-84,84},{-76,92}})));
   Modelica.Blocks.Sources.Trapezoid Toven(
-    amplitude=Units.Conversions.Functions.Temperature_K.from_degC(450),
+    amplitude=SItf.Conversions.Functions.Temperature_K.from_degC(450),
     rising=450,
     width=1000,
     falling=450,
     nperiod=1,
-    offset=Units.Conversions.Functions.Temperature_K.from_degC(20),
+    offset=SItf.Conversions.Functions.Temperature_K.from_degC(20),
     period=3000) "oven temperature"
     annotation (Placement(transformation(extent={{-84,70},{-76,78}})));
   Resistances.Heat.Radiation Rrad(surfaceArea=As.y, epsilon=e.y)
     annotation (Placement(transformation(extent={{-50,16},{-30,36}})));
   BoundaryConditions.Heat.Temperature T_metal_max(T=
-        Units.Conversions.Functions.Temperature_K.from_degC(470)) annotation (
+        SItf.Conversions.Functions.Temperature_K.from_degC(470)) annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-66,26})));
   BoundaryConditions.Heat.Temperature T_oven_max(T=
-        Units.Conversions.Functions.Temperature_K.from_degC(470)) annotation (
+        SItf.Conversions.Functions.Temperature_K.from_degC(470)) annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

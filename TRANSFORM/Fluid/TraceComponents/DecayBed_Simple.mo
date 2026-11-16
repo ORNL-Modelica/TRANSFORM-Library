@@ -11,20 +11,20 @@ model DecayBed_Simple
   parameter Integer nV(min=1) = 1 "Number of volume nodes";
   input SI.Volume V = 0.0 "Total volume" annotation (Dialog(group="Inputs"));
   input SI.Volume Vs[nV] = fill(V/nV,nV) "Volume per element" annotation (Dialog(group="Inputs"));
-  input Units.HydraulicResistance R[nV]=fill(0.00001, nV)
+  input SItf.HydraulicResistance R[nV]=fill(0.00001, nV)
     "Hydraulic resistance" annotation (Dialog(group="Inputs"));
 
-  parameter TRANSFORM.Units.InverseTime lambdas[Medium.nC]=fill(0,Medium.nC) "Species decay constant";
+  parameter SItf.InverseTime lambdas[Medium.nC]=fill(0,Medium.nC) "Species decay constant";
 
   parameter Boolean use_PtoD = true "=true to turn on parent to daughter generation";
   parameter Real parents[Medium.nC,Medium.nC]
     "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
 
-  SIadd.ExtraPropertyFlowRate[nV,Medium.nC] mC_gens={{mC_decay[i, j]
+  SItf.ExtraPropertyFlowRate[nV,Medium.nC] mC_gens={{mC_decay[i, j]
   + (if use_PtoD then mC_gens_PtoD[i, j] else 0)
   for j in 1:Medium.nC} for i in 1:nV};
-  SIadd.ExtraPropertyFlowRate[nV,Medium.nC] mC_decay = {{-lambdas[j]*volume[i].mC[j] for j in 1:Medium.nC} for i in 1:nV};
-  SIadd.ExtraPropertyFlowRate[nV,Medium.nC] mC_gens_PtoD={{sum({lambdas[k]*volume[i].mC[k]*parents[j, k] for k in 1:Medium.nC}) for j in 1:Medium.nC} for i in 1:nV};
+  SItf.ExtraPropertyFlowRate[nV,Medium.nC] mC_decay = {{-lambdas[j]*volume[i].mC[j] for j in 1:Medium.nC} for i in 1:nV};
+  SItf.ExtraPropertyFlowRate[nV,Medium.nC] mC_gens_PtoD={{sum({lambdas[k]*volume[i].mC[k]*parents[j, k] for k in 1:Medium.nC}) for j in 1:Medium.nC} for i in 1:nV};
 
   TRANSFORM.Fluid.Interfaces.FluidPort_State port_a(redeclare package Medium =
         Medium)
@@ -117,16 +117,16 @@ model DecayBed_Simple
     "Mass fraction at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Species Mass Fraction"));
 
-  parameter SIadd.ExtraProperty Cs_start[nV,Medium.nC]=linspaceRepeat_1D(
+  parameter SItf.ExtraProperty Cs_start[nV,Medium.nC]=linspaceRepeat_1D(
         C_a_start,
         C_b_start,nV) "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
       group="Start Value: Trace Substances",
       enable=Medium.nC > 0));
-  parameter SIadd.ExtraProperty C_a_start[Medium.nC]=fill(0, Medium.nC)
+  parameter SItf.ExtraProperty C_a_start[Medium.nC]=fill(0, Medium.nC)
     "Mass-Specific value at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
-  parameter SIadd.ExtraProperty C_b_start[Medium.nC]=C_a_start
+  parameter SItf.ExtraProperty C_b_start[Medium.nC]=C_a_start
     "Mass-Specific value at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
 

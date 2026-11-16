@@ -37,7 +37,7 @@ model TeeJunctionVolume_withResistances
       tab="Initialization",
       group="Start Value: Species Mass Fraction",
       enable=Medium.nXi > 0));
-  parameter SIadd.ExtraProperty C_start[Medium.nC]=fill(0, Medium.nC)
+  parameter SItf.ExtraProperty C_start[Medium.nC]=fill(0, Medium.nC)
     "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
       group="Start Value: Trace Substances",

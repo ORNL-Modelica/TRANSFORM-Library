@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
 model Specified_Resistance "Specify Resistance"
   extends BaseClasses.PartialResistance;
-  input Units.DiffusionResistance R_val[nC] "Diffusion resistance" annotation(Dialog(group="Inputs"));
+  input SItf.DiffusionResistance R_val[nC] "Diffusion resistance" annotation(Dialog(group="Inputs"));
 equation
   R = R_val;
   annotation (defaultComponentName="generic",

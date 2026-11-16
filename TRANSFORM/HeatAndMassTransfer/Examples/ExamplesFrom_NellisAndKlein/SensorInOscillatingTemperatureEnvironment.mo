@@ -26,12 +26,12 @@ model SensorInOscillatingTemperatureEnvironment
   Utilities.Visualizers.displayReal display_biot(use_port=true, precision=4)
     annotation (Placement(transformation(extent={{-2,-20},{18,0}})));
   Modelica.Blocks.Sources.Constant Tini(each k=
-        Units.Conversions.Functions.Temperature_K.from_degC(260))
+        SItf.Conversions.Functions.Temperature_K.from_degC(260))
     "initial plastic disk temperature"
     annotation (Placement(transformation(extent={{-84,84},{-76,92}})));
   Modelica.Blocks.Sources.Sine Tinf(
     f=0.5,
-    offset=Units.Conversions.Functions.Temperature_K.from_degC(320),
+    offset=SItf.Conversions.Functions.Temperature_K.from_degC(320),
     amplitude=50) "ambient temperature"
     annotation (Placement(transformation(extent={{-84,70},{-76,78}})));
   Modelica.Blocks.Sources.Constant lambda_c(each k=0.2)

@@ -1,10 +1,10 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Utilities.Internal.GroeneveldCorrectionFactors;
 function K_8
   "Vertical Low-Flow Factor - A minus sign refers to downward flow"
-  input SIadd.MassFlux G "Mass flux";
+  input SItf.MassFlux G "Mass flux";
   input SI.Density rho_lsat "Fluid saturation density";
   input SI.Density rho_vsat "Vapor saturation density";
-  input SIadd.NonDim x_abs "Absolute quality";
+  input SItf.NonDim x_abs "Absolute quality";
   output Real K "Correction factor";
 protected
   Real alpha;

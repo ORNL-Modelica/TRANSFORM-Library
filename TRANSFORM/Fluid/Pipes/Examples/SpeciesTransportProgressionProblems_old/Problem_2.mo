@@ -16,14 +16,14 @@ model Problem_2 "Single species drift with decay"
   final parameter SI.MassFlowRate m_flow=Medium.density_pT(p_start, T_start)*Modelica.Constants.pi*dimension^2/4
       *v;
 
-  parameter TRANSFORM.Units.InverseTime lambda_i[nC]=fill(0.1, nC);
-  parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=1000*ones(nV, nC);
-  parameter SIadd.ExtraPropertyConcentration C_i_inlet[nC]=1000*ones(nC);
+  parameter SItf.InverseTime lambda_i[nC]=fill(0.1, nC);
+  parameter SItf.ExtraPropertyConcentration C_i_start[nV,nC]=1000*ones(nV, nC);
+  parameter SItf.ExtraPropertyConcentration C_i_inlet[nC]=1000*ones(nC);
 
   // Convert from volume based to mass based
-  final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/Medium.density_pT(p_start, T_start)
+  final parameter SItf.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/Medium.density_pT(p_start, T_start)
       for j in 1:nC} for i in 1:nV};
-  final parameter SIadd.ExtraProperty Cs_inlet[nC]={C_i_inlet[j]/Medium.density_pT(p_start, T_start) for j in 1:
+  final parameter SItf.ExtraProperty Cs_inlet[nC]={C_i_inlet[j]/Medium.density_pT(p_start, T_start) for j in 1:
       nC};
 
   // Pipe cell centers are a shifted from linspace in the pipe due to volume centered geometry
@@ -33,10 +33,10 @@ model Problem_2 "Single species drift with decay"
        length,
        nV);
 
-  SIadd.ExtraPropertyConcentration C_i[nV,nC];
-  SIadd.ExtraPropertyConcentration C_i_analytical[nV,nC];
+  SItf.ExtraPropertyConcentration C_i[nV,nC];
+  SItf.ExtraPropertyConcentration C_i_analytical[nV,nC];
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{-lambda_i[j]*pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens={{-lambda_i[j]*pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in
           1:nV};
 
   Pipes.GenericPipe_MultiTransferSurface pipe(

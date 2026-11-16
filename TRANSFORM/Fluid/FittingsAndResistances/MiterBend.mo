@@ -6,12 +6,12 @@ model MiterBend
     annotation (Dialog(group="Inputs"));
   parameter SI.Angle angle(displayUnit="deg") = Modelica.Constants.pi/2
     "Bend deflection (turning) angle";
-  Units.NonDim K "Minor loss coefficient";
+  SItf.NonDim K "Minor loss coefficient";
   SI.Velocity v "Velocity in the pipe";
   SI.Area crossArea=0.25*Modelica.Constants.pi*dimension^2
     "Pipe cross-sectional area";
 protected
-  Units.NonDim K_signed "Signed minor loss coefficient";
+  SItf.NonDim K_signed "Signed minor loss coefficient";
 equation
   K = ClosureRelations.PressureLoss.Functions.Bends.K_miterBend(angle);
   K_signed = smooth(0, noEvent(if m_flow >= 0 then K else -K));

@@ -26,12 +26,12 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     minY=20,
     maxY=180,
     maxX=1,
-    y=Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {T_H.T},
         wall.unitCell.T,
         {T_C.T})),
-    x=Units.Conversions.Functions.Distance_m.to_cm(cat(
+    x=SItf.Conversions.Functions.Distance_m.to_cm(cat(
         1,
         {0},
         wall.geometry.xs,
@@ -79,12 +79,12 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     minY=20,
     maxY=180,
     maxX=1,
-    y=Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {T_H1.T},
         wall1.unitCell.T,
         {T_C1.T})),
-    x=Units.Conversions.Functions.Distance_m.to_cm(cat(
+    x=SItf.Conversions.Functions.Distance_m.to_cm(cat(
         1,
         {0},
         wall1.geometry.xs,
@@ -94,12 +94,12 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     minY=20,
     maxY=180,
     maxX=1,
-    y=Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {T_H2.T},
         wall2.unitCell.T,
         {T_C2.T})),
-    x=Units.Conversions.Functions.Distance_m.to_cm(cat(
+    x=SItf.Conversions.Functions.Distance_m.to_cm(cat(
         1,
         {0},
         wall2.geometry.xs,

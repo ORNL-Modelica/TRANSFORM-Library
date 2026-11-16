@@ -1,11 +1,11 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Utilities.Internal.GroeneveldCorrectionFactors;
 function K_7 "Flow-Orientation Factor"
   input SI.Length D_hyd "Hydraulic diameter of subchannel";
-  input SIadd.NonDim f_L "Friction factor of the channel";
-  input SIadd.MassFlux G "Mass flux";
+  input SItf.NonDim f_L "Friction factor of the channel";
+  input SItf.MassFlux G "Mass flux";
   input SI.Density rho_lsat "Fluid saturation density";
   input SI.Density rho_vsat "Vapor saturation density";
-  input SIadd.NonDim x_abs "Absolute quality";
+  input SItf.NonDim x_abs "Absolute quality";
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravity coefficient";
   output Real K "Correction factor";
 protected

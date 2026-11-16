@@ -21,8 +21,8 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   // CF used to default to logMean(T_a_start_1 - T_b_start_1, T_b_start_2 - T_a_start_2)/nV: a
   // temperature, not a factor, that scaled UA by that many kelvin whenever both sides' outlet start
   // temperatures differed from their inlet ones, and made results depend on start values.
-  input SIadd.NonDim CF = 1 "Correction factor on UA, e.g. to account for well-mixed volumes" annotation(Dialog(group="Inputs"));
-  input SIadd.NonDim CFs[nV]=fill(
+  input SItf.NonDim CF = 1 "Correction factor on UA, e.g. to account for well-mixed volumes" annotation(Dialog(group="Inputs"));
+  input SItf.NonDim CFs[nV]=fill(
       CF,
       nV) "if non-uniform then set"  annotation(Dialog(group="Inputs"));
 
@@ -98,7 +98,7 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   parameter SI.MassFraction X_b_start_1[Medium_1.nX]=X_a_start_1
     "Mass fraction at port b" annotation (Dialog(tab="Initialization: Fluid 1",
         group="Start Value: Species Mass Fraction"));
-  parameter SIadd.ExtraProperty Cs_start_1[nV,Medium_1.nC]=
+  parameter SItf.ExtraProperty Cs_start_1[nV,Medium_1.nC]=
       linspaceRepeat_1D(
       C_a_start_1,
       C_b_start_1,
@@ -106,10 +106,10 @@ import TRANSFORM.Math.linspaceRepeat_1D;
       tab="Initialization: Fluid 1",
       group="Start Value: Trace Substances",
       enable=Medium_1.nC > 0));
-  parameter SIadd.ExtraProperty C_a_start_1[Medium_1.nC]=fill(0,
+  parameter SItf.ExtraProperty C_a_start_1[Medium_1.nC]=fill(0,
       Medium_1.nC) "Mass-Specific value at port a" annotation (Dialog(tab="Initialization: Fluid 1",
         group="Start Value: Trace Substances"));
-  parameter SIadd.ExtraProperty C_b_start_1[Medium_1.nC]=C_a_start_1
+  parameter SItf.ExtraProperty C_b_start_1[Medium_1.nC]=C_a_start_1
     "Mass-Specific value at port b" annotation (Dialog(tab="Initialization: Fluid 1",
         group="Start Value: Trace Substances"));
   parameter SI.MassFlowRate m_flow_start_1=0 "Mass flow rate"
@@ -187,7 +187,7 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   parameter SI.MassFraction X_b_start_2[Medium_2.nX]=X_a_start_2
     "Mass fraction at port b" annotation (Dialog(tab="Initialization: Fluid 2",
         group="Start Value: Species Mass Fraction"));
-  parameter SIadd.ExtraProperty Cs_start_2[nV,Medium_2.nC]=
+  parameter SItf.ExtraProperty Cs_start_2[nV,Medium_2.nC]=
       linspaceRepeat_1D(
       C_a_start_2,
       C_b_start_2,
@@ -195,10 +195,10 @@ import TRANSFORM.Math.linspaceRepeat_1D;
       tab="Initialization: Fluid 2",
       group="Start Value: Trace Substances",
       enable=Medium_2.nC > 0));
-  parameter SIadd.ExtraProperty C_a_start_2[Medium_2.nC]=fill(0,
+  parameter SItf.ExtraProperty C_a_start_2[Medium_2.nC]=fill(0,
       Medium_2.nC) "Mass-Specific value at port a" annotation (Dialog(tab="Initialization: Fluid 2",
         group="Start Value: Trace Substances"));
-  parameter SIadd.ExtraProperty C_b_start_2[Medium_2.nC]=C_a_start_2
+  parameter SItf.ExtraProperty C_b_start_2[Medium_2.nC]=C_a_start_2
     "Mass-Specific value at port b" annotation (Dialog(tab="Initialization: Fluid 2",
         group="Start Value: Trace Substances"));
     parameter SI.MassFlowRate m_flow_start_2=0 "Mass flow rate"
@@ -276,9 +276,9 @@ import TRANSFORM.Math.linspaceRepeat_1D;
   HeatAndMassTransfer.Resistances.Heat.Specified_Resistance heatTransfer[nV](
       R_val=R_val)
                   annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  input Units.HydraulicResistance R_1=(p_a_start_1-p_b_start_1)/m_flow_start_1 "Hydraulic resistance"
+  input SItf.HydraulicResistance R_1=(p_a_start_1-p_b_start_1)/m_flow_start_1 "Hydraulic resistance"
     annotation (Dialog(group="Inputs"));
-  input Units.HydraulicResistance R_2=(p_a_start_2-p_b_start_2)/m_flow_start_2  "Hydraulic resistance"
+  input SItf.HydraulicResistance R_2=(p_a_start_2-p_b_start_2)/m_flow_start_2  "Hydraulic resistance"
     annotation (Dialog(group="Inputs"));
 
   SI.Power Q_flow = sum(heatTransfer.port_a.Q_flow);

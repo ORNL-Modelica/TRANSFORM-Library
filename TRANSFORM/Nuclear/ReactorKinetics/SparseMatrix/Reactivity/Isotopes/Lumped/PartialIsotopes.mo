@@ -17,7 +17,7 @@ partial model PartialIsotopes
     "Power determined from kinetics. Does not include decay heat"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
-  parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=zeros(nC)
+  parameter SItf.ExtraPropertyExtrinsic mCs_start[nC]=zeros(nC)
     "Number of isotope atoms per group" annotation (Dialog(tab="Initialization"));
   parameter Dynamics traceDynamics=Dynamics.DynamicFreeInitial
     "Formulation of trace substance balances"
@@ -26,34 +26,34 @@ partial model PartialIsotopes
   parameter Integer nC_ext=0
     "# of externally tracked substances (e.g., boron as a trace substance)"
     annotation (Dialog(group="Inputs: External Substances"));
-  input SIadd.ExtraPropertyExtrinsic mCs_ext[nC_ext]=fill(0, nC_ext)
+  input SItf.ExtraPropertyExtrinsic mCs_ext[nC_ext]=fill(0, nC_ext)
     "# externally tracked atoms"
     annotation (Dialog(group="Inputs: External Substances"));
   input SI.Area sigmasA_ext[nC_ext]=fill(0, nC_ext)
     "Microscopic absorption cross-section for reactivity feedback"
     annotation (Dialog(group="Inputs: External Substances"));
 
-  SIadd.NeutronFlux phi "Neutron flux";
-  SIadd.ExtraPropertyFlowRate mC_gens[nC]
+  SItf.NeutronFlux phi "Neutron flux";
+  SItf.ExtraPropertyFlowRate mC_gens[nC]
     "Generation rate of isotopes [atoms/s]";
-  SIadd.ExtraPropertyExtrinsic mCs[nC](each stateSelect=StateSelect.prefer,
+  SItf.ExtraPropertyExtrinsic mCs[nC](each stateSelect=StateSelect.prefer,
       start=mCs_start) "Number of isotope atoms";
-  SIadd.NonDim rhos[nC] "Reactivity feedback (not including rhos_ext)";
+  SItf.NonDim rhos[nC] "Reactivity feedback (not including rhos_ext)";
 
-  SIadd.ExtraPropertyFlowRate[nC_ext] mC_gens_ext
+  SItf.ExtraPropertyFlowRate[nC_ext] mC_gens_ext
     "Generation rate of external substances [atoms/s]";
-  SIadd.NonDim rhos_ext[nC_ext] "External subtances reactivity feedback";
+  SItf.NonDim rhos_ext[nC_ext] "External subtances reactivity feedback";
 
   SI.Power Q_near=0 "Near field (e.g, beta) power released from isotope decay";
   SI.Power Q_far=0 "Far field (e.g., gamma) power released from isotope decay";
 
 
-  parameter SIadd.NonDim rhos_start[nC]=zeros(nC)
+  parameter SItf.NonDim rhos_start[nC]=zeros(nC)
     "Initial isotope reactivity feedback"
     annotation (Dialog(tab="Internal Interface"), enable=false);
 
 protected
-  SIadd.ExtraPropertyExtrinsic mCs_scaled[nC]
+  SItf.ExtraPropertyExtrinsic mCs_scaled[nC]
     "Scaled number of isotope atoms for improved numerical stability";
 
 initial equation

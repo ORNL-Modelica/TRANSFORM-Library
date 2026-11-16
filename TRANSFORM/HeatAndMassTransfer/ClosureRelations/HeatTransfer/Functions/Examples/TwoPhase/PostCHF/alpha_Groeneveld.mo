@@ -7,7 +7,7 @@ model alpha_Groeneveld
     "Vapor phase saturated dynamic viscosity";
   parameter SI.Density rho_lsat=603.1 "Saturated liquid density";
   parameter SI.Density rho_vsat=96.7 "Saturated vapor density";
-  parameter SIadd.NonDim x_abs=0.4 "Absolute quality";
+  parameter SItf.NonDim x_abs=0.4 "Absolute quality";
   parameter SI.ThermalConductivity lambda_v=0.1164
     "Vapor phase thermal conductivity";
   parameter SI.PrandtlNumber Pr_vw=2.48

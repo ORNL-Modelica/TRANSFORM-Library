@@ -16,6 +16,7 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 ### Changed
 
+- The library's own classes now refer to TRANSFORM's unit types through the alias `SItf`, as `TRANSFORM.UsersGuide.Conventions` asks: 1,343 references written `SIadd.`, `Units.` or `TRANSFORM.Units.` became `SItf.` in 440 files, and four local `import SIadd = TRANSFORM.Units;` lines were removed. Text only: every name refers to the same type as before, and no results change. `TRANSFORM.Units` and the root package's `SIadd` import stay, so models written with them are unaffected.
 - `TRANSFORM/package.mo`: `main` carries `version="1.3.0-dev"` and adds `noneFromVersion="1.2.0"` to the conversion annotation, so models written for 1.2.0 load without conversion. The release date `versionDate` is removed until the next release.
 
 ### Fixed

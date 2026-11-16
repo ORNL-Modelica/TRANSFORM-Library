@@ -4,7 +4,7 @@ model alpha_Groeneveld_wMedia
   extends TRANSFORM.Icons.Example;
   package Medium = Modelica.Media.Water.StandardWater;
   parameter SI.Pressure p=15e6;
-  parameter SIadd.NonDim x_abs=0.4;
+  parameter SItf.NonDim x_abs=0.4;
   parameter SI.SpecificEnthalpy h=Medium.bubbleEnthalpy(Medium.setSat_p(p))*(1
        - x_abs) + Medium.dewEnthalpy(Medium.setSat_p(p))*x_abs;
   parameter SI.Velocity v=3;

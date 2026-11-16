@@ -30,8 +30,8 @@ Saturated fluid properties are based on the bulk fluid temperature and pressure.
   //Constants
   input SI.Length D "Characteristic dimension (e.g., hydraulic diameter)";
   // Variables
-  input TRANSFORM.Units.MassFlux G "Mass flux";
-  input TRANSFORM.Units.NonDim x(min=0.0, max=1.0) "Absolute Steam quality";
+  input SItf.MassFlux G "Mass flux";
+  input SItf.NonDim x(min=0.0, max=1.0) "Absolute Steam quality";
   input SI.Density rho_fsat "Saturated liquid density";
   input SI.DynamicViscosity mu_fsat "Liquid dynamic viscosity";
   input SI.ThermalConductivity lambda_fsat "Liquid thermal conductivity";
@@ -63,7 +63,7 @@ protected
     "Macroconvective or Convection boiling convection heat transfer coefficient";
   SI.CoefficientOfHeatTransfer alpha_nb
     "Microconvective or Nucleate boiling convection heat transfer coefficient";
-  TRANSFORM.Units.NonDim x_limit
+  SItf.NonDim x_limit
     "Limited quality to prevent infinity result for X_tt_inv";
 algorithm
   // Source 1: eq. A-10

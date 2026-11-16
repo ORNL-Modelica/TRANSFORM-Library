@@ -26,7 +26,7 @@ model SFR_PHS
   parameter SI.Length D_pin=0.0053 "Pin diameter";
   parameter SI.Length th_clad=0.00037 "Cladding thickness";
   parameter SI.Length D_wireWrap=0.00126 "Wire wrap diameter";
-  parameter Units.NonDim PD_ratio=1.248 "Pin pitch to diameter ratio p/d";
+  parameter SItf.NonDim PD_ratio=1.248 "Pin pitch to diameter ratio p/d";
   parameter SI.Length length_subassembly_out = 0.60 "Length of subassembly above gas plenum region";
   parameter SI.Length length_subassembly_gasplenum = 1.50 "Length of subassembly gas plenum length after active region";
   parameter SI.Length length_subassembly_active = 0.80 "Length of subassembly active core";
@@ -48,19 +48,19 @@ model SFR_PHS
   parameter SI.MassFlowRate m_flow_reflector = R_m_flows[3]*m_flow_PHTS;
   parameter SI.MassFlowRate m_flow_shield = R_m_flows[4]*m_flow_PHTS;
   // Kinetics - source 1 pg. 125 Table 6.2
-  parameter SIadd.TempFeedbackCoeff alpha_outer = 0.5*(0.0011+0.0013);
-  parameter SIadd.TempFeedbackCoeff alpha_inner = 0.5*(0.0034 + 0.0037);
+  parameter SItf.TempFeedbackCoeff alpha_outer = 0.5*(0.0011+0.0013);
+  parameter SItf.TempFeedbackCoeff alpha_inner = 0.5*(0.0034 + 0.0037);
   // Nominal Conditions
   parameter SI.Power Qth_nominal = 300e6 "Nominal thermal power";
-  parameter Units.NonDim Q_outer_nominal = 0.6*Qth_nominal "Nominal power in region";
-  parameter Units.NonDim Q_inner_nominal = 0.4*Qth_nominal "Nominal power in region";
+  parameter SItf.NonDim Q_outer_nominal = 0.6*Qth_nominal "Nominal power in region";
+  parameter SItf.NonDim Q_inner_nominal = 0.4*Qth_nominal "Nominal power in region";
   parameter SI.MassFlowRate m_flow_PHTS = 1570 "Sodium flow rate in PHTS";
   parameter SI.MassFlowRate m_flow_IHX_PHTS = m_flow_PHTS/nIHXs "Sodium flow rate per IHX on PHTS side";
   parameter SI.MassFlowRate m_flow_IHX_IHTS = m_flow_PHTS/nIHXs "Sodium flow rate per IHX on IHTS side";
-  parameter SI.Temperature T_IHX_inletPHTS = TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degC(510) "PHTS side inlet temperature to IHX";
-  parameter SI.Temperature T_IHX_oultetPHTS = TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degC(360) "PHTS side outlet temperature to IHX";
-  parameter SI.Temperature T_IHX_inletIHTS = TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degC(334) "IHTS side inlet temperature to IHX";
-  parameter SI.Temperature T_IHX_outletIHTS = TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degC(483) "IHTS side outlet temperature to IHX";
+  parameter SI.Temperature T_IHX_inletPHTS = SItf.Conversions.Functions.Temperature_K.from_degC(510) "PHTS side inlet temperature to IHX";
+  parameter SI.Temperature T_IHX_oultetPHTS = SItf.Conversions.Functions.Temperature_K.from_degC(360) "PHTS side outlet temperature to IHX";
+  parameter SI.Temperature T_IHX_inletIHTS = SItf.Conversions.Functions.Temperature_K.from_degC(334) "IHTS side inlet temperature to IHX";
+  parameter SI.Temperature T_IHX_outletIHTS = SItf.Conversions.Functions.Temperature_K.from_degC(483) "IHTS side outlet temperature to IHX";
   parameter SI.PressureDifference dp_IHX_shell = 16805 "Shell (primary) side pressure drop";
   parameter SI.PressureDifference dp_IHX_tube = 39250 "Tube (secondary) side pressure drop";
   /// Geometry Calculations

@@ -38,10 +38,10 @@ model Grimson_FlowAcrossTubeBundels
         0.428]) "Staggered contant" annotation (Placement(
         transformation(extent={{-40,-54},{-20,-34}})));
 protected
-  Units.NonDim A "Maximum velocity correction factor";
+  SItf.NonDim A "Maximum velocity correction factor";
   SI.Length S_D = (S_L^2+0.25*S_T^2)^(0.5) "Shortest distance between tube centers of neighboring tube rows";
-  Units.NonDim C_1 "Interpolated constant";
-  Units.NonDim m "Interpolated constant";
+  SItf.NonDim C_1 "Interpolated constant";
+  SItf.NonDim m "Interpolated constant";
   SI.ReynoldsNumber[nHT] Res_Dmax "Corrected reynolds number based on tube diameter";
 equation
   Prs = Medium.prandtlNumber(states);

@@ -18,20 +18,20 @@ annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Power Q_fission=Q_fission_start
     "Power determined from kinetics. Does not include decay heat"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
-  input SIadd.NonDim SF_Q_fission[nV]=fill(1/nV, nV)
+  input SItf.NonDim SF_Q_fission[nV]=fill(1/nV, nV)
     "Shape factor for Q_fission, sum() = 1"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
-  input SIadd.ExtraPropertyExtrinsic[nV,nC] mCs(start=mCs_start)={{0 for j in 1:nC} for i in 1:nV}
+  input SItf.ExtraPropertyExtrinsic[nV,nC] mCs(start=mCs_start)={{0 for j in 1:nC} for i in 1:nV}
     "# of isotope atoms per volume [atoms]"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
-  parameter SIadd.ExtraPropertyExtrinsic[nV,nC] mCs_start=fill(0,nV,nC)
+  parameter SItf.ExtraPropertyExtrinsic[nV,nC] mCs_start=fill(0,nV,nC)
     "# of isotope atoms per volume [atoms]"
     annotation (Dialog(tab="Initialization"));
 
-  SIadd.NeutronFlux phi[nV] "Neutron flux";
-  SIadd.ExtraPropertyFlowRate mC_gens[nV,nC]
+  SItf.NeutronFlux phi[nV] "Neutron flux";
+  SItf.ExtraPropertyFlowRate mC_gens[nV,nC]
     "Generation rate of isotopes [atoms/s]";
-  SIadd.NonDim rhos[nV,nC] "Reactivity feedback (not including rhos_ext)";
+  SItf.NonDim rhos[nV,nC] "Reactivity feedback (not including rhos_ext)";
 
   SI.Power Qs_near[nV] = zeros(nV)
     "Near field (e.g, beta) power released from isotope decay";

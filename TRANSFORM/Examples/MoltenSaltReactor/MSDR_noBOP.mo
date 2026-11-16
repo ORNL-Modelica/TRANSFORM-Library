@@ -23,7 +23,7 @@ model MSDR_noBOP
 //   SI.Length drs[reflA_upperG.geometry.nR,reflA_upperG.geometry.nZ]={{rs[i+1,j] - rs[i,j] for j in 1:reflA_upperG.geometry.nZ} for i in 1:reflA_upperG.geometry.nR};
   // Initialization
   import Modelica.Constants.N_A;
-  parameter SIadd.ExtraProperty[kinetics.summary_data.data_TR.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0}
+  parameter SItf.ExtraProperty[kinetics.summary_data.data_TR.nC] C_start = N_A.*{1/Flibe_MM*MMFrac_LiF*Li6_molefrac,1/Flibe_MM*MMFrac_LiF*Li7_molefrac,1/Flibe_MM*(1-MMFrac_LiF),0}
     "atoms/kg fluid";
 parameter SI.MassFraction Li7_enrichment = 0.99995
     "mass fraction Li-7 enrichment in flibe.  Baseline is 99.995%";
@@ -36,76 +36,76 @@ parameter SI.MoleFraction Li7_molefrac = (Li7_enrichment/Li7_MM)/((Li7_enrichmen
     "Mole fraction of lithium in flibe that is Li-7";
 parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
     "Mole fraction of lithium in flibe that is Li-6";
-  parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_tee_inlet=cat(
+  parameter SItf.ExtraProperty[kinetics.summary_data.nC] C_start_tee_inlet=cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC));
-  parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_plenum_lower=
+  parameter SItf.ExtraProperty[kinetics.summary_data.nC] C_start_plenum_lower=
       cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC));
-  parameter SIadd.ExtraProperty[reflA_lower.nV,kinetics.summary_data.nC]
+  parameter SItf.ExtraProperty[reflA_lower.nV,kinetics.summary_data.nC]
     Cs_start_reflA_lower={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:reflA_lower.nV};
-  parameter SIadd.ExtraProperty[fuelCell.nV,kinetics.summary_data.nC]
+  parameter SItf.ExtraProperty[fuelCell.nV,kinetics.summary_data.nC]
     Cs_start_fuelCell={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:fuelCell.nV};
-  parameter SIadd.ExtraProperty[reflR.nV,kinetics.summary_data.nC]
+  parameter SItf.ExtraProperty[reflR.nV,kinetics.summary_data.nC]
     Cs_start_reflR={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:reflR.nV};
-  parameter SIadd.ExtraProperty[reflA_upper.nV,kinetics.summary_data.nC]
+  parameter SItf.ExtraProperty[reflA_upper.nV,kinetics.summary_data.nC]
     Cs_start_reflA_upper={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:reflA_upper.nV};
-  parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_plenum_upper=
+  parameter SItf.ExtraProperty[kinetics.summary_data.nC] C_start_plenum_upper=
       cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC));
-  parameter SIadd.ExtraProperty[kinetics.summary_data.nC] C_start_pumpBowl_PFL=
+  parameter SItf.ExtraProperty[kinetics.summary_data.nC] C_start_pumpBowl_PFL=
       cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC));
-  parameter SIadd.ExtraProperty[pipeToPHX_PFL.nV,kinetics.summary_data.nC]
+  parameter SItf.ExtraProperty[pipeToPHX_PFL.nV,kinetics.summary_data.nC]
     Cs_start_pipeToPHX_PFL={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:pipeToPHX_PFL.nV};
-  parameter SIadd.ExtraProperty[PHX.tube.nV,kinetics.summary_data.nC]
+  parameter SItf.ExtraProperty[PHX.tube.nV,kinetics.summary_data.nC]
     Cs_start_PHX_tube={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
       fill(0, kinetics.summary_data.data_FP.nC),
       C_start,
       fill(0, kinetics.summary_data.data_CP.nC)) for i in 1:PHX.tube.nV};
-  parameter SIadd.ExtraProperty[pipeFromPHX_PFL.nV,kinetics.summary_data.nC]
+  parameter SItf.ExtraProperty[pipeFromPHX_PFL.nV,kinetics.summary_data.nC]
     Cs_start_pipeFromPHX_PFL={cat(
       1,
       fill(0, kinetics.summary_data.data_PG.nC),
@@ -191,38 +191,38 @@ parameter SI.MoleFraction Li6_molefrac = 1.0-Li7_molefrac
        + kinetics.summary_data.w_far_decay[j])*kinetics.summary_data.lambdas[j]*
       drainTank_liquid.mC[j] for j in 1:kinetics.summary_data.nC});
   // Trace Substance Calculations: PFL
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_tee_inlet = {-kinetics.summary_data.lambdas[j]*tee_inlet.mC[j] + mC_gen_tee_inlet_PtoD[j] for j in 1:kinetics.summary_data.nC};
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_lower = {-kinetics.summary_data.lambdas[j]*plenum_lower.mC[j] + mC_gen_plenum_lower_PtoD[j] for j in 1:kinetics.summary_data.nC};
-  SIadd.ExtraPropertyFlowRate[reflA_lower.nV,kinetics.summary_data.nC] mC_gens_reflA_lower = {{-kinetics.summary_data.lambdas[j]*reflA_lower.mCs[i, j]*reflA_lower.nParallel + mC_gens_reflA_lower_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflA_lower.nV};
-  SIadd.ExtraPropertyFlowRate[fuelCell.nV,kinetics.summary_data.nC] mC_gens_fuelCell = cat(2, kinetics.mC_gens, kinetics.fissionProducts.mC_gens,kinetics.fissionProducts.mC_gens_TR, zeros(fuelCell.nV,kinetics.summary_data.data_CP.nC));
-  SIadd.ExtraPropertyFlowRate[reflR.nV,kinetics.summary_data.nC] mC_gens_reflR = {{-kinetics.summary_data.lambdas[j]*reflR.mCs[i, j]*reflR.nParallel + mC_gens_reflR_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflR.nV};
-  SIadd.ExtraPropertyFlowRate[reflA_upper.nV,kinetics.summary_data.nC] mC_gens_reflA_upper = {{-kinetics.summary_data.lambdas[j]*reflA_upper.mCs[i, j]*reflA_upper.nParallel + mC_gens_reflA_upper_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflA_upper.nV};
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_upper = {-kinetics.summary_data.lambdas[j]*plenum_upper.mC[j] + mC_gen_plenum_upper_PtoD[j] for j in 1:kinetics.summary_data.nC};
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_pumpBowl_PFL={-kinetics.summary_data.lambdas[j]*pumpBowl_PFL.mC[j]*3 + mC_flows_fromOG[j] + mC_gen_pumpBowl_PFL_PtoD[j] for j in 1:kinetics.summary_data.nC};
-  SIadd.ExtraPropertyFlowRate[pipeToPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeToPHX_PFL = {{-kinetics.summary_data.lambdas[j]*pipeToPHX_PFL.mCs[i, j]*pipeToPHX_PFL.nParallel + mC_gens_pipeToPHX_PFL_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:pipeToPHX_PFL.nV};
-  SIadd.ExtraPropertyFlowRate[PHX.tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube = {{-kinetics.summary_data.lambdas[j]*PHX.tube.mCs[i, j]*PHX.tube.nParallel + mC_gens_PHX_tube_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:PHX.tube.nV};
-  SIadd.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeFromPHX_PFL = {{-kinetics.summary_data.lambdas[j]*pipeFromPHX_PFL.mCs[i, j]*pipeFromPHX_PFL.nParallel + mC_gens_pipeFromPHX_PFL_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:pipeFromPHX_PFL.nV};
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_tee_inlet = {-kinetics.summary_data.lambdas[j]*tee_inlet.mC[j] + mC_gen_tee_inlet_PtoD[j] for j in 1:kinetics.summary_data.nC};
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_lower = {-kinetics.summary_data.lambdas[j]*plenum_lower.mC[j] + mC_gen_plenum_lower_PtoD[j] for j in 1:kinetics.summary_data.nC};
+  SItf.ExtraPropertyFlowRate[reflA_lower.nV,kinetics.summary_data.nC] mC_gens_reflA_lower = {{-kinetics.summary_data.lambdas[j]*reflA_lower.mCs[i, j]*reflA_lower.nParallel + mC_gens_reflA_lower_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflA_lower.nV};
+  SItf.ExtraPropertyFlowRate[fuelCell.nV,kinetics.summary_data.nC] mC_gens_fuelCell = cat(2, kinetics.mC_gens, kinetics.fissionProducts.mC_gens,kinetics.fissionProducts.mC_gens_TR, zeros(fuelCell.nV,kinetics.summary_data.data_CP.nC));
+  SItf.ExtraPropertyFlowRate[reflR.nV,kinetics.summary_data.nC] mC_gens_reflR = {{-kinetics.summary_data.lambdas[j]*reflR.mCs[i, j]*reflR.nParallel + mC_gens_reflR_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflR.nV};
+  SItf.ExtraPropertyFlowRate[reflA_upper.nV,kinetics.summary_data.nC] mC_gens_reflA_upper = {{-kinetics.summary_data.lambdas[j]*reflA_upper.mCs[i, j]*reflA_upper.nParallel + mC_gens_reflA_upper_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:reflA_upper.nV};
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_upper = {-kinetics.summary_data.lambdas[j]*plenum_upper.mC[j] + mC_gen_plenum_upper_PtoD[j] for j in 1:kinetics.summary_data.nC};
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_pumpBowl_PFL={-kinetics.summary_data.lambdas[j]*pumpBowl_PFL.mC[j]*3 + mC_flows_fromOG[j] + mC_gen_pumpBowl_PFL_PtoD[j] for j in 1:kinetics.summary_data.nC};
+  SItf.ExtraPropertyFlowRate[pipeToPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeToPHX_PFL = {{-kinetics.summary_data.lambdas[j]*pipeToPHX_PFL.mCs[i, j]*pipeToPHX_PFL.nParallel + mC_gens_pipeToPHX_PFL_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:pipeToPHX_PFL.nV};
+  SItf.ExtraPropertyFlowRate[PHX.tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube = {{-kinetics.summary_data.lambdas[j]*PHX.tube.mCs[i, j]*PHX.tube.nParallel + mC_gens_PHX_tube_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:PHX.tube.nV};
+  SItf.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeFromPHX_PFL = {{-kinetics.summary_data.lambdas[j]*pipeFromPHX_PFL.mCs[i, j]*pipeFromPHX_PFL.nParallel + mC_gens_pipeFromPHX_PFL_PtoD[i,j] for j in 1:kinetics.summary_data.nC} for i in 1:pipeFromPHX_PFL.nV};
   // Trace Substances Parent->Daughter contribution
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_tee_inlet_PtoD = {sum({kinetics.summary_data.lambdas[k].*tee_inlet.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_lower_PtoD= {sum({kinetics.summary_data.lambdas[k].*plenum_lower.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
-  SIadd.ExtraPropertyFlowRate[reflA_lower.nV,kinetics.summary_data.nC] mC_gens_reflA_lower_PtoD = {{sum({kinetics.summary_data.lambdas[k].*reflA_lower.mCs[i,k].*reflA_lower.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:reflA_lower.nV};
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_tee_inlet_PtoD = {sum({kinetics.summary_data.lambdas[k].*tee_inlet.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_lower_PtoD= {sum({kinetics.summary_data.lambdas[k].*plenum_lower.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SItf.ExtraPropertyFlowRate[reflA_lower.nV,kinetics.summary_data.nC] mC_gens_reflA_lower_PtoD = {{sum({kinetics.summary_data.lambdas[k].*reflA_lower.mCs[i,k].*reflA_lower.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:reflA_lower.nV};
   //SIadd.ExtraPropertyFlowRate[fuelCell.nV,kinetics.summary_data.nC] mC_gens_fuelCell_PtoD = {{sum({kinetics.summary_data.lambdas[k].*fuelCell.mCs[i,k].*fuelCell.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:fuelCell.nV};
-  SIadd.ExtraPropertyFlowRate[reflR.nV,kinetics.summary_data.nC] mC_gens_reflR_PtoD= {{sum({kinetics.summary_data.lambdas[k].*reflR.mCs[i,k].*reflR.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:reflR.nV};
-  SIadd.ExtraPropertyFlowRate[reflA_upper.nV,kinetics.summary_data.nC] mC_gens_reflA_upper_PtoD= {{sum({kinetics.summary_data.lambdas[k].*reflA_upper.mCs[i,k].*reflA_upper.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:reflA_upper.nV};
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_upper_PtoD= {sum({kinetics.summary_data.lambdas[k].*plenum_upper.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_pumpBowl_PFL_PtoD= {sum({kinetics.summary_data.lambdas[k].*pumpBowl_PFL.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
-  SIadd.ExtraPropertyFlowRate[pipeToPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeToPHX_PFL_PtoD = {{sum({kinetics.summary_data.lambdas[k].*pipeToPHX_PFL.mCs[i,k].*pipeToPHX_PFL.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:pipeToPHX_PFL.nV};
-  SIadd.ExtraPropertyFlowRate[PHX.tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube_PtoD = {{sum({kinetics.summary_data.lambdas[k].*PHX.tube.mCs[i,k].*PHX.tube.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:PHX.tube.nV};
-  SIadd.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeFromPHX_PFL_PtoD = {{sum({kinetics.summary_data.lambdas[k].*pipeFromPHX_PFL.mCs[i,k].*pipeFromPHX_PFL.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:pipeFromPHX_PFL.nV};
+  SItf.ExtraPropertyFlowRate[reflR.nV,kinetics.summary_data.nC] mC_gens_reflR_PtoD= {{sum({kinetics.summary_data.lambdas[k].*reflR.mCs[i,k].*reflR.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:reflR.nV};
+  SItf.ExtraPropertyFlowRate[reflA_upper.nV,kinetics.summary_data.nC] mC_gens_reflA_upper_PtoD= {{sum({kinetics.summary_data.lambdas[k].*reflA_upper.mCs[i,k].*reflA_upper.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:reflA_upper.nV};
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_plenum_upper_PtoD= {sum({kinetics.summary_data.lambdas[k].*plenum_upper.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_pumpBowl_PFL_PtoD= {sum({kinetics.summary_data.lambdas[k].*pumpBowl_PFL.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SItf.ExtraPropertyFlowRate[pipeToPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeToPHX_PFL_PtoD = {{sum({kinetics.summary_data.lambdas[k].*pipeToPHX_PFL.mCs[i,k].*pipeToPHX_PFL.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:pipeToPHX_PFL.nV};
+  SItf.ExtraPropertyFlowRate[PHX.tube.nV,kinetics.summary_data.nC] mC_gens_PHX_tube_PtoD = {{sum({kinetics.summary_data.lambdas[k].*PHX.tube.mCs[i,k].*PHX.tube.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:PHX.tube.nV};
+  SItf.ExtraPropertyFlowRate[pipeFromPHX_PFL.nV,kinetics.summary_data.nC] mC_gens_pipeFromPHX_PFL_PtoD = {{sum({kinetics.summary_data.lambdas[k].*pipeFromPHX_PFL.mCs[i,k].*pipeFromPHX_PFL.nParallel.*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC} for i in 1:pipeFromPHX_PFL.nV};
   // TraceSubstance Calculations: Off-Gas and Drain Tank
   SI.MassFlowRate m_flow_toDrainTank = data_OFFGAS.V_flow_sep_salt_total*Medium_PFL.density_ph(pump_PFL.port_b.p, pump_PFL.port_b.h_outflow)
     "Mass flow rate of salt to drain tank (+)";
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_gas=-kinetics.summary_data.lambdas.*drainTank_gas.mC + mC_gen_drainTank_gas_PtoD;
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_liquid=-kinetics.summary_data.lambdas.*drainTank_liquid.mC + mC_gen_drainTank_liquid_PtoD;
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_flows_fromOG = abs(pump_OffGas_bypass.port_b.m_flow).*pump_OffGas_bypass.port_b.C_outflow+abs(pump_OffGas_adsorberBed.port_b.m_flow).*pump_OffGas_adsorberBed.port_b.C_outflow;
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_gas=-kinetics.summary_data.lambdas.*drainTank_gas.mC + mC_gen_drainTank_gas_PtoD;
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_liquid=-kinetics.summary_data.lambdas.*drainTank_liquid.mC + mC_gen_drainTank_liquid_PtoD;
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_flows_fromOG = abs(pump_OffGas_bypass.port_b.m_flow).*pump_OffGas_bypass.port_b.C_outflow+abs(pump_OffGas_adsorberBed.port_b.m_flow).*pump_OffGas_adsorberBed.port_b.C_outflow;
   // Trace Substances Parent->Daughter contribution:  Off-Gas and Drain Tank
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_gas_PtoD = {sum({kinetics.summary_data.lambdas[k].*drainTank_gas.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
-  SIadd.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_liquid_PtoD = {sum({kinetics.summary_data.lambdas[k].*drainTank_liquid.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_gas_PtoD = {sum({kinetics.summary_data.lambdas[k].*drainTank_gas.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
+  SItf.ExtraPropertyFlowRate[kinetics.summary_data.nC] mC_gen_drainTank_liquid_PtoD = {sum({kinetics.summary_data.lambdas[k].*drainTank_liquid.mC[k].*kinetics.summary_data.parents[j,k] for k in 1:kinetics.summary_data.nC}) for j in 1:kinetics.summary_data.nC};
   TRANSFORM.Fluid.BoundaryConditions.Boundary_pT boundary_OffGas_sink(
     redeclare package Medium = Medium_OffGas,
     nPorts=2,

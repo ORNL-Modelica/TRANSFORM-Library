@@ -13,8 +13,8 @@ record Option1 "Calculate: T_1_cold, T_2_hot, Q_flow, epsilon, NTU"
   parameter SI.CoefficientOfHeatTransfer U=100
     "Overall heat transfer coefficient (NTU = U*A/C_min)" annotation(Dialog(group="Overall"));
   parameter SI.Area surfaceArea=40 "Heat transfer surface area" annotation(Dialog(group="Overall"));
-  SIadd.NonDim epsilon "Effectiveness" annotation(Dialog(group="Overall",enable=false));
-  SIadd.NonDim NTU "Number of transfer units" annotation(Dialog(group="Overall",enable=false));
+  SItf.NonDim epsilon "Effectiveness" annotation(Dialog(group="Overall",enable=false));
+  SItf.NonDim NTU "Number of transfer units" annotation(Dialog(group="Overall",enable=false));
   annotation (defaultComponentName="calcType",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Option1;

@@ -68,11 +68,11 @@ model Example_2_2_1_2DFin
             annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
  Real xval[nNodes_1.k] = fin.geometry.cs_1[:, 1];
   Real yval[nNodes_1.k]=
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(fin.materials[
+      SItf.Conversions.Functions.Temperature_K.to_degC(fin.materials[
       :, 1].T);
  Real xval2[nNodes_1.k] = fin.geometry.cs_1[:, nNodes_2.k];
   Real yval2[nNodes_1.k]=
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(fin.materials[
+      SItf.Conversions.Functions.Temperature_K.to_degC(fin.materials[
       :, nNodes_2.k].T);
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={yval[5],yval[15]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

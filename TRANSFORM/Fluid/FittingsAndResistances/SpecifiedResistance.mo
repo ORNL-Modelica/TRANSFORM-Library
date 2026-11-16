@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.FittingsAndResistances;
 model SpecifiedResistance
   extends BaseClasses.PartialResistance;
-  input Units.HydraulicResistance R "Hydraulic resistance" annotation(Dialog(group="Inputs"));
+  input SItf.HydraulicResistance R "Hydraulic resistance" annotation(Dialog(group="Inputs"));
 equation
   port_a.m_flow*R = port_a.p-port_b.p;
   annotation (defaultComponentName="resistance",

@@ -47,7 +47,7 @@ model DumpTank "Expansion tank with cover gas"
       tab="Initialization",
       group="Start Value: Species Mass Fraction",
       enable=Medium.nXi > 0));
-  parameter SIadd.ExtraProperty C_start[Medium.nC]=fill(0, Medium.nC)
+  parameter SItf.ExtraProperty C_start[Medium.nC]=fill(0, Medium.nC)
     "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
       group="Start Value: Trace Substances",
@@ -67,8 +67,8 @@ model DumpTank "Expansion tank with cover gas"
   SI.Mass mXi[Medium.nXi] "Species mass";
   SI.MassFraction Xi[Medium.nXi](start=Medium.reference_X[1:Medium.nXi])
     "Structurally independent mass fractions";
-  SIadd.ExtraPropertyExtrinsic mC[Medium.nC] "Trace substance extrinsic value";
-  SIadd.ExtraProperty C[Medium.nC](each stateSelect=StateSelect.prefer, start=
+  SItf.ExtraPropertyExtrinsic mC[Medium.nC] "Trace substance extrinsic value";
+  SItf.ExtraProperty C[Medium.nC](each stateSelect=StateSelect.prefer, start=
         C_start) "Trace substance mass-specific value";
   // Mass Balance
   SI.MassFlowRate mb=port_a.m_flow + port_b.m_flow
@@ -82,7 +82,7 @@ model DumpTank "Expansion tank with cover gas"
       i]) + port_b.m_flow*actualStream(port_b.Xi_outflow[i]) for i in 1:Medium.nXi}
     "Species mass flow rates source/sinks within volumes";
   // Trace Balance
-  SIadd.ExtraPropertyFlowRate mCb[Medium.nC]={port_a.m_flow*actualStream(port_a.C_outflow[
+  SItf.ExtraPropertyFlowRate mCb[Medium.nC]={port_a.m_flow*actualStream(port_a.C_outflow[
       i]) + port_b.m_flow*actualStream(port_b.C_outflow[i]) + mC_gen[i] +
       mC_flow_internal[i] for i in 1:Medium.nC}
     "Trace flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
@@ -97,7 +97,7 @@ model DumpTank "Expansion tank with cover gas"
       tab="Advanced",
       group="Trace Mass Transfer",
       enable=use_TraceMassPort));
-  input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0, Medium.nC)
+  input SItf.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0, Medium.nC)
     "Internal trace mass generation"
     annotation (Dialog(tab="Advanced", group="Trace Mass Transfer"));
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=T, Q_flow=Q_flow_internal) if use_HeatPort annotation (
@@ -113,7 +113,7 @@ model DumpTank "Expansion tank with cover gas"
   parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
 protected
   SI.HeatFlowRate Q_flow_internal;
-  SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
+  SItf.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
 initial equation
   // Mass Balance
   if massDynamics == Dynamics.FixedInitial then

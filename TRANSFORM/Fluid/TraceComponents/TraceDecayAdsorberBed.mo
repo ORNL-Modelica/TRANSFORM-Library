@@ -15,7 +15,7 @@ model TraceDecayAdsorberBed
                                             "Medium properties" annotation (
       choicesAllMatching=true);
   parameter Integer nV=1 "# of volumes";
-  input SIadd.InverseTime lambdas[Medium.nC]=fill(1e-3, Medium.nC)
+  input SItf.InverseTime lambdas[Medium.nC]=fill(1e-3, Medium.nC)
     "Decay constant of trace substances"
     annotation (Dialog(group="Inputs"));
   input SI.SpecificVolume K[Medium.nC]=fill(1e3, Medium.nC)
@@ -33,7 +33,7 @@ model TraceDecayAdsorberBed
     annotation (Dialog(group="Inputs", enable=use_tau));
   input SI.Mass mAdsorber=V_flow*tau_res/K[iC] "Specify total mass of adsorber"
     annotation (Dialog(group="Inputs", enable=not use_tau));
-  input Units.HydraulicResistance R = 1 "Hydraulic resistance across adsorber bed" annotation(Dialog(group="Inputs"));
+  input SItf.HydraulicResistance R = 1 "Hydraulic resistance across adsorber bed" annotation(Dialog(group="Inputs"));
   parameter Real[Medium.nC,Medium.nC] parents = fill(0,Medium.nC,Medium.nC) "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
 //   input SI.PressureDifference dp=1
 //     "Pressure drop across adsorber bed (dp = port_a.p - port_b.p)"
@@ -58,9 +58,9 @@ model TraceDecayAdsorberBed
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_b_start=T_a_start "Temperature at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  SIadd.ExtraPropertyFlowRate mC_flows[nV + 1,Medium.nC]
+  SItf.ExtraPropertyFlowRate mC_flows[nV + 1,Medium.nC]
     "Trace substance flow rate between volumes";
-  SIadd.ExtraPropertyFlowRate mCs_decay[nV,Medium.nC]
+  SItf.ExtraPropertyFlowRate mCs_decay[nV,Medium.nC]
     "Amount of substance decayed across each volume";
   SI.HeatFlowRate Qs_perC[nV,Medium.nC]
     "Heat released from decay per volume per substance";

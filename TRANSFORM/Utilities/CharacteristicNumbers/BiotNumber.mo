@@ -4,7 +4,7 @@ function BiotNumber "Returns Biot number"
   input SI.CoefficientOfHeatTransfer alpha "Heat transfer coefficient";
   input SI.Length L "Characteristic length";
   input SI.ThermalConductivity lambda "Thermal conductivity (e.g., of the solid)";
-  output Units.NonDim Bi "Biot number";
+  output SItf.NonDim Bi "Biot number";
 algorithm
   Bi :=alpha*L/lambda;
   annotation (Documentation(info="<html>

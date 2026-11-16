@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Utilit
 function K_2 "Bundle Geometry Factor"
   input SI.Length D_htr "Heater element diameter";
   input SI.Length Pitch "Center distance between heating elements";
-  input SIadd.NonDim x_abs "Absolute quality";
+  input SItf.NonDim x_abs "Absolute quality";
   output Real K "Correction factor";
 protected
   SI.Length delta;

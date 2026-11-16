@@ -3,7 +3,7 @@ function KnudsenNumber "Returns Knudsen number"
   extends Modelica.Icons.Function;
   input SI.Length L_ms "Distance between energy carrier interactions";
   input SI.Length L_char "Length scale that characterizes the problem";
-  output Units.NonDim Kn "Jakob number";
+  output SItf.NonDim Kn "Jakob number";
 algorithm
   Kn := L_ms/L_char;
   annotation (Documentation(info="<html>

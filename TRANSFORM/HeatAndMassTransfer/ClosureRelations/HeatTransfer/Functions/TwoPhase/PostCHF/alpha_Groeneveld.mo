@@ -5,7 +5,7 @@ function alpha_Groeneveld
   input SI.Length D_hyd "Hydraulic diameter";
   input SI.Area crossArea "Cross-sectional flow area";
   input SI.MassFlowRate m_flow "Mass flow rate";
-  input SIadd.NonDim x_abs "Absolute quality";
+  input SItf.NonDim x_abs "Absolute quality";
   input SI.DynamicViscosity mu_vsat
     "Vapor phase saturated dynamic viscosity";
   input SI.Density rho_lsat "Saturated liquid density";

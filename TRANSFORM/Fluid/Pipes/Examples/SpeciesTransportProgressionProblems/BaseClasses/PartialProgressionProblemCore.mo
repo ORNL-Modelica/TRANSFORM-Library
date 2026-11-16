@@ -15,9 +15,9 @@ partial model PartialProgressionProblemCore
 
   parameter SI.Velocity v=0.0;
 
-  parameter TRANSFORM.Units.InverseTime lambda_i[nC]=fill(0.1, nC);
-  parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=1000*ones(nV, nC);
-  parameter SIadd.ExtraPropertyConcentration C_i_inlet[nC]=zeros(nC);
+  parameter SItf.InverseTime lambda_i[nC]=fill(0.1, nC);
+  parameter SItf.ExtraPropertyConcentration C_i_start[nV,nC]=1000*ones(nV, nC);
+  parameter SItf.ExtraPropertyConcentration C_i_inlet[nC]=zeros(nC);
 
   final parameter SI.MassFlowRate m_flow=Medium.density_pT(p_start, T_start)*
       Modelica.Constants.pi*dimension^2/4*v;
@@ -25,12 +25,12 @@ partial model PartialProgressionProblemCore
   SI.Time t_residence = if pipe.m_flows[1] < Modelica.Constants.eps then Modelica.Constants.inf else pipe.ms[1]/pipe.m_flows[1];
 
   // Convert from volume based to mass based
-  final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/
+  final parameter SItf.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/
       Medium.density_pT(p_start, T_start) for j in 1:nC} for i in 1:nV};
-  final parameter SIadd.ExtraProperty Cs_inlet[nC]={C_i_inlet[j]/
+  final parameter SItf.ExtraProperty Cs_inlet[nC]={C_i_inlet[j]/
       Medium.density_pT(p_start, T_start) for j in 1:nC};
 
-  SIadd.ExtraPropertyConcentration C_i[nV,nC];
+  SItf.ExtraPropertyConcentration C_i[nV,nC];
 
   parameter Boolean use_generation = false;
   parameter Boolean use_PtoD = false;
@@ -42,19 +42,19 @@ partial model PartialProgressionProblemCore
   {0.0,0.0,1.0,0.0}} else fill(0,nC,nC)
     "Matrix of parent sources (sum(column) = 0 or 1) for each fission product 'daughter'. Row is daughter, Column is parent.";
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{mC_decay[i, j]
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens={{mC_decay[i, j]
   + (if use_generation then mC_generation[i, j] else 0)
   + (if use_PtoD then mC_gens_PtoD[i, j] else 0)
   + (if use_capture then mC_gens_capture[i, j] else 0)
   for j in 1:nC} for i in 1:nV};
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_decay = {{-lambda_i[j]*pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in 1:nV};
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_decay = {{-lambda_i[j]*pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in 1:nV};
   Real[nV] mC_generationShape = {sin(Modelica.Constants.pi*pipe.summary.xpos_norm[i]) for i in 1:nV};
   //Real[nV] mC_captureShape = {sum({sin(k*Modelica.Constants.pi*pipe.summary.xpos_norm[i])/k for k in 1:100}) for i in 1:nV};
   Real[nV] mC_captureShape = {sum({-sin(k*Modelica.Constants.pi*(pipe.summary.xpos_norm[i]+1))/k for k in 1:100}) for i in 1:nV};
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_generation = {{0.0005*mC_generationShape[i] for j in 1:nC} for i in 1:nV};
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_PtoD={{sum({lambda_i[k]*pipe.mCs[i, k]*pipe.nParallel*parents[j, k] for k in 1:nC}) for j in 1:nC} for i in 1:nV};
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_capture={{-0.1*mC_captureShape[i]* pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in 1:nV};
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_generation = {{0.0005*mC_generationShape[i] for j in 1:nC} for i in 1:nV};
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens_PtoD={{sum({lambda_i[k]*pipe.mCs[i, k]*pipe.nParallel*parents[j, k] for k in 1:nC}) for j in 1:nC} for i in 1:nV};
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens_capture={{-0.1*mC_captureShape[i]* pipe.mCs[i, j]*pipe.nParallel for j in 1:nC} for i in 1:nV};
 
   Pipes.GenericPipe_MultiTransferSurface pipe(
     redeclare package Medium = Medium,

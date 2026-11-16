@@ -18,11 +18,11 @@ model PointKinetics_Drift_Test_flat
   parameter SI.Pressure[loop_.nV] ps1 = 1e5*ones(loop_.nV);
   parameter SI.Density[core.nV] rhos = Medium.density_pT(ps,Tsr);
   parameter SI.Density[loop_.nV] rhos1 = Medium.density_pT(ps1,Tsr1);
-  SIadd.ExtraPropertyFlowRate[loop_.nV,core_kinetics.summary_data.nC] mC_gens_pipe1={{
+  SItf.ExtraPropertyFlowRate[loop_.nV,core_kinetics.summary_data.nC] mC_gens_pipe1={{
       -core_kinetics.summary_data.lambdas[j]*loop_.mCs[i, j]*loop_.nParallel +
       mC_gens_pipe1_PtoD[i, j] for j in 1:core_kinetics.summary_data.nC} for i in 1:
       loop_.nV};
-  SIadd.ExtraPropertyFlowRate[loop_.nV,core_kinetics.summary_data.nC]
+  SItf.ExtraPropertyFlowRate[loop_.nV,core_kinetics.summary_data.nC]
     mC_gens_pipe1_PtoD={{sum({core_kinetics.summary_data.lambdas[k] .* loop_.mCs[i, k]
        .* loop_.nParallel .* core_kinetics.summary_data.parents[j, k] for k in 1:
       core_kinetics.summary_data.nC}) for j in 1:core_kinetics.summary_data.nC} for i in 1:

@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer;
 model Overall_Evaporation
   "Evaporation: Overall evaporation model from single phase liquid to single phase vapor."
   extends TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.TwoPhase.Partial_TwoPhaseHeatTransfer;
-  parameter Units.NonDim[nHT] x_CHF=0.9*ones(nHT)
+  parameter SItf.NonDim[nHT] x_CHF=0.9*ones(nHT)
     "Steam quality corresponding to Critical Heat Flux";
   replaceable function heatTransfer_SinglephaseLiquid =
       TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter

@@ -46,14 +46,14 @@ model part_a_TemperatureThermoseedTissue
     "radius of infiinite medium"
     annotation (Placement(transformation(extent={{-100,54},{-92,62}})));
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePlot(
-    x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_mm(cat(
+    x=SItf.Conversions.Functions.Distance_m.to_mm(cat(
         1,
         {0},
         thermoseed.geometry.rs,
         tissue.geometry.rs,
         {r_t.y + r_ts.y})),
     maxY=200,
-    y=TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {Adiabatic.port.T},
         thermoseed.materials.T,

@@ -17,18 +17,18 @@ model PointKinetics_L1_atomBased_external
   input SI.Power Q_fission_input=Q_nominal
     "Fission power (if specifyPower=true)"
     annotation (Dialog(group="Inputs", enable=specifyPower));
-  input TRANSFORM.Units.InverseTime N_external=0
+  input SItf.InverseTime N_external=0
     "Rate of neutrons added from an external neutron source"
     annotation (Dialog(group="Inputs"));
-  input TRANSFORM.Units.NonDim rho_input=0 "External Reactivity"
+  input SItf.NonDim rho_input=0 "External Reactivity"
     annotation (Dialog(group="Inputs"));
   input SI.Volume[nV] Vs
     "Volume for atom concentration basis"
     annotation (Dialog(group="Inputs"));
-  input SIadd.ExtraPropertyExtrinsic[nV,nC] mCs
+  input SItf.ExtraPropertyExtrinsic[nV,nC] mCs
     "# of neutron precursors in each volume [atoms]"
     annotation (Dialog(group="Inputs"));
-  input SIadd.ExtraPropertyExtrinsic[nV,nFP] mCs_FP={{0 for j in 1:nFP} for i in 1:nV}
+  input SItf.ExtraPropertyExtrinsic[nV,nFP] mCs_FP={{0 for j in 1:nFP} for i in 1:nV}
     "Fission product number in each volume [atoms]"
     annotation (Dialog(group="Inputs"));
   // Reactivity Feedback
@@ -49,37 +49,37 @@ model PointKinetics_L1_atomBased_external
     annotation (Dialog(tab="Kinetics", group="Inputs: Reactivity Feedback"));
   // Neutron Kinetics
   final parameter Integer nC=data.nC "# of delayed-neutron precursors groups";
-  input Units.InverseTime dlambdas[nC]=fill(0, nC)
+  input SItf.InverseTime dlambdas[nC]=fill(0, nC)
     "Change in decay constants for each precursor group"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Neutron Kinetics"));
-  input Units.NonDim dalphas[nC]=fill(0, nC)
+  input SItf.NonDim dalphas[nC]=fill(0, nC)
     "Change in normalized precursor fractions [betas = alphas*Beta]"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Neutron Kinetics"));
-  input TRANSFORM.Units.NonDim dBeta=0
+  input SItf.NonDim dBeta=0
     "Change in effective delayed neutron fraction [e.g., Beta = sum(beta_i)]"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Neutron Kinetics"));
   input SI.Time dLambda=0 "Change in prompt neutron generation time"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Neutron Kinetics"));
-  Units.InverseTime lambdas[nC]=lambdas_start + dlambdas
+  SItf.InverseTime lambdas[nC]=lambdas_start + dlambdas
     "Decay constants for each precursor group";
-  Units.NonDim alphas[nC]=alphas_start + dalphas
+  SItf.NonDim alphas[nC]=alphas_start + dalphas
     "Normalized precursor fractions [beta_i = alpha_i*Beta]";
-  TRANSFORM.Units.NonDim Beta=Beta_start + dBeta
+  SItf.NonDim Beta=Beta_start + dBeta
     "Effective delayed neutron fraction [e.g., Beta = sum(beta_i)]";
   SI.Time Lambda=Lambda_start + dLambda "Prompt neutron generation time";
   // Initialization
-   final parameter Units.InverseTime lambdas_start[nC]=data.lambdas
+   final parameter SItf.InverseTime lambdas_start[nC]=data.lambdas
      "Decay constants for each precursor group"
      annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
-   final parameter Units.NonDim alphas_start[nC]=data.alphas
+   final parameter SItf.NonDim alphas_start[nC]=data.alphas
      "Normalized precursor fractions [betas = alphas*Beta]"
      annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
-   final parameter TRANSFORM.Units.NonDim Beta_start=data.Beta
+   final parameter SItf.NonDim Beta_start=data.Beta
      "Effective delayed neutron fraction [e.g., Beta = sum(beta_i)]"
      annotation (Dialog(tab="Initialization", group="Neutron Kinetics"));
   parameter SI.Time Lambda_start=1e-5 "Prompt neutron generation time"
     annotation (Dialog(tab="Kinetics", group="Neutron Kinetics"));
-  final parameter Units.NonDim betas_start[nC]=alphas_start*Beta_start
+  final parameter SItf.NonDim betas_start[nC]=alphas_start*Beta_start
     "Delayed neutron precursor fractions";
   parameter SI.Power Q_fission_start=Q_nominal
     "Initial reactor fission power"
@@ -88,10 +88,10 @@ model PointKinetics_L1_atomBased_external
   parameter Dynamics energyDynamics=Dynamics.DynamicFreeInitial
     "Formulation of nuclear kinetics balances"
     annotation (Dialog(tab="Advanced", group="Dynamics"));
-  Units.NonDim betas[nC]=alphas*Beta "Delayed neutron precursor fractions";
-  TRANSFORM.Units.NonDim[nFeedback] rhos_feedback
+  SItf.NonDim betas[nC]=alphas*Beta "Delayed neutron precursor fractions";
+  SItf.NonDim[nFeedback] rhos_feedback
     "Linear reactivity feedback";
-  TRANSFORM.Units.NonDim rho "Total reactivity feedback";
+  SItf.NonDim rho "Total reactivity feedback";
   SI.Power Qs[nV] "Power determined from kinetics and decay-heat per volume";
   SI.Power Q_total=sum(Qs) "Total power output, including decay-heat";
   SI.Power Q_fission(start=Q_fission_start)
@@ -100,7 +100,7 @@ model PointKinetics_L1_atomBased_external
   SI.Power Qs_decay_V[nV]={sum(Qs_decay[i, :]) for i in 1:nV}
     "Total decay-heat per volume";
   SI.Power Q_decay=sum(Qs_decay_V) "Total decay-heat";
-  SIadd.NonDim eta=Q_decay/max(1, Q_fission)
+  SItf.NonDim eta=Q_decay/max(1, Q_fission)
     "Ratio of decay heat to fisson power";
   TRANSFORM.Nuclear.ReactorKinetics.Reactivity.FissionProducts_externalBalance_withTritium_withDecayHeat
     fissionProducts(
@@ -142,18 +142,18 @@ model PointKinetics_L1_atomBased_external
   final parameter Integer nT=fissionProducts.data.nT
     "# of fission product types (e.g., fast/thermal)"
     annotation (Dialog(tab="Kinetics"));
-  parameter Units.NonDim fissionSources_start[nFS]=fill(1/nFS, nFS)
+  parameter SItf.NonDim fissionSources_start[nFS]=fill(1/nFS, nFS)
     "Source of fissile material fractional composition (sum=1)" annotation (
       Dialog(tab="Kinetics", group=
           "Fission Sources"));
-  parameter Units.NonDim fissionTypes_start[nFS,nT]=fill(
+  parameter SItf.NonDim fissionTypes_start[nFS,nT]=fill(
       1/nT,
       nFS,
       nT)
     "Fraction of fission from each fission type per fission source, sum(row) = 1"
     annotation (Dialog(tab="Kinetics", group=
           "Fission Sources"));
-  parameter Units.NonDim nu_bar_start=2.4 "Neutrons per fission" annotation (
+  parameter SItf.NonDim nu_bar_start=2.4 "Neutrons per fission" annotation (
       Dialog(tab="Kinetics", group=
           "Fission Sources"));
   parameter SI.Energy w_f_start=200e6*1.6022e-19 "Energy released per fission"
@@ -162,18 +162,18 @@ model PointKinetics_L1_atomBased_external
   parameter SI.MacroscopicCrossSection SigmaF_start=1
     "Macroscopic fission cross-section of fissile material" annotation (Dialog(
         tab="Kinetics", group="Fission Sources"));
-  input Units.NonDim dfissionSources[nFS]=fill(0, nFS)
+  input SItf.NonDim dfissionSources[nFS]=fill(0, nFS)
     "Change in source of fissile material fractional composition (sum=1)"
     annotation (Dialog(tab="Parameter Change", group=
           "Inputs: Fission Sources"));
-  input Units.NonDim dfissionTypes[nFS,nT]=fill(
+  input SItf.NonDim dfissionTypes[nFS,nT]=fill(
       0,
       nFS,
       nT)
     "Change in fraction of fission from each fission type per fission source, sum(row) = 1"
     annotation (Dialog(tab="Parameter Change", group=
           "Inputs: Fission Sources"));
-  input Units.NonDim dnu_bar=0 "Change in neutrons per fission" annotation (
+  input SItf.NonDim dnu_bar=0 "Change in neutrons per fission" annotation (
       Dialog(tab="Parameter Change", group="Inputs: Fission Sources"));
   input SI.Energy dw_f=0 "Change in energy released per fission" annotation (
       Dialog(tab="Parameter Change", group="Inputs: Fission Sources"));
@@ -191,10 +191,10 @@ model PointKinetics_L1_atomBased_external
       nT)
     "Change in # fission product atoms yielded per fission per fissile source [#/fission]"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Fission Products"));
-  input Units.InverseTime dlambdas_FP[nFP]=fill(0, nFP)
+  input SItf.InverseTime dlambdas_FP[nFP]=fill(0, nFP)
     "Change in decay constants for each fission product" annotation (Dialog(tab=
          "Parameter Change", group="Inputs: Fission Products"));
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens "Generation rate of neutron precursor groups [atoms/s]";
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens "Generation rate of neutron precursor groups [atoms/s]";
   input SI.Energy dw_near_decay[nFP]=fill(0, nFP)
     "Change in energy released per decay of each fission product [J/decay] (near field - e.g., beta)"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Decay-Heat"));
@@ -212,13 +212,13 @@ model PointKinetics_L1_atomBased_external
   input SI.Area dsigmasT_TR[nTR]=fill(0, fissionProducts.nTR)
     "Change in microscopic absorption cross-section for tritium generation"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Tritium Balance"));
-  input TRANSFORM.Units.InverseTime dlambdas_TR[nTR]=fill(0,
+  input SItf.InverseTime dlambdas_TR[nTR]=fill(0,
       fissionProducts.nTR) "Decay constants for each tritium contributor"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Tritium Balance"));
-  input TRANSFORM.Units.ExtraPropertyExtrinsic mCs_TR[nV,nTR]={{0 for j in 1
+  input SItf.ExtraPropertyExtrinsic mCs_TR[nV,nTR]={{0 for j in 1
       :fissionProducts.nTR} for i in 1:fissionProducts.nV}
     "Amount of each contributor to tritium [atoms]" annotation(Dialog(group="Inputs"));
-  input TRANSFORM.Units.NonDim SF_Q_fission[nV]=fill(1/nV, nV)
+  input SItf.NonDim SF_Q_fission[nV]=fill(1/nV, nV)
     "Shape factor for Q_fission, sum() = 1"                                                     annotation(Dialog(group=
           "Shape Factors"));
   replaceable record Data_CP =

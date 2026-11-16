@@ -5,7 +5,7 @@ function BubbleVelocity
   Source:
   1. NUREG-CR-4449 pg 30
   */
-  input Units.VoidFraction alphaV "Void fraction in liquid region";
+  input SItf.VoidFraction alphaV "Void fraction in liquid region";
   input SI.Density rho_v "Vapor density";
   input SI.Area Ac "Average cross sectional area";
   input SI.Velocity v_bub "Bubble terminal velocity";

@@ -5,28 +5,28 @@ model EmptyTankInsurge
   // Experiment Parameters
   package Medium = Modelica.Media.Water.StandardWater "Medium in component";
   constant SI.Length mainTank_d_inner=
-      Units.Conversions.Functions.Distance_m.from_in(7.625)
+      SItf.Conversions.Functions.Distance_m.from_in(7.625)
     "Inner diameter of the main (primary) tank";
   constant SI.Length mainTank_d_outer=
-      Units.Conversions.Functions.Distance_m.from_in(8.625)
+      SItf.Conversions.Functions.Distance_m.from_in(8.625)
     "Outer diameter of the main (primary) tank";
   constant SI.Length mainTank_th = 0.5*(mainTank_d_outer - mainTank_d_inner) "Wall thickness of thee main (primary) tank";
   constant SI.Length mainTank_height=
-      Units.Conversions.Functions.Distance_m.from_in(45)
+      SItf.Conversions.Functions.Distance_m.from_in(45)
     "Internal height of the main (primary) tank";
   constant SI.Volume mainTank_V = mainTank_height*0.25*pi*mainTank_d_inner^2 "Empty volume of the main (primary) tank (excludes ~negligible port/level indicator volumes)";
   constant SI.Volume wall_V = 0.25*pi*(mainTank_d_outer^2 - mainTank_d_inner^2)*mainTank_height "Wall volume";
   // Experiment Initial Conditions
   constant SI.Height mainTank_level_start=
-      Units.Conversions.Functions.Distance_m.from_in(9.3)
+      SItf.Conversions.Functions.Distance_m.from_in(9.3)
     "Initial liquid level (empty = 0)";
   constant SI.Pressure mainTank_p_start=
-      Units.Conversions.Functions.Pressure_Pa.from_psi(126)
+      SItf.Conversions.Functions.Pressure_Pa.from_psi(126)
     "Initial pressure of main (primary) tank";
   constant SI.Temperature insurge_T = Modelica.Units.Conversions.from_degF(
                                                                75) "Insurge water temperature";
-  constant Units.NonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
-  constant Units.NonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
+  constant SItf.NonDim mainTank_V_liquid_start = mainTank_V*mainTank_level_start/mainTank_height "Initial liquid level in main (primary) tank";
+  constant SItf.NonDim mainTank_Vfrac_liquid_start = mainTank_V_liquid_start/mainTank_V "Initial liquid level in main (primary) tank";
   constant SI.Temperature wall_Tavg = Modelica.Units.Conversions.from_degF(
                                                                300) "Average wall temperature";
   constant SI.ThermalConductivity wall_lambda=
@@ -39,13 +39,13 @@ model EmptyTankInsurge
     "Wall density";
   // Experiment Final Conditions
   constant SI.Height mainTank_level_final=
-      Units.Conversions.Functions.Distance_m.from_in(27.8)
+      SItf.Conversions.Functions.Distance_m.from_in(27.8)
     "Final liquid level (empty = 0)";
   constant SI.Pressure mainTank_p_empty=
-      Units.Conversions.Functions.Pressure_Pa.from_psi(112.5)
+      SItf.Conversions.Functions.Pressure_Pa.from_psi(112.5)
     "Empty main (primary) tank pressure";
   constant SI.Pressure mainTank_p_final=
-      Units.Conversions.Functions.Pressure_Pa.from_psi(54.5)
+      SItf.Conversions.Functions.Pressure_Pa.from_psi(54.5)
     "Final main (primary) tank pressure";
   Modelica.Blocks.Sources.TimeTable data_m_flow(table=[0,0; 20,0; 43.45024059,0;
         44.52345734,0.086628967; 44.65950883,0.195130832; 45.06077874,
@@ -108,7 +108,7 @@ model EmptyTankInsurge
   inner System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Utilities.Visualizers.displayReal pressure(val=
-        Units.Conversions.Functions.Pressure_Pa.to_psi(pressurizer.drum2Phase.p))
+        SItf.Conversions.Functions.Pressure_Pa.to_psi(pressurizer.drum2Phase.p))
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureAmbient1(T=
         Medium.saturationTemperature(mainTank_p_start))
@@ -152,7 +152,7 @@ model EmptyTankInsurge
     "time (s) vs centerline temperature (K) at 40\" from experiment: Figure E.17"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
- p_exp =TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_psi(data_pressure.y);
+ p_exp =SItf.Conversions.Functions.Pressure_Pa.to_psi(data_pressure.y);
   connect(insurge.ports[1], pressurizer.surgePort) annotation (Line(points={{-28,-60},
           {-14,-60},{0,-60},{0,-26}},      color={0,127,255}));
   connect(spray.ports[1], pressurizer.sprayPort) annotation (Line(points={{-28,60},

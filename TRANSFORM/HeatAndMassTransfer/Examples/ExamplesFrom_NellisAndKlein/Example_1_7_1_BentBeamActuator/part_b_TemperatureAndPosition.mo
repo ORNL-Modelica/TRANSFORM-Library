@@ -67,7 +67,7 @@ model part_b_TemperatureAndPosition
     annotation (Placement(transformation(extent={{16,-76},{58,-36}})));
  Real xval[nNodes_1.k] = beam.geometry.cs_1/L.y;
   Real yval[nNodes_1.k]=
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(beam.materials.T);
+      SItf.Conversions.Functions.Temperature_K.to_degC(beam.materials.T);
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={beam.materials[
         end].T})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

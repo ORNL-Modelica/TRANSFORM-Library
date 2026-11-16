@@ -48,16 +48,16 @@ model Condenser
     "Coolant start temperature"
     annotation (Dialog(tab="Initialization", group="Coolant"));
   parameter SI.Temperature X_start_coolant[Medium_coolant.nX] = Medium_coolant.X_default "Coolant start temperature" annotation(Dialog(tab="Initialization",group="Coolant"));
-  parameter SIadd.ExtraProperty C_start_coolant[Medium_coolant.nC]=fill(0, Medium_coolant.nC)
+  parameter SItf.ExtraProperty C_start_coolant[Medium_coolant.nC]=fill(0, Medium_coolant.nC)
     "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
       group="Coolant",
       enable=Medium_coolant.nC > 0));
   parameter Boolean exposeState_a_coolant = true "=false to use resistance between port and volume" annotation(Dialog(tab="Advanced",group="Inputs Coolant"),Evaluate=true);
   parameter Boolean exposeState_b_coolant = false "=false to use resistance between port and volume" annotation(Dialog(tab="Advanced",group="Inputs Coolant"),Evaluate=true);
-  input Units.HydraulicResistance R_a_coolant=1
+  input SItf.HydraulicResistance R_a_coolant=1
     "Hydraulic resistance at portCoolant_a" annotation(Dialog(tab="Advanced",group="Inputs Coolant",enable=not exposeState_a_coolant));
-  input Units.HydraulicResistance R_b_coolant=1
+  input SItf.HydraulicResistance R_b_coolant=1
     "Hydraulic resistance at portCoolant_b" annotation(Dialog(tab="Advanced",group="Inputs Coolant",enable= not exposeState_b_coolant));
   Interfaces.FluidPort_State portSteamFeed(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}),

@@ -1,9 +1,9 @@
 within TRANSFORM.HeatAndMassTransfer.Examples;
 model ThermalProperties
   extends Icons.Example;
-  constant SI.Temperature T=Units.Conversions.Functions.Temperature_K.from_degC(
+  constant SI.Temperature T=SItf.Conversions.Functions.Temperature_K.from_degC(
       20) "Temperature";
-  constant SI.Pressure p=Units.Conversions.Functions.Pressure_Pa.from_atm(1.0)
+  constant SI.Pressure p=SItf.Conversions.Functions.Pressure_Pa.from_atm(1.0)
     "Pressure";
   package Medium_w = Modelica.Media.Water.StandardWater "Water model";
   package Medium_a = Modelica.Media.Air.DryAirNasa "Dry air model";

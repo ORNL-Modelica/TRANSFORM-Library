@@ -35,10 +35,10 @@ model data_RCTR
   parameter SI.TemperatureDifference dT_core = Q_nominal/(m_flow*cp)
     "Expected temperature difference across core";
   parameter SI.Velocity vs_reflA_core=
-      TRANSFORM.Units.Conversions.Functions.Velocity_m_s.from_ft_s(7)
+      SItf.Conversions.Functions.Velocity_m_s.from_ft_s(7)
     "Velocity of fueled and control rod cells region in top axial reflector";
   parameter SI.Velocity vs_reflA_reflR=
-      TRANSFORM.Units.Conversions.Functions.Velocity_m_s.from_ft_s(1)
+      SItf.Conversions.Functions.Velocity_m_s.from_ft_s(1)
     "Velocity of radial reflector region in top axial reflector";
   parameter SI.MassFlowRate m_flow = from_lbm_hr(6*6.6e6)
     "Total mass flow rate through reactor";

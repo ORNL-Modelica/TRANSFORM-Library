@@ -67,7 +67,7 @@ model Winding_123D_withMass
   Utilities.Visualizers.displayReal display(use_port=true)
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   Modelica.Blocks.Sources.RealExpression T_max(y=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(winding.materials.T)))
+        SItf.Conversions.Functions.Temperature_K.to_degC(max(winding.materials.T)))
     annotation (Placement(transformation(extent={{-88,54},{-72,66}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Adiabatic bound_inner[
     nNodes_1.k,nNodes_3.k] annotation (Placement(transformation(

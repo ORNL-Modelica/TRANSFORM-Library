@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.Examples;
 model Traditional
   extends TRANSFORM.Icons.Example;
   //parameter Real Vfrac_liquid = 0.5;
-  Units.NonDim Vfrac_liquid=variableVfrac_liquid.y;
+  SItf.NonDim Vfrac_liquid=variableVfrac_liquid.y;
   parameter SI.Length r_1 = 1.25;
   parameter SI.Length r_2 = 1.5;
   parameter SI.Length r_3 = 1.5;

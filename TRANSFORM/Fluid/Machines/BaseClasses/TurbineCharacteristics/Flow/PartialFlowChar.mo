@@ -6,7 +6,7 @@ partial model PartialFlowChar
       Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (Dialog(tab="Internal Interface"));
 
-  input SIadd.NonDim PR annotation (Dialog(tab="Internal Interface", group="Inputs"));
+  input SItf.NonDim PR annotation (Dialog(tab="Internal Interface", group="Inputs"));
 
   input Medium.ThermodynamicState state "Inlet thermodynamic state"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
@@ -19,7 +19,7 @@ partial model PartialFlowChar
   parameter SI.MassFlowRate m_flow_nominal "Mass flow rate" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.Temperature T_nominal "Inlet temperature" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.Pressure p_nominal "Inlet pressure" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
-  parameter SIadd.NonDim PR_nominal "Outlet/inlet nominal pressure ratio" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
+  parameter SItf.NonDim PR_nominal "Outlet/inlet nominal pressure ratio" annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
 
   constant SI.Temperature T_ref = 288.15;
   constant SI.Pressure p_ref = 101325;

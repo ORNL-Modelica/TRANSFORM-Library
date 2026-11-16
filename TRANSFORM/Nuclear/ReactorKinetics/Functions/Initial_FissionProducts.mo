@@ -6,10 +6,10 @@ function Initial_FissionProducts
     "# of fission product types (e.g., fast/thermal)";
   input Real[nC,nC] parents
     "Matrix of parent-daughter sources";
-  input Units.NonDim fissionSources_start[nFS]=fill(1/nFS, nFS)
+  input SItf.NonDim fissionSources_start[nFS]=fill(1/nFS, nFS)
     "Fission source material fractional composition (sum=1)"
     annotation (Dialog(tab="Initialization", group="Fission Sources"));
-  input Units.NonDim fissionTypes_start[nFS,nT]=fill(
+  input SItf.NonDim fissionTypes_start[nFS,nT]=fill(
       1/nT,
       nFS,
       nT)
@@ -26,19 +26,19 @@ function Initial_FissionProducts
   input Real fissionYields_start[nC,nFS,nT]
     "# fission product atoms yielded per fission per fissile source [#/fission]"
     annotation (Dialog(tab="Initialization", group="Fission Products"));
-  input Units.InverseTime lambdas_start[nC]
+  input SItf.InverseTime lambdas_start[nC]
     "Decay constants for each fission product"
     annotation (Dialog(tab="Initialization", group="Fission Products"));
-  input SIadd.ExtraPropertyExtrinsic mCs_guess[nC] "Number of fission product atoms per group per volume" annotation (Dialog(tab="Initialization"));
+  input SItf.ExtraPropertyExtrinsic mCs_guess[nC] "Number of fission product atoms per group per volume" annotation (Dialog(tab="Initialization"));
   input SI.Power Qs_fission_start=1e6
     "Power determined from kinetics. Does not include fission product decay heat"
     annotation (Dialog(tab="Initialization"));
   input SI.Volume Vs_start=0.1
     "Volume for fisson product concentration basis"
     annotation (Dialog(tab="Initialization"));
-    output SIadd.ExtraPropertyExtrinsic mCs[nC];
+    output SItf.ExtraPropertyExtrinsic mCs[nC];
 protected
-  SIadd.ExtraPropertyExtrinsic mCs_start[nC] = mCs_guess;
+  SItf.ExtraPropertyExtrinsic mCs_start[nC] = mCs_guess;
   Real it = 0;
   Real itmax = 10;
   Real error = 100;

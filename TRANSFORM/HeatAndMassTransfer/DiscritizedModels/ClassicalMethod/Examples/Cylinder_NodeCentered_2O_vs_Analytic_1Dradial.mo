@@ -9,7 +9,7 @@ model Cylinder_NodeCentered_2O_vs_Analytic_1Dradial
     x_2=T_analytic)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   parameter Integer nRadial = 50 "Radial nodes";
-  parameter TRANSFORM.Units.VolumetricHeatGenerationRate q_ppp=1e6
+  parameter SItf.VolumetricHeatGenerationRate q_ppp=1e6
     "Volumetric heat generation";
   parameter SI.Length r_o = 1 "Outer radius of cylinder";
   parameter SI.Temperature T_surface = 373.15 "Surface temperature";

@@ -13,15 +13,15 @@ model SimpleSeparator
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
 
-  input SIadd.NonDim[Medium.nC] eta=fill(0, Medium.nC) "Separation efficiency"
+  input SItf.NonDim[Medium.nC] eta=fill(0, Medium.nC) "Separation efficiency"
     annotation (Dialog(group="Inputs"));
 
-  SIadd.ExtraPropertyFlowRate[Medium.nC] mC_flows
+  SItf.ExtraPropertyFlowRate[Medium.nC] mC_flows
     "Flow rate of substances before separation";
-  SIadd.ExtraPropertyFlowRate[Medium.nC] mC_flows_sep "Flow rate of substances separated";
-   SIadd.ExtraPropertyFlowRate[Medium.nC] mC_flows_notSep
+  SItf.ExtraPropertyFlowRate[Medium.nC] mC_flows_sep "Flow rate of substances separated";
+   SItf.ExtraPropertyFlowRate[Medium.nC] mC_flows_notSep
      "Flow rate of substances not separated";
-  SIadd.ExtraProperty[Medium.nC] Cs_notSep
+  SItf.ExtraProperty[Medium.nC] Cs_notSep
      "Concentration of substances after separation";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 

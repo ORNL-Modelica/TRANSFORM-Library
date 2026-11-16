@@ -13,7 +13,7 @@ function K_conicalDiffuser
   input SI.Length roughness=0 "Average height of surface asperities";
   input SI.ReynoldsNumber Re_lam=2300 "Laminar transition Reynolds number";
   input SI.ReynoldsNumber Re_turb=4000 "Turbulent transition Reynolds number";
-  output Units.NonDim K "Resistance coefficient";
+  output SItf.NonDim K "Resistance coefficient";
 protected
   SI.Area Amin=min(crossAreas) "Smaller cross-sectional area";
   SI.Area Amax=max(crossAreas) "Larger cross-sectional area";
@@ -25,15 +25,15 @@ protected
   SI.Angle a_half=0.5*angle "Half of the cone angle";
   SI.ReynoldsNumber Re_center=0.5*(Re_lam + Re_turb);
   SI.ReynoldsNumber Re_width=Re_turb - 0.5*(Re_lam + Re_turb);
-  Units.NonDim fRe2=
+  SItf.NonDim fRe2=
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.fRe2_SinglePhase_2Region(
       Re,
       dmin,
       roughness,
       Re_center,
       Re_width);
-  Units.NonDim f=fRe2/max(Re, 1.0)^2 "Darcy friction factor (Re floored at 1)";
-  Units.NonDim Kfr=f*(1.0 - beta4)/(8.0*sin(a_half)) "Arc-friction term";
+  SItf.NonDim f=fRe2/max(Re, 1.0)^2 "Darcy friction factor (Re floored at 1)";
+  SItf.NonDim Kfr=f*(1.0 - beta4)/(8.0*sin(a_half)) "Arc-friction term";
 algorithm
   // Rennels (2012) gradual-expansion correlation, piecewise in the total cone angle.
   // Branches are continuous in value at the 20 deg / 60 deg breakpoints and at beta = 0.5.

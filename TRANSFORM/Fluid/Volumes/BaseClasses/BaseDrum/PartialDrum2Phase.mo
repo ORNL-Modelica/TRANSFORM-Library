@@ -20,7 +20,7 @@ partial model PartialDrum2Phase "partial two phase drum model"
     "Formulation of mass balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
   /* Initialization */
-  parameter TRANSFORM.Units.NonDim Vfrac_liquid_start=0.5
+  parameter SItf.NonDim Vfrac_liquid_start=0.5
     "Initial fraction of volume in the liquid phase"
     annotation (Dialog(tab="Initialization"));
   parameter SI.Pressure p_start=system.p_start "Pressure start value"
@@ -37,7 +37,7 @@ partial model PartialDrum2Phase "partial two phase drum model"
     "Volume occupied by vapour";
   SI.Volume V_liquid(start=Vfrac_liquid_start*V_total)
     "Volume occupied by liquid";
-  TRANSFORM.Units.NonDim Vfrac_liquid(start=Vfrac_liquid_start,
+  SItf.NonDim Vfrac_liquid(start=Vfrac_liquid_start,
       stateSelect=StateSelect.prefer)
     "Fractional of total volume occupied by liquid";
   Medium.ThermodynamicState state_liquid = Medium.setState_ph(p,h_liquid)

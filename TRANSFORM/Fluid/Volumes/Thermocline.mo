@@ -6,7 +6,7 @@ model Thermocline
   SI.Energy Q_storage = volume_upper.m*(volume_upper.h - Medium.specificEnthalpy(Medium.setState_pTX(p_start,T_start_lower)));
   Real Q_storage_MWt_h = Q_storage/1e6/3600;
   SI.Volume V_total = volume_upper.V + volume_lower.V;
-  Units.NonDim levelFrac = volume_upper.V/V_total;
+  SItf.NonDim levelFrac = volume_upper.V/V_total;
   SI.Mass m_total = volume_upper.m + volume_lower.m;
 
   ExpansionTank_1Port
@@ -41,7 +41,7 @@ model Thermocline
   input SI.Pressure p_surface=p_start "Liquid surface/gas pressure" annotation (Dialog(group="Inputs"));
   parameter SI.Pressure p_start=1e5 "Pressure at upper surface"
     annotation (Dialog(tab="Initialization"));
-  parameter Units.NonDim levelFrac_start=0.5 "Fraction of length filling the upper volume" annotation (Dialog(tab="Initialization"));
+  parameter SItf.NonDim levelFrac_start=0.5 "Fraction of length filling the upper volume" annotation (Dialog(tab="Initialization"));
 
   parameter SI.Temperature T_start_upper=293.15 annotation (Dialog(tab="Initialization"));
   parameter SI.Temperature T_start_lower=293.15 annotation (Dialog(tab="Initialization"));

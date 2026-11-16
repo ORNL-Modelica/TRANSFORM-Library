@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein;
 model ConveyorBeltDesign "Example 3.1-1 Design of a conveyor belt pp. 307-309"
   extends Icons.Example;
   Modelica.Blocks.Sources.Constant L(each k=
-        Units.Conversions.Functions.Distance_m.from_ft(15)) "conveyor length"
+        SItf.Conversions.Functions.Distance_m.from_ft(15)) "conveyor length"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.Constant D(each k=0.1) "diameter"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
@@ -65,15 +65,15 @@ model ConveyorBeltDesign "Example 3.1-1 Design of a conveyor belt pp. 307-309"
     "stops changing when T < T_max"
     annotation (Placement(transformation(extent={{4,-98},{24,-78}})));
   Modelica.Blocks.Sources.Constant Tmax(each k=
-        Units.Conversions.Functions.Temperature_K.from_degC(80))
+        SItf.Conversions.Functions.Temperature_K.from_degC(80))
     "maximum acceptable disk temperature"
     annotation (Placement(transformation(extent={{-84,56},{-76,64}})));
   Modelica.Blocks.Sources.Constant Tinf(k=
-        Units.Conversions.Functions.Temperature_K.from_degC(20))
+        SItf.Conversions.Functions.Temperature_K.from_degC(20))
     "ambient temperature"
     annotation (Placement(transformation(extent={{-84,70},{-76,78}})));
   Modelica.Blocks.Sources.Constant Tini(each k=
-        Units.Conversions.Functions.Temperature_K.from_degC(180))
+        SItf.Conversions.Functions.Temperature_K.from_degC(180))
     "initial plastic disk temperature"
     annotation (Placement(transformation(extent={{-84,84},{-76,92}})));
   Utilities.CharacteristicNumbers.Models.LumpedHeatTimeConstant tau_lumped(

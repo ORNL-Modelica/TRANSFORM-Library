@@ -33,7 +33,7 @@ protected
   SI.Density rho_lsat "Upstream liquid density";
   SI.DynamicViscosity mu_vsat "Upstream vapor viscosity";
   SI.Density rho_vsat "Upstream vapor density";
-  SIadd.NonDim x_abs "Upstream absolute quality";
+  SItf.NonDim x_abs "Upstream absolute quality";
   Real phi2 "Two-phase modifier";
   function interpolateInRegion2
      input SI.ReynoldsNumber Re;

@@ -13,8 +13,8 @@ extends TRANSFORM.Icons.UnderConstruction;
   parameter SI.CoefficientOfHeatTransfer U=100
     "Overall heat transfer coefficient (NTU = U*A/C_min)" annotation(Dialog(group="Overall"));
   parameter SI.Area surfaceArea=40 "Heat transfer surface area" annotation(Dialog(group="Overall"));
-  parameter SIadd.NonDim epsilon "Effectiveness" annotation(Dialog(group="Overall"));
-  parameter SIadd.NonDim NTU "Number of transfer units" annotation(Dialog(group="Overall"));
+  parameter SItf.NonDim epsilon "Effectiveness" annotation(Dialog(group="Overall"));
+  parameter SItf.NonDim NTU "Number of transfer units" annotation(Dialog(group="Overall"));
 equation
   Q_flow = epsilon*U*surfaceArea/NTU*(T_1_hot - T_1_cold);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(

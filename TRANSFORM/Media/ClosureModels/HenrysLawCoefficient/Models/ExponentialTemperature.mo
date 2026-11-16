@@ -7,9 +7,9 @@ model ExponentialTemperature
   parameter Integer iTable[nC]=fill(1, nC)
     "Index of pre-defined values in data table: See Info page."
     annotation (Dialog(enable=use_RecordData));
-  parameter TRANSFORM.Units.HenrysLawCoefficient kH0=0 "Pre-exponential factor"
+  parameter SItf.HenrysLawCoefficient kH0=0 "Pre-exponential factor"
     annotation (Dialog(enable=not use_RecordData));
-  parameter TRANSFORM.Units.HenrysLawCoefficient kHs0[nC]=fill(kH0, nC)
+  parameter SItf.HenrysLawCoefficient kHs0[nC]=fill(kH0, nC)
     "if non-uniform then set" annotation (Dialog(enable=not use_RecordData));
   parameter SI.LinearTemperatureCoefficient B=0 "Exponential coefficient"
     annotation (Dialog(enable=not use_RecordData));

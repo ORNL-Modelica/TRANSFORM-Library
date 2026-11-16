@@ -5,7 +5,7 @@ partial record PartialTritium
   final constant Integer nC=size(extraPropertiesNames, 1) "# of tritium contributors (e.g., Li7/Li6)";
   constant Real C_nominal[nC] = fill(1e14,nC) "Nominal amounts that scale the trace-substance inventories in fluid volumes; see the documentation of ReactorKinetics.Data";
   // Data
-  parameter SIadd.InverseTime[nC] lambdas "Half-life of tritium contributors";
+  parameter SItf.InverseTime[nC] lambdas "Half-life of tritium contributors";
   parameter SI.Area sigmasA[nC]=fill(0, nC)
     "Absorption cross-section for reactivity feedback";
   parameter SI.Area sigmasT[nC]=fill(0, nC)

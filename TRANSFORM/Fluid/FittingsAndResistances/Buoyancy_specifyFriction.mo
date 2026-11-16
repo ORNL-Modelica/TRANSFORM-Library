@@ -4,8 +4,8 @@ model Buoyancy_specifyFriction
   input SI.Length dimension = 1 "Characteristic dimension" annotation(Dialog(group="Inputs"));
   input SI.Length length = 1 "Characteristic length" annotation(Dialog(group="Inputs"));
   input SI.Angle angle = 0 "Inclination angle. -90 < x < 90" annotation(Dialog(group="Inputs"));
-  input SIadd.NonDim f = 0.01 "Friction factor" annotation(Dialog(group="Inputs"));
-  input SIadd.NonDim K = 0 "Minor losses" annotation(Dialog(group="Inputs"));
+  input SItf.NonDim f = 0.01 "Friction factor" annotation(Dialog(group="Inputs"));
+  input SItf.NonDim K = 0 "Minor losses" annotation(Dialog(group="Inputs"));
   input SI.Acceleration g_n = Modelica.Constants.g_n "Gravitational acceleration" annotation(Dialog(group="Inputs"));
   SI.Length dheight = length*sin(angle);
   SI.Density d_delta = Medium.density(state_b)-Medium.density(state_a);

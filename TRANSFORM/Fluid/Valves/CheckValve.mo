@@ -1,7 +1,7 @@
 within TRANSFORM.Fluid.Valves;
 model CheckValve
   extends TRANSFORM.Fluid.Valves.BaseClasses.PartialTwoPort(final allowFlowReversal=checkValve);
-  input SIadd.HydraulicResistance R = Modelica.Constants.eps "Hydraulic resistance" annotation(Dialog(group="Inputs"));
+  input SItf.HydraulicResistance R = Modelica.Constants.eps "Hydraulic resistance" annotation(Dialog(group="Inputs"));
   parameter Boolean checkValve=true "Reverse flow stopped";
   parameter SI.MassFlowRate m_flow_start = 0 "Mass flow rate" annotation(Dialog(tab="Initialization"));
   SI.MassFlowRate m_flow;

@@ -100,9 +100,9 @@ partial model Partial_LMTD_HX
   Modelica.Blocks.Sources.RealExpression boundary_1_input(y=-Q_flow)
     annotation (Placement(transformation(extent={{10,70},{-10,90}})));
 
-  input Units.HydraulicResistance R_1=1 "Hydraulic resistance"
+  input SItf.HydraulicResistance R_1=1 "Hydraulic resistance"
     annotation (Dialog(group="Inputs"));
-  input Units.HydraulicResistance R_2=1 "Hydraulic resistance"
+  input SItf.HydraulicResistance R_2=1 "Hydraulic resistance"
     annotation (Dialog(group="Inputs"));
 
 equation

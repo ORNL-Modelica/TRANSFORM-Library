@@ -2,12 +2,12 @@ within TRANSFORM.Fluid.Pipes.Examples.SpeciesTransportProgressionProblems.BaseCl
 partial model PartialProgressionProblemCoreLoop
   extends BaseClasses.PartialProgressionProblemCore;
 
-  SIadd.ExtraPropertyConcentration C_i_loop[nV,nC];
+  SItf.ExtraPropertyConcentration C_i_loop[nV,nC];
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_loop={{mC_decay_loop[i, j] + (if use_PtoD then mC_gens_PtoD_loop[i, j] else 0) for j in 1:nC} for i in 1:nV};
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens_loop={{mC_decay_loop[i, j] + (if use_PtoD then mC_gens_PtoD_loop[i, j] else 0) for j in 1:nC} for i in 1:nV};
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_decay_loop = {{-lambda_i[j]*pipe_loop.mCs[i, j]*pipe_loop.nParallel for j in 1:nC} for i in 1:nV};
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_PtoD_loop={{sum({lambda_i[k]* pipe_loop.mCs[i, k]* pipe_loop.nParallel* parents[j, k] for k in 1:nC}) for j in 1:nC} for i in 1:nV};
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_decay_loop = {{-lambda_i[j]*pipe_loop.mCs[i, j]*pipe_loop.nParallel for j in 1:nC} for i in 1:nV};
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens_PtoD_loop={{sum({lambda_i[k]* pipe_loop.mCs[i, k]* pipe_loop.nParallel* parents[j, k] for k in 1:nC}) for j in 1:nC} for i in 1:nV};
 
   TRANSFORM.Fluid.Pipes.GenericPipe_MultiTransferSurface pipe_loop(
     redeclare package Medium = Medium,

@@ -3,7 +3,7 @@ model Convection "Convection"
   extends TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
   input SI.Area surfaceArea "Transfer surface area"
     annotation (Dialog(group="Inputs"));
-  input Units.CoefficientOfMassTransfer alphaM[nC]
+  input SItf.CoefficientOfMassTransfer alphaM[nC]
     "Coefficient of mass transfer" annotation (Dialog(group="Inputs"));
 equation
   R = 1.0./(alphaM*surfaceArea);

@@ -5,12 +5,12 @@ function fRe2_SinglePhase_2Region
   input SI.Length roughness "Average height of surface asperities";
   input SI.ReynoldsNumber Re_center "Re smoothing transition center";
   input SI.ReynoldsNumber Re_width "Re smoothing transition width";
-  output Units.NonDim fRe2 "Friction factor*Re^2";
+  output SItf.NonDim fRe2 "Friction factor*Re^2";
 protected
-  Units.NonDim fRe2_lam=
+  SItf.NonDim fRe2_lam=
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.fRe2_Laminar_Local_Developed_Circular(
        Re) "Laminar Friction factor";
-  Units.NonDim fRe2_turb=
+  SItf.NonDim fRe2_turb=
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.fRe2_Turbulent_Local_Developed_SwameeJain(
       Re,
       dimension,

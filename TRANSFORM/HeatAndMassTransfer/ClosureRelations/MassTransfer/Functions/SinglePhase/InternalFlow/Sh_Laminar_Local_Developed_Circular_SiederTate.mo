@@ -5,7 +5,7 @@ function Sh_Laminar_Local_Developed_Circular_SiederTate
   input SI.SchmidtNumber Sc "Schmidt number";
   input SI.Length length "Total pipe length";
   input SI.Length dimension "Pipe diameter";
-  output Units.SherwoodNumber Sh "Sherwood number";
+  output SItf.SherwoodNumber Sh "Sherwood number";
 algorithm
   Sh := 1.86*Re^(1/3)*Sc^(1/3)*(dimension/length)^(1/3);
 end Sh_Laminar_Local_Developed_Circular_SiederTate;

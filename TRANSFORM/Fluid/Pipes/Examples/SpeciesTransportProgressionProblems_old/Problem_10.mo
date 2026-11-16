@@ -14,17 +14,17 @@ model Problem_10
   parameter SI.Temperature T_start=20 + 273.15;
   parameter SI.Pressure p_start=1e5;
 
-  parameter TRANSFORM.Units.InverseTime lambda_ij[nC,nC]={{-1.3797E-13,0,0,0,0,0,0,0,0},{0,-8.947E-14,0,0,0,0,0,
+  parameter SItf.InverseTime lambda_ij[nC,nC]={{-1.3797E-13,0,0,0,0,0,0,0,0},{0,-8.947E-14,0,0,0,0,0,
       0,0},{0,0,-3.1209E-17,0,0,0,0,9.1103E-13,0},{0,0,0,-9.3787E-16,0,0,0,0,0},{0,0,0,0,-1.1885E-06,0,0,0,0},{0,
       0,0,0,0,-4.9161E-18,0,0,0},{0,0,0,0,0,0,-0.00049262,0,0},{0,0,0,0,0,0,0,-9.1103E-13,3.4052E-06},{0,0,0,0,0,
       0,0.00049262,0,-3.4052E-06}};
 
-  parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=fill(
+  parameter SItf.ExtraPropertyConcentration C_i_start[nV,nC]=fill(
       100,
       nV,
       nC);
 
-  final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/Medium.density_pT(p_start, T_start)
+  final parameter SItf.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/Medium.density_pT(p_start, T_start)
        for j in 1:nC} for i in 1:nV};
 
   // Pipe cell centers are a shifted from linspace in the pipe due to volume centered geometry
@@ -34,11 +34,11 @@ model Problem_10
   //       length,
   //       nV);
 
-  SIadd.ExtraPropertyConcentration C_i[nV,nC];
-  SIadd.ExtraPropertyConcentration C_i_basic[nV,nC](start=C_i_start);
-  SIadd.ExtraPropertyConcentration C_i_analytical[nV,nC];
+  SItf.ExtraPropertyConcentration C_i[nV,nC];
+  SItf.ExtraPropertyConcentration C_i_basic[nV,nC](start=C_i_start);
+  SItf.ExtraPropertyConcentration C_i_analytical[nV,nC];
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{sum({lambda_ij[i, j]*pipe.mCs[k, j] for j in 1:nC})*pipe.nParallel
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens={{sum({lambda_ij[i, j]*pipe.mCs[k, j] for j in 1:nC})*pipe.nParallel
       for i in 1:nC} for k in 1:nV};
 
   Pipes.GenericPipe_MultiTransferSurface pipe(

@@ -10,7 +10,7 @@ function K_runConverging_Crane
   input SI.VolumeFlowRate V_run "Volumetric flow in the run/straight leg (magnitude)";
   input SI.VolumeFlowRate V_branch "Volumetric flow in the branch leg (magnitude)";
   input SI.Angle angle "Angle between branch and run (tee=90 deg, wye<90 deg)";
-  output Units.NonDim K "Resistance coefficient";
+  output SItf.NonDim K "Resistance coefficient";
 protected
   Real beta=D_branch/D_run "Diameter ratio";
   Real beta2=beta*beta;

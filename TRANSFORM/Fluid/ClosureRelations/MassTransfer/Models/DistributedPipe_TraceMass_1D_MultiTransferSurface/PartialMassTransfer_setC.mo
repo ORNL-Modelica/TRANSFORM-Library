@@ -15,7 +15,7 @@ partial model PartialMassTransfer_setC "Base model"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Temperature Ts_wall[nMT,nSurfaces] "Wall temperature"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
-  input SIadd.ExtraProperty CsM_fluid[nMT,Medium.nC]
+  input SItf.ExtraProperty CsM_fluid[nMT,Medium.nC]
     "Fluid trace substance mass fraction"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Velocity vs[nMT] "Fluid Velocity"
@@ -31,7 +31,7 @@ partial model PartialMassTransfer_setC "Base model"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Area surfaceAreas[nMT,nSurfaces] "Surface area for transfer"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
-  parameter SIadd.ExtraProperty CsM_start[nMT,Medium.nC]
+  parameter SItf.ExtraProperty CsM_start[nMT,Medium.nC]
     "Initial Trace substance mass-specific value"
     annotation (Dialog(tab="Internal Interface", group="Initialization"));
   parameter Integer iC[:]= {i for i in 1:Medium.nC}
@@ -60,17 +60,17 @@ partial model PartialMassTransfer_setC "Base model"
   SI.ReynoldsNumber Res[nMT] "Reynolds number";
   SI.SchmidtNumber Scs[nMT,nC] "Schmidt number";
   SI.Length xs[nMT] "Position of local mass transfer calculation";
-  Units.CoefficientOfMassTransfer alphasM[nMT,nSurfaces,nC]
+  SItf.CoefficientOfMassTransfer alphasM[nMT,nSurfaces,nC]
     "Coefficient of mass transfer";
-  Units.SherwoodNumber Shs[nMT,nSurfaces,nC] "Sherwood number";
+  SItf.SherwoodNumber Shs[nMT,nSurfaces,nC] "Sherwood number";
   SI.MolarFlowRate nC_flows[nMT,nSurfaces,nC]=massPorts.n_flow/nParallel
     "Molar flow rate";
-  SIadd.ExtraPropertyFlowRate mC_flows[nMT,nSurfaces,Medium.nC] "Mass flow rate";
+  SItf.ExtraPropertyFlowRate mC_flows[nMT,nSurfaces,Medium.nC] "Mass flow rate";
   HeatAndMassTransfer.Interfaces.MolePort_Flow massPorts[nMT,nSurfaces](each nC=
        nC) annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
 protected
-  constant SIadd.Mole toMole_unitConv = 1;
+  constant SItf.Mole toMole_unitConv = 1;
   final parameter SI.ReynoldsNumber Re_center=0.5*(Re_lam + Re_turb)
     "Re smoothing transition center";
   final parameter SI.ReynoldsNumber Re_width=Re_turb - Re_center

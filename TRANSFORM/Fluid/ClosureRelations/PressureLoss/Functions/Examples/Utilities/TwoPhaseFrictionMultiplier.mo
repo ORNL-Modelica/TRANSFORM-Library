@@ -6,7 +6,7 @@ model TwoPhaseFrictionMultiplier
   parameter Integer nP=9;
   parameter Integer nX=12;
   parameter SI.Pressure ps[nP]={1.01,6.89,34.4,68.9,103,138,172,207,221.2}*1e5;
-  parameter SIadd.NonDim x_abs[nX]={1,5,10,20,30,40,50,60,70,80,90,100}/100;
+  parameter SItf.NonDim x_abs[nX]={1,5,10,20,30,40,50,60,70,80,90,100}/100;
   parameter SI.SpecificEnthalpy hs[nX,9]={{Medium.bubbleEnthalpy(
       Medium.setSat_p(ps[j])) .* (1 - x_abs[i]) + Medium.dewEnthalpy(
       Medium.setSat_p(ps[j])) .* x_abs[i] for j in 1:nP} for i in 1:nX};

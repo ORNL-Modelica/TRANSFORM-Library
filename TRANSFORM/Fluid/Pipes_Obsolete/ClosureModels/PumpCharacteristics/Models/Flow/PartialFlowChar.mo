@@ -31,7 +31,7 @@ partial model PartialFlowChar
   final parameter SI.PressureDifference dp_start = p_b_start - p_a_start;
   SI.Density rho = Medium.density(state) "Density";
   SI.VolumeFlowRate V_flow "Volumetric flow rate";
-  Units.NonDim affinityLaw "Affinity law for scaling";
+  SItf.NonDim affinityLaw "Affinity law for scaling";
   SI.Height head "Pump pressure head";
   SI.MassFlowRate m_flow(start=m_flow_start);
 equation

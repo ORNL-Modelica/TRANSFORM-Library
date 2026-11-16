@@ -91,8 +91,8 @@ model TwoPhase_Developed_2Region_NumStable_alternate
        else mediaProps[1:nFM].mu_vsat;
   SI.DynamicViscosity mus_vsat_b[nFM]=if use_mu_nominal then fill(mu_nominal, nFM)
        else mediaProps[2:nFM + 1].mu_vsat;
-  SIadd.NonDim x_abs_a[nFM]= mediaProps[1:nFM].x_abs;
-  SIadd.NonDim x_abs_b[nFM]= mediaProps[2:nFM + 1].x_abs;
+  SItf.NonDim x_abs_a[nFM]= mediaProps[1:nFM].x_abs;
+  SItf.NonDim x_abs_b[nFM]= mediaProps[2:nFM + 1].x_abs;
 protected
   TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.TwoPhase.LaminarTurbulent_MSLDetailed.dp_IN_var
     IN_var_nominal(

@@ -56,7 +56,7 @@ model StuckOpenPilotReliefValve
   inner System    system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
   Utilities.Visualizers.displayReal pressure(val=
-        Units.Conversions.Functions.Pressure_Pa.to_psi(pressurizer.drum2Phase.p))
+        SItf.Conversions.Functions.Pressure_Pa.to_psi(pressurizer.drum2Phase.p))
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature temperatureAmbient1(T=
         Medium.saturationTemperature(mainTank_p_start))
@@ -73,11 +73,11 @@ model StuckOpenPilotReliefValve
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Data_Geometry data
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
-  Units.Conversions.Models.Conversion conversion(redeclare function convert =
-        Units.Conversions.Functions.Pressure_Pa.from_bar)
+  SItf.Conversions.Models.Conversion conversion(redeclare function convert =
+        SItf.Conversions.Functions.Pressure_Pa.from_bar)
     annotation (Placement(transformation(extent={{50,-90},{70,-70}})));
 equation
- p_exp =TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_psi(data_pressure.y);
+ p_exp =SItf.Conversions.Functions.Pressure_Pa.to_psi(data_pressure.y);
   connect(insurge.ports[1], pressurizer.surgePort) annotation (Line(points={{-28,-60},
           {-14,-60},{0,-60},{0,-26}},      color={0,127,255}));
   connect(spray.ports[1], pressurizer.sprayPort) annotation (Line(points={{-28,60},

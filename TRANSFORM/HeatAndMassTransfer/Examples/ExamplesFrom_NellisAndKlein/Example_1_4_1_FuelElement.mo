@@ -39,7 +39,7 @@ model Example_1_4_1_FuelElement
   Modelica.Blocks.Sources.IntegerConstant nNodes_1_clad(k=10)
     annotation (Placement(transformation(extent={{-86,84},{-78,92}})));
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot FuelCladTemperature(
-    x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_cm(cat(
+    x=SItf.Conversions.Functions.Distance_m.to_cm(cat(
         1,
         {0},
         fuel.geometry.rs,
@@ -48,7 +48,7 @@ model Example_1_4_1_FuelElement
     maxX=7,
     minY=520,
     maxY=660,
-    y=TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {Adiabatic.port.T},
         fuel.materials.T,
@@ -66,20 +66,20 @@ model Example_1_4_1_FuelElement
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot FuelTemperature(
     minY=520,
     maxY=660,
-    x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_cm(cat(
+    x=SItf.Conversions.Functions.Distance_m.to_cm(cat(
         1,
         {0},
         fuel.geometry.rs,
         {r_fuel.y})),
     maxX=5,
-    y=TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {Adiabatic.port.T},
         fuel.materials.T,
         {clad.port_a1.T}))) "X - Axial Location (cm) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{-58,-78},{-4,-24}})));
   Utilities.Visualizers.displayReal display(val=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(fuel.materials.T)))
+        SItf.Conversions.Functions.Temperature_K.to_degC(max(fuel.materials.T)))
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={Adiabatic.port.T,
         fuel.materials[25].T,clad.materials[5].T})

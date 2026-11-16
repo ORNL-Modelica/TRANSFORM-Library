@@ -5,7 +5,7 @@ model DittusBoelter_SinglePhase_Lumped
   SI.CoefficientOfHeatTransfer alpha "Coefficient of heat transfer";
   SI.NusseltNumber Nu "Nusselt number";
   SI.SpecificEnthalpy h_fgp "Modified latent heat of vaporization";
-  Units.NonDim Ja "Jakob number";
+  SItf.NonDim Ja "Jakob number";
 equation
   alpha =
     TRANSFORM.Fluid.Pipes_Obsolete.ClosureModels.HeatTransfer.Functions.SinglePhase.alpha_DittusBoelter(

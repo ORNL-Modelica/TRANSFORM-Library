@@ -10,9 +10,9 @@ model SmoothAdaptor
   input SI.Length roughness=0 "Average height of surface asperities"
     annotation (Dialog(group="Inputs"));
   SI.ReynoldsNumber Re "Reynolds number (referenced to the smaller section)";
-  Units.NonDim K_ab "Minor loss coefficient if flow a->b";
-  Units.NonDim K_ba "Minor loss coefficient if flow b->a";
-  Units.NonDim K "Minor loss coefficient";
+  SItf.NonDim K_ab "Minor loss coefficient if flow a->b";
+  SItf.NonDim K_ba "Minor loss coefficient if flow b->a";
+  SItf.NonDim K "Minor loss coefficient";
   SI.Velocity v_a "Velocity at port_a";
   SI.Velocity v_b "Velocity at port_b";
   SI.Area crossAreas[2]=0.25*Modelica.Constants.pi*dimensions_ab .*

@@ -2,9 +2,9 @@ within TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_Trac
 model AlphasM "Specify Mass Transfer Coefficient (alphaM)"
   import TRANSFORM.Math.fillArray_1D;
   extends PartialSinglePhase;
-  input Units.CoefficientOfMassTransfer alphaM0[Medium.nC]=fill(0, Medium.nC)
+  input SItf.CoefficientOfMassTransfer alphaM0[Medium.nC]=fill(0, Medium.nC)
     "Coefficient of mass transfer" annotation (Dialog(group="Inputs"));
-  input Units.CoefficientOfMassTransfer alphasM0[nMT,Medium.nC]=fillArray_1D(
+  input SItf.CoefficientOfMassTransfer alphasM0[nMT,Medium.nC]=fillArray_1D(
       alphaM0, nMT) "if non-uniform then set"
     annotation (Dialog(group="Inputs"));
 equation

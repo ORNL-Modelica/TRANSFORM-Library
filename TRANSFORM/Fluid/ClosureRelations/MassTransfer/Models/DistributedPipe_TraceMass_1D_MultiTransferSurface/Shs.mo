@@ -2,9 +2,9 @@ within TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_Trac
 model Shs "Specify Sherwood Number (Sh)"
   import TRANSFORM.Math.fillArray_2D;
   extends PartialSinglePhase;
-  input Units.SherwoodNumber Sh0[nC]=fill(7.54, nC)
+  input SItf.SherwoodNumber Sh0[nC]=fill(7.54, nC)
     "Sherwood number" annotation (Dialog(group="Inputs"));
-  input Units.SherwoodNumber Shs0[nMT,nSurfaces,nC]=fillArray_2D(
+  input SItf.SherwoodNumber Shs0[nMT,nSurfaces,nC]=fillArray_2D(
       Sh0,
       nMT,
       nSurfaces) "if non-uniform then set"

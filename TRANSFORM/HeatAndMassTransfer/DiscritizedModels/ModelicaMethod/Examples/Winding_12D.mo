@@ -67,15 +67,15 @@ model Winding_12D
   Utilities.Visualizers.displayReal display(use_port=true)
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Modelica.Blocks.Sources.RealExpression T_max(y=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(winding.unitCell.T)))
+        SItf.Conversions.Functions.Temperature_K.to_degC(max(winding.unitCell.T)))
     annotation (Placement(transformation(extent={{-38,-66},{-22,-54}})));
      Real xval[nNodes_1.k] = abs(winding.geometry.cs_1[:, 1]);
   Real yval[nNodes_1.k]=
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(winding.unitCell[
+      SItf.Conversions.Functions.Temperature_K.to_degC(winding.unitCell[
       :, 1].T);
  Real xval2[nNodes_1.k] = abs(winding.geometry.cs_1[:, nNodes_2.k]);
   Real yval2[nNodes_1.k]=
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(winding.unitCell[
+      SItf.Conversions.Functions.Temperature_K.to_degC(winding.unitCell[
       :, nNodes_2.k].T);
 equation
   for j in 1:nNodes_2.k loop

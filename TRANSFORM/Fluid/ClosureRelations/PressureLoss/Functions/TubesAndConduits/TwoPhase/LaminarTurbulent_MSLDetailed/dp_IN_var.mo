@@ -13,6 +13,6 @@ record dp_IN_var "Input record for function dp_DP and dp_MFLOW"
   SI.DynamicViscosity mu_lsat_b "Liquid dynamic viscosity at port_b";
   SI.DynamicViscosity mu_vsat_a "Vapor dynamic viscosity at port_a";
   SI.DynamicViscosity mu_vsat_b "Vapor dynamic viscosity at port_b";
-  SIadd.NonDim x_abs_a "Absolute quality at port_a";
-  SIadd.NonDim x_abs_b "Absolute quality at port_a";
+  SItf.NonDim x_abs_a "Absolute quality at port_a";
+  SItf.NonDim x_abs_b "Absolute quality at port_a";
 end dp_IN_var;

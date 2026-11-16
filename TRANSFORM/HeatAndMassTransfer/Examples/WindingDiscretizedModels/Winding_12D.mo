@@ -59,7 +59,7 @@ model Winding_12D
   Utilities.Visualizers.displayReal display(use_port=true)
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
   Modelica.Blocks.Sources.RealExpression T_max(y=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(winding.materials.T)))
+        SItf.Conversions.Functions.Temperature_K.to_degC(max(winding.materials.T)))
     annotation (Placement(transformation(extent={{-38,-66},{-22,-54}})));
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot Temperature_y0(
     x=xval,
@@ -79,11 +79,11 @@ model Winding_12D
     annotation (Placement(transformation(extent={{62,-76},{104,-36}})));
  Real xval[nNodes_1.k] = abs(winding.geometry.cs_1[:, 1]);
   Real yval[nNodes_1.k]=
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(winding.materials[
+      SItf.Conversions.Functions.Temperature_K.to_degC(winding.materials[
       :, 1].T);
  Real xval2[nNodes_1.k] = abs(winding.geometry.cs_1[:, nNodes_2.k]);
   Real yval2[nNodes_1.k]=
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(winding.materials[
+      SItf.Conversions.Functions.Temperature_K.to_degC(winding.materials[
       :, nNodes_2.k].T);
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={yval[3]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

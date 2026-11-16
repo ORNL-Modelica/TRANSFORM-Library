@@ -739,34 +739,34 @@ sum(_18.boundary.port.Q_flow);
     redeclare package Medium = Medium,
     precision=1,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_bar,
+        SItf.Conversions.Functions.Pressure_Pa.to_bar,
     redeclare function iconUnit2 =
-        Units.Conversions.Functions.Temperature_K.to_degC)
+        SItf.Conversions.Functions.Temperature_K.to_degC)
                                        annotation (Placement(transformation(extent={{-126,
             -28},{-106,-8}})));
   Fluid.Sensors.PressureTemperature sensor_pT1(redeclare package Medium = Medium,
     precision=1,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_bar,
+        SItf.Conversions.Functions.Pressure_Pa.to_bar,
     redeclare function iconUnit2 =
-        Units.Conversions.Functions.Temperature_K.to_degC)
+        SItf.Conversions.Functions.Temperature_K.to_degC)
     annotation (Placement(transformation(extent={{-126,-72},{-106,-92}})));
   Fluid.Sensors.PressureTemperature sensor_pT2(
     redeclare package Medium = Medium,
     precision=1,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_bar,
+        SItf.Conversions.Functions.Pressure_Pa.to_bar,
     redeclare function iconUnit2 =
-        Units.Conversions.Functions.Temperature_K.to_degC)
+        SItf.Conversions.Functions.Temperature_K.to_degC)
                                        annotation (Placement(transformation(extent={{98,142},
             {118,162}})));
   Fluid.Sensors.PressureTemperature sensor_pT3(
     redeclare package Medium = Medium,
     precision=1,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_bar,
+        SItf.Conversions.Functions.Pressure_Pa.to_bar,
     redeclare function iconUnit2 =
-        Units.Conversions.Functions.Temperature_K.to_degC)
+        SItf.Conversions.Functions.Temperature_K.to_degC)
     annotation (Placement(transformation(extent={{94,80},{114,60}})));
 equation
   connect(_1b.port_b, _1.port_a) annotation (Line(points={{-86,-64},{-86,-60}},   color={0,127,255}));

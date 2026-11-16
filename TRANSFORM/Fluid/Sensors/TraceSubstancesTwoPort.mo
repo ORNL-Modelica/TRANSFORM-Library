@@ -3,8 +3,8 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
   extends BaseClasses.PartialTwoPortSensor;
   extends BaseClasses.PartialMultiSensor_1values(final var=C,
       redeclare replaceable function iconUnit =
-        TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
-      constrainedby TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
+        SItf.Conversions.Functions.PrefixMultipliers.to_none
+      constrainedby SItf.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput C
     "Trace substance of the passing fluid"
     annotation (Placement(transformation(

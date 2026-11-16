@@ -68,8 +68,8 @@ model LaminarTurbulent_MSLDetailed
   SI.DynamicViscosity mus_l_b[nFM]=mediaProps[2:nFM + 1].mu_lsat;
   SI.DynamicViscosity mus_v_a[nFM]=mediaProps[1:nFM].mu_vsat;
   SI.DynamicViscosity mus_v_b[nFM]=mediaProps[2:nFM + 1].mu_vsat;
-  SIadd.NonDim x_abs_a[nFM]=mediaProps[1:nFM].x_abs;
-  SIadd.NonDim x_abs_b[nFM]=mediaProps[2:nFM + 1].x_abs;
+  SItf.NonDim x_abs_a[nFM]=mediaProps[1:nFM].x_abs;
+  SItf.NonDim x_abs_b[nFM]=mediaProps[2:nFM + 1].x_abs;
   SI.PressureDifference dps_fg_c[nFM];
   SI.PressureDifference dps_fg[nFM];
   SI.MassFlowRate m_flows_c[nFM];

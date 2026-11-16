@@ -58,7 +58,7 @@ model Example_1_7_2_DrawingAWire
     annotation (Placement(transformation(extent={{16,-76},{58,-36}})));
   Real xval[nNodes_1.k] = wire.geometry.cs_1/L.y;
   Real yval[nNodes_1.k]=
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(wire.materials.T);
+      SItf.Conversions.Functions.Temperature_K.to_degC(wire.materials.T);
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={yval[90]})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
