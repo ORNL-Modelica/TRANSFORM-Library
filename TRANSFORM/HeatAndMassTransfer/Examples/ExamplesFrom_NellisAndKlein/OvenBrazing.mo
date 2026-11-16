@@ -1,16 +1,16 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein;
 model OvenBrazing "Example 3.2-1 Oven Brazing pp. 339-348"
   extends Icons.Example;
-  Modelica.Blocks.Sources.Constant V(k=10/100^3) "volume"
+  Modelica.Blocks.Sources.Constant V(k=10/100^3) "Volume"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.Constant As(k=35/100^2)
-    "surface area for heat transfer"
+    "Surface area for heat transfer"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
-  Modelica.Blocks.Sources.Constant lambda(each k=50) "thermal conductivity"
+  Modelica.Blocks.Sources.Constant lambda(each k=50) "Thermal conductivity"
     annotation (Placement(transformation(extent={{-68,84},{-60,92}})));
-  Modelica.Blocks.Sources.Constant d(each k=8700) "density"
+  Modelica.Blocks.Sources.Constant d(each k=8700) "Density"
     annotation (Placement(transformation(extent={{-68,70},{-60,78}})));
-  Modelica.Blocks.Sources.Constant cp(each k=500) "heat capacity"
+  Modelica.Blocks.Sources.Constant cp(each k=500) "Heat capacity"
     annotation (Placement(transformation(extent={{-54,70},{-46,78}})));
   Utilities.Visualizers.displayReal display_tau_lumped(use_port=true, precision=
        1) annotation (Placement(transformation(extent={{-40,-34},{-20,-14}})));
@@ -35,7 +35,7 @@ model OvenBrazing "Example 3.2-1 Oven Brazing pp. 339-348"
         origin={40,30})));
   Modelica.Blocks.Sources.Constant Tini(each k=
         SItf.Conversions.Functions.Temperature_K.from_degC(20))
-    "initial plastic disk temperature"
+    "Initial plastic disk temperature"
     annotation (Placement(transformation(extent={{-84,84},{-76,92}})));
   Modelica.Blocks.Sources.Trapezoid Toven(
     amplitude=SItf.Conversions.Functions.Temperature_K.from_degC(450),
@@ -44,7 +44,7 @@ model OvenBrazing "Example 3.2-1 Oven Brazing pp. 339-348"
     falling=450,
     nperiod=1,
     offset=SItf.Conversions.Functions.Temperature_K.from_degC(20),
-    period=3000) "oven temperature"
+    period=3000) "Oven temperature"
     annotation (Placement(transformation(extent={{-84,70},{-76,78}})));
   Resistances.Heat.Radiation Rrad(surfaceArea=As.y, epsilon=e.y)
     annotation (Placement(transformation(extent={{-50,16},{-30,36}})));
@@ -60,7 +60,7 @@ model OvenBrazing "Example 3.2-1 Oven Brazing pp. 339-348"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-14,26})));
-  Modelica.Blocks.Sources.Constant e(each k=0.8) "surface emissivity"
+  Modelica.Blocks.Sources.Constant e(each k=0.8) "Surface emissivity"
     annotation (Placement(transformation(extent={{-54,84},{-46,92}})));
   Utilities.CharacteristicNumbers.Models.BiotNumber_general biotNumber(
     R_conv=Rrad.R,

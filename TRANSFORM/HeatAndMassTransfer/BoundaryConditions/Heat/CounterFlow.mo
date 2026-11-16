@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model CounterFlow
   "Switch temperature arrays for counter flow cases"
-  parameter Integer n=0 "Number of connected elements";// annotation(Dialog(connectorSizing=true));
+  parameter Integer n=0 "# of connected elements";// annotation(Dialog(connectorSizing=true));
   parameter Boolean counterCurrent=false
     "Swap temperature and flux vector order";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));

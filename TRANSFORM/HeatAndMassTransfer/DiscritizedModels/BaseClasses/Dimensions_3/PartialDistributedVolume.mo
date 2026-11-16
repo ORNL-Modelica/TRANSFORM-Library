@@ -5,7 +5,7 @@ partial model PartialDistributedVolume
   replaceable package Material =
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true);
-  parameter Integer nVs[3](each min=1) = {1,1,1} "Number of discrete volumes";
+  parameter Integer nVs[3](each min=1) = {1,1,1} "# of discrete volumes";
   // Inputs provided to the volume model
   input SI.Volume Vs[nVs[1],nVs[2],nVs[3]](each min=0) "Discretized volumes"
     annotation (Dialog(group="Inputs"));

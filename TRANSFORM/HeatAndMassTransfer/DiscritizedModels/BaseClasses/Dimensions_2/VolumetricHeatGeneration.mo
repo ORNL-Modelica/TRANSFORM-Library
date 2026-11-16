@@ -6,7 +6,7 @@ model VolumetricHeatGeneration
   input SItf.VolumetricHeatGenerationRate q_ppps[nVs[1],nVs[2]]=fill(
       q_ppp,
       nVs[1],
-      nVs[2]) "if non-uniform then set q_ppps"
+      nVs[2]) "If non-uniform then set q_ppps"
     annotation (Dialog(group="Inputs"));
 equation
   for i in 1:nVs[1] loop

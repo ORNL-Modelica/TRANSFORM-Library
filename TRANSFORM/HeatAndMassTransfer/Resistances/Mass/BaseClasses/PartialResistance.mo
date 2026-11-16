@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses;
 partial model PartialResistance
-  parameter Integer nC = 1 "Number of substances";
+  parameter Integer nC = 1 "# of substances";
   SItf.DiffusionResistance R[nC] "Diffusion resistance";
   Interfaces.MolePort_Flow port_a(nC=nC) annotation (Placement(transformation(
           extent={{-80,-10},{-60,10}}), iconTransformation(extent={{-80,-10},{-60,

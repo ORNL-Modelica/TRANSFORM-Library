@@ -3,35 +3,35 @@ model QuenchingACompositeStructure
   "Example 3.3-2 Quenching a composite structure pp. 363-369"
   import TRANSFORM;
   extends Icons.Example;
-  Modelica.Blocks.Sources.Constant th_s(each k=0.0005) "thickness - silicon"
+  Modelica.Blocks.Sources.Constant th_s(each k=0.0005) "Thickness - silicon"
     annotation (Placement(transformation(extent={{-82,84},{-74,92}})));
   Modelica.Blocks.Sources.Constant lambda_s(each k=150)
-    "thermal conductivity - silicon"
+    "Thermal conductivity - silicon"
     annotation (Placement(transformation(extent={{-68,84},{-60,92}})));
-  Modelica.Blocks.Sources.Constant d_s(each k=2300) "density - silicon"
+  Modelica.Blocks.Sources.Constant d_s(each k=2300) "Density - silicon"
     annotation (Placement(transformation(extent={{-68,70},{-60,78}})));
-  Modelica.Blocks.Sources.Constant cp_s(each k=700) "heat capacity - silicon"
+  Modelica.Blocks.Sources.Constant cp_s(each k=700) "Heat capacity - silicon"
     annotation (Placement(transformation(extent={{-68,56},{-60,64}})));
   Modelica.Blocks.Sources.Constant Tini(k=
         SItf.Conversions.Functions.Temperature_K.from_degC(750))
-    "initial temperature"
+    "Initial temperature"
     annotation (Placement(transformation(extent={{-82,42},{-74,50}})));
   Modelica.Blocks.Sources.Constant Twater(k=
         SItf.Conversions.Functions.Temperature_K.from_degC(20))
-    "water temperature"
+    "Water temperature"
     annotation (Placement(transformation(extent={{-96,42},{-88,50}})));
-  Modelica.Blocks.Sources.Constant L(k=0.1) "length of laminated structure"
+  Modelica.Blocks.Sources.Constant L(k=0.1) "Length of laminated structure"
     annotation (Placement(transformation(extent={{-96,84},{-88,92}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=100)
     annotation (Placement(transformation(extent={{-96,56},{-88,64}})));
   Modelica.Blocks.Sources.Constant lambda_p(each k=1.4)
-    "thermal conductivity - pyrex"
+    "Thermal conductivity - pyrex"
     annotation (Placement(transformation(extent={{-54,84},{-46,92}})));
-  Modelica.Blocks.Sources.Constant d_p(each k=2200) "density - pyrex"
+  Modelica.Blocks.Sources.Constant d_p(each k=2200) "Density - pyrex"
     annotation (Placement(transformation(extent={{-54,70},{-46,78}})));
-  Modelica.Blocks.Sources.Constant cp_p(each k=800) "heat capacity - pyrex"
+  Modelica.Blocks.Sources.Constant cp_p(each k=800) "Heat capacity - pyrex"
     annotation (Placement(transformation(extent={{-54,56},{-46,64}})));
-  Modelica.Blocks.Sources.Constant th_p(each k=0.0005) "thickness - pyrex"
+  Modelica.Blocks.Sources.Constant th_p(each k=0.0005) "Thickness - pyrex"
     annotation (Placement(transformation(extent={{-82,70},{-74,78}})));
   Modelica.Blocks.Sources.RealExpression lambda_effective(y=1/(th_s.y/(lambda_s.y
         *(th_s.y + th_p.y)) + th_p.y/(lambda_p.y*(th_s.y + th_p.y))))
@@ -57,7 +57,7 @@ model QuenchingACompositeStructure
     d=d_effective.y,
     cp=cp_effective.y,
     lambda=lambda_effective.y)
-    "time for thermal wave to reach half-thickness of the bonded structure"
+    "Time for thermal wave to reach half-thickness of the bonded structure"
     annotation (Placement(transformation(extent={{-46,30},{-26,50}})));
   Utilities.Visualizers.displayReal display_tau_diff(use_port=true, precision=0)
     annotation (Placement(transformation(extent={{-10,30},{10,50}})));

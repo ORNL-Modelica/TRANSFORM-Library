@@ -12,7 +12,7 @@ model Conduction_1D
     "Geometry" annotation (choicesAllMatching=true);
   Geometry geometry
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
-  parameter Real nParallel = 1 "Number of parallel components";
+  parameter Real nParallel = 1 "# of parallel components";
   parameter Boolean use_HeatTransfer=false "Use external heat transfer port";
   /* Advanced Tab */
   parameter Boolean use_Density = false "=true to use uniform input thermal conductivity" annotation(Dialog(tab="Advanced"));
@@ -29,7 +29,7 @@ model Conduction_1D
     "=true, T is calculated at port_b1 else Q_flow" annotation(Dialog(group="Model Structure",tab="Advanced"),choices(checkBox=true));
   final parameter Integer nFM_1=if exposeState_a1 and exposeState_b1 then nVs[1]
        - 1 else if not exposeState_a1 and not exposeState_b1 then nVs[1] + 1
-       else nVs[1] "number of flow models";
+       else nVs[1] "# of flow models";
   Volumes.UnitVolume                      unitCell[nVs[1]](
     T_start=Ts_start,
     each energyDynamics=energyDynamics,

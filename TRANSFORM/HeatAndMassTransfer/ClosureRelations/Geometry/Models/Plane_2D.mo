@@ -2,8 +2,8 @@ within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Plane_2D
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D(
       final ns={nX,nY}, final figure=1);
-  parameter Integer nX(min=1) = 1 "Number of nodes in x-direction";
-  parameter Integer nY(min=1) = 1 "Number of nodes in y-direction";
+  parameter Integer nX(min=1) = 1 "# of nodes in x-direction";
+  parameter Integer nY(min=1) = 1 "# of nodes in y-direction";
   input SI.Length length_x=1 "Specify overall length or dxs in x-dimension"
     annotation (Dialog(group="Inputs"));
   input SI.Length length_y=1 "Specify overall length or dys in y-dimension"

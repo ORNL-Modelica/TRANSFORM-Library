@@ -3,7 +3,7 @@ model Nus "Specify Nusselt Number"
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialSinglePhase;
   input SI.NusseltNumber Nu0=7.54 "Nusselt number"
     annotation (Dialog(group="Inputs"));
-  input SI.NusseltNumber Nus0[nHT]=fill(Nu0, nHT) "if non-uniform then set"
+  input SI.NusseltNumber Nus0[nHT]=fill(Nu0, nHT) "If non-uniform then set"
     annotation (Dialog(group="Inputs"));
   parameter Boolean use_DefaultDimension=true
     "= false to set characteristic dimension else from geometry model"
@@ -11,7 +11,7 @@ model Nus "Specify Nusselt Number"
   input SI.Length dimension0=0 "Characteristic dimension" annotation (Dialog(
         group="Inputs", enable=not use_DefaultDimension));
   input SI.Length dimensions0[nHT]=fill(dimension0, nHT)
-    "if non-uniform then set" annotation (Dialog(group="Inputs",
+    "If non-uniform then set" annotation (Dialog(group="Inputs",
         enable=not use_DefaultDimension));
   parameter Boolean use_LambdaState=true
     "= false to set thermal conductivity else from film state"
@@ -19,7 +19,7 @@ model Nus "Specify Nusselt Number"
   parameter SI.ThermalConductivity lambda0=0 "Thermal conductivity"
     annotation (Dialog(group="Inputs", enable=not use_LambdaState));
   input SI.ThermalConductivity lambdas0[nHT]=fill(lambda0, nHT)
-    "if non-uniform then set"
+    "If non-uniform then set"
     annotation (Dialog(group="Inputs", enable=not use_LambdaState));
   SI.Length[nHT] L_char "Characteristic length";
   SI.ThermalConductivity[nHT] lambdas "Thermal conductivity";

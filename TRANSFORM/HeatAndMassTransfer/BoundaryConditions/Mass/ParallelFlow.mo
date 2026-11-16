@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass;
 model ParallelFlow "Scale flow variables for nParallel streams"
-  parameter Integer nC = 1 "Number of substances";
+  parameter Integer nC = 1 "# of substances";
   parameter Real nParallel = 1 "Flow variable is divided by nParallel";
   TRANSFORM.HeatAndMassTransfer.Interfaces.MolePort_Flow port_1(nC=nC)
     "Connector single flow" annotation (Placement(transformation(extent={{-110,

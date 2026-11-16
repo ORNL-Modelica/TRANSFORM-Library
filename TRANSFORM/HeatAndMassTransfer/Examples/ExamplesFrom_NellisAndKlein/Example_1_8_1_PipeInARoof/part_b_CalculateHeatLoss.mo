@@ -1,19 +1,19 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_8_1_PipeInARoof;
 model part_b_CalculateHeatLoss
-  "part a) Determine temperature distribution and heat loss from the pipe"
+  "Part a) Determine temperature distribution and heat loss from the pipe"
   import TRANSFORM;
   extends Icons.Example;
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_pipe(T=
-        363.15) "hot gas temperature"
+        363.15) "Hot gas temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Modelica.Blocks.Sources.Constant r_p(k=0.05) "pipe radius"
+  Modelica.Blocks.Sources.Constant r_p(k=0.05) "Pipe radius"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
-  Modelica.Blocks.Sources.Constant th(k=0.02)      "beam thickness"
+  Modelica.Blocks.Sources.Constant th(k=0.02)      "Beam thickness"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
   Modelica.Blocks.Sources.Constant alpha(k=50)
-    "heat transfer coefficient"
+    "Heat transfer coefficient"
     annotation (Placement(transformation(extent={{-72,84},{-64,92}})));
-  Modelica.Blocks.Sources.Constant qf_s(k=800) "solar flux"
+  Modelica.Blocks.Sources.Constant qf_s(k=800) "Solar flux"
     annotation (Placement(transformation(extent={{-72,70},{-64,78}})));
   DiscritizedModels.Conduction_1D roof(
     exposeState_a1=false,
@@ -34,12 +34,12 @@ model part_b_CalculateHeatLoss
       surfaceArea=roof.geometry.surfaceAreas_3b)
     annotation (Placement(transformation(extent={{-20,-50},{-40,-30}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_infinity[
-    nNodes_1.k](each T=293.15) "ambient temperature"
+    nNodes_1.k](each T=293.15) "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=100)
     annotation (Placement(transformation(extent={{-40,84},{-32,92}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow q_s[nNodes_1.k](
-     each use_port=true) "radiation"
+     each use_port=true) "Radiation"
     annotation (Placement(transformation(extent={{40,-50},{20,-30}})));
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePosition(
     minX=0,

@@ -11,7 +11,7 @@ model AxPowTOAxVolHeat
   annotation(Dialog(group="Inputs"));
   input SI.Length r_outer "Outer radius of cylinder"
   annotation(Dialog(group="Inputs"));
-  input SI.Length length "length of cylinder"
+  input SI.Length length "Length of cylinder"
   annotation(Dialog(group="Inputs"));
   Modelica.Blocks.Interfaces.RealInput Power_in[nZ]
     "Input Axial Power Distribution (volume approach)"

@@ -3,9 +3,9 @@ model alpha_Chen_SvsRe
   extends TRANSFORM.Icons.Example;
   package Medium = Modelica.Media.Water.StandardWater;
   parameter Boolean spanQuality = false
-    "true to span from saturated liquid to saturated vapor (create F vs 1/X_tt plot)";
+    "= true to span from saturated liquid to saturated vapor (create F vs 1/X_tt plot)";
   parameter Boolean spanFlux = true
-    "true to span over flux range (to create S vs Re_tp plot). Must change number of simulation intervals to a large number (e.g., 1e4) to capture plot";
+    "= true to span over flux range (to create S vs Re_tp plot). Must change number of simulation intervals to a large number (e.g., 1e4) to capture plot";
   parameter SI.Pressure p = 1e5 "Absolute pressure";
   parameter SI.SpecificEnthalpy h_start = 5e5 "Initial enthalpy value";
   parameter SI.SpecificEnthalpy h_end = 2e6 "Final enthalpy value";
@@ -39,7 +39,7 @@ model alpha_Chen_SvsRe
   SI.PressureDifference Delta_psat
     "Saturation pressure difference (psat(Twall)-psat(Tsat))";
   SI.CoefficientOfHeatTransfer alpha "Heat transfer coefficient";
-  Real X_tt_inv "Inverse of the Martenelli Parameter";
+  Real X_tt_inv "Inverse of the Martinelli parameter";
   Real F "Correction factor for two-phase impact on liquid-phase convection";
   Real S "Nucleare boiling suppresion factor";
   Real Re_tp "Two-phase Reynolds number";

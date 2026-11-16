@@ -21,7 +21,7 @@ model Example_1_4_1_FuelElement
           q_ppps={q_ppp0.y*Modelica.Math.exp(-1*fuel.geometry.rs[i]/r_fuel.y)
             for i in 1:nNodes_1_fuel.k}))
     annotation (Placement(transformation(extent={{-38,-10},{-18,10}})));
-  Modelica.Blocks.Sources.Constant r_fuel(each k=0.05) "radius of fuel"
+  Modelica.Blocks.Sources.Constant r_fuel(each k=0.05) "Radius of fuel"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1_fuel(k=50)
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
@@ -59,7 +59,7 @@ model Example_1_4_1_FuelElement
     "Center volumetric heat generation"
     annotation (Placement(transformation(extent={{-100,42},{-92,50}})));
   Modelica.Blocks.Sources.Constant r_clad(each k=0.07)
-    "radius of cladding"
+    "Radius of cladding"
     annotation (Placement(transformation(extent={{-100,56},{-92,64}})));
   Resistances.Heat.Convection convection(alpha=100, surfaceArea=clad.geometry.crossAreas_1
         [end]) annotation (Placement(transformation(extent={{30,-10},{50,10}})));

@@ -1,10 +1,10 @@
 ﻿within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein;
 model Example_1_9_1_TemperatureSensorMounting
-  "part a) Plot the temperature distribution to identify the measurement error"
+  "Part a) Plot the temperature distribution to identify the measurement error"
   import TRANSFORM;
   extends Icons.Example;
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_w(T=
-        293.15) "wall temperature"
+        293.15) "Wall temperature"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Utilities.CharacteristicNumbers.Models.BiotNumber biotNumber(
     L=0.5*D.y,
@@ -13,10 +13,10 @@ model Example_1_9_1_TemperatureSensorMounting
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Constant D(each k=0.0005) "RTD diameter"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
-  Modelica.Blocks.Sources.Constant lambda(each k=50) "thermal conductivity"
+  Modelica.Blocks.Sources.Constant lambda(each k=50) "Thermal conductivity"
     annotation (Placement(transformation(extent={{-80,84},{-72,92}})));
   Modelica.Blocks.Sources.RealExpression alphas[nNodes_1.k](y=2000*RTD.geometry.cs_1
-         .^ 0.8) "heat transfer coefficient to fluid"
+         .^ 0.8) "Heat transfer coefficient to fluid"
     annotation (Placement(transformation(extent={{-74,54},{-62,64}})));
   DiscritizedModels.Conduction_1D RTD(
     redeclare package Material =
@@ -38,7 +38,7 @@ model Example_1_9_1_TemperatureSensorMounting
         RTD.geometry.crossAreas_1[end])
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_infinity(
-      T=278.15) "liquid temperature"
+      T=278.15) "Liquid temperature"
     annotation (Placement(transformation(extent={{66,-10},{46,10}})));
   Resistances.Heat.Convection edgeConv[nNodes_1.k](alpha=alphas.y, surfaceArea=
         RTD.geometry.surfaceAreas_23) annotation (Placement(transformation(
@@ -46,7 +46,7 @@ model Example_1_9_1_TemperatureSensorMounting
         rotation=-90,
         origin={-8,-28})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_infinity1[
-     nNodes_1.k](each T=278.15) "liquid temperature" annotation (Placement(
+     nNodes_1.k](each T=278.15) "Liquid temperature" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=-90,

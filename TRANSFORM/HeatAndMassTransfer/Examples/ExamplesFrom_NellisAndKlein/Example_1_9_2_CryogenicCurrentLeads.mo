@@ -1,11 +1,11 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein;
 model Example_1_9_2_CryogenicCurrentLeads
-  "part a) Find the optimal lead diameter to the cryogenic device"
+  "Part a) Find the optimal lead diameter to the cryogenic device"
   import TRANSFORM;
   extends Icons.Example;
-  Modelica.Blocks.Sources.Constant D(k=0.004) "lead diameter 0.004 to 0.006"
+  Modelica.Blocks.Sources.Constant D(k=0.004) "Lead diameter 0.004 to 0.006"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
-  Modelica.Blocks.Sources.Constant L(each k=1) "lead length"
+  Modelica.Blocks.Sources.Constant L(each k=1) "Lead length"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=100)
     annotation (Placement(transformation(extent={{-60,84},{-52,92}})));
@@ -27,10 +27,10 @@ model Example_1_9_2_CryogenicCurrentLeads
     T_a1_start=293.15)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_H(T=
-        293.15) "room temperature wall"
+        293.15) "Room temperature wall"
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_C(T(
-        displayUnit="K") = 50) "cold vacuum vessel temperature"
+        displayUnit="K") = 50) "Cold vacuum vessel temperature"
     annotation (Placement(transformation(extent={{46,-10},{26,10}})));
   Resistances.Heat.Radiation radiation[nNodes_1.k](surfaceArea=lead.geometry.surfaceAreas_23,
       each epsilon=epsilon.y) annotation (Placement(transformation(
@@ -38,9 +38,9 @@ model Example_1_9_2_CryogenicCurrentLeads
         rotation=-90,
         origin={-10,-30})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T__H1[
-    nNodes_1.k](each T=T_H.T) "room temperature wall"
+    nNodes_1.k](each T=T_H.T) "Room temperature wall"
     annotation (Placement(transformation(extent={{-46,-56},{-26,-36}})));
-  Modelica.Blocks.Sources.Constant epsilon(each k=0.5) "material emissivity"
+  Modelica.Blocks.Sources.Constant epsilon(each k=0.5) "Material emissivity"
     annotation (Placement(transformation(extent={{-82,70},{-74,78}})));
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot TemperaturePosition(
     minX=0,

@@ -2,8 +2,8 @@ within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Cylinder_2D_r_z
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D(
       final ns={nR,nZ}, final figure=2);
-  parameter Integer nR(min=1) = 1 "Number of nodes in r-direction";
-  parameter Integer nZ(min=1) = 1 "Number of nodes in z-direction";
+  parameter Integer nR(min=1) = 1 "# of nodes in r-direction";
+  parameter Integer nZ(min=1) = 1 "# of nodes in z-direction";
 
   //todo: make r_inner rs_inner? allow cylinder of different geoemtry on inner surface. Already permitted on outer surface... Do for all cylinder and sphere geometries.. 1D and 3D as well?
   input SI.Length r_inner=0

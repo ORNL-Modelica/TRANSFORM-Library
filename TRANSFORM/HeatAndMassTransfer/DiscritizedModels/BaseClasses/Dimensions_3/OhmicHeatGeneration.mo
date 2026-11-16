@@ -7,7 +7,7 @@ model OhmicHeatGeneration
       I,
       nVs[1],
       nVs[2],
-      nVs[3]) "if non-uniform then set Is"
+      nVs[3]) "If non-uniform then set Is"
     annotation (Dialog(group="Inputs"));
   SI.Resistance R[nVs[1],nVs[2],nVs[3]] "Electrical resistance";
   SI.Resistivity rho_e[nVs[1],nVs[2],nVs[3]]=Material.electricalResistivity(

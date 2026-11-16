@@ -3,7 +3,7 @@ model GenericMassGeneration
   import TRANSFORM.Math.fillArray_2D;
   extends PartialInternalMassGeneration;
   input SI.MolarFlowRate n_gen[nC] = zeros(nC) "Per volume mole generation" annotation(Dialog(group="Inputs"));
-  input SI.MolarFlowRate n_gens[nVs[1],nVs[2],nC] = fillArray_2D(n_gen,nVs[1],nVs[2]) "if non-uniform then set n_gens" annotation(Dialog(group="Inputs"));
+  input SI.MolarFlowRate n_gens[nVs[1],nVs[2],nC] = fillArray_2D(n_gen,nVs[1],nVs[2]) "If non-uniform then set n_gens" annotation(Dialog(group="Inputs"));
 equation
   for ic in 1:nC loop
   for i in 1:nVs[1] loop

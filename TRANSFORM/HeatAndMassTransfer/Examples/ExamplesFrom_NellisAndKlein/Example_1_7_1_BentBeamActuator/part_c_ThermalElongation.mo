@@ -1,33 +1,33 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_7_1_BentBeamActuator;
 model part_c_ThermalElongation
-  "part c) Plot actuator motion as a function of voltage"
+  "Part c) Plot actuator motion as a function of voltage"
   import TRANSFORM;
   extends Icons.Example;
-  Modelica.Blocks.Sources.Constant L_a(each k=0.001) "distance between anchors"
+  Modelica.Blocks.Sources.Constant L_a(each k=0.001) "Distance between anchors"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
-  Modelica.Blocks.Sources.Constant w(each k=10e-6) "beam width"
+  Modelica.Blocks.Sources.Constant w(each k=10e-6) "Beam width"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
-  Modelica.Blocks.Sources.Constant th(each k=5e-6) "beam thickness"
+  Modelica.Blocks.Sources.Constant th(each k=5e-6) "Beam thickness"
     annotation (Placement(transformation(extent={{-100,56},{-92,64}})));
   Modelica.Blocks.Sources.Constant alpha(each k=100)
-    "heat transfer coefficient"
+    "Heat transfer coefficient"
     annotation (Placement(transformation(extent={{-72,84},{-64,92}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_anchor_a(
-      T=293.15) "anchor temperature"
+      T=293.15) "Anchor temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Sources.RealExpression
                                    I(y=V.y/(sum(R_e.y)/nNodes_1.k))
-                                                  "current"
+                                                  "Current"
     annotation (Placement(transformation(extent={{-4,42},{4,50}})));
-  Modelica.Blocks.Sources.Constant rho_e(each k=1e-5) "electrical resistivity"
+  Modelica.Blocks.Sources.Constant rho_e(each k=1e-5) "Electrical resistivity"
     annotation (Placement(transformation(extent={{-72,70},{-64,78}})));
-  Modelica.Blocks.Sources.Constant theta(each k=0.5) "beam slope"
+  Modelica.Blocks.Sources.Constant theta(each k=0.5) "Beam slope"
     annotation (Placement(transformation(extent={{-100,28},{-92,36}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_infinity[
-    nNodes_1.k](each T=293.15) "ambient temperature"
+    nNodes_1.k](each T=293.15) "Ambient temperature"
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Sources.Constant CTE(each k=3.5e-6)
-    "coefficient of thermal expansion"
+    "Coefficient of thermal expansion"
     annotation (Placement(transformation(extent={{-72,56},{-64,64}})));
   DiscritizedModels.Conduction_1D beam(
     exposeState_a1=false,
@@ -63,13 +63,13 @@ model part_c_ThermalElongation
     annotation (Placement(transformation(extent={{-10,56},{10,76}})));
   Modelica.Blocks.Sources.Ramp V(
     height=5,
-    duration=10) "voltage"
+    duration=10) "Voltage"
     annotation (Placement(transformation(extent={{-18,42},{-10,50}})));
   Modelica.Blocks.Sources.RealExpression y0(y=sqrt(L.y^2 - 0.25*L_a.y^2))
-    "original apex position"
+    "Original apex position"
     annotation (Placement(transformation(extent={{60,46},{80,66}})));
   Modelica.Blocks.Sources.RealExpression dy(y=sqrt(sum(beam.geometry.dxs)^2 - 0.25
-        *L_a.y^2) - y0.y) "change in apex position"
+        *L_a.y^2) - y0.y) "Change in apex position"
     annotation (Placement(transformation(extent={{60,32},{80,52}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=1, x={dy.y})
     annotation (Placement(transformation(extent={{80,80},{100,100}})));

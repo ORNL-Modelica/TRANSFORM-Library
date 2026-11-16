@@ -23,21 +23,21 @@ model Example_8_6_UninsulatedDuct "Example 8.6 Uninsulated Duct pp. 516-518"
         rotation=-90,
         origin={0,0})));
   Modelica.Blocks.Sources.Constant alpha_ambient(each k=6)
-    "heat transfer coefficient"
+    "Heat transfer coefficient"
     annotation (Placement(transformation(extent={{-54,84},{-46,92}})));
-  Modelica.Blocks.Sources.Constant th(each k=0.001) "thickness"
+  Modelica.Blocks.Sources.Constant th(each k=0.001) "Thickness"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
-  Modelica.Blocks.Sources.Constant m_flows(each k=0.05) "mass flow rate"
+  Modelica.Blocks.Sources.Constant m_flows(each k=0.05) "Mass flow rate"
     annotation (Placement(transformation(extent={{-68,84},{-60,92}})));
   Modelica.Blocks.Sources.Constant Tin(k=
         SItf.Conversions.Functions.Temperature_K.from_degC(103))
-    "inlet temperature"
+    "Inlet temperature"
     annotation (Placement(transformation(extent={{-84,84},{-76,92}})));
   Modelica.Blocks.Sources.Constant Tambient(k=
         SItf.Conversions.Functions.Temperature_K.from_degC(0))
-    "ambient temperature"
+    "Ambient temperature"
     annotation (Placement(transformation(extent={{-84,56},{-76,64}})));
-  Modelica.Blocks.Sources.Constant D(k=0.15) "diameter"
+  Modelica.Blocks.Sources.Constant D(k=0.15) "Diameter"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=2)
     annotation (Placement(transformation(extent={{-26,84},{-18,92}})));
@@ -65,7 +65,7 @@ model Example_8_6_UninsulatedDuct "Example 8.6 Uninsulated Duct pp. 516-518"
     annotation (Placement(transformation(extent={{-12,84},{-4,92}})));
   Modelica.Blocks.Sources.Constant Tout(k=
         SItf.Conversions.Functions.Temperature_K.from_degC(77))
-    "outlet temperature"
+    "Outlet temperature"
     annotation (Placement(transformation(extent={{-84,70},{-76,78}})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Heat.Convection outerSide[nNodes_2.k](
      each alpha=alpha_ambient.y, surfaceArea=pipe.geometry.crossAreas_1[end, :])
@@ -84,17 +84,17 @@ model Example_8_6_UninsulatedDuct "Example 8.6 Uninsulated Duct pp. 516-518"
         rotation=180,
         origin={-30,0})));
   Modelica.Blocks.Sources.RealExpression Ac(y=0.25*Modelica.Constants.pi*D.y^2)
-    "cross sectional flow area"
+    "Cross sectional flow area"
     annotation (Placement(transformation(extent={{-100,30},{-80,52}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature ambient[
     nNodes_2.k](each use_port=true) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,50})));
-  Modelica.Blocks.Sources.Constant L(each k=5) "pipe length"
+  Modelica.Blocks.Sources.Constant L(each k=5) "Pipe length"
     annotation (Placement(transformation(extent={{-100,56},{-92,64}})));
   Modelica.Blocks.Sources.RealExpression Q_loss(y=sum(outerSide.port_a.Q_flow))
-    "total flow rate to ambient"
+    "Total flow rate to ambient"
     annotation (Placement(transformation(extent={{-100,-11},{-80,11}})));
   Utilities.Visualizers.displayReal display_Q_loss(use_port=true)
     annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));

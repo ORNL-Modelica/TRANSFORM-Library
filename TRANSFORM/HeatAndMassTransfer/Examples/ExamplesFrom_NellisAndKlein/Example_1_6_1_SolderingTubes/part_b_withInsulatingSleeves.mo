@@ -1,17 +1,17 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_6_1_SolderingTubes;
 model part_b_withInsulatingSleeves
-  "part b) Add insulating sleeves to reduce the necessary soldering power"
+  "Part b) Add insulating sleeves to reduce the necessary soldering power"
   extends Icons.Example;
   Modelica.Blocks.Sources.Constant L(each k=
         SItf.Conversions.Functions.Distance_m.from_ft(2.5)) "Length"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.Constant D_in(each k=
-        SItf.Conversions.Functions.Distance_m.from_in(4)) "inner diameter"
+        SItf.Conversions.Functions.Distance_m.from_in(4)) "Inner diameter"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
   Modelica.Blocks.Sources.Constant th(each k=
-        SItf.Conversions.Functions.Distance_m.from_in(0.375)) "thickness"
+        SItf.Conversions.Functions.Distance_m.from_in(0.375)) "Thickness"
     annotation (Placement(transformation(extent={{-100,56},{-92,64}})));
-  Modelica.Blocks.Sources.Constant lambda(each k=150) "thermal conductivity"
+  Modelica.Blocks.Sources.Constant lambda(each k=150) "Thermal conductivity"
     annotation (Placement(transformation(extent={{-100,42},{-92,50}})));
   FinEfficiency.GenericFin genericFin(
     alpha=alpha.y,
@@ -20,7 +20,7 @@ model part_b_withInsulatingSleeves
     crossArea=0.25*Modelica.Constants.pi*((D_in.y + 2*th.y)^2 - D_in.y^2),
     L=L.y - L_ins.y)
     annotation (Placement(transformation(extent={{-20,-70},{20,-30}})));
-  Modelica.Blocks.Sources.Constant alpha(each k=20) "heat transfer coefficient"
+  Modelica.Blocks.Sources.Constant alpha(each k=20) "Heat transfer coefficient"
     annotation (Placement(transformation(extent={{-100,28},{-92,36}})));
   Resistances.Heat.Fin pipe_left(
     eta=genericFin.eta,

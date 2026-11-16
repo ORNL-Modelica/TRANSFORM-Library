@@ -27,21 +27,21 @@ model Example_8_6_UninsulatedDuctwithMass
         rotation=-90,
         origin={0,0})));
   Modelica.Blocks.Sources.Constant alpha_ambient(each k=6)
-    "heat transfer coefficient"
+    "Heat transfer coefficient"
     annotation (Placement(transformation(extent={{-54,84},{-46,92}})));
-  Modelica.Blocks.Sources.Constant th(each k=0.001) "thickness"
+  Modelica.Blocks.Sources.Constant th(each k=0.001) "Thickness"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
-  Modelica.Blocks.Sources.Constant m_flows(each k=0.05) "mass flow rate"
+  Modelica.Blocks.Sources.Constant m_flows(each k=0.05) "Mass flow rate"
     annotation (Placement(transformation(extent={{-68,84},{-60,92}})));
   Modelica.Blocks.Sources.Constant Tin(k=
         SItf.Conversions.Functions.Temperature_K.from_degC(103))
-    "inlet temperature"
+    "Inlet temperature"
     annotation (Placement(transformation(extent={{-84,84},{-76,92}})));
   Modelica.Blocks.Sources.Constant Tambient(k=
         SItf.Conversions.Functions.Temperature_K.from_degC(0))
-    "ambient temperature"
+    "Ambient temperature"
     annotation (Placement(transformation(extent={{-84,56},{-76,64}})));
-  Modelica.Blocks.Sources.Constant D(k=0.15) "diameter"
+  Modelica.Blocks.Sources.Constant D(k=0.15) "Diameter"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   Modelica.Blocks.Sources.IntegerConstant nNodes_1(k=2)
     annotation (Placement(transformation(extent={{-26,84},{-18,92}})));
@@ -69,7 +69,7 @@ model Example_8_6_UninsulatedDuctwithMass
     annotation (Placement(transformation(extent={{-12,84},{-4,92}})));
   Modelica.Blocks.Sources.Constant Tout(k=
         SItf.Conversions.Functions.Temperature_K.from_degC(77))
-    "outlet temperature"
+    "Outlet temperature"
     annotation (Placement(transformation(extent={{-84,70},{-76,78}})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Heat.Convection outerSide[nNodes_2.k](
      each alpha=alpha_ambient.y, surfaceArea=pipe.geometry.crossAreas_1[end, :])
@@ -88,17 +88,17 @@ model Example_8_6_UninsulatedDuctwithMass
         rotation=180,
         origin={-30,0})));
   Modelica.Blocks.Sources.RealExpression Ac(y=0.25*Modelica.Constants.pi*D.y^2)
-    "cross sectional flow area"
+    "Cross sectional flow area"
     annotation (Placement(transformation(extent={{-100,30},{-80,52}})));
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature ambient[
     nNodes_2.k](each use_port=true) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={0,50})));
-  Modelica.Blocks.Sources.Constant L(each k=5) "pipe length"
+  Modelica.Blocks.Sources.Constant L(each k=5) "Pipe length"
     annotation (Placement(transformation(extent={{-100,56},{-92,64}})));
   Modelica.Blocks.Sources.RealExpression Q_loss(y=sum(outerSide.port_a.Q_flow))
-    "total flow rate to ambient"
+    "Total flow rate to ambient"
     annotation (Placement(transformation(extent={{-100,-11},{-80,11}})));
   Utilities.Visualizers.displayReal display_Q_loss(use_port=true)
     annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));
@@ -168,16 +168,16 @@ model Example_8_6_UninsulatedDuctwithMass
         Cout.y,
         nNodes_2.k))
     annotation (Placement(transformation(extent={{10,-88},{-10,-66}})));
-  Modelica.Blocks.Sources.Constant Cin(k=1) "inlet concentration"
+  Modelica.Blocks.Sources.Constant Cin(k=1) "Inlet concentration"
     annotation (Placement(transformation(extent={{76,-56},{84,-48}})));
-  Modelica.Blocks.Sources.Constant Cout(k=2) "outlet concentration"
+  Modelica.Blocks.Sources.Constant Cout(k=2) "Outlet concentration"
     annotation (Placement(transformation(extent={{76,-70},{84,-62}})));
   Modelica.Blocks.Sources.RealExpression C_ambient[nNodes_2.k](each y=Cambient.y)
     annotation (Placement(transformation(extent={{30,66},{10,88}})));
-  Modelica.Blocks.Sources.Constant Cambient(k=0) "ambient concentration"
+  Modelica.Blocks.Sources.Constant Cambient(k=0) "Ambient concentration"
     annotation (Placement(transformation(extent={{76,-84},{84,-76}})));
   Modelica.Blocks.Sources.Constant alphaM_ambient[1](each k=6)
-    "mass transfer coefficient"
+    "Mass transfer coefficient"
     annotation (Placement(transformation(extent={{90,-56},{98,-48}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=2, x={pipe.portM_a1[5].C[
         1],pipe.portM_b1[5].C[1]})
