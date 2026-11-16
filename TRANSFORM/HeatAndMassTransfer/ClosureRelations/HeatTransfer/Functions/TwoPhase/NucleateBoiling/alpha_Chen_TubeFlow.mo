@@ -47,7 +47,7 @@ Saturated fluid properties are based on the bulk fluid temperature and pressure.
     "Saturation pressure difference (psat(Twall)-psat(Tsat))";
   output SI.CoefficientOfHeatTransfer alpha
     "Two-phase total heat transfer coefficient";
-  output Real X_tt_inv "Inverse of the Martenelli Parameter";
+  output Real X_tt_inv "Inverse of the Martinelli parameter";
   output Real F
     "Correction factor for two-phase impact on liquid-phase convection";
   output Real S "Nucleare boiling suppresion factor";

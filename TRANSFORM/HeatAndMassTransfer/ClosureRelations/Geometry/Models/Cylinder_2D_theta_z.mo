@@ -2,8 +2,8 @@ within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Cylinder_2D_theta_z
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D(
       final ns={nTheta,nZ}, final figure=2);
-  parameter Integer nTheta(min=1) = 1 "Number of nodes in theta-direction";
-  parameter Integer nZ(min=1) = 1 "Number of nodes in z-direction";
+  parameter Integer nTheta(min=1) = 1 "# of nodes in theta-direction";
+  parameter Integer nZ(min=1) = 1 "# of nodes in z-direction";
   input SI.Length r_inner=0
     "Specify inner radius or dthetas in r-dimension and r_outer"
     annotation (Dialog(group="Inputs"));

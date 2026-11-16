@@ -33,7 +33,7 @@ model Conduction_3D "2-D Conduction Models"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_b3_start=T_a3_start "Temperature at port b3"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter Real nParallel=1 "Number of parallel components";
+  parameter Real nParallel=1 "# of parallel components";
   // Advanced
   parameter Boolean exposeState_a1=true
     "=true, T is calculated at port_a1 else Q_flow" annotation (Dialog(group=
@@ -43,7 +43,7 @@ model Conduction_3D "2-D Conduction Models"
           "Model Structure", tab="Advanced"));
   final parameter Integer nFM_1=if exposeState_a1 and exposeState_b1 then nVs[1]
        - 1 else if not exposeState_a1 and not exposeState_b1 then nVs[1] + 1
-       else nVs[1] "number of flow models";
+       else nVs[1] "# of flow models";
   parameter Boolean exposeState_a2=true
     "=true, T is calculated at port_a2 else Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
@@ -52,7 +52,7 @@ model Conduction_3D "2-D Conduction Models"
           "Model Structure", tab="Advanced"));
   final parameter Integer nFM_2=if exposeState_a2 and exposeState_b2 then nVs[2]
        - 1 else if not exposeState_a2 and not exposeState_b2 then nVs[2] + 1
-       else nVs[2] "number of flow models";
+       else nVs[2] "# of flow models";
   parameter Boolean exposeState_a3=true
     "=true, T is calculated at port_a3 else Q_flow" annotation (Dialog(group=
           "Model Structure", tab="Advanced"));
@@ -61,7 +61,7 @@ model Conduction_3D "2-D Conduction Models"
           "Model Structure", tab="Advanced"));
   final parameter Integer nFM_3=if exposeState_a3 and exposeState_b3 then nVs[3]
        - 1 else if not exposeState_a3 and not exposeState_b3 then nVs[3] + 1
-       else nVs[3] "number of flow models";
+       else nVs[3] "# of flow models";
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_3D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_3D
@@ -135,17 +135,17 @@ model Conduction_3D "2-D Conduction Models"
   SI.HeatFlowRate Q_flows_3[nVs[1],nVs[2],nVs[3] + 1]
     "Heat flow rates across segment boundaries";
   Material.ThermodynamicState state_a1[nVs[2],nVs[3]]
-    "state defined by volume outside port_a1";
+    "State defined by volume outside port_a1";
   Material.ThermodynamicState state_b1[nVs[2],nVs[3]]
-    "state defined by volume outside port_b1";
+    "State defined by volume outside port_b1";
   Material.ThermodynamicState state_a2[nVs[1],nVs[3]]
-    "state defined by volume outside port_a2";
+    "State defined by volume outside port_a2";
   Material.ThermodynamicState state_b2[nVs[1],nVs[3]]
-    "state defined by volume outside port_b2";
+    "State defined by volume outside port_b2";
   Material.ThermodynamicState state_a3[nVs[1],nVs[2]]
-    "state defined by volume outside port_a3";
+    "State defined by volume outside port_a3";
   Material.ThermodynamicState state_b3[nVs[1],nVs[2]]
-    "state defined by volume outside port_b3";
+    "State defined by volume outside port_b3";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 protected
   Material.ThermodynamicState statesFM_1[nFM_1 + 1,nVs[2],nVs[3]];

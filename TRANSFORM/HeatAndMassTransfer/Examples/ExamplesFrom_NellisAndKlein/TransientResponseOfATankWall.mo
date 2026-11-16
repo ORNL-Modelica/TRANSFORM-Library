@@ -4,22 +4,22 @@ model TransientResponseOfATankWall
   import TRANSFORM;
   extends Icons.Example;
   Modelica.Blocks.Sources.Constant alpha_fluid(each k=5000)
-    "heat transfer coefficient"
+    "Heat transfer coefficient"
     annotation (Placement(transformation(extent={{-54,84},{-46,92}})));
-  Modelica.Blocks.Sources.Constant th(each k=0.008) "thickness"
+  Modelica.Blocks.Sources.Constant th(each k=0.008) "Thickness"
     annotation (Placement(transformation(extent={{-100,70},{-92,78}})));
-  Modelica.Blocks.Sources.Constant lambda(each k=20) "thermal conductivity"
+  Modelica.Blocks.Sources.Constant lambda(each k=20) "Thermal conductivity"
     annotation (Placement(transformation(extent={{-68,84},{-60,92}})));
-  Modelica.Blocks.Sources.Constant d(each k=8000) "density"
+  Modelica.Blocks.Sources.Constant d(each k=8000) "Density"
     annotation (Placement(transformation(extent={{-68,70},{-60,78}})));
-  Modelica.Blocks.Sources.Constant cp(each k=400) "heat capacity"
+  Modelica.Blocks.Sources.Constant cp(each k=400) "Heat capacity"
     annotation (Placement(transformation(extent={{-54,70},{-46,78}})));
-  Modelica.Blocks.Sources.Constant Thot(k=500) "hot temperature"
+  Modelica.Blocks.Sources.Constant Thot(k=500) "Hot temperature"
     annotation (Placement(transformation(extent={{-84,84},{-76,92}})));
-  Modelica.Blocks.Sources.Constant Tcold(k=400) "cold temperature"
+  Modelica.Blocks.Sources.Constant Tcold(k=400) "Cold temperature"
     annotation (Placement(transformation(extent={{-84,70},{-76,78}})));
   Modelica.Blocks.Sources.Constant Ac(k=1)
-    "cross sectional area perpindular to heat transfer"
+    "Cross sectional area perpendicular to heat transfer"
     annotation (Placement(transformation(extent={{-100,84},{-92,92}})));
   DiscritizedModels.Conduction_1D wall(
     redeclare model Geometry =
@@ -54,16 +54,16 @@ model TransientResponseOfATankWall
     annotation (Placement(transformation(extent={{32,10},{52,30}})));
   Modelica.Blocks.Sources.Step Thot_tank(offset=Thot.k, height=-200,
     startTime=0.1)
-    "hot temperature"
+    "Hot temperature"
     annotation (Placement(transformation(extent={{-100,42},{-92,50}})));
   Modelica.Blocks.Sources.Step Tcold_tank(height=-100, offset=Tcold.k,
     startTime=0.1)
-    "cold temperature"
+    "Cold temperature"
     annotation (Placement(transformation(extent={{-100,28},{-92,36}})));
   Modelica.Blocks.Sources.Step alpha_tanks(              offset=alpha_fluid.k,
     height=alpha_gas.k - alpha_fluid.k,
     startTime=0.1)
-    "heat transfer coefficient"
+    "Heat transfer coefficient"
     annotation (Placement(transformation(extent={{-84,36},{-76,44}})));
   Utilities.CharacteristicNumbers.Models.DiffusiveHeatTimeConstant tau_diff(
     L=th.y,
@@ -82,7 +82,7 @@ model TransientResponseOfATankWall
   Utilities.Visualizers.displayReal display_tau_lumped(use_port=true)
     annotation (Placement(transformation(extent={{-30,-84},{-10,-64}})));
   Modelica.Blocks.Sources.Constant alpha_gas(each k=100)
-    "heat transfer coefficient"
+    "Heat transfer coefficient"
     annotation (Placement(transformation(extent={{-40,84},{-32,92}})));
   TRANSFORM.Utilities.Visualizers.Outputs.SpatialPlot wallTemperature(
     minX=0,

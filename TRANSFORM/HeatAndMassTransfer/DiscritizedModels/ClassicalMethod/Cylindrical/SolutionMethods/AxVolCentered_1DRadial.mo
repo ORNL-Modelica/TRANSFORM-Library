@@ -265,10 +265,10 @@ else
 end if;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})), Documentation(info="<html>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Below is a representative stencil for the distribution of the nodes and associated stencil. </span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">Note that the nodes lie are &apos;volume centered&apos; in the axial direction but still lie along the boundaries in the radial direction. </span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">This governs the ability, or lack thereof, to use predefined boundary conditions.</span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\">For example, this stencil WILL directly interface with &apos;DynamicPipe&apos; because that requires volume centered Q_flow and T values which this method satisfies.</span></p>
-<p><img src=\"modelica://TRANSFORM/../Resources/Images/Thermal/Conduction/FiniteDifference/FD_AxVolCentered_2DCyl.PNG\"/></p>
+<p>Below is a representative stencil for the distribution of the nodes and associated stencil. </p>
+<p>Note that the nodes lie are &apos;volume centered&apos; in the axial direction but still lie along the boundaries in the radial direction. </p>
+<p>This governs the ability, or lack thereof, to use predefined boundary conditions.</p>
+<p>For example, this stencil WILL directly interface with &apos;DynamicPipe&apos; because that requires volume centered Q_flow and T values which this method satisfies.</p>
+<p><img src=\"modelica://TRANSFORM/Resources/Images/NonPowerPoint/FiniteDifference/FD_AxVolCentered_2DCyl.PNG\" alt=\"Finite-difference stencil for a 2-D cylinder, volume-centered in the axial direction\"/></p>
 </html>"));
 end AxVolCentered_1DRadial;

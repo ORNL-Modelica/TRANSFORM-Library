@@ -91,7 +91,7 @@ algorithm
 <li>2000 &lt; Re_Dmax &lt; 40e3</li>
 <li>Pr &gt; 0.7</li>
 </ul>
-<p><br><img src=\"modelica://TRANSFORM/Resources/Images/Information/Grimison_tubeArrangement.jpg\"/></p>
+<p><br><img src=\"modelica://TRANSFORM/Resources/Images/Information/Grimison_tubeArrangement.jpg\" alt=\"Aligned and staggered tube arrangements with pitches S_L, S_T, S_D and diameter D\"/></p>
 <h4>References</h4>
 <ol>
 <li>Incropera &amp; DeWitt, Fundamentals of Heat and Mass Transfer 6E 2007.</li>

@@ -5,7 +5,7 @@ model AlphasM "Specify Mass Transfer Coefficient"
   input SItf.CoefficientOfMassTransfer alphaM0[nC]=fill(0, nC)
     "Coefficient of mass transfer" annotation (Dialog(group="Inputs"));
   input SItf.CoefficientOfMassTransfer alphasM0[nMT,nC]=fillArray_1D(
-      alphaM0, nMT) "if non-uniform then set"
+      alphaM0, nMT) "If non-uniform then set"
     annotation (Dialog(group="Inputs"));
 equation
   for i in 1:nMT loop

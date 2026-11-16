@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.DiscritizedModels;
 model HMTransfer_3D
   import Modelica.Fluid.Types.Dynamics;
   extends Conduction_3D;
-  parameter Integer nC = 1 "Number of substances";
+  parameter Integer nC = 1 "# of substances";
   // Initialization
   parameter Dynamics traceDynamics=energyDynamics
     "Formulation of trace substance balances"

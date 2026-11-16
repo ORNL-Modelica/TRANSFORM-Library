@@ -3,7 +3,7 @@ model GenericMassDiffusionCoefficient
   import TRANSFORM.Math.fillArray_1D;
   extends PartialMassDiffusionCoefficient;
   input SI.MolarFlowRate D_ab0[nC] = zeros(nC) "Diffusion coefficient" annotation(Dialog(group="Inputs"));
-  input SI.MolarFlowRate D_abs0[nVs[1],nC] = fillArray_1D(D_ab0,nVs[1]) "if non-uniform then set D_abs0" annotation(Dialog(group="Inputs"));
+  input SI.MolarFlowRate D_abs0[nVs[1],nC] = fillArray_1D(D_ab0,nVs[1]) "If non-uniform then set D_abs0" annotation(Dialog(group="Inputs"));
 equation
   for ic in 1:nC loop
   for i in 1:nVs[1] loop

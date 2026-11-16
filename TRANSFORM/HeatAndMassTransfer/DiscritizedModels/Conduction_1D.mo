@@ -22,7 +22,7 @@ model Conduction_1D "1-D Conduction Models"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_b1_start=T_a1_start "Temperature at port b1"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter Real nParallel=1 "Number of parallel components";
+  parameter Real nParallel=1 "# of parallel components";
   // Advanced
   parameter Boolean exposeState_a1=true
     "=true, T is calculated at port_a1 else Q_flow" annotation (Dialog(group=
@@ -32,7 +32,7 @@ model Conduction_1D "1-D Conduction Models"
           "Model Structure", tab="Advanced"));
   final parameter Integer nFM_1=if exposeState_a1 and exposeState_b1 then nVs[1]
        - 1 else if not exposeState_a1 and not exposeState_b1 then nVs[1] + 1
-       else nVs[1] "number of flow models";
+       else nVs[1] "# of flow models";
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D
@@ -80,9 +80,9 @@ model Conduction_1D "1-D Conduction Models"
   SI.HeatFlowRate Q_flows_1[nVs[1] + 1]
     "Heat flow rates across segment boundaries";
   Material.ThermodynamicState state_a1
-    "state defined by volume outside port_a1";
+    "State defined by volume outside port_a1";
   Material.ThermodynamicState state_b1
-    "state defined by volume outside port_b1";
+    "State defined by volume outside port_b1";
   input SI.Velocity velocity_1=0 "Velocity of material through control volumes"
     annotation (Dialog(group="Inputs"));
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));

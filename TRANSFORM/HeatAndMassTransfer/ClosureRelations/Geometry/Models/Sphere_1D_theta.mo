@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Sphere_1D_theta
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D(
       final ns={nTheta}, final figure=3);
-  parameter Integer nTheta(min=1) = 1 "Number of nodes in theta-direction";
+  parameter Integer nTheta(min=1) = 1 "# of nodes in theta-direction";
   input SI.Length r_inner=0
     "Specify inner radius and dthetas in r-dimension or r_outer"
     annotation (Dialog(group="Inputs"));

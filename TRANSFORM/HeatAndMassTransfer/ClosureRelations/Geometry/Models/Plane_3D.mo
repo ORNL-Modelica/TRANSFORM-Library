@@ -2,9 +2,9 @@ within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Plane_3D
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_3D(
       final ns={nX,nY,nZ}, final figure=1);
-  parameter Integer nX(min=1) = 1 "Number of nodes in x-direction";
-  parameter Integer nY(min=1) = 1 "Number of nodes in y-direction";
-  parameter Integer nZ(min=1) = 1 "Number of nodes in z-direction";
+  parameter Integer nX(min=1) = 1 "# of nodes in x-direction";
+  parameter Integer nY(min=1) = 1 "# of nodes in y-direction";
+  parameter Integer nZ(min=1) = 1 "# of nodes in z-direction";
   input SI.Length length_x = 1 "Specify overall length or dxs in x-dimension" annotation(Dialog(group="Inputs"));
   input SI.Length length_y = 1 "Specify overall length or dys in y-dimension" annotation(Dialog(group="Inputs"));
   input SI.Length length_z = 1 "Specify overall length or dzs in z-dimension" annotation(Dialog(group="Inputs"));

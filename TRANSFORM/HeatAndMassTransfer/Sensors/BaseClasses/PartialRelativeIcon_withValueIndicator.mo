@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Sensors.BaseClasses;
 partial model PartialRelativeIcon_withValueIndicator
   extends TRANSFORM.Icons.TranslationalSensor;
-  parameter Integer precision(min=0) = 0 "Number of decimals displayed";
+  parameter Integer precision(min=0) = 0 "# of decimals displayed";
   replaceable function iconUnit =
       SItf.Conversions.Functions.BaseClasses.PartialConversion
     "Unit for icon display" annotation (choicesAllMatching=true);

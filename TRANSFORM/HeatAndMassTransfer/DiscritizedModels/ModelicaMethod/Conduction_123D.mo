@@ -12,7 +12,7 @@ model Conduction_123D
     "Geometry" annotation (choicesAllMatching=true);
   Geometry geometry
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
-  parameter Real nParallel = 1 "Number of parallel components";
+  parameter Real nParallel = 1 "# of parallel components";
   parameter Boolean use_dim1 = true "=false then conduction in dimension-1 is neglected" annotation(choices(checkBox=true));
   parameter Boolean use_dim2 = false "=false then conduction in dimension-2 is neglected" annotation(choices(checkBox=true));
   parameter Boolean use_dim3 = false "=false then conduction in dimension-3 is neglected" annotation(choices(checkBox=true));
@@ -31,21 +31,21 @@ model Conduction_123D
     "=true, T is calculated at port_b1 else Q_flow" annotation(Dialog(group="Model Structure",tab="Advanced"),choices(checkBox=true));
   final parameter Integer nFM_1=if exposeState_a1 and exposeState_b1 then nVs[1]
        - 1 else if not exposeState_a1 and not exposeState_b1 then nVs[1] + 1
-       else nVs[1] "number of flow models";
+       else nVs[1] "# of flow models";
   parameter Boolean exposeState_a2=true
     "=true, T is calculated at port_a2 else Q_flow" annotation(Dialog(group="Model Structure",tab="Advanced"),choices(checkBox=true));
   parameter Boolean exposeState_b2=false
     "=true, T is calculated at port_b2 else Q_flow" annotation(Dialog(group="Model Structure",tab="Advanced"),choices(checkBox=true));
   final parameter Integer nFM_2=if exposeState_a2 and exposeState_b2 then nVs[2]
        - 1 else if not exposeState_a2 and not exposeState_b2 then nVs[2] + 1
-       else nVs[2] "number of flow models";
+       else nVs[2] "# of flow models";
   parameter Boolean exposeState_a3=true
     "=true, T is calculated at port_a3 else Q_flow" annotation(Dialog(group="Model Structure",tab="Advanced"),choices(checkBox=true));
   parameter Boolean exposeState_b3=false
     "=true, T is calculated at port_b3 else Q_flow" annotation(Dialog(group="Model Structure",tab="Advanced"),choices(checkBox=true));
   final parameter Integer nFM_3=if exposeState_a3 and exposeState_b3 then nVs[3]
        - 1 else if not exposeState_a3 and not exposeState_b3 then nVs[3] + 1
-       else nVs[3] "number of flow models";
+       else nVs[3] "# of flow models";
   Volumes.UnitVolume                      unitCell[nVs[1],nVs[2],nVs[3]](
     T_start=Ts_start,
     each energyDynamics=energyDynamics,

@@ -2,8 +2,8 @@ within TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models;
 model Sphere_2D_theta_phi
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D(
       final ns={nTheta,nPhi}, final figure=3);
-  parameter Integer nTheta(min=1) = 1 "Number of nodes in theta-direction";
-  parameter Integer nPhi(min=1) = 1 "Number of nodes in z-direction";
+  parameter Integer nTheta(min=1) = 1 "# of nodes in theta-direction";
+  parameter Integer nPhi(min=1) = 1 "# of nodes in z-direction";
   input SI.Length r_inner=0
     "Specify inner radius and dthetas in r-dimension or r_outer"
     annotation (Dialog(group="Inputs"));

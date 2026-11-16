@@ -7,7 +7,7 @@ model TotalHeatGeneration
       Q_gen/(nVs[1]*nVs[2]*nVs[3]),
       nVs[1],
       nVs[2],
-      nVs[3]) "if non-uniform then set Q_gens"
+      nVs[3]) "If non-uniform then set Q_gens"
     annotation (Dialog(group="Inputs"));
 equation
   for i in 1:nVs[1] loop

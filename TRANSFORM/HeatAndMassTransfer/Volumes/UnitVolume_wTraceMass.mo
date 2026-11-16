@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.Volumes;
 model UnitVolume_wTraceMass
   extends Volumes.UnitVolume;
   import Modelica.Fluid.Types.Dynamics;
-  parameter Integer nC=1 "Number of substances";
+  parameter Integer nC=1 "# of substances";
   parameter Dynamics traceDynamics=Dynamics.DynamicFreeInitial
     "Formulation of trace substance balances"
     annotation (Dialog(tab="Initialization", group="Dynamics"));
