@@ -13,7 +13,7 @@ model Initial_FissionProducts_Test
 
   parameter Integer nC=data.nC "# of fission products";
 
-  parameter Units.NonDim nu_bar_start=2.4 "Neutrons per fission"
+  parameter SItf.NonDim nu_bar_start=2.4 "Neutrons per fission"
     annotation (Dialog(tab="Initialization", group="Fission Sources"));
   parameter SI.Energy w_f_start=200e6*1.6022e-19 "Energy released per fission"
     annotation (Dialog(tab="Initialization", group="Fission Sources"));
@@ -23,7 +23,7 @@ model Initial_FissionProducts_Test
   parameter SI.Area sigmasA_start[nC]=data.sigmasA
     "Microscopic absorption cross-section for reactivity feedback"
     annotation (Dialog(tab="Initialization", group="Fission Products"));
-  parameter Units.InverseTime lambdas_start[nC]=data.lambdas
+  parameter SItf.InverseTime lambdas_start[nC]=data.lambdas
     "Decay constants for each fission product"
     annotation (Dialog(tab="Initialization", group="Fission Products"));
 
@@ -31,10 +31,10 @@ model Initial_FissionProducts_Test
     "Power determined from kinetics. Does not include fission product decay heat"
     annotation (Dialog(tab="Initialization"));
 
-    parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=zeros(nC) "Number of fission product atoms per group"
+    parameter SItf.ExtraPropertyExtrinsic mCs_start[nC]=zeros(nC) "Number of fission product atoms per group"
       annotation (Dialog(tab="Initialization"));
 
-   parameter SIadd.ExtraPropertyExtrinsic mCs_start2[nC]=
+   parameter SItf.ExtraPropertyExtrinsic mCs_start2[nC]=
        Functions.Initial_FissionProducts(
        nC=nC,
        phi=Q_fission_start/(w_f_start*SigmaF_start)/0.1,

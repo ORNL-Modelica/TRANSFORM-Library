@@ -35,8 +35,8 @@ model TeeJunctionVolumeLoss
         Medium) "Branch leg"
     annotation (Placement(transformation(extent={{-10,90},{10,110}})));
 
-  Units.NonDim K_run "Applied run loss coefficient (ref. combined velocity head)";
-  Units.NonDim K_branch "Applied branch loss coefficient (ref. combined velocity head)";
+  SItf.NonDim K_run "Applied run loss coefficient (ref. combined velocity head)";
+  SItf.NonDim K_branch "Applied branch loss coefficient (ref. combined velocity head)";
 protected
   SI.Area A_run=0.25*Modelica.Constants.pi*d_run^2 "Run cross-sectional area";
   SI.VolumeFlowRate V_run=abs(port_2.m_flow)/medium.d "Run-leg volumetric flow";
@@ -44,13 +44,13 @@ protected
   SI.Pressure hd=0.5*port_1.m_flow^2/(medium.d*A_run^2)
     "Combined-flow dynamic head (1/2 rho w_c^2)";
   // Crane coefficients for both flow directions
-  Units.NonDim Kr_div=TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Tees.K_runDiverging_Crane(
+  SItf.NonDim Kr_div=TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Tees.K_runDiverging_Crane(
       d_run, d_branch, V_run, V_branch, angle);
-  Units.NonDim Kb_div=TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Tees.K_branchDiverging_Crane(
+  SItf.NonDim Kb_div=TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Tees.K_branchDiverging_Crane(
       d_run, d_branch, V_run, V_branch, angle);
-  Units.NonDim Kr_conv=TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Tees.K_runConverging_Crane(
+  SItf.NonDim Kr_conv=TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Tees.K_runConverging_Crane(
       d_run, d_branch, V_run, V_branch, angle);
-  Units.NonDim Kb_conv=TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Tees.K_branchConverging_Crane(
+  SItf.NonDim Kb_conv=TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Tees.K_branchConverging_Crane(
       d_run, d_branch, V_run, V_branch, angle);
 equation
   // Only one connection allowed per port to avoid unwanted ideal mixing

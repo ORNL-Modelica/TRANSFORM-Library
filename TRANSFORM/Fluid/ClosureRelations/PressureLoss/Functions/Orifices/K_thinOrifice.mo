@@ -5,7 +5,7 @@ function K_thinOrifice
   // K is referenced to the velocity head in the full (upstream) pipe cross-section.
   extends TRANSFORM.Icons.Function;
   input Real ar(min=0, max=1) "Free-area ratio = open area / full pipe area";
-  output Units.NonDim K "Resistance coefficient";
+  output SItf.NonDim K "Resistance coefficient";
 protected
   Real a=max(ar, 1e-6) "Guarded free-area ratio";
 algorithm

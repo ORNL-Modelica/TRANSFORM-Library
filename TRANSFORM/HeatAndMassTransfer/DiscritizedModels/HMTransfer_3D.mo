@@ -85,10 +85,10 @@ model HMTransfer_3D
     final states=materials.state) "Internal mass generation model" annotation (Placement(
         transformation(extent={{-38,62},{-22,78}}, rotation=0)));
   parameter Boolean use_nCs_scaled = false "=true to use der(nCs_scaled) = nCbs/C_nominal else der(nCs) = nCbs." annotation(Dialog(tab="Advanced"));
-  parameter Units.NonDim C_nominal[nC] = fill(1e-6,nC) "Nominal concentration [mol/m3] for improved numeric stability" annotation(Dialog(tab="Advanced",enable=use_nCs_scaled));
+  parameter SItf.NonDim C_nominal[nC] = fill(1e-6,nC) "Nominal concentration [mol/m3] for improved numeric stability" annotation(Dialog(tab="Advanced",enable=use_nCs_scaled));
   // Total quantities
-  Units.Mole nCs[nVs[1],nVs[2],nVs[3],nC] "Trace substance moles";
-  Units.Mole[nVs[1],nVs[2],nVs[3],nC] nCs_scaled "Scaled trace substance moles for improved numerical stability";
+  SItf.Mole nCs[nVs[1],nVs[2],nVs[3],nC] "Trace substance moles";
+  SItf.Mole[nVs[1],nVs[2],nVs[3],nC] nCs_scaled "Scaled trace substance moles for improved numerical stability";
   SI.Concentration Cs[nVs[1],nVs[2],nVs[3],nC](each stateSelect=StateSelect.prefer,
       start=Cs_start) "Trace substance concentration";
   // Energy Balance

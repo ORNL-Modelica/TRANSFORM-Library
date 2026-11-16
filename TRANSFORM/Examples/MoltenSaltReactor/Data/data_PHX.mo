@@ -39,7 +39,7 @@ parameter SI.Length length_tube = from_inch(30*12)
 parameter SI.Area surfaceArea_tubeouter = D_tube_outer*pi*length_tube*nTubes
     "Surface area outer tube basis";                                                                         //TRANSFORM.Units.Conversions.Functions.Area_m2.from_feet2(4024);
   parameter SI.CoefficientOfHeatTransfer U=
-      TRANSFORM.Units.Conversions.Functions.CoefficientOfHeatTransfer_W_m2K.from_btu_hrft2degF(
+      SItf.Conversions.Functions.CoefficientOfHeatTransfer_W_m2K.from_btu_hrft2degF(
       700);
 parameter Real nBaffles = 47 "# of baffles";
 parameter String baffleType="Disk and Dougnut" "Baffle type";

@@ -30,7 +30,7 @@ record Data_Basic
    parameter SI.Length length_hotleg = from_feet(50) "Hot leg length";
    parameter SI.Length length_coldleg = from_feet(50) "Cold leg length";
    parameter SI.Power Q_total_th=3411e6 "Total thermal output (d2s1)";
-   parameter SIadd.NonDim Q_frac = 0.974 "Fraction of heat generatated in fuel (d2s1)";
+   parameter SItf.NonDim Q_frac = 0.974 "Fraction of heat generatated in fuel (d2s1)";
    parameter SI.Pressure p_nominal = from_psi(2250) "Nominal system pressure (d2s1)";
    parameter SI.MassFlowRate m_flow_nominal = from_lbm_hr(138.4e6) "Nominal total coolant flow rate (d2s1)";
    parameter SI.Temperature T_core_inlet_nominal = from_degF(557.5) "Nominal core inlet temperature (d2s1)";
@@ -40,7 +40,7 @@ record Data_Basic
    parameter SI.Length dimension_core = from_feet(11.06) "Equivalent core diameter (d2s1)";
    parameter SI.Length length_fuel = from_feet(12) "Core length between fuel ends (d2s1)";
    parameter SI.Mass m_uranium_1 = 81639 "Fuel weight of uranium (first core) (d2s1)";
-   parameter SIadd.NonDim nAssembly = 193 "Number of assemblies - 17x17 (d2s1)";
+   parameter SItf.NonDim nAssembly = 193 "Number of assemblies - 17x17 (d2s1)";
    parameter String Material_fuel = "Uranium Oxide" "Fuel pellet material";
    parameter String Material_cladding = "Zircaloy-4" "Cladding material";
    parameter SI.Length r_outer_fuelRod = 0.5*from_inch(0.360) "Outside diameter of fuel rod (d3s1)";
@@ -48,9 +48,9 @@ record Data_Basic
    parameter SI.Length th_gap_fuelRod = 0.5*from_inch(0.0062) "Gap thickness between pellet and cladding (d3s1)";
    parameter SI.Length r_pellet_fuelRod = 0.5*from_inch(0.3088) "Pellet radius (d3s1)";
    parameter SI.Length pitch_fuelRod = from_inch(0.496) "Fuel rod pitch (d3s1)";
-   parameter SIadd.NonDim sizeAssembly = 17 "square size of assembly (e.g., 17 = 17x17)";
-   parameter SIadd.NonDim nRodFuel_assembly = 264 "# of fuel rods per assembly (d3s1)";
-   parameter SIadd.NonDim nRodNonFuel_assembly = sizeAssembly^2 - 264 "# of non-fuel rods per assembly (d3s1)";
+   parameter SItf.NonDim sizeAssembly = 17 "square size of assembly (e.g., 17 = 17x17)";
+   parameter SItf.NonDim nRodFuel_assembly = 264 "# of fuel rods per assembly (d3s1)";
+   parameter SItf.NonDim nRodNonFuel_assembly = sizeAssembly^2 - 264 "# of non-fuel rods per assembly (d3s1)";
    // Guessed
    parameter SI.Length length_inlet_plenum = length_fuel "Length of core inlet plenum";
    parameter SI.Area crossArea_inlet_plenum = 0.25*Modelica.Constants.pi*dimension_core^2 "Cross area of inlet plenum";
@@ -60,7 +60,7 @@ record Data_Basic
    parameter SI.Area crossArea_downcomer = Modelica.Constants.pi*0.25*(from_inch(10*12+11)^2 - from_inch(10*12+3)^2) "Estimated flow area of downcomer from nozzle faces (d4s1)";
    parameter SI.Length perimeter_downcomer = Modelica.Constants.pi*(from_inch(10*12+11)+from_inch(10*12+3)) "Estimated perimeter of downcomer";
    parameter SI.Height pressurizer_level=1.68 "nominal pressurizer level";
-   parameter Units.NonDim pressurizer_Vfrac_liquid=0.34
+   parameter SItf.NonDim pressurizer_Vfrac_liquid=0.34
      "nominal fraction of liquid in pressurizer";
    // Pressurizer
    parameter SI.Length dimension_pzr = from_inch(7*12+8) "Pressurizer diameter (d5s1)";
@@ -69,7 +69,7 @@ record Data_Basic
    parameter SI.Volume V_pzr = 0.25*Modelica.Constants.pi*dimension_pzr^2*length_pzr "Empty volume of pressurizer (d5s1)";
    parameter SI.Volume V_water_pzr_nominal = from_feet3(1080) "Pressurizer nominal water volume (d5s1)";
    parameter SI.Volume V_steam_pzr_nominal = V_pzr-V_water_pzr_nominal "Pressurizer nominal steam volume (d5s1)";
-   parameter SIadd.NonDim Vfrac_liquid_pzr = V_water_pzr_nominal/V_pzr "Nominal volume fraction of pressurizer";
+   parameter SItf.NonDim Vfrac_liquid_pzr = V_water_pzr_nominal/V_pzr "Nominal volume fraction of pressurizer";
    // Steam Generator
    // 2 sections: lower section with tubes and upper section with moisture sepeartor/boiler level
    // 1 SG per loop: 4 loops

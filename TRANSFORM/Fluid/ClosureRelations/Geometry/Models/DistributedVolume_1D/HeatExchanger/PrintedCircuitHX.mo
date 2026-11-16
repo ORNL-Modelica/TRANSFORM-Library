@@ -36,7 +36,7 @@ model PrintedCircuitHX
       choice="Tube-Shell-Tube",
       choice="Tube-Shell",
       choice="Shell-Tube-Shell"));
-  parameter SIadd.NonDim CF_th_wall = 1.0 "Correction factor for scaling tube thickness";
+  parameter SItf.NonDim CF_th_wall = 1.0 "Correction factor for scaling tube thickness";
   final parameter Real nShells=if plateStructure == "Tube-Shell-Tube" then
       nTubes - 1 elseif plateStructure == "Shell-Tube-Shell" then nTubes + 1
        else nTubes "# of shell channels";

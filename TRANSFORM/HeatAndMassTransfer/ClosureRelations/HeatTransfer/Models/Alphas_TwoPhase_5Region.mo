@@ -61,7 +61,7 @@ model Alphas_TwoPhase_5Region "Specify alphas | Two Phase | 5 Regions"
   input SI.ThermalConductivity[nHT] lambda=mediums_film.lambda
     "Thermal conductivity for calculation of Nu"
     annotation (Dialog(group="Inputs"));
-  parameter Units.NonDim x_CHF=0.9
+  parameter SItf.NonDim x_CHF=0.9
     "Steam quality corresponding to Critical Heat Flux"
     annotation (Dialog(group="Heat Transfer Model:"));
 protected

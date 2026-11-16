@@ -41,10 +41,10 @@ model Data_GenericModule
   parameter SI.Length th_gap_fuelRod=0.5*from_inch(0.0062) "Gap thickness between pellet and cladding (d3s1)";
   parameter SI.Length r_pellet_fuelRod=0.5*from_inch(0.3088) "Pellet radius (d3s1)";
   parameter SI.Length pitch_fuelRod=from_inch(0.496) "Fuel rod pitch (d3s1)";
-  parameter TRANSFORM.Units.NonDim sizeAssembly=17 "square size of assembly (e.g., 17 = 17x17)";
-  parameter TRANSFORM.Units.NonDim nRodFuel_assembly=264 "# of fuel rods per assembly (d3s1)";
-  parameter TRANSFORM.Units.NonDim nRodNonFuel_assembly=sizeAssembly^2 - 264 "# of non-fuel rods per assembly (d3s1)";
-  parameter TRANSFORM.Units.NonDim nAssembly=floor(Modelica.Constants.pi*d_core^2/4/(pitch_fuelRod*sizeAssembly)^2);
+  parameter SItf.NonDim sizeAssembly=17 "square size of assembly (e.g., 17 = 17x17)";
+  parameter SItf.NonDim nRodFuel_assembly=264 "# of fuel rods per assembly (d3s1)";
+  parameter SItf.NonDim nRodNonFuel_assembly=sizeAssembly^2 - 264 "# of non-fuel rods per assembly (d3s1)";
+  parameter SItf.NonDim nAssembly=floor(Modelica.Constants.pi*d_core^2/4/(pitch_fuelRod*sizeAssembly)^2);
   parameter SI.Length length_outletPlenum=3;
   parameter SI.Length d_outletPlenum=2;
   parameter SI.Length length_hotLeg=10.5;

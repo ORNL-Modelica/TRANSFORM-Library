@@ -2,9 +2,9 @@ within TRANSFORM.Fluid.ClosureRelations.MassTransfer.Models.DistributedPipe_Trac
 model Shs "Specify Sherwood Number (Sh)"
   import TRANSFORM.Math.fillArray_1D;
   extends PartialSinglePhase;
-  input Units.SherwoodNumber Sh0[Medium.nC]=fill(7.54,Medium.nC) "Nusselt number"
+  input SItf.SherwoodNumber Sh0[Medium.nC]=fill(7.54,Medium.nC) "Nusselt number"
     annotation (Dialog(group="Inputs"));
-  input Units.SherwoodNumber Shs0[nMT,Medium.nC]=fillArray_1D(Sh0,nMT)  "if non-uniform then set"
+  input SItf.SherwoodNumber Shs0[nMT,Medium.nC]=fillArray_1D(Sh0,nMT)  "if non-uniform then set"
     annotation (Dialog(group="Inputs"));
   parameter Boolean use_DefaultDimension=true
     "= false to set characteristic dimension else from geometry model"

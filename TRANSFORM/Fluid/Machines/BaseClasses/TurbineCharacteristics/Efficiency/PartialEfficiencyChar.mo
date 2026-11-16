@@ -28,9 +28,9 @@ partial model PartialEfficiencyChar
     annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
 
   SI.Efficiency eta "Efficiency";
-  Units.NonDim affinityLaw_flow=(N/N_nominal)*(diameter/diameter_nominal)^3
+  SItf.NonDim affinityLaw_flow=(N/N_nominal)*(diameter/diameter_nominal)^3
     "Affinity law for scaling";
-  Units.NonDim affinityLaw_efficiency=1.0 "Affinity law for scaling";
+  SItf.NonDim affinityLaw_efficiency=1.0 "Affinity law for scaling";
 
   annotation (
     defaultComponentName="flowCurve",

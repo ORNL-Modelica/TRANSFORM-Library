@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.Utilities;
 function TwoPhaseFrictionMultiplier
   //phi^2_fo: tw-phase fritional multiplier based on signle phase friction for the homogenous model steam-water system
   // Source: Collier and Thome, Convective Boiling and Condensation, 3E, Table 2-1, pg. 46
-  input SIadd.NonDim x_abs "Absolute quality";
+  input SItf.NonDim x_abs "Absolute quality";
   input SI.DynamicViscosity mu_lsat "Liquid dynamic viscosity";
   input SI.DynamicViscosity mu_vsat "Vapor dynamic viscosity";
   input SI.Density rho_lsat "Liquid density";

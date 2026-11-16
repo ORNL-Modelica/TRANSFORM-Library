@@ -39,9 +39,9 @@ partial model PartialMassTransfer "Base model"
   SI.ReynoldsNumber Res[nMT] "Reynolds number";
   SI.SchmidtNumber Scs[nMT,nC] "Schmidt number";
   SI.Length xs[nMT] "Position of local mass transfer calculation";
-  Units.CoefficientOfMassTransfer alphasM[nMT,nC]
+  SItf.CoefficientOfMassTransfer alphasM[nMT,nC]
     "Coefficient of mass transfer";
-  Units.SherwoodNumber Shs[nMT,nC] "Sherwood number";
+  SItf.SherwoodNumber Shs[nMT,nC] "Sherwood number";
 protected
   final parameter SI.ReynoldsNumber Re_center=0.5*(Re_lam + Re_turb)
     "Re smoothing transition center";

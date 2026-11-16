@@ -12,7 +12,7 @@ model Pressurizer_Simple
 
   parameter SI.Volume V_total=1 "Total pressurizer volume";
   parameter SI.Pressure p_start=160e5 "Initial pressure" annotation(Dialog(tab="Initialization"));
-  parameter SIadd.NonDim alphaV_start=0.5 "Initial void fraction" annotation(Dialog(tab="Initialization"));
+  parameter SItf.NonDim alphaV_start=0.5 "Initial void fraction" annotation(Dialog(tab="Initialization"));
 
   final parameter Medium.SaturationProperties sat_start=Medium.setSat_p(p_start) "Properties of saturated fluid";
   final parameter Medium.ThermodynamicState bubble_start=Medium.setBubbleState(sat_start, 1) "Bubble point state";
@@ -32,7 +32,7 @@ model Pressurizer_Simple
 
   SI.Density d(start=d_start) "Average pressurizer density";
 
-  SIadd.NonDim alphaV(start=alphaV_start) "Void fraction";
+  SItf.NonDim alphaV(start=alphaV_start) "Void fraction";
   SI.Density d_lsat=bubble.d "Saturated liquid density";
   SI.Density d_vsat=dew.d "Saturated vapor density";
 

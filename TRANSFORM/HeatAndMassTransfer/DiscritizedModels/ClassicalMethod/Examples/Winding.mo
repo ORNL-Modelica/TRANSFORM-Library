@@ -56,7 +56,7 @@ model Winding
   Utilities.Visualizers.displayReal display(use_port=true)
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
   Modelica.Blocks.Sources.RealExpression T_max(y=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(
+        SItf.Conversions.Functions.Temperature_K.to_degC(max(
         Winding.solutionMethod.Ts)))
     annotation (Placement(transformation(extent={{32,-86},{48,-74}})));
 equation

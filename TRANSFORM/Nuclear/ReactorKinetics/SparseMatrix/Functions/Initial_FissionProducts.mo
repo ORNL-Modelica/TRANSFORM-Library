@@ -4,8 +4,8 @@ extends TRANSFORM.Icons.UnderConstruction;
   extends TRANSFORM.Icons.Function;
 
   input Integer nC "# of isotopes";
-  input SIadd.NeutronFlux phi "Neutron flux";
-  input SIadd.InverseTime[nC] lambdas "Half-life of fission product";
+  input SItf.NeutronFlux phi "Neutron flux";
+  input SItf.InverseTime[nC] lambdas "Half-life of fission product";
   input Integer l_lambdas_col[:];
   input Integer l_lambdas_count[nC];
   input Real l_lambdas[size(l_lambdas_col, 1)]=fill(0, size(l_lambdas_col, 1))
@@ -18,15 +18,15 @@ extends TRANSFORM.Icons.UnderConstruction;
   input Real f_sigmasA[size(f_sigmasA_col, 1)]=fill(0, size(f_sigmasA_col, 1))
     "need to correct units";
 
-  input SIadd.ExtraPropertyExtrinsic mCs_guess[nC]
+  input SItf.ExtraPropertyExtrinsic mCs_guess[nC]
     "Number of fission product atoms per group per volume";
 
   input Integer i_noGen[:]={0};
 
-  output SIadd.ExtraPropertyExtrinsic mCs[nC];
+  output SItf.ExtraPropertyExtrinsic mCs[nC];
 
 protected
-  SIadd.ExtraPropertyExtrinsic mCs_start[nC]=mCs_guess;
+  SItf.ExtraPropertyExtrinsic mCs_start[nC]=mCs_guess;
   Real it=0;
   Real itmax=10;
   Real error=100;

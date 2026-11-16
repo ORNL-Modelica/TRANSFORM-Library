@@ -3,12 +3,12 @@ model TurboPump
 
   extends BaseClasses.PartialTurboPump;
   SI.Angle theta;
-  SIadd.NonDim v;
-  SIadd.NonDim alpha;
-  SIadd.NonDim h;
-  SIadd.NonDim beta;
-  SIadd.NonDim alpha2v2;
-  SIadd.NonDim gamma;
+  SItf.NonDim v;
+  SItf.NonDim alpha;
+  SItf.NonDim h;
+  SItf.NonDim beta;
+  SItf.NonDim alpha2v2;
+  SItf.NonDim gamma;
   SI.Angle a_tan;
   SI.AngularFrequency deratan = der(a_tan);
   final parameter SI.Torque tau_nominal = Modelica.Constants.g_n*d_nominal*head_nominal*V_flow_nominal/(eta_nominal*omega_nominal) "Rated or design torque";

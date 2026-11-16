@@ -11,7 +11,7 @@ partial model GenericVolume
   parameter SI.Length level_meas_max "Maximum level" annotation(Dialog(group="Parameters: Zero-level control"));
   SI.Length level "Liquid level";
   SI.Height level_meas = level - level_0 "Measured fluid level (level - level_0)";
-  Units.NonDim level_meas_percentage = 100*(level_meas - level_meas_min)/(level_meas_max - level_meas_min) "Percentage full based on max/min level";
+  SItf.NonDim level_meas_percentage = 100*(level_meas - level_meas_min)/(level_meas_max - level_meas_min) "Percentage full based on max/min level";
   SI.Area surfaceArea_WL "Wall-Liquid surface area";
   SI.Area surfaceArea_VL "Vapor-Liquid interfacial area";
   SI.Area surfaceArea "Internal wall transfer area";

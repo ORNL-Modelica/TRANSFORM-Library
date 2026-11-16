@@ -2,8 +2,8 @@ within TRANSFORM.Nuclear.DoseCalculations.Examples;
 model DoseCalculations_GammaPointSource
   Dose_GammaPointSource dose(
     r=1.7,
-    C=SIadd.Conversions.Functions.Activity_Bq.from_Ci(0.1),
-    E=SIadd.Conversions.Functions.Energy_J.from_MeV(0.563))
+    C=SItf.Conversions.Functions.Activity_Bq.from_Ci(0.1),
+    E=SItf.Conversions.Functions.Energy_J.from_MeV(0.563))
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),

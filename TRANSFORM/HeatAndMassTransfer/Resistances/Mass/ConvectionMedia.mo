@@ -48,7 +48,7 @@ model ConvectionMedia
             {-36,84},{-24,96}}, rotation=0)));
   SI.MolarFlowRate n_flows[n,nC] "Mole flow rate from port_a -> port_b";
   SI.Concentration dCs[n,nC] "= port_a.C - port_b.C";
-  Units.DiffusionResistance R[n,nC] "Thermal resistance";
+  SItf.DiffusionResistance R[n,nC] "Thermal resistance";
   Interfaces.MolePort_Flow port_a[n](each nC=nC) annotation (Placement(
         transformation(extent={{-80,-10},{-60,10}}),  iconTransformation(extent=
            {{-80,-10},{-60,10}})));

@@ -6,7 +6,7 @@ function BondNumber "Returns Bond number"
   input SI.Density rho_v "Vapor density";
   input SI.Length L "Characteristic length";
   input SI.SurfaceTension sigma "Surface tension";
-  output Units.NonDim Bo "Bond number";
+  output SItf.NonDim Bo "Bond number";
 algorithm
   Bo := g_n.*(rho_l-rho_v).*L.*L./sigma;
   annotation (Documentation(info="<html>

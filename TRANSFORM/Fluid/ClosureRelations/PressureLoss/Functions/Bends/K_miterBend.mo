@@ -6,7 +6,7 @@ function K_miterBend
   // K is referenced to the pipe velocity head. Valid for deflection angles up to ~150 deg.
   extends TRANSFORM.Icons.Function;
   input SI.Angle angle "Bend deflection (turning) angle";
-  output Units.NonDim K "Resistance coefficient";
+  output SItf.NonDim K "Resistance coefficient";
 protected
   Real s=sin(0.5*angle) "sin(angle/2)";
 algorithm

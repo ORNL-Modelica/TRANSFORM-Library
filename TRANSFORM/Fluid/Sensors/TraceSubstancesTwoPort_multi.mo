@@ -5,8 +5,8 @@ model TraceSubstancesTwoPort_multi
   extends BaseClasses.PartialTwoPortSensor;
   extends BaseClasses.PartialMultiSensor_1values(final var=if Medium.nC < 1 then 0 else C[iDisplay],
       redeclare replaceable function iconUnit =
-        TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
-      constrainedby TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
+        SItf.Conversions.Functions.PrefixMultipliers.to_none
+      constrainedby SItf.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput[Medium.nC] C
     "Trace substance of the passing fluid"
     annotation (Placement(transformation(

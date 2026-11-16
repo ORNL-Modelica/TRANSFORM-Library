@@ -14,7 +14,7 @@ partial model PartialGeometry
     annotation (Dialog(group="Inputs Elevation"));
   input SI.Height roughness=2.5e-5 "Average height of surface asperities"
     annotation (Dialog(group="Inputs"));
-  Units.NonDim ks[2] "Geometric correction coefficients: {laminar, turbulent}";
+  SItf.NonDim ks[2] "Geometric correction coefficients: {laminar, turbulent}";
   annotation (defaultComponentName="geometry",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName=

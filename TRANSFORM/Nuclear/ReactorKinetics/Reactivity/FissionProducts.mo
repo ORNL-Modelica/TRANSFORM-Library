@@ -15,16 +15,16 @@ model FissionProducts
     "Matrix of parent-daughter sources";
   parameter Integer nC_add=0
     "# of additional substances (i.e., trace fluid substances)";
-  parameter Units.NonDim fissionSources_start[nFS]=fill(1/nFS, nFS)
+  parameter SItf.NonDim fissionSources_start[nFS]=fill(1/nFS, nFS)
     "Fission source material fractional composition (sum=1)"
     annotation (Dialog(tab="Initialization", group="Fission Sources"));
-  parameter Units.NonDim fissionTypes_start[nFS,nT]=fill(
+  parameter SItf.NonDim fissionTypes_start[nFS,nT]=fill(
       1/nT,
       nFS,
       nT)
     "Fraction of fission from each fission type per fission source, sum(row) = 1"
     annotation (Dialog(tab="Initialization", group="Fission Sources"));
-  parameter Units.NonDim nu_bar_start=2.4 "Neutrons per fission"
+  parameter SItf.NonDim nu_bar_start=2.4 "Neutrons per fission"
     annotation (Dialog(tab="Initialization", group="Fission Sources"));
   parameter SI.Energy w_f_start=200e6*1.6022e-19 "Energy released per fission"
     annotation (Dialog(tab="Initialization", group="Fission Sources"));
@@ -37,19 +37,19 @@ model FissionProducts
   parameter Real fissionYields_start[nC,nFS,nT]=data.fissionYields
     "# fission product atoms yielded per fission per fissile source [#/fission]"
     annotation (Dialog(tab="Initialization", group="Fission Products"));
-  parameter Units.InverseTime lambdas_start[nC]=data.lambdas
+  parameter SItf.InverseTime lambdas_start[nC]=data.lambdas
     "Decay constants for each fission product"
     annotation (Dialog(tab="Initialization", group="Fission Products"));
-  input Units.NonDim dfissionSources[nFS]=fill(0, nFS)
+  input SItf.NonDim dfissionSources[nFS]=fill(0, nFS)
     "Change in source of fissile material fractional composition (sum=1)"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Fission Sources"));
-  input Units.NonDim dfissionTypes[nFS,nT]=fill(
+  input SItf.NonDim dfissionTypes[nFS,nT]=fill(
       0,
       nFS,
       nT)
     "Change in fraction of fission from each fission type per fission source, sum(row) = 1"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Fission Sources"));
-  input Units.NonDim dnu_bar=0 "Change in neutrons per fission" annotation (
+  input SItf.NonDim dnu_bar=0 "Change in neutrons per fission" annotation (
       Dialog(tab="Parameter Change", group="Inputs: Fission Sources"));
   input SI.Energy dw_f=0 "Change in energy released per fission" annotation (
       Dialog(tab="Parameter Change", group="Inputs: Fission Sources"));
@@ -66,14 +66,14 @@ model FissionProducts
       nT)
     "Change in # fission product atoms yielded per fission per fissile source [#/fission]"
     annotation (Dialog(tab="Parameter Change", group="Inputs: Fission Products"));
-  input Units.InverseTime dlambdas[nC]=fill(0, nC)
+  input SItf.InverseTime dlambdas[nC]=fill(0, nC)
     "Change in decay constants for each fission product" annotation (Dialog(tab=
          "Parameter Change", group="Inputs: Fission Products"));
-  Units.NonDim fissionSources[nFS]=fissionSources_start + dfissionSources
+  SItf.NonDim fissionSources[nFS]=fissionSources_start + dfissionSources
     "Source of fissile material fractional composition (sum=1)";
-  Units.NonDim fissionTypes[nFS,nT]=fissionTypes_start + dfissionTypes
+  SItf.NonDim fissionTypes[nFS,nT]=fissionTypes_start + dfissionTypes
     "Fraction of fission from each fission type per fission source, sum(row) = 1";
-  Units.NonDim nu_bar=nu_bar_start + dnu_bar "Neutrons per fission";
+  SItf.NonDim nu_bar=nu_bar_start + dnu_bar "Neutrons per fission";
   SI.Energy w_f=w_f_start + dw_f "Energy released per fission";
   SI.MacroscopicCrossSection SigmaF=SigmaF_start + dSigmaF
     "Macroscopic fission cross-section of fissile material";
@@ -81,7 +81,7 @@ model FissionProducts
     "Microscopic absorption cross-section for reactivity feedback";
   Real fissionYields[nC,nFS,nT]=fissionYields_start + dfissionYields
     "# fission product atoms yielded per fission per fissile source [#/fission]";
-  Units.InverseTime lambdas[nC]=lambdas_start + dlambdas
+  SItf.InverseTime lambdas[nC]=lambdas_start + dlambdas
     "Decay constants for each fission product";
   parameter SI.Power Q_fission_start=1e6
     "Power determined from kinetics. Does not include fission product decay heat"
@@ -94,7 +94,7 @@ model FissionProducts
   parameter SI.Volume V_start=0.1
     "Volume for fisson product concentration basis"
     annotation (Dialog(tab="Initialization"));
-  parameter SIadd.ExtraPropertyExtrinsic mCs_start[nC]=
+  parameter SItf.ExtraPropertyExtrinsic mCs_start[nC]=
       Functions.Initial_FissionProducts(
       nC,
       nFS,
@@ -117,14 +117,14 @@ model FissionProducts
   parameter Real mC_nominal[nC]=fill(1e-6, nC)
     "Nominal fission product atoms. For numeric purposes only."
     annotation (Dialog(tab="Advanced"));
-  SIadd.NeutronFlux phi "Neutron flux";
-  SIadd.ExtraPropertyFlowRate mC_gens[nC]
+  SItf.NeutronFlux phi "Neutron flux";
+  SItf.ExtraPropertyFlowRate mC_gens[nC]
     "Generation rate of fission products [atoms/s]";
-  SIadd.ExtraPropertyExtrinsic mCs[nC](each stateSelect=StateSelect.prefer,
+  SItf.ExtraPropertyExtrinsic mCs[nC](each stateSelect=StateSelect.prefer,
       start=mCs_start) "Number of fission product atoms";
-  SIadd.ExtraPropertyExtrinsic mCs_scaled[nC]
+  SItf.ExtraPropertyExtrinsic mCs_scaled[nC]
     "Scaled number of fission product atoms for improved numerical stability";
-  input SIadd.ExtraPropertyExtrinsic mCs_add[nC_add]=fill(0, nC_add)
+  input SItf.ExtraPropertyExtrinsic mCs_add[nC_add]=fill(0, nC_add)
     "Number of atoms" annotation (Dialog(group="Inputs: Additional Reactivity"));
   input SI.Volume Vs_add=0.1 "Volume for fisson product concentration basis"
     annotation (Dialog(group="Inputs: Additional Reactivity"));
@@ -136,19 +136,19 @@ model FissionProducts
     annotation (Dialog(group="Inputs: Additional Reactivity", tab="Parameter Change"));
   SI.Area sigmasA_add[nC_add]=sigmasA_add_start + dsigmasA_add
     "Microscopic absorption cross-section for reactivity feedback";
-  parameter SIadd.NonDim rhos_start[nC]={-sigmasA_start[j]*mCs_start[j]/(
+  parameter SItf.NonDim rhos_start[nC]={-sigmasA_start[j]*mCs_start[j]/(
       nu_bar_start*SigmaF_start)/V_start for j in 1:nC}
     "Initial fission product reactivity feedback"
     annotation (Dialog(tab="Outputs", enable=false));
-  output SIadd.NonDim rhos[nC] "Fission product reactivity feedback"
+  output SItf.NonDim rhos[nC] "Fission product reactivity feedback"
     annotation (Dialog(tab="Outputs", enable=false));
-  output SIadd.ExtraPropertyFlowRate[nC_add] mC_gens_add
+  output SItf.ExtraPropertyFlowRate[nC_add] mC_gens_add
     "Generation rate of additional substances [atoms/s] (e.g., Boron in fluid)"
     annotation (Dialog(
       group="Additional Reactivity",
       tab="Outputs",
       enable=false));
-  output SIadd.NonDim rhos_add[nC_add]
+  output SItf.NonDim rhos_add[nC_add]
     "Additional subtances reactivity feedback" annotation (Dialog(
       group="Additional Reactivity",
       tab="Outputs",

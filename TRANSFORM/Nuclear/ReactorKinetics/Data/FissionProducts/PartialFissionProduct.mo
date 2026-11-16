@@ -11,7 +11,7 @@ partial record PartialFissionProduct
   // Data
   parameter Real fissionYields[nC,nFS,nT]
     "Fission yield per fission per source and type";
-  parameter SIadd.InverseTime[nC] lambdas "Half-life of fission product";
+  parameter SItf.InverseTime[nC] lambdas "Half-life of fission product";
   parameter SI.Energy w_near_decay[nC]=fill(0, nC)
     "Energy release (near field - beta) per fission product decay";
   parameter SI.Energy w_far_decay[nC]=fill(0, nC)

@@ -61,7 +61,7 @@ model Example_1_9_1_TemperatureSensorMounting
     annotation (Placement(transformation(extent={{16,-76},{58,-36}})));
   Real xval[nNodes_1.k] = RTD.geometry.cs_1;
   Real yval[nNodes_1.k]=
-      TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(RTD.materials.T);
+      SItf.Conversions.Functions.Temperature_K.to_degC(RTD.materials.T);
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow ohmicHeating(
       Q_flow=0.0025)
     annotation (Placement(transformation(extent={{-14,30},{6,50}})));

@@ -12,20 +12,20 @@ function K_smoothBend
   input SI.Length roughness=0 "Average height of surface asperities";
   input SI.ReynoldsNumber Re_lam=2300 "Laminar transition Reynolds number";
   input SI.ReynoldsNumber Re_turb=4000 "Turbulent transition Reynolds number";
-  output Units.NonDim K "Resistance coefficient";
+  output SItf.NonDim K "Resistance coefficient";
 protected
   Real rcd=radius/dimension "Relative bend radius rc/D";
   SI.Angle a_half=0.5*angle "Half of the deflection angle";
   SI.ReynoldsNumber Re_center=0.5*(Re_lam + Re_turb) "Re smoothing transition center";
   SI.ReynoldsNumber Re_width=Re_turb - 0.5*(Re_lam + Re_turb) "Re smoothing transition width";
-  Units.NonDim fRe2=
+  SItf.NonDim fRe2=
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.fRe2_SinglePhase_2Region(
       Re,
       dimension,
       roughness,
       Re_center,
       Re_width) "Darcy friction factor*Re^2";
-  Units.NonDim f=fRe2/max(Re, 1.0)^2 "Darcy friction factor (Re floored at 1)";
+  SItf.NonDim f=fRe2/max(Re, 1.0)^2 "Darcy friction factor (Re floored at 1)";
 algorithm
   // Rennels (2012): K = f*(angle)*(rc/D) [arc friction]
   //               + (0.10 + 2.4*f)*sin(angle/2) [primary turning loss]

@@ -29,8 +29,8 @@ partial model PartialHeatTransfer_setT "Base model"
   parameter SI.Temperature Ts_start[nHT] annotation (Dialog(tab="Internal Interface", group="Initialization"));
   parameter SI.ReynoldsNumber Re_lam(max=Re_turb) = 2300 "Laminar transition Reynolds number" annotation(Dialog(tab="Advanced"));
   parameter SI.ReynoldsNumber Re_turb(min=Re_lam) = 4000 "Turbulent transition Reynolds number" annotation(Dialog(tab="Advanced"));
-  input Units.NonDim CF=1.0 "Correction Factor: Q = CF*alpha*A*dT" annotation(Dialog(tab="Advanced",group="Inputs"));
-  input Units.NonDim CFs[nHT,nSurfaces]=fill(
+  input SItf.NonDim CF=1.0 "Correction Factor: Q = CF*alpha*A*dT" annotation(Dialog(tab="Advanced",group="Inputs"));
+  input SItf.NonDim CFs[nHT,nSurfaces]=fill(
       CF,
       nHT,
       nSurfaces) "if non-uniform then set"  annotation(Dialog(tab="Advanced",group="Inputs"));

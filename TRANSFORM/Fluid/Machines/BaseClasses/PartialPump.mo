@@ -152,7 +152,7 @@ partial model PartialPump "Base model for centrifugal pumps"
         iconTransformation(extent={{30,-50},{50,-30}})));
 protected
   SI.HeatFlowRate Q_flow_internal;
-  SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
+  SItf.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
 equation
   if not use_HeatPort then
     Q_flow_internal = 0;

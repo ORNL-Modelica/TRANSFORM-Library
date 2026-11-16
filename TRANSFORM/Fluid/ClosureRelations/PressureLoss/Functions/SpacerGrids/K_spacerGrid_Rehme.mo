@@ -6,14 +6,14 @@ function K_spacerGrid_Rehme
   // Drag-coefficient equation (semi-empirical fit of Rehme's Cv chart):
   //   Cigarini & Dalle Donne (1988); Schikorr, Bubelis, Mansani & Litfin, Nucl. Eng. Des. 240 (2010) 1830-1842.
   extends TRANSFORM.Icons.Function;
-  input Units.NonDim epsilon "Blockage ratio = spacer frontal (projected) area / bundle flow area";
+  input SItf.NonDim epsilon "Blockage ratio = spacer frontal (projected) area / bundle flow area";
   input SI.ReynoldsNumber Re "Bundle Reynolds number";
-  output Units.NonDim K "Resistance coefficient (ref. bundle velocity head)";
+  output SItf.NonDim K "Resistance coefficient (ref. bundle velocity head)";
 protected
   SI.ReynoldsNumber Re_int=max(Re, 1.0) "Guarded Reynolds number";
-  Units.NonDim Cv_eq=3.5 + 73.14/Re_int^0.264 + 2.79e10/Re_int^2.79
+  SItf.NonDim Cv_eq=3.5 + 73.14/Re_int^0.264 + 2.79e10/Re_int^2.79
     "Schikorr-Bubelis modified drag coefficient";
-  Units.NonDim Cv=min(Cv_eq, 2.0/epsilon) "Drag coefficient (capped at 2/epsilon)";
+  SItf.NonDim Cv=min(Cv_eq, 2.0/epsilon) "Drag coefficient (capped at 2/epsilon)";
 algorithm
   K := Cv*epsilon^2;
   annotation (Documentation(info="<html>

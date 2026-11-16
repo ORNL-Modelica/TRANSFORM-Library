@@ -2,8 +2,8 @@ within TRANSFORM.Utilities.CharacteristicNumbers.Examples;
 model Verification
   extends TRANSFORM.Icons.Example;
   constant Integer nNumbers = 1;
-  Units.NonDim[nNumbers] Answer;
-  Units.NonDim[nNumbers] CharNumber;
+  SItf.NonDim[nNumbers] Answer;
+  SItf.NonDim[nNumbers] CharNumber;
   ErrorAnalysis.Errors_AbsRelRMSold summary_Error(
     n=nNumbers,
     x_1=CharNumber,

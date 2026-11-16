@@ -53,7 +53,7 @@ record GenericPipe_Record_multiSurface
       tab="Initialization",
       group="Start Value: Species Mass Fraction",
       enable=Medium.nXi > 0));
-  parameter SIadd.ExtraProperty Cs_start[nV,Medium.nC]=linspaceRepeat_1D(
+  parameter SItf.ExtraProperty Cs_start[nV,Medium.nC]=linspaceRepeat_1D(
         C_a_start,
         C_b_start,nV) "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
@@ -92,10 +92,10 @@ record GenericPipe_Record_multiSurface
   parameter SI.MassFraction X_b_start[Medium.nX]=X_a_start
     "Mass fraction at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Species Mass Fraction"));
-  parameter SIadd.ExtraProperty C_a_start[Medium.nC]=fill(0, Medium.nC)
+  parameter SItf.ExtraProperty C_a_start[Medium.nC]=fill(0, Medium.nC)
     "Mass-Specific value at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
-  parameter SIadd.ExtraProperty C_b_start[Medium.nC]=C_a_start
+  parameter SItf.ExtraProperty C_b_start[Medium.nC]=C_a_start
     "Mass-Specific value at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
   parameter SI.MassFlowRate m_flow_a_start=0 "Mass flow rate at port_a"

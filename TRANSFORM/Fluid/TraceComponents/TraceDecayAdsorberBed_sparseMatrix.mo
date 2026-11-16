@@ -32,7 +32,7 @@ extends TRANSFORM.Icons.UnderConstruction;
     annotation (Dialog(group="Inputs", enable=use_tau));
   input SI.Mass mAdsorber=V_flow*tau_res/K[iC] "Specify total mass of adsorber"
     annotation (Dialog(group="Inputs", enable=not use_tau));
-  input Units.HydraulicResistance R = 1 "Hydraulic resistance across adsorber bed" annotation(Dialog(group="Inputs"));
+  input SItf.HydraulicResistance R = 1 "Hydraulic resistance across adsorber bed" annotation(Dialog(group="Inputs"));
 
 //   input SI.PressureDifference dp=1
 //     "Pressure drop across adsorber bed (dp = port_a.p - port_b.p)"
@@ -57,9 +57,9 @@ extends TRANSFORM.Icons.UnderConstruction;
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_b_start=T_a_start "Temperature at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  SIadd.ExtraPropertyFlowRate mC_flows[nV + 1,Medium.nC]
+  SItf.ExtraPropertyFlowRate mC_flows[nV + 1,Medium.nC]
     "Trace substance flow rate between volumes";
-  SIadd.ExtraPropertyFlowRate mCs_decay[nV,Medium.nC]
+  SItf.ExtraPropertyFlowRate mCs_decay[nV,Medium.nC]
     "Amount of substance decayed across each volume";
   SI.HeatFlowRate Qs_perC[nV,Medium.nC]
     "Heat released from decay per volume per substance";
@@ -94,7 +94,7 @@ extends TRANSFORM.Icons.UnderConstruction;
     "Data" annotation (choicesAllMatching=true);
   Data_ISO data_ISO;
 
-   SIadd.ExtraPropertyFlowRate mC_gens[nV,Medium.nC]
+   SItf.ExtraPropertyFlowRate mC_gens[nV,Medium.nC]
      "Generation rate of isotopes [atoms/s]";
 
   final parameter Integer l_lambdas_count_sum[data_ISO.nC]={sum(data_ISO.l_lambdas_count[1:j - 1])

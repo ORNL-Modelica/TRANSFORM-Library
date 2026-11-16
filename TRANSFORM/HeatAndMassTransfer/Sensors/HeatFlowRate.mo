@@ -3,8 +3,8 @@ model HeatFlowRate "Ideal sensor for heat flow rate"
    extends BaseClasses.PartialTwoPortSensor;
    extends BaseClasses.PartialRotationIcon_withValueIndicator(
        final var=Q_flow, redeclare replaceable function iconUnit =
-         TRANSFORM.Units.Conversions.Functions.Power_W.to_W
-       constrainedby TRANSFORM.Units.Conversions.Functions.Power_W.BaseClasses.to);
+         SItf.Conversions.Functions.Power_W.to_W
+       constrainedby SItf.Conversions.Functions.Power_W.BaseClasses.to);
    Modelica.Blocks.Interfaces.RealOutput Q_flow(quantity="HeatFlowRate",
                                                 final unit="W")
      "Heat flow rate from port_a to port_b" annotation (Placement(

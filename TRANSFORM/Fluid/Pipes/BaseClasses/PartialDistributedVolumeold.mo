@@ -44,7 +44,7 @@ partial model PartialDistributedVolumeold
       tab="Initialization",
       group="Start Value: Species Mass Fraction",
       enable=Medium.nXi > 0));
-  parameter SIadd.ExtraProperty Cs_start[nV,Medium.nC]=fill(
+  parameter SItf.ExtraProperty Cs_start[nV,Medium.nC]=fill(
       0,
       nV,
       Medium.nC) "Mass-Specific value" annotation (Dialog(
@@ -64,10 +64,10 @@ partial model PartialDistributedVolumeold
   SI.Mass ms[nV] "Mass";
   SI.Energy Us[nV] "Internal energy";
   SI.Mass mXis[nV,Medium.nXi] "Species mass";
-  SIadd.ExtraPropertyExtrinsic mCs[nV,Medium.nC] "Trace substance extrinsic value";
+  SItf.ExtraPropertyExtrinsic mCs[nV,Medium.nC] "Trace substance extrinsic value";
   // C has the additional parameter because it is not included in the medium
   // i.e.,Xi has medium[:].Xi but there is no variable medium[:].C
-  SIadd.ExtraProperty Cs[nV,Medium.nC](each stateSelect=StateSelect.prefer, start=Cs_start)
+  SItf.ExtraProperty Cs[nV,Medium.nC](each stateSelect=StateSelect.prefer, start=Cs_start)
     "Trace substance mass-specific value";
   // Mass Balance
   SI.MassFlowRate mb_flows[nV]
@@ -85,9 +85,9 @@ partial model PartialDistributedVolumeold
   SI.MassFlowRate mXib_volumes[nV,Medium.nXi]
   "Species mass flow rates source/sinks within volumes";
   // Trace Balance
-  SIadd.ExtraPropertyFlowRate mCb_flows[nV,Medium.nC]
+  SItf.ExtraPropertyFlowRate mCb_flows[nV,Medium.nC]
     "Trace flow rate across volume interfaces (e.g., diffusion)";
-  SIadd.ExtraPropertyFlowRate mCb_volumes[nV,Medium.nC]
+  SItf.ExtraPropertyFlowRate mCb_volumes[nV,Medium.nC]
     "Trace flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
 protected
   parameter Boolean initialize_p=not Medium.singleState

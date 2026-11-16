@@ -19,9 +19,9 @@ function alpha_NusseltFreeConvection
     "Two-phase total heat transfer coefficient";
   output SI.NusseltNumber Nu "Nusselt number";
   output SI.SpecificEnthalpy h_fgp "Modified latent heat of vaporization";
-  output Units.NonDim Ja "Jakob number";
+  output SItf.NonDim Ja "Jakob number";
 protected
-  Units.NonDim Gr "Grashof number";
+  SItf.NonDim Gr "Grashof number";
 algorithm
   Gr :=Modelica.Constants.g_n*beta*(T_wall - T_inf)*L_c^3/nu^2;
   g_PR :=0.75*Pr^(0.5)/(0.609 + 1.221*Pr^(0.5) + 1.238*Pr)^(0.25);

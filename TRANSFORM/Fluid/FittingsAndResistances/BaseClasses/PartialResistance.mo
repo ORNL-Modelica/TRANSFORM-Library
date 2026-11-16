@@ -11,8 +11,8 @@ partial model PartialResistance
   parameter Boolean showDP=true annotation (Dialog(tab="Visualization"));
   parameter Integer precision(min=0) = 3 "Number of decimals displayed" annotation (Dialog(tab="Visualization"));
   replaceable function iconUnit =
-      TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_MPa
-      constrainedby TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to
+      SItf.Conversions.Functions.Pressure_Pa.to_MPa
+      constrainedby SItf.Conversions.Functions.Pressure_Pa.BaseClasses.to
     "Unit for icon display" annotation (choicesAllMatching=true,Dialog(tab="Visualization"));
   Real dp_display = iconUnit(dp) "Icon display";
 equation

@@ -5,7 +5,7 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
   extends Icons.Example;
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(
     n=12,
-    x_reference=TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degC({
+    x_reference=SItf.Conversions.Functions.Temperature_K.from_degC({
         80,82,84,84,82,78,72,64,54,42,28,20}),
     x=cat(
         1,
@@ -40,12 +40,12 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     minY=20,
     maxY=180,
     maxX=1,
-    x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_cm(cat(
+    x=SItf.Conversions.Functions.Distance_m.to_cm(cat(
         1,
         {0},
         wall.geometry.xs,
         {L.k})),
-    y=TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {T_H.T},
         wall.materials.T,
@@ -98,12 +98,12 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     minY=20,
     maxY=180,
     maxX=1,
-    x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_cm(cat(
+    x=SItf.Conversions.Functions.Distance_m.to_cm(cat(
         1,
         {0},
         wall1.geometry.xs,
         {L.k})),
-    y=TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {T_H1.T},
         wall1.materials.T,
@@ -113,12 +113,12 @@ model Figure_1_8_UniformThermalEnergyGeneration_Plane
     minY=20,
     maxY=180,
     maxX=1,
-    x=TRANSFORM.Units.Conversions.Functions.Distance_m.to_cm(cat(
+    x=SItf.Conversions.Functions.Distance_m.to_cm(cat(
         1,
         {0},
         wall2.geometry.xs,
         {L.k})),
-    y=TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {T_H2.T},
         wall2.materials.T,

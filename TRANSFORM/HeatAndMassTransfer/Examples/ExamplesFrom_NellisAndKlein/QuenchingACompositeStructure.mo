@@ -13,11 +13,11 @@ model QuenchingACompositeStructure
   Modelica.Blocks.Sources.Constant cp_s(each k=700) "heat capacity - silicon"
     annotation (Placement(transformation(extent={{-68,56},{-60,64}})));
   Modelica.Blocks.Sources.Constant Tini(k=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degC(750))
+        SItf.Conversions.Functions.Temperature_K.from_degC(750))
     "initial temperature"
     annotation (Placement(transformation(extent={{-82,42},{-74,50}})));
   Modelica.Blocks.Sources.Constant Twater(k=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degC(20))
+        SItf.Conversions.Functions.Temperature_K.from_degC(20))
     "water temperature"
     annotation (Placement(transformation(extent={{-96,42},{-88,50}})));
   Modelica.Blocks.Sources.Constant L(k=0.1) "length of laminated structure"

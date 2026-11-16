@@ -13,7 +13,7 @@ model Groeneveld2006LUT
   input SI.Length Pitch=1.0
     "Center distance between heating elements. Used in K = 2"
     annotation (Dialog(group="Inputs", enable=use_Ks[2]));
-  input SIadd.NonDim K_g=1.0
+  input SItf.NonDim K_g=1.0
     "Pressure loss coefficient of spacer. Used in K = 3"
     annotation (Dialog(group="Inputs", enable=use_Ks[3]));
   input SI.Length L_sp=1.0
@@ -37,7 +37,7 @@ model Groeneveld2006LUT
   input SI.HeatFlux q_rc_max=1.0
     "Maximum R/C flux at a height z. Used in K = 6"
     annotation (Dialog(group="Inputs", enable=use_Ks[6]));
-  input SIadd.NonDim f_L=1.0 "Friction factor of the channel. Used in K = 7"
+  input SItf.NonDim f_L=1.0 "Friction factor of the channel. Used in K = 7"
     annotation (Dialog(group="Inputs", enable=use_Ks[7]));
   input SI.Acceleration g_n=Modelica.Constants.g_n
     "Gravity coefficient. Used in K = 7"
@@ -60,7 +60,7 @@ model Groeneveld2006LUT
     "Mass flux. Used in table interpolation and K = 3,7,8" annotation (
       Placement(transformation(extent={{-140,-60},{-100,-20}}),
         iconTransformation(extent={{-140,-60},{-100,-20}})));
-  SIadd.NonDim x_abs=noEvent(max(0.0, min(1.0, x_th)))
+  SItf.NonDim x_abs=noEvent(max(0.0, min(1.0, x_th)))
     "Absolute quality. Used in table interpolation and K = 2,4,5,6,7,8";
   SDF.NDTable q(
     nin=3,

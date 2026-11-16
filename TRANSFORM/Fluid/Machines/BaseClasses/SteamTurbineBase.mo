@@ -31,7 +31,7 @@ partial model SteamTurbineBase "Steam turbine"
   parameter Integer nUnits = 1 "Number of turbine units, e.g., high pressure and low pressure" annotation(Dialog(tab="Advanced"));
   parameter Dynamics energyDynamics = Dynamics.SteadyState "=true to use turbine dynamics" annotation(Dialog(tab="Advanced"));
   parameter SI.Time taus[nUnits] = fill(1,nUnits) "Characteristic time constant of each unit" annotation(Dialog(tab="Advanced"));
-  parameter SIadd.NonDim Q_fracs[nUnits] = fill(1/nUnits,nUnits) "Fraction of power provided per unit" annotation(Dialog(tab="Advanced"));
+  parameter SItf.NonDim Q_fracs[nUnits] = fill(1/nUnits,nUnits) "Fraction of power provided per unit" annotation(Dialog(tab="Advanced"));
   parameter SI.Power Q_units_start[nUnits] = fill(m_flow_start*(h_a_start - h_b_start)/nUnits,nUnits) "Initial power output per unit" annotation(Dialog(tab="Initialization"));
   // Efficiency
   parameter Real eta_mech=1.0 "Mechanical efficiency" annotation(Dialog(group="Efficiency"));
@@ -107,10 +107,10 @@ partial model SteamTurbineBase "Steam turbine"
      "Saturated liquid specific enthalpy at outlet";
   SI.SpecificEnthalpy h_gsat_out=dew_out.h
      "Saturated vapor specific enthalpy  at outlet";
-  Units.NonDim x_th_in "Inlet thermodynamic quality";
-  Units.NonDim x_abs_in "Inlet absolute mass quality";
-  Units.NonDim x_th_out "Outlet thermodynamic quality";
-  Units.NonDim x_abs_out "Outlet absolute mass quality";
+  SItf.NonDim x_th_in "Inlet thermodynamic quality";
+  SItf.NonDim x_abs_in "Inlet absolute mass quality";
+  SItf.NonDim x_th_out "Outlet thermodynamic quality";
+  SItf.NonDim x_abs_out "Outlet absolute mass quality";
   Modelica.Blocks.Interfaces.RealInput partialArc annotation (Placement(
         transformation(extent={{-60,-50},{-40,-30}}, rotation=0),
         iconTransformation(extent={{-60,-50},{-40,-30}})));

@@ -66,10 +66,10 @@ model TurbineTypeCompare
     redeclare package Medium = Medium,
     precision=3,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     precision2=3,
     redeclare function iconUnit2 =
-        Units.Conversions.Functions.Temperature_K.to_K)           annotation (
+        SItf.Conversions.Functions.Temperature_K.to_K)           annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -78,10 +78,10 @@ model TurbineTypeCompare
     redeclare package Medium = Medium,
     precision=3,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     precision2=3,
     redeclare function iconUnit2 =
-        Units.Conversions.Functions.Temperature_K.to_K)           annotation (
+        SItf.Conversions.Functions.Temperature_K.to_K)           annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -90,10 +90,10 @@ model TurbineTypeCompare
     redeclare package Medium = Medium,
     precision=3,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     precision2=3,
     redeclare function iconUnit2 =
-        Units.Conversions.Functions.Temperature_K.to_K)           annotation (
+        SItf.Conversions.Functions.Temperature_K.to_K)           annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -102,10 +102,10 @@ model TurbineTypeCompare
     redeclare package Medium = Medium,
     precision=3,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     precision2=3,
     redeclare function iconUnit2 =
-        Units.Conversions.Functions.Temperature_K.to_K)           annotation (
+        SItf.Conversions.Functions.Temperature_K.to_K)           annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=0,
@@ -138,13 +138,13 @@ model TurbineTypeCompare
     redeclare package Medium = Medium,
     precision=3,
     redeclare function iconUnit =
-        Units.Conversions.Functions.MassFlowRate_kg_s.to_kg_s)
+        SItf.Conversions.Functions.MassFlowRate_kg_s.to_kg_s)
     annotation (Placement(transformation(extent={{40,36},{60,56}})));
   Sensors.MassFlowRate sensor_m_flow_onePhase(
     redeclare package Medium = Medium,
     precision=3,
     redeclare function iconUnit =
-        Units.Conversions.Functions.MassFlowRate_kg_s.to_kg_s)
+        SItf.Conversions.Functions.MassFlowRate_kg_s.to_kg_s)
     annotation (Placement(transformation(extent={{40,-44},{60,-24}})));
 equation
   connect(turbine_twoPhase.shaft_b,generator1. shaft) annotation (Line(points={{-10,40},

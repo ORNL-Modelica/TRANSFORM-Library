@@ -2,13 +2,12 @@ within TRANSFORM.Fluid.Pipes.Examples.RELAPComparison;
 model HeatedPipe_SteadyState
   extends TRANSFORM.Icons.Example;
   import      Modelica.Units.SI;
-  import SIadd = TRANSFORM.Units;
   package Medium = Modelica.Media.Water.StandardWater;
   parameter Integer iTest = 1 "Set test number to change test run" annotation(Evaluate=false);
   parameter String test_type[4] = {"lowQuality_10","highQuality_10","lowQuality_100","highQuality_100"};
-  parameter SIadd.MassFlux Gs[4] = {10,10,100,100};
+  parameter SItf.MassFlux Gs[4] = {10,10,100,100};
   parameter SI.HeatFlux Qs_pp[4] = {5e2,4e3,5e3,4e4};
-  parameter SIadd.MassFlux G = Gs[iTest];
+  parameter SItf.MassFlux G = Gs[iTest];
   parameter SI.HeatFlux Q_pp = Qs_pp[iTest];
   parameter Integer nV = 50;
   parameter Integer nR = 5;

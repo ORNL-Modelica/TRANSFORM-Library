@@ -3,15 +3,15 @@ function Initial_powerBased_powerHistory
   "Determines the initial neutron precursor power-based concentration and decay heat based on power history"
   // Source: TRACE Manual
   input SI.Power[:,2] history "Power history up to simulation time=0, [t,Q]";
-  input TRANSFORM.Units.InverseTime[:] lambdas
+  input SItf.InverseTime[:] lambdas
     "Decay constants for each precursor group";
-  input TRANSFORM.Units.NonDim[size(lambdas, 1)] alphas
+  input SItf.NonDim[size(lambdas, 1)] alphas
     "Normalized precursor fractions [betas = alphas*Beta]";
-  input TRANSFORM.Units.NonDim Beta "Effective delayed neutron fraction";
+  input SItf.NonDim Beta "Effective delayed neutron fraction";
   input SI.Time Lambda "Prompt neutron generation time";
-  input TRANSFORM.Units.InverseTime[:] lambdas_dh
+  input SItf.InverseTime[:] lambdas_dh
     "Decay constants for each group";
-  input Units.NonDim efs[size(lambdas_dh, 1)]
+  input SItf.NonDim efs[size(lambdas_dh, 1)]
     "Decay-heat fraction of fission power";
   input Boolean includeDH = false "=true if power history includes decay heat";
   input SI.Power[size(lambdas, 1)] Cs_0=fill(0, size(lambdas, 1))

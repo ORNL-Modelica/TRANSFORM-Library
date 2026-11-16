@@ -5,7 +5,7 @@ model LaminarTurbulent_MSLDetailed2
   parameter SI.Pressure p=1e5;
   parameter Medium.SaturationProperties sat=Medium.setSat_p(p);
   parameter Medium.ThermodynamicState state=Medium.setBubbleState(sat, 1);
-  parameter SIadd.NonDim x_abs[nFM]={0,1,5,10,20,30,40,50,60,70,80,90,100}/100;
+  parameter SItf.NonDim x_abs[nFM]={0,1,5,10,20,30,40,50,60,70,80,90,100}/100;
   parameter Integer nFM=13;
   parameter SI.Length dimension=0.1;
   parameter SI.Area crossArea=0.25*pi*dimension^2;

@@ -42,7 +42,7 @@ partial model PartialVolume_wlevel "Base class for volume models"
       tab="Initialization",
       group="Start Value: Species Mass Fraction",
       enable=Medium.nXi > 0));
-  parameter SIadd.ExtraProperty C_start[Medium.nC]=fill(0, Medium.nC)
+  parameter SItf.ExtraProperty C_start[Medium.nC]=fill(0, Medium.nC)
     "Mass-Specific value" annotation (Dialog(
       tab="Initialization",
       group="Start Value: Trace Substances",
@@ -81,11 +81,11 @@ partial model PartialVolume_wlevel "Base class for volume models"
   SI.Mass m "Mass";
   SI.InternalEnergy U "Internal energy";
   SI.Mass mXi[Medium.nXi] "Species mass";
-  SIadd.ExtraPropertyExtrinsic mC[Medium.nC] "Trace substance extrinsic value";
-  SIadd.ExtraPropertyExtrinsic[Medium.nC] mC_scaled "Scaled trace substance for improved numerical stability";
+  SItf.ExtraPropertyExtrinsic mC[Medium.nC] "Trace substance extrinsic value";
+  SItf.ExtraPropertyExtrinsic[Medium.nC] mC_scaled "Scaled trace substance for improved numerical stability";
   // C has the additional parameter because it is not included in the medium
   // i.e.,Xi has medium[:].Xi but there is no variable medium[:].C
-  SIadd.ExtraProperty C[Medium.nC](each stateSelect=StateSelect.prefer, start=C_start)
+  SItf.ExtraProperty C[Medium.nC](each stateSelect=StateSelect.prefer, start=C_start)
     "Trace substance mass-specific value";
   // Mass Balance
   SI.MassFlowRate mb "Mass flow rate source/sinks within volumes";
@@ -96,7 +96,7 @@ partial model PartialVolume_wlevel "Base class for volume models"
   SI.MassFlowRate mXib[Medium.nXi]
     "Species mass flow rates source/sinks within volumes";
   // Trace Balance
-  SIadd.ExtraPropertyFlowRate mCb[Medium.nC]
+  SItf.ExtraPropertyFlowRate mCb[Medium.nC]
     "Trace flow rate source/sinks within volumes (e.g., chemical reactions, external convection)";
 protected
   parameter Boolean initialize_p=not Medium.singleState

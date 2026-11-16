@@ -3,10 +3,10 @@ model ShellAndTube "Shell-and-tube"
   extends PartialMethod;
   parameter Real n=1 "# of shell passes";
 protected
-  SIadd.NonDim E;
-  SIadd.NonDim epsilon_1;
-  SIadd.NonDim F;
-  SIadd.NonDim NTU_1;
+  SItf.NonDim E;
+  SItf.NonDim epsilon_1;
+  SItf.NonDim F;
+  SItf.NonDim NTU_1;
 equation
   if epsilonMethod then
     epsilon_1 = 2/(1 + C_r + sqrt(1 + C_r^2)*(1 + exp(-NTU_1*sqrt(1 + C_r^2)))/(

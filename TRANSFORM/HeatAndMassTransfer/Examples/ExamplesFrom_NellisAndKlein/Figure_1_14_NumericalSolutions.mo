@@ -46,14 +46,14 @@ model Figure_1_14_NumericalSolutions
         {r_in.y},
         cylinder.geometry.rs,
         {r_out.y}),
-    y=TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(cat(
+    y=SItf.Conversions.Functions.Temperature_K.to_degC(cat(
         1,
         {h_in.port_a.T},
         cylinder.materials.T,
         {h_out.port_a.T}))) "X - Axial Location (m) | T - Temperature (C)"
     annotation (Placement(transformation(extent={{-24,-72},{30,-18}})));
   Utilities.Visualizers.displayReal display(val=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(max(
+        SItf.Conversions.Functions.Temperature_K.to_degC(max(
         cylinder.materials.T)))
     annotation (Placement(transformation(extent={{-58,-52},{-38,-32}})));
   TRANSFORM.Utilities.ErrorAnalysis.UnitTests unitTests(n=3, x={h_in.port_a.T,

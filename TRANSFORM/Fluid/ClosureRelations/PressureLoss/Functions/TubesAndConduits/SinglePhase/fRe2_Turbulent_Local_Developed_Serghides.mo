@@ -3,9 +3,9 @@ function fRe2_Turbulent_Local_Developed_Serghides
   input SI.ReynoldsNumber Re "Reynolds Number";
   input SI.Length dimension "Hydraulic diameter";
   input SI.Length roughness "Average height of surface asperities";
-  output Units.NonDim fRe2 "Friction factor*Re^2";
+  output SItf.NonDim fRe2 "Friction factor*Re^2";
 protected
-  Units.NonDim delta = roughness/dimension;
+  SItf.NonDim delta = roughness/dimension;
   SI.ReynoldsNumber Re_int = max(Re,10);
   Real A, B, C;
 algorithm

@@ -100,7 +100,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -108,7 +108,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT1(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -150,7 +150,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT2(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -158,7 +158,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT3(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -192,7 +192,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT4(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -200,7 +200,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT5(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -290,7 +290,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT6(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -298,7 +298,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT7(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -306,7 +306,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT8(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -314,7 +314,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT9(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -322,7 +322,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT10(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -350,7 +350,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT11(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -358,7 +358,7 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT12(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
@@ -366,14 +366,14 @@ model SCO2Loop
   Fluid.Sensors.PressureTemperature sensor_pT13(
     redeclare package Medium = Medium,
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1)
     annotation (Placement(transformation(extent={{-90,-30},{-70,-10}})));
   Fluid.Sensors.PressureTemperature sensor_pT14(
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1,
@@ -381,7 +381,7 @@ model SCO2Loop
     annotation (Placement(transformation(extent={{-116,50},{-96,70}})));
   Fluid.Sensors.PressureTemperature sensor_pT15(
     redeclare function iconUnit =
-        Units.Conversions.Functions.Pressure_Pa.to_MPa,
+        SItf.Conversions.Functions.Pressure_Pa.to_MPa,
     showName=systemTF.showName,
     precision=2,
     precision2=1,

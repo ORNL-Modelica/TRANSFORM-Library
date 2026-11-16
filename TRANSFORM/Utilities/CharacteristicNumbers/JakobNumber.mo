@@ -5,7 +5,7 @@ function JakobNumber "Returns Jakob number"
   input SI.Temperature T_s "Surface temperature";
   input SI.Temperature T_sat "Saturation temperature";
   input SI.SpecificEnthalpy h_fg "Latent heat of vaporization";
-  output Units.NonDim Ja "Jakob number";
+  output SItf.NonDim Ja "Jakob number";
 algorithm
   Ja := cp.*abs(T_s-T_sat)./h_fg;
   annotation (Documentation(info="<html>

@@ -19,7 +19,7 @@ partial model PartialCharacteristic
     annotation (Dialog(tab="Internal Interface", group="Nominal Operating Parameters"));
   parameter SI.VolumeFlowRate V_flow_start
     annotation (Dialog(tab="Internal Interface", group="Initialization"));
-  Units.NonDim affinityLaw "Affinity law for scaling";
+  SItf.NonDim affinityLaw "Affinity law for scaling";
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end PartialCharacteristic;

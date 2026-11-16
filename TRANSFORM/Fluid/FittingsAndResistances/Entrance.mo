@@ -4,12 +4,12 @@ model Entrance
   extends TRANSFORM.Fluid.FittingsAndResistances.BaseClasses.PartialResistancenew;
   input SI.Length dimension=0.05 "Pipe inner diameter"
     annotation (Dialog(group="Inputs"));
-  input Units.NonDim K=0.5 "Entrance loss coefficient (ref. pipe velocity)"
+  input SItf.NonDim K=0.5 "Entrance loss coefficient (ref. pipe velocity)"
     annotation (Dialog(group="Inputs"));
   SI.Velocity v "Velocity in the pipe";
   SI.Area crossArea=0.25*Modelica.Constants.pi*dimension^2 "Pipe cross-sectional area";
 protected
-  Units.NonDim K_signed "Signed minor loss coefficient";
+  SItf.NonDim K_signed "Signed minor loss coefficient";
 equation
   K_signed = smooth(0, noEvent(if m_flow >= 0 then K else -K));
   dp = K_signed*m_flow^2/(2*Medium.density(state)*crossArea^2);

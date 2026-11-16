@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.DrumTypes.Examples;
 model SimpleCylinder
   import TRANSFORM;
   extends TRANSFORM.Icons.Example;
-  TRANSFORM.Units.NonDim Vfrac_liquid=variableVfrac_liquid.y;
+  SItf.NonDim Vfrac_liquid=variableVfrac_liquid.y;
   parameter SI.Length r_1 = 1;
   parameter SI.Length h_1 = 1;
   final parameter SI.Volume V = pi*r_1^2*h_1;

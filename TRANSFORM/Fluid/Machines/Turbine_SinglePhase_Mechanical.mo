@@ -26,7 +26,7 @@ extends TRANSFORM.Icons.UnderConstruction;
     annotation (Dialog(group="Nominal Conditions: Single turbine basis"));
     parameter SI.Temperature T_nominal = Medium.temperature(Medium.setState_phX(p_a_start,h_a_start,X_start));
 
-  parameter SIadd.NonDim PR_nominal=p_b_start/p_a_start
+  parameter SItf.NonDim PR_nominal=p_b_start/p_a_start
     "Pressure ratio (p_b/p_a)"
     annotation (Dialog(group="Nominal Conditions: Single turbine basis"));
   parameter SI.MassFlowRate m_flow_nominal=m_flow_start "Mass flow rate"

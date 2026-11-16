@@ -5,8 +5,8 @@ partial model Partial_TwoPhaseHeatTransfer
       redeclare replaceable package Medium =
         Modelica.Media.Water.StandardWater
       constrainedby Modelica.Media.Interfaces.PartialTwoPhaseMedium);
-  Units.NonDim x_th[nHT] "Thermodynmic quality";
-  Units.NonDim x_abs[nHT] "Steam quality (0<x<1)";
+  SItf.NonDim x_th[nHT] "Thermodynmic quality";
+  SItf.NonDim x_abs[nHT] "Steam quality (0<x<1)";
 protected
   SI.Pressure p[nHT] "Fluid pressure";
   SI.SpecificEnthalpy h[nHT] "Fluid specific enthalpy";

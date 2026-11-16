@@ -12,12 +12,12 @@ model Elbow
   input SI.Length roughness=0 "Average height of surface asperities"
     annotation (Dialog(group="Inputs"));
   SI.ReynoldsNumber Re "Reynolds number";
-  Units.NonDim K "Minor loss coefficient";
+  SItf.NonDim K "Minor loss coefficient";
   SI.Velocity v "Velocity in the pipe";
   SI.Area crossArea=0.25*Modelica.Constants.pi*dimension^2
     "Pipe cross-sectional area";
 protected
-  Units.NonDim K_signed "Signed minor loss coefficient";
+  SItf.NonDim K_signed "Signed minor loss coefficient";
 equation
   Re = 4.0*abs(m_flow)/(Modelica.Constants.pi*dimension*Medium.dynamicViscosity(
     state));

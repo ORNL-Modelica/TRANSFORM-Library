@@ -4,7 +4,7 @@ function CoefficientOfFriction "Returns Coefficient of Friction"
   input SI.ShearStress tau_s "Shear stress";
   input SI.Density rho "Density";
   input SI.Velocity v "Velocity";
-  output Units.NonDim Cf "Coefficient of friction";
+  output SItf.NonDim Cf "Coefficient of friction";
 algorithm
   Cf := tau_s./(0.5*rho.*v.*v);
   annotation (Documentation(info="<html>

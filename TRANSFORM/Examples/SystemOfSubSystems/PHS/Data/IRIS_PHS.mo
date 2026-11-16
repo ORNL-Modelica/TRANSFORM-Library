@@ -11,7 +11,7 @@ record IRIS_PHS
     "core temperature rise";
   parameter SI.Pressure pressurizer_p=1.55e7 "nominal operating pressure";
   parameter SI.Height pressurizer_level=1.68 "nominal pressurizer level";
-  parameter Units.NonDim pressurizer_Vfrac_liquid=0.34
+  parameter SItf.NonDim pressurizer_Vfrac_liquid=0.34
     "nominal fraction of liquid in pressurizer";
   annotation (
     defaultComponentName="data",

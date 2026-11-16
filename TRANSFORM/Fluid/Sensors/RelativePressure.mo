@@ -3,8 +3,8 @@ model RelativePressure "Ideal relative pressure sensor"
   extends BaseClasses.PartialRelativeSensor;
   extends BaseClasses.PartialMultiSensor_1values(final var=p_rel,
       redeclare replaceable function iconUnit =
-        TRANSFORM.Units.Conversions.Functions.Pressure_Pa.to_Pa
-      constrainedby TRANSFORM.Units.Conversions.Functions.Pressure_Pa.BaseClasses.to);
+        SItf.Conversions.Functions.Pressure_Pa.to_Pa
+      constrainedby SItf.Conversions.Functions.Pressure_Pa.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput p_rel(final quantity="Pressure",
                                               final unit="Pa",
                                               displayUnit="bar")

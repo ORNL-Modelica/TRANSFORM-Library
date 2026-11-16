@@ -6,9 +6,9 @@ model NeutronActivation
   import Modelica.Constants.N_A;
   parameter SI.Mass m_T_start = 3e-3 "Target initial mass";
   parameter SI.MolarMass MM_T = 0.032 "Target molar mass";
-  parameter SIadd.InverseTime lambda = log(2)/SIadd.Conversions.Functions.Time_s.from_day(14.3) "Decay constant";
-  parameter SI.Area sigma = SIadd.Conversions.Functions.Area_m2.from_barn(0.2) "Cross section for reaction";
-  parameter SIadd.NeutronFlux phi = 155e4 "Nuetron flux";
+  parameter SItf.InverseTime lambda = log(2)/SItf.Conversions.Functions.Time_s.from_day(14.3) "Decay constant";
+  parameter SI.Area sigma = SItf.Conversions.Functions.Area_m2.from_barn(0.2) "Cross section for reaction";
+  parameter SItf.NeutronFlux phi = 155e4 "Nuetron flux";
   final parameter Real N_T_start = m_T_start/MM_T*N_A "Initial number of atoms for isotope i";
   Real Nb "Sources and sinks product";
   Real N "Atoms of product";

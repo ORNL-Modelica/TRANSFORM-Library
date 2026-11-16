@@ -3,8 +3,8 @@ model MassFractionsTwoPort "Ideal two port sensor for mass fraction"
   extends TRANSFORM.Fluid.Sensors.BaseClasses.PartialTwoPortSensor;
   extends BaseClasses.PartialMultiSensor_1values(final var=Xi,
       redeclare replaceable function iconUnit =
-        TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
-      constrainedby TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
+        SItf.Conversions.Functions.PrefixMultipliers.to_none
+      constrainedby SItf.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput Xi "Mass fraction in port medium"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           rotation=90,

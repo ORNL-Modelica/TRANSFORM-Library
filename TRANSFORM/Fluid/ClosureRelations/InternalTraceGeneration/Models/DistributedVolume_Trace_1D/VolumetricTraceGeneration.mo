@@ -2,9 +2,9 @@ within TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.Distribut
 model VolumetricTraceGeneration
   import TRANSFORM.Math.fillArray_1D;
   extends PartialInternalTraceGeneration;
-  input SIadd.ExtraPropertyConcentration mC_ppp[Medium.nC]=zeros(Medium.nC) "Mass concentration generation"  annotation(Dialog(group=
+  input SItf.ExtraPropertyConcentration mC_ppp[Medium.nC]=zeros(Medium.nC) "Mass concentration generation"  annotation(Dialog(group=
           "Inputs"));
-  input SIadd.ExtraPropertyConcentration mC_ppps[nV,Medium.nC]=fillArray_1D(mC_ppp, nV)
+  input SItf.ExtraPropertyConcentration mC_ppps[nV,Medium.nC]=fillArray_1D(mC_ppp, nV)
     "if non-uniform then set mC_ppps"
     annotation (Dialog(group="Inputs"));
 equation

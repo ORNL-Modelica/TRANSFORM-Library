@@ -2,10 +2,10 @@ within TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D;
 partial model PartialMomentumBalance
   import Modelica.Fluid.Types.Dynamics;
   extends PartialDistributedStaggeredFlow;
-  input Units.NonDim Ks_ab[nFM]=fill(0, nFM)
+  input SItf.NonDim Ks_ab[nFM]=fill(0, nFM)
     "Minor loss coefficients. Flow in direction a -> b"
     annotation (Dialog(group="Inputs"));
-  input Units.NonDim Ks_ba[nFM]=fill(0, nFM)
+  input SItf.NonDim Ks_ba[nFM]=fill(0, nFM)
     "Minor loss coefficients. Flow in direction b -> a"
     annotation (Dialog(group="Inputs"));
 //   input SI.PressureDifference dps_add_ab[nFM]=fill(0, nFM)

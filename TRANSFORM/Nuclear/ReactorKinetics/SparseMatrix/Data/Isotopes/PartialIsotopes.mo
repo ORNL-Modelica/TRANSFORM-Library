@@ -12,7 +12,7 @@ partial record PartialIsotopes
   constant Integer actinideIndex[:] "Index of actinides or fissile isotopes 42" annotation(Evaluate=true, HideArray=true);
   constant Integer nA = size(actinideIndex,1);
 
-  parameter SIadd.InverseTime[nC] lambdas "Half-life of isotope" annotation(Evaluate=true, HideArray=true);
+  parameter SItf.InverseTime[nC] lambdas "Half-life of isotope" annotation(Evaluate=true, HideArray=true);
   parameter SI.Area sigmasA[nC]
     "Microscopic absorption cross-section" annotation(Evaluate=true, HideArray=true);
   parameter SI.Energy w_c[nC] "Energy released per cross-section capture" annotation(Evaluate=true, HideArray=true);
@@ -20,7 +20,7 @@ partial record PartialIsotopes
   parameter SI.Area sigmasF[nA]
     "Microscopic fission cross-section" annotation(Evaluate=true, HideArray=true);
   parameter SI.Energy w_f[nA] "Energy released per cross-section capture" annotation(Evaluate=true, HideArray=true);
-  parameter TRANSFORM.Units.NonDim nus[1] "Neutrons per fission"; // todo: need to check this value with and length as length != nA right now
+  parameter SItf.NonDim nus[1] "Neutrons per fission"; // todo: need to check this value with and length as length != nA right now
 
   parameter SI.Energy w_near_decay[nC]=fill(0, nC)
     "Energy release (near field - e.g., alpha/beta) per isotope decay" annotation(Evaluate=true, HideArray=true);

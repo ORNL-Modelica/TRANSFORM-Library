@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.FittingsAndResistances;
 model SpacerGrid
   "Rod-bundle spacer grid pressure loss (Rehme modified drag-coefficient method)"
   extends TRANSFORM.Fluid.FittingsAndResistances.BaseClasses.PartialResistancenew;
-  input Units.NonDim epsilon=0.3
+  input SItf.NonDim epsilon=0.3
     "Blockage ratio = spacer projected frontal area / bundle flow area"
     annotation (Dialog(group="Inputs"));
   input SI.Area crossArea=1e-3 "Bundle flow (free) area"
@@ -10,10 +10,10 @@ model SpacerGrid
   input SI.Length dimension=0.012 "Bundle hydraulic diameter (for Reynolds number)"
     annotation (Dialog(group="Inputs"));
   SI.ReynoldsNumber Re "Bundle Reynolds number";
-  Units.NonDim K "Spacer grid loss coefficient (ref. bundle velocity)";
+  SItf.NonDim K "Spacer grid loss coefficient (ref. bundle velocity)";
   SI.Velocity v "Bundle (undisturbed) velocity";
 protected
-  Units.NonDim K_signed "Signed loss coefficient";
+  SItf.NonDim K_signed "Signed loss coefficient";
 equation
   Re = abs(m_flow)*dimension/(crossArea*Medium.dynamicViscosity(state));
   K = ClosureRelations.PressureLoss.Functions.SpacerGrids.K_spacerGrid_Rehme(epsilon, Re);

@@ -31,31 +31,31 @@ model TraceSeparator
   final parameter Integer nSep=size(iSep, 1) "# of substances separated";
   parameter Integer iCar[nSep]={i for i in 1:nSep}
     "Index in carrier of separated substances";
-  input SIadd.NonDim[nSep] eta=fill(1, nSep) "Separation efficiency"
+  input SItf.NonDim[nSep] eta=fill(1, nSep) "Separation efficiency"
     annotation (Dialog(group="Inputs"));
   input SI.MassFlowRate m_flow_sepFluid=0
     "Mass flow rate of fluid removed with carrier fluid"
     annotation (Dialog(group="Inputs"));
-  SIadd.NonDim[Medium.nC] eta_sep=TRANSFORM.Math.replaceArrayValues(
+  SItf.NonDim[Medium.nC] eta_sep=TRANSFORM.Math.replaceArrayValues(
       zeros(Medium.nC),
       iSep,
       eta);
-  SIadd.NonDim[Medium.nC] eta_notSep=TRANSFORM.Math.replaceArrayValues(
+  SItf.NonDim[Medium.nC] eta_notSep=TRANSFORM.Math.replaceArrayValues(
       fill(1, Medium.nC),
       iSep,
       fill(1, nSep) - eta);
-  SIadd.ExtraPropertyFlowRate[Medium.nC] mC_flows
+  SItf.ExtraPropertyFlowRate[Medium.nC] mC_flows
     "Flow rate of substances before separation";
-  SIadd.ExtraPropertyFlowRate[Medium.nC] mC_flows_sep "Flow rate of substances separated";
-   SIadd.ExtraPropertyFlowRate[Medium.nC] mC_flows_notSep
+  SItf.ExtraPropertyFlowRate[Medium.nC] mC_flows_sep "Flow rate of substances separated";
+   SItf.ExtraPropertyFlowRate[Medium.nC] mC_flows_notSep
      "Flow rate of substances not separated";
-  SIadd.ExtraProperty[Medium.nC] Cs_notSep
+  SItf.ExtraProperty[Medium.nC] Cs_notSep
      "Concentration of substances after separation";
   parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
 protected
   // Carrier inflow, taken in the equation section: OpenModelica 1.27.1 generates C that
   // does not compile for inStream inside the algorithm below.
-  SIadd.ExtraProperty[Medium_carrier.nC] Cs_in_carrier=inStream(port_a_carrier.C_outflow)
+  SItf.ExtraProperty[Medium_carrier.nC] Cs_in_carrier=inStream(port_a_carrier.C_outflow)
     "Trace substances flowing in at port_a_carrier";
 algorithm
   port_b_carrier.C_outflow := Cs_in_carrier;

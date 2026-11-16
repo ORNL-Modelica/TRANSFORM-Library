@@ -49,7 +49,7 @@ model summary_traceSubstances
     "Index of tritium (1-H-3) in fission products array"
     annotation (Dialog(tab="Tritium Balance"));
   // Data for entire array of trace substances
-  final parameter SIadd.InverseTime[nC] lambdas=cat(
+  final parameter SItf.InverseTime[nC] lambdas=cat(
       1,
       data_PG.lambdas,
       data_FP.lambdas,

@@ -6,13 +6,13 @@ model Orifice
     annotation (Dialog(group="Inputs"));
   input SI.Length diameter_orifice=0.025 "Orifice bore diameter"
     annotation (Dialog(group="Inputs"));
-  Units.NonDim K "Minor loss coefficient (ref. full-pipe velocity)";
+  SItf.NonDim K "Minor loss coefficient (ref. full-pipe velocity)";
   SI.Velocity v "Velocity in the full pipe";
   Real areaRatio=(diameter_orifice/dimension)^2 "Open-area ratio (bore/pipe)";
   SI.Area crossArea=0.25*Modelica.Constants.pi*dimension^2
     "Full pipe cross-sectional area";
 protected
-  Units.NonDim K_signed "Signed minor loss coefficient";
+  SItf.NonDim K_signed "Signed minor loss coefficient";
 equation
   K = ClosureRelations.PressureLoss.Functions.Orifices.K_thinOrifice(areaRatio);
   K_signed = smooth(0, noEvent(if m_flow >= 0 then K else -K));

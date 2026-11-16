@@ -30,11 +30,11 @@ model Example_8_6_UninsulatedDuct "Example 8.6 Uninsulated Duct pp. 516-518"
   Modelica.Blocks.Sources.Constant m_flows(each k=0.05) "mass flow rate"
     annotation (Placement(transformation(extent={{-68,84},{-60,92}})));
   Modelica.Blocks.Sources.Constant Tin(k=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degC(103))
+        SItf.Conversions.Functions.Temperature_K.from_degC(103))
     "inlet temperature"
     annotation (Placement(transformation(extent={{-84,84},{-76,92}})));
   Modelica.Blocks.Sources.Constant Tambient(k=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degC(0))
+        SItf.Conversions.Functions.Temperature_K.from_degC(0))
     "ambient temperature"
     annotation (Placement(transformation(extent={{-84,56},{-76,64}})));
   Modelica.Blocks.Sources.Constant D(k=0.15) "diameter"
@@ -64,7 +64,7 @@ model Example_8_6_UninsulatedDuct "Example 8.6 Uninsulated Duct pp. 516-518"
   Modelica.Blocks.Sources.IntegerConstant nNodes_2(k=10)
     annotation (Placement(transformation(extent={{-12,84},{-4,92}})));
   Modelica.Blocks.Sources.Constant Tout(k=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.from_degC(77))
+        SItf.Conversions.Functions.Temperature_K.from_degC(77))
     "outlet temperature"
     annotation (Placement(transformation(extent={{-84,70},{-76,78}})));
   TRANSFORM.HeatAndMassTransfer.Resistances.Heat.Convection outerSide[nNodes_2.k](
@@ -99,7 +99,7 @@ model Example_8_6_UninsulatedDuct "Example 8.6 Uninsulated Duct pp. 516-518"
   Utilities.Visualizers.displayReal display_Q_loss(use_port=true)
     annotation (Placement(transformation(extent={{-68,-10},{-48,10}})));
   Modelica.Blocks.Sources.RealExpression T_L(y=
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC(outerSide[
+        SItf.Conversions.Functions.Temperature_K.to_degC(outerSide[
         end].port_a.T)) "Temperature at x = L"
     annotation (Placement(transformation(extent={{-100,-31},{-80,-9}})));
   Utilities.Visualizers.displayReal display_T_L(use_port=true)

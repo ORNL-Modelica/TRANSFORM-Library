@@ -10,21 +10,21 @@ model TraceSubstances
     annotation (Dialog(group="Inputs"));
   parameter SI.MacroscopicCrossSection SigmaF_start=1
     "Macroscopic fission cross-section of fissile material";
-  parameter Units.NonDim nu_bar_start=2.4 "Neutrons per fission";
+  parameter SItf.NonDim nu_bar_start=2.4 "Neutrons per fission";
   parameter SI.Energy w_f_start=200e6*1.6022e-19 "Energy released per fission";
   input SI.MacroscopicCrossSection dSigmaF=0
     "Change in macroscopic fission cross-section of fissile material"
     annotation (Dialog(group="Inputs"));
-  input Units.NonDim dnu_bar=0 "Change in neutrons per fission"
+  input SItf.NonDim dnu_bar=0 "Change in neutrons per fission"
     annotation (Dialog(group="Inputs"));
   input SI.Energy dw_f=0 "Change in energy released per fission"
     annotation (Dialog(group="Inputs"));
   SI.MacroscopicCrossSection SigmaF=SigmaF_start+dSigmaF
     "Macroscopic fission cross-section of fissile material";
-  Units.NonDim nu_bar=nu_bar_start+dnu_bar
+  SItf.NonDim nu_bar=nu_bar_start+dnu_bar
                                           "Neutrons per fission";
   SI.Energy w_f=w_f_start+dw_f "Energy released per fission";
-  input SIadd.ExtraPropertyExtrinsic mCs[nV,nC] = fill(0,nV,nC) "Number of atoms" annotation(Dialog(group="Inputs: Trace Substance"));
+  input SItf.ExtraPropertyExtrinsic mCs[nV,nC] = fill(0,nV,nC) "Number of atoms" annotation(Dialog(group="Inputs: Trace Substance"));
   input SI.Volume[nV] Vs=fill(0.1, nV)
     "Volume for trace substance concentration basis"
     annotation (Dialog(group="Inputs: Trace Substance"));
@@ -35,11 +35,11 @@ model TraceSubstances
     annotation (Dialog(group="Inputs: Trace Substance"));
   SI.Area sigmasA[nC]=sigmasA_start+dsigmasA
     "Microscopic absorption cross-section for reactivity feedback";
-  SIadd.NeutronFlux phi[nV] "Neutron flux";
-  output SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens
+  SItf.NeutronFlux phi[nV] "Neutron flux";
+  output SItf.ExtraPropertyFlowRate[nV,nC] mC_gens
     "Generation rate of additional substances [atoms/s] (e.g., Boron in fluid)"
     annotation (Dialog(tab="Outputs", enable=false));
-  output SIadd.NonDim rhos[nV,nC] "Additional subtances reactivity feedback"
+  output SItf.NonDim rhos[nV,nC] "Additional subtances reactivity feedback"
     annotation (Dialog(tab="Outputs", enable=false));
 equation
   // Additional substances from another source

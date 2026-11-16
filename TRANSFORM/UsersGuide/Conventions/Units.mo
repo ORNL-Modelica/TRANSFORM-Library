@@ -14,7 +14,7 @@ import SItf = TRANSFORM.Units;</pre>
 <li>A signal in a control block may be a plain <code>Real</code>. Its description then says what it stands for.</li>
 </ul>
 <h4>The earlier alias</h4>
-<p><code>SIadd</code> is the earlier name of the same alias. The root package still imports it, so existing classes keep working, and they are reworded to <code>SItf</code> in batches. New and edited code uses <code>SItf</code>.</p>
+<p><code>SIadd</code> is the earlier name of the same alias. The library's own classes now use <code>SItf</code>. The root package still imports <code>SIadd</code>, so code written with it keeps working. New and edited code uses <code>SItf</code>.</p>
 <h4>In a library built on TRANSFORM</h4>
 <p>An import is seen only inside the library that declares it. A library built on TRANSFORM puts the same two lines in its own root package. Its unit types then read the same as TRANSFORM's.</p>
 </html>"));

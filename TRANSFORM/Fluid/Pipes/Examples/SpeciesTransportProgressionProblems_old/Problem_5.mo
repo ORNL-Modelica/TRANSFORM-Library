@@ -19,25 +19,25 @@ model Problem_5 "Single Species Drift w/ DepositionSingle species drift with dec
   parameter SI.Velocity v=0.02;
   final parameter SI.MassFlowRate m_flow = Medium.density_pT(p_a_start,T_a_start)*Modelica.Constants.pi*dimension^2/4*v;
 
-  parameter TRANSFORM.Units.InverseTime lambda_i[nC]=fill(0.1, nC);
-  parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=1000*ones(nV, nC);
-  parameter SIadd.ExtraPropertyConcentration C_i_w_start[nV,nC]=zeros(nV, nC);
+  parameter SItf.InverseTime lambda_i[nC]=fill(0.1, nC);
+  parameter SItf.ExtraPropertyConcentration C_i_start[nV,nC]=1000*ones(nV, nC);
+  parameter SItf.ExtraPropertyConcentration C_i_w_start[nV,nC]=zeros(nV, nC);
 
   parameter Real a1 = 0.1*100;
   parameter Real a2 = -500;
   parameter Real T = 900;
 
-  final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/
+  final parameter SItf.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/
       Medium.density_pT(p_a_start, T_a_start) for j in 1:nC} for i in 1
       :nV};
   SI.Length x[nV]=pipe.summary.xpos;
 
-  SIadd.ExtraPropertyConcentration C_i[nV,nC];
-  SIadd.ExtraPropertyConcentration C_i_w[nV,nC];
-  SIadd.ExtraPropertyConcentration C_i_analytical[nV,nC];
-  SIadd.ExtraPropertyConcentration C_i_w_analytical[nV,nC];
+  SItf.ExtraPropertyConcentration C_i[nV,nC];
+  SItf.ExtraPropertyConcentration C_i_w[nV,nC];
+  SItf.ExtraPropertyConcentration C_i_analytical[nV,nC];
+  SItf.ExtraPropertyConcentration C_i_w_analytical[nV,nC];
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{-a1/100^2*exp(a2/T)*Medium.density_pT(pipe.mediums[j].d,pipe.mediums[j].T)
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens={{-a1/100^2*exp(a2/T)*Medium.density_pT(pipe.mediums[j].d,pipe.mediums[j].T)
       for j in 1:nC} for i in 1:nV};
 
   Pipes.GenericPipe_MultiTransferSurface pipe(

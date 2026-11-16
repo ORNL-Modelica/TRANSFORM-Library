@@ -4,8 +4,8 @@ model MassFractionsTwoPort_multi "Ideal two port sensor for species"
   extends BaseClasses.PartialTwoPortSensor;
   extends BaseClasses.PartialMultiSensor_1values(final var=if Medium.nXi < 1 then 0 else Xi[iDisplay],
       redeclare replaceable function iconUnit =
-        TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.to_none
-      constrainedby TRANSFORM.Units.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
+        SItf.Conversions.Functions.PrefixMultipliers.to_none
+      constrainedby SItf.Conversions.Functions.PrefixMultipliers.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput[Medium.nXi] Xi
     "Mass fraction of the passing fluid"
     annotation (Placement(transformation(

@@ -23,7 +23,7 @@ function alpha_NusseltTheory_Condensation
     "Two-phase total heat transfer coefficient";
   output SI.NusseltNumber Nu "Nusselt number";
   output SI.SpecificEnthalpy h_fgp "Modified latent heat of vaporization";
-  output Units.NonDim Ja "Jakob number";
+  output SItf.NonDim Ja "Jakob number";
 algorithm
   Ja :=Utilities.CharacteristicNumbers.JakobNumber(
     cp_fsat,

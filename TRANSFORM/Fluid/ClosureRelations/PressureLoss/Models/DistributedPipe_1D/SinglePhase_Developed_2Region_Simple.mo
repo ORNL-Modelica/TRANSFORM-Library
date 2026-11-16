@@ -3,7 +3,7 @@ model SinglePhase_Developed_2Region_Simple
   "Single Phase | Fully Developed | 2 Region - Laminar & Turbulent | Simple Method"
   import TRANSFORM;
   extends PartialSinglePhase;
-  input TRANSFORM.Units.NonDim[nFM] fRe2=
+  input SItf.NonDim[nFM] fRe2=
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Functions.TubesAndConduits.SinglePhase.fRe2_SinglePhase_2Region(
       Res,
       dimensionsAvg,

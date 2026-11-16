@@ -28,10 +28,10 @@ model TransportDelayPipe
       dimension,
       roughness) "Turbulent Friction factor"
     annotation (Dialog(group="Inputs"));
-  input TRANSFORM.Units.NonDim K_ab=0
+  input SItf.NonDim K_ab=0
     "Minor loss coefficients. Flow in direction a -> b"
     annotation (Dialog(group="Inputs"));
-  input TRANSFORM.Units.NonDim K_ba=0
+  input SItf.NonDim K_ba=0
     "Minor loss coefficients. Flow in direction b -> a"
     annotation (Dialog(group="Inputs"));
   input SI.PressureDifference dp_add_ab=0
@@ -54,7 +54,7 @@ model TransportDelayPipe
   SI.PressureDifference dp_f "Frictional pressure drop";
   SI.PressureDifference dp_g "Gravitational pressure drop";
   SI.ReynoldsNumber Re;
-  TRANSFORM.Units.NonDim fRe2;
+  SItf.NonDim fRe2;
   //SI.Time time_a;
   //SI.Time time_b;
   SI.Time tau=length/max(1e-3, v);

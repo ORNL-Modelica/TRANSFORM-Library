@@ -5,7 +5,7 @@ model Conversion "Base model for conversion models"
   input Real val=0.0 "Value to be converted"
     annotation (Dialog(group="Inputs", enable=not use_port));
   replaceable function convert =
-      TRANSFORM.Units.Conversions.Functions.BaseClasses.PartialConversion
+      SItf.Conversions.Functions.BaseClasses.PartialConversion
     "Define conversion" annotation (choicesAllMatching=true);
   parameter Real k = 1 "y = k*UnitConversion(u)";
   Modelica.Blocks.Interfaces.RealInput u if use_port annotation (Placement(

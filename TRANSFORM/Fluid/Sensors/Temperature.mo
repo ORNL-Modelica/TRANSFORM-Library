@@ -3,8 +3,8 @@ model Temperature "Ideal one port temperature sensor"
   extends BaseClasses.PartialAbsoluteSensor;
   extends BaseClasses.PartialMultiSensor_1values(final var=T,
       redeclare replaceable function iconUnit =
-        TRANSFORM.Units.Conversions.Functions.Temperature_K.to_degC
-      constrainedby TRANSFORM.Units.Conversions.Functions.Temperature_K.BaseClasses.to);
+        SItf.Conversions.Functions.Temperature_K.to_degC
+      constrainedby SItf.Conversions.Functions.Temperature_K.BaseClasses.to);
   Modelica.Blocks.Interfaces.RealOutput T(
     final quantity="ThermodynamicTemperature",
     final unit="K",

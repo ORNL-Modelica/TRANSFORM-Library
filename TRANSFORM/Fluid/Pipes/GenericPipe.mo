@@ -87,10 +87,10 @@ model GenericPipe
   parameter SI.MassFraction X_b_start[Medium.nX]=X_a_start
     "Mass fraction at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Species Mass Fraction"));
-  parameter SIadd.ExtraProperty C_a_start[Medium.nC]=fill(0, Medium.nC)
+  parameter SItf.ExtraProperty C_a_start[Medium.nC]=fill(0, Medium.nC)
     "Mass-Specific value at port a"
     annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
-  parameter SIadd.ExtraProperty C_b_start[Medium.nC]=C_a_start
+  parameter SItf.ExtraProperty C_b_start[Medium.nC]=C_a_start
     "Mass-Specific value at port b"
     annotation (Dialog(tab="Initialization", group="Start Value: Trace Substances"));
   parameter SI.MassFlowRate m_flow_a_start = 0 "Mass flow rate at port_a"
@@ -322,7 +322,7 @@ model GenericPipe
   SI.HeatFlowRate H_flows[nV + 1] "Enthalpy flow rates across segment boundaries";
   SI.MassFlowRate[nV + 1,Medium.nXi] mXi_flows
     "Species mass flow rates across segment boundaries";
-  SIadd.ExtraPropertyFlowRate mC_flows[nV + 1,Medium.nC]
+  SItf.ExtraPropertyFlowRate mC_flows[nV + 1,Medium.nC]
     "Trace substance flow rates across segment boundaries";
   SI.Velocity[nV] vs={0.5*(m_flows[i] + m_flows[i + 1])/mediums[i].d/geometry.crossAreas[i]
       for i in 1:nV} "mean velocities in flow segments";

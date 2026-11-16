@@ -23,7 +23,7 @@ model SimpleVolume_1Port
   parameter Real MMs[Medium.nC]=fill(1, Medium.nC)
     "Conversion from fluid mass-specific value to moles (e.g., molar mass [kg/mol] or Avogadro's number [atoms/mol])"
     annotation (Dialog(tab="Advanced",group="Trace Mass Transfer", enable=use_TraceMassPort));
-  input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
+  input SItf.ExtraPropertyFlowRate mC_gen[Medium.nC]=fill(0,Medium.nC) "Internal trace mass generation"
     annotation (Dialog(tab="Advanced",group="Trace Mass Transfer"));
   HeatAndMassTransfer.Interfaces.HeatPort_State heatPort(T=medium.T, Q_flow=
         Q_flow_internal)                                                                      if use_HeatPort
@@ -38,7 +38,7 @@ model SimpleVolume_1Port
 
 protected
   SI.HeatFlowRate Q_flow_internal;
-  SIadd.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
+  SItf.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];
 equation
   if not use_HeatPort then
     Q_flow_internal = 0;

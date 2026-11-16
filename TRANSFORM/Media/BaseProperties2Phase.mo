@@ -24,9 +24,9 @@ model BaseProperties2Phase
   SI.Density d "Fluid density";
   SI.Temperature T "Fluid temperature";
   SI.Pressure p "Fluid pressure";
-  Units.NonDim x_th "Thermodynamic quality";
-  Units.NonDim x_abs "Absolute mass quality (0<x<1)";
-  Units.VoidFraction alphaV "Void fraction";
+  SItf.NonDim x_th "Thermodynamic quality";
+  SItf.NonDim x_abs "Absolute mass quality (0<x<1)";
+  SItf.VoidFraction alphaV "Void fraction";
   Medium.DynamicViscosity mu "Dynamic viscosity";
   Medium.ThermalConductivity lambda "Thermal conductivity";
   Medium.SaturationProperties sat "Properties of saturated fluid";

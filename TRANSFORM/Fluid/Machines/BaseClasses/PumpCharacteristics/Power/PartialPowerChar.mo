@@ -31,8 +31,8 @@ partial model PartialPowerChar
         tab="Internal Interface", group="Nominal Operating Parameters"));
 
   SI.Power W "Power consumption";
-  Units.NonDim affinityLaw_flow = (N/N_nominal)*(diameter/diameter_nominal)^3 "Affinity law for scaling";
-  Units.NonDim affinityLaw_power = Medium.density(state)/d_nominal*(N/N_nominal)^3*(diameter/diameter_nominal)^5 "Affinity law for scaling";
+  SItf.NonDim affinityLaw_flow = (N/N_nominal)*(diameter/diameter_nominal)^3 "Affinity law for scaling";
+  SItf.NonDim affinityLaw_power = Medium.density(state)/d_nominal*(N/N_nominal)^3*(diameter/diameter_nominal)^5 "Affinity law for scaling";
 
   annotation (defaultComponentName="flowCurve",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={

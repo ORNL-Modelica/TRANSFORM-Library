@@ -2,9 +2,9 @@ within TRANSFORM.Fluid.ClosureRelations.InternalTraceGeneration.Models.Distribut
 model GenericTraceGeneration
   import TRANSFORM.Math.fillArray_1D;
   extends PartialInternalTraceGeneration;
-  input SIadd.ExtraPropertyFlowRate mC_gen[Medium.nC]=zeros(Medium.nC) "Mass generation"  annotation(Dialog(group=
+  input SItf.ExtraPropertyFlowRate mC_gen[Medium.nC]=zeros(Medium.nC) "Mass generation"  annotation(Dialog(group=
           "Inputs"));
-  input SIadd.ExtraPropertyFlowRate mC_gens[nV,Medium.nC]=fillArray_1D(mC_gen, nV)
+  input SItf.ExtraPropertyFlowRate mC_gens[nV,Medium.nC]=fillArray_1D(mC_gen, nV)
     "if non-uniform then set mC_gens"
     annotation (Dialog(group="Inputs"));
 equation

@@ -1,8 +1,8 @@
 within TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Utilities.Internal.GroeneveldCorrectionFactors;
 function K_3 "Mid-Plane Spacer Factor"
   input SI.Length D_hyd "Hydraulic diameter of subchannel";
-  input SIadd.MassFlux G "Mass flux";
-  input SIadd.NonDim K_g "Pressure loss coefficient of spacer";
+  input SItf.MassFlux G "Mass flux";
+  input SItf.NonDim K_g "Pressure loss coefficient of spacer";
   input SI.Length L_sp "Distance between mid-plane of spacers";
   output Real K "Correction factor";
 protected

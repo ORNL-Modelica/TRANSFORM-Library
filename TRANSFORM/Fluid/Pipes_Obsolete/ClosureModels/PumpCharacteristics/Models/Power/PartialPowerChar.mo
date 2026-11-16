@@ -34,7 +34,7 @@ partial model PartialPowerChar
   final parameter SI.VolumeFlowRate V_flow_start = m_flow_start/rho_start;
   SI.VolumeFlowRate V_flow(start=V_flow_start) = m_flow/rho "Volumetric flow rate";
   //SI.VolumeFlowRate V_flow = m_flow/rho "Volumetric flow rate";
-  Units.NonDim affinityLaw "Affinity law for scaling";
+  SItf.NonDim affinityLaw "Affinity law for scaling";
   SI.Power W(start=m_flow_start/rho_start*dp_start) "Power consumption";
 equation
   if isPump then

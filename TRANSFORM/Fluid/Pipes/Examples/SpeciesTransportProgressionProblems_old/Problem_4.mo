@@ -21,14 +21,14 @@ model Problem_4
   final parameter SI.MassFlowRate m_flow=Medium.density_pT(p_start, T_start)*Modelica.Constants.pi*dimension^2/4
       *v;
 
-  parameter TRANSFORM.Units.InverseTime lambda_i[nC]={0.0127,0.0317,0.115,0.311,1.4,3.87};
+  parameter SItf.InverseTime lambda_i[nC]={0.0127,0.0317,0.115,0.311,1.4,3.87};
   final parameter SI.Time t_half[nC]={log(2)/lambda_i[i] for i in 1:nC};
-  final parameter SIadd.ExtraPropertyConcentration C_i_start[nV,nC]=zeros(nV, nC);
+  final parameter SItf.ExtraPropertyConcentration C_i_start[nV,nC]=zeros(nV, nC);
   parameter Real phi_0=1e10;
   parameter Real beta_i[nC]=fill(1, nC);
   //{0.0006,0.00364,0.00349,0.00628,0.00179,0.00070};
 
-  final parameter SIadd.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/Medium.density_pT(p_start, T_start)
+  final parameter SItf.ExtraProperty Cs_start[nV,nC]={{C_i_start[i, j]/Medium.density_pT(p_start, T_start)
       for j in 1:nC} for i in 1:nV};
   final parameter SI.Length x[nV]=linspace(
       0,
@@ -40,14 +40,14 @@ model Problem_4
       0.3,
       nV);
 
-  SIadd.ExtraPropertyConcentration C_i[nV,nC];
-  SIadd.ExtraPropertyConcentration C_i_loop[nV,nC];
-  SIadd.ExtraPropertyConcentration C_i_analytical[nV,nC];
-  SIadd.ExtraPropertyConcentration C_i_loop_analytical[nV,nC];
+  SItf.ExtraPropertyConcentration C_i[nV,nC];
+  SItf.ExtraPropertyConcentration C_i_loop[nV,nC];
+  SItf.ExtraPropertyConcentration C_i_analytical[nV,nC];
+  SItf.ExtraPropertyConcentration C_i_loop_analytical[nV,nC];
 
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens={{-lambda_i[j]*pipe.mCs[i, j]*pipe.nParallel + beta_i[j]*phi_0*sin(
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens={{-lambda_i[j]*pipe.mCs[i, j]*pipe.nParallel + beta_i[j]*phi_0*sin(
        Modelica.Constants.pi*pipe.summary.xpos_norm[j]) for j in 1:nC} for i in 1:nV};
-  SIadd.ExtraPropertyFlowRate[nV,nC] mC_gens_loop={{-lambda_i[j]*pipe_loop.mCs[i, j]*pipe_loop.nParallel for j in
+  SItf.ExtraPropertyFlowRate[nV,nC] mC_gens_loop={{-lambda_i[j]*pipe_loop.mCs[i, j]*pipe_loop.nParallel for j in
           1:nC} for i in 1:nV};
   Real cool=v*time;
   //         Real fun[nC] = {C_i_loop_analytical[end,i] for i in 1:nC};
