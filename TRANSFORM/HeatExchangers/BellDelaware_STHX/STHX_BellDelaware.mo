@@ -686,8 +686,8 @@ equation
 <p><b><span style=\"font-family: MS Shell Dlg 2; color: #0000ff;\">n_MRE = a) 7, b) 9, and c) 13.</span></b></p>
 <p><b><span style=\"font-family: MS Shell Dlg 2; color: #0000ff;\">n_W_tubes = a) 12, b) 7, and c) 12. (n_W_bs assumed = 0)</span></b></p>
 <p><b><span style=\"font-family: MS Shell Dlg 2; color: #0000ff;\">n_RW = a) 2, b) 2, and c) 2.</span></b></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\"></p><p></span></p>
-<p><span style=\"font-family: MS Shell Dlg 2;\"></p><p><img src=\"modelica://TRANSFORM/Resources/Images/NonPowerPoint/BellDelaware/BellDelaware_e.PNG\"/></span></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\"></span></p><p></p>
+<p><span style=\"font-family: MS Shell Dlg 2;\"></span></p><p><img src=\"modelica://TRANSFORM/Resources/Images/NonPowerPoint/BellDelaware/BellDelaware_e.PNG\"/></p>
 <p><b><span style=\"font-family: MS Shell Dlg 2; color: #0000ff;\">Figure 3: Definition of e and e_1 ( a, b, and L_E are internall calculated). </span></b></p>
 <p><b><span style=\"font-family: MS Shell Dlg 2; color: #0000ff;\">S_1, S_2, and d_o are identical to what is presented in Figure 2. </span></b></p>
 <p><b><span style=\"font-family: MS Shell Dlg 2; color: #0000ff;\">Note: nes for these examples are a) 8, b) 8, c) 10.</span></b></p>

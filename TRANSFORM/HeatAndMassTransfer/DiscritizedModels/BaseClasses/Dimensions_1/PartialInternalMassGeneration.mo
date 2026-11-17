@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1;
-partial model PartialInternalMassGeneration
+partial model PartialInternalMassGeneration "Base class for internal trace substance generation models"
   replaceable package Material =
     TRANSFORM.Media.Interfaces.Solids.PartialAlloy
     "Material properties" annotation (choicesAllMatching=true, Dialog(tab="Internal Interface"));
@@ -20,7 +20,7 @@ partial model PartialInternalMassGeneration
   input SI.Length lengths_1[nVs[1]] "Volume length"
     annotation (Dialog(group="Inputs", tab="Internal Interface"));
   // Variables defined by model
-  output SI.MolarFlowRate n_flows[nVs[1],nC] "Internal mass generation"
+  output SI.MolarFlowRate n_flows[nVs[1],nC] "Molar generation rate in each volume"
     annotation (Dialog(
       group="Outputs",
       tab="Internal Interface",

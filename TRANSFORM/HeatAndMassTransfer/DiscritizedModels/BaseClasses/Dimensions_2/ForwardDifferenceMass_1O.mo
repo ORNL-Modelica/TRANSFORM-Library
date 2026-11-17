@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2;
-model ForwardDifferenceMass_1O
+model ForwardDifferenceMass_1O "Diffusion by first-order difference between nodes"
   extends PartialDistributedMassFlow;
 equation
   if adiabaticDims[1] == false then

@@ -3,7 +3,7 @@ model Sphere_2D_r_phi
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D(
       final ns={nR,nPhi}, final figure=3);
   parameter Integer nR(min=1) = 1 "# of nodes in r-direction";
-  parameter Integer nPhi(min=1) = 1 "# of nodes in z-direction";
+  parameter Integer nPhi(min=1) = 1 "# of nodes in phi-direction";
   input SI.Length r_inner=0
     "Specify inner radius or dthetas in r-dimension and r_outer"
     annotation (Dialog(group="Inputs"));

@@ -19,6 +19,10 @@ model DiscretizedModels "Discretized Models"
 <li>Fluid and HeatAndMassTransfer discretized models are not exactly the same,though the general nodalization approach is similar. This representation is more applicable to the HeatAndMassTransfer models.</li>
 <li>The crossAreas* variables represents the area between disretized nodes. It therefore exists only for the discretized dimensions.</li>
 <li>The surfaceAreas* variables represent the outer areas of the body in non-discretized dimensions only. This permits interaction with the body in these additional areas which may be important for a particular problem.</li>
+<li>In <code>Conduction_1D</code>, <code>Conduction_2D</code>, <code>Conduction_3D</code> and the classes built on them, each volume has one temperature. Temperature differences in a dimension that is not divided into volumes are not resolved.</li>
+<li>In these models the geometry sets the number of volumes in each dimension, and the volumes are fixed by it: a density that changes with temperature moves no material between volumes. Each volume's energy uses its current density, with no term for the mass that change adds or removes (<code>delta_ms</code> reports that mass).</li>
+<li>In a dimension that does not close on itself, the temperature of an end volume is taken at the port face when that port exposes its state, and at the volume's center otherwise.</li>
+<li>Setting an element of <code>adiabaticDims</code> to true turns off conduction along that dimension; only a port that exposes its state still exchanges heat with the volume next to it. <code>adiabaticDimsMT</code> does the same for diffusion and the mass ports.</li>
 </ul>
 <h4>Illustrations to help orient the user</h4>
 <p><img src=\"modelica://TRANSFORM/Resources/Images/Information/discretizedModels_1D.jpg\"/></p>

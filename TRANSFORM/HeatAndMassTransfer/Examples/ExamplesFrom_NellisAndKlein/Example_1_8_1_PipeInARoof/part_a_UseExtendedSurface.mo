@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_8_1_PipeInARoof;
 model part_a_UseExtendedSurface
-  "Part a) Determine if it appropriate to use an extended surface"
+  "Part a) Determine if it is appropriate to use an extended surface"
   extends Icons.Example;
   BoundaryConditions.Heat.Temperature T_hot(T=363.15) "Hot gas temperature"
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
