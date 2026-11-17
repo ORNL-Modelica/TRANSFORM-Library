@@ -11,7 +11,7 @@ model HMTransfer_1D "1-D heat conduction and trace substance diffusion in a soli
   parameter SI.Concentration Cs_start[nVs[1],nC]=linspaceRepeat_1D(
       C_a1_start,
       C_b1_start,
-      nVs[1]) "Trace substance concentration" annotation (Dialog(tab=
+      nVs[1]) "Start concentration of each volume" annotation (Dialog(tab=
           "Initialization", group="Start Value: Concentration"));
   parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration of volume [1]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));

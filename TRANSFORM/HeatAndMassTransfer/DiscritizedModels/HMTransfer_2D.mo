@@ -16,7 +16,7 @@ model HMTransfer_2D "2-D heat conduction and trace substance diffusion in a soli
       nVs[1],
       nVs[2],
       {exposeState_b2,exposeState_a1,exposeState_a2,exposeState_b1})
-    "Trace substance concentration" annotation (Dialog(tab="Initialization",
+    "Start concentration of each volume" annotation (Dialog(tab="Initialization",
         group="Start Value: Concentration"));
   parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration of volumes [1,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));

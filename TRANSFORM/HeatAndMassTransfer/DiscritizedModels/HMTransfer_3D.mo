@@ -12,7 +12,7 @@ model HMTransfer_3D "3-D heat conduction and trace substance diffusion in a soli
         C_b3_start)/6,
       nVs[1],
       nVs[2],
-      nVs[3]) "Trace substance concentration" annotation (Dialog(tab=
+      nVs[3]) "Start concentration of each volume" annotation (Dialog(tab=
           "Initialization", group="Start Value: Concentration"));
   parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration; volumes start at the mean of all six"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));

@@ -14,7 +14,7 @@ partial model PartialDistributedVolume
     "Formulation of energy balances"
     annotation (Dialog(tab="Initialization", group="Dynamics"));
   parameter SI.Temperature Ts_start[nVs[1]]=fill(Material.T_reference, nVs[1])
-    "Temperature"
+    "Start temperature of each volume"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Density ds_reference[nVs[1]]=Material.density(Material.setState_T(Ts_start))
     "Reference density that sets the volume masses ms"
