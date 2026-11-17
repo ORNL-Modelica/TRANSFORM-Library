@@ -4,7 +4,7 @@ model Conduction_3D "Discretized 3-D heat conduction in a solid"
     T_effective=sum(materials.T .* ms/sum(ms)),
     T_max=max(materials.T),
     lambda_effective=sum(Material.thermalConductivity(materials.state) .* ms/
-        sum(ms))) "Derived results"
+        sum(ms))) "Convenience quantities for analysis and visualization"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   extends TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.ConductionIcons(
       final figure=geometry.figure);
