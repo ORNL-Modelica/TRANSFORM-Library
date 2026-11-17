@@ -11,9 +11,13 @@ model Conduction_3D "Discretized 3-D heat conduction model"
   extends TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.PartialDistributedVolume(
     final Vs=geometry.Vs,
     final nVs=geometry.ns,
-    Ts_start=fill(
-        (T_a1_start + T_b1_start + T_a2_start + T_b2_start + T_a3_start +
-          T_b3_start)/6,
+    Ts_start=TRANSFORM.Math.linspace_3Dface(
+        T_a1_start,
+        T_b1_start,
+        T_a2_start,
+        T_b2_start,
+        T_a3_start,
+        T_b3_start,
         nVs[1],
         nVs[2],
         nVs[3]));

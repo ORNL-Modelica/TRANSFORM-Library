@@ -18,8 +18,7 @@ model Conduction_2D "Discretized 2-D heat conduction model"
         T_a2_start,
         T_b2_start,
         nVs[1],
-        nVs[2],
-        {exposeState_b2,exposeState_a1,exposeState_a2,exposeState_b1}));
+        nVs[2]));
   // Initialization
   parameter SI.Temperature T_a1_start=Material.T_reference
     "Start temperature of volumes [1,:]"

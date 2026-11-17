@@ -38,8 +38,7 @@ model GenericPipe_withWallx2
       T_a2_start,
       T_b2_start,
       nVs[1],
-      nVs[2],
-      {exposeState_outerWall,exposeState_a,true,exposeState_b}) "Temperature" annotation (Dialog(
+      nVs[2]) "Temperature" annotation (Dialog(
         tab="Initialization: Wall", group="Start Value: Temperature"));
   parameter SI.Temperature T_a1_start=Material.T_reference
     "Temperature at port a1" annotation (Dialog(tab="Initialization: Wall",
@@ -61,8 +60,7 @@ model GenericPipe_withWallx2
       T_a2_start_2,
       T_b2_start_2,
       nVs[3],
-      nVs[2],
-      {exposeState_outerWall,exposeState_a,true,exposeState_b}) "Temperature" annotation (Dialog(
+      nVs[2]) "Temperature" annotation (Dialog(
         tab="Initialization: Wall", group="Start Value: Temperature"));
   parameter SI.Temperature T_a1_start_2=T_a1_start
     "Temperature at port a1" annotation (Dialog(tab="Initialization: Wall",

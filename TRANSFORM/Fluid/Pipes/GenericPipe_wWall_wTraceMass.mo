@@ -38,8 +38,7 @@ model GenericPipe_wWall_wTraceMass
       T_a2_start,
       T_b2_start,
       nVs[1],
-      nVs[2],
-      {exposeState_outerWall,exposeState_a,true,exposeState_b}) "Temperature"
+      nVs[2]) "Temperature"
     annotation (Dialog(tab="Initialization: Wall", group="Start Value: Temperature"));
   parameter SI.Temperature T_a1_start=Material.T_reference
     "Temperature at port a1" annotation (Dialog(tab="Initialization: Wall",
@@ -72,8 +71,7 @@ model GenericPipe_wWall_wTraceMass
       C_a2_start_wall,
       C_b2_start_wall,
       nVs[1],
-      nVs[2],
-      {exposeState_outerWall,exposeState_a,true,exposeState_b})
+      nVs[2])
     "Trace substance concentration" annotation (Dialog(tab="Initialization: Wall",
         group="Start Value: Concentration"));
   parameter SI.Concentration C_a1_start_wall[nC]=fill(0, nC)

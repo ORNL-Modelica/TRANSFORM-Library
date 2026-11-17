@@ -41,6 +41,8 @@ linspaceRepeat_1D_multi
 linspace_2Dcorner
 linspace_2Dedge
 linspaceRepeat_2Dedge
+linspace_3Dface
+linspaceRepeat_3Dface
 fillArray_1D
 fillArray_2D
 fillArray_3D

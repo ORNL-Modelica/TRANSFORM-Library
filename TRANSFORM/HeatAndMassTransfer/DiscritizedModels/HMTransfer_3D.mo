@@ -7,9 +7,13 @@ model HMTransfer_3D "Discretized 3-D heat conduction and trace substance diffusi
   parameter Dynamics traceDynamics=energyDynamics
     "Formulation of trace substance balances"
     annotation (Dialog(tab="Initialization", group="Dynamics"));
-  parameter SI.Concentration Cs_start[nVs[1],nVs[2],nVs[3],nC]=TRANSFORM.Math.fillArray_3D(
-      (C_a1_start + C_b1_start + C_a2_start + C_b2_start + C_a3_start +
-        C_b3_start)/6,
+  parameter SI.Concentration Cs_start[nVs[1],nVs[2],nVs[3],nC]=TRANSFORM.Math.linspaceRepeat_3Dface(
+      C_a1_start,
+      C_b1_start,
+      C_a2_start,
+      C_b2_start,
+      C_a3_start,
+      C_b3_start,
       nVs[1],
       nVs[2],
       nVs[3]) "Start concentration of each volume" annotation (Dialog(tab=
