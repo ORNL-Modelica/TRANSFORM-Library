@@ -9,8 +9,8 @@ model Conduction_123D
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_3D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_3D
-    "Geometry" annotation (choicesAllMatching=true);
-  Geometry geometry
+    "Shape and dimensions" annotation (choicesAllMatching=true);
+  Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   parameter Real nParallel = 1 "# of parallel components";
   parameter Boolean use_dim1 = true "=false then conduction in dimension-1 is neglected" annotation(choices(checkBox=true));

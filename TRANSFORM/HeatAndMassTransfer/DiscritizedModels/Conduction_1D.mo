@@ -36,7 +36,7 @@ model Conduction_1D "Discretized 1-D heat conduction model"
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D
-    "Geometry" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
+    "Shape and dimensions" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
   Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   replaceable model ConductionModel =

@@ -18,7 +18,7 @@ partial model PartialStaggeredFlowModel
     constrainedby TRANSFORM.Fluid.Volumes.ClosureModels.Geometry.Models.Flow.PartialGeometry
   "Geometry Type"
   annotation(choicesAllMatching=true);
-  Geometry geometry
+  Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-76,84},{-64,96}})));
   // Geometry parameters and inputs
   parameter Real nParallel = geometry.nParallel "number of identical parallel flow devices" annotation(Dialog(group="Should be defined by closure model"));

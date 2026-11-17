@@ -25,7 +25,7 @@ model MultiPort
   Medium.ExtraProperty ports_b_C_inStream[nPorts_b,Medium.nC]
     "inStream extra properties at ports_b";
 
-  parameter Boolean showName=false annotation (Dialog(tab="Visualization"));
+  parameter Boolean showName=false "= true to show the component name on the icon" annotation (Dialog(tab="Visualization"));
 equation
   // Only one connection allowed to a port to avoid unwanted ideal mixing
   for i in 1:nPorts_b loop

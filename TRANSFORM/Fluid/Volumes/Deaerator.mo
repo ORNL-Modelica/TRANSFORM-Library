@@ -7,8 +7,8 @@ model Deaerator
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.Cylinder
     constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.GenericVolume
-    "Geometry" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
-  Geometry geometry(V_liquid=V)
+    "Shape and dimensions" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
+  Geometry geometry(V_liquid=V) "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   extends TRANSFORM.Fluid.Volumes.BaseClasses.PartialVolume_wlevel(
   redeclare replaceable package Medium =
@@ -64,12 +64,12 @@ model Deaerator
     T_liquid=medium.T,
     T_wall=300,
     Q_loss=0,
-    m=m) annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+    m=m) "Convenience quantities for analysis and visualization" annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Media.BaseProperties2Phase mediaProps(redeclare package Medium = Medium,
       state=medium.state)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   // Visualization
-  parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
+  parameter Boolean showName=true "= true to show the component name on the icon" annotation (Dialog(tab="Visualization"));
 initial equation
   if energyDynamics == Dynamics.FixedInitial then
       Twall = Twall_start;

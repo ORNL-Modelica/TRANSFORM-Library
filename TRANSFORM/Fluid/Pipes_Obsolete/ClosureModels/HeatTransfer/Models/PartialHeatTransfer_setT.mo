@@ -15,8 +15,8 @@ partial model PartialHeatTransfer_setT
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
     constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-    "Geometry" annotation (choicesAllMatching=true);
-  Geometry geometry
+    "Shape and dimensions" annotation (choicesAllMatching=true);
+  Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-76,84},{-64,96}})));
   parameter Real nParallel "Number of parallel heat transfer segments"
     annotation(Dialog(tab="Internal Interface",group="Geometry"));

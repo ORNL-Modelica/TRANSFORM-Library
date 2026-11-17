@@ -7,8 +7,8 @@ model Condenser
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.Cylinder_wInternalPipe
     constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.TwoVolume_withLevel.withInternals.PartialInternal
-    "Geometry" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
-  Geometry geometry(V_liquid=V)
+    "Shape and dimensions" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
+  Geometry geometry(V_liquid=V) "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   extends TRANSFORM.Fluid.Volumes.BaseClasses.PartialVolume_wlevel(
     redeclare replaceable package Medium =

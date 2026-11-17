@@ -8,7 +8,7 @@ partial model PartialResistance
   Interfaces.MolePort_Flow port_b(nC=nC) annotation (Placement(transformation(
           extent={{60,-10},{80,10}}), iconTransformation(extent={{60,-10},{80,
             10}})));
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 equation
   port_a.n_flow + port_b.n_flow = zeros(nC);
   port_a.n_flow = (port_a.C - port_b.C)./R;

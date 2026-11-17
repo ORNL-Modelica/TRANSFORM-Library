@@ -65,7 +65,7 @@ model Conduction_3D "Discretized 3-D heat conduction model"
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_3D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_3D
-    "Geometry" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
+    "Shape and dimensions" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
   Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   parameter Boolean adiabaticDims[3]={false,false,false}

@@ -110,7 +110,7 @@ model DumpTank "Expansion tank with cover gas"
         transformation(extent={{50,-70},{70,-50}}), iconTransformation(extent={{
             50,-70},{70,-50}})));
   // Visualization
-  parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
+  parameter Boolean showName=true "= true to show the component name on the icon" annotation (Dialog(tab="Visualization"));
 protected
   SI.HeatFlowRate Q_flow_internal;
   SItf.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];

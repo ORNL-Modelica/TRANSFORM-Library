@@ -14,7 +14,7 @@ model Conversion "Base model for conversion models"
             -20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput y
     annotation (Placement(transformation(extent={{100,-20},{140,20}})));
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 protected
   Modelica.Blocks.Interfaces.RealInput u_int;
 equation

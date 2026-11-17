@@ -6,7 +6,7 @@ partial model PartialResistance_wHeat
   SI.PressureDifference dp;
   SI.MassFlowRate m_flow;
   SI.SpecificEnthalpy dh;
-  parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
+  parameter Boolean showName=true "= true to show the component name on the icon" annotation (Dialog(tab="Visualization"));
 
   parameter Boolean use_HeatPort=false "=true to toggle heat port"
     annotation (Dialog(tab="Advanced", group="Heat Transfer"), Evaluate=true);

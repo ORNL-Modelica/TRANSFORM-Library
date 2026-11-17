@@ -51,7 +51,7 @@ model TraceSeparator
      "Flow rate of substances not separated";
   SItf.ExtraProperty[Medium.nC] Cs_notSep
      "Concentration of substances after separation";
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 protected
   // Carrier inflow, taken in the equation section: OpenModelica 1.27.1 generates C that
   // does not compile for inStream inside the algorithm below.

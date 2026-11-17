@@ -4,7 +4,7 @@ model Temperature_multi "Temperature boundary condition in Kelvin"
   parameter Boolean use_port=false "=true then use input port"
   annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
   parameter SI.Temperature T[nPorts]=fill(293.15,nPorts) "Fixed temperature at port"             annotation(Dialog(                        enable=not use_port));
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   Modelica.Blocks.Interfaces.RealInput T_ext[nPorts](each unit="K") if use_port  annotation (Placement(transformation(
           extent={{-60,-20},{-20,20}}), iconTransformation(extent={{-60,-20},
             {-20,20}})));

@@ -86,7 +86,7 @@ model ExpansionTank_1Port "Expansion tank with cover gas"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}}),
         iconTransformation(extent={{50,-68},{70,-48}})));
   // Visualization
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   parameter SI.Length dheight = 0 "Elevation change in addition to liquid level (e.g., pipe connected to port)";
 protected
   SI.HeatFlowRate Q_flow_internal;

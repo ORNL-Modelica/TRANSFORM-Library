@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model Collector
   parameter Integer n(min=1)=1 "# of collected heat flows";
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   Interfaces.HeatPort_Flow port_a[n]
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.HeatPort_Flow port_b

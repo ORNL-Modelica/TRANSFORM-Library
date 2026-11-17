@@ -7,7 +7,7 @@ partial model PartialTwoPort "Partial component with two ports"
   parameter Boolean showDesignFlowDirection=true
     "= false to hide the flow direction arrow"
     annotation (Dialog(tab="Visualization"));
-  parameter Boolean showName=true "= false to hide component name"
+  parameter Boolean showName=true "= true to show the component name on the icon"
     annotation (Dialog(tab="Visualization"));
   TRANSFORM.Fluid.Interfaces.FluidPort_Flow port_a(
                                 redeclare package Medium = Medium,

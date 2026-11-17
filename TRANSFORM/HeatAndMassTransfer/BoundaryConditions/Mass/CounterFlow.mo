@@ -5,7 +5,7 @@ model CounterFlow
   parameter Integer n=1 "# of connected elements";// annotation(Dialog(connectorSizing=true));
   parameter Boolean counterCurrent=false
     "Swap concentration and flux vector order";
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   Interfaces.MolePort_Flow port_a[n](each nC=nC)
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.MolePort_Flow port_b[n](each nC=nC)

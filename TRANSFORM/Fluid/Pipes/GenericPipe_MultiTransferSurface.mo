@@ -16,7 +16,7 @@ model GenericPipe_MultiTransferSurface
         {sum(geometry.dlengths[1:i - 1]) + 0.5*geometry.dlengths[i] for i in 2:
           nV - 1},
         {sum(geometry.dlengths) - 0.5*geometry.dlengths[nV]}))
-    "cat(1, {if exposeState_a then 0 else 0.5*geometry.dlengths[1]}, {sum(geometry.dlengths[1:i - 1]) + 0.5*geometry.dlengths[i] for i in 2:nV - 1}, {if exposeState_b then sum(geometry.dlengths) else sum(geometry.dlengths) - 0.5*geometry.dlengths[nV]})"
+    "Convenience quantities for analysis and visualization"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   parameter Boolean allowFlowReversal = true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
@@ -104,9 +104,9 @@ model GenericPipe_MultiTransferSurface
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.StraightPipe
     constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe
-                                                                          "Geometry"
+                                                                          "Shape and dimensions"
     annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-  Geometry geometry annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
+  Geometry geometry "Shape and dimensions" annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   // Flow Model
   replaceable model FlowModel =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
@@ -337,7 +337,7 @@ model GenericPipe_MultiTransferSurface
     annotation (Placement(transformation(extent={{-50,50},{-30,70}}),
         iconTransformation(extent={{-50,40},{-30,60}})));
   // Visualization
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=summary.T_effective);
   parameter Boolean calc_Wb = true "= false to not calculate p*der(V) [Wb_flows] for energy equation" annotation(Dialog(tab="Advanced"));

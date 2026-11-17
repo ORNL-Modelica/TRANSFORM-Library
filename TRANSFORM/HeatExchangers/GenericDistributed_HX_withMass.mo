@@ -24,8 +24,8 @@ model GenericDistributed_HX_withMass
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.StraightPipeHX
     constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.HeatExchanger.GenericHX
-    "Geometry" annotation (choicesAllMatching=true);
-  Geometry geometry
+    "Shape and dimensions" annotation (choicesAllMatching=true);
+  Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-98,82},{-82,98}})));
   replaceable package Medium_shell =
       Modelica.Media.Interfaces.PartialMedium
@@ -517,7 +517,7 @@ model GenericDistributed_HX_withMass
         Modelica.Constants.pi*geometry.length_tube*tubeWall.summary.lambda_effective),
     R_tube=if tube.heatTransfer.flagIdeal == 1 then 0 else 1/(sum({tube.heatTransfer.alphas[
         i, 1]*tube.geometry.surfaceAreas[i, 1] for i in 1:tube.nV})*tube.nParallel
-        /tube.nV))
+        /tube.nV)) "Convenience quantities for analysis and visualization"
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   parameter Integer nC=0 "Number of trace substances transfered through wall. Currently nC must be <= min(Medium_tube.nC,Medium_shell.nC)" annotation(Dialog(tab="Trace Mass Transfer"),Evaluate=true);
   parameter Boolean use_TraceMassTransfer_shell=false
@@ -656,7 +656,7 @@ model GenericDistributed_HX_withMass
         rotation=90,
         origin={-4,-10})));
   // Visualization
-  parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
+  parameter Boolean showName=true "= true to show the component name on the icon" annotation (Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=shell.summary.T_effective);
   input Real val_tube = tube.summary.T_effective "Color map input variable" annotation(Dialog(tab="Visualization",group="Color Coding",enable=showColors));
   Real dynColor_tube[3] = Modelica.Mechanics.MultiBody.Visualizers.Colors.scalarToColor(val_tube, val_min, val_max, colorMapData_);

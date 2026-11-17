@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Sensors.BaseClasses;
 partial model PartialAbsoluteSensor
   "Partial component to model a sensor that measures a potential variable"
-  parameter Boolean showName=true "= false to hide component name"
+  parameter Boolean showName=true "= true to show the component name on the icon"
     annotation (Dialog(tab="Visualization"));
   TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_Flow port
     "Heat connector"

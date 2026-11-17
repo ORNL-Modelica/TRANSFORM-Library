@@ -23,7 +23,7 @@ model SimpleSeparator
      "Flow rate of substances not separated";
   SItf.ExtraProperty[Medium.nC] Cs_notSep
      "Concentration of substances after separation";
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 
 equation
   mC_flows = port_a.m_flow*actualStream(port_a.C_outflow);

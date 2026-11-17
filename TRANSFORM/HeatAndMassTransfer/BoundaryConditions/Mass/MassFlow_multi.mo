@@ -9,7 +9,7 @@ model MassFlow_multi "Mass flow boundary condition"
     choices(checkBox=true));
   parameter SI.MolarFlowRate n_flow[nPorts,nC]=zeros(nPorts,nC) "Molar flow rate at port"
     annotation (Dialog(enable=not use_port));
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   Modelica.Blocks.Interfaces.RealInput n_flow_ext[nPorts,nC](each unit="mol/s") if use_port
                   annotation (Placement(transformation(extent={{-60,-20},{-20,
             20}}), iconTransformation(extent={{-60,-20},{-20,20}})));

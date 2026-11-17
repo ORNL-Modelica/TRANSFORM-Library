@@ -21,9 +21,9 @@ model SimpleVolume
     replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
       constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
-      "Geometry" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
+      "Shape and dimensions" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
 
-    Geometry geometry
+    Geometry geometry "Shape and dimensions"
       annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
 
     input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"

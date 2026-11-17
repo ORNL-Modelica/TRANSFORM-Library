@@ -9,8 +9,8 @@ model Conduction_1D
   replaceable model Geometry =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_1D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_1D
-    "Geometry" annotation (choicesAllMatching=true);
-  Geometry geometry
+    "Shape and dimensions" annotation (choicesAllMatching=true);
+  Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   parameter Real nParallel = 1 "# of parallel components";
   parameter Boolean use_HeatTransfer=false "Use external heat transfer port";

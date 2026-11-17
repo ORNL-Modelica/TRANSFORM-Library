@@ -20,9 +20,9 @@ model MixingVolume
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
     constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
-                                                                          "Geometry"
+                                                                          "Shape and dimensions"
     annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-  Geometry geometry annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
+  Geometry geometry "Shape and dimensions" annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   input SI.Acceleration g_n = Modelica.Constants.g_n "Gravitational acceleration" annotation(Dialog(tab="Advanced",group="Inputs"));
   SI.HeatFlowRate H_flows_a[nPorts_a] "Enthalpy flow rates at port_a";
   SI.MassFlowRate mXi_flows_a[nPorts_a,Medium.nXi]

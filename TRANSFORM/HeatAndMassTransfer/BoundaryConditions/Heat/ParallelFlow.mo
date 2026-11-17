@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model ParallelFlow "Scale flow variables for nParallel streams"
   extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
   parameter Real nParallel = 1 "Flow variable is divided by nParallel";
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_Flow port_1
     "Connector single flow" annotation (Placement(transformation(extent={{-110,
             -10},{-90,10}}, rotation=0)));

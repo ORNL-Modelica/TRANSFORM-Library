@@ -49,7 +49,7 @@ model Deaeratorold
     T_liquid=medium.T,
     T_wall=300,
     Q_loss=0,
-    m=m) annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+    m=m) "Convenience quantities for analysis and visualization" annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Media.BaseProperties2Phase mediaProps(redeclare package Medium = Medium,
       state=medium.state)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -57,7 +57,7 @@ model Deaeratorold
         transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={
             {90,-10},{110,10}})));
   // Visualization
-  parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
+  parameter Boolean showName=true "= true to show the component name on the icon" annotation (Dialog(tab="Visualization"));
 equation
   // Heat Transfer connections
   heatPort.T = medium.T;
