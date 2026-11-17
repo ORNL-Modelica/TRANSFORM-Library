@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.Volumes;
-model SimpleWall_Cylinder "Lumped cylindrical wall between two heat ports"
+model SimpleWall_Cylinder "Lumped cylindrical wall model"
   import Modelica.Fluid.Types.Dynamics;
   input SI.Length length "Length"
     annotation (Dialog(group="Inputs"));

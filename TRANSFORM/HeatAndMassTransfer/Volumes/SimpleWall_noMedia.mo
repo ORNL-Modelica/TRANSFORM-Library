@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.Volumes;
-model SimpleWall_noMedia "Lumped plane wall with properties set as inputs"
+model SimpleWall_noMedia "Lumped plane wall model with properties as inputs"
   import Modelica.Fluid.Types.Dynamics;
   input SI.Length th "Wall thickness"
     annotation (Dialog(group="Inputs"));

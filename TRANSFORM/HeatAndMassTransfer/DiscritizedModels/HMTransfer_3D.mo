@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels;
-model HMTransfer_3D "3-D heat conduction and trace substance diffusion in a solid"
+model HMTransfer_3D "Discretized 3-D heat conduction and trace substance diffusion model"
   import Modelica.Fluid.Types.Dynamics;
   extends Conduction_3D;
   parameter Integer nC = 1 "# of substances";
@@ -14,17 +14,17 @@ model HMTransfer_3D "3-D heat conduction and trace substance diffusion in a soli
       nVs[2],
       nVs[3]) "Start concentration of each volume" annotation (Dialog(tab=
           "Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration; volumes start at the mean of all six"
+  parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration of volumes [1,:,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b1_start[nC]=C_a1_start "Start concentration; volumes start at the mean of all six"
+  parameter SI.Concentration C_b1_start[nC]=C_a1_start "Start concentration of volumes [end,:,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_a2_start[nC]=fill(0,nC) "Start concentration; volumes start at the mean of all six"
+  parameter SI.Concentration C_a2_start[nC]=fill(0,nC) "Start concentration of volumes [:,1,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b2_start[nC]=C_a2_start "Start concentration; volumes start at the mean of all six"
+  parameter SI.Concentration C_b2_start[nC]=C_a2_start "Start concentration of volumes [:,end,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_a3_start[nC]=fill(0,nC) "Start concentration; volumes start at the mean of all six"
+  parameter SI.Concentration C_a3_start[nC]=fill(0,nC) "Start concentration of volumes [:,:,1]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b3_start[nC]=C_a3_start "Start concentration; volumes start at the mean of all six"
+  parameter SI.Concentration C_b3_start[nC]=C_a3_start "Start concentration of volumes [:,:,end]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
   parameter Boolean adiabaticDimsMT[3]={false,false,false}
     "= true to turn off diffusion along dimension {1,2,3}"

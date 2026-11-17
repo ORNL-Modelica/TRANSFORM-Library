@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels;
-model HMTransfer_2D "2-D heat conduction and trace substance diffusion in a solid"
+model HMTransfer_2D "Discretized 2-D heat conduction and trace substance diffusion model"
   import Modelica.Fluid.Types.Dynamics;
   import TRANSFORM.Math.linspaceRepeat_2Dedge;
   extends Conduction_2D;

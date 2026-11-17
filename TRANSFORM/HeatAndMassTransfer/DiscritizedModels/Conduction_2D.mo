@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels;
-model Conduction_2D "Discretized 2-D heat conduction in a solid"
+model Conduction_2D "Discretized 2-D heat conduction model"
   import TRANSFORM.Math.linspace_2Dedge;
   BaseClasses.Dimensions_2.Summary summary(
     T_effective=sum(materials.T .* ms/sum(ms)),

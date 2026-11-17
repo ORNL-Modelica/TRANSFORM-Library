@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels;
-model Conduction_3D "Discretized 3-D heat conduction in a solid"
+model Conduction_3D "Discretized 3-D heat conduction model"
   BaseClasses.Dimensions_3.Summary summary(
     T_effective=sum(materials.T .* ms/sum(ms)),
     T_max=max(materials.T),
@@ -19,19 +19,19 @@ model Conduction_3D "Discretized 3-D heat conduction in a solid"
         nVs[3]));
   // Initialization
   parameter SI.Temperature T_a1_start=Material.T_reference
-    "Start temperature; volumes start at the mean of all six"
+    "Start temperature of volumes [1,:,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.Temperature T_b1_start=T_a1_start "Start temperature; volumes start at the mean of all six"
+  parameter SI.Temperature T_b1_start=T_a1_start "Start temperature of volumes [end,:,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_a2_start=Material.T_reference
-    "Start temperature; volumes start at the mean of all six"
+    "Start temperature of volumes [:,1,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.Temperature T_b2_start=T_a2_start "Start temperature; volumes start at the mean of all six"
+  parameter SI.Temperature T_b2_start=T_a2_start "Start temperature of volumes [:,end,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_a3_start=Material.T_reference
-    "Start temperature; volumes start at the mean of all six"
+    "Start temperature of volumes [:,:,1]"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.Temperature T_b3_start=T_a3_start "Start temperature; volumes start at the mean of all six"
+  parameter SI.Temperature T_b3_start=T_a3_start "Start temperature of volumes [:,:,end]"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter Real nParallel=1 "# of parallel components";
   // Advanced
@@ -719,6 +719,6 @@ equation
           rotation=45)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Heat conduction in three dimensions of a solid that is divided into a grid of volumes. Unlike <code>Conduction_2D</code>, there is no external port: heat enters or leaves only through the boundary ports and <code>InternalHeatModel</code>. Like it, it does not yet support moving material. Behavior shared by the discretized models is in <code>UsersGuide.DiscretizedModels</code>.</p>
+<p>Heat conduction in three dimensions of a solid that is divided into a grid of volumes. Unlike <code>Conduction_2D</code>, there is no external port: heat enters or leaves only through the boundary ports and <code>InternalHeatModel</code>. It does not yet support moving material. Behavior shared by the discretized models is in <code>UsersGuide.DiscretizedModels</code>.</p>
 </html>"));
 end Conduction_3D;
