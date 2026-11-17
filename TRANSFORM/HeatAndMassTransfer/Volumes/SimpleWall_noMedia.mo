@@ -71,7 +71,7 @@ equation
 </ul>
 <h4>Use</h4>
 <ul>
-<li><code>d</code>, <code>cp</code> and <code>lambda</code> are inputs, so they can be expressions of the wall temperature <code>T</code>.</li>
+<li><code>d</code>, <code>cp</code> and <code>lambda</code> are inputs, so they can be expressions of the wall temperature <code>T</code>. The stored energy is <code>m*cp*(T - T_reference)</code>, so where <code>cp</code> depends on <code>T</code>, as the default does, the heat capacity of the wall is not <code>m*cp</code>.</li>
 <li><code>R</code> is split between the ports as in <code>SimpleWall</code>.</li>
 </ul>
 </html>"));

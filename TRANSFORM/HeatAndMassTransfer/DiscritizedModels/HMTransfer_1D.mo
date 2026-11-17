@@ -13,9 +13,9 @@ model HMTransfer_1D "1-D heat conduction and trace substance diffusion in a soli
       C_b1_start,
       nVs[1]) "Trace substance concentration" annotation (Dialog(tab=
           "Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration at the port_a1 end of the linear profile"
+  parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration of volume [1]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b1_start[nC]=C_a1_start "Start concentration at the port_b1 end of the linear profile"
+  parameter SI.Concentration C_b1_start[nC]=C_a1_start "Start concentration of volume [end]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
   replaceable model DiffusionModel =
       BaseClasses.Dimensions_1.ForwardDifferenceMass_1O    constrainedby BaseClasses.Dimensions_1.PartialDistributedMassFlow
@@ -30,7 +30,7 @@ model HMTransfer_1D "1-D heat conduction and trace substance diffusion in a soli
     final lengths_1=lengths_1FM,
     final states_1=statesFM_1,
     final Cs_1=CsFM_1,
-    final D_abs_1=D_absFM_1) "Diffusion between volumes and to mass ports with exposeState=false" annotation (Placement(
+    final D_abs_1=D_absFM_1) "Diffusion between volumes" annotation (Placement(
         transformation(extent={{-58,62},{-42,78}}, rotation=0)));
   replaceable model DiffusionCoeff =
       TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient    constrainedby
@@ -73,10 +73,10 @@ model HMTransfer_1D "1-D heat conduction and trace substance diffusion in a soli
     "Molar flow rates across segment boundaries";
   SI.Concentration C_a1[nC] "Concentration at portM_a1";
   SI.Concentration C_b1[nC] "Concentration at portM_b1";
-  Interfaces.MolePort_Flow portM_a1(nC=nC) "Trace substance port at the start of dimension 1 (exposeState_a1)"
+  Interfaces.MolePort_Flow portM_a1(nC=nC) "Trace substance port of volume [1]"
                                         annotation (Placement(transformation(extent={{-110,
             -50},{-90,-30}}),     iconTransformation(extent={{-110,-50},{-90,-30}})));
-  Interfaces.MolePort_Flow    portM_b1(nC=nC) "Trace substance port at the end of dimension 1 (exposeState_b1)"
+  Interfaces.MolePort_Flow    portM_b1(nC=nC) "Trace substance port of volume [end]"
                                            annotation (Placement(transformation(
           extent={{90,-50},{110,-30}}),
                                       iconTransformation(extent={{90,-50},{110,

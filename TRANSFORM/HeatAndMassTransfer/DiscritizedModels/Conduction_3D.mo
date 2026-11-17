@@ -66,7 +66,7 @@ model Conduction_3D "Discretized 3-D heat conduction in a solid"
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_3D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_3D
     "Geometry" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-  Geometry geometry "Shape, size and division into volumes"
+  Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   parameter Boolean adiabaticDims[3]={false,false,false}
     "= true to turn off conduction along dimension {1,2,3}"
@@ -91,25 +91,25 @@ model Conduction_3D "Discretized 3-D heat conduction in a solid"
     final lengths_3=lengths_3FM,
     final states_1=statesFM_1,
     final states_2=statesFM_2,
-    final states_3=statesFM_3) "Heat conduction between volumes and to ports with exposeState=false" annotation (Placement(
+    final states_3=statesFM_3) "Heat conduction between volumes" annotation (Placement(
         transformation(extent={{-58,82},{-42,98}}, rotation=0)));
-  Interfaces.HeatPort_Flow port_a1[nVs[2],nVs[3]] "Heat ports at the start of dimension 1" annotation (Placement(
+  Interfaces.HeatPort_Flow port_a1[nVs[2],nVs[3]] "Heat ports of volumes [1,:,:]" annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent=
            {{-110,-10},{-90,10}})));
   Interfaces.HeatPort_Flow                                  port_b1[nVs[2],nVs[
-    3]] "Heat ports at the end of dimension 1" annotation (Placement(transformation(extent={{90,-10},{110,10}}),
+    3]] "Heat ports of volumes [end,:,:]" annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-  Interfaces.HeatPort_Flow port_a2[nVs[1],nVs[3]] "Heat ports at the start of dimension 2" annotation (Placement(
+  Interfaces.HeatPort_Flow port_a2[nVs[1],nVs[3]] "Heat ports of volumes [:,1,:]" annotation (Placement(
         transformation(extent={{-10,-110},{10,-90}}), iconTransformation(extent=
            {{-10,-110},{10,-90}})));
   Interfaces.HeatPort_Flow                                  port_b2[nVs[1],nVs[
-    3]] "Heat ports at the end of dimension 2" annotation (Placement(transformation(extent={{-10,90},{10,110}}),
+    3]] "Heat ports of volumes [:,end,:]" annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
-  Interfaces.HeatPort_Flow port_a3[nVs[1],nVs[2]] "Heat ports at the start of dimension 3" annotation (Placement(
+  Interfaces.HeatPort_Flow port_a3[nVs[1],nVs[2]] "Heat ports of volumes [:,:,1]" annotation (Placement(
         transformation(extent={{-90,-90},{-70,-70}}), iconTransformation(extent=
            {{-90,-90},{-70,-70}})));
   Interfaces.HeatPort_Flow                                  port_b3[nVs[1],nVs[
-    2]] "Heat ports at the end of dimension 3" annotation (Placement(transformation(extent={{70,70},{90,90}}),
+    2]] "Heat ports of volumes [:,:,end]" annotation (Placement(transformation(extent={{70,70},{90,90}}),
         iconTransformation(extent={{70,70},{90,90}})));
   replaceable model InternalHeatModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_3.GenericHeatGeneration
@@ -135,17 +135,17 @@ model Conduction_3D "Discretized 3-D heat conduction in a solid"
   SI.HeatFlowRate Q_flows_3[nVs[1],nVs[2],nVs[3] + 1]
     "Heat flow rates across dimension-3 segment boundaries";
   Material.ThermodynamicState state_a1[nVs[2],nVs[3]]
-    "Material states at the port_a1 temperatures";
+    "States at the port_a1 temperatures";
   Material.ThermodynamicState state_b1[nVs[2],nVs[3]]
-    "Material states at the port_b1 temperatures";
+    "States at the port_b1 temperatures";
   Material.ThermodynamicState state_a2[nVs[1],nVs[3]]
-    "Material states at the port_a2 temperatures";
+    "States at the port_a2 temperatures";
   Material.ThermodynamicState state_b2[nVs[1],nVs[3]]
-    "Material states at the port_b2 temperatures";
+    "States at the port_b2 temperatures";
   Material.ThermodynamicState state_a3[nVs[1],nVs[2]]
-    "Material states at the port_a3 temperatures";
+    "States at the port_a3 temperatures";
   Material.ThermodynamicState state_b3[nVs[1],nVs[2]]
-    "Material states at the port_b3 temperatures";
+    "States at the port_b3 temperatures";
   parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 protected
   Material.ThermodynamicState statesFM_1[nFM_1 + 1,nVs[2],nVs[3]];
@@ -719,6 +719,6 @@ equation
           rotation=45)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Heat conduction in three dimensions of a solid that is divided into a grid of volumes. Unlike <code>Conduction_2D</code>, there is no external port: heat enters or leaves only through the boundary ports and <code>InternalHeatModel</code>. Behavior shared by the discretized models is in <code>UsersGuide.DiscretizedModels</code>.</p>
+<p>Heat conduction in three dimensions of a solid that is divided into a grid of volumes. Unlike <code>Conduction_2D</code>, there is no external port: heat enters or leaves only through the boundary ports and <code>InternalHeatModel</code>. Like it, it does not yet support moving material. Behavior shared by the discretized models is in <code>UsersGuide.DiscretizedModels</code>.</p>
 </html>"));
 end Conduction_3D;

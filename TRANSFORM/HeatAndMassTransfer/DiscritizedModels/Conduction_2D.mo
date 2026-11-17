@@ -22,14 +22,14 @@ model Conduction_2D "Discretized 2-D heat conduction in a solid"
         {exposeState_b2,exposeState_a1,exposeState_a2,exposeState_b1}));
   // Initialization
   parameter SI.Temperature T_a1_start=Material.T_reference
-    "Start temperature at the port_a1 edge (interpolated)"
+    "Start temperature of volumes [1,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.Temperature T_b1_start=T_a1_start "Start temperature at the port_b1 edge (interpolated)"
+  parameter SI.Temperature T_b1_start=T_a1_start "Start temperature of volumes [end,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_a2_start=Material.T_reference
-    "Start temperature at the port_a2 edge (interpolated)"
+    "Start temperature of volumes [:,1]"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
-  parameter SI.Temperature T_b2_start=T_a2_start "Start temperature at the port_b2 edge (interpolated)"
+  parameter SI.Temperature T_b2_start=T_a2_start "Start temperature of volumes [:,end]"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter Real nParallel=1 "# of parallel components";
   // Advanced
@@ -55,7 +55,7 @@ model Conduction_2D "Discretized 2-D heat conduction in a solid"
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.Plane_2D
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.Geometry.Models.PartialGeometry_2D
     "Geometry" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-  Geometry geometry "Shape, size and division into volumes"
+  Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   parameter Boolean adiabaticDims[2]={false,false}
     "= true to turn off conduction along dimension {1,2}"
@@ -76,7 +76,7 @@ model Conduction_2D "Discretized 2-D heat conduction in a solid"
     final lengths_1=lengths_1FM,
     final lengths_2=lengths_2FM,
     final states_1=statesFM_1,
-    final states_2=statesFM_2) "Heat conduction between volumes and to ports with exposeState=false" annotation (Placement(
+    final states_2=statesFM_2) "Heat conduction between volumes" annotation (Placement(
         transformation(extent={{-58,82},{-42,98}}, rotation=0)));
   replaceable model InternalHeatModel =
       TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.GenericHeatGeneration
@@ -93,16 +93,16 @@ model Conduction_2D "Discretized 2-D heat conduction in a solid"
     final lengths_2=geometry.dlengths_2,
     final states=materials.state) "Internal heat generation model" annotation (
       Placement(transformation(extent={{-38,82},{-22,98}}, rotation=0)));
-  Interfaces.HeatPort_Flow port_a1[nVs[2]] "Heat ports at the start of dimension 1" annotation (Placement(transformation(
+  Interfaces.HeatPort_Flow port_a1[nVs[2]] "Heat ports of volumes [1,:]" annotation (Placement(transformation(
           extent={{-110,-10},{-90,10}}), iconTransformation(extent={{-110,-10},
             {-90,10}})));
-  Interfaces.HeatPort_Flow                                  port_b1[nVs[2]] "Heat ports at the end of dimension 1"
+  Interfaces.HeatPort_Flow                                  port_b1[nVs[2]] "Heat ports of volumes [end,:]"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}),
         iconTransformation(extent={{90,-10},{110,10}})));
-  Interfaces.HeatPort_Flow port_a2[nVs[1]] "Heat ports at the start of dimension 2" annotation (Placement(transformation(
+  Interfaces.HeatPort_Flow port_a2[nVs[1]] "Heat ports of volumes [:,1]" annotation (Placement(transformation(
           extent={{-10,-110},{10,-90}}), iconTransformation(extent={{-10,-110},
             {10,-90}})));
-  Interfaces.HeatPort_Flow                                  port_b2[nVs[1]] "Heat ports at the end of dimension 2"
+  Interfaces.HeatPort_Flow                                  port_b2[nVs[1]] "Heat ports of volumes [:,end]"
     annotation (Placement(transformation(extent={{-10,90},{10,110}}),
         iconTransformation(extent={{-10,90},{10,110}})));
   Interfaces.HeatPort_State port_external[nVs[1],nVs[2]]
@@ -114,13 +114,13 @@ model Conduction_2D "Discretized 2-D heat conduction in a solid"
   SI.HeatFlowRate Q_flows_2[nVs[1],nVs[2] + 1]
     "Heat flow rates across dimension-2 segment boundaries";
   Material.ThermodynamicState state_a1[nVs[2]]
-    "Material states at the port_a1 temperatures";
+    "States at the port_a1 temperatures";
   Material.ThermodynamicState state_b1[nVs[2]]
-    "Material states at the port_b1 temperatures";
+    "States at the port_b1 temperatures";
   Material.ThermodynamicState state_a2[nVs[1]]
-    "Material states at the port_a2 temperatures";
+    "States at the port_a2 temperatures";
   Material.ThermodynamicState state_b2[nVs[1]]
-    "Material states at the port_b2 temperatures";
+    "States at the port_b2 temperatures";
   parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 //   parameter Boolean connectDim_1 = true "=false to remove automatic connection based on closed geometry" annotation(Dialog(tab="Advanced"));
 //   parameter Boolean connectDim_2 = true "=false to remove automatic connection based on closed geometry" annotation(Dialog(tab="Advanced"));
@@ -515,6 +515,6 @@ equation
           rotation=90)}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Heat conduction in two dimensions of a solid that is divided into a grid of volumes. Unlike <code>Conduction_1D</code>, it has no <code>velocity_1</code>: the material does not move, and no enthalpy is carried between volumes. Behavior shared by the discretized models is in <code>UsersGuide.DiscretizedModels</code>.</p>
+<p>Heat conduction in two dimensions of a solid that is divided into a grid of volumes. Unlike <code>Conduction_1D</code>, it does not yet support moving material: there is no <code>velocity_1</code>. Behavior shared by the discretized models is in <code>UsersGuide.DiscretizedModels</code>.</p>
 </html>"));
 end Conduction_2D;

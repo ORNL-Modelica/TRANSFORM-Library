@@ -18,13 +18,13 @@ model HMTransfer_2D "2-D heat conduction and trace substance diffusion in a soli
       {exposeState_b2,exposeState_a1,exposeState_a2,exposeState_b1})
     "Trace substance concentration" annotation (Dialog(tab="Initialization",
         group="Start Value: Concentration"));
-  parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration at the portM_a1 edge (interpolated)"
+  parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration of volumes [1,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b1_start[nC]=C_a1_start "Start concentration at the portM_b1 edge (interpolated)"
+  parameter SI.Concentration C_b1_start[nC]=C_a1_start "Start concentration of volumes [end,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_a2_start[nC]=fill(0,nC) "Start concentration at the portM_a2 edge (interpolated)"
+  parameter SI.Concentration C_a2_start[nC]=fill(0,nC) "Start concentration of volumes [:,1]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b2_start[nC]=C_a2_start "Start concentration at the portM_b2 edge (interpolated)"
+  parameter SI.Concentration C_b2_start[nC]=C_a2_start "Start concentration of volumes [:,end]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
   parameter Boolean adiabaticDimsMT[2]={false,false}
     "= true to turn off diffusion along dimension {1,2}"
@@ -49,7 +49,7 @@ model HMTransfer_2D "2-D heat conduction and trace substance diffusion in a soli
     final Cs_1=CsFM_1,
     final Cs_2=CsFM_2,
     final D_abs_1=D_absFM_1,
-    final D_abs_2=D_absFM_2) "Diffusion between volumes and to mass ports with exposeState=false" annotation (Placement(
+    final D_abs_2=D_absFM_2) "Diffusion between volumes" annotation (Placement(
         transformation(extent={{-58,62},{-42,78}}, rotation=0)));
   replaceable model DiffusionCoeff =
       TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient    constrainedby
@@ -102,21 +102,21 @@ model HMTransfer_2D "2-D heat conduction and trace substance diffusion in a soli
     "Concentration at portM_a2";
   SI.Concentration C_b2[nVs[1],nC]
     "Concentration at portM_b2";
-  Interfaces.MolePort_Flow portM_a1[nVs[2]](each nC=nC) "Trace substance ports at the start of dimension 1 (exposeState_a1)"
+  Interfaces.MolePort_Flow portM_a1[nVs[2]](each nC=nC) "Trace substance ports of volumes [1,:]"
                                             annotation (Placement(
         transformation(extent={{-110,-50},{-90,-30}}),
                                                      iconTransformation(extent=
             {{-110,-50},{-90,-30}})));
-  Interfaces.MolePort_Flow    portM_b1[nVs[2]](each nC=nC) "Trace substance ports at the end of dimension 1 (exposeState_b1)"
+  Interfaces.MolePort_Flow    portM_b1[nVs[2]](each nC=nC) "Trace substance ports of volumes [end,:]"
                                                annotation (Placement(
         transformation(extent={{90,-50},{110,-30}}),
                                                    iconTransformation(extent={{
             90,-50},{110,-30}})));
-  Interfaces.MolePort_Flow portM_a2[nVs[1]](each nC=nC) "Trace substance ports at the start of dimension 2 (exposeState_a2)"
+  Interfaces.MolePort_Flow portM_a2[nVs[1]](each nC=nC) "Trace substance ports of volumes [:,1]"
                                             annotation (Placement(
         transformation(extent={{30,-110},{50,-90}}), iconTransformation(extent=
             {{30,-108},{50,-88}})));
-  Interfaces.MolePort_Flow    portM_b2[nVs[1]](each nC=nC) "Trace substance ports at the end of dimension 2 (exposeState_b2)"
+  Interfaces.MolePort_Flow    portM_b2[nVs[1]](each nC=nC) "Trace substance ports of volumes [:,end]"
                                                annotation (Placement(
         transformation(extent={{30,90},{50,110}}), iconTransformation(extent={{
             30,90},{50,110}})));
