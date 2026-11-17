@@ -4,7 +4,7 @@ Fixes #
 ### Type
 - [ ] Bug fix
 - [ ] New feature
-- [ ] Rename or deprecation, with the old name kept working (see [CONTRIBUTING.md](https://github.com/ORNL-Modelica/TRANSFORM-Library/blob/main/CONTRIBUTING.md))
+- [ ] Rename or deprecation, with the old name kept working (see [CONTRIBUTING.md](https://github.com/WyrdLab/TRANSFORM-Library/blob/main/CONTRIBUTING.md))
 - [ ] Removal or other breaking change; waits for a major release
 
 ### How it was tested

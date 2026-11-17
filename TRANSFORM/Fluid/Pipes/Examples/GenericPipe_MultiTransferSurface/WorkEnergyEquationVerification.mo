@@ -527,6 +527,6 @@ equation
     Diagram(coordinateSystem(extent={{-280,-120},{280,120}})),
     Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
     Documentation(info="<html>
-<p>See marchermao: https://github.com/ORNL-Modelica/TRANSFORM-Library/issues/105</p>
+<p>See marchermao: https://github.com/WyrdLab/TRANSFORM-Library/issues/105</p>
 </html>"));
 end WorkEnergyEquationVerification;
