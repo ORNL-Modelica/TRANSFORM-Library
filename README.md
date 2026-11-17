@@ -18,11 +18,11 @@ Optional libraries, needed only by the models that use them:
 
 ## Related Training
 
-For training related to TRANSFORM, please see the [TRANSFORM Training repository](https://github.com/ORNL-Modelica/TRANSFORM-Training)
+For training related to TRANSFORM, please see the [TRANSFORM Training repository](https://github.com/WyrdLab/TRANSFORM-Training)
 
 ### Check that the Library is working
 
-- The regression tests and their reference results live in [TRANSFORM-UnitTests](https://github.com/ORNL-Modelica/TRANSFORM-UnitTests). They run with [DSTF](https://github.com/ORNL-Modelica/DynamicSystemsTestingFramework) (Dynamic Systems Testing Framework); see the TRANSFORM-UnitTests README for the commands.
+- The regression tests and their reference results live in [TRANSFORM-UnitTests](https://github.com/WyrdLab/TRANSFORM-UnitTests). They run with [DSTF](https://github.com/WyrdLab/DynamicSystemsTestingFramework) (Dynamic Systems Testing Framework); see the TRANSFORM-UnitTests README for the commands.
 
 ## License
 
@@ -44,4 +44,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for how to change the library without bre
 Prior to issuing a pull request, make sure your code follows the conventions in `TRANSFORM.UsersGuide.Conventions` (the Conventions package of the User's Guide inside the library, [TRANSFORM/UsersGuide/Conventions](TRANSFORM/UsersGuide/Conventions)). Its Checklist page lists what to check.
 
 ## Citation
-Greenwood, M. S.. TRANSFORM - TRANsient Simulation Framework of Reconfigurable Models. Computer Software. https://github.com/ORNL-Modelica/TRANSFORM-Library. USDOE. 26 Sep. 2017. Web. doi:10.11578/dc.20171025.2022.
+Greenwood, M. S.. TRANSFORM - TRANsient Simulation Framework of Reconfigurable Models. Computer Software. https://github.com/WyrdLab/TRANSFORM-Library. USDOE. 26 Sep. 2017. Web. doi:10.11578/dc.20171025.2022.
