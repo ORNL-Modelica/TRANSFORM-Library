@@ -6,7 +6,7 @@ partial model PartialResistance
   SI.PressureDifference dp;
   SI.MassFlowRate m_flow;
 
-  parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
+  parameter Boolean showName=true "= true to show the component name on the icon" annotation (Dialog(tab="Visualization"));
 
   parameter Boolean showDP=true annotation (Dialog(tab="Visualization"));
   parameter Integer precision(min=0) = 3 "Number of decimals displayed" annotation (Dialog(tab="Visualization"));

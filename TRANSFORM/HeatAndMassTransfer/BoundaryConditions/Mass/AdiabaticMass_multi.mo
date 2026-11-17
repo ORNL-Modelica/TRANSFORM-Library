@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Mass;
 model AdiabaticMass_multi "Adiabatic boundary condition"
   parameter Integer nPorts=1 "# of ports";
   parameter Integer nC = 1 "# of substances";
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   Interfaces.MolePort_Flow port[nPorts](each nC=nC) annotation (Placement(transformation(
           extent={{90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,
             10}})));

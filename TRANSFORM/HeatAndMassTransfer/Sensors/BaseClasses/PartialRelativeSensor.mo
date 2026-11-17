@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Sensors.BaseClasses;
 model PartialRelativeSensor
   "Partial component to model a sensor that measures the difference between two potential variables"
-  parameter Boolean showName=true "= false to hide component name"
+  parameter Boolean showName=true "= true to show the component name on the icon"
     annotation (Dialog(tab="Visualization"));
   TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_Flow port_a
     "Heat connector a (positive design flow direction is from port_a to port_b)"

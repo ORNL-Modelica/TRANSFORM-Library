@@ -5,7 +5,7 @@ model HeatFlow_multi "Heat flow boundary condition"
   annotation(Evaluate=true, HideResult=true, choices(checkBox=true));
   parameter SI.HeatFlowRate Q_flow[nPorts]=fill(0,nPorts) "Heat flow rate at port"             annotation(Dialog(                        enable=not
           use_port));
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   Modelica.Blocks.Interfaces.RealInput Q_flow_ext[nPorts](each unit="W") if use_port
                                                                          annotation (Placement(transformation(
           extent={{-60,-20},{-20,20}}), iconTransformation(extent={{-60,-20},{

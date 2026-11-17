@@ -25,7 +25,7 @@ model PipeLoss
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.Circle
     constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.PipeLossResistance.PartialGeometry
     annotation (choicesAllMatching=true);
-  Geometry geometry annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
+  Geometry geometry "Shape and dimensions" annotation (Placement(transformation(extent={{-96,84},{-84,96}})));
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
     annotation (Dialog(group="Inputs"));
   input SItf.NonDim K_ab=0 "Minor loss coefficient. Flow in direction a -> b"

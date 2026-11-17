@@ -75,7 +75,7 @@ model TraceDecayAdsorberBed
   SI.EnthalpyFlowRate H_flows[nV + 1]
     "Enthalpy flow rate across volumes due to fluid flow";
   SI.Pressure ps[nV] "Pressure of volumes";
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   parameter Boolean use_HeatPort = false "=true to toggle heat port" annotation(Dialog(tab="Advanced"),Evaluate=true);
   HeatAndMassTransfer.Interfaces.HeatPort_State[nV] heatPorts(T=Ts_adsorber, Q_flow=
         Q_flows_internal) if use_HeatPort

@@ -9,7 +9,7 @@ partial model PartialResistancenew
   parameter Boolean allowFlowReversal=true
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation (Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean showName=true "= false to hide component name"
+  parameter Boolean showName=true "= true to show the component name on the icon"
     annotation (Dialog(tab="Visualization"));
 
   parameter SI.MassFlowRate m_flow_start=0 "Initial mass flow rate"

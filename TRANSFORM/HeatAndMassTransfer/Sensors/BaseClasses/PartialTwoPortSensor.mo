@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Sensors.BaseClasses;
 partial model PartialTwoPortSensor
-  parameter Boolean showName=true "= false to hide component name"
+  parameter Boolean showName=true "= true to show the component name on the icon"
     annotation (Dialog(tab="Visualization"));
   TRANSFORM.HeatAndMassTransfer.Interfaces.HeatPort_Flow port_a
     "Heat connector a (positive design flow direction is from port_a to port_b)"

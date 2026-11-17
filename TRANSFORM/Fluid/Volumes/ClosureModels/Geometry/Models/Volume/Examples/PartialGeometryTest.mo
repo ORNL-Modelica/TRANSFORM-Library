@@ -21,7 +21,7 @@ partial model PartialGeometryTest
   constant SI.Volume Volume_total_Exp;
   constant SItf.NonDim dxs_Exp;
   constant SI.Area surfaceArea_total_Exp;
-  replaceable PartialGeometry geometry
+  replaceable PartialGeometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

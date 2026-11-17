@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat;
 model Adiabatic "Adiabatic boundary condition"
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   Interfaces.HeatPort_Flow port annotation (Placement(transformation(extent={{
             90,-10},{110,10}}), iconTransformation(extent={{90,-10},{110,10}})));
 equation

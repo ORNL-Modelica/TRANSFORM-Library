@@ -27,8 +27,8 @@ model Regions_3
   replaceable model Geometry =
       ClosureRelations.Geometry.Models.CoreSubchannels.Generic
     constrainedby ClosureRelations.Geometry.Models.CoreSubchannels.Generic
-    "Geometry" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-  Geometry geometry(final nRegions=3)
+    "Shape and dimensions" annotation (Dialog(group="Geometry"),choicesAllMatching=true);
+  Geometry geometry(final nRegions=3) "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   replaceable model FlowModel =
       TRANSFORM.Fluid.ClosureRelations.PressureLoss.Models.DistributedPipe_1D.SinglePhase_Developed_2Region_NumStable
@@ -323,7 +323,7 @@ model Regions_3
     "=true to take port properties for flow models from internal control volumes"
     annotation (Dialog(tab="Advanced", group="Coolant"), Evaluate=true);
   // Visualization
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
   Real SF_mC_add[geometry.nV,Medium.nC] = {{coolantSubchannel.mCs[i, j]/sum(coolantSubchannel.mCs[:, j]) for j in 1:Medium.nC} for i in 1:geometry.nV};
   Modelica.Blocks.Sources.RealExpression Q_total(y=kinetics.Q_total)

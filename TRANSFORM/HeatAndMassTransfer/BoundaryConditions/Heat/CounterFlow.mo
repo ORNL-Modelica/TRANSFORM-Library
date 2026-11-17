@@ -4,7 +4,7 @@ model CounterFlow
   parameter Integer n=0 "# of connected elements";// annotation(Dialog(connectorSizing=true));
   parameter Boolean counterCurrent=false
     "Swap temperature and flux vector order";
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   Interfaces.HeatPort_Flow port_a[n]
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   Interfaces.HeatPort_Flow port_b[n]

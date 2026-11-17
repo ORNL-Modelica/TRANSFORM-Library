@@ -9,9 +9,9 @@ model GenericPipe_withWall
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.StraightPipe
     constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.Pipe_Wall.PartialPipeWithWall
-                                                                                      "Geometry"
+                                                                                      "Shape and dimensions"
     annotation (Dialog(group="Geometry"),choicesAllMatching=true);
-  Geometry geometry
+  Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
   extends BaseClasses.GenericPipe_Record_multiSurface(
     final nV=pipe.geometry.nV,
@@ -152,7 +152,7 @@ model GenericPipe_withWall
     geometry.nZ]                                                    if not use_HeatTransfer
     annotation (Placement(transformation(extent={{60,-62},{40,-42}})));
   // Visualization
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
   extends TRANSFORM.Utilities.Visualizers.IconColorMap(showColors=systemTF.showColors, val_min=systemTF.val_min,val_max=systemTF.val_max, val=pipe.summary.T_effective);
   HeatAndMassTransfer.Interfaces.HeatPort_Flow heatPorts_add[geometry.nZ,

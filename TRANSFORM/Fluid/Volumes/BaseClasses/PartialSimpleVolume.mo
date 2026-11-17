@@ -20,9 +20,9 @@ model PartialSimpleVolume
   replaceable model Geometry =
       TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
     constrainedby TRANSFORM.Fluid.ClosureRelations.Geometry.Models.LumpedVolume.GenericVolume
-    "Geometry" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
+    "Shape and dimensions" annotation (Dialog(group="Geometry"), choicesAllMatching=true);
 
-  Geometry geometry
+  Geometry geometry "Shape and dimensions"
     annotation (Placement(transformation(extent={{-78,82},{-62,98}})));
 
   input SI.Acceleration g_n=Modelica.Constants.g_n "Gravitational acceleration"
@@ -55,7 +55,7 @@ model PartialSimpleVolume
             30,-50},{50,-30}})));
 
   // Visualization
-  parameter Boolean showName=true annotation (Dialog(tab="Visualization"));
+  parameter Boolean showName=true "= true to show the component name on the icon" annotation (Dialog(tab="Visualization"));
 
 protected
   SI.HeatFlowRate Q_flow_internal;

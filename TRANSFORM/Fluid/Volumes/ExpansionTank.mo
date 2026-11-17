@@ -93,7 +93,7 @@ model ExpansionTank "Expansion tank with cover gas"
     annotation (Placement(transformation(extent={{30,-86},{50,-66}}),
         iconTransformation(extent={{30,-86},{50,-66}})));
   // Visualization
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 protected
   SI.HeatFlowRate Q_flow_internal;
   SItf.ExtraPropertyFlowRate mC_flow_internal[Medium.nC];

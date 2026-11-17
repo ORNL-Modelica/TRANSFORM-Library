@@ -78,7 +78,7 @@ partial model PartialPump_Simple
   SI.Power W_ideal=dh_ideal*m_flow "Ideal pumping power required";
   SI.Power Ub "Energy balance";
 
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 equation
   // Port states
   state_a = Medium.setState_phX(

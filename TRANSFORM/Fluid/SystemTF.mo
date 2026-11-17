@@ -59,7 +59,7 @@ model SystemTF
   parameter SI.MassFlowRate m_flow_start = 0 "Mass flow rate"
     annotation (Dialog(tab="Initialization", group="Start Value: Mass Flow Rate"));
   // Visualization
-  parameter Boolean showName = true annotation(Dialog(tab="Visualization"));
+  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
   parameter Boolean showDesignFlowDirection = true annotation(Dialog(tab="Visualization"));
   parameter Boolean showColors = false "Toggle dynamic color display"  annotation(Dialog(tab="Visualization",group="Color Coding"));
   input Real val_min = 293.15 "val <= val_min is mapped to colorMap[1,:]" annotation(Dialog(tab="Visualization",group="Color Coding",enable=showColors));
