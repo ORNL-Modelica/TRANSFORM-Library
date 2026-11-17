@@ -21,6 +21,7 @@ class Descriptions "Description strings"
 <h4>Content</h4>
 <ul>
 <li>It says what the thing is in this model. It does not repeat the type, the default value or the expression it is bound to.</li>
+<li>It may restate the name in words, since it is read where the name is not shown, but it must add something the name does not say: <code>\"Start temperature of volume [1]\"</code> for <code>T_a1_start</code>, not <code>\"Geometry\"</code> for <code>geometry</code>.</li>
 <li>It is the shortest phrase that keeps the meaning. Drop articles and \"of the\": <code>\"Heated section length\"</code>, not <code>\"Length of the heated section\"</code>.</li>
 <li>Shorter stops where meaning is lost. Keep every word that tells this thing apart from its neighbours, and do not shorten a word to letters a reader has to decode.</li>
 <li>A count is written <code>\"# of ...\"</code>: <code>\"# of parallel components\"</code>.</li>
