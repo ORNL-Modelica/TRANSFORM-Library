@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_1;
-model BackwardDifferenceMass_1O
+model BackwardDifferenceMass_1O "Diffusion by first-order difference between nodes"
   extends PartialDistributedMassFlow;
 equation
   for ic in 1:nC loop

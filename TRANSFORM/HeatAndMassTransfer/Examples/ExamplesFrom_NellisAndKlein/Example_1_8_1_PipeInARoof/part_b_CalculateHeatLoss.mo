@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_8_1_PipeInARoof;
 model part_b_CalculateHeatLoss
-  "Part a) Determine temperature distribution and heat loss from the pipe"
+  "Part b) Determine the temperature distribution in the roof and the heat loss from the pipe"
   import TRANSFORM;
   extends Icons.Example;
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.Temperature T_pipe(T=

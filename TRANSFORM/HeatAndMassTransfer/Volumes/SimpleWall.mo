@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.Volumes;
-model SimpleWall
+model SimpleWall "Lumped plane wall model"
   import Modelica.Fluid.Types.Dynamics;
   input SI.Length th "Wall thickness"
     annotation (Dialog(group="Inputs"));
@@ -13,18 +13,18 @@ model SimpleWall
     annotation (Dialog(group="Inputs"));
   // Advanced
   parameter Boolean exposeState_a=false
-    "=true, T is calculated at port_a1 else Q_flow"
+    "= true to define T at port_a, false to define Q_flow"
     annotation (Dialog(group="Model Structure", tab="Advanced"));
   parameter Boolean exposeState_b=false
-    "=true, T is calculated at port_b1 else Q_flow"
+    "= true to define T at port_b, false to define Q_flow"
     annotation (Dialog(group="Model Structure", tab="Advanced"));
-  Interfaces.HeatPort_Flow port_a(T(start=T_start)) annotation (Placement(
+  Interfaces.HeatPort_Flow port_a(T(start=T_start)) "Heat port at one face of the wall" annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}), iconTransformation(extent=
            {{-110,-10},{-90,10}})));
-  Interfaces.HeatPort_Flow port_b(T(start=T_start)) annotation (Placement(
+  Interfaces.HeatPort_Flow port_b(T(start=T_start)) "Heat port at the opposite face of the wall" annotation (Placement(
         transformation(extent={{90,-10},{110,10}}), iconTransformation(extent={{
             90,-10},{110,10}})));
-  SI.ThermalConductivity lambda = Material.thermalConductivity(material.state);
+  SI.ThermalConductivity lambda = Material.thermalConductivity(material.state) "Thermal conductivity";
 equation
   Ub = port_a.Q_flow + port_b.Q_flow + Q_gen;
   if exposeState_a and exposeState_b then
@@ -59,5 +59,16 @@ equation
           extent={{-80,80},{80,-80}},
           lineColor={0,0,0},
           fillColor={175,175,175},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+    Documentation(info="<html>
+<p>Plane wall with one temperature, between two heat ports. <code>SimpleWall_Cylinder</code> is the same model for a cylindrical wall, <code>SimpleWall_noMedia</code> takes the properties as inputs instead, and <code>Conduction_1D</code> divides a wall into several volumes.</p>
+<h4>Assumptions and limits</h4>
+<ul>
+<li>The energy balance has no term for the mass that a change of <code>th</code> or <code>surfaceArea</code> adds or removes during a run.</li>
+</ul>
+<h4>Use</h4>
+<ul>
+<li>With <code>exposeState_a</code> and <code>exposeState_b</code> both false, each port is joined to the wall temperature through half of <code>R</code>. With one of them true, that port is at the wall temperature and the other is joined to it through all of <code>R</code>; with both true, <code>R</code> is not used.</li>
+</ul>
+</html>"));
 end SimpleWall;

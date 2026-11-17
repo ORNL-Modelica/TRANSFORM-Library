@@ -9,7 +9,7 @@ partial model PartialVolume_noMedia
   parameter SI.Temperature T_start=298.15 "Temperature"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   parameter SI.Temperature T_reference=273.15
-    "Reference temperature for zero enthalpy"
+    "Reference temperature for zero internal energy"
     annotation (Dialog(tab="Advanced"));
   input SI.Density d "Density" annotation (Dialog(group="Inputs"));
   input SI.SpecificHeatCapacity cp "Specific heat capacity"
@@ -20,7 +20,7 @@ partial model PartialVolume_noMedia
   SI.InternalEnergy U "Internal energy";
   // Energy Balance
   SI.HeatFlowRate Ub
-    "Energy source/sinks within volumes (e.g., ohmic heating, external convection)";
+    "Net heat flow rate into the volume";
 initial equation
   if energyDynamics == Dynamics.SteadyStateInitial then
     der(U) = 0;

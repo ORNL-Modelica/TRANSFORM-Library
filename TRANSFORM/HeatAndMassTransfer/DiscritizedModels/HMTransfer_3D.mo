@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.DiscritizedModels;
-model HMTransfer_3D
+model HMTransfer_3D "Discretized 3-D heat conduction and trace substance diffusion model"
   import Modelica.Fluid.Types.Dynamics;
   extends Conduction_3D;
   parameter Integer nC = 1 "# of substances";
@@ -12,22 +12,22 @@ model HMTransfer_3D
         C_b3_start)/6,
       nVs[1],
       nVs[2],
-      nVs[3]) "Trace substance concentration" annotation (Dialog(tab=
+      nVs[3]) "Start concentration of each volume" annotation (Dialog(tab=
           "Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Concentration at portM_a1"
+  parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration of volumes [1,:,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b1_start[nC]=C_a1_start "Concentration at portM_b1"
+  parameter SI.Concentration C_b1_start[nC]=C_a1_start "Start concentration of volumes [end,:,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_a2_start[nC]=fill(0,nC) "Concentration at portM_a2"
+  parameter SI.Concentration C_a2_start[nC]=fill(0,nC) "Start concentration of volumes [:,1,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b2_start[nC]=C_a2_start "Concentration at portM_b2"
+  parameter SI.Concentration C_b2_start[nC]=C_a2_start "Start concentration of volumes [:,end,:]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_a3_start[nC]=fill(0,nC) "Concentration at portM_a2"
+  parameter SI.Concentration C_a3_start[nC]=fill(0,nC) "Start concentration of volumes [:,:,1]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
-  parameter SI.Concentration C_b3_start[nC]=C_a3_start "Concentration at portM_b2"
+  parameter SI.Concentration C_b3_start[nC]=C_a3_start "Start concentration of volumes [:,:,end]"
     annotation (Dialog(tab="Initialization", group="Start Value: Concentration"));
   parameter Boolean adiabaticDimsMT[3]={false,false,false}
-    "=true, toggle off diffusive mass transfer in dimension {1,2,3}"
+    "= true to turn off diffusion along dimension {1,2,3}"
     annotation (Dialog(group="Trace Mass Transfer"));
   replaceable model DiffusionModel =
       BaseClasses.Dimensions_3.ForwardDifferenceMass_1O constrainedby BaseClasses.Dimensions_3.PartialDistributedMassFlow
@@ -55,16 +55,16 @@ model HMTransfer_3D
     final Cs_3=CsFM_3,
     final D_abs_1=D_absFM_1,
     final D_abs_2=D_absFM_2,
-    final D_abs_3=D_absFM_3) "Diffusion Model" annotation (Placement(
+    final D_abs_3=D_absFM_3) "Diffusion between volumes" annotation (Placement(
         transformation(extent={{-58,62},{-42,78}}, rotation=0)));
   replaceable model DiffusionCoeff =
       TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.GenericCoefficient    constrainedby
     TRANSFORM.Media.ClosureModels.MassDiffusionCoefficient.Models.PartialMassDiffusionCoefficient
-    "Diffusion Coefficient" annotation (Dialog(group="Trace Mass Transfer"),
+    "Diffusion coefficient" annotation (Dialog(group="Trace Mass Transfer"),
       choicesAllMatching=true);
   DiffusionCoeff diffusionCoeff[nVs[1],nVs[2],nVs[3]](
     each final nC=nC,
-    final T=materials.T) "Diffusion Coefficient" annotation (Placement(
+    final T=materials.T) "Diffusion coefficient in each volume at its temperature" annotation (Placement(
         transformation(extent={{-38,42},{-22,58}}, rotation=0)));
   replaceable model InternalMassModel =
       BaseClasses.Dimensions_3.GenericMassGeneration constrainedby BaseClasses.Dimensions_3.PartialInternalMassGeneration
@@ -84,58 +84,58 @@ model HMTransfer_3D
     final Cs=Cs,
     final states=materials.state) "Internal mass generation model" annotation (Placement(
         transformation(extent={{-38,62},{-22,78}}, rotation=0)));
-  parameter Boolean use_nCs_scaled = false "=true to use der(nCs_scaled) = nCbs/C_nominal else der(nCs) = nCbs." annotation(Dialog(tab="Advanced"));
-  parameter SItf.NonDim C_nominal[nC] = fill(1e-6,nC) "Nominal concentration [mol/m3] for improved numeric stability" annotation(Dialog(tab="Advanced",enable=use_nCs_scaled));
+  parameter Boolean use_nCs_scaled = false "= true to write the mole balance on nCs/C_nominal, false on nCs" annotation(Dialog(tab="Advanced"));
+  parameter SItf.NonDim C_nominal[nC] = fill(1e-6,nC) "Nominal concentration that scales nCs_scaled [mol/m3]" annotation(Dialog(tab="Advanced",enable=use_nCs_scaled));
   // Total quantities
   SItf.Mole nCs[nVs[1],nVs[2],nVs[3],nC] "Trace substance moles";
-  SItf.Mole[nVs[1],nVs[2],nVs[3],nC] nCs_scaled "Scaled trace substance moles for improved numerical stability";
+  SItf.Mole[nVs[1],nVs[2],nVs[3],nC] nCs_scaled "Trace substance moles divided by C_nominal, if used";
   SI.Concentration Cs[nVs[1],nVs[2],nVs[3],nC](each stateSelect=StateSelect.prefer,
       start=Cs_start) "Trace substance concentration";
   // Energy Balance
   SI.MolarFlowRate nCbs[nVs[1],nVs[2],nVs[3],nC]
-    "Molar flow rate across volume interfaces  (e.g., diffusion) and source/sinks in volume (e.g., chemical reactions, external convection)";
+    "Net molar flow rates into volumes";
   SI.MolarFlowRate nC_flows_1[nVs[1] + 1,nVs[2],nVs[3],nC]
-    "Molar flow rates across segment boundaries";
+    "Molar flow rates across dimension-1 segment boundaries";
   SI.MolarFlowRate nC_flows_2[nVs[1],nVs[2] + 1,nVs[3],nC]
-    "Molar flow rates across segment boundaries";
+    "Molar flow rates across dimension-2 segment boundaries";
   SI.MolarFlowRate nC_flows_3[nVs[1],nVs[2],nVs[3] + 1,nC]
-    "Molar flow rates across segment boundaries";
+    "Molar flow rates across dimension-3 segment boundaries";
   SI.Concentration C_a1[nVs[2],nVs[3],nC]
-    "Concentration defined by volume outside portM_a1";
+    "Concentration at portM_a1";
   SI.Concentration C_b1[nVs[2],nVs[3],nC]
-    "Concentration defined by volume outside portM_b1";
+    "Concentration at portM_b1";
   SI.Concentration C_a2[nVs[1],nVs[3],nC]
-    "Concentration defined by volume outside portM_a2";
+    "Concentration at portM_a2";
   SI.Concentration C_b2[nVs[1],nVs[3],nC]
-    "Concentration defined by volume outside portM_b2";
+    "Concentration at portM_b2";
   SI.Concentration C_a3[nVs[1],nVs[2],nC]
-    "Concentration defined by volume outside portM_a3";
+    "Concentration at portM_a3";
   SI.Concentration C_b3[nVs[1],nVs[2],nC]
-    "Concentration defined by volume outside portM_b3";
-  Interfaces.MolePort_Flow portM_a1[nVs[2],nVs[3]](each nC=nC)
+    "Concentration at portM_b3";
+  Interfaces.MolePort_Flow portM_a1[nVs[2],nVs[3]](each nC=nC) "Trace substance ports of volumes [1,:,:]"
                                                    annotation (Placement(
         transformation(extent={{-110,-50},{-90,-30}}),
                                                      iconTransformation(extent=
             {{-110,-50},{-90,-30}})));
-  Interfaces.MolePort_Flow    portM_b1[nVs[2],nVs[3]](each nC=nC)
+  Interfaces.MolePort_Flow    portM_b1[nVs[2],nVs[3]](each nC=nC) "Trace substance ports of volumes [end,:,:]"
                                                       annotation (Placement(
         transformation(extent={{90,-50},{110,-30}}),
                                                    iconTransformation(extent={{
             90,-50},{110,-30}})));
-  Interfaces.MolePort_Flow portM_a2[nVs[1],nVs[3]](each nC=nC)
+  Interfaces.MolePort_Flow portM_a2[nVs[1],nVs[3]](each nC=nC) "Trace substance ports of volumes [:,1,:]"
                                                    annotation (Placement(
         transformation(extent={{30,-110},{50,-90}}), iconTransformation(extent=
             {{30,-108},{50,-88}})));
-  Interfaces.MolePort_Flow    portM_b2[nVs[1],nVs[3]](each nC=nC)
+  Interfaces.MolePort_Flow    portM_b2[nVs[1],nVs[3]](each nC=nC) "Trace substance ports of volumes [:,end,:]"
                                                       annotation (Placement(
         transformation(extent={{30,90},{50,110}}), iconTransformation(extent={{
             30,90},{50,110}})));
-  Interfaces.MolePort_Flow portM_a3[nVs[1],nVs[2]](each nC=nC)
+  Interfaces.MolePort_Flow portM_a3[nVs[1],nVs[2]](each nC=nC) "Trace substance ports of volumes [:,:,1]"
                                                    annotation (Placement(
         transformation(extent={{-70,-110},{-50,-90}}),
                                                      iconTransformation(extent=
             {{-70,-110},{-50,-90}})));
-  Interfaces.MolePort_Flow    portM_b3[nVs[1],nVs[2]](each nC=nC)
+  Interfaces.MolePort_Flow    portM_b3[nVs[1],nVs[2]](each nC=nC) "Trace substance ports of volumes [:,:,end]"
                                                       annotation (Placement(
         transformation(extent={{90,50},{110,70}}), iconTransformation(extent={{
             90,50},{110,70}})));
@@ -492,5 +492,12 @@ for ic in 1:nC loop
   end for;
 end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Heat conduction and trace substance diffusion in three dimensions of a solid that is divided into a grid of volumes. It adds to <code>Conduction_3D</code> the concentration of each of <code>nC</code> trace substances in each volume.</p>
+<h4>Assumptions and limits</h4>
+<ul>
+<li>The heat side is that of <code>Conduction_3D</code>: the substances enter neither the energy balance nor the material properties.</li>
+</ul>
+</html>"));
 end HMTransfer_3D;

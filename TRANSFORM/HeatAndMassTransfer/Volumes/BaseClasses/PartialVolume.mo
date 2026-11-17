@@ -12,13 +12,13 @@ partial model PartialVolume
   parameter SI.Temperature T_start=298.15 "Temperature"
     annotation (Dialog(tab="Initialization", group="Start Value: Temperature"));
   Material.BaseProperties material(T(stateSelect=StateSelect.prefer, start=
-          T_start));
+          T_start)) "Material properties of the volume";
   // Total quantities
   SI.Mass m "Mass";
   SI.InternalEnergy U "Internal energy";
   // Energy Balance
   SI.HeatFlowRate Ub
-    "Energy source/sinks within volumes (e.g., ohmic heating, external convection)";
+    "Net heat flow rate into the volume";
 initial equation
   if energyDynamics == Dynamics.SteadyStateInitial then
     der(U) = 0;

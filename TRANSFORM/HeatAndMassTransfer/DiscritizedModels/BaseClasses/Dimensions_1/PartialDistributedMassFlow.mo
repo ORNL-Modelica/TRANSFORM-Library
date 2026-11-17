@@ -11,13 +11,13 @@ partial model PartialDistributedMassFlow
   parameter Integer nC = 1 "# of diffusive substances" annotation (Dialog(tab="Internal Interface"));
   // Inputs provided to the model
   input Material.ThermodynamicState states_1[nFM_1 + 1]
-    "Temperature at nodal interfaces"
+    "Material state at nodal interfaces"
     annotation (Dialog(group="Inputs",tab="Internal Interface"));
   input SI.Concentration Cs_1[nFM_1 + 1,nC] "Concentration at nodal interfaces"
     annotation (Dialog(group="Inputs", tab="Internal Interface"));
-  input SI.Area crossAreas_1[nFM_1] "Cross sectional area of heat transfer"
+  input SI.Area crossAreas_1[nFM_1] "Cross sectional area for diffusion"
     annotation (Dialog(group="Inputs", tab="Internal Interface"));
-  input SI.Length lengths_1[nFM_1] "Length of heat transfer"
+  input SI.Length lengths_1[nFM_1] "Diffusion length"
     annotation (Dialog(group="Inputs", tab="Internal Interface"));
   input SI.DiffusionCoefficient D_abs_1[nFM_1 + 1,nC] "Diffusion coefficient"
     annotation (Dialog(group="Inputs", tab="Internal Interface"));

@@ -1,6 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_3_1_MagneticAblation;
 model part_a_TemperatureThermoseedTissue
-  "Part a) show the temperature in the thermoseed and in the tissue"
+  "Part a) Show the temperature in the thermoseed and in the tissue"
   import TRANSFORM;
   extends Icons.Example;
   TRANSFORM.HeatAndMassTransfer.BoundaryConditions.Heat.HeatFlow Adiabatic(
