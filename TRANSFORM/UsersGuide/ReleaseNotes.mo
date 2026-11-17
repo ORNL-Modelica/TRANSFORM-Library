@@ -19,7 +19,7 @@ package ReleaseNotes "Release notes"
 </ul>
 <p><b>Added:</b> outputs <code>re</code> and <code>im</code> of <code>TRANSFORM.Math.ComplexMath.ccubicRoots</code> (the roots as Real arrays). If your own function replaces <code>ccubicRoots</code> through a <code>replaceable</code> declaration constrained by it, it must now also declare these two outputs; one that extends <code>ccubicRoots</code> must not declare its own <code>re</code> or <code>im</code>. The library now declares <code>SDF</code> 0.4.5 in its <code>uses</code> annotation; only the critical-heat-flux and film-boiling look-up tables need it.</p>
 <p><b>Compatibility, results unchanged:</b> several components and functions are rewritten in standard Modelica that OpenModelica accepts (solid-media functions, trace separators, distributed heat transfer, <code>linspace_2D</code> functions, reading the power-history table), and two examples no longer use constructs that only Dymola accepts.</p>
-<p>The full list is in <code>CHANGELOG.md</code> in the <a href=\"https://github.com/ORNL-Modelica/TRANSFORM-Library\">TRANSFORM-Library repository</a>.</p>
+<p>The full list is in <code>CHANGELOG.md</code> in the <a href=\"https://github.com/WyrdLab/TRANSFORM-Library\">TRANSFORM-Library repository</a>.</p>
 </html>"));
   end Version_1_2_0;
 
@@ -42,13 +42,13 @@ package ReleaseNotes "Release notes"
 <li>Graphics annotations use only standard attributes, so Dymola's pedantic check accepts them.</li>
 <li>The library declares <code>ExternalMedia</code> 4.0.0 in its <code>uses</code> annotation (#106). ExternalMedia stays optional: without it, TRANSFORM still loads, and only models that use the CoolProp media need it.</li>
 </ul>
-<p>The full list is in <code>CHANGELOG.md</code> in the <a href=\"https://github.com/ORNL-Modelica/TRANSFORM-Library\">TRANSFORM-Library repository</a>.</p>
+<p>The full list is in <code>CHANGELOG.md</code> in the <a href=\"https://github.com/WyrdLab/TRANSFORM-Library\">TRANSFORM-Library repository</a>.</p>
 </html>"));
   end Version_1_1_0;
 
   annotation (Documentation(info="<html>
 <p>This package holds the release notes of TRANSFORM, one class per released version, newest first. Each class summarizes what changed in that version and whether user models need to be converted.</p>
-<p>Changes made since the last release are listed in <code>CHANGELOG.md</code> at the root of the <a href=\"https://github.com/ORNL-Modelica/TRANSFORM-Library\">TRANSFORM-Library repository</a>. They are summarized here when a version is released.</p>
+<p>Changes made since the last release are listed in <code>CHANGELOG.md</code> at the root of the <a href=\"https://github.com/WyrdLab/TRANSFORM-Library\">TRANSFORM-Library repository</a>. They are summarized here when a version is released.</p>
 <p>Release notes start with version 1.1.0. Earlier changes are recorded only in the repository's git history.</p>
 </html>"));
 end ReleaseNotes;
