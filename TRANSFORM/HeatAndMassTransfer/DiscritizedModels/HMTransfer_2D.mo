@@ -14,8 +14,7 @@ model HMTransfer_2D "Discretized 2-D heat conduction and trace substance diffusi
       C_a2_start,
       C_b2_start,
       nVs[1],
-      nVs[2],
-      {exposeState_b2,exposeState_a1,exposeState_a2,exposeState_b1})
+      nVs[2])
     "Start concentration of each volume" annotation (Dialog(tab="Initialization",
         group="Start Value: Concentration"));
   parameter SI.Concentration C_a1_start[nC]=fill(0,nC) "Start concentration of volumes [1,:]"

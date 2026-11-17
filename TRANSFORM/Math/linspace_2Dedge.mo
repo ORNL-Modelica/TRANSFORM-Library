@@ -219,29 +219,29 @@ end if;
 <p><br>The exposeState options either hold the edge value (=true) or ignore the edge value (=false) and apply linear interpolation appropriately. This capability was made to assist with initialization of discritized models.</p>
 <p>With the same input as above but with exposeState={true,false,true,false} the result is:</p>
 <table cellspacing=\"2\" cellpadding=\"0\" border=\"0\"><tr>
+<td><p align=\"right\">-2.5</p></td>
 <td><p align=\"right\">0</p></td>
 <td><p align=\"right\">0</p></td>
-<td><p align=\"right\">2.5</p></td>
 </tr>
 <tr>
-<td><p align=\"right\">-1.25</p></td>
-<td><p align=\"right\">1.5625</p></td>
-<td><p align=\"right\">5</p></td>
+<td><p align=\"right\">-5</p></td>
+<td><p align=\"right\">0.3125</p></td>
+<td><p align=\"right\">3.75</p></td>
 </tr>
 <tr>
-<td><p align=\"right\">0</p></td>
-<td><p align=\"right\">2.5</p></td>
-<td><p align=\"right\">5</p></td>
-</tr>
-<tr>
+<td><p align=\"right\">-5</p></td>
 <td><p align=\"right\">1.25</p></td>
-<td><p align=\"right\">3.4375</p></td>
 <td><p align=\"right\">5</p></td>
 </tr>
 <tr>
-<td><p align=\"right\">2.5</p></td>
+<td><p align=\"right\">-5</p></td>
+<td><p align=\"right\">2.1875</p></td>
+<td><p align=\"right\">6.25</p></td>
+</tr>
+<tr>
+<td><p align=\"right\">-5</p></td>
 <td><p align=\"right\">5</p></td>
-<td><p align=\"right\">5</p></td>
+<td><p align=\"right\">7.5</p></td>
 </tr>
 </table>
 </html>"));

@@ -19,6 +19,7 @@ check_interpolate_wLimit
 check_interpolate2D
 check_linspace_1D
 check_linspace_2D
+check_linspace_3D
 check_fillArray
 check_arrheniusEquation
 check_cumulativeSum
