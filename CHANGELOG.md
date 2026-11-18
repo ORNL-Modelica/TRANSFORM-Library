@@ -6,6 +6,10 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 ## [Unreleased]
 
+### Changed
+
+- `TRANSFORM/package.mo`: `main` carries `version="1.4.0-dev"` and adds `"1.3.0"` to the versions its conversion script serves, so models written for 1.3.0 that use the deprecated paths are converted. The release date `versionDate` is removed until the next release.
+
 ## [1.3.0] - 2026-11-18
 
 ### Added
