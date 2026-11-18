@@ -21,8 +21,8 @@ conversion(noneFromVersion="0.5", noneFromVersion="1.0"),
 
 - Between releases, `main` carries the next version with `-dev` added. It tells people that their copy is not a release. Modelica tools read only this annotation, never git tags.
 - The `conversion` annotation tells Dymola and OpenModelica how to upgrade a model written for an older version. `noneFromVersion="1.0"` promises that models written for 1.0 run unchanged. `from(version="1.0", script="…")` instead names a conversion script that rewrites them.
-- A **minor** release (1.1.0, 1.2.0, …) may add classes, fix bugs, change results, and rename or deprecate classes as long as the old name keeps working. A model written for an earlier 1.x version must still run without conversion.
-- A **major** release (2.0.0) removes what earlier releases deprecated, or makes any other change that stops an old model running unless it is converted. Major releases are planned, so that removals are grouped together.
+- A **minor** release (1.1.0, 1.2.0, …) may add classes, fix bugs, change results, and rename or deprecate classes as long as the old name keeps working. A model written for the previous 1.x release must still run without conversion. A minor release may also remove a class that the previous release deprecated (see Removing a class).
+- A **major** release (2.0.0) makes any other change that stops an old model running unless it is converted. Major releases are planned, so that such changes are grouped together.
 - A major release must replace **every** `noneFromVersion` entry (0.5, 1.0, the `-dev` strings, 1.1.0, …) with a `from(version={…}, script="…")` entry. Otherwise tools would load those old models without converting them. The guard checks only the newest release, so it does not catch this.
 - When there are several conversion scripts, give each `from` entry a `to=` version, for example `from(version="1.0", to="1.1.0", script="…_from_1.0_to_1.1.0.mos")`, so that a model is converted step by step through every script. Without `to=`, a script converts straight to the current version and later scripts are skipped.
 
@@ -57,7 +57,7 @@ Modelica has no way to mark a single parameter as deprecated. So a parameter or 
 
 ## Removing a class
 
-Only in a major release, and only after it has been deprecated in an earlier release. Move it into `TRANSFORM.Obsolete` and add `convertClass("TRANSFORM.Old", "TRANSFORM.Obsolete.Old")`, so models that still use it keep running with a warning. Add a line under **Removed** in CHANGELOG.md.
+In two releases. First deprecate it: move it into `TRANSFORM.Obsolete`, keep a one-line alias at the old path marked `obsolete` (for example `package Old = TRANSFORM.Obsolete.Old "Deprecated: moved to TRANSFORM.Obsolete.Old" annotation (obsolete="…");`), so models that use it keep running with a warning, and add `convertClass("TRANSFORM.Old", "TRANSFORM.Obsolete.Old")` to the conversion script. That release's CHANGELOG says when it goes and what to use instead. The next minor release (or a later one) may then delete the class and its alias; add a line under **Removed** in CHANGELOG.md.
 
 ## Conversion guard
 
