@@ -136,7 +136,13 @@ algorithm
           Es[j] := max(0, Es[j]*elamdt + efs[j]/lambdas_dh[j]*(P0*f1 + (P1 - P0)*q));
         end for;
         // Decay-heat fraction at the interval's end; none where there is no fission power
-        eta_new := if Q_fission[i + 1] > 0 then sum({lambdas_dh[j]*Es[j] for j in 1:nDH})/Q_fission[i + 1] else 0;
+        // (an if-statement: Dymola cannot generate code for an array comprehension inside an
+        // if-expression in a function)
+        if Q_fission[i + 1] > 0 then
+          eta_new := sum({lambdas_dh[j]*Es[j] for j in 1:nDH})/Q_fission[i + 1];
+        else
+          eta_new := 0;
+        end if;
         error_i[i + 1] := eta_new - eta[i + 1];
         eta[i + 1] := eta_new;
         Q_fission[i + 1] := Q_total[i + 1]/(1 + eta[i + 1]);
