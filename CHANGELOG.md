@@ -15,6 +15,11 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 - The classes deprecated in 1.3.0, as announced: `TRANSFORM.Obsolete.Math.GNU_ScientificLibrary`, `Obsolete.Math.Interpolation`, `Obsolete.Media.LookupTableMedia` and `Obsolete.Media.LookupTableMedianew`, with their deprecated aliases at `TRANSFORM.Math.GNU_ScientificLibrary`, `Math.Interpolation`, `Media.LookupTableMedia` and `Media.LookupTableMedianew`. With them go the compiled libraries `Resources/Library/linux64/libgsl.a` (the GNU Scientific Library, GPL) and `libnoname.a`, `Resources/Include/noname.h` and the tables in `Resources/data/lookupTables`: TRANSFORM now ships no compiled libraries and no GPL code. Upgrade note: a model that still uses them must change to what 1.3.0 named: `TRANSFORM.Math.besselI`, `besselK`, `besselY` and `besselJ` (these stop on a negative order, which the old functions accepted); `Media.ExternalMedia.CoolProp.ParaHydrogen`; `Modelica.Blocks.Tables.CombiTable2Ds` or `TRANSFORM.Math.interpolate2D`. The conversion script `ConvertTRANSFORM_from_1.2.0.mos`, which only moved these classes, is gone too, so the conversion annotation is back to `noneFromVersion` entries.
 
+### Fixed
+
+- `Fluid.Machines.SteamTurbine` and `Turbine_SinglePhase_Stodola`: the flow coefficient `Kt` was computed from the nominal point with `regRoot2` while the flow used `regRoot`, so a turbine at its nominal point passed less than `m_flow_nominal`: by about 5e-5 at a nominal pressure ratio of 0.5, 3e-3 at 0.95 and 5 % at 0.99. `Kt` now uses `regRoot` too, so the nominal point is exact. Upgrade note: each turbine's flow at given pressures rises by one constant factor, the inverse of that shortfall; with `use_NominalInlet = false` (a given `Kt`) nothing changes. Regression test (in TRANSFORM-UnitTests): `TRANSFORMTest.Fluid.Machines.StodolaTurbines_Nominal`.
+- `Fluid.Machines` shaft angles (`phi` in `SteamTurbineBase`, `PartialTurbine`, `PartialCompressor`, `PartialTurboPump`, `Pump_Mechanical`, `Pump_wShaft` and `SteamTurbineBaseold`) have `start=0`, the value tools already assumed, so Dymola no longer warns that it assumes a default start value for them. No result changes.
+
 ## [1.3.0] - 2026-11-18
 
 ### Added

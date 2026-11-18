@@ -7,7 +7,7 @@ model Pump_Mechanical
         iconTransformation(extent={{-10,50},{10,70}})));
 
   SI.Power Q_mech "Mechanical power added to system (i.e., pumping power)";
-  SI.Angle phi "Shaft rotation angle";
+  SI.Angle phi(start=0) "Shaft rotation angle";
   SI.Torque tau "Net torque acting on the turbine";
   SI.AngularVelocity omega=N*2*Modelica.Constants.pi/60
     "Shaft angular velocity";

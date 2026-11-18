@@ -90,7 +90,7 @@ partial model PartialTurbine
   Medium.ThermodynamicState state_a;
   //   Medium.ThermodynamicState state_b;
 
-  SI.Angle phi "Shaft rotation angle";
+  SI.Angle phi(start=0) "Shaft rotation angle";
   SI.Torque tau "Net torque acting on the turbine";
   SI.AngularVelocity omega "Shaft angular velocity";
   SI.MassFlowRate m_flow(start=m_flow_start) "Mass flow rate";

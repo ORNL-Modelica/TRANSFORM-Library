@@ -38,11 +38,11 @@ initial equation
         Medium.setState_pTX(
         p_inlet_nominal,
         T_nominal,
-        Medium.reference_X)))*Modelica.Fluid.Utilities.regRoot2(1 - (
+        Medium.reference_X)))*Modelica.Fluid.Utilities.regRoot(1 - (
         p_outlet_nominal/p_inlet_nominal)^2));
     else
       Kt = m_flow_nominal/(sqrt(p_inlet_nominal*d_nominal)*
-        Modelica.Fluid.Utilities.regRoot2(1 - (p_outlet_nominal/p_inlet_nominal)
+        Modelica.Fluid.Utilities.regRoot(1 - (p_outlet_nominal/p_inlet_nominal)
         ^2));
     end if;
   else

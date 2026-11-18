@@ -2,7 +2,7 @@ within TRANSFORM.Fluid.Machines;
 model Pump_wShaft
   "Centrifugal pump with ideally controlled speed with mechanical shaft"
   extends TRANSFORM.Fluid.Machines.BaseClasses.PartialPump;
-  SI.Angle phi "Shaft angle";
+  SI.Angle phi(start=0) "Shaft angle";
   SI.AngularVelocity omega "Shaft angular velocity";
   Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft
   annotation (Placement(transformation(extent={{-10,70},{10,90}}),
