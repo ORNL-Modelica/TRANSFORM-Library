@@ -9,7 +9,7 @@ model SpineTriangular
   input SItf.NonDim mL = sqrt(4*alpha/(lambda*D))*L "Non-dimensional fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
   SI.Area surfaceArea= 0.5*Modelica.Constants.pi*D*sqrt(L^2+0.25*D^2);
 equation
-  eta = 2*TRANSFORM.Math.GNU_ScientificLibrary.Functions.specfunc.bessel_In(2,2*mL)/(mL*TRANSFORM.Math.GNU_ScientificLibrary.Functions.specfunc.bessel_In(1,2*mL));
+  eta = 2*TRANSFORM.Math.besselI(2,2*mL)/(mL*TRANSFORM.Math.besselI(1,2*mL));
   annotation (defaultComponentName="finEfficiency",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/SpineTriangular.jpg")}),
