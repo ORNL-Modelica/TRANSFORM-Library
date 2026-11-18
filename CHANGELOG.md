@@ -6,6 +6,8 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-11-18
+
 ### Added
 
 - `Math.besselI`, `Math.besselK`, `Math.besselY`: integer-order Bessel functions written in Modelica, beside `Math.besselJ` (I by its power series, to about 1e-15; K and Y by the Abramowitz and Stegun approximations and recurrence, to about 2e-7). Checked by `Math.Examples.check_bessel`.
@@ -55,6 +57,18 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 - `LMTD_HX_A`, `LMTD_HX_UA`, `LMTD_HX_Q` and `Partial_LMTD_HX` documentation: positive `Q_flow` is heat going from side 1 to side 2. The documentation said negative.
 - `TRANSFORM.HeatExchangers.Simple_HX` and `Simple_HX_A`: the default correction factor `CF` on UA is now 1. Before, it defaulted to `logMean(T_a_start_1 - T_b_start_1, T_b_start_2 - T_a_start_2)/nV`, which is a temperature, not a factor. Whenever both sides' outlet start temperatures differed from their inlet ones, UA was multiplied by that number, which could be far above 1, below 1, or negative, and results depended on the start values. If either side's outlet start temperature equals its inlet one (the default), it was already 1, so those models are unchanged. `CF` is still an input: a model can set its own, for example to correct for the well-mixed volumes, which underestimate the heat rate of a counterflow exchanger when `nV` is small (with Example 11.1 of Incropera and DeWitt: 25 % low at `nV = 1`, 8 % at 4, 3 % at 10). The documentation's sign note now says positive `Q_flow` is heat from side 1 to side 2; it said negative. Their `counterCurrent` option (`false`: parallel flow) already worked but was greyed out in the parameter dialog with a comment saying parallel flow was not implemented; it is now enabled, and results are unchanged. Test: `TRANSFORMTest.HeatExchangers.Simple_HX_parallelFlow` (in TRANSFORM-UnitTests) checks parallel flow against the exact steady state of the model's volume pairs. `TRANSFORM.HeatExchangers.Examples.OilWater_Simple_HX` now sets its outlet start temperatures from its outlet boundaries, so it would have used the old default (5.41 there), and is a test (heat rate and both outlet temperatures). Its own result moves only through those start values, because it is not yet steady at its stop time: the heat rate at 1000 s goes from 6.99 to 6.93 kW (Dymola). Upgrade note: a model that sets both outlet start temperatures different from the inlet ones now gets UA times 1, where before it got UA times the old expression. Its heat rate can go up or down, and no longer depends on those start values. The old values were wrong. To keep a model's old results, set `CF` to the old expression explicitly.
 - `TRANSFORM.HeatExchangers.Examples.OilWater_Simple_HX`: `UA` is now the book's overall coefficient times area, 38.1 W/(m²·K) × 5.178 m² ≈ 197 W/K (Incropera and DeWitt, Example 11.1). It was 156 W/K, a value with no source in the book. The example's heat rate at 1000 s goes from 6.93 to 7.96 kW (Dymola), against the book's 8.52 kW: with four well-mixed volumes per side, `Simple_HX` reads below a true counterflow exchanger.
+
+### Known issues
+
+- These examples do not finish in OpenModelica within their test's time limit, or do not run there at all (checked with 1.27.2 on Linux); they run in Dymola, and their tests are Dymola-only. These 25 are the same as in 1.2.0's list; none of them has come off it.
+  - The point-kinetics drift examples (`TRANSFORM.Nuclear.ReactorKinetics.Examples.PointKinetics_Drift_Test_*`, 4) and `TRANSFORM.Examples.MoltenSaltReactor.MSDR_noBOP`: they read medium names through a component, which OpenModelica does not accept.
+  - `TRANSFORM.Fluid.Pipes.Examples.TransportDelayPipeTests` (3): OpenModelica rejects how `TransportDelayPipe` calls `spatialDistribution`.
+  - `IRIS_Default_Test`, `IRIS_Default_Teststandalone` and `NSSS_Test`: inconsistent start values; they do not get through the start-up in OpenModelica.
+  - `CIET_nureth`: OpenModelica's solver stops early in the run; the cause is not found.
+  - `TRANSFORM.Fluid.Examples.RankineCycle` and the Stodola turbine examples `RankineCycle_Example8_1` and `_Example8_12`: OpenModelica cannot select their states.
+  - Do not finish within the test's time limit in OpenModelica (`NaturalCirculation2` finishes in about 15 minutes; the others are not diagnosed): `NaturalCirculation2`, `HumTest`, `PbLiTest2`, `withWallTrace`, `ExpansionTank2_Test`, `Winding_123D`, `Winding_123D_variableArea`, `Winding_123D_withMass`, `WaterWater_STHX_wallR` and `WaterWater_STHX_withMass`.
+- New since 1.2.0: four examples that have an OpenModelica test and were not on 1.2.0's list fail in OpenModelica (checked with 1.27.2 on Linux): `TRANSFORM.HeatAndMassTransfer.Examples.ExamplesFrom_NellisAndKlein.Example_1_3_1_MagneticAblation.part_a_TemperatureThermoseedTissue`, `part_b1_LesionExtent` and `part_b2_LesionExtentwithBloodPerfusion`, and `TRANSFORM.HeatExchangers.Examples.OilWater_CTHX`. The cause is not diagnosed.
+- `TRANSFORM.HeatExchangers.Examples.WaterWater_STHX_withInsulation` passes in OpenModelica, but its result there is fragile: it changes with the number of output points, and with changes to the model that leave the Dymola result unchanged. Its OpenModelica test now has a 240 s time limit. Dymola is unaffected. The cause is not diagnosed.
 
 ## [1.2.0] - 2026-11-12
 

@@ -2,6 +2,50 @@ within TRANSFORM.UsersGuide;
 package ReleaseNotes "Release notes"
   extends TRANSFORM.Icons.ReleaseNotes;
 
+  class Version_1_3_0 "Version 1.3.0 (2026-11-18)"
+    extends TRANSFORM.Icons.ReleaseNotes;
+
+    annotation (Documentation(info="<html>
+<p><b>Conversion:</b> this release has a conversion script. It updates references in models written for 1.2.0 and earlier to classes that moved to <code>TRANSFORM.Obsolete</code>: <code>Math.GNU_ScientificLibrary</code>, <code>Math.Interpolation</code> and the media built on it, <code>Media.LookupTableMedia</code> and <code>Media.LookupTableMedianew</code>. These classes are deprecated and will be removed in the next minor release. The functions of <code>GNU_ScientificLibrary</code> now call Modelica functions instead of the GNU Scientific Library, so models that use them keep working; use <code>Math.besselI</code>, <code>besselK</code>, <code>besselY</code> and <code>besselJ</code> instead. <code>Math.Interpolation</code> and the lookup-table media ran on Linux only; for para-hydrogen use <code>Media.ExternalMedia.CoolProp.ParaHydrogen</code>, and for 2-D table interpolation <code>Modelica.Blocks.Tables.CombiTable2Ds</code> or <code>Math.interpolate2D</code>. After their removal TRANSFORM ships no compiled libraries and no GPL code. A few changes can give different results in your own models; each is marked <b>upgrade note</b> in <code>CHANGELOG.md</code>.</p>
+<p><b>Results that change:</b></p>
+<ul>
+<li><code>Nuclear.ReactorKinetics.Functions.Initial_powerBased_powerHistory</code>: the start values from a power history are now exact. Before, history intervals shorter than 1 s were treated as 1 s long, the slowest decay-heat groups lost accuracy over short intervals, and with decay heat the iteration for the fission power often did not converge. Without a power history nothing changes. Upgrade note.</li>
+<li><code>TRANSFORM.HeatExchangers.BaseClasses.Partial_LMTD_HX</code> (so <code>LMTD_HX_A</code>, <code>LMTD_HX_UA</code> and <code>LMTD_HX_Q</code>): the log mean temperature difference now uses the counterflow end differences, so areas, UA values and heat rates change. <code>counterCurrent=false</code> now gives parallel flow; before, it was ignored. The two internal volumes, which have zero size, now have steady-state balances by default (new parameter <code>energyDynamics</code>). Upgrade notes.</li>
+<li><code>TRANSFORM.HeatExchangers.Simple_HX</code> and <code>Simple_HX_A</code>: the default correction factor <code>CF</code> on UA is now 1. Before, it was a temperature, which multiplied UA whenever both sides' outlet start temperatures differed from their inlet ones. Their <code>counterCurrent</code> option is now enabled in the parameter dialog. Upgrade note.</li>
+<li><code>HeatAndMassTransfer.FinEfficiency</code>: the fin area of <code>StraightTriangular</code> and the <code>m</code> of <code>SpineRectangular</code> and <code>SpineTriangular</code> are corrected. <code>RectangleAnnular</code> now counts its tip through the corrected radius <code>r_outer + th/2</code>; with <code>use_NonDimensional = true</code>, its input <code>mr_outer</code> now means m*(r_outer + th/2). <code>SpineTriangular</code>, <code>StraightTriangular</code> and <code>RectangleAnnular</code> use <code>Math.besselI</code> and <code>Math.besselK</code> instead of the GNU Scientific Library, so they now run on Windows and in every tool; their efficiencies move only slightly.</li>
+<li><code>Math.besselJ</code>: for a whole-number order it now uses the Abramowitz and Stegun approximations and recurrence instead of its power series, which lost all accuracy for large <code>x</code>. Values at small <code>x</code> move only slightly. Non-integer orders are unchanged.</li>
+<li>Convection resistances <code>Heat.ConvectionMedia</code>, <code>ConvectionMedia_singleNode</code> and <code>Mass.ConvectionMedia</code>: the default surface area is now a round pipe's wetted area, and the default flow areas of <code>Mass.ConvectionMedia</code> now match <code>Heat.ConvectionMedia</code>. A model that relied on the default surface area gets a larger area; to keep the old area, set it to the old expression. <code>ConvectionMedia_singleNode</code> and <code>ConvectionMediaSimple</code> now work with media other than moist air.</li>
+<li>Other resistances in <code>HeatAndMassTransfer.Resistances</code>: the reported <code>R</code> of the convection resistances was wrong; the heat and mass flows did not use it. <code>Heat.Sphere</code>, <code>Mass.Cylinder</code> and <code>Mass.Sphere</code> now accept <code>r_in = 0</code>, a solid body. Several resistances now guard against a zero area. <code>Resistances.Heat.SemiInfinitePlane</code> has a new parameter <code>t_0</code>, the elapsed time already at the start, so its first heat flow rate is finite; this lowers the heat flow rate slightly at every time, and <code>t_0 = 0</code> gives the old values.</li>
+<li><code>Volumes.SimpleWall_Cylinder</code> and the <code>ClassicalMethod</code> cylinder (<code>Partial_FDCond_Cylinder</code>): a solid cylinder (<code>r_inner = 0</code>) now uses the centre-to-surface resistance. Before, the wall divided by zero.</li>
+<li>Start values of <code>HeatAndMassTransfer.DiscritizedModels.Conduction_2D</code>, <code>HMTransfer_2D</code>, <code>Conduction_3D</code> and <code>HMTransfer_3D</code>, and of the walls of <code>Fluid.Pipes.GenericPipe_withWall</code>, <code>GenericPipe_withWallx2</code> and <code>GenericPipe_wWall_wTraceMass</code>: each edge or face start value now starts the volumes on its own edge or face. Only start values change, and only where the edge or face values differ.</li>
+<li>Geometry: <code>Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D.GenericPipe</code> gave every node the surface area of node 1 in <code>surfaceAreas_nVtotal</code> and <code>surfaceArea_total</code>. No physical result in the library changes, but a model built on the obsolete <code>Fluid.Pipes.GenericPipe</code> with unequal nodes now gets each node's own heat and mass transfer area. <code>Fluid.Volumes.ClosureModels.Geometry.Models.Flow.PartialGeometry</code> now also checks its last characteristic dimension, and <code>Nuclear.ClosureRelations.Geometry.Models.CoreSubchannels.Generic</code> now stops with a message when its characteristic dimension is not positive.</li>
+<li>Examples: <code>TRANSFORM.HeatExchangers.Examples.OilWater_Simple_HX</code> now takes its <code>UA</code> from Incropera and DeWitt, Example 11.1, and its outlet start temperatures from its outlet boundaries. <code>TRANSFORM.HeatExchangers.Examples.check_LMTD_HX</code> never started before; it now runs in Dymola and OpenModelica.</li>
+</ul>
+<p><b>Added:</b></p>
+<ul>
+<li><code>Math.besselI</code>, <code>Math.besselK</code> and <code>Math.besselY</code>: integer-order Bessel functions written in Modelica, beside <code>Math.besselJ</code>.</li>
+<li><code>Math.linspace_3Dface</code> and <code>Math.linspaceRepeat_3Dface</code>: a 3-D array from six face values.</li>
+<li><code>SItf</code>: a second alias for <code>TRANSFORM.Units</code>. New and edited classes write <code>SItf.NonDim</code>; <code>SIadd</code> stays.</li>
+<li><code>TRANSFORM.HeatExchangers.Examples.IncroperaAndDeWitt.Example_11_1_Area</code>, <code>Example_11_1_UA</code> and <code>Example_11_1_Q</code>: Example 11.1 of Incropera and DeWitt, solved once with each LMTD heat exchanger. They carry the book's answers as reference values.</li>
+</ul>
+<p><b>Documentation:</b></p>
+<ul>
+<li><code>TRANSFORM.UsersGuide.Conventions</code>: a style guide for the library, in eleven short pages. It applies to new and edited classes.</li>
+<li><code>TRANSFORM.UsersGuide.ModelingTips</code>: a page of habits that avoid failures which are hard to trace.</li>
+<li><code>TRANSFORM.HeatAndMassTransfer</code>: new documentation pages and description strings for the resistances, the discretized models and the simple walls, and descriptions brought in line with the style guide. Every <code>showName</code>, <code>geometry</code> and <code>summary</code> in the library has one description.</li>
+<li><code>TRANSFORM.UsersGuide.Overview</code>, <code>ParameterGUI</code> and <code>Connectors</code> are reworded: a filled port defines the flow, a white port the state. 16 documentation images that did not show now show. Links to the project's GitHub repositories use the organization's new name, WyrdLab.</li>
+</ul>
+<p><b>Compatibility, results unchanged:</b></p>
+<ul>
+<li>The library's own classes refer to TRANSFORM's unit types through the alias <code>SItf</code>. Every name refers to the same type as before, and <code>TRANSFORM.Units</code> and <code>SIadd</code> stay.</li>
+<li><code>TRANSFORM.HeatExchangers.LMTD_HX_A</code> computes UA in a form linear in the area, the same value as before. The old form made Dymola's Newton solver diverge from the area's start value when the area sought was small.</li>
+<li><code>SolubilityInterface.nb</code> now declares the maximum of 3 that its exponent function declares.</li>
+<li>The icon picture of <code>HeatAndMassTransfer.DiscritizedModels.BaseClasses.Dimensions_2.PartialInternalMassGeneration</code> now shows on Linux.</li>
+</ul>
+<p>The full list, with the examples that do not run in OpenModelica, is in <code>CHANGELOG.md</code> in the <a href=\"https://github.com/WyrdLab/TRANSFORM-Library\">TRANSFORM-Library repository</a>.</p>
+</html>"));
+  end Version_1_3_0;
+
   class Version_1_2_0 "Version 1.2.0 (2026-11-12)"
     extends TRANSFORM.Icons.ReleaseNotes;
 
