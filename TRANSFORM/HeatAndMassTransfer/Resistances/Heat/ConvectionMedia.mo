@@ -102,7 +102,7 @@ equation
 <p>Convection resistance between a surface and a fluid in each of <code>n</code> segments, which computes the heat transfer coefficient with a heat transfer model chosen from a list and the fluid's properties. <code>Convection</code> takes the coefficient as an input instead, and <code>ConvectionMedia_singleNode</code> is the same model for one segment, with scalar ports.</p>
 <ul>
 <li>The heat ports carry only a temperature and a heat flow rate: the fluid's pressure and flow reach the heat transfer model only through the inputs, not from the volume the port is connected to.</li>
-<li>The segments are in series along the flow, segment 1 at the inlet when <code>m_flows</code> is positive: a correlation that depends on the distance from the inlet sees the <code>dlengths</code> of the segments upstream.</li>
+<li>The segments are in series along the flow, segment 1 at the inlet when <code>m_flows</code> is positive: a correlation that depends on the distance from the inlet takes it at the middle of each segment, the <code>dlengths</code> upstream plus half of its own.</li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
