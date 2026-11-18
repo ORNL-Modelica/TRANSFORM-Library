@@ -31,7 +31,7 @@ model getRPM_centrifugalPump_Test
     m_flow_ref=pump.m_flow,
     q_nom=(pump.m_flow_nominal/pump.d_nominal)*{0,1,2},
     head_nom=(1/10*1/pump.d_nominal)*(6.9e5 - 1.95e5)*{2,1,0},
-    d_inlet=Medium.density(pump.medium.state))
+    d_inlet=pump.d_b)
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
   Utilities.Visualizers.displayReal actual(
     use_port=false,
