@@ -5,7 +5,7 @@ model Sphere "Radial sphere conduction resistance model"
   input SI.Length r_out "Outer radius" annotation(Dialog(group="Inputs"));
   input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs"));
 equation
-  R = if r_in > 0 then 1/(4*pi*lambda)*(1/r_in - 1/r_out) else 1/(8*pi*lambda*r_out);
+  R = if r_in > 0 then 1/(4*pi*lambda)*(1/max(r_in, Modelica.Constants.small) - 1/r_out) else 1/(8*pi*lambda*r_out);
   annotation (defaultComponentName="sphere",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(
             extent={{-40,-100},{40,-30}}, fileName=

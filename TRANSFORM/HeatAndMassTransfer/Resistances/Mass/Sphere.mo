@@ -5,7 +5,7 @@ model Sphere "Radial sphere diffusion resistance model"
   input SI.Length r_out "Outer radius" annotation(Dialog(group="Inputs"));
   input SI.DiffusionCoefficient D_ab[nC] "Diffusion coefficient" annotation(Dialog(group="Inputs"));
 equation
-  R = if r_in > 0 then 1.0./(4*pi*D_ab)*(1/r_in - 1/r_out) else 1.0./(8*pi*r_out*D_ab);
+  R = if r_in > 0 then 1.0./(4*pi*D_ab)*(1/max(r_in, Modelica.Constants.small) - 1/r_out) else 1.0./(8*pi*r_out*D_ab);
   annotation (defaultComponentName="sphere",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(
             extent={{-40,-100},{40,-30}}, fileName=

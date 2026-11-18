@@ -8,7 +8,7 @@ model Plane "Plane wall diffusion resistance model"
   input SI.DiffusionCoefficient D_ab[nC] "Diffusion coefficient"
     annotation (Dialog(group="Inputs"));
 equation
-  R = L./(D_ab*crossArea);
+  R = L./(D_ab*max(Modelica.Constants.eps, crossArea));
   annotation (
     defaultComponentName="plane",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{

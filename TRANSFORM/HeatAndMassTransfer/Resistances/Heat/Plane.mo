@@ -5,7 +5,7 @@ model Plane "Plane wall conduction resistance model"
   input SI.Area crossArea "Cross-sectional area perpendicular to heat flow" annotation(Dialog(group="Inputs"));
   input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs"));
 equation
-  R = L/(lambda*crossArea);
+  R = L/(lambda*max(Modelica.Constants.eps, crossArea));
   annotation (defaultComponentName="plane",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(
             extent={{-40,-100},{40,-30}}, fileName=

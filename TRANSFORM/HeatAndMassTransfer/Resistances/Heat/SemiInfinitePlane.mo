@@ -6,7 +6,7 @@ model SemiInfinitePlane "Transient semi-infinite solid conduction resistance mod
   input SI.ThermalDiffusivity alpha_d "Thermal diffusivity" annotation(Dialog(group="Inputs"));
   input SI.Time t = time "Elapsed time since the surface temperature changed" annotation(Dialog(group="Inputs"));
 equation
-  R = max(Modelica.Constants.eps,sqrt(Modelica.Constants.pi*alpha_d*t)/(lambda*crossArea));
+  R = max(Modelica.Constants.eps,sqrt(Modelica.Constants.pi*alpha_d*t)/(lambda*max(Modelica.Constants.eps, crossArea)));
   annotation (defaultComponentName="plane_semiInf",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(
             extent={{-36,-100},{44,-30}}, fileName=
