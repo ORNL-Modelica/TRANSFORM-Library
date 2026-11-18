@@ -21,7 +21,7 @@ model ConvectionMedia
   input SI.Length dlengths[n]=fill(1, n)
     "Segment length along the flow"
     annotation (Dialog(group="Inputs"));
-  input SI.Area surfaceAreas[n]=dimensions .* dlengths
+  input SI.Area surfaceAreas[n]=pi*dimensions .* dlengths
     "Mass transfer surface area"
     annotation (Dialog(group="Inputs"));
   input SI.Height roughnesses[n]=fill(2.5e-5, n)
@@ -108,6 +108,7 @@ equation
 <p>Convective mass transfer resistance between a surface and a fluid in each of <code>n</code> segments, which computes the mass transfer coefficients with a mass transfer model chosen from a list and the fluid's properties. <code>Convection</code> takes the coefficients as inputs instead.</p>
 <ul>
 <li>The mole ports carry only concentrations and molar flow rates: the fluid's state and flow and the wall temperature reach the mass transfer model only through the inputs, not from the volume the port is connected to.</li>
+<li>Every mass transfer model except <code>Ideal</code> needs the diffusion coefficient <code>Ds_ab</code>, set in its redeclare: the medium does not provide it.</li>
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

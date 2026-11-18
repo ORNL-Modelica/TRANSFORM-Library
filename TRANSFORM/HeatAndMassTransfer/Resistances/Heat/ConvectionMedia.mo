@@ -19,7 +19,7 @@ model ConvectionMedia
   input SI.Length dlengths[n]=fill(1, n)
     "Segment length along the flow"
     annotation (Dialog(group="Inputs"));
-  input SI.Area surfaceAreas[n]=dimensions .* dlengths
+  input SI.Area surfaceAreas[n]=pi*dimensions .* dlengths
     "Heat transfer surface area"
     annotation (Dialog(group="Inputs"));
   input SI.Height roughnesses[n]=fill(2.5e-5, n)

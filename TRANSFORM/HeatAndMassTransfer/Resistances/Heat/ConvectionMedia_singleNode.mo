@@ -23,7 +23,7 @@ model ConvectionMedia_singleNode
 
   input SI.Length dlength=1 "Segment length along the flow"
     annotation (Dialog(group="Inputs"));
-  input SI.Area surfaceArea=dimension*dlength "Heat transfer surface area"
+  input SI.Area surfaceArea=perimeter*dlength "Heat transfer surface area"
     annotation (Dialog(group="Inputs"));
   input SI.Height roughness=2.5e-5 "Average height of surface asperities"
     annotation (Dialog(group="Inputs"));
