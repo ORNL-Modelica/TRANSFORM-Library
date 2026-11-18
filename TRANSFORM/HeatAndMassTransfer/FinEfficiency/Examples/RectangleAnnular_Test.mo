@@ -9,7 +9,7 @@ model RectangleAnnular_Test
     r_inner=0.01,
     r_outer=0.05,
     th=0.01,
-    pitch=0.0001)
+    pitch=0.02)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));

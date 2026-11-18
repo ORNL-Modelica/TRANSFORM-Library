@@ -5,8 +5,6 @@ model Radiation "Radiation heat transfer resistance model"
   parameter Boolean useExact = true "= true to use the exact form, false the T_bar approximation";
   input SI.Area surfaceArea "Heat transfer surface area" annotation(Dialog(group="Inputs"));
   input SI.Emissivity epsilon "Emissivity" annotation(Dialog(group="Inputs"));
-//   input SI.Temperature Tsurf "Absolute surface temperature" annotation(Dialog(group="Inputs", enable=not useExact));
-//   input SI.Temperature Tsur "Absolute surroundings temperature" annotation(Dialog(group="Inputs", enable=not useExact));
   SI.Temperature T_bar "Mean of the two port temperatures";
 equation
   T_bar = 0.5*(port_a.T + port_b.T);

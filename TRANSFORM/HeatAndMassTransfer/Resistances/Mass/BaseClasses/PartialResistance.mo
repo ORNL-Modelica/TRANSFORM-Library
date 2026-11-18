@@ -1,5 +1,6 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses;
 partial model PartialResistance "Base mass transfer resistance model"
+  extends TRANSFORM.Fluid.Interfaces.Records.Visualization_showName;
   parameter Integer nC = 1 "# of substances";
   SItf.DiffusionResistance R[nC] "Diffusion resistance";
   Interfaces.MolePort_Flow port_a(nC=nC) "Mole port at one end of the resistance" annotation (Placement(transformation(
@@ -8,7 +9,6 @@ partial model PartialResistance "Base mass transfer resistance model"
   Interfaces.MolePort_Flow port_b(nC=nC) "Mole port at the other end of the resistance" annotation (Placement(transformation(
           extent={{60,-10},{80,10}}), iconTransformation(extent={{60,-10},{80,
             10}})));
-  parameter Boolean showName = true "= true to show the component name on the icon" annotation(Dialog(tab="Visualization"));
 equation
   port_a.n_flow + port_b.n_flow = zeros(nC);
   port_a.n_flow = (port_a.C - port_b.C)./R;

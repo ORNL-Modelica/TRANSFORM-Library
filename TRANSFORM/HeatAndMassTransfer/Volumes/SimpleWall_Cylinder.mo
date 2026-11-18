@@ -3,7 +3,7 @@ model SimpleWall_Cylinder "Lumped cylindrical wall model"
   import Modelica.Fluid.Types.Dynamics;
   input SI.Length length "Length"
     annotation (Dialog(group="Inputs"));
-  input SI.Length r_inner "Inner radius"
+  input SI.Length r_inner "Inner radius, 0 for a solid cylinder"
     annotation (Dialog(group="Inputs"));
   input SI.Length r_outer "Outer radius"
     annotation (Dialog(group="Inputs"));
@@ -11,7 +11,7 @@ model SimpleWall_Cylinder "Lumped cylindrical wall model"
   SI.Area surfaceArea_outer = 2*pi*r_outer*length "Outer surface area for heat transfer";
   extends BaseClasses.PartialVolume(
     final V=pi*(r_outer^2-r_inner^2)*length);
-  input SI.ThermalResistance R=log(r_outer/r_inner)/(2*pi*length*lambda) "Thermal resistance"
+  input SI.ThermalResistance R=if r_inner > 0 then log(r_outer/max(r_inner, Modelica.Constants.small))/(2*pi*length*lambda) else 1/(4*pi*length*lambda) "Thermal resistance"
     annotation (Dialog(group="Inputs"));
   input SI.HeatFlowRate Q_gen=0 "Internal heat generation"
     annotation (Dialog(group="Inputs"));
