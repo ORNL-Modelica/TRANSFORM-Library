@@ -1,18 +1,18 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Heat;
 model ConvectionMedia_singleNode
-  "Thermal element for heat convection with Media models"
+  "One-segment convective heat transfer model with a correlation"
   import Modelica.Constants.pi;
   replaceable package Medium = Modelica.Media.Air.MoistAir constrainedby Modelica.Media.Interfaces.PartialMedium
                                             "Medium in the component"
     annotation (choicesAllMatching=true);
-  input SI.Pressure p = 1e5 "Pressure at port_b or specify state" annotation (Dialog(group="Inputs"));
-  input Modelica.Media.Air.MoistAir.ThermodynamicState state=
+  input SI.Pressure p = 1e5 "Fluid pressure, if state is not given" annotation (Dialog(group="Inputs"));
+  input Medium.ThermodynamicState state=
       Medium.setState_pTX(p, port_b.T)
-    "Thermodynamic state of fluid at port_b" annotation (Dialog(group="Inputs"));
-  input SI.Velocity v "Specify velocity or m_flow"
+    "Fluid state for properties and velocity" annotation (Dialog(group="Inputs"));
+  input SI.Velocity v=0 "Fluid velocity, if m_flow is not given"
     annotation (Dialog(group="Inputs"));
   input SI.MassFlowRate m_flow=Medium.density(state)*crossArea*v
-    "Mass flow rate" annotation (Dialog(group="Inputs"));
+    "Fluid mass flow rate" annotation (Dialog(group="Inputs"));
   input SI.Diameter dimension=4*crossArea/perimeter
     "Characteristic dimension (e.g. hydraulic diameter)"
     annotation (Dialog(group="Inputs"));
@@ -21,17 +21,16 @@ model ConvectionMedia_singleNode
   input SI.Length perimeter=pi*dimension "Wetted perimeter"
     annotation (Dialog(group="Inputs"));
 
-  input SI.Length dlength=1 "Characteristic length of heat transfer segment"
+  input SI.Length dlength=1 "Segment length along the flow"
     annotation (Dialog(group="Inputs"));
-  input SI.Area surfaceArea=dimension*dlength "Surface area for heat transfer"
+  input SI.Area surfaceArea=dimension*dlength "Heat transfer surface area"
     annotation (Dialog(group="Inputs"));
   input SI.Height roughness=2.5e-5 "Average height of surface asperities"
     annotation (Dialog(group="Inputs"));
   replaceable model HeatTransferCoeff =
       TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.Ideal
     constrainedby TRANSFORM.HeatAndMassTransfer.ClosureRelations.HeatTransfer.Models.PartialHeatTransfer
-    "Coefficient of heat transfer" annotation (Dialog(group="Closure Models",
-        enable=not IdealHeatTransfer), choicesAllMatching=true);
+    "Heat transfer coefficient model" annotation (Dialog(group="Closure Models"), choicesAllMatching=true);
   HeatTransferCoeff heatTransferCoeff(
     redeclare final package Medium = Medium,
     final nHT=1,
@@ -42,15 +41,15 @@ model ConvectionMedia_singleNode
     final dimensions={dimension},
     final crossAreas={crossArea},
     final dlengths={dlength},
-    final roughnesses={roughness}) annotation (Placement(transformation(extent={
+    final roughnesses={roughness}) "Correlation for the heat transfer coefficient" annotation (Placement(transformation(extent={
             {-36,84},{-24,96}}, rotation=0)));
-            SI.CoefficientOfHeatTransfer alpha = heatTransferCoeff.alphas[1];
-  SI.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
-  SI.TemperatureDifference dT "= port_a.T - port_b.T";
-  SI.ThermalResistance R "Thermal resistance";
-  Interfaces.HeatPort_Flow port_a annotation (Placement(transformation(extent={{
+            SI.CoefficientOfHeatTransfer alpha = heatTransferCoeff.alphas[1] "Convection heat transfer coefficient";
+  SI.HeatFlowRate Q_flow "Heat flow rate from surface to fluid";
+  SI.TemperatureDifference dT "Surface minus fluid temperature";
+  SI.ThermalResistance R "Surface to fluid thermal resistance";
+  Interfaces.HeatPort_Flow port_a "Heat port at the surface" annotation (Placement(transformation(extent={{
             -80,-10},{-60,10}}), iconTransformation(extent={{-80,-10},{-60,10}})));
-  Interfaces.HeatPort_Flow port_b annotation (Placement(transformation(extent={{
+  Interfaces.HeatPort_Flow port_b "Heat port at the fluid" annotation (Placement(transformation(extent={{
             60,-10},{80,10}}), iconTransformation(extent={{60,-10},{80,10}})));
 equation
 
@@ -99,66 +98,11 @@ equation
           textString="%name",
           textColor={0,0,255})}),
     Documentation(info="<html>
-<p>
-This is a model of linear heat convection, e.g., the heat transfer between a plate and the surrounding air; see also:
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ConvectiveResistor\">ConvectiveResistor</a>.
-It may be used for complicated solid geometries and fluid flow over the solid by determining the
-convective thermal conductance Gc by measurements. The basic constitutive equation for convection is
-</p>
-<pre>
-   Q_flow = Gc*(solid.T - fluid.T);
-   Q_flow: Heat flow rate from connector 'solid' (e.g., a plate)
-      to connector 'fluid' (e.g., the surrounding air)
-</pre>
-<p>
-Gc = G.signal[1] is an input signal to the component, since Gc is
-nearly never constant in practice. For example, Gc may be a function
-of the speed of a cooling fan. For simple situations,
-Gc may be <i>calculated</i> according to
-</p>
-<pre>
-   Gc = A*h
-   A: Convection area (e.g., perimeter*length of a box)
-   h: Heat transfer coefficient
-</pre>
-<p>
-where the heat transfer coefficient h is calculated
-from properties of the fluid flowing over the solid. Examples:
-</p>
-<p>
-<b>Machines cooled by air</b> (empirical, very rough approximation according
-to R. Fischer: Elektrische Maschinen, 10th edition, Hanser-Verlag 1999,
-p. 378):
-</p>
-<pre>
-    h = 7.8*v^0.78 [W/(m2.K)] (forced convection)
-      = 12         [W/(m2.K)] (free convection)
-    where
-      v: Air velocity in [m/s]
-</pre>
-<p><b>Laminar</b> flow with constant velocity of a fluid along a
-<b>flat plate</b> where the heat flow rate from the plate
-to the fluid (= solid.Q_flow) is kept constant
-(according to J.P.Holman: Heat Transfer, 8th edition,
-McGraw-Hill, 1997, p.270):
-</p>
-<pre>
-   h  = Nu*k/x;
-   Nu = 0.453*Re^(1/2)*Pr^(1/3);
-   where
-      h  : Heat transfer coefficient
-      Nu : = h*x/k       (Nusselt number)
-      Re : = v*x*rho/mue (Reynolds number)
-      Pr : = cp*mue/k    (Prandtl number)
-      v  : Absolute velocity of fluid
-      x  : distance from leading edge of flat plate
-      rho: density of fluid (material constant
-      mue: dynamic viscosity of fluid (material constant)
-      cp : specific heat capacity of fluid (material constant)
-      k  : thermal conductivity of fluid (material constant)
-   and the equation for h holds, provided
-      Re &lt; 5e5 and 0.6 &lt; Pr &lt; 50
-</pre>
+<p>Convection resistance between a surface and a fluid, which computes the heat transfer coefficient with a heat transfer model chosen from a list and the fluid's properties. It is <code>ConvectionMedia</code> for one segment, with scalar ports.</p>
+<ul>
+<li>The heat ports carry only a temperature and a heat flow rate: the fluid's pressure and flow reach the heat transfer model only through the inputs, not from the volume the port is connected to.</li>
+<li>The segment is taken to start at the inlet: a correlation that depends on the distance from the inlet sees half of <code>dlength</code>.</li>
+</ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={

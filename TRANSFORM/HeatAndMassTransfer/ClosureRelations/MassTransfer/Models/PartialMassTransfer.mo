@@ -7,7 +7,7 @@ partial model PartialMassTransfer "Base model"
     annotation (Dialog(tab="Internal Interface"));
   parameter Integer nC = 1 "# of substances"
     annotation (Dialog(tab="Internal Interface"));
-  parameter Integer flagIdeal = 0 "Flag for models to handle ideal heat transfer" annotation (Dialog(tab="Internal Interface"));
+  parameter Integer flagIdeal = 0 "Flag for models to handle ideal mass transfer" annotation (Dialog(tab="Internal Interface"));
   input Medium.ThermodynamicState states[nMT] "Thermodynamic state of fluid"
     annotation (Dialog(tab="Internal Interface", group="Inputs"));
   input SI.Temperature Ts_wall[nMT] "Wall temperature"
