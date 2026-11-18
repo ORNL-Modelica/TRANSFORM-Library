@@ -36,7 +36,7 @@ model GenericPipe
     annotation (Dialog(group="Inputs Elevation", enable=false));
   SI.Volume Vs[nV]=crossAreas .* dlengths "Unit volumes";
   SI.Volume V_total=sum(Vs) "Total volume of component";
-  SI.Area surfaceAreas_nVtotal[nV]={sum(surfaceAreas[1, :]) for i in 1:nV}
+  SI.Area surfaceAreas_nVtotal[nV]={sum(surfaceAreas[i, :]) for i in 1:nV}
     "Total surface area for each volume node";
   SI.Area surfaceArea_total=sum(surfaceAreas_nVtotal) "Total surface area";
   Real dxs[nV]=dlengths/sum(dlengths) "Fractional lengths";

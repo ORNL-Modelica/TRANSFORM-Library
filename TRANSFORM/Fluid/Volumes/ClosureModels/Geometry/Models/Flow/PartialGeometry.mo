@@ -33,6 +33,7 @@ equation
     assert(dimensions[i]>0, "Characteristic dimension must be > 0");
     assert(lengths[i] >= abs(dheights[i]), "Parameter lengths must be greater or equal to abs(dheights)");
   end for;
+  assert(dimensions[nNodes+1]>0, "Characteristic dimension must be > 0");
   annotation (defaultComponentName="geometry",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-116,-100},{116,100}}, fileName=
