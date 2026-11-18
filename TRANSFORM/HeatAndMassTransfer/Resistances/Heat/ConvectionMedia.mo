@@ -63,7 +63,7 @@ equation
     Q_flows = heatTransferCoeff.alphas .* surfaceAreas .* dTs;
   end if;
   for i in 1:n loop
-    R[i] = 1/min(Modelica.Constants.eps,heatTransferCoeff.alphas* surfaceAreas);
+    R[i] = 1/max(Modelica.Constants.eps, heatTransferCoeff.alphas[i]*surfaceAreas[i]);
   end for;
   annotation (
     defaultComponentName="convection",

@@ -1,14 +1,17 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
-model Convection "Convection"
+model Convection "Convective mass transfer resistance model"
   extends TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
-  input SI.Area surfaceArea "Transfer surface area"
+  input SI.Area surfaceArea "Mass transfer surface area"
     annotation (Dialog(group="Inputs"));
   input SItf.CoefficientOfMassTransfer alphaM[nC]
-    "Coefficient of mass transfer" annotation (Dialog(group="Inputs"));
+    "Mass transfer coefficient" annotation (Dialog(group="Inputs"));
 equation
-  R = 1.0./(alphaM*surfaceArea);
+  R = 1.0./(alphaM*max(Modelica.Constants.eps, surfaceArea));
     annotation (defaultComponentName="convection",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{
               -40,-100},{40,-30}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/Convection.jpg")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false)));
+    Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Convective mass transfer resistance between a surface and a fluid, for a user specified mass transfer coefficient. <code>ConvectionMedia</code> instead computes the coefficients with a mass transfer model chosen from a list and the fluid's properties.</p>
+</html>"));
 end Convection;

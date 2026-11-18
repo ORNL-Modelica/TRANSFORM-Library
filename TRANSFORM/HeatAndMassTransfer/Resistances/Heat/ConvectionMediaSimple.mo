@@ -31,7 +31,7 @@ equation
   port_b.Q_flow = -Q_flow;
   dT = port_a.T - port_b.T;
   Q_flow = alpha*surfaceArea*dT;
-  R = 1/min(Modelica.Constants.eps, alpha*surfaceArea);
+  R = 1/max(Modelica.Constants.eps, alpha*surfaceArea);
 
   annotation (
     defaultComponentName="convection",
