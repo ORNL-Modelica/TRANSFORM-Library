@@ -1,0 +1,5 @@
+// Conversion for models written for TRANSFORM 1.2.0 and earlier.
+// TRANSFORM.Math.GNU_ScientificLibrary moved to TRANSFORM.Obsolete (it no longer calls GSL;
+// use TRANSFORM.Math.besselI, besselK, besselY and besselJ in new models).
+convertClass("TRANSFORM.Math.GNU_ScientificLibrary",
+             "TRANSFORM.Obsolete.Math.GNU_ScientificLibrary");

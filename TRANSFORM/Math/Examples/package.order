@@ -13,6 +13,7 @@ check_integral_TrapezoidalRule
 check_gamma_Lanczos
 check_factorial
 check_BesselJ
+check_bessel
 check_variableFactor
 check_meanFactor
 check_interpolate_wLimit

@@ -2,7 +2,6 @@ Examples
 ComplexMath
 Easing
 Interpolation
-GNU_ScientificLibrary
 cubicRoots_Real
 cubicRoots_SingleReal
 spliceSigmoid
@@ -23,6 +22,9 @@ smoothMin_splice
 logspace
 logspace_dx
 besselJ
+besselI
+besselK
+besselY
 gamma_Lanczos
 factorial
 regRoot_cinterp

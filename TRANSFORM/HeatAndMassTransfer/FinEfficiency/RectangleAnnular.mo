@@ -1,6 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.FinEfficiency;
 model RectangleAnnular
-  import GSL = TRANSFORM.Math.GNU_ScientificLibrary.Functions.specfunc;
+  import TRANSFORM.Math.besselI;
+  import TRANSFORM.Math.besselK;
   extends TRANSFORM.HeatAndMassTransfer.FinEfficiency.BaseClasses.PartialFinEfficiency;
   parameter Boolean use_NonDimensional = false;
   input SI.CoefficientOfHeatTransfer alpha "Average heat transfer coefficient" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
@@ -20,10 +21,10 @@ model RectangleAnnular
   SI.Efficiency eta_overall "Efficiency of an array of fins";
 
 algorithm
-  eta :=2*mr_inner/(mr_outer^2 - mr_inner^2)*(GSL.bessel_Kn(1, mr_inner)*
-    GSL.bessel_In(1, mr_outer) - GSL.bessel_In(1, mr_inner)*GSL.bessel_Kn(1,
-    mr_outer))/(GSL.bessel_In(0, mr_inner)*GSL.bessel_Kn(1, mr_outer) +
-    GSL.bessel_Kn(0, mr_inner)*GSL.bessel_In(1, mr_outer));
+  eta :=2*mr_inner/(mr_outer^2 - mr_inner^2)*(besselK(1, mr_inner)*
+    besselI(1, mr_outer) - besselI(1, mr_inner)*besselK(1,
+    mr_outer))/(besselI(0, mr_inner)*besselK(1, mr_outer) +
+    besselK(0, mr_inner)*besselI(1, mr_outer));
   eta_overall :=1 - surfaceArea/surfaceArea_total*(1 - eta);
 
   annotation (defaultComponentName="finEfficiency",Icon(coordinateSystem(preserveAspectRatio=false), graphics={
