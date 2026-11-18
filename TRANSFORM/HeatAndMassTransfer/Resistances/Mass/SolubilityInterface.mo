@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
 model SolubilityInterface "Solubility equilibrium model at a phase interface"
   parameter Integer nC=1 "# of substances";
-  parameter Real nb[nC](each min=1, each max=3)=fill(1, nC)
+  parameter Real nb[nC](each max=3)=fill(1, nC)
     "Exponent on port_b.C/Kb, e.g. 2 for Sievert's law";
   input Real Ka[nC]=fill(1, nC)
     "Solubility coefficient at port_a, e.g. Henry's law"
