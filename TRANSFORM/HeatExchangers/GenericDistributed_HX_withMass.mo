@@ -574,32 +574,32 @@ model GenericDistributed_HX_withMass
   parameter Real nb_wall_shellSide[geometry.nV,nC]=fill(
       1,
       geometry.nV,
-      nC) "Exponential parameter of (C/kb)^nb (i.e., if Sievert than nb = 2)"
+      nC) "Exponent on the wall concentration over Kb, e.g. 2 for Sievert's law"
     annotation (Dialog(tab="Trace Mass Transfer",group="Wall"));
   input Real Ka_shellSide[geometry.nV,nC]=fill(
       1,
       geometry.nV,
-      nC) "Fluid side solubility coefficient (i.e., Henry/Sievert)"
+      nC) "Fluid side solubility coefficient, e.g. Henry's law"
     annotation (Dialog(tab="Trace Mass Transfer",group="Wall"));
   input Real Kb_wall_shellSide[geometry.nV,nC]=fill(
       1,
       geometry.nV,
-      nC) "Wall side solubility coefficient (i.e., Henry/Sievert)"
+      nC) "Wall side solubility coefficient, e.g. Sievert's law"
     annotation (Dialog(tab="Trace Mass Transfer",group="Wall"));
   parameter Real nb_wall_tubeSide[geometry.nV,nC]=fill(
       1,
       geometry.nV,
-      nC) "Exponential parameter of (C/kb)^nb (i.e., if Sievert than nb = 2)"
+      nC) "Exponent on the wall concentration over Kb, e.g. 2 for Sievert's law"
     annotation (Dialog(tab="Trace Mass Transfer",group="Wall"));
   input Real Ka_tubeSide[geometry.nV,nC]=fill(
       1,
       geometry.nV,
-      nC) "Fluid side solubility coefficient (i.e., Henry/Sievert)"
+      nC) "Fluid side solubility coefficient, e.g. Henry's law"
     annotation (Dialog(tab="Trace Mass Transfer",group="Wall"));
   input Real Kb_wall_tubeSide[geometry.nV,nC]=fill(
       1,
       geometry.nV,
-      nC) "Wall side solubility coefficient (i.e., Henry/Sievert)"
+      nC) "Wall side solubility coefficient, e.g. Sievert's law"
     annotation (Dialog(tab="Trace Mass Transfer",group="Wall"));
   HeatAndMassTransfer.BoundaryConditions.Mass.CounterFlow counterFlowM(
     nC=nC,

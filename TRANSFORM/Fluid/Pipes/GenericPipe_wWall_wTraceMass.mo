@@ -99,17 +99,17 @@ model GenericPipe_wWall_wTraceMass
   parameter Real nb[nV,nC]=fill(
       1,
       nV,
-      nC) "Exponential parameter of (C/kb)^nb (i.e., if Sievert than nb = 2)"
+      nC) "Exponent on the wall concentration over Kb, e.g. 2 for Sievert's law"
     annotation (Dialog(group="Trace Mass Transfer"));
   input Real Ka[nV,nC]=fill(
       1,
       nV,
-      nC) "Fluid side solubility coefficient (i.e., Henry/Sievert)"
+      nC) "Fluid side solubility coefficient, e.g. Henry's law"
     annotation (Dialog(group="Trace Mass Transfer"));
   input Real Kb[nV,nC]=fill(
       1,
       nV,
-      nC) "Wall side solubility coefficient (i.e., Henry/Sievert)"
+      nC) "Wall side solubility coefficient, e.g. Sievert's law"
     annotation (Dialog(group="Trace Mass Transfer"));
   GenericPipe_MultiTransferSurface
               pipe(

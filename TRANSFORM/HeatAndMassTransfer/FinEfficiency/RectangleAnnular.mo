@@ -10,10 +10,10 @@ model RectangleAnnular
   input SI.Length r_outer "Fin outer radius" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
   input SI.Length th "Fin thickness" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
   input SItf.NonDim mr_inner = sqrt(2*alpha/(lambda*th))*r_inner "Non-dimensional r_inner fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
-  input SItf.NonDim mr_outer = sqrt(2*alpha/(lambda*th))*r_outer "Non-dimensional r_outer fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
+  input SItf.NonDim mr_outer = sqrt(2*alpha/(lambda*th))*(r_outer + 0.5*th) "Non-dimensional corrected outer radius fin parameter" annotation(Dialog(group="Inputs",enable=use_NonDimensional));
   input SI.Length pitch "Fin pitch" annotation(Dialog(group="Inputs",enable=not use_NonDimensional));
 
-  SI.Area surfaceArea= 2*Modelica.Constants.pi*(r_outer^2 - r_inner^2) + surfaceArea_tip;
+  SI.Area surfaceArea= 2*Modelica.Constants.pi*((r_outer + 0.5*th)^2 - r_inner^2);
   SI.Area surfaceArea_tip = 2*Modelica.Constants.pi*r_outer*(th);
   SI.Area surfaceArea_pitch = 2*Modelica.Constants.pi*r_inner*(pitch);
   SI.Area surfaceArea_base = 2*Modelica.Constants.pi*r_inner*(th);

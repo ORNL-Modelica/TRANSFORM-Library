@@ -89,9 +89,8 @@ end for;
   lambda_effective = sum(lambda_volavg);
   cp_effective = sum(cp_volavg);
 R_cond_axial =length/(lambda_effective*pi*(r_outer^2 - r_inner^2));
-// log(1/0.001) is assuming an r_inner of 1% of r_outer providing an approximation for r_inner = 0.
-R_cond_radial =noEvent(if r_inner < Modelica.Constants.eps then log(1/0.01)
-    /(2*pi*lambda_effective*length) else log(r_outer/r_inner)/(2*pi*
+// A solid rod (r_inner = 0): centre to surface for uniform generation, as Resistances.Heat.Cylinder.
+R_cond_radial =noEvent(if r_inner < Modelica.Constants.eps then 1/(4*pi*lambda_effective*length) else log(r_outer/r_inner)/(2*pi*
     lambda_effective*length));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
