@@ -58,7 +58,7 @@ Modelica has no way to mark a single parameter as deprecated. So a parameter or 
 
 ## Removing a class
 
-In two releases. First deprecate it: move it into `TRANSFORM.Obsolete`, keep a one-line alias at the old path marked `obsolete` (for example `package Old = TRANSFORM.Obsolete.Old "Deprecated: moved to TRANSFORM.Obsolete.Old" annotation (obsolete="…");`), so models that use it keep running with a warning, and add `convertClass("TRANSFORM.Old", "TRANSFORM.Obsolete.Old")` to the conversion script. That release's CHANGELOG says when it goes and what to use instead. The next minor release (or a later one) may then delete the class and its alias; add a line under **Removed** in CHANGELOG.md.
+In two releases. First deprecate it: move it into `TRANSFORM.Obsolete`, keep a one-line alias at the old path marked `obsolete` (for example `package Old = TRANSFORM.Obsolete.Old "Deprecated: moved to TRANSFORM.Obsolete.Old" annotation (obsolete="…");`), so models that use it keep running with a warning, and add `convertClass("TRANSFORM.Old", "TRANSFORM.Obsolete.Old")` to the conversion script. That release's CHANGELOG says when it goes and what to use instead. The next minor release (or a later one) may then delete the class and its alias: add a line under **Removed** in CHANGELOG.md, drop its `convertClass` rule, and list the class in `TRANSFORM/Resources/Scripts/Conversion/Removed_<version>.txt` (one class name per line). The conversion guard accepts a class missing since the last release only if that list names it or a package holding it.
 
 ## Conversion guard
 

@@ -1,0 +1,9 @@
+# Classes removed in TRANSFORM 1.4.0, deprecated in 1.3.0 (see CHANGELOG.md).
+# The conversion guard (TRANSFORM-UnitTests scripts/check_conversion.py) accepts a class
+# missing since the last release only if it is one of these or inside one of them.
+TRANSFORM.Math.GNU_ScientificLibrary
+TRANSFORM.Math.Interpolation
+TRANSFORM.Media.LookupTableMedia
+TRANSFORM.Media.LookupTableMedianew
+TRANSFORM.Obsolete.Math
+TRANSFORM.Obsolete.Media

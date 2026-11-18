@@ -6,9 +6,14 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 ## [Unreleased]
 
+### Removed
+
+- The classes deprecated in 1.3.0, as announced: `TRANSFORM.Obsolete.Math.GNU_ScientificLibrary`, `Obsolete.Math.Interpolation`, `Obsolete.Media.LookupTableMedia` and `Obsolete.Media.LookupTableMedianew`, with their deprecated aliases at `TRANSFORM.Math.GNU_ScientificLibrary`, `Math.Interpolation`, `Media.LookupTableMedia` and `Media.LookupTableMedianew`. With them go the compiled libraries `Resources/Library/linux64/libgsl.a` (the GNU Scientific Library, GPL) and `libnoname.a`, `Resources/Include/noname.h` and the tables in `Resources/data/lookupTables`: TRANSFORM now ships no compiled libraries and no GPL code. Upgrade note: a model that still uses them must change to what 1.3.0 named: `TRANSFORM.Math.besselI`, `besselK`, `besselY` and `besselJ`; `Media.ExternalMedia.CoolProp.ParaHydrogen`; `Modelica.Blocks.Tables.CombiTable2Ds` or `TRANSFORM.Math.interpolate2D`. The conversion script `ConvertTRANSFORM_from_1.2.0.mos`, which only moved these classes, is gone too, so the conversion annotation is back to `noneFromVersion` entries.
+
 ### Changed
 
-- `TRANSFORM/package.mo`: `main` carries `version="1.4.0-dev"` and adds `"1.3.0"` to the versions its conversion script serves, so models written for 1.3.0 that use the deprecated paths are converted. The release date `versionDate` is removed until the next release.
+- `CONTRIBUTING.md` and the conversion guard: removing a deprecated class means listing it in `TRANSFORM/Resources/Scripts/Conversion/Removed_<version>.txt`; the guard accepts a class missing since the last release only if that list names it or a package holding it (`Removed_1.4.0.txt` lists this release's removals).
+- `TRANSFORM/package.mo`: `main` carries `version="1.4.0-dev"`, and its conversion annotation is `noneFromVersion` for every earlier version, 1.3.0 included (models that use the classes removed above must change by hand, as the Removed line says). The release date `versionDate` is removed until the next release.
 
 ## [1.3.0] - 2026-11-18
 
