@@ -25,6 +25,6 @@ algorithm
     y := -y;
   end if;
   annotation (Documentation(info="<html>
-<p>Returns the modified Bessel function of the first kind, I_n(x), for integer order n &ge; 0 and any real x, with I_n(-x) = (-1)^n I_n(x). It sums the power series (Abramowitz and Stegun, Handbook of Mathematical Functions, chapter 9, equation 9.6.10) until a term is below 1e-17 of the sum; against the GNU Scientific Library the relative error is below 2e-15 for n = 0 to 3 and |x| from 0.01 to 40.</p>
+<p>Returns the modified Bessel function of the first kind, I_n(x), for integer order n &ge; 0 and any real x, with I_n(-x) = (-1)^n I_n(x). It sums the power series (Abramowitz and Stegun, Handbook of Mathematical Functions, chapter 9, equation 9.6.10) until a term is below 1e-17 of the sum.</p>
 </html>"));
 end besselI;

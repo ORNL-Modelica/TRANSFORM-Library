@@ -8,7 +8,7 @@ input Real x;
 output Real y;
 
 algorithm
-  y := TRANSFORM.Math.besselY(n, x);
+  y := (if n < 0 and mod(n, 2) == 1 then -1 else 1)*TRANSFORM.Math.besselY(abs(n), x);
   annotation (obsolete="Obsolete function - use TRANSFORM.Math.besselY instead",Documentation(info="<html>
 <p><span style=\"font-family: Times New Roman; background-color: #ffffff;\">These routines compute the regular cylindrical Bessel function of order&nbsp;<i>n</i>,&nbsp;<i>J_n(x)</i>.</span></p>
 </html>"));

@@ -3,10 +3,7 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
 annotation (DocumentationClass=true, Documentation(info="<html>
-<p>Package <b>GNU_ScientificLibrary</b> provides functions and models to access the GNU Scientific Library (GSL).</p>
-<p><br>The current supported GSL version is 2.6. Users may be required to download and compile GSL to use this package. Place the compiled GNU GSL library into &quot;TRANSFORM/Resources/Library/OSVERSION&quot; with the name &quot;gsl.lib&quot;, where &quot;OSVERSION&quot; referes to the operating system such as &quot;win64&quot; or &quot;linux64&quot;.</p>
-<p><br>The Examples package contains example uses and test cases of the models in order to test the result and demonstrate possible uses of the Library.</p>
-<p>The Models package contains implementations of the Functions in order to allow the functions to be used in an alternative format.</p>
-<p>The primary tools of this library are contained in the Functions Package. The file structure of the packages mirrors the GNU GSL file structure to assist in locating files between the Modelia and source code.</p>
+<p>Obsolete. This package once called the GNU Scientific Library (GSL). Its functions now call TRANSFORM's own Modelica functions (<code>TRANSFORM.Math.besselI</code>, <code>besselK</code>, <code>besselY</code>, <code>besselJ</code>), so it needs no compiled library. It is kept so that models written for earlier versions keep working; use those functions in new models.</p>
+<p>The Models package wraps the functions as blocks, and the Examples package shows them in use.</p>
 </html>"));
 end UsersGuide;

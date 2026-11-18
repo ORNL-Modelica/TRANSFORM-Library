@@ -40,6 +40,6 @@ algorithm
     y := K_j;
   end if;
   annotation (Documentation(info="<html>
-<p>Returns the modified Bessel function of the second kind, K_n(x), for integer order n &ge; 0 and x &gt; 0. K_0 and K_1 come from the polynomial approximations of Abramowitz and Stegun, Handbook of Mathematical Functions, chapter 9, equations 9.8.5 to 9.8.8 (with I_0 and I_1 from <code>besselI</code>), and higher orders from the upward recurrence K_(n+1) = K_(n-1) + 2n/x K_n; against the GNU Scientific Library the relative error is below 2e-7 for n = 0 to 3 and x from 0.01 to 40.</p>
+<p>Returns the modified Bessel function of the second kind, K_n(x), for integer order n &ge; 0 and x &gt; 0. K_0 and K_1 come from the polynomial approximations of Abramowitz and Stegun, Handbook of Mathematical Functions, chapter 9, equations 9.8.5 to 9.8.8 (with I_0 and I_1 from <code>besselI</code>), and higher orders from the upward recurrence K_(n+1) = K_(n-1) + 2n/x K_n.</p>
 </html>"));
 end besselK;

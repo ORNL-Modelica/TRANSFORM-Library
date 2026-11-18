@@ -55,6 +55,6 @@ algorithm
     y := Y_j;
   end if;
   annotation (Documentation(info="<html>
-<p>Returns the Bessel function of the second kind, Y_n(x), for integer order n &ge; 0 and x &gt; 0. Y_0 and Y_1 come from the polynomial approximations of Abramowitz and Stegun, Handbook of Mathematical Functions, chapter 9, equations 9.4.1, 9.4.2, 9.4.4 and 9.4.5 for x &le; 3 and 9.4.3 and 9.4.6 for x &gt; 3, and higher orders from the upward recurrence Y_(n+1) = 2n/x Y_n - Y_(n-1); against the GNU Scientific Library, for n = 0 to 3 and x from 0.01 to 40, the relative error is below 2e-7 where |Y_n| &ge; 0.05, and the absolute error is below 3e-8 near its zeros, where |Y_n| &lt; 0.05.</p>
+<p>Returns the Bessel function of the second kind, Y_n(x), for integer order n &ge; 0 and x &gt; 0. Y_0 and Y_1 come from the polynomial approximations of Abramowitz and Stegun, Handbook of Mathematical Functions, chapter 9, equations 9.4.1, 9.4.2, 9.4.4 and 9.4.5 for x &le; 3 and 9.4.3 and 9.4.6 for x &gt; 3, and higher orders from the upward recurrence Y_(n+1) = 2n/x Y_n - Y_(n-1).</p>
 </html>"));
 end besselY;
