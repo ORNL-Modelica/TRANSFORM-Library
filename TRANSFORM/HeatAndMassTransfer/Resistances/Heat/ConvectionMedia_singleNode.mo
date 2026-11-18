@@ -14,7 +14,7 @@ model ConvectionMedia_singleNode
   input SI.MassFlowRate m_flow=Medium.density(state)*crossArea*v
     "Fluid mass flow rate" annotation (Dialog(group="Inputs"));
   input SI.Diameter dimension=4*crossArea/perimeter
-    "Characteristic dimension (e.g. hydraulic diameter); give it, or crossArea and perimeter"
+    "Characteristic dimension; or give crossArea and perimeter"
     annotation (Dialog(group="Inputs"));
   input SI.Area crossArea=0.25*pi*dimension^2 "Cross sectional flow area"
     annotation (Dialog(group="Inputs"));
@@ -52,7 +52,6 @@ model ConvectionMedia_singleNode
   Interfaces.HeatPort_Flow port_b "Heat port at the fluid" annotation (Placement(transformation(extent={{
             60,-10},{80,10}}), iconTransformation(extent={{60,-10},{80,10}})));
 equation
-  assert(dimension > 0, "Characteristic dimension must be > 0: give dimension, or crossArea and perimeter");
 
   port_a.Q_flow = Q_flow;
   port_b.Q_flow = -Q_flow;

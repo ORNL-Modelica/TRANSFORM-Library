@@ -7,7 +7,7 @@ model Generic
   parameter Real nPins = 1 "# of solid media pins";
   parameter Real nPins_nonFuel = 0 "# of pins non-fueled pins (e.g., control rod guides)";
   parameter Integer nRs[nRegions]=fill(3,nRegions) "# nodes in each region's radial direction";
-  input SI.Length dimension = 4*crossArea/perimeter "Characteristic dimension (e.g., hydraulic diameter); give it, or crossArea and perimeter" annotation(Dialog(group="Inputs"));
+  input SI.Length dimension = 4*crossArea/perimeter "Characteristic dimension; or give crossArea and perimeter" annotation(Dialog(group="Inputs"));
   input SI.Area crossArea = pi*dimension*dimension/4 "Cross-sectional flow areas" annotation(Dialog(group="Inputs"));
   input SI.Length perimeter=4*crossArea/dimension "Wetted perimeters" annotation(Dialog(group="Inputs"));
   input SI.Length length = 1.0 "Pipe length" annotation(Dialog(group="Inputs"));
@@ -26,7 +26,7 @@ model Generic
   input SI.Length rs_outer[nRegions]={if i == 1 then 0.01 else rs_outer[i-1] + 0.001 for i in 1:nRegions} "Outer radius of each region {r_outer[1],...,r_outer[n]}"
     annotation (Dialog(group="Inputs Solid Media"));
 equation
-  assert(dimension > 0, "Characteristic dimension must be > 0: give dimension, or crossArea and perimeter");
+  assert(dimension > 0, "Characteristic dimension must be > 0");
   annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/Geometry_genericVolume.jpg")}),
                                                                  Diagram(

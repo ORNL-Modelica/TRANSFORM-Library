@@ -7,7 +7,7 @@ model GenericPipe
   parameter Integer nV(min=1) = 1 "Number of volume nodes";
   parameter Integer nSurfaces=1 "Number of transfer (heat/mass) surfaces";
   input SI.Length dimensions[nV]=4*crossAreas ./ perimeters
-    "Characteristic dimension (e.g., hydraulic diameter); give it, or crossAreas and perimeters"
+    "Characteristic dimensions; or give crossAreas and perimeters"
     annotation (Dialog(group="Inputs"));
   input SI.Area crossAreas[nV]=pi*dimensions .* dimensions ./ 4
     "Cross sectional area of unit volumes"

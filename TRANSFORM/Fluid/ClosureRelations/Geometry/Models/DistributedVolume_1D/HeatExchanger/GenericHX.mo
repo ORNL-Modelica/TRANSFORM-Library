@@ -5,7 +5,7 @@ model GenericHX
   parameter Integer nSurfaces_shell=1 "Number of transfer (heat/mass) surfaces"
   annotation (Dialog(tab="Shell Side"));
   input SI.Length dimensions_shell[nV]= 4*crossAreas_shell ./ perimeters_shell
-    "Characteristic dimension (e.g., hydraulic diameter)"
+    "Characteristic dimensions; or give the areas and perimeters"
     annotation (Dialog(tab="Shell Side",group="Inputs"));
   input SI.Area crossAreas_shell[nV]=0.25*pi*dimensions_shell .* dimensions_shell
     "Cross sectional area of unit volumes"
@@ -38,7 +38,7 @@ model GenericHX
   parameter Integer nSurfaces_tube=1 "Number of transfer (heat/mass) surfaces"
   annotation (Dialog(tab="Tube Side"));
   input SI.Length dimensions_tube[nV]= 4*crossAreas_tube ./ perimeters_tube
-    "Characteristic dimension (e.g., hydraulic diameter)"
+    "Characteristic dimensions; or give the areas and perimeters"
     annotation (Dialog(tab="Tube Side",group="Inputs"));
   input SI.Area crossAreas_tube[nV]=0.25*pi*dimensions_tube .* dimensions_tube
     "Cross sectional area of unit volumes"

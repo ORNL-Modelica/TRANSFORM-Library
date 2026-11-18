@@ -9,7 +9,7 @@ partial model PartialGeometry
   parameter Boolean use_Dimensions=true
     "=true to specify characteristic dimension"
    annotation(Dialog(group="General"), Evaluate=true);
-  parameter SI.Length[nNodes] dimensions = if use_Dimensions then zeros(nNodes) else 4*crossAreas./perimeters "Characteristic dimension (e.g., hydraulic diameter)"
+  parameter SI.Length[nNodes] dimensions = if use_Dimensions then zeros(nNodes) else 4*crossAreas./perimeters "Characteristic dimensions, used if use_Dimensions = true"
    annotation (Dialog(group="General", enable=use_Dimensions));
   parameter SI.Area[nNodes] crossAreas = pi*dimensions.*dimensions./4 "Cross-sectional flow areas"
    annotation (Dialog(group="General", enable=not use_Dimensions));

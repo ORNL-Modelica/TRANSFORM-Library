@@ -25,7 +25,7 @@ model StraightPipeHX
     drs=fill(th_wall/nR,nR,nV));
   // Shell Side
   input SI.Length dimension_shell=4*crossArea_shell/perimeter_shell
-    "Characteristic dimension (e.g., hydraulic diameter)"
+    "Characteristic dimension; or give the area and perimeter"
     annotation (Dialog(tab="Shell Side", group="Inputs"));
   input SI.Area crossArea_shell=0.25*pi*dimension_shell*dimension_shell
     "Cross-sectional flow areas"
@@ -48,7 +48,7 @@ model StraightPipeHX
     annotation (Dialog(tab="Shell Side", group="Inputs Elevation"));
   // Tube Side
   input SI.Length dimension_tube=4*crossArea_tube/perimeter_tube
-    "Characteristic dimension (e.g., hydraulic diameter)"
+    "Characteristic dimension; or give the area and perimeter"
     annotation (Dialog(tab="Tube Side", group="Inputs"));
   input SI.Area crossArea_tube=0.25*pi*dimension_tube*dimension_tube
     "Cross-sectional flow areas"
