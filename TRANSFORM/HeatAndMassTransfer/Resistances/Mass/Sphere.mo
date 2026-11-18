@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
 model Sphere "Radial sphere diffusion resistance model"
   extends TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
-  input SI.Length r_in "Inner radius" annotation(Dialog(group="Inputs"));
+  input SI.Length r_in "Inner radius, 0 for a solid sphere" annotation(Dialog(group="Inputs"));
   input SI.Length r_out "Outer radius" annotation(Dialog(group="Inputs"));
   input SI.DiffusionCoefficient D_ab[nC] "Diffusion coefficient" annotation(Dialog(group="Inputs"));
 equation
@@ -12,6 +12,9 @@ equation
               "modelica://TRANSFORM/Resources/Images/Icons/Sphere.jpg")}),
         Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Diffusion resistance of a spherical shell in the radial direction.</p>
+<p>Diffusion resistance of a sphere in the radial direction.</p>
+<ul>
+<li>With <code>r_in = 0</code> the sphere is solid, and <code>R</code> joins its center concentration to its surface concentration for a substance generated uniformly inside it.</li>
+</ul>
 </html>"));
 end Sphere;

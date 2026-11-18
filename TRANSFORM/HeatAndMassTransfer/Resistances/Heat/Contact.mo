@@ -1,7 +1,7 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Heat;
 model Contact "Thermal contact resistance model"
   extends TRANSFORM.HeatAndMassTransfer.Resistances.Heat.BaseClasses.PartialResistance;
-  input SI.Area surfaceArea "Contact area" annotation(Dialog(group="Inputs"));
+  input SI.Area surfaceArea "Heat transfer surface area" annotation(Dialog(group="Inputs"));
   input SI.ThermalInsulance Rc_pp "Contact resistance per unit area" annotation(Dialog(group="Inputs"));
 equation
   R = Rc_pp/max(Modelica.Constants.eps, surfaceArea);

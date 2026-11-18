@@ -2,7 +2,7 @@ within TRANSFORM.HeatAndMassTransfer.Resistances.Heat;
 model Fin "Fin convection resistance model"
   extends TRANSFORM.HeatAndMassTransfer.Resistances.Heat.BaseClasses.PartialResistance;
   input SI.Efficiency eta "Fin efficiency" annotation(Dialog(group="Inputs"));
-  input SI.Area surfaceArea "Fin surface area" annotation(Dialog(group="Inputs"));
+  input SI.Area surfaceArea "Heat transfer surface area" annotation(Dialog(group="Inputs"));
   input SI.CoefficientOfHeatTransfer alpha "Convection heat transfer coefficient" annotation(Dialog(group="Inputs"));
 equation
   R = 1/(eta*alpha*max(Modelica.Constants.eps, surfaceArea));

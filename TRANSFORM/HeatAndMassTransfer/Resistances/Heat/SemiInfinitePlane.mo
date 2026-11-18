@@ -4,7 +4,7 @@ model SemiInfinitePlane "Transient semi-infinite solid conduction resistance mod
   input SI.Area crossArea "Cross-sectional area perpendicular to heat flow" annotation(Dialog(group="Inputs"));
   input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs"));
   input SI.ThermalDiffusivity alpha_d "Thermal diffusivity" annotation(Dialog(group="Inputs"));
-  input SI.Time t = time "Time since the surface temperature changed" annotation(Dialog(group="Inputs"));
+  input SI.Time t = time "Elapsed time since the surface temperature changed" annotation(Dialog(group="Inputs"));
 equation
   R = max(Modelica.Constants.eps,sqrt(Modelica.Constants.pi*alpha_d*t)/(lambda*crossArea));
   annotation (defaultComponentName="plane_semiInf",

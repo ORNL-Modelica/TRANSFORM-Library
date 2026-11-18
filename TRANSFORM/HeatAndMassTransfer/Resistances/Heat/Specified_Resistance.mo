@@ -11,6 +11,6 @@ equation
           textString="Set R")}),
         Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Thermal resistance with a value <code>R_val</code> that the user gives, for a resistance that no other class in this package computes.</p>
+<p>Thermal resistance using a user defined thermal resistance.</p>
 </html>"));
 end Specified_Resistance;

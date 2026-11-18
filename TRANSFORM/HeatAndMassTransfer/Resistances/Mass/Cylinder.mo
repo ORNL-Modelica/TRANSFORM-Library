@@ -4,7 +4,7 @@ model Cylinder "Radial cylinder diffusion resistance model"
   import Modelica.Math.log;
   import Modelica.Constants.pi;
   input SI.Length L "Cylinder length" annotation(Dialog(group="Inputs"));
-  input SI.Length r_in "Inner radius" annotation(Dialog(group="Inputs"));
+  input SI.Length r_in "Inner radius, 0 for a solid cylinder" annotation(Dialog(group="Inputs"));
   input SI.Length r_out "Outer radius" annotation(Dialog(group="Inputs"));
   input SI.DiffusionCoefficient D_ab[nC] "Diffusion coefficient" annotation(Dialog(group="Inputs"));
 equation
@@ -15,6 +15,9 @@ equation
               "modelica://TRANSFORM/Resources/Images/Icons/Cylinder.jpg")}),
         Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Diffusion resistance of a cylindrical shell in the radial direction.</p>
+<p>Diffusion resistance of a cylinder in the radial direction.</p>
+<ul>
+<li>With <code>r_in = 0</code> the cylinder is solid, and <code>R</code> joins its centerline concentration to its surface concentration for a substance generated uniformly inside it.</li>
+</ul>
 </html>"));
 end Cylinder;

@@ -12,6 +12,6 @@ equation
                                                                  Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Convection resistance between a surface and a fluid, for a heat transfer coefficient <code>alpha</code> that the user gives. <code>ConvectionMedia</code> instead computes the coefficient with a heat transfer model chosen from a list and the fluid's properties.</p>
+<p>Convection resistance between a surface and a fluid, for a user specified heat transfer coefficient. <code>ConvectionMedia</code> instead computes the coefficient with a heat transfer model chosen from a list and the fluid's properties.</p>
 </html>"));
 end Convection;

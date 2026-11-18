@@ -12,6 +12,6 @@ equation
               -40,-100},{40,-30}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/Convection.jpg")}),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     Documentation(info="<html>
-<p>Convective mass transfer resistance between a surface and a fluid, for a mass transfer coefficient <code>alphaM</code> that the user gives. <code>ConvectionMedia</code> instead computes the coefficients with a mass transfer model chosen from a list and the fluid's properties.</p>
+<p>Convective mass transfer resistance between a surface and a fluid, for a user specified mass transfer coefficient. <code>ConvectionMedia</code> instead computes the coefficients with a mass transfer model chosen from a list and the fluid's properties.</p>
 </html>"));
 end Convection;
