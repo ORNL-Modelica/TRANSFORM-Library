@@ -1,6 +1,6 @@
 within TRANSFORM.Fluid.ClosureRelations.Geometry.Models.DistributedVolume_1D;
 model StraightPipe
-  input SI.Length dimension = 4*crossArea/perimeter "Characteristic dimension (e.g., hydraulic diameter)"
+  input SI.Length dimension = 4*crossArea/perimeter "Characteristic dimension; or give crossArea and perimeter"
    annotation (Dialog(group="Inputs"));
   input SI.Area crossArea = pi*dimension*dimension/4 "Cross-sectional flow areas"
    annotation (Dialog(group="Inputs"));

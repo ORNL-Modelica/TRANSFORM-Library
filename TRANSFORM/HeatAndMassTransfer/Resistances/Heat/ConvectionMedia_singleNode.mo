@@ -14,7 +14,7 @@ model ConvectionMedia_singleNode
   input SI.MassFlowRate m_flow=Medium.density(state)*crossArea*v
     "Fluid mass flow rate" annotation (Dialog(group="Inputs"));
   input SI.Diameter dimension=4*crossArea/perimeter
-    "Characteristic dimension (e.g. hydraulic diameter)"
+    "Characteristic dimension; or give crossArea and perimeter"
     annotation (Dialog(group="Inputs"));
   input SI.Area crossArea=0.25*pi*dimension^2 "Cross sectional flow area"
     annotation (Dialog(group="Inputs"));

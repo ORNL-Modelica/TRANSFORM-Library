@@ -5,7 +5,7 @@ model StraightPipe
   parameter Boolean use_Dimension=true
     "=true to specify characteristic dimension"
    annotation(Dialog(group="General"), Evaluate=true);
-  parameter SI.Length dimension = if use_Dimension then 0.0 else 4*crossArea/perimeter "Characteristic dimension (e.g., hydraulic diameter)"
+  parameter SI.Length dimension = if use_Dimension then 0.0 else 4*crossArea/perimeter "Characteristic dimension, used if use_Dimension = true"
    annotation (Dialog(group="General", enable=use_Dimension));
   parameter SI.Area crossArea = pi*dimension*dimension/4 "Cross-sectional flow areas"
    annotation (Dialog(group="General", enable=not use_Dimension));
