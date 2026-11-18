@@ -1,10 +1,10 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Heat;
-model Cylinder "Cylinder | Radial"
+model Cylinder "Radial cylinder conduction resistance model"
   extends TRANSFORM.HeatAndMassTransfer.Resistances.Heat.BaseClasses.PartialResistance;
   import Modelica.Math.log;
   import Modelica.Constants.pi;
   input SI.Length L "Cylinder length" annotation(Dialog(group="Inputs"));
-  input SI.Length r_in "Inner radius" annotation(Dialog(group="Inputs"));
+  input SI.Length r_in "Inner radius, 0 for a solid cylinder" annotation(Dialog(group="Inputs"));
   input SI.Length r_out "Outer radius" annotation(Dialog(group="Inputs"));
   input SI.ThermalConductivity lambda "Thermal conductivity" annotation(Dialog(group="Inputs"));
 equation
@@ -13,5 +13,11 @@ equation
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-40,-100},{40,-30}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/Cylinder.jpg")}),
-        Diagram(coordinateSystem(preserveAspectRatio=false)));
+        Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Conduction resistance of a cylinder in the radial direction.</p>
+<ul>
+<li>With <code>r_in = 0</code> the cylinder is solid, and <code>R</code> joins its centerline temperature to its surface temperature for heat generated uniformly inside it.</li>
+</ul>
+</html>"));
 end Cylinder;

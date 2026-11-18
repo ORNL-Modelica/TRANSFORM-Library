@@ -1,8 +1,8 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Heat;
-model Contact "Contact | Interfacial resistance"
+model Contact "Thermal contact resistance model"
   extends TRANSFORM.HeatAndMassTransfer.Resistances.Heat.BaseClasses.PartialResistance;
-  input SI.Area surfaceArea "Heat transfer surface area" annotation(Dialog(group="Inputs"));
-  input SI.ThermalInsulance Rc_pp "Area specific contact resistance" annotation(Dialog(group="Inputs"));
+  input SI.Area surfaceArea "Contact area" annotation(Dialog(group="Inputs"));
+  input SI.ThermalInsulance Rc_pp "Contact resistance per unit area" annotation(Dialog(group="Inputs"));
 equation
   R = Rc_pp/surfaceArea;
   annotation (defaultComponentName="contact",
@@ -10,5 +10,8 @@ equation
               -40,-100},{40,-30}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/Contact.jpg")}),
                                                                  Diagram(
-        coordinateSystem(preserveAspectRatio=false)));
+        coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Thermal contact resistance at the interface between two solids that touch.</p>
+</html>"));
 end Contact;

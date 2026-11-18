@@ -1,5 +1,5 @@
 within TRANSFORM.HeatAndMassTransfer.Resistances.Mass;
-model Cylinder "Cylinder | Radial"
+model Cylinder "Radial cylinder diffusion resistance model"
   extends TRANSFORM.HeatAndMassTransfer.Resistances.Mass.BaseClasses.PartialResistance;
   import Modelica.Math.log;
   import Modelica.Constants.pi;
@@ -13,5 +13,8 @@ equation
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-40,-100},{40,-30}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/Cylinder.jpg")}),
-        Diagram(coordinateSystem(preserveAspectRatio=false)));
+        Diagram(coordinateSystem(preserveAspectRatio=false)),
+    Documentation(info="<html>
+<p>Diffusion resistance of a cylindrical shell in the radial direction.</p>
+</html>"));
 end Cylinder;
