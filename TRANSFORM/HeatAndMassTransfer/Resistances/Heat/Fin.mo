@@ -5,8 +5,8 @@ model Fin "Fin convection resistance model"
   input SI.Area surfaceArea "Fin surface area" annotation(Dialog(group="Inputs"));
   input SI.CoefficientOfHeatTransfer alpha "Convection heat transfer coefficient" annotation(Dialog(group="Inputs"));
 equation
-  R = 1/(eta*alpha*surfaceArea);
-  annotation (defaultComponentName="convection",
+  R = 1/(eta*alpha*max(Modelica.Constants.eps, surfaceArea));
+  annotation (defaultComponentName="fin",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{
               -40,-100},{40,-30}}, fileName=
               "modelica://TRANSFORM/Resources/Images/Icons/Fin.jpg")}),

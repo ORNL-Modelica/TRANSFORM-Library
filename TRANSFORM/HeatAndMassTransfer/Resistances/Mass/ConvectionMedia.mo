@@ -68,7 +68,7 @@ equation
   end if;
   for i in 1:n loop
     for j in 1:nC loop
-      R[i,j] = 1./min(Modelica.Constants.eps,massTransferCoeff.alphasM[i,j] .* surfaceAreas[i]);
+      R[i,j] = 1/max(Modelica.Constants.eps, massTransferCoeff.alphasM[i,j]*surfaceAreas[i]);
     end for;
   end for;
   annotation (

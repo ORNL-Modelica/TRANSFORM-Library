@@ -4,7 +4,7 @@ model Contact "Thermal contact resistance model"
   input SI.Area surfaceArea "Contact area" annotation(Dialog(group="Inputs"));
   input SI.ThermalInsulance Rc_pp "Contact resistance per unit area" annotation(Dialog(group="Inputs"));
 equation
-  R = Rc_pp/surfaceArea;
+  R = Rc_pp/max(Modelica.Constants.eps, surfaceArea);
   annotation (defaultComponentName="contact",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{
               -40,-100},{40,-30}}, fileName=

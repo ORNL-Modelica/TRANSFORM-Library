@@ -11,9 +11,9 @@ model Radiation "Radiation heat transfer resistance model"
 equation
   T_bar = 0.5*(port_a.T + port_b.T);
   if useExact then
-    R = 1/(surfaceArea*sigma*epsilon*(port_a.T^2+port_b.T^2)*(port_a.T + port_b.T));
+    R = 1/(max(Modelica.Constants.eps, surfaceArea)*sigma*epsilon*(port_a.T^2+port_b.T^2)*(port_a.T + port_b.T));
   else
-    R = 1/(4*surfaceArea*sigma*epsilon*T_bar^3);
+    R = 1/(4*max(Modelica.Constants.eps, surfaceArea)*sigma*epsilon*T_bar^3);
   end if;
   annotation (defaultComponentName="radiation",
   Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{

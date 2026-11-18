@@ -8,7 +8,7 @@ model Cylinder "Radial cylinder diffusion resistance model"
   input SI.Length r_out "Outer radius" annotation(Dialog(group="Inputs"));
   input SI.DiffusionCoefficient D_ab[nC] "Diffusion coefficient" annotation(Dialog(group="Inputs"));
 equation
-  R = log(r_out/r_in)./(2*pi*L*D_ab);
+  R = if r_in > 0 then log(r_out/r_in)./(2*pi*L*D_ab) else 1.0./(4*pi*L*D_ab);
   annotation (defaultComponentName="cylinder",
         Icon(coordinateSystem(preserveAspectRatio=false), graphics={
           Bitmap(extent={{-40,-100},{40,-30}}, fileName=

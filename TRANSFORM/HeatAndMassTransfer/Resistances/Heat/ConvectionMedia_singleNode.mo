@@ -62,7 +62,7 @@ equation
   else
     Q_flow = alpha*surfaceArea*dT;
   end if;
-  R = 1/min(Modelica.Constants.eps, alpha*surfaceArea);
+  R = 1/max(Modelica.Constants.eps, alpha*surfaceArea);
 
   annotation (
     defaultComponentName="convection",

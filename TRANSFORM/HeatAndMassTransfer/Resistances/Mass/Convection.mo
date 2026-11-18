@@ -6,7 +6,7 @@ model Convection "Convective mass transfer resistance model"
   input SItf.CoefficientOfMassTransfer alphaM[nC]
     "Mass transfer coefficient" annotation (Dialog(group="Inputs"));
 equation
-  R = 1.0./(alphaM*surfaceArea);
+  R = 1.0./(alphaM*max(Modelica.Constants.eps, surfaceArea));
     annotation (defaultComponentName="convection",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={Bitmap(extent={{
               -40,-100},{40,-30}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/Convection.jpg")}),
