@@ -3,3 +3,11 @@
 // use TRANSFORM.Math.besselI, besselK, besselY and besselJ in new models).
 convertClass("TRANSFORM.Math.GNU_ScientificLibrary",
              "TRANSFORM.Obsolete.Math.GNU_ScientificLibrary");
+// Math.Interpolation (the 2-D table interpolation built on libnoname and GSL) and the lookup-table
+// media that use it moved to TRANSFORM.Obsolete; they go, with those libraries, in the next minor release.
+convertClass("TRANSFORM.Math.Interpolation",
+             "TRANSFORM.Obsolete.Math.Interpolation");
+convertClass("TRANSFORM.Media.LookupTableMedia",
+             "TRANSFORM.Obsolete.Media.LookupTableMedia");
+convertClass("TRANSFORM.Media.LookupTableMedianew",
+             "TRANSFORM.Obsolete.Media.LookupTableMedianew");
