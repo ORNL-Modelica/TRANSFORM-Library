@@ -58,10 +58,10 @@ algorithm
     // if-expression in a function)
     if includeDH then
       Q_fission[1] := Q_total[1] - sum({lambdas_dh[j]*Es_0[j] for j in 1:nDH});
+      assert(Q_fission[1] >= -1e-9*abs(Q_total[1]), "Power history: the first point's power is below the decay power of Es_0");
     else
       Q_fission[1] := Q_total[1];
     end if;
-    assert(Q_fission[1] >= -1e-9*abs(Q_total[1]), "Power history: the first point's power is below the decay power of Es_0");
   end if;
   for i in 1:nT - 1 loop
     dt := max(0, t[i + 1] - t[i]);
