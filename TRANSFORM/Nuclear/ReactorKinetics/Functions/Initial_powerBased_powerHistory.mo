@@ -34,13 +34,14 @@ protected
   Real Q_decay[nT] "Decay power";
   Real eta[nT]=zeros(nT);
   Real eta_new;
-  // Linear fit over interval from i to i+1:
-  // power = a + b*t
+  // Each interval: power linear from P0 at its start to P1 at its end, over dt
   Real dt;
-  Real a;
-  Real b;
-  Real elamdt;
-  Real elamdt_dh;
+  Real P0;
+  Real P1;
+  Real x "lambda*dt";
+  Real elamdt "exp(-lambda*dt)";
+  Real f1 "1 - exp(-x)";
+  Real q "1 - (1 - exp(-x))/x";
   // For iterative process
   Real error_i[nT]=zeros(nT);
   Real error=1;
@@ -59,66 +60,91 @@ algorithm
     Q_decay[i] := eta[i]*Q_fission[i];
   end for;
   // Each update below is the exact solution of der(C) = betas/Lambda*P - lambdas*C (and of
-  // der(E) = efs*P - lambdas_dh*E) over one interval on which the power is linear, P = a + b*t
-  // (exact for intervals of 1 s or more: dt is clamped below that).
+  // der(E) = efs*P - lambdas_dh*E) over one interval on which the power is linear, written in
+  // the interval's own time: C1 = C0*exp(-x) + k/lambda*(P0*(1 - exp(-x)) + (P1 - P0)*q(x)),
+  // x = lambda*dt. It holds for any dt >= 0: a repeated time (a step in power) leaves C unchanged.
+  // Small x uses the series of f1 and q, which the direct forms lose to round-off.
   if not includeDH then
     // Decay-heat is not included in power history.
     Cs := Cs_0;
     Es := Es_0;
-        for i in 1:nT - 1 loop
-      dt := max(1, t[i + 1] - t[i]);
-      a := (t[i + 1]*Q_fission[i] - t[i]*Q_fission[i + 1])/dt;
-      b := (Q_fission[i + 1] - Q_fission[i])/dt;
+    for i in 1:nT - 1 loop
+      dt := max(0, t[i + 1] - t[i]);
+      P0 := Q_fission[i];
+      P1 := Q_fission[i + 1];
       // Delayed-neutron precursor group
       for j in 1:nI loop
-        elamdt := min(1, max(0, exp(-lambdas[j]*dt)));
-        Cs[j] := max(0, Cs[j]*elamdt + betas[j]/(lambdas[j]*Lambda)*(a*(1 -
-          elamdt) + b/lambdas[j]*(lambdas[j]*t[i + 1] - 1 - (lambdas[j]*t[i] - 1)
-          *elamdt)));
+        x := lambdas[j]*dt;
+        elamdt := exp(-x);
+        if x < 1e-3 then
+          f1 := x*(1 - x/2*(1 - x/3*(1 - x/4)));
+          q := x/2*(1 - x/3*(1 - x/4*(1 - x/5)));
+        else
+          f1 := 1 - elamdt;
+          q := 1 - f1/x;
+        end if;
+        Cs[j] := max(0, Cs[j]*elamdt + betas[j]/(lambdas[j]*Lambda)*(P0*f1 + (P1 - P0)*q));
       end for;
       // Decay-heat group
       for j in 1:nDH loop
-        elamdt_dh := min(1, max(0, exp(-lambdas_dh[j]*dt)));
-        Es[j] :=max(0, Es[j]*elamdt_dh + efs[j]/(lambdas_dh[j])*(a*(1
-           - elamdt_dh) + b/lambdas_dh[j]*(lambdas_dh[j]*t[i + 1] - 1
-           - (lambdas_dh[j]*t[i] - 1)*elamdt_dh)));
+        x := lambdas_dh[j]*dt;
+        elamdt := exp(-x);
+        if x < 1e-3 then
+          f1 := x*(1 - x/2*(1 - x/3*(1 - x/4)));
+          q := x/2*(1 - x/3*(1 - x/4*(1 - x/5)));
+        else
+          f1 := 1 - elamdt;
+          q := 1 - f1/x;
+        end if;
+        Es[j] := max(0, Es[j]*elamdt + efs[j]/lambdas_dh[j]*(P0*f1 + (P1 - P0)*q));
       end for;
-        end for;
-  else
-  // Decay-heat is included in power history. Therefore solution is iterative.
-  // Iterate to convergence
-  while error > tol and iter < iterMax loop
-    Cs := Cs_0;
-    Es := Es_0;
-      for i in 1:nT - 1 loop
-      dt := max(1, t[i + 1] - t[i]);
-      a := (t[i + 1]*Q_fission[i] - t[i]*Q_fission[i + 1])/dt;
-      b := (Q_fission[i + 1] - Q_fission[i])/dt;
-      // Delayed-neutron precursor group
-      for j in 1:nI loop
-        elamdt := min(1, max(0, exp(-lambdas[j]*dt)));
-        Cs[j] := max(0, Cs[j]*elamdt + betas[j]/(lambdas[j]*Lambda)*(a*(1 -
-          elamdt) + b/lambdas[j]*(lambdas[j]*t[i + 1] - 1 - (lambdas[j]*t[i] - 1)
-          *elamdt)));
-      end for;
-      // Decay-heat group
-      for j in 1:nDH loop
-        elamdt_dh := min(1, max(0, exp(-lambdas_dh[j]*dt)));
-        Es[j] :=max(0, Es[j]*elamdt_dh + efs[j]/(lambdas_dh[j])*(a*(1
-             - elamdt_dh) + b/lambdas_dh[j]*(lambdas_dh[j]*t[i + 1] - 1
-             - (lambdas_dh[j]*t[i] - 1)*elamdt_dh)));
-      end for;
-      // Determine error
-      eta_new := sum({lambdas_dh[j]*Es[j] for j in 1:nDH})/Q_fission[i+1];
-      error_i[i+1] := eta_new - eta[i + 1];
-      // Update values
-      eta[i + 1] := eta_new;
-      Q_fission[i + 1] := Q_total[i + 1]/(1 + eta[i + 1]);
-      Q_decay[i + 1] := eta[i + 1]*Q_fission[i + 1];
-      iter :=iter + 1;
     end for;
-    error :=sum(abs(error_i));
-  end while;
-  assert(iter<iterMax, "Decay heat fraction for operating history did not converge");
+  else
+    // Decay-heat is included in power history. Therefore solution is iterative: each pass
+    // recomputes the fission power at every point from the decay heat of the pass before.
+    while error > tol and iter < iterMax loop
+      Cs := Cs_0;
+      Es := Es_0;
+      for i in 1:nT - 1 loop
+        dt := max(0, t[i + 1] - t[i]);
+        P0 := Q_fission[i];
+        P1 := Q_fission[i + 1];
+        // Delayed-neutron precursor group
+        for j in 1:nI loop
+          x := lambdas[j]*dt;
+        elamdt := exp(-x);
+        if x < 1e-3 then
+          f1 := x*(1 - x/2*(1 - x/3*(1 - x/4)));
+          q := x/2*(1 - x/3*(1 - x/4*(1 - x/5)));
+        else
+          f1 := 1 - elamdt;
+          q := 1 - f1/x;
+        end if;
+          Cs[j] := max(0, Cs[j]*elamdt + betas[j]/(lambdas[j]*Lambda)*(P0*f1 + (P1 - P0)*q));
+        end for;
+        // Decay-heat group
+        for j in 1:nDH loop
+          x := lambdas_dh[j]*dt;
+        elamdt := exp(-x);
+        if x < 1e-3 then
+          f1 := x*(1 - x/2*(1 - x/3*(1 - x/4)));
+          q := x/2*(1 - x/3*(1 - x/4*(1 - x/5)));
+        else
+          f1 := 1 - elamdt;
+          q := 1 - f1/x;
+        end if;
+          Es[j] := max(0, Es[j]*elamdt + efs[j]/lambdas_dh[j]*(P0*f1 + (P1 - P0)*q));
+        end for;
+        // Decay-heat fraction at the interval's end; none where there is no fission power
+        eta_new := if Q_fission[i + 1] > 0 then sum({lambdas_dh[j]*Es[j] for j in 1:nDH})/Q_fission[i + 1] else 0;
+        error_i[i + 1] := eta_new - eta[i + 1];
+        eta[i + 1] := eta_new;
+        Q_fission[i + 1] := Q_total[i + 1]/(1 + eta[i + 1]);
+        Q_decay[i + 1] := eta[i + 1]*Q_fission[i + 1];
+      end for;
+      error := sum(abs(error_i));
+      iter := iter + 1;
+    end while;
+    assert(error <= tol, "Decay heat fraction for operating history did not converge");
   end if;
 end Initial_powerBased_powerHistory;
