@@ -23,6 +23,9 @@ smoothMin_splice
 logspace
 logspace_dx
 besselJ
+besselI
+besselK
+besselY
 gamma_Lanczos
 factorial
 regRoot_cinterp
