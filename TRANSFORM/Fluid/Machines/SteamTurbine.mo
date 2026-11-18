@@ -24,10 +24,8 @@ model SteamTurbine
   parameter SI.Temperature T_nominal=T_a_start "Nominal inlet temperature"
     annotation (Dialog(group="Stodola's Law Coefficient", enable=if
           use_NominalInlet and use_T_nominal and use_Stodola then true else false));
-  parameter SI.Density d_nominal=Medium.density(Medium.setState_pTX(
-      p_inlet_nominal,
-      T_nominal,
-      Medium.reference_X)) "Nominal inlet density" annotation (Dialog(group="Stodola's Law Coefficient",
+  parameter SI.Density d_nominal=Medium.density(Medium.setState_phX(p_inlet_nominal, Medium.specificEnthalpy_pTX(p_inlet_nominal,
+        T_nominal, Medium.reference_X), Medium.reference_X)) "Nominal inlet density" annotation (Dialog(group="Stodola's Law Coefficient",
         enable=if use_NominalInlet and not use_T_nominal and use_Stodola then true
            else false));
   final parameter SI.Area Kt(fixed=false) "Flow area coefficient";
@@ -35,14 +33,12 @@ initial equation
   if use_NominalInlet then
     if use_T_nominal then
       Kt = m_flow_nominal/(sqrt(p_inlet_nominal*Medium.density(
-        Medium.setState_pTX(
-        p_inlet_nominal,
-        T_nominal,
-        Medium.reference_X)))*Modelica.Fluid.Utilities.regRoot2(1 - (
+        Medium.setState_phX(p_inlet_nominal, Medium.specificEnthalpy_pTX(p_inlet_nominal,
+        T_nominal, Medium.reference_X), Medium.reference_X)))*Modelica.Fluid.Utilities.regRoot(1 - (
         p_outlet_nominal/p_inlet_nominal)^2));
     else
       Kt = m_flow_nominal/(sqrt(p_inlet_nominal*d_nominal)*
-        Modelica.Fluid.Utilities.regRoot2(1 - (p_outlet_nominal/p_inlet_nominal)
+        Modelica.Fluid.Utilities.regRoot(1 - (p_outlet_nominal/p_inlet_nominal)
         ^2));
     end if;
   else

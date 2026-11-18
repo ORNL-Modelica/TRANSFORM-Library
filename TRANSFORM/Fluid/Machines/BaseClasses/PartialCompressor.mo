@@ -78,7 +78,7 @@ partial model PartialCompressor
   Medium.ThermodynamicState state_a;
   //   Medium.ThermodynamicState state_b;
   Real p_ratio "port_b.p/port_a.p pressure ratio";
-  SI.Angle phi "Shaft rotation angle";
+  SI.Angle phi(start=0) "Shaft rotation angle";
   SI.Torque tau "Net torque acting on the turbine";
   SI.AngularVelocity omega "Shaft angular velocity";
   SI.MassFlowRate m_flow(start=m_flow_start) "Mass flow rate";

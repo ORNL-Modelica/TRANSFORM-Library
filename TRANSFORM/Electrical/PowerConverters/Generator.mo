@@ -23,7 +23,7 @@ model Generator "Generates power from shaft to electrical power connector"
   Interfaces.ElectricalPowerPort_Flow port annotation (Placement(transformation(
           extent={{90,-10},{110,10}}, rotation=0), iconTransformation(extent={{90,-10},
             {110,10}})));
-  Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft annotation (Placement(
+  Modelica.Mechanics.Rotational.Interfaces.Flange_a shaft(phi(start=0)) annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}}, rotation=0),
         iconTransformation(extent={{-110,-10},{-90,10}})));
 initial equation

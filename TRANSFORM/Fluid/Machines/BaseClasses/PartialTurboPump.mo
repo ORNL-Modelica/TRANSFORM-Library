@@ -45,7 +45,7 @@ partial model PartialTurboPump
   SI.Height head;
 
   SI.Power Q_mech "Mechanical power added to system (i.e., pumping power)";
-  SI.Angle phi "Shaft rotation angle";
+  SI.Angle phi(start=0) "Shaft rotation angle";
   SI.Torque tau;
 
   SI.Acceleration g_n = Modelica.Constants.g_n;
