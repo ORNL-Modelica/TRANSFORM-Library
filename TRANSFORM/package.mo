@@ -15,8 +15,8 @@ annotation (
     ExternalMedia(version="4.0.0"),
     SDF(version="0.4.5")),
   version="1.4.0-dev",
-  conversion(from(version={"0.5", "1.0", "1.1.0-dev", "1.1.0", "1.2.0-dev", "1.2.0", "1.3.0-dev", "1.3.0"},
-      script="modelica://TRANSFORM/Resources/Scripts/Conversion/ConvertTRANSFORM_from_1.2.0.mos")),
+  conversion(noneFromVersion="0.5", noneFromVersion="1.0", noneFromVersion="1.1.0-dev", noneFromVersion="1.1.0",
+    noneFromVersion="1.2.0-dev", noneFromVersion="1.2.0", noneFromVersion="1.3.0-dev", noneFromVersion="1.3.0"),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})),
   Documentation(info="<html>
 </html>"));
