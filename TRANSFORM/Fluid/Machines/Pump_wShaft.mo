@@ -21,5 +21,8 @@ equation
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={160,160,164},
           origin={0,70},
-          rotation=-90)}));
+          rotation=-90)}),
+    Documentation(info="<html>
+<p>A centrifugal pump driven through the mechanical flange <code>shaft</code>; the speed follows the shaft. With <code>nParallel</code> pumps, the shaft drives one of them: its power is <code>W</code>, and the group takes <code>W_total = nParallel*W</code>.</p>
+</html>"));
 end Pump_wShaft;
