@@ -38,6 +38,8 @@ model ReactivityMethodComparison
     offset=1e6,
     startTime=2e5)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end ReactivityMethodComparison;

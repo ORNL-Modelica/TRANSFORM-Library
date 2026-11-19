@@ -31,6 +31,8 @@ model StandardPipe "StandardPipe | Uses NPS Schedules"
     final dheights=fill(dheight/nV, nV));
 
   extends Icons.UnderConstruction;
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end StandardPipe;

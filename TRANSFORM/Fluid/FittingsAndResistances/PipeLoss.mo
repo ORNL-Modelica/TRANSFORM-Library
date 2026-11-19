@@ -73,7 +73,9 @@ equation
     geometry.dimension^2);
   v_b = abs(m_flow)/(Medium.density(state)*0.25*Modelica.Constants.pi*
     geometry.dimension^2);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false), graphics={
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Rectangle(
           extent={{-60,40},{60,-40}},
           lineColor={0,0,0},

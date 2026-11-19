@@ -69,6 +69,12 @@ equation
       dp = dp_input;
     end if;
   end if;
-  annotation (defaultComponentName="pump", Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+  annotation (defaultComponentName="pump", Documentation(info="<html>
+<p>A centrifugal pump, or a group of <code>nParallel</code> identical pumps, run by one set point chosen with <code>controlType</code>: speed, mass flow rate, pressure or pressure rise. Its characteristics and power are those of <code>BaseClasses.PartialPump</code>; <code>Pump_wShaft</code> is the same pump driven by a mechanical shaft.</p>
+<h4>Use</h4>
+<ul>
+<li><code>controlType = \"pressure\"</code> sets the pressure at the port whose state the pump exposes: the outlet with <code>exposeState_b = true</code>, the inlet with the default <code>exposeState_a = true</code>.</li>
+</ul>
+</html>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}})));
 end Pump;

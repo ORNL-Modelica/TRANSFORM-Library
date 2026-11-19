@@ -3,7 +3,9 @@ model Problem_6 "Single Species Drift w/ Temperature-dependent Deposition"
   extends TRANSFORM.Icons.Example;
   extends TRANSFORM.Icons.UnderConstruction;
 
-  annotation (
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), 
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(

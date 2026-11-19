@@ -45,5 +45,7 @@ equation
   m_flow = flowChar.m_flow;
   PR = port_b.p/port_a.p;
 
-  annotation(defaultComponentName="turbine");
+  annotation(Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), defaultComponentName="turbine");
 end Turbine_SinglePhase_Mechanical;

@@ -45,6 +45,7 @@ equation
     experiment(StopTime=1.1, __Dymola_NumberOfIntervals=100),
     __Dymola_experimentSetupOutput,
     Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
 <p>Comparison of the full point kinetics equations to the example of an approximate solution using one effective delayed group presented in Figure 6-1 (pg. 244) of Nuclear Reactor Analysis by Duderstadt and Hamilton (1976).</p>
 </html>"));
 end PointKinetics_vs_ApproximateOneGroup;

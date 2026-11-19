@@ -235,60 +235,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           visible=exposeState_b)}),   Documentation(info="<html>
-<p>This is the base model for pumps.
-<p>The model describes a centrifugal pump, or a group of <code>nParallel</code> identical pumps. The pump model is based on the theory of kinematic similarity: the pump characteristics are given for nominal operating conditions (rotational speed and fluid density), and then adapted to actual operating condition, according to the similarity equations.
-
-<p><b>Pump characteristics</b></p>
-<p> The nominal hydraulic characteristic (head vs. volume flow rate) is given by the the replaceable function <code>flowCharacteristic</code>.
-<p> The pump energy balance can be specified in two alternative ways:
+<p>Base class of <code>Pump</code> and <code>Pump_wShaft</code>: a centrifugal pump, or a group of <code>nParallel</code> identical pumps, holding one fluid state. Its head follows <code>FlowChar</code>, and its efficiency <code>EfficiencyChar</code> or, with <code>use_powerCharacteristic = true</code>, its power <code>PowerChar</code>. Each characteristic describes one pump at <code>N_nominal</code> and <code>diameter_nominal</code>, and is scaled to other speeds and impeller diameters by the affinity laws.</p>
+<h4>Use</h4>
 <ul>
-<li><code>use_powerCharacteristic = false</code> (default option): the replaceable function <code>efficiencyCharacteristic</code> (efficiency vs. volume flow rate in nominal conditions) is used to determine the efficiency, and then the power consumption.
-    The default is a constant efficiency of 0.8.</li>
-<li><code>use_powerCharacteristic = true</code>: the replaceable function <code>powerCharacteristic</code> (power consumption vs. volume flow rate in nominal conditions) is used to determine the power consumption, and then the efficiency.
-    Use <code>powerCharacteristic</code> to specify a non-zero power consumption for zero flow rate.
+<li><code>W</code> is the power of one pump; the fluid takes <code>W_total = nParallel*W</code>.</li>
+<li>The default <code>PowerChar</code> draws 0 W. With <code>use_powerCharacteristic = true</code>, give it the pump's power, or the efficiency is a division by zero.</li>
 </ul>
-<p>
-Several functions are provided in the package <code>PumpCharacteristics</code> to specify the characteristics as a function of some operating points at nominal conditions.
-<p>Depending on the value of the <code>checkValve</code> parameter, the model either supports reverse flow conditions, or includes a built-in check valve to avoid flow reversal.
-</p>
-<p>It is possible to take into account the mass and energy storage of the fluid inside the pump by specifying its volume <code>V</code>, and by selecting appropriate dynamic mass and energy balance assumptions (see below);
-this is recommended to avoid singularities in the computation of the outlet enthalpy in case of zero flow rate.
-If zero flow rate conditions are always avoided, this dynamic effect can be neglected by leaving the default value <code>V = 0</code>, thus avoiding fast state variables in the model.
-</p>
-
-<p><b>Dynamics options</b></p>
-<p>
-Steady-state mass and energy balances are assumed per default, neglecting the holdup of fluid in the pump; this configuration works well if the flow rate is always positive.
-Dynamic mass and energy balance can be used by setting the corresponding dynamic parameters. This is recommended to avoid singularities at zero or reversing mass flow rate. If the initial conditions imply non-zero mass flow rate, it is possible to use the <code>SteadyStateInitial</code> condition, otherwise it is recommended to use <code>FixedInitial</code> in order to avoid undetermined initial conditions.
-</p>
-
-<p><b>Heat transfer</b></p>
-<p>
-The Boolean parameter <code>use_HeatTransfer</code> can be set to true if heat exchanged with the environment
-should be taken into account or to model a housing. This might be desirable if a pump with realistic
-<code>powerCharacteristic</code> for zero flow operates while a valve prevents fluid flow.
-</p>
-
-<p><b>Diagnostics of Cavitation</b></p>
-<p>The replaceable Monitoring submodel can be configured to PumpMonitoringNPSH,
-in order to compute the Net Positive Suction Head available and check for cavitation,
-provided a two-phase medium model is used (see Advanced tab).
-</p>
-</html>", revisions="<html>
-<ul>
-<li><i>8 Jan 2013</i>
-    by R&uuml;diger Franke:<br>
-    moved NPSH diagnostics from PartialPump to replaceable sub-model PumpMonitoring.PumpMonitoringNPSH (see ticket #646)</li>
-<li><i>Dec 2008</i>
-    by R&uuml;diger Franke:<br>
-    <ul>
-    <li>Replaced simplified mass and energy balances with rigorous formulation (base class PartialLumpedVolume)</li>
-    <li>Introduced optional HeatTransfer model defining Qb_flow</li>
-    <li>Enabled events when the checkValve is operating to support the opening of a discrete valve before port_a</li>
-    </ul></li>
-<li><i>31 Oct 2005</i>
-    by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br>
-       Model added to the Fluid library</li>
-</ul>
+<h4>References</h4>
+<p>Adapted from <code>Modelica.Fluid.Machines.BaseClasses.PartialPump</code> in the Modelica Standard Library.</p>
 </html>"));
 end PartialPump;
