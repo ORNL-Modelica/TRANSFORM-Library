@@ -60,7 +60,9 @@ equation
           -30},{5.55112e-16,-30}}, color={0,0,0}));
   connect(ramp.y, torque.tau)
     annotation (Line(points={{-39,-70},{0,-70},{0,-52}}, color={0,0,127}));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)),
     experiment(
       StopTime=1000,

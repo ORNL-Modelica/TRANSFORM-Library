@@ -54,7 +54,9 @@ Real a[nC];
 equation
   a = mCs_start2;
 
-  annotation (defaultComponentName="fissionProducts", Icon(coordinateSystem(
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), defaultComponentName="fissionProducts", Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics={
           Bitmap(extent={{-100,-100},{100,100}}, fileName="modelica://TRANSFORM/Resources/Images/Icons/BatemanEquations.jpg")}));
 end Initial_FissionProducts_Test;

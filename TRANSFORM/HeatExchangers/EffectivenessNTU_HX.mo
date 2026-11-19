@@ -17,6 +17,8 @@ extends TRANSFORM.Icons.UnderConstruction;
   parameter SItf.NonDim NTU "Number of transfer units" annotation(Dialog(group="Overall"));
 equation
   Q_flow = epsilon*U*surfaceArea/NTU*(T_1_hot - T_1_cold);
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end EffectivenessNTU_HX;

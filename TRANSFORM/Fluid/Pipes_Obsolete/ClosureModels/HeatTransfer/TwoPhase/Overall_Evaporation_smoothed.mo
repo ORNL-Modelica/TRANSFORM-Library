@@ -270,4 +270,7 @@ equation
     //alphas[i] = alphas_smoothLeft[i] + alphas_original[i] + alphas_smoothRight[i];
     Nus[i] = dimensions[i]/lambdas[i]*alphas[i];
   end for;
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"));
 end Overall_Evaporation_smoothed;

@@ -10,6 +10,8 @@ The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/
 
 - `CONTRIBUTING.md` and the conversion guard: removing a deprecated class means listing it in `TRANSFORM/Resources/Scripts/Conversion/Removed_<version>.txt`; the guard accepts a class missing since the last release only if that list names it or a package holding it (`Removed_1.4.0.txt` lists this release's removals).
 - `TRANSFORM/package.mo`: `main` carries `version="1.4.0-dev"`, and its conversion annotation is `noneFromVersion` for every earlier release from 0.5 on, 1.3.0 included (models that use the classes removed above must change by hand, as the Removed line says). The release date `versionDate` is removed until the next release.
+- The 25 classes marked with `Icons.UnderConstruction` now say on their page that they are still being developed and that any release may change, move or remove them (the rule in CONTRIBUTING.md). They stay marked; none is used by a tested library model except `Fluid.TraceComponents.TraceDecayAdsorberBed`, which the owner chose to keep marked.
+- `Fluid.Machines.Pump` has a page; `BaseClasses.PartialPump`'s page, copied from the Modelica Standard Library, named a monitoring submodel, a `use_HeatTransfer` parameter and functions the class does not have and gave the default efficiency as 0.8 (it is 1). It now says what the class is, that `W` is one pump's power, and that the default power characteristic draws 0 W. `Pump`'s page says which port `controlType = "pressure"` sets.
 
 ### Removed
 

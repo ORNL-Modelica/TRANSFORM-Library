@@ -13,6 +13,8 @@ model StandardPipe "StandardPipe | Uses NPS schedules"
     extends Icons.UnderConstruction;
   input SI.Length dr[nR](each min=0) = fill(nps.th_wall/nR,nR) "Wall unit volume lengths of r-dimension"
     annotation (Dialog(group="Inputs: Wall"));
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end StandardPipe;

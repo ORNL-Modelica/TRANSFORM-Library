@@ -195,7 +195,9 @@ equation
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
   port_a.C_outflow = mC_flows[1, :] ./ m_flow;
   port_b.C_outflow = mC_flows[nV + 1, :] ./ m_flow;
-  annotation (
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), 
     defaultComponentName="adsorberBed",
     Icon(coordinateSystem(preserveAspectRatio=false), graphics={
         Polygon(

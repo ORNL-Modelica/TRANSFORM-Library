@@ -103,7 +103,9 @@ equation
     annotation (Line(points={{-40,0},{-10,0}}, color={0,127,255}));
   connect(pipe.port_b, boundary1.ports[1])
     annotation (Line(points={{10,0},{40,0}}, color={0,127,255}));
-  annotation (
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), 
     Icon(coordinateSystem(preserveAspectRatio=false)),
     Diagram(coordinateSystem(preserveAspectRatio=false)),
     experiment(

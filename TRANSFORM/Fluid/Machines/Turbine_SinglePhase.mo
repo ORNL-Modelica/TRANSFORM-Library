@@ -8,6 +8,8 @@ equation
   p_ratio = port_b.p/port_a.p;
   p_ratio = 1;
 
-  annotation (defaultComponentName="turbine",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
+  annotation (Documentation(info="<html>
+<p><b>Under construction.</b> This class is still being developed: any release may change, move or remove it without a deprecation period.</p>
+</html>"), defaultComponentName="turbine",Icon(coordinateSystem(preserveAspectRatio=false)), Diagram(
         coordinateSystem(preserveAspectRatio=false)));
 end Turbine_SinglePhase;
