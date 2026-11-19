@@ -57,7 +57,13 @@ partial model PartialPump "Base model for centrifugal pumps"
   SI.Power W "Power Consumption";
   SI.Power W_ideal "Ideal power consumption";
   SI.Efficiency eta "Efficiency";
-  SI.VolumeFlowRate V_flow(start=V_flow_start) = m_flow/medium.d
+  // In forward flow the fluid leaves at port_b's pressure, so the volume flow and the head use the
+  // density there, as in Modelica.Fluid.Machines (which also keeps it in reverse flow). The pump's own
+  // state is at port_a's pressure with exposeState_a, and from a saturated inlet its density there
+  // is a two-phase mixture's.
+  SI.Density d_b=if exposeState_b then medium.d else Medium.density(Medium.setState_phX(port_b.p,
+    medium.h, medium.X)) "Density at port_b's pressure and the pump's specific enthalpy";
+  SI.VolumeFlowRate V_flow(start=V_flow_start) = m_flow/d_b
     "Volume flow rate";
   replaceable model FlowChar =
       TRANSFORM.Fluid.ClosureRelations.PumpCharacteristics.Models.Head.PerformanceCurve
@@ -165,10 +171,10 @@ equation
   else
     eta = efficiencyChar.eta;
   end if;
-  W_ideal = m_flow/medium.d*dp;
+  W_ideal = m_flow/d_b*dp;
   W = W_ideal/eta;
   head = flowChar.head;
-  dp = medium.d*g_n*head;
+  dp = d_b*g_n*head;
   if exposeState_a and exposeState_b then
     assert(false,
       "Single volume components cannot expose state at both ports a and b");
