@@ -16,7 +16,8 @@ model Pump "Centrifugal pump with ideally controlled speed"
            else false));
   input SI.MassFlowRate m_flow_input=m_flow_nominal "Set per pump mass flow rate" annotation (Dialog(group="Inputs Control Setting",
         enable=if controlType == "m_flow" and use_port == false then true else false));
-  input SI.Pressure p_input=p_b_start "Set pressure" annotation (Dialog(group="Inputs Control Setting",
+  input SI.Pressure p_input=if exposeState_b then p_b_start else p_a_start
+    "Set pressure at the port whose state the pump exposes" annotation (Dialog(group="Inputs Control Setting",
         enable=if controlType == "pressure" and use_port == false then true else false));
   input SI.PressureDifference dp_input=dp_nominal "Set pressure rise" annotation (Dialog(group="Inputs Control Setting",
         enable=if controlType == "dp" and use_port == false then true else false));
