@@ -20,9 +20,9 @@ model Pump_Controlled
   input SI.MassFlowRate m_flow_input=m_flow_nominal
     "Set per pump mass flow rate" annotation (Dialog(group="Inputs Control Setting",
         enable=if controlType == "m_flow" and use_port == false then true else false));
-  input SI.Pressure p_input=p_b_start "Set pressure" annotation (Dialog(group="Inputs Control Setting",
-        enable=if controlType == "pressure" and use_port == false then true
-           else false));
+  input SI.Pressure p_input=if controlType == "pressure_a" then p_a_start else p_b_start
+    "Set pressure at port_a (pressure_a) or port_b (pressure_b)" annotation (Dialog(group="Inputs Control Setting",
+        enable=(controlType == "pressure_a" or controlType == "pressure_b") and use_port == false));
   input SI.PressureDifference dp_input=dp_nominal "Set pressure rise"
     annotation (Dialog(group="Inputs Control Setting", enable=if controlType == "dp"
            and use_port == false then true else false));
