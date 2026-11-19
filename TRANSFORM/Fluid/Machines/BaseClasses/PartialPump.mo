@@ -21,7 +21,7 @@ partial model PartialPump "Base model for centrifugal pumps"
         p_a_start + p_b_start),
     mb=port_a.m_flow + port_b.m_flow,
     Ub=port_a.m_flow*actualStream(port_a.h_outflow) + port_b.m_flow*
-        actualStream(port_b.h_outflow) + Q_flow_internal + W,
+        actualStream(port_b.h_outflow) + Q_flow_internal + W_total,
     mXib=port_a.m_flow*actualStream(port_a.Xi_outflow) + port_b.m_flow*
         actualStream(port_b.Xi_outflow),
     mCb=port_a.m_flow*actualStream(port_a.C_outflow) + port_b.m_flow*
@@ -54,8 +54,10 @@ partial model PartialPump "Base model for centrifugal pumps"
   NonSI.AngularVelocity_rpm N(start=N_nominal) "Shaft rotational speed";
   // Variables defined by closure models
   SI.Height head "Pump head";
-  SI.Power W "Power Consumption";
-  SI.Power W_ideal "Ideal power consumption";
+  SI.Power W "Power consumption of one pump";
+  SI.Power W_total=nParallel*W
+    "Power consumption of all nParallel pumps (the energy balance carries all of their flow)";
+  SI.Power W_ideal "Ideal power consumption of one pump";
   SI.Efficiency eta "Efficiency";
   // In forward flow the fluid leaves at port_b's pressure, so the volume flow and the head use the
   // density there, as in Modelica.Fluid.Machines (which also keeps it in reverse flow). The pump's own
